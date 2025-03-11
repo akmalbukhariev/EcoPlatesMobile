@@ -9,81 +9,67 @@ namespace EcoPlatesMobile.Services
 {
     public class ApiService
     {
-        private readonly string _baseUrl;
-        private readonly string _token;  // Pass token through constructor if needed
+        private readonly RestClient _client;
+        private string _token = "";
 
-        public ApiService(string baseUrl, string token)
+        public ApiService(RestClient client)
         {
-            _baseUrl = baseUrl;
+            _client = client;
+        }
+
+        public void SetToken(string token)
+        {
             _token = token;
         }
 
-        private RestClient CreateClient()
+        private RestRequest CreateRequest(string endpoint, Method method)
         {
-            var options = new RestClientOptions(_baseUrl);
-            var client = new RestClient(options);
-            return client;
-        }
-
-        public async Task<T?> GetAsync<T>(string endpoint) where T : class
-        {
-            var client = CreateClient();
-            var request = new RestRequest(endpoint, Method.Get);
+            var request = new RestRequest(endpoint, method);
             request.AddHeader("Accept", "application/json");
             if (!string.IsNullOrEmpty(_token))
+            {
                 request.AddHeader("Authorization", $"Bearer {_token}");
-
-            var response = await client.ExecuteAsync<T>(request);
-            if (response.IsSuccessful && response.Data != null)
-                return response.Data;
-
-            return null;  // Fix: Return null if response is unsuccessful
+            }
+            return request;
         }
 
-        public async Task<T?> PostAsync<T>(string endpoint, object data) where T : class
+        public async Task<string> GetAsync(string endpoint)
         {
-            var client = CreateClient();
-            var request = new RestRequest(endpoint, Method.Post);
+            var request = CreateRequest(endpoint, Method.Get);
             request.AddHeader("Accept", "application/json");
-            if (!string.IsNullOrEmpty(_token))
-                request.AddHeader("Authorization", $"Bearer {_token}");
 
+            var response = await _client.ExecuteAsync(request);
+            return response.Content ?? string.Empty;
+        }
+
+        public async Task<string> PostAsync(string endpoint, object data)
+        {
+            var request = CreateRequest(endpoint, Method.Post);
+            request.AddHeader("Accept", "application/json");
             request.AddJsonBody(data);
 
-            var response = await client.ExecuteAsync<T>(request);
-            if (response.IsSuccessful && response.Data != null)
-                return response.Data;
-
-            return null;  // Fix: Return null if response is unsuccessful
+            var response = await _client.ExecuteAsync(request);
+            return response.Content ?? string.Empty;
         }
 
-        public async Task<T?> PutAsync<T>(string endpoint, object data) where T : class
+        public async Task<string> PutAsync(string endpoint, object data)
         {
-            var client = CreateClient();
-            var request = new RestRequest(endpoint, Method.Put);
+            var request = CreateRequest(endpoint, Method.Put);
             request.AddHeader("Accept", "application/json");
-            if (!string.IsNullOrEmpty(_token))
-                request.AddHeader("Authorization", $"Bearer {_token}");
-
             request.AddJsonBody(data);
 
-            var response = await client.ExecuteAsync<T>(request);
-            if (response.IsSuccessful && response.Data != null)
-                return response.Data;
-
-            return null;  // Fix: Return null if response is unsuccessful
+            var response = await _client.ExecuteAsync(request);
+            return response.Content ?? string.Empty;
         }
 
-        public async Task<bool> DeleteAsync(string endpoint)
+        public async Task<string> DeleteAsync(string endpoint)
         {
-            var client = CreateClient();
-            var request = new RestRequest(endpoint, Method.Delete);
+            var request =  CreateRequest(endpoint, Method.Delete);
             request.AddHeader("Accept", "application/json");
-            if (!string.IsNullOrEmpty(_token))
-                request.AddHeader("Authorization", $"Bearer {_token}");
 
-            var response = await client.ExecuteAsync(request);
-            return response.IsSuccessful;
+            var response = await _client.ExecuteAsync(request);
+            return response.Content ?? string.Empty;
         }
     }
+
 }

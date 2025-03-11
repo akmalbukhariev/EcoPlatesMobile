@@ -44,7 +44,11 @@ namespace EcoPlatesMobile.Utilities
         AUTHENTICATION_ERROR = 300,
         INTERNAL_ERROR = 301,
         SERVER_ERROR = 302,
-        TOKEN_EMPTY = 360
+        TOKEN_EMPTY = 360,
+
+        API_SERVICE_ERROR = 361,
+        JSON_PARSING_ERROR = 362,
+        UNKNOWN_ERROR = 363
     }
      
     public static class ResultExtensions
@@ -83,7 +87,10 @@ namespace EcoPlatesMobile.Utilities
         { Result.AUTHENTICATION_ERROR, "Your authentication information cannot be verified." },
         { Result.INTERNAL_ERROR, "Something went wrong on our end. We're working to fix it." },
         { Result.SERVER_ERROR, "A system error has occurred. Please contact your administrator." },
-        { Result.TOKEN_EMPTY, "Empty token" }
+        { Result.TOKEN_EMPTY, "Empty token" },
+        { Result.API_SERVICE_ERROR, "Empty or invalid response from server" },
+        { Result.JSON_PARSING_ERROR, "JSON Parsing Error" },
+        { Result.UNKNOWN_ERROR, "Unknown error occurred" }
     };
 
         public static string GetMessage(this Result result)

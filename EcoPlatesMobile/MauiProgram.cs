@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
+using Microsoft.Extensions.Logging;
+using RestSharp;
 
 namespace EcoPlatesMobile
 {
@@ -18,6 +21,28 @@ namespace EcoPlatesMobile
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddSingleton(sp =>
+                new RestClient(new RestClientOptions(Constants.BASE_USER_URL)
+                {
+                    ThrowOnAnyError = true,
+                    Timeout = TimeSpan.FromSeconds(30)
+                }));
+            builder.Services.AddSingleton(sp =>
+                new RestClient(new RestClientOptions(Constants.BASE_COMPANY_URL)
+                {
+                    ThrowOnAnyError = true,
+                    Timeout = TimeSpan.FromSeconds(30)
+                }));
+
+            builder.Services.AddTransient(sp =>
+                new UserApiService(
+                    sp.GetServices<RestClient>().First(rc => rc.Options.BaseUrl == new Uri(Constants.BASE_USER_URL))
+                ));
+            builder.Services.AddTransient(sp =>
+                new CompanyApiService(
+                    sp.GetServices<RestClient>().First(rc => rc.Options.BaseUrl == new Uri(Constants.BASE_COMPANY_URL))
+                ));
 
             return builder.Build();
         }
