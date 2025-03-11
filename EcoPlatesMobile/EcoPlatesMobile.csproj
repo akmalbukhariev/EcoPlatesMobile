@@ -66,8 +66,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\Responses\" />
-	  <Folder Include="Models\Requests\" />
 	  <Folder Include="ViewModels\Company\" />
 	  <Folder Include="ViewModels\User\" />
 	  <Folder Include="Views\Company\Components\" />

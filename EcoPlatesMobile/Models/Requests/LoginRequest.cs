@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcoPlatesMobile.Models
+namespace EcoPlatesMobile.Models.Requests
 {
-    internal class Response
+    public class LoginRequest
     {
+        public string phone_number { get; set; }
     }
 }

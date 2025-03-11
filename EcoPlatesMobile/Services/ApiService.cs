@@ -12,7 +12,7 @@ namespace EcoPlatesMobile.Services
         private readonly string _baseUrl;
         private readonly string _token;  // Pass token through constructor if needed
 
-        public ApiService(string baseUrl, string token = null)
+        public ApiService(string baseUrl, string token)
         {
             _baseUrl = baseUrl;
             _token = token;
@@ -25,7 +25,6 @@ namespace EcoPlatesMobile.Services
             return client;
         }
 
-        // 🔄 Common GET method with nullable return type
         public async Task<T?> GetAsync<T>(string endpoint) where T : class
         {
             var client = CreateClient();
@@ -41,7 +40,6 @@ namespace EcoPlatesMobile.Services
             return null;  // Fix: Return null if response is unsuccessful
         }
 
-        // 🔄 Common POST method with nullable return type
         public async Task<T?> PostAsync<T>(string endpoint, object data) where T : class
         {
             var client = CreateClient();
@@ -59,7 +57,6 @@ namespace EcoPlatesMobile.Services
             return null;  // Fix: Return null if response is unsuccessful
         }
 
-        // 🔄 Common PUT method with nullable return type
         public async Task<T?> PutAsync<T>(string endpoint, object data) where T : class
         {
             var client = CreateClient();
@@ -77,7 +74,6 @@ namespace EcoPlatesMobile.Services
             return null;  // Fix: Return null if response is unsuccessful
         }
 
-        // 🔄 Common DELETE method
         public async Task<bool> DeleteAsync(string endpoint)
         {
             var client = CreateClient();
