@@ -72,7 +72,12 @@
 	  <Folder Include="Views\Company\Components\" />
 	  <Folder Include="Views\Company\Pages\" />
 	  <Folder Include="Views\User\Components\" />
-	  <Folder Include="Views\User\Pages\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\User\Pages\UserRegistrationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

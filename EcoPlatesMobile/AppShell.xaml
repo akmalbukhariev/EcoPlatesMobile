@@ -4,12 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EcoPlatesMobile"
+    xmlns:userPages="clr-namespace:EcoPlatesMobile.Views.User.Pages"
     Shell.FlyoutBehavior="Flyout"
     Title="EcoPlatesMobile">
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate userPages:UserRegistrationPage}"
         Route="MainPage" />
 
 </Shell>

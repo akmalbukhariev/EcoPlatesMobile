@@ -14,7 +14,7 @@ namespace EcoPlatesMobile.Models.User
         public string token_mb { get; set; } = string.Empty;
         public string full_name { get; set; } = string.Empty;
 
-        private string _deleted { get; set; }
+        private string _deleted { get; set; } = "false";
         public bool deleted => _deleted.Equals("true", StringComparison.OrdinalIgnoreCase);
 
         public DateTime updated_at => DateTimeOffset.FromUnixTimeMilliseconds(_updated_at).UtcDateTime;

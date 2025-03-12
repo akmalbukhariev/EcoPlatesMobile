@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.User.Pages.UserRegistrationPage"
+             Title="UserRegistrationPage">
+
+    <Grid RowDefinitions="Auto, *" Padding="0">
+        <!-- Header -->
+        <Grid BackgroundColor="Green" HeightRequest="87">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ImageButton Source="back_icon.png"
+                         HeightRequest="40"
+                         WidthRequest="40"
+                         VerticalOptions="Center"
+                         Margin="10"
+                         Clicked="OnBackClicked"/>
+            <Label Text="Shaxsni ro‘yxatga olish dfsg"
+                   TextColor="White"
+                   FontSize="20"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Grid.Column="1"/>
+        </Grid>
+
+        <!-- Form -->
+        <VerticalStackLayout Grid.Row="1" Padding="20" Spacing="15">
+            <!-- Name Entry -->
+            <Border StrokeShape="RoundRectangle 30"
+                    StrokeThickness="1"
+                    BackgroundColor="#F5F5F5"
+                    Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="user_icon.png" WidthRequest="24" HeightRequest="24"/>
+                    <Entry Placeholder="Ism sharifingiz" TextColor="Black" PlaceholderColor="Gray"/>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Phone Entry -->
+            <Border StrokeShape="RoundRectangle 30"
+                    StrokeThickness="1"
+                    BackgroundColor="#F5F5F5"
+                    Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="phone_icon.png" WidthRequest="24" HeightRequest="24"/>
+                    <Entry Placeholder="Telefon raqam (nima uchun bilmayman)" Keyboard="Telephone" TextColor="Black" PlaceholderColor="Gray"/>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Email Entry -->
+            <Border StrokeShape="RoundRectangle 30"
+                    StrokeThickness="1"
+                    BackgroundColor="#F5F5F5"
+                    Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="email_icon.png" WidthRequest="24" HeightRequest="24"/>
+                    <Entry Placeholder="Elektron manzil (e-mail)" Keyboard="Email" TextColor="Black" PlaceholderColor="Gray"/>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Submit Button -->
+            <Button Text="Ro‘yxatdan o‘tish"
+                    BackgroundColor="LightGray"
+                    TextColor="Gray"
+                    CornerRadius="30"
+                    IsEnabled="False"
+                    HeightRequest="50"
+                    FontAttributes="Bold"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
