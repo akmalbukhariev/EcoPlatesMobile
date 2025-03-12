@@ -8,6 +8,6 @@ namespace EcoPlatesMobile.Models.Requests
 {
     public class LoginRequest
     {
-        public string phone_number { get; set; }
+        public string? phone_number { get; set; }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace EcoPlatesMobile.Utilities
 {
     public enum Result
@@ -37,9 +32,9 @@ namespace EcoPlatesMobile.Utilities
         LOGIN = 252,
         LOGIN_INACTIVE = 253,
         LOGIN_BANNED = 254,
-        PASSWORD_IS_NOT_MATCHED = 255,
-
-        VERIFY_PHONE_NUMBER_FAILED = 256,
+        LOGIN_FAILED = 255,
+        PASSWORD_IS_NOT_MATCHED = 256,
+        VERIFY_PHONE_NUMBER_FAILED = 257,
 
         AUTHENTICATION_ERROR = 300,
         INTERNAL_ERROR = 301,
@@ -53,45 +48,46 @@ namespace EcoPlatesMobile.Utilities
      
     public static class ResultExtensions
     {
-        private static readonly Dictionary<Result, string> _messages = new()
-    {
-        { Result.SUCCESS, "Success." },
-        { Result.FAILED, "Failed." },
-        { Result.USER_EXIST, "User exist" },
-        { Result.USER_NOT_EXIST, "User is not exist" },
-        { Result.COMPANY_NOT_EXIST, "Company is not exist" },
-        { Result.COMPANY_EXIST, "Company is exist" },
-        { Result.BRANCH_NOT_EXIST, "Branch is not exist" },
-        { Result.BRANCH_EXIST, "Branch is exist" },
-        { Result.POSTER_EXIST, "Poster is exist" },
-        { Result.POSTER_NOT_EXIST, "Poster is not exist" },
-        { Result.POSTER_COMMENT_NOT_EXIST, "Poster comment is not exist" },
-        { Result.POSTER_COMMENT_EXIST, "Poster comment is exist" },
-        { Result.POSTER_FEEDBACK_EXIST, "Poster feedback is exist" },
-        { Result.POSTER_FEEDBACK_NOT_EXIST, "Poster feedback is not exist" },
-        { Result.PROMOTION_EXIST, "Promotion is exist" },
-        { Result.PROMOTION_NOT_EXIST, "Promotion is not exist" },
-        { Result.USER_PASSWORD_NOT_MATCHED, "Password is not matched!" },
-        { Result.NOT_FOUND, "Not found!" },
-        { Result.FOUND, "Found!" },
-        { Result.TOKEN_INVALID, "Invalid token information." },
-        { Result.TOKEN_EXPIRED_TIME, "This token is expired." },
-        { Result.TOKEN_UNSUPPORTED_JWT, "Unsupported token information." },
-        { Result.LOGIN_INVALID_TOKEN, "Token information cannot be verified." },
-        { Result.LOGIN_DUPLICATE, "Duplicate login." },
-        { Result.LOGIN, "Please log in first." },
-        { Result.LOGIN_INACTIVE, "Please log in first." },
-        { Result.LOGIN_BANNED, "User is banned. Access denied." },
-        { Result.PASSWORD_IS_NOT_MATCHED, "Password is not matched" },
-        { Result.VERIFY_PHONE_NUMBER_FAILED, "The phone verification failed." },
-        { Result.AUTHENTICATION_ERROR, "Your authentication information cannot be verified." },
-        { Result.INTERNAL_ERROR, "Something went wrong on our end. We're working to fix it." },
-        { Result.SERVER_ERROR, "A system error has occurred. Please contact your administrator." },
-        { Result.TOKEN_EMPTY, "Empty token" },
-        { Result.API_SERVICE_ERROR, "Empty or invalid response from server" },
-        { Result.JSON_PARSING_ERROR, "JSON Parsing Error" },
-        { Result.UNKNOWN_ERROR, "Unknown error occurred" }
-    };
+       private static readonly Dictionary<Result, string> _messages = new()
+       {
+            { Result.SUCCESS, "Success." },
+            { Result.FAILED, "Failed." },
+            { Result.USER_EXIST, "User exist" },
+            { Result.USER_NOT_EXIST, "User is not exist" },
+            { Result.COMPANY_NOT_EXIST, "Company is not exist" },
+            { Result.COMPANY_EXIST, "Company is exist" },
+            { Result.BRANCH_NOT_EXIST, "Branch is not exist" },
+            { Result.BRANCH_EXIST, "Branch is exist" },
+            { Result.POSTER_EXIST, "Poster is exist" },
+            { Result.POSTER_NOT_EXIST, "Poster is not exist" },
+            { Result.POSTER_COMMENT_NOT_EXIST, "Poster comment is not exist" },
+            { Result.POSTER_COMMENT_EXIST, "Poster comment is exist" },
+            { Result.POSTER_FEEDBACK_EXIST, "Poster feedback is exist" },
+            { Result.POSTER_FEEDBACK_NOT_EXIST, "Poster feedback is not exist" },
+            { Result.PROMOTION_EXIST, "Promotion is exist" },
+            { Result.PROMOTION_NOT_EXIST, "Promotion is not exist" },
+            { Result.USER_PASSWORD_NOT_MATCHED, "Password is not matched!" },
+            { Result.NOT_FOUND, "Not found!" },
+            { Result.FOUND, "Found!" },
+            { Result.TOKEN_INVALID, "Invalid token information." },
+            { Result.TOKEN_EXPIRED_TIME, "This token is expired." },
+            { Result.TOKEN_UNSUPPORTED_JWT, "Unsupported token information." },
+            { Result.LOGIN_INVALID_TOKEN, "Token information cannot be verified." },
+            { Result.LOGIN_DUPLICATE, "Duplicate login." },
+            { Result.LOGIN, "Please log in first." },
+            { Result.LOGIN_INACTIVE, "Please log in first." },
+            { Result.LOGIN_FAILED, "Login failed. No response from server."},
+            { Result.LOGIN_BANNED, "User is banned. Access denied." },
+            { Result.PASSWORD_IS_NOT_MATCHED, "Password is not matched" },
+            { Result.VERIFY_PHONE_NUMBER_FAILED, "The phone verification failed." },
+            { Result.AUTHENTICATION_ERROR, "Your authentication information cannot be verified." },
+            { Result.INTERNAL_ERROR, "Something went wrong on our end. We're working to fix it." },
+            { Result.SERVER_ERROR, "A system error has occurred. Please contact your administrator." },
+            { Result.TOKEN_EMPTY, "Empty token" },
+            { Result.API_SERVICE_ERROR, "Empty or invalid response from server" },
+            { Result.JSON_PARSING_ERROR, "JSON Parsing Error" },
+            { Result.UNKNOWN_ERROR, "Unknown error occurred" }
+        };
 
         public static string GetMessage(this Result result)
         {

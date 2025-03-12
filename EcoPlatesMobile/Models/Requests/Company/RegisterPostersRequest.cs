@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcoPlatesMobile.Models.Requests.Company
 {
-    public class PostersRegisterRequest
+    public class RegisterPostersRequest
     {
         public required long company_id { get; set; }        
         public string? title { get; set; }                   

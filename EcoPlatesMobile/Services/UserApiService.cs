@@ -1,13 +1,12 @@
 ﻿using EcoPlatesMobile.Models.Requests;
+using EcoPlatesMobile.Models.Requests.Company;
+using EcoPlatesMobile.Models.Requests.User;
+using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Utilities;
 using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcoPlatesMobile.Services
 {
@@ -30,15 +29,26 @@ namespace EcoPlatesMobile.Services
 
         public async Task<LoginUserResponse> Login(LoginRequest data)
         {
-            var response = new LoginUserResponse();
+            var response = await LoginAsync<LoginUserResponse>(LOGIN_USER, data);
+
+            return response ?? new LoginUserResponse
+            {
+                resultCode = Result.LOGIN_FAILED.GetCodeToString(),
+                resultMsg = Result.LOGIN_FAILED.GetMessage()
+            };
+        }
+
+        public async Task<Response> LogOut()
+        {
+            var response = new Response();
 
             try
             {
-                var receivedData = await PostAsync(LOGIN_USER, data);
+                var receivedData = await PostAsync(LOGOUT_USER, null);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
-                    var deserializedResponse = JsonConvert.DeserializeObject<LoginUserResponse>(receivedData);
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
                     if (deserializedResponse != null)
                     {
                         return deserializedResponse;
@@ -49,10 +59,243 @@ namespace EcoPlatesMobile.Services
             }
             catch (JsonException jsonEx)
             {
+                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
                 response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
             }
             catch (Exception ex)
             {
+                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> RegisterUser(RegisterUserRequest data)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostAsync(REGISTER_USER, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<GetUserInfoResponse> GetUserInfo()
+        {
+            var response = new GetUserInfoResponse();
+
+            try
+            {
+                var receivedData = await GetAsync(GET_USER_INFO);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<GetUserInfoResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> UpdateUserInfo(UpdateUserInfoRequest data)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostAsync(UPDATE_USER_INFO, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> RegisterUserBookmark(RegisterBookmarksRequest data)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostAsync(REGISTER_BOOKMARK, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<CompanyListResponse> GetUserBookmark()
+        {
+            var response = new CompanyListResponse();
+
+            try
+            {
+                var receivedData = await GetAsync(GET_USER_BOOKMARK);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<CompanyListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<CompanyListResponse> GetCompaniesByCurrentLocation(CompanyLocationRequest data)
+        {
+            var response = new CompanyListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_COMPANIES_BY_USER_LOCATION, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<CompanyListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<PosterListResponse> GetPostersByCurrentLocation(PosterLocationRequest data)
+        {
+            var response = new PosterListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_POSTERS_BY_USER_LOCATION, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<PosterListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
             }
 
