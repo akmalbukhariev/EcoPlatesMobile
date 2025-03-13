@@ -9,15 +9,15 @@
         ColumnDefinitions="Auto,*">
         <Image 
             Source="back.png"
-            WidthRequest="30"
-            HeightRequest="30"
-            Margin="6, 4.44, 0, 0"/>
+            WidthRequest="24"
+            HeightRequest="24"
+            Margin="16, 4.44, 0, 0"/>
         <Label 
             x:Name="lbTitle"
             Text="{Binding Title}"
             FontFamily="Roboto"
             TextColor="White"
-            FontSize="25"
+            FontSize="20"
             VerticalOptions="Center"
             HorizontalOptions="Center"
             Grid.Column="1"/>

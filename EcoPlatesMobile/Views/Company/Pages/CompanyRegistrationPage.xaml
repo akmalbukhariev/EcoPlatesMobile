@@ -7,9 +7,9 @@
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="Korxonani ro’yxatga olish"/>
-        <Grid RowDefinitions="*, Auto"
-              Margin="16, 30, 16, 0"
-              Grid.Row="1">
+        <ScrollView Grid.Row="1">
+            <Grid RowDefinitions="*, 15, Auto"
+                  Margin="16, 30, 16, 0">
             <Grid.Resources>
                 <Style x:Key="styleEntry" TargetType="component:CustomEntry">
                     <Setter Property="BorderColor" Value="#E9E9E9"/>
@@ -40,6 +40,7 @@
                         <Label Text="Korxona logotipi"
                                FontFamily="Roboto"
                                TextColor="#666666"
+                               FontSize="14"
                                VerticalTextAlignment="Center"
                                Margin="20, 0, 0, 0"/>
                         <Image Source="choose_logo.png"
@@ -53,13 +54,6 @@
                                        EntryPlaceHolder="Korxona nomi"
                                        Style="{StaticResource styleEntry}"
                                        Grid.Row="1"/>
-                <!--<Border BackgroundColor="Grey"
-                        HeightRequest="20"
-                        Grid.Row="2">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10"/>
-                    </Border.StrokeShape>
-                </Border>-->
                 <Border x:Name="pickCompany"
                         StrokeThickness="2"
                         Stroke="#E9E9E9"
@@ -76,19 +70,10 @@
                                HeightRequest="25"
                                VerticalOptions="Center"
                                Margin="8,0"/>
-                        <Picker Title="Korxona turi" 
-                                VerticalOptions="Fill"
-                                Grid.Column="1">
-                            <Picker.ItemsSource>
-                                <x:Array Type="{x:Type x:String}">
-                                    <x:String>Bakery</x:String>
-                                    <x:String>Cafe</x:String>
-                                    <x:String>Fast food</x:String>
-                                    <x:String>Supermarket</x:String>
-                                    <x:String>Other</x:String>
-                                </x:Array>
-                            </Picker.ItemsSource>
-                        </Picker>
+                         <Label Text="Korxona turi"
+                                FontSize="14"
+                                TextColor="#666666"
+                                Grid.Column="1"/>
                         <Image Source="down.png"
                                WidthRequest="16"
                                HeightRequest="16"
@@ -171,14 +156,16 @@
                     </StackLayout>
                 </Border>
             </StackLayout>
-            <Button Text="Ro‘yxatdan o‘tish"
+            <Button x:Name="btnRegister" 
+                    Text="Ro‘yxatdan o‘tish"
                     BackgroundColor="#DCE0E2"
                     CornerRadius="30"
                     TextColor="#525B5D"
                     FontFamily="Roboto"
                     HeightRequest="50"
                     Margin="0,0,0,30"
-                    Grid.Row="1"/>
+                    Grid.Row="2"/>
         </Grid>
+        </ScrollView>
     </Grid>
 </ContentPage>

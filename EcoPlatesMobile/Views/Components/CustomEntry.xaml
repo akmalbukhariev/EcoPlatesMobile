@@ -25,7 +25,8 @@
                    Margin="8,0"/>
             <Entry x:Name="customEntry"
                    Placeholder="{Binding EntryPlaceHolder}"
-                   FontSize="16"
+                   PlaceholderColor="#666666"
+                   FontSize="14"
                    VerticalOptions="Center"
                    BackgroundColor="Transparent"
                    TextColor="Black"

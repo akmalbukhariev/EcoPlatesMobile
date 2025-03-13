@@ -15,7 +15,7 @@ namespace EcoPlatesMobile
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry),(handler, view) =>
             {
             handler.PlatformView.BackgroundTintList =
-            Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
+                    Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
             });
 
             Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping(nameof(Picker), (handler, view) =>
