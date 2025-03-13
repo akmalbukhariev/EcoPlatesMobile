@@ -70,12 +70,17 @@
 	  <Folder Include="ViewModels\Company\" />
 	  <Folder Include="ViewModels\User\" />
 	  <Folder Include="Views\Company\Components\" />
-	  <Folder Include="Views\Company\Pages\" />
 	  <Folder Include="Views\User\Components\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\Company\Pages\CompanyRegistrationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Components\CustomEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Components\CustomHeader.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\User\Pages\UserRegistrationPage.xaml">

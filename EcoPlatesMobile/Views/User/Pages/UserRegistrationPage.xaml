@@ -6,7 +6,8 @@
              Title="UserRegistrationPage">
     
     <Grid RowDefinitions="Auto, *">
-        <Grid 
+        <component:CustomHeader Title="Shaxsni ro‘yxatga olish"/>
+        <!--<Grid 
             BackgroundColor="#007200"
             HeightRequest="87"
             ColumnDefinitions="Auto,*">
@@ -23,7 +24,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     Grid.Column="1"/>
-        </Grid>
+        </Grid>-->
         <Grid 
             RowDefinitions="Auto, *, Auto, 40"
             Margin="16, 30, 16, 0"

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.Components.CustomHeader">
+
+    <Grid 
+        BackgroundColor="#007200"
+        HeightRequest="87"
+        ColumnDefinitions="Auto,*">
+        <Image 
+            Source="back.png"
+            WidthRequest="30"
+            HeightRequest="30"
+            Margin="6, 4.44, 0, 0"/>
+        <Label 
+            x:Name="lbTitle"
+            Text="{Binding Title}"
+            FontFamily="Roboto"
+            TextColor="White"
+            FontSize="25"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Grid.Column="1"/>
+    </Grid>
+</ContentView>
