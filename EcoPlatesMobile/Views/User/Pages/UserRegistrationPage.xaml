@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Pages.UserRegistrationPage"
+             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
              Title="UserRegistrationPage">
+    
     <Grid RowDefinitions="Auto, *">
         <Grid 
             BackgroundColor="#007200"
@@ -27,44 +29,23 @@
             Margin="16, 30, 16, 0"
             Grid.Row="1">
             <StackLayout Spacing="10">
-                <Border 
-                    x:Name="BorderContainer"
-                    StrokeThickness="2"
-                    Stroke="LightGray"
-                    BackgroundColor="White"
-                    Padding="8"
-                    HeightRequest="60">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="35"/>
-                    </Border.StrokeShape>
+                <component:CustomEntry
+                    IconSource="user_name.png"
+                    BorderColor="#E9E9E9"
+                    EntryBackgroundColor="#F5F5F5"
+                    EntryPlaceHolder="Ism sharifingiz"/>
 
-                    <Grid ColumnDefinitions="Auto, *" VerticalOptions="Center">
- 
-                        <Image 
-                            x:Name="IconImage"
-                            Source="user_name.png"
-                            WidthRequest="25"
-                            HeightRequest="25"
-                            VerticalOptions="Center"
-                            Margin="8,0"/>
-                    
-                        <Entry 
-                            x:Name="CustomEntry"
-                            Placeholder="Ism sharifingiz"
-                            FontSize="16"
-                            VerticalOptions="Center"
-                            BackgroundColor="Transparent"
-                            TextColor="Black"
-                            Grid.Column="1"/>
-                    </Grid>
-                </Border>
+                <component:CustomEntry
+                    IconSource="phone.png"
+                    BorderColor="#E9E9E9"
+                    EntryBackgroundColor="#F5F5F5"
+                    EntryPlaceHolder="Telefon raqam"/>
 
-                <Border 
-                    HeightRequest="46"
-                    Background="Grey"/>
-                <Border 
-                    HeightRequest="46"
-                    Background="Grey"/>
+                <component:CustomEntry
+                    IconSource="email.png"
+                    BorderColor="#E9E9E9"
+                    EntryBackgroundColor="#F5F5F5"
+                    EntryPlaceHolder="Elektron manzil"/>
             </StackLayout>
             <Button 
                 Text="Ro‘yxatdan o‘tish"
