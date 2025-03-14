@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.AuthorizationPage"
+             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+             Title="AuthorizationPage">
+
+    <Grid RowDefinitions="Auto, *">
+        <component:CustomHeader Title="Avtorizatsiya"/>
+        <Grid RowDefinitions="158, Auto, *, Auto, 20, Auto, 30"
+                Margin="16,0, 16,0"
+                Grid.Row="1">
+            <Grid.Resources>
+                <Style x:Key="styleLabel" TargetType="Label">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="TextColor" Value="#444444"/>
+                    <Setter Property="FontFamily" Value="Roboto"/>
+                </Style>
+            </Grid.Resources>
+            <StackLayout Spacing="50" 
+                         Grid.Row="1">
+                <Label Text="Iltimos, 998 90 999 00 99 telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting"
+                       HorizontalTextAlignment="Center"
+                    Style="{StaticResource styleLabel}"/>
+                <Grid ColumnDefinitions="70, 70, 70, 70"
+                      HorizontalOptions="Center">
+                    <component:CustomEntryNumber x:Name="nunmber1"/>
+                    <component:CustomEntryNumber x:Name="nunmber2" Grid.Column="1"/>
+                    <component:CustomEntryNumber x:Name="nunmber3" Grid.Column="2"/>
+                    <component:CustomEntryNumber x:Name="nunmber4" Grid.Column="3"/>
+                </Grid>
+                <Label Text="Ushbu tasdiqlash kodi orqali siz platformadan unumli foydalanishingiz mumkin. Tasdiqlash kodining to’g’ri kiritishingiz juda ham muhim."
+                       HorizontalTextAlignment="Center"
+                    Style="{StaticResource styleLabel}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="3">
+                <Label Text="Kodni tasdiqlash uchun ajratilgan vaqat"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource styleLabel}"/>
+                <Label Text="0:46"
+                        FontAttributes="Bold"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource styleLabel}"/>
+            </StackLayout>
+            <Button Text="Tasdiqlash"
+                    BackgroundColor="#8338EC"
+                    CornerRadius="30"
+                    TextColor="White"
+                    FontFamily="Roboto"
+                    HeightRequest="50"
+                    Grid.Row="5"/>
+        </Grid>
+    </Grid>
+</ContentPage>

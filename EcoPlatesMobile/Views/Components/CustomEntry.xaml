@@ -15,8 +15,8 @@
             <RoundRectangle CornerRadius="35"/>
         </Border.StrokeShape>
 
-        <Grid ColumnDefinitions="Auto, *" VerticalOptions="Center">
-
+        <Grid ColumnDefinitions="Auto, *" 
+              VerticalOptions="Center">
             <Image x:Name="iconImage"
                    Source="{Binding IconSource}"
                    WidthRequest="25"

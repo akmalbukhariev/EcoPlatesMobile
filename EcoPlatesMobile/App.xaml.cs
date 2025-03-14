@@ -1,7 +1,11 @@
-﻿using EcoPlatesMobile.Views.Company.Pages;
+﻿
+using EcoPlatesMobile.Views;
+using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
+
 
 namespace EcoPlatesMobile
 {
@@ -16,7 +20,7 @@ namespace EcoPlatesMobile
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new CompanyRegistrationPage());
+            return new Window(new AuthorizationPage());
         }
 
         private void Setting()
