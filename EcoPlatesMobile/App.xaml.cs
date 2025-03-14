@@ -1,6 +1,6 @@
 ﻿using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
-
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Platform;
 
 namespace EcoPlatesMobile
@@ -11,10 +11,20 @@ namespace EcoPlatesMobile
         {
             InitializeComponent();
 
+            Setting();
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            return new Window(new CompanyRegistrationPage());
+        }
+
+        private void Setting()
+        {
 #if ANDROID
-            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry),(handler, view) =>
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
             {
-            handler.PlatformView.BackgroundTintList =
+                handler.PlatformView.BackgroundTintList =
                     Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
             });
 
@@ -23,12 +33,13 @@ namespace EcoPlatesMobile
                 handler.PlatformView.BackgroundTintList =
                     Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
             });
-#endif
-        }
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new CompanyRegistrationPage());
+            Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping(nameof(DatePicker), (handler, view) =>
+            {
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
+            });
+#endif
         }
     }
 }
