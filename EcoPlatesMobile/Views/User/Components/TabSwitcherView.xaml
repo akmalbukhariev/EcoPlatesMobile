@@ -3,40 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Components.TabSwitcherView">
 
-    <Grid RowDefinitions="Auto" 
-          ColumnDefinitions="*,*" 
-          BackgroundColor="#EAEAEA"
-          Padding="0" 
-          HeightRequest="50">
-        <BoxView x:Name="SelectionIndicator" 
-                 BackgroundColor="White" 
-                 CornerRadius="3"
-                 HeightRequest="35"
-                 WidthRequest="150"
-                 VerticalOptions="EndAndExpand"
-                 HorizontalOptions="Start"
-                 TranslationX="5"/>
-        
-        <Label x:Name="TabSotuvchilar" 
-               Text="Sotuvchilar" 
-               VerticalOptions="End" 
-               HorizontalOptions="Center"
-               TextColor="Black"
-               FontSize="16">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="Sotuvchilar"/>
-            </Label.GestureRecognizers>
-        </Label>
-        <Label x:Name="TabMahsulotlar" 
-               Text="Mahsulotlar" 
-               VerticalOptions="End" 
-               HorizontalOptions="Center"
-               Grid.Column="1"
-               TextColor="Gray"
-               FontSize="16">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnTabTapped" CommandParameter="Mahsulotlar"/>
-            </Label.GestureRecognizers>
-        </Label>
-    </Grid>
+        <Grid ColumnDefinitions="*, *"
+            HeightRequest="50">
+            <BoxView BackgroundColor="#E5E5E5"
+                     CornerRadius ="5"
+                     Grid.ColumnSpan="2"/>
+            <Button x:Name="SellersTab"
+                    Text="Sotuvchilar"
+                    FontSize="16"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    BorderWidth="0"
+                    HeightRequest="40"
+                    Margin="5,0,0,0"
+                    CornerRadius="3"
+                    Clicked="OnTabClicked"/>
+            <Button x:Name="ProductsTab"
+                    Text="Mahsulotlar"
+                    FontSize="16"
+                    BackgroundColor="Transparent"
+                    TextColor="Gray"
+                    BorderWidth="0"
+                    HeightRequest="40"
+                    Margin="0,0,5,0"
+                    CornerRadius="3"
+                    Clicked="OnTabClicked"
+                    Grid.Column="1"/>
+        </Grid>
 </ContentView>

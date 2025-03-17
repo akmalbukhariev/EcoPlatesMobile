@@ -2,29 +2,36 @@ namespace EcoPlatesMobile.Views.User.Components;
 
 public partial class TabSwitcherView : ContentView
 {
-    private string _selectedTab = "Sotuvchilar";
+    public event EventHandler<string>? TabChanged;
 
     public TabSwitcherView()
     {
         InitializeComponent();
     }
 
-    private async void OnTabTapped(object sender, EventArgs e)
+    private void OnTabClicked(object sender, EventArgs e)
     {
-        if (sender is Label tappedLabel)
+        if (sender is Button clickedButton)
         {
-            string tabName = tappedLabel.Text;
-
-            if (_selectedTab != tabName)
+            if (clickedButton == SellersTab)
             {
-                _selectedTab = tabName;
-
-                TabSotuvchilar.TextColor = tabName == "Sotuvchilar" ? Colors.Black : Colors.Gray;
-                TabMahsulotlar.TextColor = tabName == "Mahsulotlar" ? Colors.Black : Colors.Gray;
-
-                double targetX = tabName == "Sotuvchilar" ? 5 : 190;
-                await SelectionIndicator.TranslateTo(targetX, 0, 200, Easing.SinInOut);
+                SetActiveTab(SellersTab);
+                TabChanged?.Invoke(this, "Sotuvchilar");
+            }
+            else if (clickedButton == ProductsTab)
+            {
+                SetActiveTab(ProductsTab);
+                TabChanged?.Invoke(this, "Mahsulotlar");
             }
         }
+    }
+
+    private void SetActiveTab(Button activeButton)
+    {
+        SellersTab.BackgroundColor = activeButton == SellersTab ? Colors.White : Colors.Transparent;
+        SellersTab.TextColor = activeButton == SellersTab ? Colors.Black : Colors.Gray;
+
+        ProductsTab.BackgroundColor = activeButton == ProductsTab ? Colors.White : Colors.Transparent;
+        ProductsTab.TextColor = activeButton == ProductsTab ? Colors.Black : Colors.Gray;
     }
 }
