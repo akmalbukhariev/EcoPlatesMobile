@@ -7,24 +7,6 @@
     
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="Shaxsni ro‘yxatga olish"/>
-        <!--<Grid 
-            BackgroundColor="#007200"
-            HeightRequest="87"
-            ColumnDefinitions="Auto,*">
-                <Image 
-                    Source="back.png"
-                    WidthRequest="30"
-                    HeightRequest="30"
-                    Margin="6, 4.44, 0, 0"/>
-                <Label 
-                    Text="Shaxsni ro‘yxatga olish"
-                    FontFamily="Roboto"
-                    TextColor="White"
-                    FontSize="25"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Grid.Column="1"/>
-        </Grid>-->
         <Grid 
             RowDefinitions="Auto, *, Auto, 40"
             Margin="16, 30, 16, 0"

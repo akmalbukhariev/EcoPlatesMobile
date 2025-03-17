@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.Components.CustomEntryNumber"
-             Title="CustomEntryNumber">
+             xmlns:local="clr-namespace:EcoPlatesMobile.Views.Components"
+             x:DataType="local:CustomEntryNumber">
 
     <Border x:Name="borderContainer"
             StrokeThickness="1"
             Stroke="{Binding BorderColor}"
             BackgroundColor="{Binding EntryBackgroundColor}"
             Padding="8"
-            WidthRequest="60"
-            HeightRequest="60">
+            WidthRequest="50"
+            HeightRequest="70">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="5"/>
         </Border.StrokeShape>
         <Entry x:Name="customEntry"
                Placeholder="{Binding EntryPlaceHolder}"
-               PlaceholderColor="#666666"
-               Keyboard="Telephone"
-               FontSize="14"
-               VerticalOptions="FillAndExpand"
+               PlaceholderColor="#444444"
+               Keyboard="Numeric"
+               FontSize="25"
+               HorizontalTextAlignment="Center"
+               VerticalOptions="Center"
                BackgroundColor="Transparent"
                TextColor="Black"/>
     </Border>
-</ContentPage>
+</ContentView>

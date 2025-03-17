@@ -130,7 +130,10 @@
                                  Spacing="10">
                         <StackLayout Orientation="Horizontal"
                                      Margin="10,0,0,0">
-                            <Image Source="time.png"
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnStartTimeTapped" />
+                            </StackLayout.GestureRecognizers>
+                            <Image Source="time_start.png"
                                    WidthRequest="20"
                                    HeightRequest="20"
                                    VerticalOptions="Center"/>
@@ -145,7 +148,10 @@
                         <StackLayout Orientation="Horizontal"
                                      Margin="10,0,0,0"
                                      Grid.Row="2">
-                            <Image Source="time.png"
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEndTimeTapped" />
+                            </StackLayout.GestureRecognizers>
+                            <Image Source="time_end.png"
                                    WidthRequest="20"
                                    HeightRequest="20"
                                    VerticalOptions="Center"/>
@@ -167,5 +173,8 @@
                     Grid.Row="2"/>
         </Grid>
         </ScrollView>
+        <component:CustomDatePickerView x:Name="datePickerView" 
+                                        DateSelected="OnDateSelected"
+                                        Grid.RowSpan="2"/>
     </Grid>
 </ContentPage>

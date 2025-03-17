@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.AuthorizationPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+             xmlns:pinview="clr-namespace:PINView.Maui;assembly=PINView.Maui"
              Title="AuthorizationPage">
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="Avtorizatsiya"/>
-        <Grid RowDefinitions="158, Auto, *, Auto, 20, Auto, 30"
+        <Grid RowDefinitions="70, Auto, *, Auto, 20, Auto, 30"
                 Margin="16,0, 16,0"
                 Grid.Row="1">
             <Grid.Resources>
@@ -17,30 +18,56 @@
                     <Setter Property="FontFamily" Value="Roboto"/>
                 </Style>
             </Grid.Resources>
-            <StackLayout Spacing="50" 
+            <StackLayout Spacing="40"
                          Grid.Row="1">
                 <Label Text="Iltimos, 998 90 999 00 99 telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting"
                        HorizontalTextAlignment="Center"
                     Style="{StaticResource styleLabel}"/>
-                <Grid ColumnDefinitions="70, 70, 70, 70"
+                <!-- <Grid ColumnDefinitions="70, 70, 70, 70"
                       HorizontalOptions="Center">
-                    <component:CustomEntryNumber x:Name="nunmber1"/>
-                    <component:CustomEntryNumber x:Name="nunmber2" Grid.Column="1"/>
-                    <component:CustomEntryNumber x:Name="nunmber3" Grid.Column="2"/>
-                    <component:CustomEntryNumber x:Name="nunmber4" Grid.Column="3"/>
-                </Grid>
+                    <component:CustomEntryNumber x:Name="number1"/>
+                    <component:CustomEntryNumber x:Name="number2" Grid.Column="1"/>
+                    <component:CustomEntryNumber x:Name="number3" Grid.Column="2"/>
+                    <component:CustomEntryNumber x:Name="number4" Grid.Column="3"/>
+                </Grid> -->
+                <pinview:PINView BoxShape="Square"
+                                 PINLength="4"
+                                 HorizontalOptions="Center"
+                                 BoxFocusColor="#007200"
+                                 BoxBackgroundColor="White"
+                                 BoxStrokeThickness="1"
+                                 BoxBorderColor="#E9E9E9"
+                                 BoxFocusAnimation="ZoomInOut"
+                                 BoxSize="50"
+                                 Color="#442C2E" />
                 <Label Text="Ushbu tasdiqlash kodi orqali siz platformadan unumli foydalanishingiz mumkin. Tasdiqlash kodining to’g’ri kiritishingiz juda ham muhim."
                        HorizontalTextAlignment="Center"
                     Style="{StaticResource styleLabel}"/>
             </StackLayout>
-            <StackLayout Grid.Row="3">
+            <StackLayout x:Name="stackTime" 
+                         Spacing="10"
+                         IsVisible="Visible" 
+                         Grid.Row="3">
                 <Label Text="Kodni tasdiqlash uchun ajratilgan vaqat"
-                        HorizontalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"/>
                 <Label Text="0:46"
                         FontAttributes="Bold"
-                        HorizontalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"/>
+            </StackLayout>
+            <StackLayout x:Name="stackSend" 
+                         Spacing="10" 
+                         IsVisible="Collapse"
+                         Grid.Row="3">
+                <Label Text="Sizga kod kelmadimi"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource styleLabel}"/>
+                <Label Text="Qayta yuborish"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource styleLabel}"
+                        TextColor="Green"/>
             </StackLayout>
             <Button Text="Tasdiqlash"
                     BackgroundColor="#8338EC"
