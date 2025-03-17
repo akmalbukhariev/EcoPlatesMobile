@@ -71,7 +71,12 @@
 	  <Folder Include="ViewModels\Company\" />
 	  <Folder Include="ViewModels\User\" />
 	  <Folder Include="Views\Company\Components\" />
-	  <Folder Include="Views\User\Components\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\User\Pages\UserMainPage.xaml.cs">
+	    <DependentUpon>UserMainPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -88,6 +93,15 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Components\CustomHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\User\Components\TabSwitcherView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\User\Pages\UserFavoritesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\User\Pages\UserMainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\User\Pages\UserRegistrationPage.xaml">
