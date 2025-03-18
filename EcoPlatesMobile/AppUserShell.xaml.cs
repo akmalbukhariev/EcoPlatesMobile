@@ -1,8 +1,8 @@
 ﻿namespace EcoPlatesMobile
 {
-    public partial class AppShell : Shell
+    public partial class AppUserShell : Shell
     {
-        public AppShell()
+        public AppUserShell()
         {
             InitializeComponent();
         }

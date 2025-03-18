@@ -1,9 +1,16 @@
+using EcoPlatesMobile.ViewModels.User;
+
 namespace EcoPlatesMobile.Views.User.Pages;
 
 public partial class UserMainPage : ContentPage
 {
-	public UserMainPage()
+	private UserMainPageViewModel viewModel;
+
+    public UserMainPage()
 	{
 		InitializeComponent();
+
+		viewModel =  new UserMainPageViewModel();
+		BindingContext = viewModel;
 	}
 }

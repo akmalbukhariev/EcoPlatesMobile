@@ -69,13 +69,15 @@
 
 	<ItemGroup>
 	  <Folder Include="ViewModels\Company\" />
-	  <Folder Include="ViewModels\User\" />
 	  <Folder Include="Views\Company\Components\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\User\Pages\UserMainPage.xaml.cs">
-	    <DependentUpon>UserMainPage.xaml</DependentUpon>
+	  <Compile Update="AppUserShell.xaml.cs">
+	    <DependentUpon>AppUserShell.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\User\Components\ProductView.xaml.cs">
+	    <DependentUpon>ProductView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -95,6 +97,15 @@
 	  <MauiXaml Update="Views\Components\CustomHeader.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\User\Components\CompanyTypeListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\User\Components\CompanyView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\User\Components\ProductView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\User\Components\TabSwitcherView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -107,6 +118,15 @@
 	  <MauiXaml Update="Views\User\Pages\UserRegistrationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Views\User\Components\TabSwitcherView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
+	  <None Update="Views\User\Pages\UserFavoritesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	</ItemGroup>
 
 </Project>

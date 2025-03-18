@@ -2,54 +2,73 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Components.CompanyView">
-        
-        <Frame Padding="0" Margin="10" CornerRadius="15" HasShadow="True">
-    <VerticalStackLayout>
 
-        <!-- Image with Overlay -->
-        <Grid>
-            <Image Source="{Binding ImageUrl}" HeightRequest="180" Aspect="AspectFill" />
-
-            <!-- Store Icon & Name Overlay -->
-            <HorizontalStackLayout VerticalOptions="Start" Padding="10" BackgroundColor="Black" Opacity="0.6">
-                <Image Source="cart_icon.png" WidthRequest="30" HeightRequest="30"/>
-                <Label Text="{Binding StoreName}" TextColor="White" FontSize="16" VerticalOptions="Center" />
+    <Frame Margin="0,0,0,0"
+           Padding="0"
+           CornerRadius="15" 
+           HeightRequest="215"
+           HasShadow="True">
+        <Grid RowDefinitions="Auto, 50, 40">
+            <Grid RowDefinitions="30, Auto">
+                <Image Source="company_back_image" 
+                       HeightRequest="110" 
+                       Aspect="Fill"
+                       VerticalOptions="Start"
+                       Grid.RowSpan="2"/>
+                <Image Source="like.png"
+                       WidthRequest="35"
+                       HeightRequest="35"
+                       VerticalOptions="Start"
+                       HorizontalOptions="End"
+                       Margin="0, 15, 15, 10"/>
+                <HorizontalStackLayout VerticalOptions="End"
+                                       Spacing="10"
+                                       Margin="10, 0, 0, 10"
+                                       Grid.Row="1">
+                    <Image Source="copany_logo.png" 
+                           WidthRequest="40" 
+                           HeightRequest="40"/>
+                    <Label Text="Korzinka.uz" 
+                           TextColor="White" 
+                           FontSize="16" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Grid>
+            <VerticalStackLayout Margin="10,10,0,0"
+                                 Spacing="5"
+                                 Grid.Row="1">
+                <Label Text="Korzinka.uz" 
+                       FontSize="18" 
+                       FontAttributes="Bold"/>
+                <Label Text="Collect today 08:15 - 09:00" 
+                       FontSize="14" 
+                       TextColor="Black"/>
+            </VerticalStackLayout>
+            <HorizontalStackLayout Margin="10,15,0,0"
+                                   Spacing="10"
+                                   Grid.Row="2">
+                <HorizontalStackLayout Spacing="5">
+                    <Image Source="star.png" 
+                           WidthRequest="16" 
+                           HeightRequest="16"/>
+                    <Label Text="3.1" 
+                           FontSize="14"
+                           VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
+                <BoxView BackgroundColor="LightGray"
+                         WidthRequest="1"
+                         HeightRequest="15"/>
+                <HorizontalStackLayout Spacing="5">
+                    <Image Source="distance.png" 
+                           WidthRequest="16" 
+                           HeightRequest="16"/>
+                    <Label Text="579 m" 
+                           FontSize="14"
+                           VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
             </HorizontalStackLayout>
-
-            <!-- Favorite (Heart) Icon -->
-            <Image Source="heart_icon.png"
-                   WidthRequest="30"
-                   HeightRequest="30"
-                   VerticalOptions="Start"
-                   HorizontalOptions="End"
-                   Margin="10"/>
         </Grid>
+    </Frame>
 
-        <!-- Store Info -->
-        <VerticalStackLayout Padding="10">
-            <Label Text="{Binding StoreName}" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding CollectionTime}" FontSize="14" TextColor="Gray"/>
-        </VerticalStackLayout>
-
-        <!-- Rating, Distance, Expiry -->
-        <HorizontalStackLayout Padding="10">
-            <HorizontalStackLayout>
-                <Image Source="star_icon.png" WidthRequest="16" HeightRequest="16"/>
-                <Label Text="{Binding Rating}" FontSize="14"/>
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <Image Source="location_icon.png" WidthRequest="16" HeightRequest="16"/>
-                <Label Text="{Binding Distance}" FontSize="14"/>
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <Image Source="time_icon.png" WidthRequest="16" HeightRequest="16"/>
-                <Label Text="{Binding Expiry}" FontSize="14"/>
-            </HorizontalStackLayout>
-        </HorizontalStackLayout>
-
-    </VerticalStackLayout>
-</Frame>
- 
 </ContentView>

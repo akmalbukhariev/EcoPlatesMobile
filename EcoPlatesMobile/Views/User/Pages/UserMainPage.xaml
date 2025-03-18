@@ -3,7 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Pages.UserMainPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+             xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
              Title="MainPage">
 
-   
+    <Grid RowDefinitions="Auto, Auto, *">
+        <Grid BackgroundColor="#007200"
+              HeightRequest="87">
+            <HorizontalStackLayout VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Margin="10,0,0,0"
+                                   Spacing="5">
+                <Image Source="pin2.png"
+                       Aspect="AspectFit"/>
+                <Label Text="Qoratosh, Shayxontohur, Toshkent 3 km atrofida."
+                       TextColor="White"
+                       FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+        </Grid>
+        <BoxView BackgroundColor="#F0F8EA"
+                 Grid.Row="1"/>
+        <Grid RowDefinitions="20, Auto, 10, Auto, Auto" 
+              Margin="10,0,10,0"
+              Grid.Row="1">
+            <component:CustomEntry IconSource="search.png"
+                                   BorderColor="LightGray"
+                                   EntryBackgroundColor="White"
+                                   EntryPlaceHolder="Izlash"
+                                   Grid.Row="1"/>
+            <Label Text="Yo'nalishlar"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   Grid.Row="3"/>
+            <user_component:CompanyTypeListView Grid.Row="4"/>
+        </Grid>
+        <CollectionView ItemsSource="{Binding Products}" 
+                        Margin="10"
+                        Grid.Row="2">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <user_component:ProductView/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

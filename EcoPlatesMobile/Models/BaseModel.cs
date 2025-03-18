@@ -1,5 +1,4 @@
 ﻿
-
 namespace EcoPlatesMobile.Models
 {
     using System;
@@ -7,11 +6,11 @@ namespace EcoPlatesMobile.Models
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
-    public abstract class BaseApiModel
+    public abstract class BaseModel
     {
         protected Dictionary<string, object> PropertyList = [];
 
-        protected BaseApiModel()
+        protected BaseModel()
         {
             foreach (PropertyInfo prop in GetType().GetProperties())
             {

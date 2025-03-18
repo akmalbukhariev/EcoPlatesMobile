@@ -13,7 +13,7 @@
             Grid.Row="1">
             <StackLayout Spacing="10">
                 <component:CustomEntry
-                    IconSource="user_name.png"
+                    IconSource="user.png"
                     BorderColor="#E9E9E9"
                     EntryBackgroundColor="#F5F5F5"
                     EntryPlaceHolder="Ism sharifingiz"/>

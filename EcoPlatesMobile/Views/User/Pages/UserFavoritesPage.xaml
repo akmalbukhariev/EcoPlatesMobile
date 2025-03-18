@@ -8,10 +8,31 @@
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="Menga yoqqanlar"/>
-        <Grid RowDefinitions="50, *"
+        <Grid RowDefinitions="50, 270, *"
               Margin="10, 30, 10, 0"
               Grid.Row="1">
             <userComponent:TabSwitcherView/>
+            <!--<userComponent:CompanyView Grid.Row="1"/>-->
+            <!--<Grid ColumnDefinitions="*, 10, *" 
+                  Margin="0,15,0,0"
+                  Grid.Row="1">
+                <userComponent:ItemView/>
+                <userComponent:ItemView Grid.Column="2"/>
+            </Grid>-->
+
+            <CollectionView ItemsSource="{Binding Items}"
+                            Grid.Row="2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" BorderColor="Gray">
+                            <StackLayout>
+                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" />
+                                <Label Text="{Binding Description}" FontSize="16" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
     </Grid>
 </ContentPage>
