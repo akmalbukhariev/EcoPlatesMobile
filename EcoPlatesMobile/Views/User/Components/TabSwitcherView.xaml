@@ -8,8 +8,8 @@
             <BoxView BackgroundColor="#E5E5E5"
                      CornerRadius ="5"
                      Grid.ColumnSpan="2"/>
-            <Button x:Name="SellersTab"
-                    Text="Sotuvchilar"
+            <Button x:Name="button1"
+                    Text="{Binding Tab1_Title}"
                     FontSize="16"
                     BackgroundColor="White"
                     TextColor="Black"
@@ -18,8 +18,8 @@
                     Margin="5,0,0,0"
                     CornerRadius="3"
                     Clicked="OnTabClicked"/>
-            <Button x:Name="ProductsTab"
-                    Text="Mahsulotlar"
+            <Button x:Name="button2"
+                    Text="{Binding Tab2_Title}"
                     FontSize="16"
                     BackgroundColor="Transparent"
                     TextColor="Gray"

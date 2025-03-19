@@ -3,16 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Pages.UserBrowserPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+             xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
              Title="UserBrowserPage">
 
-    <Grid RowDefinitions="Auto, Auto, *">
-        <HorizontalStackLayout>
+    <Grid RowDefinitions="Auto, 10, Auto, *"
+        Margin="16,10,16,0">
+        <Grid ColumnDefinitions="*, Auto, Auto">
             <component:CustomEntry EntryIcon="search.png"
+                                   EntryHeight="50"
                                    EntryBorderColor="LightGray"
-                                   EntryCornerRadius="10"
+                                   EntryCornerRadius="7"
                                    EntryBackgroundColor="White"
                                    EntryPlaceHolder="Izlash"
                                    EntryPlaceHolderColor="Gray"/>
-        </HorizontalStackLayout>
+            <component:CustomIconButton ButtonIcon="filter.png"
+                                        ButtonWidth="50"
+                                        ButtonHeight="50"
+                                        ButtonBorderColor="LightGray"
+                                        ButtonBackgroundColor="White"
+                                        ButtonCornerRadius="5"
+                                        Margin="5,0,5,0"
+                                        Grid.Column="1"/>
+            <component:CustomIconButton ButtonIcon="pin3.png"
+                                        ButtonWidth="50"
+                                        ButtonHeight="50"
+                                        ButtonBorderColor="LightGray"
+                                        ButtonBackgroundColor="White"
+                                        ButtonCornerRadius="5"
+                                        Grid.Column="2"/>
+        </Grid>
+        <user_component:TabSwitcherView Tab1_Title="List"
+                                        Tab2_Title="Map"
+                                        Grid.Row="2"/>
+        <CollectionView ItemsSource="{Binding Companies}" 
+                        Grid.Row="3">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <user_component:CompanyView/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 </ContentPage>

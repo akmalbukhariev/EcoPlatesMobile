@@ -6,7 +6,9 @@
     <Grid x:Name="grdMain" 
           WidthRequest="{Binding ButtonWidth}"
           HeightRequest="{Binding ButtonHeight}">
-        <Border x:Name="border" 
+        <Border x:Name="border"
+                Stroke="{Binding ButtonBorderColor}"
+                StrokeThickness="1"
                 BackgroundColor="{Binding ButtonBackgroundColor}">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="{Binding ButtonCornerRadius}"/>
@@ -15,6 +17,6 @@
         <Image x:Name="image" 
                Source="{Binding ButtonIcon}"
                Aspect="AspectFit"
-               Margin="3"/>
+               Margin="10"/>
     </Grid>
 </ContentView>

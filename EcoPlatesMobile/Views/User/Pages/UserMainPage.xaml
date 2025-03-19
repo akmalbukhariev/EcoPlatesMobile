@@ -25,8 +25,8 @@
         <Grid RowDefinitions="20, Auto, 10, Auto, Auto" 
               Margin="10,0,10,0"
               Grid.Row="1">
-            <component:CustomEntry IconSource="search.png"
-                                   BorderColor="LightGray"
+            <component:CustomEntry EntryIcon="search.png"
+                                   EntryBorderColor="LightGray"
                                    EntryBackgroundColor="White"
                                    EntryPlaceHolder="Izlash"
                                    Grid.Row="1"/>

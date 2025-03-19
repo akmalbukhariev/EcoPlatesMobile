@@ -9,8 +9,8 @@
             StrokeThickness="2"
             Stroke="{Binding EntryBorderColor}"
             BackgroundColor="{Binding EntryBackgroundColor}"
-            Padding="8"
-            HeightRequest="60">
+            Padding="0"
+            HeightRequest="{Binding EntryHeight}">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="{Binding EntryCornerRadius}"/>
         </Border.StrokeShape>

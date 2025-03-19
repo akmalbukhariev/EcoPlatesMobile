@@ -5,19 +5,22 @@ namespace EcoPlatesMobile.Views.Components;
 public partial class CustomIconButton : ContentView
 {
     public static readonly BindableProperty ButtonWidthProperty =
-            BindableProperty.Create(nameof(ButtonWidth), typeof(int), typeof(CustomIconButton), 5, propertyChanged: OnButtonWidthChanged);
+            BindableProperty.Create(nameof(ButtonWidth), typeof(int), typeof(CustomIconButton), 5, propertyChanged: ButtonWidthChanged);
 
     public static readonly BindableProperty ButtonHeightProperty =
-            BindableProperty.Create(nameof(ButtonHeight), typeof(int), typeof(CustomIconButton), 5, propertyChanged: OnButtonHeightChanged);
+            BindableProperty.Create(nameof(ButtonHeight), typeof(int), typeof(CustomIconButton), 5, propertyChanged: ButtonHeightChanged);
 
     public static readonly BindableProperty ButtonIconProperty =
-        BindableProperty.Create(nameof(ButtonIcon), typeof(ImageSource), typeof(CustomIconButton), default(ImageSource), propertyChanged: OnButtonIconChanged);
+        BindableProperty.Create(nameof(ButtonIcon), typeof(ImageSource), typeof(CustomIconButton), default(ImageSource), propertyChanged: ButtonIconChanged);
 
     public static readonly BindableProperty ButtonBackgroundColorProperty =
-        BindableProperty.Create(nameof(ButtonBackgroundColor), typeof(Color), typeof(CustomIconButton), Colors.White, propertyChanged: OnButtonBackgroundColorChanged);
+        BindableProperty.Create(nameof(ButtonBackgroundColor), typeof(Color), typeof(CustomIconButton), Colors.White, propertyChanged: ButtonBackgroundColorChanged);
+
+    public static readonly BindableProperty ButtonBorderColorProperty =
+        BindableProperty.Create(nameof(ButtonBorderColor), typeof(Color), typeof(CustomIconButton), Colors.Grey, propertyChanged: ButtonBorderColorChanged);
 
    public static readonly BindableProperty ButtonCornerRadiusProperty =
-      BindableProperty.Create(nameof(ButtonCornerRadius), typeof(double), typeof(CustomEntry), 10.0, propertyChanged: OnButtonCornerRadiusChanged);
+      BindableProperty.Create(nameof(ButtonCornerRadius), typeof(double), typeof(CustomEntry), 10.0, propertyChanged: ButtonCornerRadiusChanged);
 
     public int ButtonWidth
     {
@@ -43,6 +46,12 @@ public partial class CustomIconButton : ContentView
         set => SetValue(ButtonBackgroundColorProperty, value);
     }
 
+    public Color ButtonBorderColor
+    {
+        get => (Color)GetValue(ButtonBorderColorProperty);
+        set => SetValue(ButtonBorderColorProperty, value);
+    }
+
     public double ButtonCornerRadius
     {
         get => (double)GetValue(ButtonCornerRadiusProperty);
@@ -56,31 +65,37 @@ public partial class CustomIconButton : ContentView
         BindingContext = this;
     }
 
-    private static void OnButtonWidthChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void ButtonWidthChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomIconButton)bindable;
         control.grdMain.WidthRequest = (int)newValue;
     }
 
-    private static void OnButtonHeightChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void ButtonHeightChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomIconButton)bindable;
         control.grdMain.HeightRequest = (int)newValue;
     }
 
-    private static void OnButtonIconChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void ButtonIconChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomIconButton)bindable;
         control.image.Source = (ImageSource)newValue;
     }
 
-    private static void OnButtonBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void ButtonBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomIconButton)bindable;
         control.border.BackgroundColor = (Color)newValue;
     }
 
-    private static void OnButtonCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void ButtonBorderColorChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CustomIconButton)bindable;
+        control.border.Stroke = (Color)newValue;
+    }
+
+    private static void ButtonCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomIconButton)bindable;
         control.border.StrokeShape = new RoundRectangle { CornerRadius = (double)newValue };

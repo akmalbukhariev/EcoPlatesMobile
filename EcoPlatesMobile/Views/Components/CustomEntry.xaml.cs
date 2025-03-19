@@ -23,6 +23,9 @@ public partial class CustomEntry : ContentView
     public static readonly BindableProperty EntryCornerRadiusProperty =
        BindableProperty.Create(nameof(EntryCornerRadius), typeof(double), typeof(CustomEntry), 35.0, propertyChanged: EntryCornerRadiusChanged);
 
+    public static readonly BindableProperty EntryHeightProperty =
+       BindableProperty.Create(nameof(EntryHeight), typeof(double), typeof(CustomEntry), 60.0, propertyChanged: EntryHeightChanged);
+
     public Color EntryBorderColor
     {
         get => (Color)GetValue(EntryBorderColorProperty);
@@ -43,20 +46,26 @@ public partial class CustomEntry : ContentView
 
     public string EntryPlaceHolder
     {
-        get => (string)GetValue(EntryPlaceHolderColorProperty);
-        set => SetValue(EntryPlaceHolderColorProperty, value);
-    }
-
-    public string EntryPlaceHolderColor
-    {
         get => (string)GetValue(EntryPlaceHolderProperty);
         set => SetValue(EntryPlaceHolderProperty, value);
+    }
+
+    public Color EntryPlaceHolderColor
+    {
+        get => (Color)GetValue(EntryPlaceHolderColorProperty);
+        set => SetValue(EntryPlaceHolderColorProperty, value);
     }
 
     public double EntryCornerRadius
     {
         get => (double)GetValue(EntryCornerRadiusProperty);
         set => SetValue(EntryCornerRadiusProperty, value);
+    }
+
+    public double EntryHeight
+    {
+        get => (double)GetValue(EntryHeightProperty);
+        set => SetValue(EntryHeightProperty, value);
     }
 
     private Color _defaultBorderColor;
@@ -67,11 +76,11 @@ public partial class CustomEntry : ContentView
 		InitializeComponent();
         BindingContext = this;
 
-        _defaultBorderColor = BorderColor;
+        _defaultBorderColor = EntryBorderColor;
         _defaultEntryBackgroundColor = EntryBackgroundColor;
         
-        borderContainer.Stroke = BorderColor;
-        iconImage.Source = IconSource;
+        borderContainer.Stroke = EntryBorderColor;
+        iconImage.Source = EntryIcon;
         customEntry.BackgroundColor = EntryBackgroundColor;
         customEntry.Placeholder = EntryPlaceHolder;
 
@@ -84,17 +93,17 @@ public partial class CustomEntry : ContentView
 
         if (newText.Length == 0)
         {
-            BorderColor = _defaultBorderColor;
+            EntryBorderColor = _defaultBorderColor;
             EntryBackgroundColor = _defaultEntryBackgroundColor;
         }
         else if (string.IsNullOrWhiteSpace(newText))
         {
-            BorderColor = Color.FromArgb("#DC0000");
+            EntryBorderColor = Color.FromArgb("#DC0000");
             EntryBackgroundColor = _defaultEntryBackgroundColor;
         }
         else
         {
-            BorderColor = Color.FromArgb("#00C300");
+            EntryBorderColor = Color.FromArgb("#00C300");
             EntryBackgroundColor = Colors.White;
         }
     }
@@ -133,5 +142,11 @@ public partial class CustomEntry : ContentView
     {
         var control = (CustomEntry)bindable;
         control.borderContainer.StrokeShape = new RoundRectangle { CornerRadius = (double)newValue };
+    }
+
+    private static void EntryHeightChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CustomEntry)bindable;
+        control.borderContainer.HeightRequest = (double)newValue;
     }
 }

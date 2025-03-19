@@ -10,11 +10,11 @@ namespace EcoPlatesMobile.ViewModels.User
 {
     public class UserFavoritesViewModel
     {
-        public ObservableCollection<FavoriteCompany> FavoriteItems { get; set; }
+        public ObservableCollection<CompanyModel> FavoriteItems { get; set; }
 
         public UserFavoritesViewModel()
         {
-            FavoriteItems = new ObservableCollection<FavoriteCompany>();
+            FavoriteItems = new ObservableCollection<CompanyModel>();
         }
     }
 }
