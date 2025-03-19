@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.Components.CustomIconButton">
+
+    <Grid x:Name="grdMain" 
+          WidthRequest="{Binding ButtonWidth}"
+          HeightRequest="{Binding ButtonHeight}">
+        <Border x:Name="border" 
+                BackgroundColor="{Binding ButtonBackgroundColor}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="{Binding ButtonCornerRadius}"/>
+            </Border.StrokeShape>
+        </Border>
+        <Image x:Name="image" 
+               Source="{Binding ButtonIcon}"
+               Aspect="AspectFit"
+               Margin="3"/>
+    </Grid>
+</ContentView>

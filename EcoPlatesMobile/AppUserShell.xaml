@@ -15,11 +15,11 @@
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="browser.png">
-            <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
+            <ShellContent ContentTemplate="{DataTemplate userPages:UserBrowserPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="favorites.png">
-            <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
+            <ShellContent ContentTemplate="{DataTemplate userPages:UserFavoritesPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="user.png">

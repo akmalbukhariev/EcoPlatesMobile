@@ -12,32 +12,26 @@
             Margin="16, 30, 16, 0"
             Grid.Row="1">
             <StackLayout Spacing="10">
-                <component:CustomEntry
-                    IconSource="user.png"
-                    BorderColor="#E9E9E9"
-                    EntryBackgroundColor="#F5F5F5"
-                    EntryPlaceHolder="Ism sharifingiz"/>
-
-                <component:CustomEntry
-                    IconSource="phone.png"
-                    BorderColor="#E9E9E9"
-                    EntryBackgroundColor="#F5F5F5"
-                    EntryPlaceHolder="Telefon raqam"/>
-
-                <component:CustomEntry
-                    IconSource="email.png"
-                    BorderColor="#E9E9E9"
-                    EntryBackgroundColor="#F5F5F5"
-                    EntryPlaceHolder="Elektron manzil"/>
+                <component:CustomEntry EntryIcon="user.png"
+                                       EntryBorderColor="#E9E9E9"
+                                       EntryBackgroundColor="#F5F5F5"
+                                       EntryPlaceHolder="Ism sharifingiz"/>
+                <component:CustomEntry EntryIcon="phone.png"
+                                       EntryBorderColor="#E9E9E9"
+                                       EntryBackgroundColor="#F5F5F5"
+                                       EntryPlaceHolder="Telefon raqam"/>
+                <component:CustomEntry EntryIcon="email.png"
+                                       EntryBorderColor="#E9E9E9"
+                                       EntryBackgroundColor="#F5F5F5"
+                                       EntryPlaceHolder="Elektron manzil"/>
             </StackLayout>
-            <Button 
-                Text="Ro‘yxatdan o‘tish"
-                BackgroundColor="#DCE0E2"
-                CornerRadius="30"
-                TextColor="#525B5D"
-                FontFamily="Roboto"
-                HeightRequest="50"
-                Grid.Row="2"/>
+            <Button Text="Ro‘yxatdan o‘tish"
+                    BackgroundColor="#DCE0E2"
+                    CornerRadius="30"
+                    TextColor="#525B5D"
+                    FontFamily="Roboto"
+                    HeightRequest="50"
+                    Grid.Row="2"/>
         </Grid>
     </Grid>
 </ContentPage>

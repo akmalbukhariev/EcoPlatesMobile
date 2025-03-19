@@ -1,30 +1,38 @@
 
+using Microsoft.Maui.Controls.Shapes;
+
 namespace EcoPlatesMobile.Views.Components;
 
 public partial class CustomEntry : ContentView
 {
-    public static readonly BindableProperty BorderColorProperty =
-            BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CustomEntry), Color.FromArgb("#E9E9E9"), propertyChanged: OnBorderColorChanged);
+    public static readonly BindableProperty EntryBorderColorProperty =
+        BindableProperty.Create(nameof(EntryBorderColor), typeof(Color), typeof(CustomEntry), Color.FromArgb("#E9E9E9"), propertyChanged: EntryBorderColorChanged);
 
-    public static readonly BindableProperty IconSourceProperty =
-        BindableProperty.Create(nameof(IconSource), typeof(ImageSource), typeof(CustomEntry), default(ImageSource), propertyChanged: OnIconSourceChanged);
+    public static readonly BindableProperty EntryIconProperty =
+        BindableProperty.Create(nameof(EntryIcon), typeof(ImageSource), typeof(CustomEntry), default(ImageSource), propertyChanged: EntryIconChanged);
 
     public static readonly BindableProperty EntryBackgroundColorProperty =
-        BindableProperty.Create(nameof(EntryBackgroundColor), typeof(Color), typeof(CustomEntry), Color.FromArgb("#F5F5F5"), propertyChanged: OnEntryBackgroundColorChanged);
+        BindableProperty.Create(nameof(EntryBackgroundColor), typeof(Color), typeof(CustomEntry), Color.FromArgb("#F5F5F5"), propertyChanged: EntryBackgroundColorChanged);
 
     public static readonly BindableProperty EntryPlaceHolderProperty =
-       BindableProperty.Create(nameof(EntryPlaceHolder), typeof(string), typeof(CustomEntry), default(string), propertyChanged: OnEntryPlaceHolderChanged);
+       BindableProperty.Create(nameof(EntryPlaceHolder), typeof(string), typeof(CustomEntry), default(string), propertyChanged: EntryPlaceHolderChanged);
 
-    public Color BorderColor
+    public static readonly BindableProperty EntryPlaceHolderColorProperty =
+        BindableProperty.Create(nameof(EntryPlaceHolderColor), typeof(Color), typeof(CustomEntry), Color.FromArgb("#F5F5F5"), propertyChanged: EntryPlaceHolderColorChanged);
+
+    public static readonly BindableProperty EntryCornerRadiusProperty =
+       BindableProperty.Create(nameof(EntryCornerRadius), typeof(double), typeof(CustomEntry), 35.0, propertyChanged: EntryCornerRadiusChanged);
+
+    public Color EntryBorderColor
     {
-        get => (Color)GetValue(BorderColorProperty);
-        set => SetValue(BorderColorProperty, value);
+        get => (Color)GetValue(EntryBorderColorProperty);
+        set => SetValue(EntryBorderColorProperty, value);
     }
 
-    public ImageSource IconSource
+    public ImageSource EntryIcon
     {
-        get => (ImageSource)GetValue(IconSourceProperty);
-        set => SetValue(IconSourceProperty, value);
+        get => (ImageSource)GetValue(EntryIconProperty);
+        set => SetValue(EntryIconProperty, value);
     }
 
     public Color EntryBackgroundColor
@@ -35,8 +43,20 @@ public partial class CustomEntry : ContentView
 
     public string EntryPlaceHolder
     {
+        get => (string)GetValue(EntryPlaceHolderColorProperty);
+        set => SetValue(EntryPlaceHolderColorProperty, value);
+    }
+
+    public string EntryPlaceHolderColor
+    {
         get => (string)GetValue(EntryPlaceHolderProperty);
         set => SetValue(EntryPlaceHolderProperty, value);
+    }
+
+    public double EntryCornerRadius
+    {
+        get => (double)GetValue(EntryCornerRadiusProperty);
+        set => SetValue(EntryCornerRadiusProperty, value);
     }
 
     private Color _defaultBorderColor;
@@ -79,27 +99,39 @@ public partial class CustomEntry : ContentView
         }
     }
 
-    private static void OnBorderColorChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void EntryBorderColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomEntry)bindable;
         control.borderContainer.Stroke = (Color)newValue;
     }
 
-    private static void OnIconSourceChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void EntryIconChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomEntry)bindable;
         control.iconImage.Source = (ImageSource)newValue;
     }
 
-    private static void OnEntryBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void EntryBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomEntry)bindable;
         control.customEntry.BackgroundColor = (Color)newValue;
     }
 
-    private static void OnEntryPlaceHolderChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void EntryPlaceHolderChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomEntry)bindable;
         control.customEntry.Placeholder = (string)newValue;
+    }
+
+    private static void EntryPlaceHolderColorChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CustomEntry)bindable;
+        control.customEntry.PlaceholderColor = (Color)newValue;
+    }
+
+    private static void EntryCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CustomEntry)bindable;
+        control.borderContainer.StrokeShape = new RoundRectangle { CornerRadius = (double)newValue };
     }
 }

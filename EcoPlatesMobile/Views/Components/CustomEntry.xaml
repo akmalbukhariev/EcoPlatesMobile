@@ -7,25 +7,25 @@
 
     <Border x:Name="borderContainer"
             StrokeThickness="2"
-            Stroke="{Binding BorderColor}"
+            Stroke="{Binding EntryBorderColor}"
             BackgroundColor="{Binding EntryBackgroundColor}"
             Padding="8"
             HeightRequest="60">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="35"/>
+            <RoundRectangle CornerRadius="{Binding EntryCornerRadius}"/>
         </Border.StrokeShape>
 
         <Grid ColumnDefinitions="Auto, *" 
               VerticalOptions="Center">
             <Image x:Name="iconImage"
-                   Source="{Binding IconSource}"
+                   Source="{Binding EntryIcon}"
                    WidthRequest="25"
                    HeightRequest="25"
                    VerticalOptions="Center"
                    Margin="8,0"/>
             <Entry x:Name="customEntry"
                    Placeholder="{Binding EntryPlaceHolder}"
-                   PlaceholderColor="#666666"
+                   PlaceholderColor="{Binding EntryPlaceHolderColor}"
                    FontSize="14"
                    VerticalOptions="Center"
                    BackgroundColor="Transparent"
