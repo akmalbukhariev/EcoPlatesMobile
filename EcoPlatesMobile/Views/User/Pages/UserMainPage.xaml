@@ -28,6 +28,7 @@
             <component:CustomEntry EntryIcon="search.png"
                                    EntryBorderColor="LightGray"
                                    EntryBackgroundColor="White"
+                                   EntryPlaceHolderColor="Gray"
                                    EntryPlaceHolder="Izlash"
                                    Grid.Row="1"/>
             <Label Text="Yo'nalishlar"
@@ -40,7 +41,10 @@
                         Margin="10"
                         Grid.Row="2">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2"/>
+                <GridItemsLayout Orientation="Vertical" 
+                                 VerticalItemSpacing="10"
+                                 HorizontalItemSpacing="10"
+                                 Span="2"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>

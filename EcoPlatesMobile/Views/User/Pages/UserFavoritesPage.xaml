@@ -7,29 +7,53 @@
              Title="UserFavoritesPage">
 
     <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="Menga yoqqanlar"/>
-        <Grid RowDefinitions="50, 270, *"
-              Margin="10, 30, 10, 0"
-              Grid.Row="1">
-            <userComponent:TabSwitcherView/>
-            <!--<userComponent:CompanyView Grid.Row="1"/>-->
-            <!--<Grid ColumnDefinitions="*, 10, *" 
-                  Margin="0,15,0,0"
-                  Grid.Row="1">
-                <userComponent:ItemView/>
-                <userComponent:ItemView Grid.Column="2"/>
-            </Grid>-->
+        <Grid BackgroundColor="#007200"
+              HeightRequest="87"
+              ColumnDefinitions="*,Auto">
+            <Label x:Name="lbTitle"
+                   Text="Menga yoqqanlar"
+                   FontFamily="Roboto"
+                   TextColor="White"
+                   FontSize="20"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Image Source="favorites1.png"
+                   WidthRequest="24"
+                   HeightRequest="24"
+                   Margin="0, 4.44, 15, 0"
+                   Grid.Column="1"/>
+        </Grid>
 
-            <CollectionView ItemsSource="{Binding Items}"
-                            Grid.Row="2">
+        <Grid RowDefinitions="50, *"
+              Margin="16, 30, 16, 0"
+              Grid.Row="1">
+            <userComponent:TabSwitcherView x:Name="tabSwitcher"
+                                           Tab1_Title="Sallar"
+                                           Tab2_Title="Products"/>
+            <CollectionView x:Name="listCompany" 
+                            ItemsSource="{Binding Companies}"
+                            Margin="0,20,0,0"
+                            Grid.Row="1">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Padding="10" Margin="5" BorderColor="Gray">
-                            <StackLayout>
-                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" />
-                                <Label Text="{Binding Description}" FontSize="16" />
-                            </StackLayout>
-                        </Frame>
+                        <userComponent:CompanyView/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <CollectionView x:Name="listProduct"  
+                            ItemsSource="{Binding Products}" 
+                            IsVisible="False"
+                            Margin="0,20,0,0"
+                            Grid.Row="2">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                                     VerticalItemSpacing="10"
+                                     HorizontalItemSpacing="10"
+                                     Span="2"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <userComponent:ProductView/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

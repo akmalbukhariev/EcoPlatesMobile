@@ -10,11 +10,113 @@ namespace EcoPlatesMobile.ViewModels.User
 {
     public class UserFavoritesViewModel
     {
-        public ObservableCollection<CompanyModel> FavoriteItems { get; set; }
+        public ObservableCollection<CompanyModel> Companies { get; set; }
+        public ObservableCollection<ProductModel> Products { get; set; }
 
         public UserFavoritesViewModel()
         {
-            FavoriteItems = new ObservableCollection<CompanyModel>();
+            Companies = new ObservableCollection<CompanyModel>()
+            {
+                new CompanyModel(),
+                new CompanyModel(),
+                new CompanyModel(),
+                new CompanyModel(),
+                new CompanyModel(),
+                new CompanyModel(),
+                new CompanyModel(),
+            };
+
+            Products = new ObservableCollection<ProductModel>
+            {
+                new ProductModel
+                {
+                    Image = "cake.png",
+                    Count = "2 qoldi",
+                    Name = "Tort rogalik",
+                    ComapnyName = "Safia &amp; Bakery",
+                    NewPrice = "15 000 so'm",
+                    OldPrice = "25 000 so'm",
+                    Stars = "3.1",
+                    Distance = "1 km"
+                },
+                new ProductModel
+                {
+                    Image = "cake.png",
+                    Count = "2 qoldi",
+                    Name = "Tort rogalik",
+                    ComapnyName = "Safia &amp; Bakery",
+                    NewPrice = "15 000 so'm",
+                    OldPrice = "25 000 so'm",
+                    Stars = "3.1",
+                    Distance = "1 km"
+                },
+                new ProductModel
+                {
+                    Image = "cake.png",
+                    Count = "2 qoldi",
+                    Name = "Tort rogalik",
+                    ComapnyName = "Safia &amp; Bakery",
+                    NewPrice = "15 000 so'm",
+                    OldPrice = "25 000 so'm",
+                    Stars = "3.1",
+                    Distance = "1 km"
+                },
+                new ProductModel
+                {
+                    Image = "cake.png",
+                    Count = "2 qoldi",
+                    Name = "Tort rogalik",
+                    ComapnyName = "Safia &amp; Bakery",
+                    NewPrice = "15 000 so'm",
+                    OldPrice = "25 000 so'm",
+                    Stars = "3.1",
+                    Distance = "1 km"
+                },
+                new ProductModel
+                {
+                    Image = "cake.png",
+                    Count = "2 qoldi",
+                    Name = "Tort rogalik",
+                    ComapnyName = "Safia &amp; Bakery",
+                    NewPrice = "15 000 so'm",
+                    OldPrice = "25 000 so'm",
+                    Stars = "3.1",
+                    Distance = "1 km"
+                },
+                new ProductModel
+                {
+                    Image = "cake.png",
+                    Count = "2 qoldi",
+                    Name = "Tort rogalik",
+                    ComapnyName = "Safia &amp; Bakery",
+                    NewPrice = "15 000 so'm",
+                    OldPrice = "25 000 so'm",
+                    Stars = "3.1",
+                    Distance = "1 km"
+                },
+                new ProductModel
+                {
+                    Image = "cake.png",
+                    Count = "2 qoldi",
+                    Name = "Tort rogalik",
+                    ComapnyName = "Safia &amp; Bakery",
+                    NewPrice = "15 000 so'm",
+                    OldPrice = "25 000 so'm",
+                    Stars = "3.1",
+                    Distance = "1 km"
+                },
+                new ProductModel
+                {
+                    Image = "cake.png",
+                    Count = "2 qoldi",
+                    Name = "Tort rogalik",
+                    ComapnyName = "Safia &amp; Bakery",
+                    NewPrice = "15 000 so'm",
+                    OldPrice = "25 000 so'm",
+                    Stars = "3.1",
+                    Distance = "1 km"
+                },
+            };
         }
     }
 }
