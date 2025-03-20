@@ -6,67 +6,97 @@
              Title="LanguagePage">
 
     <Grid RowDefinitions="*, Auto, 50, Auto, *">
-        <Image x:Name="imLogo" 
-               Source="logo.png"
-               WidthRequest="200"
-               HeightRequest="200" 
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               Grid.Row="1"/>
-        <VerticalStackLayout Padding="20" VerticalOptions="Center" Grid.Row="3">
+    <Image x:Name="imLogo" 
+           Source="logo.png"
+           WidthRequest="200"
+           HeightRequest="200" 
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           Grid.Row="1"/>
 
-            <!-- Language Selector Button -->
-            <Frame CornerRadius="30" Padding="5" HasShadow="True"
-               BorderColor="Gray" BackgroundColor="White"
-               WidthRequest="250">
-                <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center" Padding="5">
-                    <!-- Flag -->
-                    <Image Source="{Binding SelectedFlag}" WidthRequest="30" HeightRequest="20"
-                       VerticalOptions="Center" Margin="5"/>
+    <Frame CornerRadius="30" 
+           Padding="5" 
+           HasShadow="True"
+           BorderColor="Gray" 
+           BackgroundColor="White"
+           WidthRequest="250"
+           Grid.Row="3"
+           HorizontalOptions="Center">
+        <Grid ColumnDefinitions="Auto, *, Auto" 
+              VerticalOptions="Center" 
+              Padding="5">
+            <Image Source="{Binding SelectedFlag}" 
+                   WidthRequest="30" 
+                   HeightRequest="20"
+                   VerticalOptions="Center" 
+                   Margin="5"/>
+            <Label Text="{Binding SelectedLanguage}" 
+                   FontSize="18" 
+                   VerticalTextAlignment="Center" 
+                   TextColor="Green"
+                   Grid.Column="1"/>
+            <Image Source="down.png" 
+                   WidthRequest="20" 
+                   HeightRequest="20"
+                   Margin="0, 0, 10, 0" 
+                   VerticalOptions="Center"
+                   Grid.Column="2"/>
+        </Grid>
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnFrameTapped"/>
+        </Frame.GestureRecognizers>
+    </Frame>
 
-                    <!-- Selected Language -->
-                    <Label Text="{Binding SelectedLanguage}" Grid.Column="1"
-                       FontSize="18" VerticalTextAlignment="Center" TextColor="Green"/>
+    <Frame x:Name="DropdownList" 
+           IsVisible="False"
+           BackgroundColor="White" 
+           CornerRadius="10"
+           HasShadow="True" 
+           Padding="5" 
+           WidthRequest="250"
+           Grid.RowSpan="5"
+           HorizontalOptions="Center"
+           VerticalOptions="Start"
+           TranslationY="50"
+           Grid.Row="3">
+        <CollectionView ItemsSource="{Binding Languages}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnLanguageSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" 
+                          ColumnDefinitions="Auto, *, Auto">
+                        <Image Source="{Binding Flag}" 
+                               WidthRequest="30" 
+                               HeightRequest="20"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding Name}" 
+                               Margin="5,0,0,0"
+                               FontSize="18" 
+                               VerticalTextAlignment="Center" 
+                               TextColor="Black"
+                               Grid.Column="1"/>
+                        <Image Source="checkmark.png"
+                               WidthRequest="20" 
+                               HeightRequest="20" 
+                               IsVisible="{Binding IsSelected}" 
+                               Grid.Column="2"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Frame>
+    
+    <Button Text="Keyingisi"
+            TextColor="Green"
+            FontSize="18"
+            BorderWidth="2"
+            BorderColor="Gray"
+            BackgroundColor="White"
+            HeightRequest="50"
+            WidthRequest="250"
+            CornerRadius="30"
+            Grid.Row="4"/>
+</Grid>
 
-                    <!-- Dropdown Arrow -->
-                    <Image Source="down.png" Grid.Column="2"
-                       WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
-                </Grid>
-
-                <!-- Open dropdown on tap -->
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnFrameTapped"/>
-                </Frame.GestureRecognizers>
-            </Frame>
-
-            <!-- Custom Dropdown (Styled) -->
-            <Frame x:Name="DropdownList" IsVisible="False"
-               BackgroundColor="White" CornerRadius="10"
-               HasShadow="True" Padding="5" WidthRequest="250">
-                <CollectionView ItemsSource="{Binding Languages}"
-                            SelectionMode="Single"
-                            SelectionChanged="OnLanguageSelected">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Padding="10" ColumnDefinitions="Auto, *, Auto">
-                                <!-- Flag -->
-                                <Image Source="{Binding Flag}" WidthRequest="30" HeightRequest="20"
-                                   VerticalOptions="Center"/>
-
-                                <!-- Language Name -->
-                                <Label Text="{Binding Name}" Grid.Column="1"
-                                   FontSize="18" VerticalTextAlignment="Center" TextColor="Black"/>
-
-                                <!-- Checkmark (conditionally visible) -->
-                                <Image Source="checkmark.png" Grid.Column="2"
-                                   WidthRequest="20" HeightRequest="20" 
-                                   IsVisible="{Binding IsSelected}" />
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Frame>
-
-        </VerticalStackLayout>
-    </Grid>
 </ContentPage>

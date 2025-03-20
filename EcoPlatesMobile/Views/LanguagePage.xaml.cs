@@ -3,14 +3,35 @@ using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using Svg.Skia;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace EcoPlatesMobile.Views;
 
 public partial class LanguagePage : ContentPage
 {
     public ObservableCollection<LanguageModel> Languages { get; set; }
-    public string SelectedLanguage { get; set; }
-    public string SelectedFlag { get; set; }
+
+    private string _selectedLanguage;
+    public string SelectedLanguage
+    {
+        get => _selectedLanguage;
+        set
+        {
+            _selectedLanguage = value;
+            OnPropertyChanged(nameof(SelectedLanguage)); // ✅ Notify UI
+        }
+    }
+
+    private string _selectedFlag;
+    public string SelectedFlag
+    {
+        get => _selectedFlag;
+        set
+        {
+            _selectedFlag = value;
+            OnPropertyChanged(nameof(SelectedFlag)); // ✅ Notify UI
+        }
+    }
 
     public LanguagePage()
 	{
@@ -35,12 +56,12 @@ public partial class LanguagePage : ContentPage
         {
             DropdownList.Opacity = 0;
             DropdownList.IsVisible = true;
-            await DropdownList.FadeTo(1, 250); // Smooth fade-in animation
+            await DropdownList.FadeTo(1, 250); // ✅ Smooth fade-in
         }
         else
         {
             await DropdownList.FadeTo(0, 250);
-            DropdownList.IsVisible = false;
+            DropdownList.IsVisible = false; // ✅ Hide after fade-out
         }
     }
 
@@ -49,22 +70,18 @@ public partial class LanguagePage : ContentPage
     {
         if (e.CurrentSelection.FirstOrDefault() is LanguageModel selectedLang)
         {
-            // Deselect previous selection
+            // ✅ Deselect previous selection
             foreach (var lang in Languages)
                 lang.IsSelected = false;
 
-            // Set new selection
+            // ✅ Set new selection
             selectedLang.IsSelected = true;
             SelectedLanguage = selectedLang.Name;
             SelectedFlag = selectedLang.Flag;
 
-            // Update UI
-            OnPropertyChanged(nameof(SelectedLanguage));
-            OnPropertyChanged(nameof(SelectedFlag));
-
-            // Hide dropdown smoothly
+            // ✅ Hide dropdown smoothly
             await DropdownList.FadeTo(0, 250);
             DropdownList.IsVisible = false;
         }
     }
-}
+} 
