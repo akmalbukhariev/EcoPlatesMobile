@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.LanguagePage"
+             BackgroundColor="#007200"
+             Title="LanguagePage">
+
+    <Grid RowDefinitions="*, Auto, 50, Auto, *">
+        <Image x:Name="imLogo" 
+               Source="logo.png"
+               WidthRequest="200"
+               HeightRequest="200" 
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Grid.Row="1"/>
+        <VerticalStackLayout Padding="20" VerticalOptions="Center" Grid.Row="3">
+
+            <!-- Language Selector Button -->
+            <Frame CornerRadius="30" Padding="5" HasShadow="True"
+               BorderColor="Gray" BackgroundColor="White"
+               WidthRequest="250">
+                <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center" Padding="5">
+                    <!-- Flag -->
+                    <Image Source="{Binding SelectedFlag}" WidthRequest="30" HeightRequest="20"
+                       VerticalOptions="Center" Margin="5"/>
+
+                    <!-- Selected Language -->
+                    <Label Text="{Binding SelectedLanguage}" Grid.Column="1"
+                       FontSize="18" VerticalTextAlignment="Center" TextColor="Green"/>
+
+                    <!-- Dropdown Arrow -->
+                    <Image Source="down.png" Grid.Column="2"
+                       WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                </Grid>
+
+                <!-- Open dropdown on tap -->
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFrameTapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <!-- Custom Dropdown (Styled) -->
+            <Frame x:Name="DropdownList" IsVisible="False"
+               BackgroundColor="White" CornerRadius="10"
+               HasShadow="True" Padding="5" WidthRequest="250">
+                <CollectionView ItemsSource="{Binding Languages}"
+                            SelectionMode="Single"
+                            SelectionChanged="OnLanguageSelected">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" ColumnDefinitions="Auto, *, Auto">
+                                <!-- Flag -->
+                                <Image Source="{Binding Flag}" WidthRequest="30" HeightRequest="20"
+                                   VerticalOptions="Center"/>
+
+                                <!-- Language Name -->
+                                <Label Text="{Binding Name}" Grid.Column="1"
+                                   FontSize="18" VerticalTextAlignment="Center" TextColor="Black"/>
+
+                                <!-- Checkmark (conditionally visible) -->
+                                <Image Source="checkmark.png" Grid.Column="2"
+                                   WidthRequest="20" HeightRequest="20" 
+                                   IsVisible="{Binding IsSelected}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

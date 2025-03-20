@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.LoginPage"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls" 
+             Title="LoginPage">
+
+    <Grid RowDefinitions="*,100, 20, 80, Auto, 10, Auto"
+          VerticalOptions="Center"
+          Margin="36,0,36,0">
+        <skia:SKCanvasView x:Name="skCanvasView" 
+                           WidthRequest="200"
+                           HeightRequest="200" 
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           PaintSurface="OnCanvasViewPaintSurface"/>
+        <StackLayout WidthRequest="250" 
+                     HorizontalOptions="Center"
+                     Grid.Row="2">
+            <Label Text="Foydalanuvchi sifatida o’zingizni rolingizni tanlang"
+                   TextColor="Gray"
+                   HorizontalTextAlignment="Center"
+                   LineBreakMode="WordWrap"/>
+        </StackLayout>
+        <Button Text="Sotuvchi"
+                HeightRequest="50"
+                CornerRadius="0"
+                VerticalOptions="End"
+                Grid.Row="4">
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#A100F2" Offset="0.0"/>
+                    <GradientStop Color="#F400A1" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Text="Xaridor"
+                HeightRequest="50"
+                CornerRadius="0"
+                VerticalOptions="End"
+                Grid.Row="6">
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#009688" Offset="0.0"/>
+                    <GradientStop Color="#4CAF50" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+    </Grid>
+</ContentPage>
