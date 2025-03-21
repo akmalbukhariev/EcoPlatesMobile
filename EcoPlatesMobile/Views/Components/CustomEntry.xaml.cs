@@ -26,6 +26,9 @@ public partial class CustomEntry : ContentView
     public static readonly BindableProperty EntryHeightProperty =
        BindableProperty.Create(nameof(EntryHeight), typeof(double), typeof(CustomEntry), 60.0, propertyChanged: EntryHeightChanged);
 
+    public static readonly BindableProperty EntryKeyboardProperty =
+       BindableProperty.Create(nameof(EntryKeyboard), typeof(Keyboard), typeof(CustomEntry), Keyboard.Default, propertyChanged: EntryKeyboardChanged);
+
     public Color EntryBorderColor
     {
         get => (Color)GetValue(EntryBorderColorProperty);
@@ -66,6 +69,12 @@ public partial class CustomEntry : ContentView
     {
         get => (double)GetValue(EntryHeightProperty);
         set => SetValue(EntryHeightProperty, value);
+    }
+ 
+    public Keyboard EntryKeyboard
+    {
+        get => (Keyboard)GetValue(EntryKeyboardProperty);
+        set => SetValue(EntryKeyboardProperty, value);
     }
 
     private Color _defaultBorderColor;
@@ -148,5 +157,11 @@ public partial class CustomEntry : ContentView
     {
         var control = (CustomEntry)bindable;
         control.borderContainer.HeightRequest = (double)newValue;
+    }
+
+    private static void EntryKeyboardChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CustomEntry)bindable;
+        control.customEntry.Keyboard = (Keyboard)newValue;
     }
 }

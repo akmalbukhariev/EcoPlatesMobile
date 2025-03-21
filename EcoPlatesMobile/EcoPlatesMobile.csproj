@@ -114,6 +114,9 @@
 	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\PhoneNumberPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\User\Components\CompanyTypeListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

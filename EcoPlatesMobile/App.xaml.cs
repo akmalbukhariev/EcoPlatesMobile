@@ -20,7 +20,7 @@ namespace EcoPlatesMobile
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new LanguagePage()); 
+            return new Window(new PhoneNumberPage()); 
         }
 
         private void Setting()

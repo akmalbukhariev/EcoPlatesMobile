@@ -24,6 +24,7 @@
                    VerticalOptions="Center"
                    Margin="8,0"/>
             <Entry x:Name="customEntry"
+                   Keyboard="{Binding EntryKeyboard}"
                    Placeholder="{Binding EntryPlaceHolder}"
                    PlaceholderColor="{Binding EntryPlaceHolderColor}"
                    FontSize="14"

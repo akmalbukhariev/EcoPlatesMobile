@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.PhoneNumberPage"
+             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+             Title="PhoneNumberPage">
+
+    <Grid RowDefinitions="Auto, 50, Auto, *, Auto, 30">
+        <component:CustomHeader Title="Avtorizatsiya"/>
+        <VerticalStackLayout Spacing="20"
+                             Margin="16,0,16,0"
+                             Grid.Row="2">
+            <Label Text="Iltimos, telefon raqamingizni kiriting"/>
+            <component:CustomEntry EntryIcon="phone.png"
+                                   EntryKeyboard="Numberic"
+                                   EntryBorderColor="#E9E9E9"
+                                   EntryBackgroundColor="#F5F5F5"
+                                   EntryPlaceHolder="Ism sharifingiz"/>
+            <Label Text="Ushbu telefon raqam orqali siz platformadan unumli foydalanishingiz mumkin.
+                        Telefon raqamingizni to’g’ri kiritishingiz juda ham muhim."/>
+            <Label Text="Telefon raqamingizni kiritishingiz orqali siz ommaviy ofertaga roziligingizni bildirasiz."/>
+            <HorizontalStackLayout>
+                <CheckBox x:Name="chkAgreement" />
+                <Label VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Ommaviy oferta" TextColor="Purple">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnOfferTapped" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text=" bilan tanishdim va men undagi shartlarga roziman" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <Button Text="Tasdiqlash"
+                BackgroundColor="#8338EC"
+                CornerRadius="30"
+                TextColor="White"
+                FontFamily="Roboto"
+                HeightRequest="50"
+                Grid.Row="4"/>
+    </Grid>
+</ContentPage>
