@@ -65,14 +65,19 @@
                     </Border.StrokeShape>
                     <Grid ColumnDefinitions="Auto, *, Auto" 
                           VerticalOptions="Center">
+                          <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="CompanyTypeTapped"/>
+                          </Grid.GestureRecognizers>
                         <Image Source="company_type.png"
                                WidthRequest="25"
                                HeightRequest="25"
                                VerticalOptions="Center"
-                               Margin="8,0"/>
-                         <Label Text="Korxona turi"
+                               Margin="8,0, 10, 0"/>
+                        <Label x:Name="labelCompanyType" 
+                               Text="Korxona turi"
                                 FontSize="14"
                                 TextColor="#666666"
+                                VerticalTextAlignment="Center"
                                 Grid.Column="1"/>
                         <Image Source="down.png"
                                WidthRequest="16"
@@ -83,7 +88,11 @@
                                Grid.Column="2"/>
                     </Grid>
                 </Border>
+                 
                 <component:CustomEntry EntryIcon="phone.png"
+                                       IsPhoneNumber="True"
+                                       EntryKeyboard="Numeric"
+                                       EntryShowPrefix="True"
                                        EntryPlaceHolder="Telfon raqam"
                                        Style="{StaticResource styleEntry}"
                                        Grid.Row="3"/>
@@ -120,6 +129,7 @@
                         </Border>
                     </Grid>
                 </Border>
+                
                 <Border Style="{StaticResource styleBorder}"
                         HeightRequest="100"
                         Grid.Row="6">
@@ -127,38 +137,47 @@
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
                     <StackLayout VerticalOptions="Center"
-                                 Spacing="10">
-                        <StackLayout Orientation="Horizontal"
-                                     Margin="10,0,0,0">
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnStartTimeTapped" />
-                            </StackLayout.GestureRecognizers>
-                            <Image Source="time_start.png"
-                                   WidthRequest="20"
-                                   HeightRequest="20"
-                                   VerticalOptions="Center"/>
-                            <Label Text="Ish boshlash vaqti"
-                                   Style="{StaticResource styleLabel}"
-                                   Margin="10,0,0,0"/>
-                        </StackLayout>
+                                 Spacing="0">
+                        <Grid ColumnDefinitions="Auto, *, Auto"
+                              Margin="20,0,20,5"
+                              VerticalOptions="Center">
+                                <Image Source="time_start.png"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       Margin="0,0, 10,0"
+                                       VerticalOptions="Center"/>
+                                <TimePicker x:Name="startTimePicker"
+                                            FontSize="16"
+                                            HorizontalOptions="Start" 
+                                            Grid.Column="1"/>
+                                <Label x:Name="startDateTimeLabel"
+                                       Text="Ish boshlash vaqti"
+                                       Style="{StaticResource styleLabel}"
+                                       VerticalTextAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Grid.Column="3"/>
+                        </Grid>
                         <Border BackgroundColor="#E9E9E9" 
                                 HeightRequest="2"
                                 Margin="10,0,10,0"
                                 Grid.Row="1"/>
-                        <StackLayout Orientation="Horizontal"
-                                     Margin="10,0,0,0"
-                                     Grid.Row="2">
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnEndTimeTapped" />
-                            </StackLayout.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto, *, Auto"
+                              Margin="20,5,20,0">
                             <Image Source="time_end.png"
                                    WidthRequest="20"
                                    HeightRequest="20"
+                                   Margin="0,0, 10,0"
                                    VerticalOptions="Center"/>
-                            <Label Text="Ish tugashi vaqti"
+                            <TimePicker x:Name="endDatePicker"
+                                        HorizontalOptions="Start"
+                                        FontSize="16"
+                                        Grid.Column="1"/>
+                            <Label x:Name="endTimeLabel" Text="Ish tugashi vaqti"
                                    Style="{StaticResource styleLabel}"
-                                   Margin="10,0,0,0"/>
-                        </StackLayout>
+                                   VerticalTextAlignment="Center"
+                                   Margin="0,0,10,0"
+                                   Grid.Column="2"/>
+                        </Grid>
                     </StackLayout>
                 </Border>
             </StackLayout>
@@ -173,8 +192,5 @@
                     Grid.Row="2"/>
         </Grid>
         </ScrollView>
-        <component:CustomDatePickerView x:Name="datePickerView" 
-                                        DateSelected="OnDateSelected"
-                                        Grid.RowSpan="2"/>
     </Grid>
 </ContentPage>

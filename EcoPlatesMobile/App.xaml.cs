@@ -1,4 +1,5 @@
 ﻿
+using Android.Graphics.Drawables;
 using EcoPlatesMobile.Views;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
@@ -20,7 +21,7 @@ namespace EcoPlatesMobile
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new PhoneNumberPage()); 
+            return new Window(new CompanyRegistrationPage()); 
         }
 
         private void Setting()
@@ -43,6 +44,17 @@ namespace EcoPlatesMobile
                 handler.PlatformView.BackgroundTintList =
                     Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
             });
+
+            Microsoft.Maui.Handlers.TimePickerHandler.Mapper.AppendToMapping(nameof(TimePicker), (handler, view) =>
+            {
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
+            });
+
+            //Microsoft.Maui.Handlers.TimePickerHandler.Mapper.AppendToMapping("Force24Hour", (handler, view) =>
+            //{ 
+                //handler.PlatformView?.SetOnClickListener(new My24HourTimePickerClickListener(handler));
+            //});
 #endif
         }
     }

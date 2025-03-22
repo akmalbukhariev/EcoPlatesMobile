@@ -14,15 +14,21 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="{Binding EntryCornerRadius}"/>
         </Border.StrokeShape>
-
-        <Grid ColumnDefinitions="Auto, *" 
+        <Grid ColumnDefinitions="Auto, Auto, *" 
               VerticalOptions="Center">
             <Image x:Name="iconImage"
                    Source="{Binding EntryIcon}"
                    WidthRequest="25"
                    HeightRequest="25"
                    VerticalOptions="Center"
-                   Margin="8,0"/>
+                   Margin="12,0"/>
+            <Label x:Name="prefixLabel"
+                   Text="+998"
+                   IsVisible="{Binding EntryShowPrefix}"
+                   TextColor="Gray"
+                   FontSize="14"
+                   VerticalOptions="Center"
+                   Grid.Column="1"/>
             <Entry x:Name="customEntry"
                    Keyboard="{Binding EntryKeyboard}"
                    Placeholder="{Binding EntryPlaceHolder}"
@@ -31,7 +37,7 @@
                    VerticalOptions="Center"
                    BackgroundColor="Transparent"
                    TextColor="Black"
-                   Grid.Column="1"/>
+                   Grid.Column="2"/>
         </Grid>
     </Border>
 </ContentView>

@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 namespace EcoPlatesMobile.Views.Components;
 
 public partial class CustomDatePickerView : ContentView
-{ 
-    public event EventHandler<string> DateSelected;
+    {
+        public event EventHandler<string> DateSelected;
 
         public ObservableCollection<string> Dates { get; set; }
         public ObservableCollection<string> Hours { get; set; }
@@ -36,24 +36,29 @@ public partial class CustomDatePickerView : ContentView
                 Minutes.Add(i.ToString("D2"));
             }
 
-            // Bind lists to UI
+            // Bind to CollectionViews
             DateList.ItemsSource = Dates;
             HourList.ItemsSource = Hours;
             MinuteList.ItemsSource = Minutes;
+
+            // Set default selections
+            DateList.SelectedItem = Dates.FirstOrDefault();
+            HourList.SelectedItem = Hours.FirstOrDefault();
+            MinuteList.SelectedItem = Minutes.FirstOrDefault();
         }
 
         /// <summary>
-        /// Show the Date Picker with a slide-up animation
+        /// Show the date picker with animation
         /// </summary>
         public async void Show()
         {
             IsVisible = true;
-            PickerFrame.TranslationY = 300; // Start position (off-screen)
+            PickerFrame.TranslationY = 300;
             await PickerFrame.TranslateTo(0, 0, 300, Easing.SinOut);
         }
 
         /// <summary>
-        /// Hide the Date Picker with a slide-down animation
+        /// Hide the date picker with animation
         /// </summary>
         public async void Hide()
         {
@@ -62,7 +67,7 @@ public partial class CustomDatePickerView : ContentView
         }
 
         /// <summary>
-        /// Closes the picker when the background overlay is tapped
+        /// Tapped outside = hide the picker
         /// </summary>
         private void OnOverlayTapped(object sender, EventArgs e)
         {
@@ -70,15 +75,15 @@ public partial class CustomDatePickerView : ContentView
         }
 
         /// <summary>
-        /// Handles the confirmation button click, returning the selected date/time
+        /// Confirm selected values
         /// </summary>
         private void OnConfirmClicked(object sender, EventArgs e)
         {
             if (DateList.SelectedItem == null || HourList.SelectedItem == null || MinuteList.SelectedItem == null)
                 return;
 
-            string selectedDate = $"{DateList.SelectedItem} {HourList.SelectedItem}:{MinuteList.SelectedItem}";
-            DateSelected?.Invoke(this, selectedDate); // Fire event
+            string selected = $"{DateList.SelectedItem} {HourList.SelectedItem}:{MinuteList.SelectedItem}";
+            DateSelected?.Invoke(this, selected);
             Hide();
         }
-}
+    }

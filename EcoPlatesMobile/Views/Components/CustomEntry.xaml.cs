@@ -27,7 +27,10 @@ public partial class CustomEntry : ContentView
        BindableProperty.Create(nameof(EntryHeight), typeof(double), typeof(CustomEntry), 60.0, propertyChanged: EntryHeightChanged);
 
     public static readonly BindableProperty EntryKeyboardProperty =
-       BindableProperty.Create(nameof(EntryKeyboard), typeof(Keyboard), typeof(CustomEntry), Keyboard.Default, propertyChanged: EntryKeyboardChanged);
+       BindableProperty.Create(nameof(EntryKeyboard), typeof(Keyboard), typeof(CustomEntry), default(Keyboard), propertyChanged: EntryKeyboardChanged);
+
+    public static readonly BindableProperty EntryShowPrefixProperty =
+       BindableProperty.Create(nameof(EntryShowPrefix), typeof(bool), typeof(CustomEntry), false, propertyChanged: EntryShowPrefixChanged);
 
     public Color EntryBorderColor
     {
@@ -77,6 +80,15 @@ public partial class CustomEntry : ContentView
         set => SetValue(EntryKeyboardProperty, value);
     }
 
+    public bool EntryShowPrefix
+    {
+        get => (bool)GetValue(EntryShowPrefixProperty);
+        set => SetValue(EntryShowPrefixProperty, value);
+    }
+    
+    public bool IsPhoneNumber{get; set;}
+    private const int MaxPhoneLength = 9;
+
     private Color _defaultBorderColor;
     private Color _defaultEntryBackgroundColor;
 
@@ -84,7 +96,8 @@ public partial class CustomEntry : ContentView
 	{
 		InitializeComponent();
         BindingContext = this;
-
+        IsPhoneNumber = false;
+        
         _defaultBorderColor = EntryBorderColor;
         _defaultEntryBackgroundColor = EntryBackgroundColor;
         
@@ -114,6 +127,17 @@ public partial class CustomEntry : ContentView
         {
             EntryBorderColor = Color.FromArgb("#00C300");
             EntryBackgroundColor = Colors.White;
+        }
+
+        if(IsPhoneNumber)
+        {
+            string digitsOnly = new string(newText.Where(char.IsDigit).ToArray());
+
+            if (digitsOnly.Length > MaxPhoneLength)
+                digitsOnly = digitsOnly.Substring(0, MaxPhoneLength);
+
+            if (customEntry.Text != digitsOnly)
+                customEntry.Text = digitsOnly;
         }
     }
 
@@ -163,5 +187,11 @@ public partial class CustomEntry : ContentView
     {
         var control = (CustomEntry)bindable;
         control.customEntry.Keyboard = (Keyboard)newValue;
+    }
+
+    private static void EntryShowPrefixChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CustomEntry)bindable;
+        control.prefixLabel.IsVisible = (bool)newValue;
     }
 }
