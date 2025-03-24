@@ -2,6 +2,8 @@
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Extended;
 using Svg.Skia;
+using System.Threading.Tasks;
+using EcoPlatesMobile.Core;
 
 namespace EcoPlatesMobile.Views;
 
@@ -34,8 +36,7 @@ public partial class LoginPage : ContentPage
             Console.WriteLine($"❌ Error loading SVG: {ex.Message}");
         }
     }
-
-
+ 
     private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
@@ -72,4 +73,23 @@ public partial class LoginPage : ContentPage
         canvas.DrawPicture(svg.Picture);
         canvas.Restore();
     }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        var session = AppService.Get<UserSessionService>();
+        
+        if (sender == btnComapny)
+        {
+            session?.SetUser(UserRole.Company);
+        }
+        else if (sender == btnUser)
+        {
+            session?.SetUser(UserRole.User);
+        } 
+        
+        //await AppNavigatorService.NavigateTo($"//{AppRoutes.UserMainPage}");
+         Application.Current.MainPage = new AppUserShell();
+        //await AppNavigatorService.NavigateTo(AppRoutes.PhoneNumberPage);
+    }   
+
 }

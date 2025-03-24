@@ -22,22 +22,26 @@
                    HorizontalTextAlignment="Center"
                    LineBreakMode="WordWrap"/>
         </StackLayout>
-        <Button Text="Sotuvchi"
+        <Button x:Name="btnComapny" 
+                Text="Sotuvchi"
                 HeightRequest="50"
                 CornerRadius="0"
                 VerticalOptions="End"
+                Clicked="Button_Clicked"
                 Grid.Row="4">
-            <Button.Background>
+            <!-- <Button.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#A100F2" Offset="0.0"/>
                     <GradientStop Color="#F400A1" Offset="1.0"/>
                 </LinearGradientBrush>
-            </Button.Background>
+            </Button.Background> -->
         </Button>
-        <Button Text="Xaridor"
+        <Button x:Name="btnUser"
+                Text="Xaridor"
                 HeightRequest="50"
                 CornerRadius="0"
                 VerticalOptions="End"
+                Clicked="Button_Clicked"
                 Grid.Row="6">
             <Button.Background>
                 <LinearGradientBrush>
