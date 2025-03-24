@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace EcoPlatesMobile.Views;
 
-public partial class LanguagePage : ContentPage
+public partial class LanguagePage : BasePage
 {
     public ObservableCollection<LanguageModel> Languages { get; set; }
 

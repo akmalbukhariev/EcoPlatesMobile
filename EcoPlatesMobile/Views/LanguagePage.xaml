@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.LanguagePage"
-             BackgroundColor="#007200"
-             Title="LanguagePage">
+<view:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.LanguagePage"
+               xmlns:view="clr-namespace:EcoPlatesMobile.Views"
+               BackgroundColor="#007200">
 
     <Grid RowDefinitions="*, Auto, 50, Auto, *">
     <Image x:Name="imLogo" 
@@ -101,4 +101,4 @@
             Grid.Row="4"/>
 </Grid>
 
-</ContentPage>
+</view:BasePage>

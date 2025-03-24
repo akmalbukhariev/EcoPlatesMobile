@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.AuthorizationPage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             xmlns:pinview="clr-namespace:PINView.Maui;assembly=PINView.Maui"
-             Title="AuthorizationPage">
+<view:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.AuthorizationPage"
+               xmlns:view="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:pinview="clr-namespace:PINView.Maui;assembly=PINView.Maui">
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="Avtorizatsiya"/>
@@ -78,4 +78,4 @@
                     Grid.Row="5"/>
         </Grid>
     </Grid>
-</ContentPage>
+</view:BasePage>

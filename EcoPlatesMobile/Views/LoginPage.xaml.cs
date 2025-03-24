@@ -5,7 +5,7 @@ using Svg.Skia;
 
 namespace EcoPlatesMobile.Views;
 
-public partial class LoginPage : ContentPage
+public partial class LoginPage : BasePage
 {
     private SKSvg svg;
     public LoginPage()

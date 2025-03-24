@@ -4,12 +4,13 @@
              x:Class="EcoPlatesMobile.Views.User.Pages.UserBrowserPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
              xmlns:userComponent="clr-namespace:EcoPlatesMobile.Views.User.Components"
-             Title="UserBrowserPage">
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps">
 
     <Grid>
-        <BoxView x:Name="map" 
-                 BackgroundColor="Aqua"
-                 IsVisible="False"/>
+        <maps:Map x:Name="map" 
+                  MapType="Street"
+                  IsShowingUser="true"
+                  IsVisible="False"/>
         <Grid RowDefinitions="Auto, 10, Auto, *"
               Margin="16,10,16,0">
             <Grid ColumnDefinitions="*, Auto, Auto">
