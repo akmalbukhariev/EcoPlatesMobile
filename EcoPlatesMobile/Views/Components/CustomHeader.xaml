@@ -11,7 +11,12 @@
             Source="back.png"
             WidthRequest="24"
             HeightRequest="24"
-            Margin="16, 4.44, 0, 0"/>
+            Margin="16, 4.44, 0, 0">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Back_Tapped"
+                                       NumberOfTapsRequired="1"/>
+            </Image.GestureRecognizers>
+        </Image>
         <Label 
             x:Name="lbTitle"
             Text="{Binding Title}"

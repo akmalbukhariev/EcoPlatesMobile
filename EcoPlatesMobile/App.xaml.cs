@@ -1,5 +1,5 @@
 ﻿
-using Android.Graphics.Drawables;
+
 using EcoPlatesMobile.Views;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
@@ -22,7 +22,10 @@ namespace EcoPlatesMobile
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new LoginPage()); 
+            //return new Window(new NavigationPage(new LoginPage())); 
+            //return new Window(new AppUserShell());
+
+            return new Window(new UserBrowserPage());
         }
 
         private void RegisterRoutes()

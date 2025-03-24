@@ -75,6 +75,7 @@
                     TextColor="White"
                     FontFamily="Roboto"
                     HeightRequest="50"
+                    Clicked="Button_Clicked"
                     Grid.Row="5"/>
         </Grid>
     </Grid>

@@ -10,7 +10,7 @@
        Title="EcoPlatesMobile">
 
     <TabBar>
-        <Tab Icon="home.png">
+         <Tab Icon="home.png">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>

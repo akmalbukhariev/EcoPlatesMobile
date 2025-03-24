@@ -49,13 +49,14 @@
                 </Label>
             </Grid>
         </VerticalStackLayout>
-        <Button Text="Tasdiqlash"
+        <Button Text="Keyingisi"
                 BackgroundColor="#8338EC"
                 CornerRadius="30"
                 TextColor="White"
                 FontFamily="Roboto"
                 HeightRequest="50"
                 Margin="16,0,16,0"
+                Clicked="Button_Clicked"
                 Grid.Row="4"/>
     </Grid>
 </view:BasePage>

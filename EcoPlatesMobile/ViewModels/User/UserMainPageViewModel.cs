@@ -20,6 +20,8 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public UserMainPageViewModel()
         {
+            products = new ObservableCollection<ProductModel>();
+            
             products.Add(new ProductModel
             {
                 Image = "cake.png",

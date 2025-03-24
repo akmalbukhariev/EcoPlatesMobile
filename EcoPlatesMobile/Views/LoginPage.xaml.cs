@@ -87,8 +87,10 @@ public partial class LoginPage : BasePage
             session?.SetUser(UserRole.User);
         } 
         
+        await Navigation.PushAsync(new PhoneNumberPage());
+        
         //await AppNavigatorService.NavigateTo($"//{AppRoutes.UserMainPage}");
-         Application.Current.MainPage = new AppUserShell();
+        //Application.Current.MainPage = new AppUserShell();
         //await AppNavigatorService.NavigateTo(AppRoutes.PhoneNumberPage);
     }   
 

@@ -45,7 +45,7 @@ public partial class UserBrowserPage : ContentPage
             Console.WriteLine("Animating to Map...");
 
             list.IsVisible = true;
-            map.IsVisible = true; // Make sure map is visible BEFORE animating
+            //map.IsVisible = true; // Make sure map is visible BEFORE animating
 
             // Reset TranslationX if necessary
             if (map.TranslationX != screenWidth)
