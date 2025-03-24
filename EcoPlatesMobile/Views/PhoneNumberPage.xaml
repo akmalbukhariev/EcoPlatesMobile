@@ -12,28 +12,42 @@
                              Grid.Row="2">
             <Label Text="Iltimos, telefon raqamingizni kiriting"/>
             <component:CustomEntry EntryIcon="phone.png"
-                                   EntryKeyboard="Numberic"
+                                   EntryShowPrefix="True"
+                                   IsPhoneNumber="False"
+                                   EntryKeyboard="Numeric"
                                    EntryBorderColor="#E9E9E9"
                                    EntryBackgroundColor="#F5F5F5"
                                    EntryPlaceHolder="Ism sharifingiz"/>
-            <Label Text="Ushbu telefon raqam orqali siz platformadan unumli foydalanishingiz mumkin.
-                        Telefon raqamingizni to’g’ri kiritishingiz juda ham muhim."/>
-            <Label Text="Telefon raqamingizni kiritishingiz orqali siz ommaviy ofertaga roziligingizni bildirasiz."/>
-            <HorizontalStackLayout>
-                <CheckBox x:Name="chkAgreement" />
-                <Label VerticalOptions="Center">
+            <Grid>
+                <Label Text="Ushbu telefon raqam orqali siz platformadan unumli foydalanishingiz mumkin. Telefon raqamingizni to’g’ri kiritishingiz juda ham muhim."/>
+            </Grid>
+            <Grid>
+                <Label Text="Telefon raqamingizni kiritishingiz orqali siz ommaviy ofertaga roziligingizni bildirasiz."/>
+            </Grid>
+            <Grid Padding="0"
+                  Background="#1415CA18"
+                  ColumnDefinitions="Auto, *"
+                  VerticalOptions="Start">
+                <CheckBox x:Name="chkAgreement"
+                          Margin="0,0,0,0" />
+                <Label Grid.Column="1"
+                       VerticalOptions="Start"
+                       LineBreakMode="WordWrap"
+                       HorizontalTextAlignment="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Ommaviy oferta" TextColor="Purple">
+                            <Span Text="Ommaviy oferta "
+                                  TextColor="Purple"
+                                  TextDecorations="Underline">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnOfferTapped" />
                                 </Span.GestureRecognizers>
                             </Span>
-                            <Span Text=" bilan tanishdim va men undagi shartlarga roziman" />
+                            <Span Text="bilan tanishdim va men undagi shartlarga roziman" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-            </HorizontalStackLayout>
+            </Grid>
         </VerticalStackLayout>
         <Button Text="Tasdiqlash"
                 BackgroundColor="#8338EC"
@@ -41,6 +55,7 @@
                 TextColor="White"
                 FontFamily="Roboto"
                 HeightRequest="50"
+                Margin="16,0,16,0"
                 Grid.Row="4"/>
     </Grid>
 </view:BasePage>

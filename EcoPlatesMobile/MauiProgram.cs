@@ -1,4 +1,5 @@
-﻿using EcoPlatesMobile.Services;
+﻿using CommunityToolkit.Maui;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using Microsoft.Extensions.Logging;
 using RestSharp;
@@ -13,6 +14,7 @@ namespace EcoPlatesMobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
