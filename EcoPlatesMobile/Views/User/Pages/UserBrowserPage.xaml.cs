@@ -5,7 +5,7 @@ namespace EcoPlatesMobile.Views.User.Pages;
 
 public partial class UserBrowserPage : ContentPage
 {
-	private UserBrowserPageViewModel viewModel;
+    private UserBrowserPageViewModel viewModel;
 	public UserBrowserPage()
 	{
 		InitializeComponent();

@@ -1,6 +1,6 @@
 namespace EcoPlatesMobile.Views;
 
-public partial class AuthorizationPage : ContentPage
+public partial class AuthorizationPage : BasePage
 {
 	public AuthorizationPage()
 	{

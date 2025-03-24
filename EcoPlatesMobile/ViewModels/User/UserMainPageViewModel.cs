@@ -1,4 +1,5 @@
-﻿using EcoPlatesMobile.Models.User;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using EcoPlatesMobile.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,103 +9,105 @@ using System.Threading.Tasks;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public class UserMainPageViewModel
+    //https://learn.microsoft.com/en-us/dotnet/architecture/maui/mvvm-community-toolkit-features
+    //https://github.com/dotnet-architecture/eshop-mobile-client/blob/main/eShopOnContainers/Services/Navigation/MauiNavigationService.cs
+    //https://github.com/dotnet/maui
+
+    public partial class UserMainPageViewModel : ObservableObject
     {
-        public ObservableCollection<ProductModel> Products {  get; set; }
+        [ObservableProperty]
+        public ObservableCollection<ProductModel> products;
 
         public UserMainPageViewModel()
         {
-            Products = new ObservableCollection<ProductModel>
+            products.Add(new ProductModel
             {
-                new ProductModel 
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-            };
+                Image = "cake.png",
+                Count = "2 qoldi",
+                Name = "Tort rogalik",
+                ComapnyName = "Safia &amp; Bakery",
+                NewPrice = "15 000 so'm",
+                OldPrice = "25 000 so'm",
+                Stars = "3.1",
+                Distance = "1 km"
+            });
+            products.Add(new ProductModel
+            {
+                Image = "cake.png",
+                Count = "2 qoldi",
+                Name = "Tort rogalik",
+                ComapnyName = "Safia &amp; Bakery",
+                NewPrice = "15 000 so'm",
+                OldPrice = "25 000 so'm",
+                Stars = "3.1",
+                Distance = "1 km"
+            });
+            products.Add(new ProductModel
+            {
+                Image = "cake.png",
+                Count = "2 qoldi",
+                Name = "Tort rogalik",
+                ComapnyName = "Safia &amp; Bakery",
+                NewPrice = "15 000 so'm",
+                OldPrice = "25 000 so'm",
+                Stars = "3.1",
+                Distance = "1 km"
+            });
+            products.Add(new ProductModel
+            {
+                Image = "cake.png",
+                Count = "2 qoldi",
+                Name = "Tort rogalik",
+                ComapnyName = "Safia &amp; Bakery",
+                NewPrice = "15 000 so'm",
+                OldPrice = "25 000 so'm",
+                Stars = "3.1",
+                Distance = "1 km"
+            });
+            products.Add(new ProductModel
+            {
+                Image = "cake.png",
+                Count = "2 qoldi",
+                Name = "Tort rogalik",
+                ComapnyName = "Safia &amp; Bakery",
+                NewPrice = "15 000 so'm",
+                OldPrice = "25 000 so'm",
+                Stars = "3.1",
+                Distance = "1 km"
+            });
+            products.Add(new ProductModel
+            {
+                Image = "cake.png",
+                Count = "2 qoldi",
+                Name = "Tort rogalik",
+                ComapnyName = "Safia &amp; Bakery",
+                NewPrice = "15 000 so'm",
+                OldPrice = "25 000 so'm",
+                Stars = "3.1",
+                Distance = "1 km"
+            });
+            products.Add(new ProductModel
+            {
+                Image = "cake.png",
+                Count = "2 qoldi",
+                Name = "Tort rogalik",
+                ComapnyName = "Safia &amp; Bakery",
+                NewPrice = "15 000 so'm",
+                OldPrice = "25 000 so'm",
+                Stars = "3.1",
+                Distance = "1 km"
+            });
+            products.Add(new ProductModel
+            {
+                Image = "cake.png",
+                Count = "2 qoldi",
+                Name = "Tort rogalik",
+                ComapnyName = "Safia &amp; Bakery",
+                NewPrice = "15 000 so'm",
+                OldPrice = "25 000 so'm",
+                Stars = "3.1",
+                Distance = "1 km"
+            });
         }
     }
 }

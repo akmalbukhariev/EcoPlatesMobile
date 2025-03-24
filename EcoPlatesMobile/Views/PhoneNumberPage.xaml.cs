@@ -1,11 +1,11 @@
 namespace EcoPlatesMobile.Views;
 
-public partial class PhoneNumberPage : ContentPage
+public partial class PhoneNumberPage : BasePage
 {
 	public PhoneNumberPage()
 	{
-		InitializeComponent();
-	}
+		InitializeComponent(); 
+    }
 
     private void OnOfferTapped(object sender, EventArgs e)
     {
