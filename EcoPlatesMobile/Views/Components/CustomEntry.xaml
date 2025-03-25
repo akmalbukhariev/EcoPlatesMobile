@@ -6,7 +6,7 @@
              x:DataType="local:CustomEntry">
 
     <Border x:Name="borderContainer"
-            StrokeThickness="2"
+            StrokeThickness="1"
             Stroke="{Binding EntryBorderColor}"
             BackgroundColor="{Binding EntryBackgroundColor}"
             Padding="0"

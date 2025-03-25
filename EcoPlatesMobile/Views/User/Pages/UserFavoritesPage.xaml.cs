@@ -21,44 +21,32 @@ public partial class UserFavoritesPage : ContentPage
         const int animationDuration = 400;
         double screenWidth = this.Width;
 
-        if (screenWidth <= 0) screenWidth = 400; // Fallback if width is 0
+        if (screenWidth <= 0) screenWidth = 400;
 
-        Console.WriteLine($"Switching tab: {e}, Screen Width: {screenWidth}");
-
-        if (e == tabSwitcher.Tab1_Title) // Show List
+        if (e == tabSwitcher.Tab1_Title)
         {
-            Console.WriteLine("Animating to List...");
-
             listCompany.IsVisible = true;
-            listProduct.IsVisible = true; // Ensure Map is visible before animation
+            listProduct.IsVisible = true;
 
-            // Move List into View, Move Map Out
             await Task.WhenAll(
                 listCompany.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
-                listProduct.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut) // Move Map out
+                listProduct.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut)
             );
-
-            Console.WriteLine($"Final Positions: List X={listCompany.TranslationX}, Map X={listProduct.TranslationX}");
         }
-        else if (e == tabSwitcher.Tab2_Title) // Show Map
+        else if (e == tabSwitcher.Tab2_Title)
         {
-            Console.WriteLine("Animating to Map...");
-
             listCompany.IsVisible = true;
-            listProduct.IsVisible = true; // Make sure map is visible BEFORE animating
+            listProduct.IsVisible = true;
 
-            // Reset TranslationX if necessary
             if (listProduct.TranslationX != screenWidth)
             {
-                listProduct.TranslationX = screenWidth; // Ensure it's in the right position
+                listProduct.TranslationX = screenWidth;
             }
 
             await Task.WhenAll(
-                listCompany.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut), // Move List out
-                listProduct.TranslateTo(0, 0, animationDuration, Easing.CubicInOut) // Bring Map in
+                listCompany.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
+                listProduct.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
             );
-
-            Console.WriteLine($"Final Positions: List X={listCompany.TranslationX}, Map X={listProduct.TranslationX}");
         }
     }
 }

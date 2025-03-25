@@ -28,6 +28,7 @@
               Margin="16, 30, 16, 0"
               Grid.Row="1">
             <userComponent:TabSwitcherView x:Name="tabSwitcher"
+                                           SwitchType="Classic"
                                            Tab1_Title="Sallar"
                                            Tab2_Title="Products"/>
             <CollectionView x:Name="listCompany" 

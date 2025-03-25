@@ -21,44 +21,32 @@ public partial class UserBrowserPage : ContentPage
         const int animationDuration = 400;
         double screenWidth = this.Width;
 
-        if (screenWidth <= 0) screenWidth = 400; // Fallback if width is 0
+        if (screenWidth <= 0) screenWidth = 400;
 
-        Console.WriteLine($"Switching tab: {e}, Screen Width: {screenWidth}");
-
-        if (e == tabSwitcher.Tab1_Title) // Show List
+        if (e == tabSwitcher.Tab1_Title)
         {
-            Console.WriteLine("Animating to List...");
-
             list.IsVisible = true;
-            map.IsVisible = true; // Ensure Map is visible before animation
+            map.IsVisible = true;
 
-            // Move List into View, Move Map Out
             await Task.WhenAll(
                 list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
-                map.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut) // Move Map out
+                map.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut)
             );
-
-            Console.WriteLine($"Final Positions: List X={list.TranslationX}, Map X={map.TranslationX}");
         }
-        else if (e == tabSwitcher.Tab2_Title) // Show Map
+        else if (e == tabSwitcher.Tab2_Title)
         {
-            Console.WriteLine("Animating to Map...");
-
             list.IsVisible = true;
-            //map.IsVisible = true; // Make sure map is visible BEFORE animating
+            map.IsVisible = true;
 
-            // Reset TranslationX if necessary
             if (map.TranslationX != screenWidth)
             {
-                map.TranslationX = screenWidth; // Ensure it's in the right position
+                map.TranslationX = screenWidth;
             }
 
             await Task.WhenAll(
-                list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut), // Move List out
-                map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut) // Bring Map in
+                list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
+                map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
             );
-
-            Console.WriteLine($"Final Positions: List X={list.TranslationX}, Map X={map.TranslationX}");
         }
     }
 }

@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Components.TabSwitcherView">
 
-        <Grid ColumnDefinitions="*, *"
-            HeightRequest="50">
+    <Grid>
+        <Grid x:Name="grdClassic" 
+              ColumnDefinitions="*, *"
+              HeightRequest="50">
             <BoxView BackgroundColor="#E5E5E5"
                      CornerRadius ="5"
                      Grid.ColumnSpan="2"/>
@@ -30,4 +32,43 @@
                     Clicked="OnTabClicked"
                     Grid.Column="1"/>
         </Grid>
+        <Grid x:Name="grdModern"
+              ColumnDefinitions="*, *"
+              IsVisible="False"
+              HeightRequest="50">
+            <Border x:Name="listTab"
+                    BackgroundColor="Teal"
+                    Opacity="1"
+                    StrokeThickness="0"
+                    GestureRecognizers="{TapGestureRecognizer Tapped='OnListTapped'}"
+                    Grid.Column="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,0,10,0" />
+                </Border.StrokeShape>
+            </Border>
+            <Label x:Name="label1" 
+                   Text="{Binding Tab1_Title}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontAttributes="Bold"
+                   TextColor="White"/>
+            <Border x:Name="mapTab"
+                    BackgroundColor="LightGray"
+                    Opacity="0.5"
+                    StrokeThickness="0"
+                    GestureRecognizers="{TapGestureRecognizer Tapped='OnMapTapped'}"
+                    Grid.Column="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,10,0,10" />
+                </Border.StrokeShape>
+            </Border>
+            <Label x:Name="label2" 
+                   Text="{Binding Tab2_Title}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontAttributes="Bold"
+                   TextColor="Green"
+                   Grid.Column="1"/>
+        </Grid>
+    </Grid>
 </ContentView>
