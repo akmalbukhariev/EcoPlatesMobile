@@ -37,7 +37,7 @@
               IsVisible="False"
               HeightRequest="50">
             <Border x:Name="listTab"
-                    BackgroundColor="Teal"
+                    BackgroundColor="Green"
                     Opacity="1"
                     StrokeThickness="0"
                     GestureRecognizers="{TapGestureRecognizer Tapped='OnListTapped'}"

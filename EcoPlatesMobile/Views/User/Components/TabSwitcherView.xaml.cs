@@ -113,11 +113,11 @@ public partial class TabSwitcherView : ContentView
 
     private void SetActiveTab(bool isListSelected)
     {
-        listTab.BackgroundColor = isListSelected ? Colors.Teal : Colors.LightGray;
+        listTab.BackgroundColor = isListSelected ? Colors.Green : Colors.LightGray;
         listTab.Opacity = isListSelected ? 1 : 0.7;
         label1.TextColor = isListSelected ? Colors.White : Colors.Green;
 
-        mapTab.BackgroundColor = !isListSelected ? Colors.Teal : Colors.LightGray;
+        mapTab.BackgroundColor = !isListSelected ? Colors.Green : Colors.LightGray;
         mapTab.Opacity = !isListSelected ? 1 : 0.7;
         label2.TextColor = !isListSelected ? Colors.White : Colors.Green;
     }
