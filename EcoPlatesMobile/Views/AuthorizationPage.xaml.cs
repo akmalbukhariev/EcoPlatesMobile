@@ -19,11 +19,11 @@ public partial class AuthorizationPage : BasePage
     private void Button_Clicked(object sender, EventArgs e)
     {
 		var session = AppService.Get<UserSessionService>();
-		if(session.Role == UserRole.Company)
+		if(session?.Role == UserRole.Company)
 		{
 			Application.Current.MainPage = new AppCompanyShell();
 		}
-		else if(session.Role == UserRole.User)
+		else if(session?.Role == UserRole.User)
 		{
 			Application.Current.MainPage = new AppUserShell();
 		}
