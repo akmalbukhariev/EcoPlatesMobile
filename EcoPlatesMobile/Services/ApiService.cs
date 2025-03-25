@@ -121,7 +121,7 @@ namespace EcoPlatesMobile.Services
                     // Extract token from headers
                     if (response.Headers != null)
                     {
-                        var tokenHeader = response.Headers.FirstOrDefault(h => h.Name == "Authorization");
+                        var tokenHeader = response.Headers.FirstOrDefault(h => h.Name == "access-token");
                         if (tokenHeader != null && tokenHeader.Value != null)
                         {
                             string token = tokenHeader.Value.ToString();
@@ -144,5 +144,4 @@ namespace EcoPlatesMobile.Services
             return null;
         }
     }
-
 }

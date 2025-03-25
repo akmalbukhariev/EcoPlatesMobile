@@ -3,52 +3,56 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="EcoPlatesMobile.Views.LoginPage"
                xmlns:view="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:loading="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls">
 
-    <Grid RowDefinitions="*,100, 20, 80, Auto, 10, Auto"
-          VerticalOptions="Center"
-          Margin="36,0,36,0">
-        <skia:SKCanvasView x:Name="skCanvasView" 
+    <Grid>
+        <Grid RowDefinitions="*,100, 20, 80, Auto, 10, Auto"
+              VerticalOptions="Center"
+              Margin="36,0,36,0">
+            <skia:SKCanvasView x:Name="skCanvasView" 
                            WidthRequest="200"
                            HeightRequest="200" 
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                            PaintSurface="OnCanvasViewPaintSurface"/>
-        <StackLayout WidthRequest="250" 
+            <StackLayout WidthRequest="250" 
                      HorizontalOptions="Center"
                      Grid.Row="2">
-            <Label Text="Foydalanuvchi sifatida o’zingizni rolingizni tanlang"
+                <Label Text="Foydalanuvchi sifatida o’zingizni rolingizni tanlang"
                    TextColor="Gray"
                    HorizontalTextAlignment="Center"
                    LineBreakMode="WordWrap"/>
-        </StackLayout>
-        <Button x:Name="btnComapny" 
+            </StackLayout>
+            <Button x:Name="btnComapny" 
                 Text="Sotuvchi"
                 HeightRequest="50"
                 CornerRadius="0"
                 VerticalOptions="End"
                 Clicked="Button_Clicked"
                 Grid.Row="4">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Color="#A100F2" Offset="0.0"/>
-                    <GradientStop Color="#F400A1" Offset="1.0"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnUser"
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#A100F2" Offset="0.0"/>
+                        <GradientStop Color="#F400A1" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnUser"
                 Text="Xaridor"
                 HeightRequest="50"
                 CornerRadius="0"
                 VerticalOptions="End"
                 Clicked="Button_Clicked"
                 Grid.Row="6">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Color="#009688" Offset="0.0"/>
-                    <GradientStop Color="#4CAF50" Offset="1.0"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#009688" Offset="0.0"/>
+                        <GradientStop Color="#4CAF50" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </Grid>
+        <loading:LoadingView IsLoading="False"/>
     </Grid>
 </view:BasePage>

@@ -29,8 +29,8 @@ namespace EcoPlatesMobile.Services
 
             return response ?? new LoginCompanyResponse
             {
-                resultCode = Result.LOGIN_FAILED.GetCodeToString(),
-                resultMsg = Result.LOGIN_FAILED.GetMessage()
+                resultCode = ApiResult.LOGIN_FAILED.GetCodeToString(),
+                resultMsg = ApiResult.LOGIN_FAILED.GetMessage()
             };
         }
 
@@ -51,16 +51,16 @@ namespace EcoPlatesMobile.Services
                     }
                 }
 
-                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
             }
             catch (JsonException jsonEx)
             {
-                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
                 response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
             }
             catch (Exception ex)
             {
-                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
             }
 
@@ -84,16 +84,16 @@ namespace EcoPlatesMobile.Services
                     }
                 }
 
-                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
             }
             catch (JsonException jsonEx)
             {
-                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
                 response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
             }
             catch (Exception ex)
             {
-                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
             }
 
@@ -117,16 +117,16 @@ namespace EcoPlatesMobile.Services
                     }
                 }
 
-                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
             }
             catch (JsonException jsonEx)
             {
-                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
                 response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
             }
             catch (Exception ex)
             {
-                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
             }
 
@@ -150,16 +150,16 @@ namespace EcoPlatesMobile.Services
                     }
                 }
 
-                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
             }
             catch (JsonException jsonEx)
             {
-                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
                 response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
             }
             catch (Exception ex)
             {
-                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
             }
 
@@ -183,16 +183,16 @@ namespace EcoPlatesMobile.Services
                     }
                 }
 
-                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
             }
             catch (JsonException jsonEx)
             {
-                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
                 response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
             }
             catch (Exception ex)
             {
-                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
             }
 
@@ -216,16 +216,16 @@ namespace EcoPlatesMobile.Services
                     }
                 }
 
-                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
             }
             catch (JsonException jsonEx)
             {
-                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
                 response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
             }
             catch (Exception ex)
             {
-                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
             }
 
@@ -249,16 +249,16 @@ namespace EcoPlatesMobile.Services
                     }
                 }
 
-                response.resultMsg = Result.API_SERVICE_ERROR.GetMessage();
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
             }
             catch (JsonException jsonEx)
             {
-                response.resultCode = Result.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
                 response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
             }
             catch (Exception ex)
             {
-                response.resultCode = Result.API_SERVICE_ERROR.GetCodeToString();
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
             }
 

@@ -85,7 +85,12 @@ public partial class CustomEntry : ContentView
         get => (bool)GetValue(EntryShowPrefixProperty);
         set => SetValue(EntryShowPrefixProperty, value);
     }
-    
+
+    public string GetEntryText()
+    {
+        return customEntry.Text;
+    }
+
     public bool IsPhoneNumber{get; set;}
     private const int MaxPhoneLength = 9;
 

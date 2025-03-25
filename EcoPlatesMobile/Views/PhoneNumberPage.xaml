@@ -8,10 +8,11 @@
     <Grid RowDefinitions="Auto, 50, Auto, *, Auto, 30">
         <component:CustomHeader Title="Avtorizatsiya"/>
         <VerticalStackLayout Spacing="20"
-                             Margin="16,0,16,0"
-                             Grid.Row="2">
+                            Margin="16,0,16,0"
+                            Grid.Row="2">
             <Label Text="Iltimos, telefon raqamingizni kiriting"/>
-            <component:CustomEntry EntryIcon="phone.png"
+            <component:CustomEntry x:Name="entryNumber" 
+                                   EntryIcon="phone.png"
                                    EntryShowPrefix="True"
                                    IsPhoneNumber="False"
                                    EntryKeyboard="Numeric"
@@ -25,20 +26,20 @@
                 <Label Text="Telefon raqamingizni kiritishingiz orqali siz ommaviy ofertaga roziligingizni bildirasiz."/>
             </Grid>
             <Grid Padding="0"
-                  Background="#1415CA18"
-                  ColumnDefinitions="Auto, *"
-                  VerticalOptions="Start">
+                Background="#1415CA18"
+                ColumnDefinitions="Auto, *"
+                VerticalOptions="Start">
                 <CheckBox x:Name="chkAgreement"
-                          Margin="0,0,0,0" />
+                        Margin="0,0,0,0" />
                 <Label Grid.Column="1"
-                       VerticalOptions="Start"
-                       LineBreakMode="WordWrap"
-                       HorizontalTextAlignment="Start">
+                    VerticalOptions="Start"
+                    LineBreakMode="WordWrap"
+                    HorizontalTextAlignment="Start">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Ommaviy oferta "
-                                  TextColor="Purple"
-                                  TextDecorations="Underline">
+                                TextColor="Purple"
+                                TextDecorations="Underline">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnOfferTapped" />
                                 </Span.GestureRecognizers>
@@ -50,13 +51,16 @@
             </Grid>
         </VerticalStackLayout>
         <Button Text="Keyingisi"
-                BackgroundColor="#8338EC"
-                CornerRadius="30"
-                TextColor="White"
-                FontFamily="Roboto"
-                HeightRequest="50"
-                Margin="16,0,16,0"
-                Clicked="Button_Clicked"
-                Grid.Row="4"/>
+            BackgroundColor="#8338EC"
+            CornerRadius="30"
+            TextColor="White"
+            FontFamily="Roboto"
+            HeightRequest="50"
+            Margin="16,0,16,0"
+            Clicked="Button_Clicked"
+            Grid.Row="4"/>
+        <component:LoadingView x:Name="loading" 
+                               IsLoading="False"
+                               Grid.RowSpan="6"/>
     </Grid>
 </view:BasePage>

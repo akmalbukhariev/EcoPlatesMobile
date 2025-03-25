@@ -14,8 +14,8 @@ namespace EcoPlatesMobile.Models.Responses
 
         public Response()
         {
-            resultCode = Result.FAILED.GetCodeToString();
-            resultMsg = Result.FAILED.GetMessage();
+            resultCode = ApiResult.FAILED.GetCodeToString();
+            resultMsg = ApiResult.FAILED.GetMessage();
             resultData = new ResultData();
             apiVersion = "";
             webVersion = "";

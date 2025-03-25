@@ -6,6 +6,7 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:pinview="clr-namespace:PINView.Maui;assembly=PINView.Maui">
 
+    
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="Avtorizatsiya"/>
         <Grid RowDefinitions="70, Auto, *, Auto, 20, Auto, 30"
@@ -78,5 +79,8 @@
                     Clicked="Button_Clicked"
                     Grid.Row="5"/>
         </Grid>
+        <component:LoadingView x:Name="loading" 
+                               IsLoading="False"
+                               Grid.RowSpan="2"/>
     </Grid>
 </view:BasePage>
