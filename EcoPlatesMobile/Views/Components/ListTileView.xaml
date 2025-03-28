@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.Components.ListTileView">
+
+    <Grid ColumnDefinitions="Auto, *">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                  Tapped="Tile_Tapped"/>
+        </Grid.GestureRecognizers>
+        <Image x:Name="image" 
+               Source="{Binding TileIcon}"
+               WidthRequest="23"
+               HeightRequest="23"
+               Margin="0,0,20,0"
+               VerticalOptions="Center"/>
+        <Label x:Name="label" 
+               Text="{Binding TileText}"
+               TextColor="{Binding TileTitleColor}"
+               FontSize="{Binding TileTitleSize}"
+               VerticalTextAlignment="Center"
+               Grid.Column="1"/>
+    </Grid>
+</ContentView>

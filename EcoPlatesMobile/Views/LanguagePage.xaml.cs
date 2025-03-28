@@ -18,7 +18,7 @@ public partial class LanguagePage : BasePage
         set
         {
             _selectedLanguage = value;
-            OnPropertyChanged(nameof(SelectedLanguage)); // ✅ Notify UI
+            OnPropertyChanged(nameof(SelectedLanguage));
         }
     }
 
@@ -29,7 +29,7 @@ public partial class LanguagePage : BasePage
         set
         {
             _selectedFlag = value;
-            OnPropertyChanged(nameof(SelectedFlag)); // ✅ Notify UI
+            OnPropertyChanged(nameof(SelectedFlag));
         }
     }
 

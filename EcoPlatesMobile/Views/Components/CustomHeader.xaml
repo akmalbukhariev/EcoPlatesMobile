@@ -3,28 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.Components.CustomHeader">
 
-    <Grid 
-        BackgroundColor="#007200"
-        HeightRequest="87"
-        ColumnDefinitions="Auto,*">
-        <Image 
-            Source="back.png"
-            WidthRequest="24"
-            HeightRequest="24"
-            Margin="16, 4.44, 0, 0">
+    <Grid x:Name="mainGrid" 
+          BackgroundColor="#007200"
+          HeightRequest="87"
+          ColumnDefinitions="Auto,*">
+        <Image Source="back.png"
+               WidthRequest="24"
+               HeightRequest="24"
+               Margin="16, 4.44, 0, 0">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Tapped="Back_Tapped"
                                        NumberOfTapsRequired="1"/>
             </Image.GestureRecognizers>
         </Image>
-        <Label 
-            x:Name="lbTitle"
-            Text="{Binding Title}"
-            FontFamily="Roboto"
-            TextColor="White"
-            FontSize="20"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Grid.Column="1"/>
+        <Label x:Name="lbTitle"
+               Text="{Binding Title}"
+               FontFamily="Roboto"
+               TextColor="White"
+               FontSize="20"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Column="1"/>
     </Grid>
 </ContentView>
