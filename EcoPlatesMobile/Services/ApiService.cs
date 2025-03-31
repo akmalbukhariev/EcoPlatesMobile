@@ -37,22 +37,25 @@ namespace EcoPlatesMobile.Services
             return Task.CompletedTask;
         }
 
-        private async Task<RestRequest> CreateRequestAsync(string endpoint, Method method)
+        private async Task<RestRequest> CreateRequestAsync(string endpoint, Method method, bool includeToken = true)
         {
             var request = new RestRequest(endpoint, method);
             request.AddHeader("Accept", "application/json");
 
-            string? token = await GetTokenAsync();
-            if (!string.IsNullOrEmpty(token))
+            if (includeToken)
             {
-                request.AddHeader("Authorization", $"Bearer {token}");
+                string? token = await GetTokenAsync();
+                if (!string.IsNullOrEmpty(token))
+                {
+                    request.AddHeader("Authorization", $"Bearer {token}");
+                }
             }
 
             return request;
         }
 
         private async Task<string> ExecuteRequestAsync(RestRequest request)
-        {
+        { 
             var response = await _client.ExecuteAsync(request);
 
             if (!response.IsSuccessful)
@@ -63,9 +66,9 @@ namespace EcoPlatesMobile.Services
             return response.Content ?? string.Empty;
         }
 
-        public async Task<string> GetAsync(string endpoint)
+        public async Task<string> GetAsync(string endpoint, bool includeToken = true)
         {
-            var request = await CreateRequestAsync(endpoint, Method.Get);
+            var request = await CreateRequestAsync(endpoint, Method.Get, includeToken);
             return await ExecuteRequestAsync(request);
         }
 

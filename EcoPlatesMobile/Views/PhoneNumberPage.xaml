@@ -26,20 +26,20 @@
                 <Label Text="Telefon raqamingizni kiritishingiz orqali siz ommaviy ofertaga roziligingizni bildirasiz."/>
             </Grid>
             <Grid Padding="0"
-                Background="#1415CA18"
-                ColumnDefinitions="Auto, *"
-                VerticalOptions="Start">
+                  Background="#1415CA18"
+                  ColumnDefinitions="Auto, *"
+                  VerticalOptions="Start">
                 <CheckBox x:Name="chkAgreement"
                         Margin="0,0,0,0" />
                 <Label Grid.Column="1"
-                    VerticalOptions="Start"
-                    LineBreakMode="WordWrap"
-                    HorizontalTextAlignment="Start">
+                       VerticalOptions="Start"
+                       LineBreakMode="WordWrap"
+                       HorizontalTextAlignment="Start">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Ommaviy oferta "
-                                TextColor="Purple"
-                                TextDecorations="Underline">
+                                  TextColor="Purple"
+                                  TextDecorations="Underline">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnOfferTapped" />
                                 </Span.GestureRecognizers>
@@ -51,15 +51,15 @@
             </Grid>
         </VerticalStackLayout>
         <Button Text="Keyingisi"
-            BackgroundColor="#8338EC"
-            CornerRadius="30"
-            TextColor="White"
-            FontFamily="Roboto"
-            HeightRequest="50"
-            Margin="16,0,16,0"
-            Clicked="Button_Clicked"
-            Grid.Row="4"/>
-        <component:LoadingView x:Name="loading" 
+                BackgroundColor="#8338EC"
+                CornerRadius="30"
+                TextColor="White"
+                FontFamily="Roboto"
+                HeightRequest="50"
+                Margin="16,0,16,0"
+                Clicked="Button_Clicked"
+                Grid.Row="4"/>
+        <component:LoadingView x:Name="loadingView" 
                                IsLoading="False"
                                Grid.RowSpan="6"/>
     </Grid>

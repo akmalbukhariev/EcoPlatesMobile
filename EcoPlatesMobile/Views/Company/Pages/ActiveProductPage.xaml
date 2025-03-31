@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.Company.Pages.NonActiveItemPage"
+             x:Class="EcoPlatesMobile.Views.Company.Pages.ActiveProductPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
              xmlns:com_component="clr-namespace:EcoPlatesMobile.Views.Company.Components"
              BackgroundColor="#F7F9FB">
    
-    <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="Activ bo'lmagan maxsulotlar"
+   <Grid RowDefinitions="Auto, *">
+        <component:CustomHeader Title="Activ maxsulotlar"
                                 ShowBack="False"
                                 HeaderBackground="#8338EC"/>
         <Grid RowDefinitions="Auto, *"
               Margin="16,20,16,10"
               Grid.Row="1">
-            <Label Text="Activ bo'lmagan maxsulotlar soni 8 dona"
+            <Label Text="Amaldagi activ maxsulotlar soni 14 dona"
                    TextColor="Black"
                    FontAttributes="Bold"
                    Margin="0,0,0,20"
@@ -28,19 +28,30 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <SwipeView>
-                             <SwipeView.RightItems>
+                            <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItem Text="Edit"
                                                BackgroundColor="#8338EC"/>
-                                    <SwipeItem Text="Active"
-                                               BackgroundColor="Green"/>
+                                    <SwipeItem Text="Non active"
+                                               BackgroundColor="Red"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
-                            <com_component:ProductView IsNonActiveProduct="True"/>
+                            <com_component:ProductView IsNonActiveProduct="False"/>
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button Text="+"
+                    FontSize="30"
+                    TextColor="White"
+                    BackgroundColor="#8338EC"
+                    CornerRadius="30"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    Margin="0,0,0,30"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    Grid.RowSpan="2"/>
         </Grid>
    </Grid>
 </ContentPage>

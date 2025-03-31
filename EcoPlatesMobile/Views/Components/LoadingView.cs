@@ -65,6 +65,15 @@ namespace EcoPlatesMobile.Views.Components
 
                 view.Opacity = 0;
                 await view.FadeTo(1, 200);
+ 
+                _ = Task.Run(async () =>
+                {
+                    await Task.Delay(5000);
+                    if (view.IsLoading)
+                    {
+                        MainThread.BeginInvokeOnMainThread(() => view.IsLoading = false);
+                    }
+                });
             }
             else
             {
@@ -74,5 +83,28 @@ namespace EcoPlatesMobile.Views.Components
                 view.IsVisible = false;
             }
         }
+
+        /*private static async void OnIsLoadingChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var view = (LoadingView)bindable;
+            bool isLoading = (bool)newValue;
+
+            if (isLoading)
+            {
+                view.IsVisible = true;
+                view._activityIndicator.IsVisible = true;
+                view._activityIndicator.IsRunning = true;
+
+                view.Opacity = 0;
+                await view.FadeTo(1, 200);
+            }
+            else
+            {
+                await view.FadeTo(0, 200);
+                view._activityIndicator.IsRunning = false;
+                view._activityIndicator.IsVisible = false;
+                view.IsVisible = false;
+            }
+        }*/
     }
 }

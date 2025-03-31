@@ -6,8 +6,7 @@
        xmlns:userPages="clr-namespace:EcoPlatesMobile.Views.User.Pages"
        Shell.FlyoutBehavior="Disabled"
        Shell.TabBarUnselectedColor="Gray"
-       Shell.TabBarForegroundColor="Green"
-       Title="EcoPlatesMobile">
+       Shell.TabBarForegroundColor="Green">
 
     <TabBar>
          <Tab Icon="home1.png">

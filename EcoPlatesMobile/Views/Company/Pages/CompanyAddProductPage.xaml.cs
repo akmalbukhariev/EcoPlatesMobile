@@ -3,9 +3,9 @@ using EcoPlatesMobile.Views.Company.Components;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
-public partial class CompanyAddItemPage : ContentPage
+public partial class CompanyAddProductPage : ContentPage
 {
-	public CompanyAddItemPage()
+	public CompanyAddProductPage()
 	{
 		InitializeComponent();
 	}

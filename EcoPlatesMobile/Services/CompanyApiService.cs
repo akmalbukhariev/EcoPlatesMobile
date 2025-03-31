@@ -11,6 +11,7 @@ namespace EcoPlatesMobile.Services
     public class CompanyApiService : ApiService
     {
         private const string LOGIN_COMPANY = "login";
+        private const string CHECK_COMPANY = "company/checkUser/";
         private const string LOGOUT_COMPANY = "logout";
         private const string REGISTER_COMPANY = "registerCompany";
         private const string GET_COMPANY = "getCompany";
@@ -32,6 +33,39 @@ namespace EcoPlatesMobile.Services
                 resultCode = ApiResult.LOGIN_FAILED.GetCodeToString(),
                 resultMsg = ApiResult.LOGIN_FAILED.GetMessage()
             };
+        }
+
+        public async Task<Response> CheckUser(string phoneNumber)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await GetAsync($"{CHECK_COMPANY}{phoneNumber}");
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
         }
 
         public async Task<Response> LogOut()

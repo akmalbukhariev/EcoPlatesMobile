@@ -2,11 +2,164 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyPrifilePage"
-             Title="CompanyPrifilePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+    
+    <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto">
+        <component:CustomHeader Title="Mening profilim"
+                                ShowBack="False"
+                                HeaderBackground="#8338EC"/>
+        <Grid ColumnDefinitions="Auto, *, Auto"
+              Margin="20, 20, 20, 0"
+              Grid.Row="1">
+            <Image Source="user1.png"
+                   Aspect="AspectFill"
+                   WidthRequest="64"
+                   HeightRequest="64"
+                   Margin="0,0,20,0"
+                   VerticalOptions="Center"/>
+            <Grid RowDefinitions="Auto,Auto,Auto"
+                  Grid.Column="1">
+                <Label Text="Akmal Bukhariev"
+                       FontSize="17"
+                       TextColor="Black"
+                       FontAttributes="Bold"/>
+                <Label Text="+998 90 999 90 09"
+                       FontSize="15"
+                       TextColor="#999999"
+                       FontAttributes="Bold"
+                       Grid.Row="1"/>
+                <Label Text="Maqomi: Xaridor"
+                       FontSize="14"
+                       TextColor="#999999"
+                       Grid.Row="2"/>
+            </Grid>
+            <Image Source="edit.png"
+                   WidthRequest="20"
+                   HeightRequest="20"
+                   Aspect="AspectFill"
+                   VerticalOptions="Center"
+                   Grid.Column="2"/>
+        </Grid>
+        <BoxView BackgroundColor="LightGray" 
+                 Grid.Row="3"/>
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" 
+              Margin="20"
+              Grid.Row="4">
+            <Grid ColumnDefinitions="Auto, *, Auto"
+                  HeightRequest="50"
+                  Margin="0,0,0,20">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="OnLanguageTapped"/>
+                </Grid.GestureRecognizers>
+                <Image Source="language.png"
+                       WidthRequest="23"
+                       HeightRequest="23"
+                       Margin="0,0,20,0"
+                       VerticalOptions="Center"/>
+                <Label Text="{Binding SelectedLanguage}"
+                       TextColor="#444444"
+                       FontSize="15"
+                       VerticalTextAlignment="Center"
+                       Grid.Column="1"/>
+                <HorizontalStackLayout Spacing="5" Grid.Column="2">
+                    <Image Source="{Binding SelectedFlag}" 
+                           WidthRequest="30" 
+                           HeightRequest="20"
+                           VerticalOptions="Center" 
+                           Margin="5"/>
+                    <Image Source="down.png" 
+                           WidthRequest="15" 
+                           HeightRequest="15"
+                           Margin="0, 0, 0, 0" 
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Grid>
+            <component:ListTileView TileIcon="share.png" 
+                                    TileTitle="Do'stlar bilan ulashish"
+                                    TileTitleSize="15"
+                                    TileTitleColor="#444444"
+                                    Margin="0,0,0,20"
+                                    Grid.Row="1"/>
+            <component:ListTileView TileIcon="info.png" 
+                                    TileTitle="Dastur haqida"
+                                    TileTitleSize="15"
+                                    TileTitleColor="#444444"
+                                    Margin="0,0,0,20"
+                                    Grid.Row="2"/>
+            <component:ListTileView TileIcon="offer.png" 
+                                    TileTitle="Taklif va shikoyatlar"
+                                    TileTitleSize="15"
+                                    TileTitleColor="#444444"
+                                    Margin="0,0,0,20"
+                                    Grid.Row="3"/>
+            <component:ListTileView TileIcon="my_chat.png" 
+                                    TileTitle="Yozishmalar"
+                                    TileTitleSize="15"
+                                    TileTitleColor="#444444"
+                                    Grid.Row="4"/>
+        </Grid>
+        <Grid RowDefinitions="Auto, Auto, Auto" 
+              Margin="0,0,0,30"
+              Grid.Row="5">
+            <Image Source="logo1.png"
+                   Aspect="AspectFit"
+                   WidthRequest="150"
+                   HeightRequest="150"
+                   VerticalOptions="Center"/>
+            <Label Text="SaleTop application"
+                   TextColor="LightGray"
+                   FontSize="17"
+                   HorizontalTextAlignment="Center"
+                   Grid.Row="1"/>
+            <Label Text="v. 1.1 (Android -2025)"
+                   TextColor="LightGray"
+                   FontSize="15"
+                   HorizontalTextAlignment="Center"
+                   Grid.Row="2"/>
+        </Grid>
+        <BoxView x:Name="dropdownListBack" 
+                 Opacity="0.5"
+                 IsVisible="False"
+                 BackgroundColor="Black"
+                 Grid.RowSpan="6">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="OnLanguageBackTapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Frame x:Name="dropdownList" 
+               IsVisible="False"
+               BackgroundColor="White" 
+               CornerRadius="10"
+               HasShadow="True" 
+               Padding="5" 
+               WidthRequest="250"
+               Margin="0,0,0,100"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Grid.RowSpan="6">
+            <CollectionView ItemsSource="{Binding Languages}"
+                            SelectionMode="Single"
+                            SelectionChanged="OnLanguageSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" 
+                              ColumnDefinitions="Auto, *">
+                            <Image Source="{Binding Flag}" 
+                                   WidthRequest="30" 
+                                   HeightRequest="20"
+                                   VerticalOptions="Center"/>
+                            <Label Text="{Binding Name}" 
+                                   Margin="5,0,0,0"
+                                   FontSize="18" 
+                                   VerticalTextAlignment="Center" 
+                                   TextColor="Black"
+                                   Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Frame>
+    </Grid>
 </ContentPage>

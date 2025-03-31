@@ -24,7 +24,6 @@
                    Margin="0,0,20,0"
                    VerticalOptions="Center"/>
             <Grid RowDefinitions="Auto,Auto,Auto"
-                  HorizontalOptions="StartAndExpand"
                   Grid.Column="1">
                 <Label Text="Akmal Bukhariev"
                        FontSize="17"
@@ -50,11 +49,11 @@
         <BoxView BackgroundColor="LightGray" 
                  Grid.Row="3"/>
         <Grid RowDefinitions="Auto, Auto, Auto, Auto" 
-              VerticalOptions="StartAndExpand"
               Margin="20"
               Grid.Row="4">
             <Grid ColumnDefinitions="Auto, *, Auto"
-                      Margin="0,0,0,20">
+                  HeightRequest="50"
+                  Margin="0,0,0,20">
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1"
                                           Tapped="OnLanguageTapped"/>

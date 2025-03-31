@@ -1,5 +1,6 @@
 using EcoPlatesMobile.Core;
 using EcoPlatesMobile.Models.Requests;
+using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Services;
@@ -26,18 +27,79 @@ public partial class PhoneNumberPage : BasePage
     {
         var session = AppService.Get<UserSessionService>();
         if (session == null) return;
-        
-        LoginRequest request = new LoginRequest()
-        {
-            phone_number = entryNumber.GetEntryText()
-        };
 
+        string phoneNumber = "01084410697";//entryNumber.GetEntryText();
+
+        if (string.IsNullOrWhiteSpace(phoneNumber))
+        {
+            await AlertService.ShowAlertAsync("Phone Number", "Please enter the phone number!");
+            return;
+        }
+
+        Response response = null;
+
+        loadingView.IsLoading = true;
+        try
+        {
+            if (session.Role == UserRole.Company)
+            {
+                var apiService = AppService.Get<CompanyApiService>();
+                response = await apiService.CheckUser(phoneNumber);
+            }
+            else if (session.Role == UserRole.User)
+            {
+                var apiService = AppService.Get<UserApiService>(); 
+                response = await apiService.CheckUser(phoneNumber);
+            }
+        }
+        finally
+        {
+            loadingView.IsLoading = false;
+        }
+
+        if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
+        {
+            await Navigation.PushAsync(new AuthorizationPage());
+        }
+        else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
+        {
+            if (session.Role == UserRole.Company)
+            {
+                await Navigation.PushAsync(new UserRegistrationPage());
+            }
+            else if (session.Role == UserRole.User)
+            {
+                await Navigation.PushAsync(new CompanyRegistrationPage());
+            }
+        }
+        else
+        {
+            await AlertService.ShowAlertAsync("Error", response.resultMsg);
+        }
+    }
+
+    /*private async void Button_Clicked(object sender, EventArgs e)
+    {
+        var session = AppService.Get<UserSessionService>();
+        if (session == null) return;
+         
+        string phoneNumber = entryNumber.GetEntryText();
+
+        if(string.IsNullOrWhiteSpace(phoneNumber))
+        {
+            await AlertService.ShowAlertAsync("Phone number", "Please enter the phone number!");
+            return;
+        }
+ 
         if (session.Role == UserRole.Company)
         {
             var apiService = AppService.Get<CompanyApiService>();
             if (apiService != null)
             {
-                LoginCompanyResponse response = await apiService.Login(request);
+                loadingView.IsLoading = true;
+                Response response = await apiService.CheckUser(phoneNumber);
+                loadingView.IsLoading = false;
+
                 if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
                 {
                     await Navigation.PushAsync(new AuthorizationPage());
@@ -53,7 +115,10 @@ public partial class PhoneNumberPage : BasePage
             var apiService = AppService.Get<UserApiService>();
             if (apiService != null)
             {
-                LoginUserResponse response = await apiService.Login(request);
+                loadingView.IsLoading = true;
+                Response response = await apiService.CheckUser(phoneNumber);
+                loadingView.IsLoading = false;
+
                 if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
                 {
                     await Navigation.PushAsync(new AuthorizationPage());
@@ -64,6 +129,5 @@ public partial class PhoneNumberPage : BasePage
                 }
             }
         }
-
-    }
+    }*/
 }

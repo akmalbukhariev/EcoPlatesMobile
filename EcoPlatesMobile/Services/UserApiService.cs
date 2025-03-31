@@ -13,10 +13,11 @@ namespace EcoPlatesMobile.Services
     public class UserApiService : ApiService
     {
         private const string LOGIN_USER = "user/login";
-        private const string LOGOUT_USER = "logout";
-        private const string REGISTER_USER = "register";
-        private const string GET_USER_INFO = "getUserInfo";
-        private const string UPDATE_USER_INFO = "updateUserInfo";
+        private const string CHECK_USER = "user/checkUser/";
+        private const string LOGOUT_USER = "user/logout";
+        private const string REGISTER_USER = "user/register";
+        private const string GET_USER_INFO = "user/getUserByToken";
+        private const string UPDATE_USER_INFO = "user/updateUserInfo";
         private const string REGISTER_BOOKMARK = "registerBookmark";
         private const string GET_USER_BOOKMARK = "getUserBookmark";
         private const string GET_COMPANIES_BY_USER_LOCATION = "getCompaniesByCurrentLocation";
@@ -36,6 +37,39 @@ namespace EcoPlatesMobile.Services
                 resultCode = ApiResult.LOGIN_FAILED.GetCodeToString(),
                 resultMsg = ApiResult.LOGIN_FAILED.GetMessage()
             };
+        }
+
+        public async Task<Response> CheckUser(string phoneNumber)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await GetAsync($"{CHECK_USER}{phoneNumber}", false);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
         }
 
         public async Task<Response> LogOut()

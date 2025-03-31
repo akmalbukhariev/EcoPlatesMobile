@@ -20,17 +20,17 @@ namespace EcoPlatesMobile
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            //return new Window(new NavigationPage(new LoginPage())); 
-            return new Window(new CompanyAddItemPage());
+            return new Window(new NavigationPage(new LoginPage())); 
+            //return new Window(new NonActiveItemPage());
             //return new Window(new UserProfilePage());
         }
 
         private void RegisterRoutes()
         {
-            Routing.RegisterRoute(AppRoutes.LoginPage, typeof(LoginPage));
-            Routing.RegisterRoute(AppRoutes.PhoneNumberPage, typeof(PhoneNumberPage));
-            Routing.RegisterRoute(AppRoutes.UserMainPage, typeof(UserMainPage));
-            Routing.RegisterRoute(AppRoutes.CompanyRegistrationPage, typeof(CompanyRegistrationPage));
+            //Routing.RegisterRoute(AppRoutes.LoginPage, typeof(LoginPage));
+            //Routing.RegisterRoute(AppRoutes.PhoneNumberPage, typeof(PhoneNumberPage));
+            //Routing.RegisterRoute(AppRoutes.UserMainPage, typeof(UserMainPage));
+            //Routing.RegisterRoute(AppRoutes.CompanyRegistrationPage, typeof(CompanyRegistrationPage));
         }
 
         private void Setting()

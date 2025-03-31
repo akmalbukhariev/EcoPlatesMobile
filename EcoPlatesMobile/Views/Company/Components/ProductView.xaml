@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.Company.Components.ProductView">
+
+    <Frame Padding="0"
+           CornerRadius="15"
+           HeightRequest="115"
+           HasShadow="True">
+        <Grid ColumnDefinitions="Auto, *">
+            <Image Source="cake.png"
+                   Aspect="Fill"
+                   WidthRequest="110"/>
+            <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
+                  Margin="20,0,0,0"
+                  VerticalOptions="Center" 
+                  Grid.Column="1">
+                  <VerticalStackLayout>
+                        <Label Text="Tort rogalik"
+                               TextColor="Black"
+                               FontSize="14"
+                               FontAttributes="Bold"/>
+                        <Label Text="Qoldiq: 2 dona"
+                               TextColor="Gray"
+                               FontSize="12"
+                               FontAttributes="Bold"/>
+                  </VerticalStackLayout>
+                  <VerticalStackLayout Grid.Row="2">
+                        <Label Text="150 000 so'm"
+                               TextColor="Green"
+                               FontSize="14"
+                               FontAttributes="Bold"/>
+                        <Label Text="250 000 so'm"
+                               TextColor="Gray"
+                               TextDecorations="Strikethrough"
+                               FontSize="12"
+                               FontAttributes="Bold"/>
+                  </VerticalStackLayout>
+                  <HorizontalStackLayout Margin="0,0,0,0"
+                                         Spacing="10"
+                                         Grid.Row="4">        
+                        <HorizontalStackLayout Spacing="5">
+                            <Image Source="star.png" 
+                                   WidthRequest="16" 
+                                   HeightRequest="16"/>
+                            <Label Text="3.1" 
+                                   FontSize="11"
+                                   VerticalTextAlignment="Center"/>
+                        </HorizontalStackLayout>
+                        <BoxView BackgroundColor="LightGray"
+                                 WidthRequest="1"
+                                 HeightRequest="15"/>
+                        <HorizontalStackLayout Spacing="5">
+                            <Image Source="distance.png" 
+                                   WidthRequest="16" 
+                                   HeightRequest="16"/>
+                            <Label Text="579 m" 
+                                   FontSize="11"
+                                   VerticalTextAlignment="Center"/>
+                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+            </Grid>
+            <BoxView x:Name="boxViewBack"
+                     IsVisible="{Binding IsNonActiveProduct}" 
+                     BackgroundColor="Black" 
+                     Opacity="0.095"
+                     Grid.ColumnSpan="2"/> 
+        </Grid>
+    </Frame>
+</ContentView>

@@ -7,7 +7,9 @@
           BackgroundColor="#007200"
           HeightRequest="87"
           ColumnDefinitions="Auto,*">
-        <Image Source="back.png"
+        <Image x:Name="imBack" 
+               Source="back.png"
+               IsVisible="{Binding ShowBack}"
                WidthRequest="24"
                HeightRequest="24"
                Margin="16, 4.44, 0, 0">
