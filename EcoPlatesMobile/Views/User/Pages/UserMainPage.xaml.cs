@@ -13,4 +13,10 @@ public partial class UserMainPage : ContentPage
 		viewModel =  new UserMainPageViewModel();
 		BindingContext = viewModel;
 	}
+
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+		await viewModel.LoadPromotionAsync();
+	}
 }

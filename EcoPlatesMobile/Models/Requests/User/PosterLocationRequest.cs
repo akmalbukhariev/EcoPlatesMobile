@@ -8,11 +8,11 @@ namespace EcoPlatesMobile.Models.Requests.User
 {
     public class PosterLocationRequest
     {
-        private int pageSize { get; set; }
-        private int offset { get; set; }
-        private double user_lat{ get; set; }
-        private double user_lon { get; set; }
-        private double radius_km { get; set; }
-        private PosterType category { get; set; }
+        public int pageSize { get; set; }
+        public int offset { get; set; }
+        public double user_lat{ get; set; }
+        public double user_lon { get; set; }
+        public double radius_km { get; set; }
+        public PosterType category { get; set; }
     }
 }

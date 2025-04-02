@@ -13,7 +13,7 @@
             <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
-        <Tab Icon="browser1.png">
+        <!-- <Tab Icon="browser1.png">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserBrowserPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
@@ -24,7 +24,7 @@
         <Tab Icon="user.png">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserProfilePage}"
                           Shell.NavBarIsVisible="False"/>
-        </Tab>
+        </Tab> -->
     </TabBar>
 
 </Shell>

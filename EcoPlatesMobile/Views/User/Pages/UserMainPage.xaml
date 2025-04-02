@@ -52,5 +52,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <component:LoadingView x:Name="loadingView" 
+                               IsLoading="{Binding IsLoading}"
+                               Grid.RowSpan="3"/>
     </Grid>
 </ContentPage>

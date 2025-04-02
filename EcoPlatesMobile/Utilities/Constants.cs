@@ -12,6 +12,6 @@ namespace EcoPlatesMobile.Utilities
         public const string BASE_USER_URL = "http://10.0.2.2:8083/ecoplatesuser/api/v1/";
                                         
         //public const string BASE_COMPANY_URL = "http://www.ecoplates.uz/company/";
-        public const string BASE_COMPANY_URL = "http://localhost:8081/ecoplatescompany/api/v1/";
+        public const string BASE_COMPANY_URL = "http://10.0.2.2:8081/ecoplatescompany/api/v1/";
     }
 }

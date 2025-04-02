@@ -74,14 +74,16 @@ namespace EcoPlatesMobile.Services
 
         public async Task<string> PostAsync(string endpoint, object? data = null)
         {
-            var request = await CreateRequestAsync(endpoint, Method.Post);
+            //var request = await CreateRequestAsync(endpoint, Method.Post, false);
+            var request = new RestRequest(endpoint, Method.Post);
             request.AddHeader("Content-Type", "application/json");
 
             if (data != null)
             {
-                request.AddJsonBody(data);
+                var json = JsonConvert.SerializeObject(data);
+                request.AddStringBody(json, DataFormat.Json);
             }
-
+            
             return await ExecuteRequestAsync(request);
         }
 

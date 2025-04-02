@@ -21,7 +21,7 @@ namespace EcoPlatesMobile.Services
         private const string REGISTER_BOOKMARK = "registerBookmark";
         private const string GET_USER_BOOKMARK = "getUserBookmark";
         private const string GET_COMPANIES_BY_USER_LOCATION = "getCompaniesByCurrentLocation";
-        private const string GET_POSTERS_BY_USER_LOCATION = "getPostersByCurrentLocation";
+        private const string GET_POSTERS_BY_USER_LOCATION = "promotions/getPostersByCurrentLocation";
 
         public UserApiService(RestClient client) : base(client)
         {
