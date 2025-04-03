@@ -9,9 +9,9 @@ namespace EcoPlatesMobile.Utilities
     internal class Constants
     {
         //public const string BASE_USER_URL = "http://www.ecoplates.uz/user/";
-        public const string BASE_USER_URL = "http://10.0.2.2:8083/ecoplatesuser/api/v1/";
+        public const string BASE_USER_URL = "http://10.0.2.2:8083";
                                         
         //public const string BASE_COMPANY_URL = "http://www.ecoplates.uz/company/";
-        public const string BASE_COMPANY_URL = "http://10.0.2.2:8081/ecoplatescompany/api/v1/";
+        public const string BASE_COMPANY_URL = "http://10.0.2.2:8081";
     }
 }

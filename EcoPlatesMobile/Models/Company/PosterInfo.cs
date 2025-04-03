@@ -4,8 +4,8 @@ namespace EcoPlatesMobile.Models.Company
 {
     public class PosterInfo
     {
-        public long poster_id { get; set; } = 0;
-        public long company_id { get; set; } = 0;
+        public long? poster_id { get; set; }
+        public long? company_id { get; set; }
         public string company_name { get; set; } = string.Empty;
         public string title { get; set; } = string.Empty;
         public string description { get; set; } = string.Empty;

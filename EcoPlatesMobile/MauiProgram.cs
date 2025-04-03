@@ -43,8 +43,10 @@ namespace EcoPlatesMobile
             builder.Services.AddSingleton(sp =>
                 new RestClient(new RestClientOptions(Constants.BASE_USER_URL)
                 {
-                    ThrowOnAnyError = false,
-                    Timeout = TimeSpan.FromSeconds(30)
+                    MaxTimeout = -1,
+                    //AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
+                    //ThrowOnAnyError = false,
+                    //Timeout = TimeSpan.FromSeconds(30)
                 }));
             builder.Services.AddSingleton(sp =>
                 new RestClient(new RestClientOptions(Constants.BASE_COMPANY_URL)

@@ -12,16 +12,17 @@ namespace EcoPlatesMobile.Services
 {
     public class UserApiService : ApiService
     {
-        private const string LOGIN_USER = "user/login";
-        private const string CHECK_USER = "user/checkUser/";
-        private const string LOGOUT_USER = "user/logout";
-        private const string REGISTER_USER = "user/register";
-        private const string GET_USER_INFO = "user/getUserByToken";
-        private const string UPDATE_USER_INFO = "user/updateUserInfo";
-        private const string REGISTER_BOOKMARK = "registerBookmark";
-        private const string GET_USER_BOOKMARK = "getUserBookmark";
-        private const string GET_COMPANIES_BY_USER_LOCATION = "getCompaniesByCurrentLocation";
-        private const string GET_POSTERS_BY_USER_LOCATION = "promotions/getPostersByCurrentLocation";
+        private const string BASE_URL = "/ecoplatesuser/api/v1/";
+        private const string LOGIN_USER = $"{BASE_URL}user/login";
+        private const string CHECK_USER = $"{BASE_URL}user/checkUser/";
+        private const string LOGOUT_USER = $"{BASE_URL}user/logout";
+        private const string REGISTER_USER = $"{BASE_URL}user/register";
+        private const string GET_USER_INFO = $"{BASE_URL}user/getUserByToken";
+        private const string UPDATE_USER_INFO = $"{BASE_URL}user/updateUserInfo";
+        private const string REGISTER_BOOKMARK = $"{BASE_URL}registerBookmark";
+        private const string GET_USER_BOOKMARK = $"{BASE_URL}getUserBookmark";
+        private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}getCompaniesByCurrentLocation";
+        private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
 
         public UserApiService(RestClient client) : base(client)
         {

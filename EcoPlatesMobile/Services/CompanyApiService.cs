@@ -10,15 +10,16 @@ namespace EcoPlatesMobile.Services
 {
     public class CompanyApiService : ApiService
     {
-        private const string LOGIN_COMPANY = "login";
-        private const string CHECK_COMPANY = "company/checkUser/";
-        private const string LOGOUT_COMPANY = "logout";
-        private const string REGISTER_COMPANY = "registerCompany";
-        private const string GET_COMPANY = "getCompany";
-        private const string UPDATE_COMPANY_INFO = "updateUserInfo";
-        private const string REGISTER_POSTER = "registerPoster";
-        private const string GET_POSTER = "getCompanyPoster";
-        private const string DELETE_POSTER = "deletePoster";
+        private const string BASE_URL = "/ecoplatescompany/api/v1/";
+        private const string LOGIN_COMPANY = $"{BASE_URL}login";
+        private const string CHECK_COMPANY = $"{BASE_URL}company/checkUser/";
+        private const string LOGOUT_COMPANY = $"{BASE_URL}logout";
+        private const string REGISTER_COMPANY = $"{BASE_URL}registerCompany";
+        private const string GET_COMPANY = $"{BASE_URL}getCompany";
+        private const string UPDATE_COMPANY_INFO = $"{BASE_URL}updateUserInfo";
+        private const string REGISTER_POSTER = $"{BASE_URL}registerPoster";
+        private const string GET_POSTER = $"{BASE_URL}getCompanyPoster";
+        private const string DELETE_POSTER = $"{BASE_URL}deletePoster";
 
         public CompanyApiService(RestClient client) : base(client)
         {

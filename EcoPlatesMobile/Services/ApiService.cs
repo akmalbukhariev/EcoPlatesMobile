@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
+using System.Text;
 
 namespace EcoPlatesMobile.Services
 {
     public class ApiService
     {
         private readonly RestClient _client;
-
+        string token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMTA4NDQxMDY5NyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3NDM5NDE5MzJ9.8mOwNu1B5IXjD4n8MARiLQPTdSYEztdA97thJVhutLQ";
         public ApiService(RestClient client)
         {
             _client = client;
@@ -57,10 +58,16 @@ namespace EcoPlatesMobile.Services
         private async Task<string> ExecuteRequestAsync(RestRequest request)
         { 
             var response = await _client.ExecuteAsync(request);
-
-            if (!response.IsSuccessful)
+            Console.WriteLine($"Status Code: {response.StatusCode}");
+            Console.WriteLine($"Content Length: {response.RawBytes?.Length}");
+            Console.WriteLine($"Response Headers: {string.Join(", ", response.Headers.Select(h => $"{h.Name}: {h.Value}"))}");
+            Console.WriteLine("Raw Content:");
+            if (response.RawBytes != null && response.RawBytes.Length > 0)
             {
-                return $"Error: {response.StatusCode} - {response.ErrorMessage ?? response.Content}";
+                var json = Encoding.UTF8.GetString(response.RawBytes);
+                Console.WriteLine("Decoded JSON:");
+                Console.WriteLine(json);
+                return json;
             }
 
             return response.Content ?? string.Empty;
@@ -73,15 +80,15 @@ namespace EcoPlatesMobile.Services
         }
 
         public async Task<string> PostAsync(string endpoint, object? data = null)
-        {
-            //var request = await CreateRequestAsync(endpoint, Method.Post, false);
+        {         
             var request = new RestRequest(endpoint, Method.Post);
             request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", $"Bearer {token}");
 
             if (data != null)
             {
                 var json = JsonConvert.SerializeObject(data);
-                request.AddStringBody(json, DataFormat.Json);
+                request.AddJsonBody(json);
             }
             
             return await ExecuteRequestAsync(request);
@@ -89,12 +96,13 @@ namespace EcoPlatesMobile.Services
 
         public async Task<string> PutAsync(string endpoint, object? data = null)
         {
-            var request = await CreateRequestAsync(endpoint, Method.Put);
+            var request = new RestRequest(endpoint, Method.Put);
             request.AddHeader("Content-Type", "application/json");
 
             if (data != null)
             {
-                request.AddJsonBody(data);
+                var json = JsonConvert.SerializeObject(data);
+                request.AddJsonBody(json);
             }
 
             return await ExecuteRequestAsync(request);
@@ -102,7 +110,7 @@ namespace EcoPlatesMobile.Services
 
         public async Task<string> DeleteAsync(string endpoint)
         {
-            var request =  await CreateRequestAsync(endpoint, Method.Delete);
+            var request =  new RestRequest(endpoint, Method.Delete);
             return await ExecuteRequestAsync(request);
         }
 
@@ -115,7 +123,8 @@ namespace EcoPlatesMobile.Services
             {
                 var request = new RestRequest(endpoint, Method.Post);
                 request.AddHeader("Content-Type", "application/json");
-                request.AddJsonBody(data);
+                var json = JsonConvert.SerializeObject(data);
+                request.AddJsonBody(json);
 
                 var response = await _client.ExecuteAsync(request);
 

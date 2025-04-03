@@ -30,6 +30,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public UserMainPageViewModel()
         {
+            products = new ObservableCollection<ProductModel>();
             /*
             products =
             [
@@ -127,15 +128,15 @@ namespace EcoPlatesMobile.ViewModels.User
         
         public async Task LoadPromotionAsync()
         {
-            if(isLoading) return;
-
+            if(IsLoading) return;
+            
             try
             {
-                isLoading = true;
+                IsLoading = true;
                 var apiService = AppService.Get<UserApiService>(); 
                 PosterLocationRequest request = new PosterLocationRequest
                 {
-                    category = PosterType.CAKE,
+                    category = PosterType.CAKE.GetValue(),
                     offset = 0,
                     pageSize = 10,
                     radius_km = 10,
@@ -143,9 +144,23 @@ namespace EcoPlatesMobile.ViewModels.User
                     user_lon = 126.724187
                 };
                 PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
-                if(response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                if(response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
-                    int g = 0;
+                    Products.Clear();
+                    foreach (var item in response.resultData)
+                    {
+                        Products.Add(new ProductModel
+                        {
+                            Image = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                            Count = "2 qoldi", // You can customize this if you have stock data
+                            Name = item.title,
+                            ComapnyName = item.company_name,
+                            NewPrice = $"{item.new_price:N0} so'm",
+                            OldPrice = $"{item.old_price:N0} so'm",
+                            Stars = "3.1", // Replace with actual rating if available
+                            Distance = $"{item.distance_km:0.0} km"
+                        });
+                    }
                 }
             }
             catch(Exception ex)
@@ -154,7 +169,7 @@ namespace EcoPlatesMobile.ViewModels.User
             }
             finally
             {
-                isLoading = false;
+                IsLoading = false;
             }
         }
     }
