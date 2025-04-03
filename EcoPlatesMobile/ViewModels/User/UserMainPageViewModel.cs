@@ -124,7 +124,7 @@ namespace EcoPlatesMobile.ViewModels.User
             ];
             */
         }
-    
+        
         public async Task LoadPromotionAsync()
         {
             if(isLoading) return;

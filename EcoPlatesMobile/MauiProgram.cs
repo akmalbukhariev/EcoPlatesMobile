@@ -43,13 +43,13 @@ namespace EcoPlatesMobile
             builder.Services.AddSingleton(sp =>
                 new RestClient(new RestClientOptions(Constants.BASE_USER_URL)
                 {
-                    ThrowOnAnyError = true,
+                    ThrowOnAnyError = false,
                     Timeout = TimeSpan.FromSeconds(30)
                 }));
             builder.Services.AddSingleton(sp =>
                 new RestClient(new RestClientOptions(Constants.BASE_COMPANY_URL)
                 {
-                    ThrowOnAnyError = true,
+                    ThrowOnAnyError = false,
                     Timeout = TimeSpan.FromSeconds(30)
                 }));
         }
