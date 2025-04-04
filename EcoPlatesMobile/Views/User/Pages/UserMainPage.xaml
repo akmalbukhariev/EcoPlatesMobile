@@ -37,23 +37,37 @@
                    Grid.Row="3"/>
             <user_component:CompanyTypeListView Grid.Row="4"/>
         </Grid>
-        <CollectionView ItemsSource="{Binding Products}" 
-                        Margin="10"
-                        Grid.Row="2">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" 
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}"
+                     Margin="10"
+                     Grid.Row="2">
+            <CollectionView ItemsSource="{Binding Products}"
+                            RemainingItemsThreshold="1"
+                            RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
                                  VerticalItemSpacing="10"
                                  HorizontalItemSpacing="10"
                                  Span="2"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <user_component:ProductView/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <component:LoadingView x:Name="loadingView" 
-                               IsLoading="{Binding IsLoading}"
-                               Grid.RowSpan="3"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <user_component:ProductView ProductImage="{Binding ProductImage}"
+                                                    ProductName="{Binding ProductName}"
+                                                    ProductMakerName="{Binding PoductMakerName}"
+                                                    NewPrice="{Binding NewPrice}"
+                                                    OldPrice="{Binding OldPrice}"
+                                                    Stars="{Binding Stars}"
+                                                    Distance="{Binding Distance}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           Color="Green"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.Row="2"/>
     </Grid>
 </ContentPage>

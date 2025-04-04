@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Core;
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
@@ -23,154 +24,108 @@ namespace EcoPlatesMobile.ViewModels.User
     public partial class UserMainPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        public ObservableCollection<ProductModel> products;
+        private ObservableCollection<ProductModel> products;
 
         [ObservableProperty]
-        public bool isLoading;
+        private bool isLoading;
 
+        [ObservableProperty]
+        private bool isRefreshing;
+
+        private int offset = 0;
+        private const int PageSize = 6;
+        
         public UserMainPageViewModel()
         {
-            products = new ObservableCollection<ProductModel>();
-            /*
-            products =
-            [
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-                new ProductModel
-                {
-                    Image = "cake.png",
-                    Count = "2 qoldi",
-                    Name = "Tort rogalik",
-                    ComapnyName = "Safia &amp; Bakery",
-                    NewPrice = "15 000 so'm",
-                    OldPrice = "25 000 so'm",
-                    Stars = "3.1",
-                    Distance = "1 km"
-                },
-            ];
-            */
+            Products = new ObservableCollection<ProductModel>();
         }
-        
-        public async Task LoadPromotionAsync()
+
+        /// <summary>
+        /// Load product posters with pagination and refresh handling.
+        /// </summary>
+        /// <param name="isRefresh">If true, skip the IsLoading check to allow refresh to proceed.</param>
+        public async Task LoadPromotionAsync(bool isRefresh = false)
         {
-            if(IsLoading) return;
-            
             try
             {
-                IsLoading = true;
-                var apiService = AppService.Get<UserApiService>(); 
+                if (isRefresh)
+                {
+                    IsRefreshing = true;
+                    IsLoading = false;
+
+                    offset = 0;
+                    Products.Clear();
+                }
+                else
+                {
+                    IsRefreshing = false;
+                    IsLoading = true;
+                }
+
+                var apiService = AppService.Get<UserApiService>();
+
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     category = PosterType.CAKE.GetValue(),
-                    offset = 0,
-                    pageSize = 10,
+                    offset = offset,
+                    pageSize = PageSize,
                     radius_km = 10,
                     user_lat = 37.518313,
                     user_lon = 126.724187
                 };
+
                 PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
-                if(response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
+
+                if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
-                    Products.Clear();
-                    foreach (var item in response.resultData)
+                    var items = response.resultData;
+
+                    foreach (var item in items)
                     {
                         Products.Add(new ProductModel
                         {
-                            Image = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                            Count = "2 qoldi", // You can customize this if you have stock data
-                            Name = item.title,
-                            ComapnyName = item.company_name,
+                            ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                            Count = "2 qoldi",
+                            ProductName = item.title,
+                            ProductMakerName = item.company_name,
                             NewPrice = $"{item.new_price:N0} so'm",
                             OldPrice = $"{item.old_price:N0} so'm",
-                            Stars = "3.1", // Replace with actual rating if available
+                            Stars = "3.1",
                             Distance = $"{item.distance_km:0.0} km"
                         });
                     }
+
+                    offset += PageSize;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine($"Error: {ex.Message}");
+                Debug.WriteLine($"[ERROR] LoadPromotionAsync: {ex.Message}");
             }
             finally
             {
+                IsRefreshing = false;   
                 IsLoading = false;
             }
         }
+
+        /// <summary>
+        /// Command to load more items as user scrolls down.
+        /// </summary>
+        public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
+        {
+             
+
+            await LoadPromotionAsync();
+        });
+
+        /// <summary>
+        /// Command to refresh the list when user pulls from top.
+        /// </summary>
+        public IRelayCommand RefreshCommand => new RelayCommand(async () =>
+        {
+            Products.Clear();
+            await LoadPromotionAsync(isRefresh: true);
+        });
     }
 }

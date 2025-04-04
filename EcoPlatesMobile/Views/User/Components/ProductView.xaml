@@ -9,8 +9,10 @@
            HasShadow="True">
         <Grid RowDefinitions="Auto, Auto, Auto, Auto">
             <Grid ColumnDefinitions="*,*">
-                <Image Source="cake.png"
+                <Image x:Name="productImage" 
+                       Source="{Binding ProductImage}"
                        Aspect="AspectFill"
+                       HeightRequest="135"
                        Grid.ColumnSpan="2"/>
                 <Grid HeightRequest="35"
                       WidthRequest="75"
@@ -25,7 +27,8 @@
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
                     </Border>
-                    <Label Text="2 qoldi"
+                    <Label x:Name="productCount" 
+                           Text="{Binding ProductCount}"
                            TextColor="Black"
                            FontSize="16"
                            FontAttributes="Bold"
@@ -42,22 +45,26 @@
             </Grid>
             <VerticalStackLayout Margin="10,0,0,0"
                                  Spacing="0"
-                                 Grid.Row="1">      
-                <Label Text="Tort rogalik" 
+                                 Grid.Row="1">
+                <Label x:Name="productName" 
+                       Text="{Binding ProductName}" 
                        FontSize="18" 
                        FontAttributes="Bold"/>
-                <Label Text="Safia Cafe &amp; Bakery" 
+                <Label x:Name="productMakerName" 
+                       Text="{Binding ProductMakerName}" 
                        FontSize="14" 
                        TextColor="Black"/>
             </VerticalStackLayout>
             <VerticalStackLayout Margin="10,5,0,0"
                                  Spacing="0"
                                  Grid.Row="2">
-                <Label Text="15 000 so'm" 
+                <Label x:Name="newPrice" 
+                       Text="{Binding NewPrice}" 
                        FontSize="18" 
                        TextColor="Green"
                        FontAttributes="Bold"/>
-                <Label Text="25 000 so'm" 
+                <Label x:Name="oldPrice" 
+                       Text="{Binding OldPrice}" 
                        Margin="3,0,0,0"
                        TextDecorations="Strikethrough"
                        FontSize="16" 
@@ -70,7 +77,8 @@
                     <Image Source="star.png" 
                            WidthRequest="16" 
                            HeightRequest="16"/>
-                    <Label Text="3.1" 
+                    <Label x:Name="stars" 
+                           Text="{Binding Stars}"
                            FontSize="14"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
@@ -81,7 +89,8 @@
                     <Image Source="distance.png" 
                            WidthRequest="16" 
                            HeightRequest="16"/>
-                    <Label Text="579 m" 
+                    <Label x:Name="distance" 
+                           Text="{Binding Distance}" 
                            FontSize="14"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>

@@ -17,6 +17,7 @@ public partial class UserMainPage : ContentPage
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
+
 		await viewModel.LoadPromotionAsync();
-	}
+    }
 }
