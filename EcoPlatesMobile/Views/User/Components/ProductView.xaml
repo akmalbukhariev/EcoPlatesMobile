@@ -49,6 +49,7 @@
                 <Label x:Name="productName" 
                        Text="{Binding ProductName}" 
                        FontSize="18" 
+                       LineBreakMode="TailTruncation"
                        FontAttributes="Bold"/>
                 <Label x:Name="productMakerName" 
                        Text="{Binding ProductMakerName}" 
