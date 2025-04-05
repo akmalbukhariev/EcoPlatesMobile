@@ -35,7 +35,8 @@
                    TextColor="Black"
                    FontAttributes="Bold"
                    Grid.Row="3"/>
-            <user_component:CompanyTypeListView Grid.Row="4"/>
+            <user_component:CompanyTypeListView HorizontalOptions="Center" 
+                                                Grid.Row="4"/>
         </Grid>
         <RefreshView IsRefreshing="{Binding IsRefreshing}"
                      Command="{Binding RefreshCommand}"
