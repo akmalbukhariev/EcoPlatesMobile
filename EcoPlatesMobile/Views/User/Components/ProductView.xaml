@@ -41,7 +41,12 @@
                        VerticalOptions="Start"
                        HorizontalOptions="End"
                        Margin="0, 10, 10, 0"
-                       Grid.Column="1"/>
+                       Grid.Column="1">
+                       <Image.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Tapped="Like_Tapped"/>
+                       </Image.GestureRecognizers>
+                </Image>
             </Grid>
             <VerticalStackLayout Margin="10,0,0,0"
                                  Spacing="0"

@@ -127,10 +127,24 @@ namespace EcoPlatesMobile.ViewModels.User
         public UserMainPageViewModel()
         {
             Products = new ObservableRangeCollection<ProductModel>();
+            Products.Add(
+                new ProductModel
+                    {
+                        ProductImage = "no_image.png",
+                        Count = "2 qoldi",
+                        ProductName = "test",
+                        ProductMakerName = "test maker",
+                        NewPrice = "1200 so'm",
+                        OldPrice = "500 so'm",
+                        Stars = "3.1",
+                        Distance = "1 km"
+                    }
+            );
         }
         
         public async Task LoadPromotionAsync(bool isRefresh = false)
         {
+            return;
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;
 
@@ -208,16 +222,18 @@ namespace EcoPlatesMobile.ViewModels.User
             }
         }
 
-        public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
+        public IRelayCommand LoadMoreCommand => new RelayCommand( async () =>
         {
+            return;
             if (IsLoading || IsRefreshing || !hasMoreItems)
                 return;
 
             await LoadPromotionAsync();
         });
 
-        public IRelayCommand RefreshCommand => new RelayCommand(async () =>
+        public IRelayCommand RefreshCommand => new RelayCommand( async () =>
         {
+            return;
             await LoadPromotionAsync(isRefresh: true);
         });
     } 

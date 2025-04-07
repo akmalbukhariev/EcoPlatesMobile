@@ -129,4 +129,13 @@ public partial class ProductView : ContentView
         var control = (ProductView)bindable;
         control.distance.Text = ((double)newValue).ToString();
     }
+
+    private async void Like_Tapped(object sender, TappedEventArgs e)
+    {
+        if (sender is VisualElement element)
+        {
+            await element.ScaleTo(1.3, 100, Easing.CubicOut);
+            await element.ScaleTo(1.0, 100, Easing.CubicIn);
+        }
+    }
 }

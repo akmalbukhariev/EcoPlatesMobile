@@ -64,6 +64,8 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+        <component:CustomLikedView ShowLiked="True" 
+                                   Grid.Row="2"/>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
                            Color="Green"
                            Scale="1.5"
