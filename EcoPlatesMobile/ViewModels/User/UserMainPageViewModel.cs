@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
@@ -123,10 +124,13 @@ namespace EcoPlatesMobile.ViewModels.User
         private int offset = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
-
+        public ICommand LikeProductCommand { get; }
+        
         public UserMainPageViewModel()
         {
             Products = new ObservableRangeCollection<ProductModel>();
+            LikeProductCommand = new Command<ProductModel>(OnProductLiked);
+            
             Products.Add(
                 new ProductModel
                     {
@@ -142,6 +146,11 @@ namespace EcoPlatesMobile.ViewModels.User
             );
         }
         
+        private void OnProductLiked(ProductModel product)
+        {
+            Console.WriteLine($"Liked: {product.ProductName}");
+        }
+
         public async Task LoadPromotionAsync(bool isRefresh = false)
         {
             return;

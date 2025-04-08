@@ -1,3 +1,6 @@
+using System.Windows.Input;
+using EcoPlatesMobile.Models.User;
+
 namespace EcoPlatesMobile.Views.User.Components;
 
 public partial class ProductView : ContentView
@@ -28,6 +31,8 @@ public partial class ProductView : ContentView
     public static readonly BindableProperty DistanceProperty =
      BindableProperty.Create(nameof(Distance), typeof(double), typeof(ProductView), 0.0, propertyChanged: DistanceChanged);
 
+    public static readonly BindableProperty LikeCommandProperty =
+        BindableProperty.Create(nameof(LikeCommand), typeof(ICommand), typeof(ProductView));
 
     public ImageSource ProductImage
     {
@@ -76,7 +81,13 @@ public partial class ProductView : ContentView
         get => (double)GetValue(DistanceProperty);
         set => SetValue(DistanceProperty, value);
     }
-
+ 
+    public ICommand LikeCommand
+    {
+        get => (ICommand)GetValue(LikeCommandProperty);
+        set => SetValue(LikeCommandProperty, value);
+    }
+    
     public ProductView()
 	{
 		InitializeComponent();
@@ -136,6 +147,11 @@ public partial class ProductView : ContentView
         {
             await element.ScaleTo(1.3, 100, Easing.CubicOut);
             await element.ScaleTo(1.0, 100, Easing.CubicIn);
+        }
+
+        if (BindingContext is ProductModel product && LikeCommand?.CanExecute(product) == true)
+        {
+            LikeCommand.Execute(product);
         }
     }
 }

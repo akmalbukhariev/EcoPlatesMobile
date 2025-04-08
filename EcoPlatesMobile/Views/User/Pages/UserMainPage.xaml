@@ -4,6 +4,7 @@
              x:Class="EcoPlatesMobile.Views.User.Pages.UserMainPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
              xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
+             xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
              Title="MainPage">
 
     <Grid RowDefinitions="Auto, Auto, *">
@@ -59,7 +60,8 @@
                                                     NewPrice="{Binding NewPrice}"
                                                     OldPrice="{Binding OldPrice}"
                                                     Stars="{Binding Stars}"
-                                                    Distance="{Binding Distance}"/>
+                                                    Distance="{Binding Distance}"
+                                                    LikeCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserMainPage}}, Path=BindingContext.LikeProductCommand}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
