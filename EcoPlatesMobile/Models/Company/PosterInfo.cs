@@ -1,5 +1,7 @@
 ﻿
 
+using System.Runtime.InteropServices;
+
 namespace EcoPlatesMobile.Models.Company
 {
     public class PosterInfo
@@ -18,6 +20,8 @@ namespace EcoPlatesMobile.Models.Company
         public string category { get; set; } = string.Empty;
         public long views_count { get; set; } = 0;
         public long click_to_contact_count { get; set; } = 0;
+        public bool liked { get; set; }
+        public long? bookmark_id { get; set; } = 0;
         public DateTime? end_date { get; set; }
         public DateTime? created_at { get; set; }
     }

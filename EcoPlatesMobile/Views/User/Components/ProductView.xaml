@@ -35,7 +35,8 @@
                            HorizontalOptions="Center"
                            VerticalTextAlignment="Center"/>
                 </Grid>
-                <Image Source="like.png"
+                <Image x:Name="imLiked" 
+                       Source="like.png"
                        WidthRequest="30"
                        HeightRequest="30"
                        VerticalOptions="Start"

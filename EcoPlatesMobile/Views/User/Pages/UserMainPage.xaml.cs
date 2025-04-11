@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
@@ -12,9 +13,20 @@ public partial class UserMainPage : ContentPage
 
 		viewModel =  new UserMainPageViewModel();
 		BindingContext = viewModel;
-	}
 
-	protected override async void OnAppearing()
+        viewModel.PropertyChanged += ViewModel_PropertyChanged;
+    }
+
+    private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(viewModel.ShowLikedView) && viewModel.ShowLikedView)
+        {
+            await likeView.DisplayAsAnimation();
+            viewModel.ShowLikedView = false;
+        }
+    }
+
+    protected override async void OnAppearing()
 	{
 		base.OnAppearing();
 

@@ -61,12 +61,15 @@
                                                     OldPrice="{Binding OldPrice}"
                                                     Stars="{Binding Stars}"
                                                     Distance="{Binding Distance}"
+                                                    Liked="{Binding Liked}"
                                                     LikeCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserMainPage}}, Path=BindingContext.LikeProductCommand}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-        <component:CustomLikedView ShowLiked="True" 
+        <component:CustomLikedView x:Name="likeView" 
+                                   ShowLiked="{Binding IsLikedViewLiked}"
+                                   IsVisible="{Binding ShowLikedView}"
                                    Grid.Row="2"/>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
                            Color="Green"

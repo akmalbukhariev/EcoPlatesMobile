@@ -31,6 +31,9 @@ public partial class ProductView : ContentView
     public static readonly BindableProperty DistanceProperty =
      BindableProperty.Create(nameof(Distance), typeof(double), typeof(ProductView), 0.0, propertyChanged: DistanceChanged);
 
+    public static readonly BindableProperty LikedProperty =
+     BindableProperty.Create(nameof(Liked), typeof(bool), typeof(ProductView), false, propertyChanged: LikedChanged);
+
     public static readonly BindableProperty LikeCommandProperty =
         BindableProperty.Create(nameof(LikeCommand), typeof(ICommand), typeof(ProductView));
 
@@ -81,7 +84,13 @@ public partial class ProductView : ContentView
         get => (double)GetValue(DistanceProperty);
         set => SetValue(DistanceProperty, value);
     }
- 
+
+    public bool Liked
+    {
+        get => (bool)GetValue(LikedProperty);
+        set => SetValue(LikedProperty, value);
+    }
+
     public ICommand LikeCommand
     {
         get => (ICommand)GetValue(LikeCommandProperty);
@@ -139,6 +148,14 @@ public partial class ProductView : ContentView
     {
         var control = (ProductView)bindable;
         control.distance.Text = ((double)newValue).ToString();
+    }
+
+    private static void LikedChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (ProductView)bindable;
+        bool liked = (bool)newValue;
+
+        control.imLiked.Source = liked ? "liked.png" : "like.png";
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)

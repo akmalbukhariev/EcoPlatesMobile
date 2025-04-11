@@ -20,6 +20,8 @@ namespace EcoPlatesMobile.Services
         private const string GET_USER_INFO = $"{BASE_URL}user/getUserByToken";
         private const string UPDATE_USER_INFO = $"{BASE_URL}user/updateUserInfo";
         private const string REGISTER_BOOKMARK = $"{BASE_URL}registerBookmark";
+        private const string REGISTER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/registerBookmarkPromotion";
+        private const string DELETE_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/deleteUserBookmarkPromotion";
         private const string GET_USER_BOOKMARK = $"{BASE_URL}getUserBookmark";
         private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}getCompaniesByCurrentLocation";
         private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
@@ -205,13 +207,46 @@ namespace EcoPlatesMobile.Services
             return response;
         }
 
-        public async Task<Response> RegisterUserBookmark(RegisterBookmarksRequest data)
+        public async Task<Response> RegisterUserBookmarkPromotion(RegisterBookmarksRequest data)
         {
             var response = new Response();
 
             try
             {
                 var receivedData = await PostAsync(REGISTER_BOOKMARK, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> DeleteUserBookmarkPromotion(int bookmarkId)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await DeleteAsync($"{DELETE_BOOKMARK_PROMOTION}/{bookmarkId}");
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

@@ -120,6 +120,8 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private bool isRefreshing;
+        [ObservableProperty] private bool showLikedView;
+        [ObservableProperty] private bool isLikedViewLiked;
 
         private int offset = 0;
         private const int PageSize = 4;
@@ -129,9 +131,9 @@ namespace EcoPlatesMobile.ViewModels.User
         public UserMainPageViewModel()
         {
             Products = new ObservableRangeCollection<ProductModel>();
-            LikeProductCommand = new Command<ProductModel>(OnProductLiked);
+            LikeProductCommand = new Command<ProductModel>(ProductLiked);
             
-            Products.Add(
+            /*Products.Add(
                 new ProductModel
                     {
                         ProductImage = "no_image.png",
@@ -143,17 +145,19 @@ namespace EcoPlatesMobile.ViewModels.User
                         Stars = "3.1",
                         Distance = "1 km"
                     }
-            );
+            );*/
         }
         
-        private void OnProductLiked(ProductModel product)
+        private void ProductLiked(ProductModel product)
         {
-            Console.WriteLine($"Liked: {product.ProductName}");
+            product.Liked = !product.Liked;
+
+            IsLikedViewLiked = product.Liked;
+            ShowLikedView = true; 
         }
 
         public async Task LoadPromotionAsync(bool isRefresh = false)
         {
-            return;
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;
 
@@ -196,7 +200,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     }
 
                     var productModels = items.Select(item => new ProductModel
-                    {
+                    { 
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
                         Count = "2 qoldi",
                         ProductName = item.title,
@@ -204,6 +208,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",
                         Stars = "3.1",
+                        Liked = item.liked,
+                        bookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
@@ -242,7 +248,6 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public IRelayCommand RefreshCommand => new RelayCommand( async () =>
         {
-            return;
             await LoadPromotionAsync(isRefresh: true);
         });
     } 

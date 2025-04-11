@@ -3,7 +3,12 @@ namespace EcoPlatesMobile.Views.Components;
 public partial class CustomLikedView : ContentView
 {
     public static readonly BindableProperty ShowLikedProperty =
-       BindableProperty.Create(nameof(ShowLiked), typeof(bool), typeof(CustomLikedView), false, propertyChanged: ShowLikedChanged);
+     BindableProperty.Create(
+         nameof(ShowLiked),
+         typeof(bool),
+         typeof(CustomLikedView),
+         false,
+         propertyChanged: ShowLikedChanged);
 
     public bool ShowLiked
     {
@@ -13,15 +18,38 @@ public partial class CustomLikedView : ContentView
 
     public CustomLikedView()
     {
-        InitializeComponent();
-        BindingContext = this;
+        InitializeComponent(); 
     }
 
      private static void ShowLikedChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CustomLikedView)bindable;
-        bool show = (bool)newValue;
-        control.imLiked.IsVisible = show;
-        control.imUnLiked.IsVisible = !show;
+        control.UpdateLikedState((bool)newValue);
+    }
+
+    private void UpdateLikedState(bool show)
+    {
+        imLiked.IsVisible = show;
+        imUnLiked.IsVisible = !show;
+    }
+
+    public async Task DisplayAsAnimation()
+    {
+        IsVisible = true;
+         
+        Opacity = 0;
+        Scale = 0.5;
+         
+        await Task.WhenAll(
+            this.FadeTo(1, 250),
+            this.ScaleTo(1.2, 250, Easing.SinInOut)
+        );
+        await this.ScaleTo(1.0, 150, Easing.SinInOut);
+        await this.ScaleTo(1.2, 150, Easing.SinInOut);
+        await this.ScaleTo(1.0, 150, Easing.SinInOut);
+         
+        await Task.Delay(500);
+
+        IsVisible = false;
     }
 }
