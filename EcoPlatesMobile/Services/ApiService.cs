@@ -111,6 +111,8 @@ namespace EcoPlatesMobile.Services
         public async Task<string> DeleteAsync(string endpoint)
         {
             var request =  new RestRequest(endpoint, Method.Delete);
+            request.AddHeader("Authorization", $"Bearer {token}");
+
             return await ExecuteRequestAsync(request);
         }
 

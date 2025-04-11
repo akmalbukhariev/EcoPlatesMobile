@@ -21,7 +21,8 @@ namespace EcoPlatesMobile.Models.User
     }*/
 
     public partial class ProductModel : ObservableObject
-    { 
+    {
+        public long PromotionId;
         [ObservableProperty]
         private string productImage;
         [ObservableProperty]
@@ -38,7 +39,7 @@ namespace EcoPlatesMobile.Models.User
         private string stars;
         [ObservableProperty]
         private bool liked;
-        public long bookmarkId = 0;
+        public long BookmarkId = 0;
         [ObservableProperty]
         private string distance;
     }

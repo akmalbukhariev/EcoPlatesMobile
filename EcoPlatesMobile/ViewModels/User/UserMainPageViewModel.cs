@@ -23,98 +23,6 @@ namespace EcoPlatesMobile.ViewModels.User
     //https://github.com/dotnet-architecture/eshop-mobile-client/blob/main/eShopOnContainers/Services/Navigation/MauiNavigationService.cs
     //https://github.com/dotnet/maui
 
-    /*public partial class UserMainPageViewModel : ObservableObject
-    {
-        [ObservableProperty]private ObservableCollection<ProductModel> products;
-        [ObservableProperty] private bool isLoading;
-        [ObservableProperty] private bool isRefreshing;
-        [ObservableProperty] private bool hasMoreItems = true;
-
-        private int offset = 0;
-        private const int PageSize = 15;
-        
-        public UserMainPageViewModel()
-        {
-            Products = new ObservableCollection<ProductModel>();
-        }
- 
-        public async Task LoadPromotionAsync(bool isRefresh = false)
-        {
-            try
-            {
-                if (isRefresh)
-                {
-                    IsRefreshing = true;
-                    IsLoading = false;
-
-                    offset = 0;
-                    Products.Clear();
-                }
-                else
-                {
-                    IsRefreshing = false;
-                    IsLoading = true;
-                }
-
-                var apiService = AppService.Get<UserApiService>();
-
-                PosterLocationRequest request = new PosterLocationRequest
-                {
-                    category = PosterType.CAKE.GetValue(),
-                    offset = offset,
-                    pageSize = PageSize,
-                    radius_km = 10,
-                    user_lat = 37.518313,
-                    user_lon = 126.724187
-                };
-
-                PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
-
-                if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
-                {
-                    var items = response.resultData;
-
-                    foreach (var item in items)
-                    {
-                        Products.Add(new ProductModel
-                        {
-                            ProductImage = "no_image.png",//string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                            Count = "2 qoldi",
-                            ProductName = item.title,
-                            ProductMakerName = item.company_name,
-                            NewPrice = $"{item.new_price:N0} so'm",
-                            OldPrice = $"{item.old_price:N0} so'm",
-                            Stars = "3.1",
-                            Distance = $"{item.distance_km:0.0} km"
-                        });
-                    }
-
-                    offset += PageSize;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[ERROR] LoadPromotionAsync: {ex.Message}");
-            }
-            finally
-            {
-                IsRefreshing = false;   
-                IsLoading = false;
-            }
-        }
- 
-        public IRelayCommand LoadMoreCommand => new RelayCommand( async() =>
-        {
-            await LoadPromotionAsync();
-        });
- 
-        public IRelayCommand RefreshCommand => new RelayCommand(async () =>
-        {
-            Products.Clear();
-            await LoadPromotionAsync(isRefresh: true);
-        });
-    } */
-
     public partial class UserMainPageViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
@@ -126,6 +34,7 @@ namespace EcoPlatesMobile.ViewModels.User
         private int offset = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
+
         public ICommand LikeProductCommand { get; }
         
         public UserMainPageViewModel()
@@ -148,12 +57,24 @@ namespace EcoPlatesMobile.ViewModels.User
             );*/
         }
         
-        private void ProductLiked(ProductModel product)
+        private async void ProductLiked(ProductModel product)
         {
             product.Liked = !product.Liked;
+            SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
+            {
+                user_id = 16,
+                promotion_id = product.PromotionId,
+                deleted = product.Liked,
+            };
 
-            IsLikedViewLiked = product.Liked;
-            ShowLikedView = true; 
+            var apiService = AppService.Get<UserApiService>();
+            Response response = await apiService.UpdateUserBookmarkPromotionStatus(request);
+            
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                IsLikedViewLiked = product.Liked;
+                ShowLikedView = true;
+            }
         }
 
         public async Task LoadPromotionAsync(bool isRefresh = false)
@@ -201,6 +122,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                     var productModels = items.Select(item => new ProductModel
                     { 
+                        PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
                         Count = "2 qoldi",
                         ProductName = item.title,
@@ -209,7 +131,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         OldPrice = $"{item.old_price:N0} so'm",
                         Stars = "3.1",
                         Liked = item.liked,
-                        bookmarkId = item.bookmark_id ?? 0,
+                        BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 

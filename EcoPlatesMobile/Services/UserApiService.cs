@@ -21,7 +21,7 @@ namespace EcoPlatesMobile.Services
         private const string UPDATE_USER_INFO = $"{BASE_URL}user/updateUserInfo";
         private const string REGISTER_BOOKMARK = $"{BASE_URL}registerBookmark";
         private const string REGISTER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/registerBookmarkPromotion";
-        private const string DELETE_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/deleteUserBookmarkPromotion";
+        private const string SAVE_OR_UPDATE_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/saveOrUpdateBookmarkPromotion";
         private const string GET_USER_BOOKMARK = $"{BASE_URL}getUserBookmark";
         private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}getCompaniesByCurrentLocation";
         private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
@@ -207,13 +207,13 @@ namespace EcoPlatesMobile.Services
             return response;
         }
 
-        public async Task<Response> RegisterUserBookmarkPromotion(RegisterBookmarksRequest data)
+        public async Task<Response> RegisterUserBookmarkPromotion(RegisterBookmarkPropmotionRequest data)
         {
             var response = new Response();
 
             try
             {
-                var receivedData = await PostAsync(REGISTER_BOOKMARK, data);
+                var receivedData = await PostAsync(REGISTER_BOOKMARK_PROMOTION, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
@@ -240,13 +240,13 @@ namespace EcoPlatesMobile.Services
             return response;
         }
 
-        public async Task<Response> DeleteUserBookmarkPromotion(int bookmarkId)
+        public async Task<Response> UpdateUserBookmarkPromotionStatus(SaveOrUpdateBookmarksPromotionRequest data)
         {
             var response = new Response();
 
             try
             {
-                var receivedData = await DeleteAsync($"{DELETE_BOOKMARK_PROMOTION}/{bookmarkId}");
+                var receivedData = await PostAsync(SAVE_OR_UPDATE_BOOKMARK_PROMOTION, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

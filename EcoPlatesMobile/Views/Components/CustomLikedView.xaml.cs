@@ -41,13 +41,13 @@ public partial class CustomLikedView : ContentView
         Scale = 0.5;
          
         await Task.WhenAll(
-            this.FadeTo(1, 250),
-            this.ScaleTo(1.2, 250, Easing.SinInOut)
+            this.FadeTo(1, 150),
+            this.ScaleTo(1.2, 150, Easing.SinInOut)
         );
-        await this.ScaleTo(1.0, 150, Easing.SinInOut);
-        await this.ScaleTo(1.2, 150, Easing.SinInOut);
-        await this.ScaleTo(1.0, 150, Easing.SinInOut);
-         
+        await this.ScaleTo(1.0, 50, Easing.SinInOut);
+        //await this.ScaleTo(1.2, 150, Easing.SinInOut);
+        //await this.ScaleTo(1.0, 150, Easing.SinInOut);
+
         await Task.Delay(500);
 
         IsVisible = false;
