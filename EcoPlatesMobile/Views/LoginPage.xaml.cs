@@ -3,7 +3,7 @@ using SkiaSharp.Views.Maui;
 using SkiaSharp.Extended;
 using Svg.Skia;
 using System.Threading.Tasks;
-using EcoPlatesMobile.Core;
+using EcoPlatesMobile.Services.Api;
 
 namespace EcoPlatesMobile.Views;
 

@@ -10,20 +10,28 @@
            HasShadow="True">
         <Grid RowDefinitions="Auto, 50, 40">
             <Grid RowDefinitions="30, Auto">
-                <Image Source="company_back_image" 
+                <Image x:Name="companyImage"
+                       Source="{Binding CompanyImage}"
                        HeightRequest="110" 
-                       Aspect="Fill"
+                       Aspect="AspectFill"
                        VerticalOptions="Start"
                        Grid.RowSpan="2"/>
-                <Image Source="like.png"
+                <Image x:Name="imLiked"  
+                       Source="like.png"
                        WidthRequest="35"
                        HeightRequest="35"
                        VerticalOptions="Start"
                        HorizontalOptions="End"
-                       Margin="0, 15, 15, 10"/>
+                       Margin="0, 15, 15, 10">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="Like_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
                 <HorizontalStackLayout VerticalOptions="End"
                                        Spacing="10"
                                        Margin="10, 0, 0, 10"
+                                       IsVisible="Collapse"
                                        Grid.Row="1">
                     <Image Source="copany_logo.png" 
                            WidthRequest="40" 
@@ -38,10 +46,12 @@
             <VerticalStackLayout Margin="10,10,0,0"
                                  Spacing="5"
                                  Grid.Row="1">
-                <Label Text="Korzinka.uz" 
+                <Label x:Name="companyName" 
+                       Text="{Binding CompanyName}"
                        FontSize="18" 
                        FontAttributes="Bold"/>
-                <Label Text="Collect today 08:15 - 09:00" 
+                <Label x:Name="companyWorkingTime"
+                       Text="{Binding WorkingTime}"
                        FontSize="14" 
                        TextColor="Black"/>
             </VerticalStackLayout>
@@ -52,7 +62,8 @@
                     <Image Source="star.png" 
                            WidthRequest="16" 
                            HeightRequest="16"/>
-                    <Label Text="3.1" 
+                    <Label x:Name="stars"  
+                           Text="{Binding Stars}" 
                            FontSize="14"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
@@ -63,7 +74,8 @@
                     <Image Source="distance.png" 
                            WidthRequest="16" 
                            HeightRequest="16"/>
-                    <Label Text="579 m" 
+                    <Label x:Name="distance" 
+                           Text="{Binding Distance}"  
                            FontSize="14"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>

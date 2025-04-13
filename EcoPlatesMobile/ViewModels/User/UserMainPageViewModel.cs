@@ -1,12 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm;
-using EcoPlatesMobile.Core;
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
-using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using System;
 using System.Collections.Generic;
@@ -16,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using EcoPlatesMobile.Services.Api;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
@@ -35,8 +34,6 @@ namespace EcoPlatesMobile.ViewModels.User
         private const int PageSize = 4;
         private bool hasMoreItems = true;
 
-        public ICommand LikeProductCommand { get; }
-        
         public UserMainPageViewModel()
         {
             Products = new ObservableRangeCollection<ProductModel>();
@@ -159,9 +156,10 @@ namespace EcoPlatesMobile.ViewModels.User
             }
         }
 
+        public ICommand LikeProductCommand { get; }
+
         public IRelayCommand LoadMoreCommand => new RelayCommand( async () =>
         {
-            return;
             if (IsLoading || IsRefreshing || !hasMoreItems)
                 return;
 

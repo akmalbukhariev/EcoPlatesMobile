@@ -1,9 +1,9 @@
-using EcoPlatesMobile.Core;
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;

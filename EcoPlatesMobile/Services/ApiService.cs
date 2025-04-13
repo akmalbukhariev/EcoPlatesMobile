@@ -7,7 +7,7 @@ namespace EcoPlatesMobile.Services
     public class ApiService
     {
         private readonly RestClient _client;
-        string token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMTA4NDQxMDY5NyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3NDQ1MjM2NjN9.IyLkZsS3YBidJlLI5zoRTD_bWV-feDPU9iR-q0WSGss";
+        string token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMTA4NDQxMDY5NyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3NDQ3OTcwODl9.V4WAEP94ecHY-7gwjp4XVQOdIF7zzjcZjrOQXjI2hXI";
         public ApiService(RestClient client)
         {
             _client = client;
@@ -76,6 +76,8 @@ namespace EcoPlatesMobile.Services
         public async Task<string> GetAsync(string endpoint, bool includeToken = true)
         {
             var request = await CreateRequestAsync(endpoint, Method.Get, includeToken);
+            request.AddHeader("Authorization", $"Bearer {token}");
+
             return await ExecuteRequestAsync(request);
         }
 

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Pages.UserFavoritesPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             xmlns:userComponent="clr-namespace:EcoPlatesMobile.Views.User.Components"
+             xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
+             xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
              Title="UserFavoritesPage">
 
     <Grid RowDefinitions="Auto, *">
@@ -27,37 +28,67 @@
         <Grid RowDefinitions="50, *"
               Margin="16, 30, 16, 0"
               Grid.Row="1">
-            <userComponent:TabSwitcherView x:Name="tabSwitcher"
+            <user_component:TabSwitcherView x:Name="tabSwitcher"
                                            SwitchType="Classic"
-                                           Tab1_Title="Sallar"
-                                           Tab2_Title="Products"/>
-            <CollectionView x:Name="listCompany" 
-                            ItemsSource="{Binding Companies}"
-                            Margin="0,20,0,0"
-                            Grid.Row="1">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <userComponent:CompanyView/>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <CollectionView x:Name="listProduct"  
-                            ItemsSource="{Binding Products}" 
-                            IsVisible="False"
-                            Margin="0,20,0,0"
-                            Grid.Row="2">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" 
-                                     VerticalItemSpacing="10"
-                                     HorizontalItemSpacing="10"
-                                     Span="2"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <userComponent:ProductView/>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                           Tab1_Title="Products"
+                                           Tab2_Title="Sallar"/>
+            <RefreshView x:Name="listProduct" 
+                         IsRefreshing="{Binding IsRefreshingProduct}"
+                         Command="{Binding RefreshProductCommand}"
+                         Margin="10"
+                         Grid.Row="2">
+                <CollectionView ItemsSource="{Binding Products}"
+                                RemainingItemsThreshold="1"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadProductMoreCommand}"
+                                Margin="0,20,0,0">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" 
+                                         VerticalItemSpacing="10"
+                                         HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete"
+                                                   BackgroundColor="Red"
+                                                   Invoked="DeleteItem_Invoked"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <user_component:FavoriteProductView ProductImage="{Binding ProductImage}"
+                                                                    ProductName="{Binding ProductName}"
+                                                                    ProductMakerName="{Binding PoductMakerName}"
+                                                                    NewPrice="{Binding NewPrice}"
+                                                                    OldPrice="{Binding OldPrice}"
+                                                                    Stars="{Binding Stars}"
+                                                                    Distance="{Binding Distance}"/>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <RefreshView x:Name="listCompany" 
+                         IsRefreshing="{Binding IsRefreshingCompany}"
+                         Command="{Binding RefreshCompanyCommand}"
+                         IsVisible="False"
+                         Margin="10"
+                         Grid.Row="1">
+                <CollectionView ItemsSource="{Binding Companies}"
+                                Margin="0,20,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <user_component:CompanyView/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               Color="Green"
+                               Scale="1.5"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               Grid.Row="1"/>
         </Grid>
     </Grid>
 </ContentPage>

@@ -28,12 +28,12 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <SwipeView>
-                             <SwipeView.RightItems>
+                            <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItem Text="Edit"
-                                               BackgroundColor="#8338EC"/>
+                                                   BackgroundColor="#8338EC"/>
                                     <SwipeItem Text="Active"
-                                               BackgroundColor="Green"/>
+                                                   BackgroundColor="Green"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <com_component:ProductView IsNonActiveProduct="True"/>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.User.Components.FavoriteProductView">
+
+    <Frame Padding="0"
+           CornerRadius="10"
+           HeightRequest="115"
+           HasShadow="True">
+        <Grid ColumnDefinitions="Auto, *">
+            <Image x:Name="productImage" 
+                   Source="{Binding ProductImage}"
+                   Aspect="Fill"
+                   WidthRequest="110"/>
+            <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
+                  Margin="20,0,0,0"
+                  VerticalOptions="Center" 
+                  Grid.Column="1">
+                <VerticalStackLayout>
+                    <Label x:Name="productName" 
+                           Text="{Binding ProductName}"
+                           TextColor="Black"
+                           FontSize="14"
+                           FontAttributes="Bold"/>
+                    <Label x:Name="productMakerName" 
+                           Text="{Binding ProductMakerName}"
+                           TextColor="Gray"
+                           FontSize="12"
+                           FontAttributes="Bold"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="2">
+                    <Label x:Name="newPrice" 
+                           Text="{Binding NewPrice}" 
+                           TextColor="Green"
+                           FontSize="14"
+                           FontAttributes="Bold"/>
+                    <Label x:Name="oldPrice" 
+                           Text="{Binding OldPrice}"
+                           TextColor="Gray"
+                           TextDecorations="Strikethrough"
+                           FontSize="12"
+                           FontAttributes="Bold"/>
+                </VerticalStackLayout>
+                <HorizontalStackLayout Margin="0,0,0,0"
+                                       Spacing="10"
+                                       Grid.Row="4">
+                    <HorizontalStackLayout Spacing="5">
+                        <Image Source="star.png" 
+                               WidthRequest="16" 
+                               HeightRequest="16"/>
+                        <Label x:Name="stars" 
+                               Text="{Binding Stars}" 
+                               FontSize="11"
+                               VerticalTextAlignment="Center"/>
+                    </HorizontalStackLayout>
+                    <BoxView BackgroundColor="LightGray"
+                             WidthRequest="1"
+                             HeightRequest="15"/>
+                    <HorizontalStackLayout Spacing="5">
+                        <Image Source="distance.png" 
+                               WidthRequest="16" 
+                               HeightRequest="16"/>
+                        <Label x:Name="distance" 
+                               Text="{Binding Distance}" 
+                               FontSize="11"
+                               VerticalTextAlignment="Center"/>
+                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+            </Grid>
+        </Grid>
+    </Frame>
+</ContentView>

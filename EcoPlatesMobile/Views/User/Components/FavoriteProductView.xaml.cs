@@ -1,39 +1,32 @@
-using System.Windows.Input;
-using EcoPlatesMobile.Models.User;
+using Microsoft.Maui.Maps;
 
 namespace EcoPlatesMobile.Views.User.Components;
 
-public partial class ProductView : ContentView
+public partial class FavoriteProductView : ContentView
 {
     public static readonly BindableProperty ProductImageProperty =
-        BindableProperty.Create(nameof(ProductImage), typeof(ImageSource), typeof(ProductView), default(ImageSource), propertyChanged: ProductImageChanged);
+        BindableProperty.Create(nameof(ProductImage), typeof(ImageSource), typeof(FavoriteProductView), default(ImageSource), propertyChanged: ProductImageChanged);
 
     public static readonly BindableProperty ProductCountProperty =
-      BindableProperty.Create(nameof(ProductCount), typeof(int), typeof(ProductView), 1, propertyChanged: ProductCountChanged);
-     
+      BindableProperty.Create(nameof(ProductCount), typeof(int), typeof(FavoriteProductView), 1, propertyChanged: ProductCountChanged);
+
     public static readonly BindableProperty ProductNameProperty =
-       BindableProperty.Create(nameof(ProductName), typeof(string), typeof(ProductView), default(string), propertyChanged: ProductNameChanged);
+       BindableProperty.Create(nameof(ProductName), typeof(string), typeof(FavoriteProductView), default(string), propertyChanged: ProductNameChanged);
 
     public static readonly BindableProperty ProductMakerNameProperty =
-       BindableProperty.Create(nameof(ProductMakerName), typeof(string), typeof(ProductView), default(string), propertyChanged: ProductMakerNameChanged);
-     
+       BindableProperty.Create(nameof(ProductMakerName), typeof(string), typeof(FavoriteProductView), default(string), propertyChanged: ProductMakerNameChanged);
+
     public static readonly BindableProperty NewPriceProperty =
-       BindableProperty.Create(nameof(NewPrice), typeof(double), typeof(ProductView), 0.0, propertyChanged: NewPriceChanged);
+       BindableProperty.Create(nameof(NewPrice), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: NewPriceChanged);
 
     public static readonly BindableProperty OldPriceProperty =
-      BindableProperty.Create(nameof(OldPrice), typeof(double), typeof(ProductView), 0.0, propertyChanged: OldPriceChanged);
+      BindableProperty.Create(nameof(OldPrice), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: OldPriceChanged);
 
     public static readonly BindableProperty StarsProperty =
-      BindableProperty.Create(nameof(Stars), typeof(double), typeof(ProductView), 0.0, propertyChanged: StarsChanged);
+      BindableProperty.Create(nameof(Stars), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: StarsChanged);
 
     public static readonly BindableProperty DistanceProperty =
-      BindableProperty.Create(nameof(Distance), typeof(double), typeof(ProductView), 0.0, propertyChanged: DistanceChanged);
-
-    public static readonly BindableProperty LikedProperty =
-     BindableProperty.Create(nameof(Liked), typeof(bool), typeof(ProductView), false, propertyChanged: LikedChanged);
-
-    public static readonly BindableProperty LikeCommandProperty =
-        BindableProperty.Create(nameof(LikeCommand), typeof(ICommand), typeof(ProductView));
+     BindableProperty.Create(nameof(Distance), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: DistanceChanged);
 
     public ImageSource ProductImage
     {
@@ -83,90 +76,56 @@ public partial class ProductView : ContentView
         set => SetValue(DistanceProperty, value);
     }
 
-    public bool Liked
-    {
-        get => (bool)GetValue(LikedProperty);
-        set => SetValue(LikedProperty, value);
-    }
-
-    public ICommand LikeCommand
-    {
-        get => (ICommand)GetValue(LikeCommandProperty);
-        set => SetValue(LikeCommandProperty, value);
-    }
-    
-    public ProductView()
+    public FavoriteProductView()
 	{
 		InitializeComponent();
 	}
 
     private static void ProductImageChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (ProductView)bindable;
+        var control = (FavoriteProductView)bindable;
         control.productImage.Source = (ImageSource)newValue;
     }
 
     private static void ProductCountChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (ProductView)bindable;
-        control.productCount.Text = (string)newValue;
+        //var control = (FavoriteProductView)bindable;
+        //control.productCount.Text = (string)newValue;
     }
 
     private static void ProductNameChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (ProductView)bindable;
+        var control = (FavoriteProductView)bindable;
         control.productName.Text = (string)newValue;
     }
 
     private static void ProductMakerNameChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (ProductView)bindable;
+        var control = (FavoriteProductView)bindable;
         control.productMakerName.Text = (string)newValue;
     }
 
     private static void NewPriceChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (ProductView)bindable;
+        var control = (FavoriteProductView)bindable;
         control.newPrice.Text = ((double)newValue).ToString();
     }
 
     private static void OldPriceChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (ProductView)bindable;
+        var control = (FavoriteProductView)bindable;
         control.oldPrice.Text = ((double)newValue).ToString();
     }
 
     private static void StarsChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (ProductView)bindable;
+        var control = (FavoriteProductView)bindable;
         control.stars.Text = ((double)newValue).ToString();
     }
 
     private static void DistanceChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (ProductView)bindable;
+        var control = (FavoriteProductView)bindable;
         control.distance.Text = ((double)newValue).ToString();
-    }
-
-    private static void LikedChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var control = (ProductView)bindable;
-        bool liked = (bool)newValue;
-
-        control.imLiked.Source = liked ? "liked.png" : "like.png";
-    }
-
-    private async void Like_Tapped(object sender, TappedEventArgs e)
-    {
-        if (sender is VisualElement element)
-        {
-            await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            await element.ScaleTo(1.0, 100, Easing.CubicIn);
-        }
-
-        if (BindingContext is ProductModel product && LikeCommand?.CanExecute(product) == true)
-        {
-            LikeCommand.Execute(product);
-        }
     }
 }

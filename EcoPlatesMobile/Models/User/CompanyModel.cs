@@ -1,21 +1,17 @@
 ﻿
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace EcoPlatesMobile.Models.User
 {
-    public class CompanyModel : BaseModel
+    public partial class CompanyModel : ObservableObject
     {
-        public string logo { get { return GetValue<string>(); } set => SetValue(value); }
-        public string company_name { get { return GetValue<string>(); } set => SetValue(value); }
-        public string working_time { get { return GetValue<string>(); } set => SetValue(value); }
-        public string stars { get { return GetValue<string>(); } set => SetValue(value); }
-        public string distance { get { return GetValue<string>(); } set => SetValue(value); }
-
-        public CompanyModel()
-        {
-            logo = "";
-            company_name = "";
-            working_time = "";
-            stars = "";
-            distance = "";
-        }
+        public long CompanyId;
+        public long BookmarkId = 0;
+        [ObservableProperty] private string companyImage;
+        [ObservableProperty] private string companyName;
+        [ObservableProperty] private string workingTime;
+        [ObservableProperty] private string stars;
+        [ObservableProperty] private string distance;
+        [ObservableProperty] private bool liked;
     }
 }

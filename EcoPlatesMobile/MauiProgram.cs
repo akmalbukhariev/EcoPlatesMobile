@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui;
-using EcoPlatesMobile.Core;
 using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 using Microsoft.Extensions.Logging;
 using RestSharp;

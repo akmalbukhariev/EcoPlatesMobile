@@ -8,7 +8,7 @@ using EcoPlatesMobile.Utilities;
 using Newtonsoft.Json;
 using RestSharp;
 
-namespace EcoPlatesMobile.Services
+namespace EcoPlatesMobile.Services.Api
 {
     public class UserApiService : ApiService
     {
@@ -22,8 +22,9 @@ namespace EcoPlatesMobile.Services
         private const string REGISTER_BOOKMARK = $"{BASE_URL}registerBookmark";
         private const string REGISTER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/registerBookmarkPromotion";
         private const string SAVE_OR_UPDATE_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/saveOrUpdateBookmarkPromotion";
+        private const string GET_USER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/getUserBookmarkPromotion";
         private const string GET_USER_BOOKMARK = $"{BASE_URL}getUserBookmark";
-        private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}getCompaniesByCurrentLocation";
+        private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}company/getCompaniesByCurrentLocation";
         private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
 
         public UserApiService(RestClient client) : base(client)
@@ -251,6 +252,39 @@ namespace EcoPlatesMobile.Services
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
                     var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<BookmarkPromotionListResponse> GetUserBookmarkPromotion(PaginationWithLocationRequest data)
+        {
+            var response = new BookmarkPromotionListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_USER_BOOKMARK_PROMOTION, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<BookmarkPromotionListResponse>(receivedData);
                     if (deserializedResponse != null)
                     {
                         return deserializedResponse;

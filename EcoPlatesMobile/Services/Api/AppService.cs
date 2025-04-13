@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EcoPlatesMobile.Core
+namespace EcoPlatesMobile.Services.Api
 {
     public static class AppService
     {
