@@ -5,6 +5,8 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models.Requests.Company;
+using EcoPlatesMobile.Models.Requests.User;
+using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
@@ -34,24 +36,22 @@ namespace EcoPlatesMobile.ViewModels.User
         private async void CompanyLiked(CompanyModel product)
         {
             product.Liked = !product.Liked;
-
-            /*
-            SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
+ 
+            SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
             {
                 user_id = 16,
-                promotion_id = product.PromotionId,
-                deleted = product.Liked,
+                company_id = product.CompanyId,
+                deleted = product.Liked ? false : true,
             };
 
             var apiService = AppService.Get<UserApiService>();
-            Response response = await apiService.UpdateUserBookmarkPromotionStatus(request);
+            Response response = await apiService.UpdateUserBookmarkCompanyStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 IsLikedViewLiked = product.Liked;
                 ShowLikedView = true;
             }
-            */
         }
 
         public async Task LoadCompaniesAsync(bool isRefresh = false)
@@ -137,25 +137,24 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
-                /*
-                SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
+                
+                SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
                 {
                     user_id = 16,
-                    promotion_id = product.PromotionId,
-                    deleted = false,
+                    company_id = product.CompanyId,
+                    deleted = true,
                 };
 
                 var apiService = AppService.Get<UserApiService>();
-                Response response = await apiService.UpdateUserBookmarkPromotionStatus(request);
+                Response response = await apiService.UpdateUserBookmarkCompanyStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    products.Remove(product);
+                    Companies.Remove(product);
                 }
-                */
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[ERROR] DeleteProduct: {ex.Message}");
+                Debug.WriteLine($"[ERROR] DeleteCompany: {ex.Message}");
             }
             finally
             {

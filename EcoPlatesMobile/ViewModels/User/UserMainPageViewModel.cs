@@ -61,7 +61,7 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 user_id = 16,
                 promotion_id = product.PromotionId,
-                deleted = product.Liked,
+                deleted = product.Liked ? false : true,
             };
 
             var apiService = AppService.Get<UserApiService>();

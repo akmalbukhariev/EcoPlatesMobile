@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.ViewModels.User;
 using Microsoft.Maui.Controls.Shapes;
@@ -15,6 +16,7 @@ public partial class UserBrowserPage : ContentPage
 		BindingContext = viewModel;
 
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
+        viewModel.PropertyChanged += ViewModel_PropertyChanged;
 	}
 
     protected override async void OnAppearing()
@@ -55,6 +57,15 @@ public partial class UserBrowserPage : ContentPage
                 list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
                 map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
             );
+        }
+    }
+
+    private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(viewModel.ShowLikedView) && viewModel.ShowLikedView)
+        {
+            await likeView.DisplayAsAnimation();
+            viewModel.ShowLikedView = false;
         }
     }
 
