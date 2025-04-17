@@ -53,7 +53,7 @@
                                     <SwipeItems>
                                         <SwipeItem Text="Delete"
                                                    BackgroundColor="Red"
-                                                   Invoked="DeleteItem_Invoked"/>
+                                                   Invoked="DeleteProduct_Invoked"/>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <user_component:FavoriteProductView ProductImage="{Binding ProductImage}"
@@ -78,7 +78,21 @@
                                 Margin="0,20,0,0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <user_component:CompanyView/>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete"
+                                                   BackgroundColor="Red"
+                                                   Invoked="DeleteCompany_Invoked"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <user_component:CompanyView CompanyImage="{Binding CompanyImage}"
+                                                            CompanyName="{Binding CompanyName}"
+                                                            WorkingTime="{Binding WorkingTime}"
+                                                            Stars="{Binding Stars}"
+                                                            Distance="{Binding Distance}"
+                                                            ShowLiked="False"/>        
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

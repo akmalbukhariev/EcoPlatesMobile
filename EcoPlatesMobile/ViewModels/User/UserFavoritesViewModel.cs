@@ -26,9 +26,11 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private bool isRefreshingProduct;
         [ObservableProperty] private bool isRefreshingCompany;
 
-        private int offset = 0;
+        private int offsetProduct = 0;
+        private int offsetCompany = 0;
         private const int PageSize = 4;
         private bool hasMoreProductItems = true;
+        private bool hasMoreCompanyItems = true;
 
         public UserFavoritesViewModel()
         {
@@ -46,19 +48,49 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     user_id = 16,
                     promotion_id = product.PromotionId,
-                    deleted = false,
+                    deleted = true,
                 };
 
                 var apiService = AppService.Get<UserApiService>();
                 Response response = await apiService.UpdateUserBookmarkPromotionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    products.Remove(product);
+                    Products.Remove(product);
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"[ERROR] DeleteProduct: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        public async Task DeleteCompany(CompanyModel product)
+        {
+            try
+            {
+                IsLoading = true;
+
+                SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
+                {
+                    user_id = 16,
+                    company_id = product.CompanyId,
+                    deleted = true,
+                };
+
+                var apiService = AppService.Get<UserApiService>();
+                Response response = await apiService.UpdateUserBookmarkCompanyStatus(request);
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    Companies.Remove(product);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] DeleteCompany: {ex.Message}");
             }
             finally
             {
@@ -76,7 +108,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 if (isRefresh)
                 {
                     IsRefreshingProduct = true;
-                    offset = 0;
+                    offsetProduct = 0;
                     hasMoreProductItems = true;
                     Products.Clear();
                 }
@@ -91,7 +123,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                      user_lat = 37.518313,
                      user_lon = 126.724187,
-                     offset = offset,
+                     offset = offsetProduct,
                      pageSize = PageSize
                 };
                 BookmarkPromotionListResponse response = await apiService.GetUserBookmarkPromotion(request);
@@ -123,7 +155,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                     Products.AddRange(productModels);
 
-                    offset += PageSize;
+                    offsetProduct += PageSize;
                     if (productModels.Count < PageSize)
                     {
                         hasMoreProductItems = false;
@@ -147,7 +179,77 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public async Task LoadCompanyFavoritesAsync(bool isRefresh = false)
         {
-            
+            if (IsLoading || (!hasMoreCompanyItems && !isRefresh))
+                return;
+
+            try
+            {
+                if (isRefresh)
+                {
+                    IsRefreshingCompany = true;
+                    offsetCompany = 0;
+                    hasMoreCompanyItems = true;
+                    Companies.Clear();
+                }
+                else
+                {
+                    IsLoading = true;
+                }
+
+                var apiService = AppService.Get<UserApiService>();
+
+                PaginationWithLocationRequest request = new PaginationWithLocationRequest()
+                {
+                    user_lat = 37.518313,
+                    user_lon = 126.724187,
+                    offset = offsetCompany,
+                    pageSize = PageSize
+                };
+                BookmarkCompanyListResponse response = await apiService.GetUserBookmarkCompany(request);
+
+                if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
+                {
+                    var items = response.resultData;
+
+                    if (items == null || items.Count == 0)
+                    {
+                        hasMoreCompanyItems = false;
+                        return;
+                    }
+
+                    var companyModels = items.Select(item => new CompanyModel
+                    {
+                        CompanyId = item.company_id ?? 0,
+                        CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
+                        CompanyName = item.company_name,
+                        WorkingTime = item.working_hours,
+                        Stars = "3.1",
+                        Liked = item.liked,
+                        Distance = $"{item.distance_km:0.0} km"
+                    }).ToList();
+
+                    Companies.AddRange(companyModels);
+
+                    offsetCompany += PageSize;
+                    if (companyModels.Count < PageSize)
+                    {
+                        hasMoreCompanyItems = false;
+                    }
+                }
+                else
+                {
+                    hasMoreCompanyItems = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] LoadCompanyFavoritesAsync: {ex.Message}");
+            }
+            finally
+            {
+                IsRefreshingCompany = false;
+                IsLoading = false;
+            }
         }
          
         public IRelayCommand RefreshProductCommand => new RelayCommand(async () =>

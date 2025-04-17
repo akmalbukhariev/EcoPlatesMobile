@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Pages.UserBrowserPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             xmlns:userComponent="clr-namespace:EcoPlatesMobile.Views.User.Components"
+             xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
 
@@ -41,7 +41,7 @@
                                             ButtonCornerRadius="5"
                                             Grid.Column="2"/>
             </Grid>
-            <userComponent:TabSwitcherView x:Name="tabSwitcher"
+            <user_component:TabSwitcherView x:Name="tabSwitcher"
                                            SwitchType="Modern"
                                            Tab1_Title="List"
                                            Tab2_Title="Map"
@@ -56,13 +56,14 @@
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <userComponent:CompanyView CompanyImage="{Binding CompanyImage}"
-                                                       CompanyName="{Binding CompanyName}"
-                                                       WorkingTime="{Binding WorkingTime}"
-                                                       Stars="{Binding Stars}"
-                                                       Distance="{Binding Distance}"
-                                                       Liked="{Binding Liked}"
-                                                       LikeCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserBrowserPage}}, Path=BindingContext.LikeCompanyCommand}"/>
+                            <user_component:CompanyView CompanyImage="{Binding CompanyImage}"
+                                                        CompanyName="{Binding CompanyName}"
+                                                        WorkingTime="{Binding WorkingTime}"
+                                                        Stars="{Binding Stars}"
+                                                        Distance="{Binding Distance}"
+                                                        Liked="{Binding Liked}"
+                                                        ShowLiked="True"
+                                                        LikeCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserBrowserPage}}, Path=BindingContext.LikeCompanyCommand}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

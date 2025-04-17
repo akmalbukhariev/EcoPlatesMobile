@@ -22,6 +22,7 @@ public partial class UserFavoritesPage : ContentPage
         base.OnAppearing();
 
         await viewModel.LoadProductFavoritesAsync();
+        await viewModel.LoadCompanyFavoritesAsync();
     }
 
     private async void TabSwitcher_TabChanged(object? sender, string e)
@@ -58,11 +59,19 @@ public partial class UserFavoritesPage : ContentPage
         }
     }
 
-    private async void DeleteItem_Invoked(object sender, EventArgs e)
+    private async void DeleteProduct_Invoked(object sender, EventArgs e)
     {
         if (sender is SwipeItem swipeItem && swipeItem.BindingContext is ProductModel product)
         {
             await viewModel.DeleteProduct(product);
+        }
+    }
+
+    private async void DeleteCompany_Invoked(object sender, EventArgs e)
+    {
+        if (sender is SwipeItem swipeItem && swipeItem.BindingContext is CompanyModel company)
+        {
+            await viewModel.DeleteCompany(company);
         }
     }
 }
