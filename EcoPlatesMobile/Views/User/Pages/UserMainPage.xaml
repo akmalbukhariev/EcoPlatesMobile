@@ -4,8 +4,7 @@
              x:Class="EcoPlatesMobile.Views.User.Pages.UserMainPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
              xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
-             xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
-             Title="MainPage">
+             xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
 
     <Grid RowDefinitions="Auto, Auto, *">
         <Grid BackgroundColor="#007200"

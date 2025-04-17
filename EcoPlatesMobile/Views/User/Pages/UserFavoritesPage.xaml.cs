@@ -20,9 +20,9 @@ public partial class UserFavoritesPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        await viewModel.LoadProductFavoritesAsync();
-        await viewModel.LoadCompanyFavoritesAsync();
+         
+        await viewModel.LoadInitialProductAsync();
+        await viewModel.LoadInitialCompanyAsync();
     }
 
     private async void TabSwitcher_TabChanged(object? sender, string e)

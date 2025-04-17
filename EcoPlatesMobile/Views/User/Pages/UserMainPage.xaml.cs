@@ -17,6 +17,13 @@ public partial class UserMainPage : ContentPage
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
     }
 
+    protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+
+        await viewModel.LoadInitialAsync();
+    }
+
     private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(viewModel.ShowLikedView) && viewModel.ShowLikedView)
@@ -24,12 +31,5 @@ public partial class UserMainPage : ContentPage
             await likeView.DisplayAsAnimation();
             viewModel.ShowLikedView = false;
         }
-    }
-
-    protected override async void OnAppearing()
-	{
-		base.OnAppearing();
-
-		await viewModel.LoadPromotionAsync();
     }
 }

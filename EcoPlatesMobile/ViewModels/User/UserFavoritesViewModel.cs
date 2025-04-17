@@ -38,6 +38,140 @@ namespace EcoPlatesMobile.ViewModels.User
             companies = new ObservableRangeCollection<CompanyModel>(); 
         }
 
+        public async Task LoadInitialProductAsync()
+        {
+            offsetProduct = 0;
+            Products.Clear();
+            hasMoreProductItems = true;
+
+            try
+            {
+                IsLoading = true;
+
+                var apiService = AppService.Get<UserApiService>();
+
+                PaginationWithLocationRequest request = new PaginationWithLocationRequest()
+                {
+                    user_lat = 37.518313,
+                    user_lon = 126.724187,
+                    offset = offsetProduct,
+                    pageSize = PageSize
+                };
+                BookmarkPromotionListResponse response = await apiService.GetUserBookmarkPromotion(request);
+
+                if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
+                {
+                    var items = response.resultData;
+
+                    if (items == null || items.Count == 0)
+                    {
+                        hasMoreProductItems = false;
+                        return;
+                    }
+
+                    var productModels = items.Select(item => new ProductModel
+                    {
+                        PromotionId = item.poster_id ?? 0,
+                        ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                        Count = "2 qoldi",
+                        ProductName = item.title,
+                        ProductMakerName = item.company_name,
+                        NewPrice = $"{item.new_price:N0} so'm",
+                        OldPrice = $"{item.old_price:N0} so'm",
+                        Stars = "3.1",
+                        Liked = item.liked,
+                        BookmarkId = item.bookmark_id ?? 0,
+                        Distance = $"{item.distance_km:0.0} km"
+                    }).ToList();
+
+                    Products.AddRange(productModels);
+
+                    offsetProduct += PageSize;
+                    if (productModels.Count < PageSize)
+                    {
+                        hasMoreProductItems = false;
+                    }
+                }
+                else
+                {
+                    hasMoreProductItems = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] LoadInitialProductAsync: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        public async Task LoadInitialCompanyAsync()
+        {
+            offsetCompany = 0;
+            Companies.Clear();
+            hasMoreCompanyItems = true;
+
+            try
+            {
+                IsLoading = true;
+
+                var apiService = AppService.Get<UserApiService>();
+
+                PaginationWithLocationRequest request = new PaginationWithLocationRequest()
+                {
+                    user_lat = 37.518313,
+                    user_lon = 126.724187,
+                    offset = offsetCompany,
+                    pageSize = PageSize
+                };
+                BookmarkCompanyListResponse response = await apiService.GetUserBookmarkCompany(request);
+
+                if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
+                {
+                    var items = response.resultData;
+
+                    if (items == null || items.Count == 0)
+                    {
+                        hasMoreCompanyItems = false;
+                        return;
+                    }
+
+                    var companyModels = items.Select(item => new CompanyModel
+                    {
+                        CompanyId = item.company_id ?? 0,
+                        CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
+                        CompanyName = item.company_name,
+                        WorkingTime = item.working_hours,
+                        Stars = "3.1",
+                        Liked = item.liked,
+                        Distance = $"{item.distance_km:0.0} km"
+                    }).ToList();
+
+                    Companies.AddRange(companyModels);
+
+                    offsetCompany += PageSize;
+                    if (companyModels.Count < PageSize)
+                    {
+                        hasMoreCompanyItems = false;
+                    }
+                }
+                else
+                {
+                    hasMoreCompanyItems = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] LoadInitialCompanyAsync: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
         public async Task DeleteProduct(ProductModel product)
         {
             try
@@ -268,6 +402,14 @@ namespace EcoPlatesMobile.ViewModels.User
                 return;
 
             await LoadProductFavoritesAsync();
+        });
+
+        public IRelayCommand LoadCompanyMoreCommand => new RelayCommand(async () =>
+        {
+            if (IsLoading || IsRefreshingCompany || !hasMoreCompanyItems)
+                return;
+
+            await LoadCompanyFavoritesAsync();
         });
     }
 }

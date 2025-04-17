@@ -38,20 +38,6 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             Products = new ObservableRangeCollection<ProductModel>();
             LikeProductCommand = new Command<ProductModel>(ProductLiked);
-            
-            /*Products.Add(
-                new ProductModel
-                    {
-                        ProductImage = "no_image.png",
-                        Count = "2 qoldi",
-                        ProductName = "test",
-                        ProductMakerName = "test maker",
-                        NewPrice = "1200 so'm",
-                        OldPrice = "500 so'm",
-                        Stars = "3.1",
-                        Distance = "1 km"
-                    }
-            );*/
         }
         
         private async void ProductLiked(ProductModel product)
@@ -71,6 +57,77 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLikedViewLiked = product.Liked;
                 ShowLikedView = true;
+            }
+        }
+
+        public async Task LoadInitialAsync()
+        {
+            offset = 0;
+            hasMoreItems = true;
+            Products.Clear();
+
+            try
+            {
+                IsLoading = true;
+
+                var apiService = AppService.Get<UserApiService>();
+
+                PosterLocationRequest request = new PosterLocationRequest
+                {
+                    category = PosterType.CAKE.GetValue(),
+                    offset = offset,
+                    pageSize = PageSize,
+                    radius_km = 10,
+                    user_lat = 37.518313,
+                    user_lon = 126.724187
+                };
+
+                PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
+
+                if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
+                {
+                    var items = response.resultData;
+
+                    if (items == null || items.Count == 0)
+                    {
+                        hasMoreItems = false;
+                        return;
+                    }
+
+                    var productModels = items.Select(item => new ProductModel
+                    {
+                        PromotionId = item.poster_id ?? 0,
+                        ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                        Count = "2 qoldi",
+                        ProductName = item.title,
+                        ProductMakerName = item.company_name,
+                        NewPrice = $"{item.new_price:N0} so'm",
+                        OldPrice = $"{item.old_price:N0} so'm",
+                        Stars = "3.1",
+                        Liked = item.liked,
+                        BookmarkId = item.bookmark_id ?? 0,
+                        Distance = $"{item.distance_km:0.0} km"
+                    }).ToList();
+                    Products.AddRange(productModels);
+
+                    offset += PageSize;
+                    if (productModels.Count < PageSize)
+                    {
+                        hasMoreItems = false;
+                    }
+                }
+                else
+                {
+                    hasMoreItems = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] LoadInitialAsync: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
@@ -171,5 +228,4 @@ namespace EcoPlatesMobile.ViewModels.User
             await LoadPromotionAsync(isRefresh: true);
         });
     } 
-
 }

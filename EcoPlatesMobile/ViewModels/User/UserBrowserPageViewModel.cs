@@ -54,6 +54,74 @@ namespace EcoPlatesMobile.ViewModels.User
             }
         }
 
+        public async Task LoadInitialAsync()
+        {
+            offset = 0;
+            hasMoreItems = true;
+            Companies.Clear();
+
+            try
+            {
+                IsLoading = true;
+
+                var apiService = AppService.Get<UserApiService>();
+
+                CompanyLocationRequest request = new CompanyLocationRequest()
+                {
+                    radius_km = 2,
+                    user_lat = 37.518313,
+                    user_lon = 126.724187,
+                    offset = offset,
+                    pageSize = PageSize,
+                };
+
+                CompanyListResponse response = await apiService.GetCompaniesByCurrentLocation(request);
+
+                if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
+                {
+                    var items = response.resultData;
+
+                    if (items == null || items.Count == 0)
+                    {
+                        hasMoreItems = false;
+                        return;
+                    }
+
+                    var companyModels = items.Select(item => new CompanyModel
+                    {
+                        CompanyId = item.company_id ?? 0,
+                        CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
+                        CompanyName = item.company_name,
+                        WorkingTime = item.working_hours,
+                        Stars = "3.1",
+                        Liked = item.liked,
+                        BookmarkId = item.bookmark_id ?? 0,
+                        Distance = $"{item.distance_km:0.0} km"
+                    }).ToList();
+
+                    Companies.AddRange(companyModels);
+
+                    offset += PageSize;
+                    if (companyModels.Count < PageSize)
+                    {
+                        hasMoreItems = false;
+                    }
+                }
+                else
+                {
+                    hasMoreItems = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] LoadInitialAsync: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
         public async Task LoadCompaniesAsync(bool isRefresh = false)
         {
             if (IsLoading || (!hasMoreItems && !isRefresh))

@@ -75,6 +75,8 @@
                          Margin="10"
                          Grid.Row="1">
                 <CollectionView ItemsSource="{Binding Companies}"
+                                RemainingItemsThreshold="1"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadCompanyMoreCommand}"
                                 Margin="0,20,0,0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

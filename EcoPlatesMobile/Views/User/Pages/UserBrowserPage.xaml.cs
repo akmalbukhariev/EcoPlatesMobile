@@ -22,8 +22,8 @@ public partial class UserBrowserPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        await viewModel.LoadCompaniesAsync();
+         
+        await viewModel.LoadInitialAsync();
     }
 
     private async void TabSwitcher_TabChanged(object? sender, string e)
