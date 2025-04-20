@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EcoPlatesMobile.Services.Api;
+using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
@@ -25,6 +26,7 @@ namespace EcoPlatesMobile.ViewModels.User
     public partial class UserMainPageViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
+        [ObservableProperty] private ProductModel selectedProduct;
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private bool isRefreshing;
         [ObservableProperty] private bool showLikedView;
@@ -33,11 +35,16 @@ namespace EcoPlatesMobile.ViewModels.User
         private int offset = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
+        private INavigation Navigation;
 
-        public UserMainPageViewModel()
+        public UserMainPageViewModel(INavigation navigation)
         {
+            Navigation = navigation;
+
             Products = new ObservableRangeCollection<ProductModel>();
+
             LikeProductCommand = new Command<ProductModel>(ProductLiked);
+            ClickProductCommand = new Command<ProductModel>(ProductClicked);
         }
         
         private async void ProductLiked(ProductModel product)
@@ -58,6 +65,11 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLikedViewLiked = product.Liked;
                 ShowLikedView = true;
             }
+        }
+
+        private async void ProductClicked(ProductModel product)
+        {
+            await Shell.Current.GoToAsync(nameof(DetailProductPage));
         }
 
         public async Task LoadInitialAsync()
@@ -214,7 +226,8 @@ namespace EcoPlatesMobile.ViewModels.User
         }
 
         public ICommand LikeProductCommand { get; }
-
+        public ICommand ClickProductCommand { get; }
+        
         public IRelayCommand LoadMoreCommand => new RelayCommand( async () =>
         {
             if (IsLoading || IsRefreshing || !hasMoreItems)

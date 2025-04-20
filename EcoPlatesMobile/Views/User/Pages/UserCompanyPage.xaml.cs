@@ -1,30 +1,31 @@
+using EcoPlatesMobile.ViewModels.User;
+
 namespace EcoPlatesMobile.Views.User.Pages;
 
-using Microsoft.Maui.Controls; 
+public partial class UserCompanyPage : ContentPage
+{
+	private UserCompanyPageViewModel viewModel;
 
-public partial class DetailProductPage : ContentPage
-{ 
-    public DetailProductPage()
+    public UserCompanyPage()
 	{
 		InitializeComponent();
+		viewModel = new UserCompanyPageViewModel();
 
-        
-        Shell.SetNavBarIsVisible(this, false);
-        Shell.SetTabBarIsVisible(this, false);
-    }
+		BindingContext = viewModel;
+	}
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        //await Navigation.PopAsync();
     }
 
     private void Share_Tapped(object sender, TappedEventArgs e)
     {
-         
+
     }
 
     private void Like_Tapped(object sender, TappedEventArgs e)
     {
-        
+
     }
 }

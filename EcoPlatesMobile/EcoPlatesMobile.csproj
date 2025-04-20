@@ -89,6 +89,9 @@
 	  <Compile Update="Views\User\Components\ProductView.xaml.cs">
 	    <DependentUpon>ProductView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\User\Pages\UserCompanyPage.xaml.cs">
+	    <DependentUpon>UserCompanyPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -137,6 +140,9 @@
 	  <MauiXaml Update="Views\PhoneNumberPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\User\Components\CompanyProductView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\User\Components\CompanyTypeListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -150,6 +156,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\User\Components\TabSwitcherView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\User\Pages\UserCompanyPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\User\Pages\DetailProductPage.xaml">

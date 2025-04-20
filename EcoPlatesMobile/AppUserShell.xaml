@@ -10,9 +10,10 @@
        Shell.TabBarForegroundColor="Green">
 
     <TabBar>
-         <Tab Icon="home1.png">
-            <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
-                          Shell.NavBarIsVisible="False"/>
+        <Tab Icon="home1.png">
+            <ShellContent Route="UserMainPage"
+                          Shell.NavBarIsVisible="False"
+                          ContentTemplate="{DataTemplate userPages:UserMainPage}"/>
         </Tab>
         <Tab Icon="browser1.png">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserBrowserPage}"
@@ -22,12 +23,10 @@
             <ShellContent ContentTemplate="{DataTemplate userPages:UserFavoritesPage}"
                   Shell.NavBarIsVisible="False"/>
         </Tab>
-        
         <!-- 
         <Tab Icon="user.png">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserProfilePage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab> -->
     </TabBar>
-
 </Shell>

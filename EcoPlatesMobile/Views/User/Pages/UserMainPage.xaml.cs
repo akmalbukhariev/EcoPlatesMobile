@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
@@ -11,7 +12,7 @@ public partial class UserMainPage : ContentPage
 	{
 		InitializeComponent();
 
-		viewModel =  new UserMainPageViewModel();
+		viewModel =  new UserMainPageViewModel(Navigation);
 		BindingContext = viewModel;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;

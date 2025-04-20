@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.User.Components.CompanyProductView">
+
+    <Frame Padding="0"
+           CornerRadius="10"
+           HeightRequest="115"
+           HasShadow="True">
+        <Grid ColumnDefinitions="Auto, *">
+            <Image x:Name="productImage" 
+                   Source="cake.png"
+                   Aspect="Fill"
+                   WidthRequest="150"/>
+            <Grid RowDefinitions="Auto, 20, Auto"
+                  ColumnDefinitions="Auto, *, Auto"
+                  Margin="20,0, 20,0"
+                  VerticalOptions="Center" 
+                  Grid.Column="1">
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <Style x:Key="imStyle" TargetType="Image">
+                            <Setter Property="Aspect" Value="AspectFit"/>
+                            <Setter Property="WidthRequest" Value="15"/>
+                            <Setter Property="HeightRequest" Value="15"/>
+                        </Style>
+                        <Style x:Key="lbStyle" TargetType="Label">
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="TextColor" Value="Black"/>
+                            <Setter Property="Margin" Value="10,0,0,0"/>
+                        </Style>
+                    </ResourceDictionary>
+                </Grid.Resources>
+                <Image Source="product.png"
+                       Style="{StaticResource imStyle}"/>
+                <Label x:Name="productName" 
+                       Text="Cheripaxa tort"
+                       LineBreakMode="TailTruncation"
+                       TextColor="Green"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="10, 0, 0, 0"
+                       Grid.Column="1"/>
+                <Image Source="star.png"
+                       Style="{StaticResource imStyle}"
+                       Grid.Row="2"/>
+                <Label Text="4.7(784)"
+                       Style="{StaticResource lbStyle}"
+                       Grid.Row="2"
+                       Grid.Column="1"/>
+                <Label x:Name="newPrice" 
+                       Text="3,000" 
+                       TextColor="Green"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       Grid.Column="2"/>
+                <Label x:Name="oldPrice" 
+                       Text="7,500"
+                       TextColor="Gray"
+                       TextDecorations="Strikethrough"
+                       FontSize="12"
+                       FontAttributes="Bold"
+                       Grid.Row="2"
+                       Grid.Column="2"/>
+            </Grid>
+        </Grid>
+    </Frame>
+</ContentView>

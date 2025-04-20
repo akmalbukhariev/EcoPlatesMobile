@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Components.ProductView">
 
-    <Frame Padding="0" 
+    <Frame x:Name="mainFrame" 
+           Padding="0" 
            CornerRadius="20" 
            HeightRequest="270"
            HasShadow="True">
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="Product_Tapped" 
+                                  NumberOfTapsRequired="1"/>
+        </Frame.GestureRecognizers>
         <Grid RowDefinitions="Auto, Auto, Auto, Auto">
             <Grid ColumnDefinitions="*,*">
                 <Image x:Name="productImage" 

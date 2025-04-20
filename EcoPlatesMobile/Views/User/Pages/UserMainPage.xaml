@@ -42,7 +42,9 @@
                      Command="{Binding RefreshCommand}"
                      Margin="10"
                      Grid.Row="2">
-            <CollectionView ItemsSource="{Binding Products}"
+            <CollectionView x:Name="productList" 
+                            ItemsSource="{Binding Products}"
+                            SelectionMode="Single"
                             RemainingItemsThreshold="1"
                             RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                 <CollectionView.ItemsLayout>
@@ -61,7 +63,8 @@
                                                     Stars="{Binding Stars}"
                                                     Distance="{Binding Distance}"
                                                     Liked="{Binding Liked}"
-                                                    LikeCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserMainPage}}, Path=BindingContext.LikeProductCommand}"/>
+                                                    LikeCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserMainPage}}, Path=BindingContext.LikeProductCommand}"
+                                                    ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserMainPage}}, Path=BindingContext.ClickProductCommand}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

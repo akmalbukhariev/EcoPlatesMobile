@@ -107,6 +107,7 @@
                   Margin="0,0,0,10"
                   Grid.Row="5">
                 <VerticalStackLayout HorizontalOptions="Center"
+                                     Spacing="10"
                                      Margin="10">
                     <Label Text="WHAT OTHER PEOPLE ARE SAYING"
                            TextColor="Black"
@@ -191,6 +192,7 @@
                      Grid.Row="8"/>
             <Button Text="Back"
                     BackgroundColor="Green"
+                    HeightRequest="50"
                     Margin="10,0,10,0"
                     CornerRadius="30"
                     Grid.Row="10"/>
@@ -200,9 +202,9 @@
               ColumnDefinitions="Auto, *, Auto, Auto"
               VerticalOptions="Start">
             <Image x:Name="imBack1"
-                   Source="back.png"
-                   WidthRequest="24"
-                   HeightRequest="24"
+                   Source="back1.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
                    Margin="16, 15, 0, 0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Back_Tapped"

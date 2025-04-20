@@ -35,6 +35,9 @@ public partial class ProductView : ContentView
     public static readonly BindableProperty LikeCommandProperty =
         BindableProperty.Create(nameof(LikeCommand), typeof(ICommand), typeof(ProductView));
 
+    public static readonly BindableProperty ClickCommandProperty =
+        BindableProperty.Create(nameof(ClickCommand), typeof(ICommand), typeof(ProductView));
+
     public ImageSource ProductImage
     {
         get => (ImageSource)GetValue(ProductImageProperty);
@@ -94,7 +97,13 @@ public partial class ProductView : ContentView
         get => (ICommand)GetValue(LikeCommandProperty);
         set => SetValue(LikeCommandProperty, value);
     }
-    
+
+    public ICommand ClickCommand
+    {
+        get => (ICommand)GetValue(ClickCommandProperty);
+        set => SetValue(ClickCommandProperty, value);
+    }
+
     public ProductView()
 	{
 		InitializeComponent();
@@ -167,6 +176,17 @@ public partial class ProductView : ContentView
         if (BindingContext is ProductModel product && LikeCommand?.CanExecute(product) == true)
         {
             LikeCommand.Execute(product);
+        }
+    }
+
+    private async void Product_Tapped(object sender, TappedEventArgs e)
+    {
+        await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
+        await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
+
+        if (BindingContext is ProductModel product && ClickCommand?.CanExecute(product) == true)
+        {
+            ClickCommand.Execute(product);
         }
     }
 }
