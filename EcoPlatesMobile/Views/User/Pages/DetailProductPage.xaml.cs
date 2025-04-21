@@ -1,16 +1,25 @@
 namespace EcoPlatesMobile.Views.User.Pages;
 
+using EcoPlatesMobile.Models.User;
 using Microsoft.Maui.Controls; 
 
 public partial class DetailProductPage : ContentPage
 { 
-    public DetailProductPage()
+    private ProductModel dataModel;
+    public DetailProductPage(ProductModel dataModel)
 	{
 		InitializeComponent();
+        this.dataModel = dataModel;
 
-        
         Shell.SetNavBarIsVisible(this, false);
         Shell.SetTabBarIsVisible(this, false);
+    }
+
+    protected override void OnAppearing()
+	{
+		base.OnAppearing();
+
+         
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
