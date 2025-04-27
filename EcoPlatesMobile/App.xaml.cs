@@ -22,7 +22,7 @@ namespace EcoPlatesMobile
         {
             //return new Window(new NavigationPage(new LoginPage())); 
             return new Window(new AppUserShell());
-            //return new Window(new UserCompanyPage());
+            //return new Window(new DetailProductPage());
         }
 
         private void RegisterRoutes()

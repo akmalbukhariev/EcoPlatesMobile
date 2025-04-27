@@ -1,202 +1,187 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:EcoPlatesMobile.Converters"
              x:Class="EcoPlatesMobile.Views.User.Pages.DetailProductPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:FeedbackTypeToImageConverter x:Key="FeedbackTypeToImageConverter"/>
+            <local:FeedbackTypeToLabelConverter x:Key="FeedbackTypeToLabelConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid>
         <ScrollView>
             <Grid RowDefinitions="180, Auto, 1, Auto, 1, *, 1, Auto, 1,10, Auto, 10">
-            <Grid>
                 <Image x:Name="imProduct"
                        Aspect="AspectFill"
-                       Source="cake.png"/>
-                <HorizontalStackLayout VerticalOptions="End"
-                                       Spacing="10"
-                                       Margin="20,0,0,20">
-                    <Image Source="company_back_image.png"
-                           Aspect="AspectFill"
-                           WidthRequest="50"
-                           HeightRequest="50">     
-                        <Image.Clip>
-                            <EllipseGeometry Center="25,25"
-                                             RadiusX="25"
-                                             RadiusY="25" />    
-                        </Image.Clip>
-                    </Image>
-                    <Label Text="Karzinka UZ"
-                           FontSize="14"
-                           TextColor="Black"
-                           FontAttributes="Bold"
-                           VerticalTextAlignment="Center"/>
-                </HorizontalStackLayout>
-            </Grid>
-            <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
-                  ColumnDefinitions="Auto, *, Auto"
-                  Margin="10,10"
-                  Grid.Row="1">
-                <Grid.Resources>
-                    <ResourceDictionary>
-                        <Style x:Key="imStyle" TargetType="Image">
-                            <Setter Property="Aspect" Value="AspectFit"/>
-                            <Setter Property="WidthRequest" Value="15"/>
-                            <Setter Property="HeightRequest" Value="15"/>
-                        </Style>
-                        <Style x:Key="lbStyle" TargetType="Label">
-                            <Setter Property="FontSize" Value="15"/>
-                            <Setter Property="TextColor" Value="Black"/>
-                            <Setter Property="Margin" Value="10,0,0,0"/>
-                        </Style>
-                    </ResourceDictionary>
-                </Grid.Resources>
-                <Image Source="product.png"
-                       Style="{StaticResource imStyle}"/>
-                <Label Text="Chirpaxa tort"
-                       Style="{StaticResource lbStyle}"
-                       Grid.Column="1"/>
-                <Image Source="star.png"
-                       Style="{StaticResource imStyle}"
-                       Grid.Row="2"/>
-                <Label Text="4.7(784)"
-                       Style="{StaticResource lbStyle}"
-                       Grid.Row="2"
-                       Grid.Column="1"/>
-                <Image Source="time_start.png"
-                       Style="{StaticResource imStyle}"
-                       Grid.Row="4"/>
-                <Label Text="9:00 ~ 6:00"
-                       Style="{StaticResource lbStyle}"
-                       Grid.Row="4"
-                       Grid.Column="1"/>
-                <Label Text="16,000 so'm"
-                       TextDecorations="Strikethrough"
-                       FontSize="16"
-                       Grid.Column="2"/>
-                <Label Text="6,000 so'm"
-                       FontSize="18" 
-                       TextColor="Green"
-                       FontAttributes="Bold"
-                       Grid.Row="2"
-                       Grid.Column="2"/>
-            </Grid>
-            <BoxView BackgroundColor="LightGray" 
-                     Grid.Row="2"/>
-            <Grid ColumnDefinitions="Auto, *, Auto"
-                  Margin="10"
-                  Grid.Row="3">
-                <Image Source="pin.png"
-                       Aspect="AspectFill"
-                       WidthRequest="20"
-                       HeightRequest="20"/>
-                <VerticalStackLayout Margin="10,0,0,0" Grid.Column="1">
-                    <Label Text="Karzinka UZ"
-                           TextColor="Green"
-                           FontSize="16"/>
-                    <Label Text="More information about the store"
-                           TextColor="Gray"
-                           FontSize="14"/>
-                </VerticalStackLayout>
-                <Image Source="left.png"
-                       Aspect="AspectFill"
-                       WidthRequest="10"
-                       HeightRequest="15"
-                       Grid.Column="2"/>
-            </Grid>
-            <BoxView BackgroundColor="LightGray" 
-                     Grid.Row="4"/>
-            <Grid RowDefinitions="Auto, 1, Auto, Auto, Auto" 
-                  Margin="0,0,0,10"
-                  Grid.Row="5">
-                <VerticalStackLayout HorizontalOptions="Center"
-                                     Spacing="10"
-                                     Margin="10">
-                    <Label Text="WHAT OTHER PEOPLE ARE SAYING"
-                           TextColor="Black"
-                           FontSize="18"
-                           FontAttributes="Bold"/>
-                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                        <Image Source="star.png"
-                               Aspect="Fill"
-                               WidthRequest="20"
-                               HeightRequest="20"/>
-                        <Label Text="4.7 / 5.0"
-                               TextColor="Black"
-                               FontSize="20"
-                               FontAttributes="Bold"/>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-                <BoxView BackgroundColor="LightGray"
-                         Margin="40,0,40,0"
-                         Grid.Row="1"/>
-                <Label Text="Top 3 Highlights"
-                       TextColor="Green"
-                       FontSize="15"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center"
-                       Margin="0,10,0,10"
-                       Grid.Row="2"/>
-                <Grid RowDefinitions="Auto, 10, Auto, 10, Auto" 
-                      ColumnDefinitions="Auto, *"
-                      HorizontalOptions="Center"
-                      Grid.Row="3">
+                       Source="{Binding ProdyctImage}"/>
+                <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
+                      ColumnDefinitions="Auto, *, Auto"
+                      Margin="10,10"
+                      Grid.Row="1">
                     <Grid.Resources>
                         <ResourceDictionary>
                             <Style x:Key="imStyle" TargetType="Image">
                                 <Setter Property="Aspect" Value="AspectFit"/>
-                                <Setter Property="WidthRequest" Value="40"/>
-                                <Setter Property="HeightRequest" Value="40"/>
+                                <Setter Property="WidthRequest" Value="15"/>
+                                <Setter Property="HeightRequest" Value="15"/>
                             </Style>
                             <Style x:Key="lbStyle" TargetType="Label">
+                                <Setter Property="FontSize" Value="15"/>
                                 <Setter Property="TextColor" Value="Black"/>
-                                <Setter Property="FontAttributes" Value="Bold"/>
-                                <Setter Property="FontSize" Value="17"/>
-                                <Setter Property="VerticalOptions" Value="Center"/>
                                 <Setter Property="Margin" Value="10,0,0,0"/>
                             </Style>
                         </ResourceDictionary>
                     </Grid.Resources>
-                    <Image Source="dollar.png" 
-                           Style="{StaticResource imStyle}"/>
-                    <Label Text="Great value"
-                           Style="{StaticResource lbStyle}"
-                           Grid.Column="1"/>
-                    <Image Source="clap.png" 
-                           Style="{StaticResource imStyle}"
-                           Grid.Row="2"/>
-                    <Label Text="Delicious food"
-                           Style="{StaticResource lbStyle}"
+                    <Image Source="product.png"
+                            Style="{StaticResource imStyle}"/>
+                    <Label Text="{Binding ProductName}"
+                            Style="{StaticResource lbStyle}"
+                            Grid.Column="1"/>
+                    <Image Source="star.png"
+                            Style="{StaticResource imStyle}"
+                            Grid.Row="2"/>
+                    <Label Text="{Binding Stars}"
+                            Style="{StaticResource lbStyle}"
+                            Grid.Row="2"
+                            Grid.Column="1"/>
+                    <Image Source="time_start.png"
+                            Style="{StaticResource imStyle}"
+                            Grid.Row="4"/>
+                    <Label Text="{Binding WorkingTime}"
+                            Style="{StaticResource lbStyle}"
+                            Grid.Row="4"
+                            Grid.Column="1"/>
+                    <Label Text="{Binding OldPrice}"
+                            TextDecorations="Strikethrough"
+                            FontSize="16"
+                            Grid.Column="2"/>
+                    <Label Text="{Binding NewPrice}"
+                           FontSize="18" 
+                           TextColor="Green"
+                           FontAttributes="Bold"
                            Grid.Row="2"
-                           Grid.Column="1"/>
-                    <Image Source="service.png" 
-                           Style="{StaticResource imStyle}"
-                           Grid.Row="4"/>
-                    <Label Text="Great service"
-                           Style="{StaticResource lbStyle}"
-                           Grid.Row="4"
-                           Grid.Column="1"/>
+                           Grid.Column="2"/>
                 </Grid>
+                <BoxView BackgroundColor="LightGray" 
+                         Grid.Row="2"/>
+                <Grid x:Name="gridCompany" 
+                      ColumnDefinitions="Auto, *, Auto"
+                      Margin="10"
+                      Grid.Row="3">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Company_Tapped" 
+                                              NumberOfTapsRequired="1"/>
+                    </Grid.GestureRecognizers>
+                    <Image Source="pin.png"
+                           Aspect="AspectFill"
+                           WidthRequest="20"
+                           HeightRequest="20"/>
+                    <VerticalStackLayout x:Name="stackCompany"
+                                         Margin="10,0,0,0" 
+                                         Grid.Column="1">
+                        <Label Text="{Binding CompanyName}"
+                               TextColor="Green"
+                               FontSize="16"/>
+                        <Label Text="More information about the store"
+                               TextColor="Gray"
+                               FontSize="14"/>
+                    </VerticalStackLayout>
+                    <Image Source="left.png"
+                           Aspect="AspectFill"
+                           WidthRequest="10"
+                           HeightRequest="15"
+                           Grid.Column="2"/>
+                </Grid>
+                <BoxView BackgroundColor="LightGray" 
+                         Grid.Row="4"/>
+                <Grid RowDefinitions="Auto, 1, Auto, Auto, Auto" 
+                      Margin="0,0,0,10"
+                      Grid.Row="5">
+                    <VerticalStackLayout HorizontalOptions="Center"
+                                         Spacing="10"
+                                         Margin="10">
+                        <Label Text="WHAT OTHER PEOPLE ARE SAYING"
+                               TextColor="Black"
+                               FontSize="18"
+                               FontAttributes="Bold"/>
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                            <Image Source="star.png"
+                                   Aspect="Fill"
+                                   WidthRequest="20"
+                                   HeightRequest="20"/>
+                            <Label Text="{Binding Rating}"
+                                   TextColor="Black"
+                                   FontSize="20"
+                                   FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <BoxView BackgroundColor="LightGray"
+                             Margin="40,0,40,0"
+                             Grid.Row="1"/>
+                    <Label Text="Top 3 Highlights"
+                        TextColor="Green"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Margin="0,10,0,10"
+                        Grid.Row="2"/>
+                    <VerticalStackLayout HorizontalOptions="Center"
+                                Spacing="10"
+                                BindableLayout.ItemsSource="{Binding TypeInfoList}"
+                                Grid.Row="3">
+                        <VerticalStackLayout.Resources>
+                            <ResourceDictionary>
+                                <Style x:Key="imStyle" TargetType="Image">
+                                    <Setter Property="Aspect" Value="AspectFit"/>
+                                    <Setter Property="WidthRequest" Value="40"/>
+                                    <Setter Property="HeightRequest" Value="40"/>
+                                </Style>
+                                <Style x:Key="lbStyle" TargetType="Label">
+                                    <Setter Property="TextColor" Value="Black"/>
+                                    <Setter Property="FontAttributes" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="17"/>
+                                    <Setter Property="VerticalOptions" Value="Center"/>
+                                    <Setter Property="Margin" Value="10,0,0,0"/>
+                                </Style>
+                            </ResourceDictionary>
+                        </VerticalStackLayout.Resources>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <HorizontalStackLayout Spacing="10">
+                                    <Image Style="{StaticResource imStyle}"
+                                    Source="{Binding feedback_type, Converter={StaticResource FeedbackTypeToImageConverter}}" />
+                                    <Label Style="{StaticResource lbStyle}"
+                                    Text="{Binding feedback_type, Converter={StaticResource FeedbackTypeToLabelConverter}}" />
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                    </Grid>
+                <BoxView BackgroundColor="LightGray"
+                         Grid.Row="6"/>
+                <VerticalStackLayout Spacing="10" 
+                                     Margin="15"
+                                     Grid.Row="7">
+                    <Label Text="What you need to know"
+                           TextColor="Black"
+                           FontSize="16"
+                           FontAttributes="Bold"/>
+                    <Label Text="{Binding UserNeedToKnow}"
+                           TextColor="Black"
+                           FontSize="16"/>
+                </VerticalStackLayout>
+                <BoxView BackgroundColor="LightGray"
+                         Grid.Row="8"/>
+                <Button Text="Back"
+                        BackgroundColor="Green"
+                        HeightRequest="50"
+                        Margin="10,0,10,0"
+                        CornerRadius="30"
+                        Clicked="BackButton_Clicked"
+                        Grid.Row="10"/>
             </Grid>
-            <BoxView BackgroundColor="LightGray"
-                     Grid.Row="6"/>
-            <VerticalStackLayout Spacing="10" 
-                                 Margin="15"
-                                 Grid.Row="7">
-                <Label Text="What you need to know"
-                       TextColor="Black"
-                       FontSize="16"
-                       FontAttributes="Bold"/>
-                <Label Text=". The store will provide packaging for your food, but we encourage you to bring your own bag to carry it home in."
-                       TextColor="Black"
-                       FontSize="16"/>
-            </VerticalStackLayout>
-            <BoxView BackgroundColor="LightGray"
-                     Grid.Row="8"/>
-            <Button Text="Back"
-                    BackgroundColor="Green"
-                    HeightRequest="50"
-                    Margin="10,0,10,0"
-                    CornerRadius="30"
-                    Grid.Row="10"/>
-        </Grid>
         </ScrollView>
         <Grid x:Name="grdHeader" 
               ColumnDefinitions="Auto, *, Auto, Auto"
@@ -208,10 +193,11 @@
                    Margin="16, 15, 0, 0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Back_Tapped"
-                                  NumberOfTapsRequired="1"/>
+                                          NumberOfTapsRequired="1"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image x:Name="imShare" 
+            <Image x:Name="imShare"
+                   IsVisible="Collapse"
                    Source="share.png"
                    WidthRequest="24"
                    HeightRequest="24"
@@ -234,5 +220,10 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           Color="Green"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
     </Grid>
 </ContentPage>

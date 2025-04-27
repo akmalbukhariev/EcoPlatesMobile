@@ -7,7 +7,7 @@ namespace EcoPlatesMobile.Services
     public class ApiService
     {
         private readonly RestClient _client;
-        string token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMTA4NDQxMDY5NyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3NDUzMjM4ODF9.MPMjle590tpI7uB93VL6nGYSSLPCBvGUwLvGnufxYZU";
+        string token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMTA4NDQxMDY5NyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3NDYwMTExOTB9.NyyfCU-kTg8oz9CjI4zximZqKoyi_7C53kmoV8jj_jE";
         public ApiService(RestClient client)
         {
             _client = client;

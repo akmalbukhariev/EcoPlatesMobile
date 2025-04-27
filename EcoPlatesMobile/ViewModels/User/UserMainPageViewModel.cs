@@ -69,7 +69,10 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ProductClicked(ProductModel product)
         {
-            await Shell.Current.GoToAsync(nameof(DetailProductPage));
+            await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
+            {
+                ["ProductModel"] = product
+            });
         }
 
         public async Task LoadInitialAsync()

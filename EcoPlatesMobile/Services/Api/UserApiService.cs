@@ -28,7 +28,8 @@ namespace EcoPlatesMobile.Services.Api
         //private const string GET_USER_BOOKMARK = $"{BASE_URL}getUserBookmark";
         private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}company/getCompaniesByCurrentLocation";
         private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
-
+        private const string GET_SPECIFIC_PROMOTION_WITH_COMPANY_INFO = $"{BASE_URL}promotions/getSpecificPromotionWithCompanyInfo";
+        
         public UserApiService(RestClient client) : base(client)
         {
 
@@ -374,42 +375,7 @@ namespace EcoPlatesMobile.Services.Api
 
             return response;
         }
-
-        /*
-        public async Task<CompanyListResponse> GetUserBookmark()
-        {
-            var response = new CompanyListResponse();
-
-            try
-            {
-                var receivedData = await GetAsync(GET_USER_BOOKMARK);
-
-                if (!string.IsNullOrWhiteSpace(receivedData))
-                {
-                    var deserializedResponse = JsonConvert.DeserializeObject<CompanyListResponse>(receivedData);
-                    if (deserializedResponse != null)
-                    {
-                        return deserializedResponse;
-                    }
-                }
-
-                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
-            }
-            catch (JsonException jsonEx)
-            {
-                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
-                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
-            }
-            catch (Exception ex)
-            {
-                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
-            }
-
-            return response;
-        }
-        */
-
+         
         public async Task<CompanyListResponse> GetCompaniesByCurrentLocation(CompanyLocationRequest data)
         {
             var response = new CompanyListResponse();
@@ -454,6 +420,39 @@ namespace EcoPlatesMobile.Services.Api
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
                     var deserializedResponse = JsonConvert.DeserializeObject<PosterListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<SpecificPromotionWithCompanyInfoResponse> GetSpecificPromotionWithCompanyInfo(PosterGetFeedbackRequest data)
+        {
+            var response = new SpecificPromotionWithCompanyInfoResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_SPECIFIC_PROMOTION_WITH_COMPANY_INFO, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<SpecificPromotionWithCompanyInfoResponse>(receivedData);
                     if (deserializedResponse != null)
                     {
                         return deserializedResponse;
