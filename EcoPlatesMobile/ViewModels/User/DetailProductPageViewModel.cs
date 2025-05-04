@@ -1,7 +1,7 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using EcoPlatesMobile.Models.Requests.User;
+using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services.Api;
@@ -28,11 +28,15 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private string feedbackType;
         [ObservableProperty] private int feedbackCount;
         [ObservableProperty] private List<PosterTypeInfo> typeInfoList;
+        [ObservableProperty] private ImageSource likeImage;
         [ObservableProperty] private bool isLoading;
+        [ObservableProperty] private bool showLikedView;
+        [ObservableProperty] private bool isLikedViewLiked;
+        public int CompanyId { get; set; } = 0;
 
         public DetailProductPageViewModel()
         {
-            
+            LikeImage = "like.png";
         }
 
         public async Task LoadDataAsync()
@@ -54,12 +58,14 @@ namespace EcoPlatesMobile.ViewModels.User
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
                     PosterRatingCompanyInfo info = response.resultData;
+                    CompanyId = (int)info.company_id;
                     ProdyctImage = info.image_url;
                     CompanyImage = info.logo_url;
                     CompanyName = info.company_name;
                     ProductName = info.title;
                     Rating = info.rating?.ToString();
                     WorkingTime = info.working_hours;
+                    LikeImage = info.liked ? "liked.png" : "like.png";
                     OldPrice = info.old_price.ToString() + " so'm";
                     NewPrice = info.new_price.ToString() + " so'm";
                     UserNeedToKnow = info.user_need_to_know;
@@ -88,6 +94,27 @@ namespace EcoPlatesMobile.ViewModels.User
             finally
             {
                 IsLoading = false;
+            }
+        }
+
+        public async Task ProductLiked()
+        {
+            ProductModel.Liked = !ProductModel.Liked;
+            SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
+            {
+                user_id = 16,
+                promotion_id = ProductModel.PromotionId,
+                deleted = ProductModel.Liked ? false : true,
+            };
+
+            var apiService = AppService.Get<UserApiService>();
+            Response response = await apiService.UpdateUserBookmarkPromotionStatus(request);
+
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                IsLikedViewLiked = ProductModel.Liked;
+                ShowLikedView = true;
+                LikeImage = ProductModel.Liked ? "liked.png" : "like.png";
             }
         }
     }

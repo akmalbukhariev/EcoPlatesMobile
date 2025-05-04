@@ -19,17 +19,16 @@ namespace EcoPlatesMobile.Services.Api
         private const string REGISTER_USER = $"{BASE_URL}user/register";
         private const string GET_USER_INFO = $"{BASE_URL}user/getUserByToken";
         private const string UPDATE_USER_INFO = $"{BASE_URL}user/updateUserInfo";
-        private const string REGISTER_BOOKMARK = $"{BASE_URL}registerBookmark";
         private const string REGISTER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/registerBookmarkPromotion";
         private const string SAVE_OR_UPDATE_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/saveOrUpdateBookmarkPromotion";
         private const string SAVE_OR_UPDATE_BOOKMARK_COMPANY = $"{BASE_URL}bookmark/saveOrUpdateBookmarkCompany";
         private const string GET_USER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/getUserBookmarkPromotion";
         private const string GET_USER_BOOKMARK_COMPANY = $"{BASE_URL}bookmark/getUserBookmarkCompany";
-        //private const string GET_USER_BOOKMARK = $"{BASE_URL}getUserBookmark";
         private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}company/getCompaniesByCurrentLocation";
         private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
         private const string GET_SPECIFIC_PROMOTION_WITH_COMPANY_INFO = $"{BASE_URL}promotions/getSpecificPromotionWithCompanyInfo";
-        
+        private const string GET_COMPANY_WITH_POSTERS = $"{BASE_URL}company/getCompanyWithPosters/";
+
         public UserApiService(RestClient client) : base(client)
         {
 
@@ -453,6 +452,39 @@ namespace EcoPlatesMobile.Services.Api
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
                     var deserializedResponse = JsonConvert.DeserializeObject<SpecificPromotionWithCompanyInfoResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<CompanyWithPosterListResponse> getCompanyWithPosters(int company_id)
+        {
+            var response = new CompanyWithPosterListResponse();
+
+            try
+            {
+                var receivedData = await GetAsync($"{GET_COMPANY_WITH_POSTERS}{company_id}");
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<CompanyWithPosterListResponse>(receivedData);
                     if (deserializedResponse != null)
                     {
                         return deserializedResponse;

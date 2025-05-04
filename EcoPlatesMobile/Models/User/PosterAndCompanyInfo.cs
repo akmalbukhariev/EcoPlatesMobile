@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EcoPlatesMobile.Utilities;
+﻿using EcoPlatesMobile.Utilities; 
 
 namespace EcoPlatesMobile.Models.Responses.User
 {
     public class PosterAndCompanyInfo
     {
+        public int? company_id { get; set; }
         public string company_name { get; set; }
         public string phone_number { get; set; }
         public string email { get; set; }
@@ -34,6 +30,7 @@ namespace EcoPlatesMobile.Models.Responses.User
         public long? views_count { get; set; }
         public long? click_to_contact_count { get; set; }
         public double? distance_km { get; set; }
+        public bool liked { get; set; }
         public DateTime? end_date { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }

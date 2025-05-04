@@ -5,16 +5,16 @@
 
     <Frame Padding="0"
            CornerRadius="10"
-           HeightRequest="115"
+           HeightRequest="120"
            HasShadow="True">
         <Grid ColumnDefinitions="Auto, *">
             <Image x:Name="productImage" 
-                   Source="cake.png"
-                   Aspect="Fill"
-                   WidthRequest="150"/>
-            <Grid RowDefinitions="Auto, 20, Auto"
-                  ColumnDefinitions="Auto, *, Auto"
-                  Margin="20,0, 20,0"
+                   Source="{Binding ProductImage}"
+                   Aspect="AspectFill"
+                   WidthRequest="170"/>
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+                  RowSpacing="8"
+                  Margin="10,0,0,0"
                   VerticalOptions="Center" 
                   Grid.Column="1">
                 <Grid.Resources>
@@ -31,37 +31,38 @@
                         </Style>
                     </ResourceDictionary>
                 </Grid.Resources>
-                <Image Source="product.png"
-                       Style="{StaticResource imStyle}"/>
-                <Label x:Name="productName" 
-                       Text="Cheripaxa tort"
-                       LineBreakMode="TailTruncation"
-                       TextColor="Green"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       Margin="10, 0, 0, 0"
-                       Grid.Column="1"/>
-                <Image Source="star.png"
-                       Style="{StaticResource imStyle}"
-                       Grid.Row="2"/>
-                <Label Text="4.7(784)"
-                       Style="{StaticResource lbStyle}"
-                       Grid.Row="2"
-                       Grid.Column="1"/>
+                <StackLayout Spacing="10" Orientation="Horizontal">
+                    <Image Source="product.png"
+                            Style="{StaticResource imStyle}"/>
+                    <Label x:Name="productName" 
+                            Text="{Binding ProductName}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="Green"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Margin="0, 0, 0, 0"/>
+                </StackLayout>
                 <Label x:Name="newPrice" 
-                       Text="3,000" 
+                       Text="{Binding NewPrice}"
                        TextColor="Green"
                        FontSize="14"
                        FontAttributes="Bold"
-                       Grid.Column="2"/>
-                <Label x:Name="oldPrice" 
-                       Text="7,500"
+                       Grid.Row="1"/>
+                <Label x:Name="oldPrice"
+                       Text="{Binding OldPrice}"
                        TextColor="Gray"
                        TextDecorations="Strikethrough"
                        FontSize="12"
                        FontAttributes="Bold"
-                       Grid.Row="2"
-                       Grid.Column="2"/>
+                       Grid.Row="2"/>
+                <StackLayout Orientation="Horizontal" Grid.Row="3">
+                    <Image Source="star.png"
+                           Style="{StaticResource imStyle}"
+                           Grid.Row="2"/>
+                    <Label x:Name="stars" 
+                           Text="{Binding Stars}"
+                           Style="{StaticResource lbStyle}"/>
+                </StackLayout>
             </Grid>
         </Grid>
     </Frame>

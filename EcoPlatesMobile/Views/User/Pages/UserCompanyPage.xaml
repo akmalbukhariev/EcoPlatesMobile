@@ -2,15 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
+             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
              x:Class="EcoPlatesMobile.Views.User.Pages.UserCompanyPage">
 
     <Grid>
         <Grid RowDefinitions="180, Auto, *, Auto, 10">
-            <Image x:Name="imProduct"
+            <Image x:Name="imCompany"
                    Aspect="AspectFill"
-                   Source="market_4.png"/>
+                   Source="{Binding CompanyImage}"/>
             <Grid ColumnDefinitions="Auto, *, Auto" 
-                  Margin="10"
+                  RowDefinitions="Auto, 10, Auto, 10, Auto"
+                  Margin="20,10,20,10"
                   Grid.Row="1">
                 <Grid.Resources>
                     <ResourceDictionary>
@@ -29,21 +31,65 @@
                 <HorizontalStackLayout>
                     <Image Source="company.png"
                            Style="{StaticResource imStyle}"/>
-                    <Label Text="Karzinka UZ"
+                    <Label Text="{Binding CompanyName}"
                            TextColor="Black"
                            FontSize="17"
                            FontAttributes="Bold"
                            Margin="10, 0, 0, 0"/>
                 </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Row="2">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="PhoneNumber_Tapped"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Image Source="phone.png"
+                           Style="{StaticResource imStyle}"/>
+                    <Label Text="{Binding PhoneNumber}"
+                           TextColor="Black"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           Margin="10, 0, 0, 0"
+                           Grid.Row="1"/>
+                </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.Column="2">
                     <Image Source="time_start.png"
                            Style="{StaticResource imStyle}"/>
-                    <Label Text="9:00 ~ 6:00"
+                    <Label Text="{Binding WorkingTime}"
                            Style="{StaticResource lbStyle}"/>
+                </HorizontalStackLayout>
+                <Label Text="{Binding CompanyType}"
+                       Style="{StaticResource lbStyle}"
+                       Grid.Row="2" Grid.Column="2"/>
+                <HorizontalStackLayout Grid.Row="4">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="MakerLocation_Tapped"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Image Source="browser1.png"
+                           Style="{StaticResource imStyle}"/>
+                    <Label Text="Maker location"
+                           TextColor="Black"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           Margin="10, 0, 0, 0"
+                           Grid.Row="1"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="2" Grid.Row="4">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="Message_Tapped"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Image Source="my_chat.png"
+                           Style="{StaticResource imStyle}"/>
+                    <Label Text="Message"
+                           TextColor="Black"
+                           FontSize="17"
+                           Margin="10, 0, 0, 0"
+                           Grid.Row="1"/>
                 </HorizontalStackLayout>
             </Grid>
             <RefreshView x:Name="listProduct" 
-                         IsRefreshing="{Binding IsRefreshingProduct}"
+                         IsRefreshing="{Binding IsRefreshing}"
                          Command="{Binding RefreshProductCommand}"
                          Margin="20"
                          Grid.Row="2">
@@ -53,12 +99,15 @@
                                 Margin="0,20,0,0">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 
-                                         VerticalItemSpacing="10"
-                                         HorizontalItemSpacing="10"/>
+                                         VerticalItemSpacing="15"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <user_component:CompanyProductView/>
+                            <user_component:CompanyProductView ProductImage="{Binding ProductImage}"
+                                                               ProductName="{Binding ProductName}"
+                                                               NewPrice="{Binding NewPrice}"
+                                                               OldPrice="{Binding OldPrice}"
+                                                               Stars="{Binding Stars}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -68,13 +117,14 @@
                     HeightRequest="50"
                     Margin="10,0,10,0"
                     CornerRadius="30"
+                    Clicked="BackButton_Clicked"
                     Grid.Row="3"/>
         </Grid>
         <Grid x:Name="grdHeader" 
               ColumnDefinitions="Auto, *, Auto, Auto"
               VerticalOptions="Start">
             <Image x:Name="imBack1"
-                   Source="back.png"
+                   Source="back1.png"
                    WidthRequest="24"
                    HeightRequest="24"
                    Margin="16, 15, 0, 0">   
@@ -84,6 +134,7 @@
                 </Image.GestureRecognizers>
             </Image>
             <Image x:Name="imShare" 
+                   IsVisible="Hidden"
                    Source="share.png"
                    WidthRequest="24"
                    HeightRequest="24"
@@ -95,7 +146,7 @@
                 </Image.GestureRecognizers>
             </Image>
             <Image x:Name="imLike" 
-                   Source="like.png"
+                   Source="{Binding LikeImage}"
                    WidthRequest="30"
                    HeightRequest="30"
                    Margin="0, 15, 20, 0"
@@ -106,5 +157,13 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
+        <component:CustomLikedView x:Name="likeView" 
+                                   ShowLiked="{Binding IsLikedViewLiked}"
+                                   IsVisible="{Binding ShowLikedView}"/>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           Color="Green"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
     </Grid>
 </ContentPage>
