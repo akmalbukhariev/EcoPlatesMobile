@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.Components.ReviewView">
+
+    <Border BackgroundColor="White" 
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            HeightRequest="400"
+            WidthRequest="300"
+            Padding="0">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="0"/>
+        </Border.StrokeShape>
+        <Grid BackgroundColor="Green"
+              RowDefinitions="*, 50">
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto, *">
+                <Image Source="close_white.png"
+                       Aspect="AspectFill"
+                       WidthRequest="30"
+                       Margin="0,10,10,0"
+                       HorizontalOptions="End">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="Close_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="Review"
+                       FontSize="25"
+                       TextColor="White"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,10"
+                       Grid.Row="1"/>
+                <Label Text="Please write it"
+                       FontSize="25"
+                       TextColor="White"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,10"
+                       Grid.Row="2"/>
+                <Label Text="Honest opinions help other customers"
+                       FontSize="14"
+                       TextColor="White"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Grid.Row="3"/>
+                <Image Source="cell_phone.png"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="End"
+                       Grid.Row="4"/>
+            </Grid>
+            <Border x:Name="borderButton" 
+                    BackgroundColor="White"
+                    Grid.Row="1">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Review_Tapped"/>
+                </Border.GestureRecognizers>
+                <Label Text="Write a product review  >"
+                       FontAttributes="Bold"
+                       FontSize="17"
+                       TextColor="Green"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"/>
+            </Border>
+        </Grid>
+    </Border>
+    
+</ContentView>

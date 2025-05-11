@@ -12,6 +12,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
@@ -31,6 +32,7 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             Companies = new ObservableRangeCollection<CompanyModel>();
             LikeCompanyCommand = new Command<CompanyModel>(CompanyLiked);
+            ClickCompanyCommand = new Command<CompanyModel>(ComapnyClicked);
         }
 
         private async void CompanyLiked(CompanyModel product)
@@ -52,6 +54,11 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLikedViewLiked = product.Liked;
                 ShowLikedView = true;
             }
+        }
+
+        private async void ComapnyClicked(CompanyModel company)
+        {
+            await Shell.Current.GoToAsync($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
         }
 
         public async Task LoadInitialAsync()
@@ -231,6 +238,8 @@ namespace EcoPlatesMobile.ViewModels.User
         }
 
         public ICommand LikeCompanyCommand { get; }
+
+        public ICommand ClickCompanyCommand { get; }
 
         public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
         {

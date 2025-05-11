@@ -1,6 +1,8 @@
 namespace EcoPlatesMobile.Views.User.Pages;
 
 using System.ComponentModel;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.ViewModels.User;
 using Microsoft.Maui.Controls; 
 
@@ -17,12 +19,12 @@ public partial class DetailProductPage : ContentPage
         Shell.SetTabBarIsVisible(this, false);
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
+        reviewView.EventReviewClick += ReviewView_EventReviewClick;
     }
-
+     
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
         await viewModel.LoadDataAsync();
     }
 
@@ -37,9 +39,15 @@ public partial class DetailProductPage : ContentPage
         await Shell.Current.GoToAsync("..");
     }
 
-    private void Share_Tapped(object sender, TappedEventArgs e)
+    private async void Home_Tapped(object sender, TappedEventArgs e)
     {
-         
+        if (sender is VisualElement element)
+        {
+            await element.ScaleTo(1.3, 100, Easing.CubicOut);
+            await element.ScaleTo(1.0, 100, Easing.CubicIn);
+        }
+
+        await Shell.Current.GoToAsync($"///{nameof(UserMainPage)}");
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
@@ -72,5 +80,28 @@ public partial class DetailProductPage : ContentPage
     private async void BackButton_Clicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("..");
+    }
+
+    private async void Star_Tapped(object sender, TappedEventArgs e)
+    {
+        reviewView.Scale = 0.5;
+        reviewView.Opacity = 0;
+        reviewView.IsVisible = true;
+
+        await Task.WhenAll(
+            reviewView.FadeTo(1, 200),
+            reviewView.ScaleTo(1, 200, Easing.BounceOut)
+        );
+    }
+
+    private async void ReviewView_EventReviewClick()
+    {
+        reviewView.IsVisible = false;
+        await Shell.Current.GoToAsync(nameof(ReviewProductPage), true, new Dictionary<string, object>
+        {
+            ["ProductImage"] = viewModel.ProductImage.ToString().Trim(),
+            ["ProductName"] = viewModel.ProductName,
+            ["PromotionId"] = viewModel.ProductModel.PromotionId
+        });
     }
 }

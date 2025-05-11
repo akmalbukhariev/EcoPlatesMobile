@@ -27,8 +27,10 @@ namespace EcoPlatesMobile
 
         private void RegisterRoutes()
         {
+            Routing.RegisterRoute(nameof(ReviewProductPage), typeof(ReviewProductPage));
             Routing.RegisterRoute(nameof(DetailProductPage), typeof(DetailProductPage));
             Routing.RegisterRoute(nameof(UserCompanyPage), typeof(UserCompanyPage));
+            Routing.RegisterRoute(nameof(UserMainPage), typeof(UserMainPage));
             //Routing.RegisterRoute(AppRoutes.LoginPage, typeof(LoginPage));
             //Routing.RegisterRoute(AppRoutes.PhoneNumberPage, typeof(PhoneNumberPage));
             //Routing.RegisterRoute(AppRoutes.UserMainPage, typeof(UserMainPage));

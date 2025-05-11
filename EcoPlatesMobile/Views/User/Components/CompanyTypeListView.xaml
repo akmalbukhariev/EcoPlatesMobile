@@ -13,13 +13,19 @@
                 <Grid RowDefinitions="Auto, Auto"
                       Margin="20,10,0,0"
                       Padding="0">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="Item_Tapped"
+                                              CommandParameter="{Binding .}"/>
+                    </Grid.GestureRecognizers>
                     <Image Source="{Binding Image}"
                            WidthRequest="50"
                            HeightRequest="50"
                            Aspect="AspectFill"
                            HorizontalOptions="Center"/>
                     <Label Text="{Binding Name}"
-                           TextColor="Black"
+                           TextColor="{Binding TitleColor}"
+                           TextDecorations="{Binding TitleDecoration}"
                            HorizontalTextAlignment="Center"
                            FontSize="15"
                            Grid.Row="1"/>

@@ -20,6 +20,8 @@ namespace EcoPlatesMobile.Models.Company
         public long? click_to_contact_count { get; set; } = 0;
         public bool liked { get; set; }
         public long? bookmark_id { get; set; } = 0;
+        public double? avg_rating { get; set; } = 0;
+        public int? total_reviews { get; set; } = 0;
         public DateTime? end_date { get; set; }
         public DateTime? created_at { get; set; }
         public bool? deleted{ get; set; }

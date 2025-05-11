@@ -4,6 +4,7 @@ using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 
@@ -13,7 +14,7 @@ namespace EcoPlatesMobile.ViewModels.User
     public partial class DetailProductPageViewModel : ObservableObject
     {
         [ObservableProperty] ProductModel productModel;
-        [ObservableProperty] private ImageSource prodyctImage;
+        [ObservableProperty] private ImageSource productImage;
         [ObservableProperty] private ImageSource companyImage;
         [ObservableProperty] private string companyName;
         [ObservableProperty] private string productName;
@@ -26,6 +27,7 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private string averageRating;
         [ObservableProperty] private string totalRating;
         [ObservableProperty] private string feedbackType;
+        [ObservableProperty] private string highlightTitle;
         [ObservableProperty] private int feedbackCount;
         [ObservableProperty] private List<PosterTypeInfo> typeInfoList;
         [ObservableProperty] private ImageSource likeImage;
@@ -59,7 +61,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     PosterRatingCompanyInfo info = response.resultData;
                     CompanyId = (int)info.company_id;
-                    ProdyctImage = info.image_url;
+                    ProductImage = info.image_url;
                     CompanyImage = info.logo_url;
                     CompanyName = info.company_name;
                     ProductName = info.title;
@@ -84,6 +86,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     if (info.typeInfo != null)
                     {
                         TypeInfoList = info.typeInfo;
+                        HighlightTitle = $"Top {TypeInfoList.Count} Highlights";
                     }
                 }
             }

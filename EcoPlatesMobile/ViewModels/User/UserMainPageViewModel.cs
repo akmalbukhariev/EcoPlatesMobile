@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Views.User.Pages;
+using EcoPlatesMobile.Services;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
@@ -32,6 +33,7 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private bool showLikedView;
         [ObservableProperty] private bool isLikedViewLiked;
 
+        public BusinessType BusinessType { get; set; }
         private int offset = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
@@ -89,7 +91,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 PosterLocationRequest request = new PosterLocationRequest
                 {
-                    category = PosterType.CAKE.GetValue(),
+                    business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = 10,
@@ -113,12 +115,12 @@ namespace EcoPlatesMobile.ViewModels.User
                     {
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                        Count = "2 qoldi",
+                        //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",
-                        Stars = "3.1",
+                        Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
@@ -169,7 +171,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 PosterLocationRequest request = new PosterLocationRequest
                 {
-                    category = PosterType.CAKE.GetValue(),
+                    business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = 10,
@@ -198,7 +200,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",
-                        Stars = "3.1",
+                        Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"

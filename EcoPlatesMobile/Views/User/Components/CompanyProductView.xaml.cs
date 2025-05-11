@@ -1,3 +1,6 @@
+using System.Windows.Input;
+using EcoPlatesMobile.Models.User;
+
 namespace EcoPlatesMobile.Views.User.Components;
 
 public partial class CompanyProductView : ContentView
@@ -19,6 +22,9 @@ public partial class CompanyProductView : ContentView
 
     public static readonly BindableProperty StarsProperty =
       BindableProperty.Create(nameof(Stars), typeof(double), typeof(CompanyProductView), 0.0, propertyChanged: StarsChanged);
+
+    public static readonly BindableProperty ClickCommandProperty =
+        BindableProperty.Create(nameof(ClickCommand), typeof(ICommand), typeof(CompanyProductView));
 
     public ImageSource ProductImage
     {
@@ -54,6 +60,12 @@ public partial class CompanyProductView : ContentView
     {
         get => (double)GetValue(StarsProperty);
         set => SetValue(StarsProperty, value);
+    }
+
+    public ICommand ClickCommand
+    {
+        get => (ICommand)GetValue(ClickCommandProperty);
+        set => SetValue(ClickCommandProperty, value);
     }
 
     public CompanyProductView()
@@ -97,5 +109,14 @@ public partial class CompanyProductView : ContentView
         control.stars.Text = ((double)newValue).ToString();
     }
 
+    private async void Product_Tapped(object sender, TappedEventArgs e)
+    {
+        await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
+        await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
 
+        if (BindingContext is ProductModel product && ClickCommand?.CanExecute(product) == true)
+        {
+            ClickCommand.Execute(product);
+        }
+    }
 }

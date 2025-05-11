@@ -1,4 +1,5 @@
-using Microsoft.Maui.Maps;
+using System.Windows.Input;
+using EcoPlatesMobile.Models.User;
 
 namespace EcoPlatesMobile.Views.User.Components;
 
@@ -27,6 +28,9 @@ public partial class FavoriteProductView : ContentView
 
     public static readonly BindableProperty DistanceProperty =
      BindableProperty.Create(nameof(Distance), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: DistanceChanged);
+
+    public static readonly BindableProperty ClickCommandProperty =
+        BindableProperty.Create(nameof(ClickCommand), typeof(ICommand), typeof(CompanyView));
 
     public ImageSource ProductImage
     {
@@ -74,6 +78,12 @@ public partial class FavoriteProductView : ContentView
     {
         get => (double)GetValue(DistanceProperty);
         set => SetValue(DistanceProperty, value);
+    }
+
+    public ICommand ClickCommand
+    {
+        get => (ICommand)GetValue(ClickCommandProperty);
+        set => SetValue(ClickCommandProperty, value);
     }
 
     public FavoriteProductView()
@@ -127,5 +137,16 @@ public partial class FavoriteProductView : ContentView
     {
         var control = (FavoriteProductView)bindable;
         control.distance.Text = ((double)newValue).ToString();
+    }
+
+    private async void Product_Tapped(object sender, TappedEventArgs e)
+    {
+        await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
+        await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
+
+        if (BindingContext is ProductModel product && ClickCommand?.CanExecute(product) == true)
+        {
+            ClickCommand.Execute(product);
+        }
     }
 }

@@ -4,15 +4,11 @@ using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EcoPlatesMobile.Views.User.Pages; 
+using System.Diagnostics; 
 using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
@@ -35,7 +31,23 @@ namespace EcoPlatesMobile.ViewModels.User
         public UserFavoritesViewModel()
         {
             products = new ObservableRangeCollection<ProductModel>();
-            companies = new ObservableRangeCollection<CompanyModel>(); 
+            companies = new ObservableRangeCollection<CompanyModel>();
+
+            ClickProductCommand = new Command<ProductModel>(ProductClicked);
+            ClickCompanyCommand = new Command<CompanyModel>(ComapnyClicked);
+        }
+
+        private async void ProductClicked(ProductModel product)
+        {
+            await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
+            {
+                ["ProductModel"] = product
+            });
+        }
+
+        private async void ComapnyClicked(CompanyModel company)
+        {
+            await Shell.Current.GoToAsync($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
         }
 
         public async Task LoadInitialProductAsync()
@@ -385,7 +397,10 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
-         
+
+        public ICommand ClickProductCommand { get; }
+        public ICommand ClickCompanyCommand { get; }
+
         public IRelayCommand RefreshProductCommand => new RelayCommand(async () =>
         {
             await LoadProductFavoritesAsync(isRefresh: true);

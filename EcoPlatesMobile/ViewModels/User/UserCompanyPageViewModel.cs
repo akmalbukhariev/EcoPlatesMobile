@@ -1,10 +1,15 @@
 ﻿using System.Diagnostics;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using EcoPlatesMobile.Models.Requests.User;
+using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
@@ -21,6 +26,7 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] string companyType;
         [ObservableProperty] ImageSource likeImage;
 
+        bool likedCompany = false;
         [ObservableProperty] bool isLoading;
         [ObservableProperty] bool isRefreshing;
         [ObservableProperty] bool showLikedView;
@@ -34,6 +40,38 @@ namespace EcoPlatesMobile.ViewModels.User
             CompanyName = "Maker name";
             PhoneNumber = "1234567890";
             WorkingTime = "00 ~ 00";
+
+            ClickProductCommand = new Command<ProductModel>(ProductClicked);
+        }
+
+        private async void ProductClicked(ProductModel product)
+        {
+            await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
+            {
+                ["ProductModel"] = product
+            });
+        }
+
+        public async Task CompanyLiked()
+        {
+            likedCompany = !likedCompany;
+
+            SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
+            {
+                user_id = 16,
+                company_id = CompanyId,
+                deleted = likedCompany ? false : true,
+            };
+
+            var apiService = AppService.Get<UserApiService>();
+            Response response = await apiService.UpdateUserBookmarkCompanyStatus(request);
+
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                IsLikedViewLiked = likedCompany;
+                ShowLikedView = true;
+                LikeImage = likedCompany ? "liked.png" : "like.png";
+            }
         }
 
         public async Task LoadDataAsync()
@@ -50,7 +88,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
                     CompanyImage = response.resultData.logo_url;
-                    LikeImage = response.resultData.liked ? "liked.png" : "like.png";
+                    likedCompany = response.resultData.liked;
+                    LikeImage = likedCompany ? "liked.png" : "like.png";
                     CompanyName = response.resultData.company_name;
                     PhoneNumber = response.resultData.phone_number;
                     WorkingTime = response.resultData.working_hours;
@@ -87,6 +126,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsRefreshing = false;
             }
         }
+
+        public ICommand ClickProductCommand { get; }
 
         public IRelayCommand RefreshProductCommand => new RelayCommand(async () =>
         {

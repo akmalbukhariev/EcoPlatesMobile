@@ -4,6 +4,7 @@ using SkiaSharp.Extended;
 using Svg.Skia;
 using System.Threading.Tasks;
 using EcoPlatesMobile.Services.Api;
+using EcoPlatesMobile.Services;
 
 namespace EcoPlatesMobile.Views;
 

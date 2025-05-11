@@ -16,7 +16,7 @@
             <Grid RowDefinitions="180, Auto, 1, Auto, 1, *, 1, Auto, 1,10, Auto, 10">
                 <Image x:Name="imProduct"
                        Aspect="AspectFill"
-                       Source="{Binding ProdyctImage}"/>
+                       Source="{Binding ProductImage}"/>
                 <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
                       ColumnDefinitions="Auto, *, Auto"
                       Margin="10,10"
@@ -67,7 +67,7 @@
                 </Grid>
                 <BoxView BackgroundColor="LightGray" 
                          Grid.Row="2"/>
-                <Grid x:Name="gridCompany" 
+                <Grid x:Name="gridCompany"
                       ColumnDefinitions="Auto, *, Auto"
                       Margin="10"
                       Grid.Row="3">
@@ -107,7 +107,12 @@
                                TextColor="Black"
                                FontSize="18"
                                FontAttributes="Bold"/>
-                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <HorizontalStackLayout Spacing="10" 
+                                               HorizontalOptions="Center">
+                            <HorizontalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Tapped="Star_Tapped"/>
+                            </HorizontalStackLayout.GestureRecognizers>
                             <Image Source="star.png"
                                    Aspect="Fill"
                                    WidthRequest="20"
@@ -121,13 +126,13 @@
                     <BoxView BackgroundColor="LightGray"
                              Margin="40,0,40,0"
                              Grid.Row="1"/>
-                    <Label Text="Top 3 Highlights"
-                        TextColor="Green"
-                        FontSize="15"
-                        FontAttributes="Bold"
-                        HorizontalOptions="Center"
-                        Margin="0,10,0,10"
-                        Grid.Row="2"/>
+                    <Label Text="{Binding HighlightTitle}"
+                           TextColor="Green"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,10"
+                           Grid.Row="2"/>
                     <VerticalStackLayout HorizontalOptions="Center"
                                 Spacing="10"
                                 BindableLayout.ItemsSource="{Binding TypeInfoList}"
@@ -198,15 +203,14 @@
                 </Image.GestureRecognizers>
             </Image>
             <Image x:Name="imShare"
-                   IsVisible="Collapse"
-                   Source="share.png"
-                   WidthRequest="24"
-                   HeightRequest="24"
+                   Source="home.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
                    Margin="0, 15, 15, 0"
                    Grid.Column="2">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Share_Tapped"
-                                  NumberOfTapsRequired="1"/>
+                    <TapGestureRecognizer Tapped="Home_Tapped"
+                                          NumberOfTapsRequired="1"/>
                 </Image.GestureRecognizers>
             </Image>
             <Image x:Name="imLike" 
@@ -229,5 +233,7 @@
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"/>
+        <component:ReviewView x:Name="reviewView"
+                              IsVisible="False"/>
     </Grid>
 </ContentPage>

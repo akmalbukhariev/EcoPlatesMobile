@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             x:Class="EcoPlatesMobile.Views.User.Pages.UserCompanyPage">
+             x:Class="EcoPlatesMobile.Views.User.Pages.UserCompanyPage"
+             xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
 
     <Grid>
         <Grid RowDefinitions="180, Auto, *, Auto, 10">
@@ -107,7 +108,8 @@
                                                                ProductName="{Binding ProductName}"
                                                                NewPrice="{Binding NewPrice}"
                                                                OldPrice="{Binding OldPrice}"
-                                                               Stars="{Binding Stars}"/>
+                                                               Stars="{Binding Stars}"
+                                                               ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserCompanyPage}}, Path=BindingContext.ClickProductCommand}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -134,14 +136,13 @@
                 </Image.GestureRecognizers>
             </Image>
             <Image x:Name="imShare" 
-                   IsVisible="Hidden"
-                   Source="share.png"
-                   WidthRequest="24"
-                   HeightRequest="24"
+                   Source="home.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
                    Margin="0, 15, 15, 0"
                    Grid.Column="2">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Share_Tapped"
+                    <TapGestureRecognizer Tapped="Home_Tapped"
                                           NumberOfTapsRequired="1"/>
                 </Image.GestureRecognizers>
             </Image>

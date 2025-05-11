@@ -3,11 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.User.Components.CompanyView">
 
-    <Frame Margin="0, 10, 0, 10"
+    <Frame x:Name="mainFrame" 
+           Margin="0, 10, 0, 10"
            Padding="0"
            CornerRadius="15" 
            HeightRequest="215"
            HasShadow="True">
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="Company_Tapped" 
+                                  NumberOfTapsRequired="1"/>
+        </Frame.GestureRecognizers>
         <Grid RowDefinitions="Auto, 50, 40">
             <Grid RowDefinitions="30, Auto">
                 <Image x:Name="companyImage"

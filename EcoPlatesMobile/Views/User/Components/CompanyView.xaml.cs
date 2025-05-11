@@ -30,6 +30,9 @@ public partial class CompanyView : ContentView
     public static readonly BindableProperty ShowLikedProperty =
      BindableProperty.Create(nameof(ShowLiked), typeof(bool), typeof(CompanyView), false, propertyChanged: ShowLikedChanged);
 
+    public static readonly BindableProperty ClickCommandProperty =
+        BindableProperty.Create(nameof(ClickCommand), typeof(ICommand), typeof(CompanyView));
+
     public ImageSource CompanyImage
     {
         get => (ImageSource)GetValue(CompanyImageProperty);
@@ -76,6 +79,12 @@ public partial class CompanyView : ContentView
     {
         get => (ICommand)GetValue(LikeCommandProperty);
         set => SetValue(LikeCommandProperty, value);
+    }
+
+    public ICommand ClickCommand
+    {
+        get => (ICommand)GetValue(ClickCommandProperty);
+        set => SetValue(ClickCommandProperty, value);
     }
 
     public CompanyView()
@@ -143,6 +152,17 @@ public partial class CompanyView : ContentView
         if (BindingContext is CompanyModel product && LikeCommand?.CanExecute(product) == true)
         {
             LikeCommand.Execute(product);
+        }
+    }
+
+    private async void Company_Tapped(object sender, TappedEventArgs e)
+    {
+        await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
+        await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
+
+        if (BindingContext is CompanyModel company && ClickCommand?.CanExecute(company) == true)
+        {
+            ClickCommand.Execute(company);
         }
     }
 }

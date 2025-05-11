@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.User.Pages.ReviewProductPage"
+             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+             BackgroundColor="White"
+             Title="ReviewProductPage">
+
+    <Grid RowDefinitions="Auto, *">
+        <component:CustomHeader ShowBack="True"
+                                Title="Leave a review"/>
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, 20" 
+              Grid.Row="1">
+            <HorizontalStackLayout Spacing="15"
+                                   Margin="10,10,0,0">
+                <Image Source="product.png"
+                       Aspect="AspectFill"
+                       WidthRequest="30"
+                       HeightRequest="30"/>
+                <Label Text="Evaluate product quality"
+                       TextColor="Black"
+                       FontSize="17"/>
+            </HorizontalStackLayout>
+            <Grid ColumnDefinitions="Auto, *" 
+                  ColumnSpacing="15"
+                  Margin="20,20,0,10"
+                  Grid.Row="1">
+                <Image x:Name="imProduct" 
+                       Source="no_image.png"
+                       Aspect="AspectFill"
+                       WidthRequest="120"
+                       HeightRequest="120"/>
+                <Label x:Name="lbProductTitle" 
+                       Text="Product name"
+                       FontSize="16"
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Start"
+                       Grid.Column="1"/>
+            </Grid>
+            <Label x:Name="lbReviewTitle1"
+                   Text="How satisfied are you with the quality of this product?"
+                   TextColor="Gray"
+                   FontSize="15"
+                   Margin="10,0,0,0"
+                   Grid.Row="2"/>
+            <StackLayout x:Name="starContainer" 
+                         Orientation="Horizontal"  
+                         Spacing="5" 
+                         Margin="10,20,0,0"
+                         Grid.Row="3">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style x:Key="imStyle" TargetType="Image">
+                            <Setter Property="WidthRequest" Value="50"/>
+                            <Setter Property="HeightRequest" Value="50"/>
+                        </Style>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <Image x:Name="Star1" Source="star_gray.png" Style="{StaticResource imStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image x:Name="Star2" Source="star_gray.png" Style="{StaticResource imStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="2"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image x:Name="Star3" Source="star_gray.png" Style="{StaticResource imStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="3"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image x:Name="Star4" Source="star_gray.png" Style="{StaticResource imStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="4"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image x:Name="Star5" Source="star_gray.png" Style="{StaticResource imStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="5"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+            <Label x:Name="lbReviewTitle2"
+                   Text="Please rate this product in detail."
+                   TextColor="Gray"
+                   IsVisible="False"
+                   FontSize="15"
+                   Margin="10,20,0,0"
+                   Grid.Row="4"/>
+            <VerticalStackLayout x:Name="stackOption" 
+                                 Padding="20" 
+                                 Spacing="15"
+                                 Opacity="0"
+                                 IsVisible="False"
+                                 Grid.Row="5">
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="checkBox1" Color="Green" />
+                    <Label Text="Great Value"
+                           FontSize="17"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnOption1Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="checkBox2" Color="Green"/>
+                    <Label Text="Delicious Food"
+                           FontSize="17"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnOption2Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="checkBox3" Color="Green"/>
+                    <Label Text="Great Service"
+                           FontSize="17"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnOption3Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <Button Text="Review completed"
+                    FontSize="16"
+                    BackgroundColor="Green"
+                    HeightRequest="50"
+                    Margin="10,0,10,0"
+                    CornerRadius="30"
+                    Clicked="Finished_Clicked"
+                    VerticalOptions="End"
+                    Grid.Row="6"/>
+        </Grid>
+        <ActivityIndicator x:Name="loading"
+                           Color="Green"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="2"/>
+    </Grid>
+</ContentPage>

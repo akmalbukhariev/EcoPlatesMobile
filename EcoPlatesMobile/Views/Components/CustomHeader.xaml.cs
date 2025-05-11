@@ -55,6 +55,12 @@ public partial class CustomHeader : ContentView
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        await Navigation.PopAsync();
+        if (sender is VisualElement element)
+        {
+            await element.ScaleTo(1.3, 100, Easing.CubicOut);
+            await element.ScaleTo(1.0, 100, Easing.CubicIn);
+        }
+
+        await Shell.Current.GoToAsync("..");
     }
 }

@@ -31,7 +31,7 @@
             <user_component:TabSwitcherView x:Name="tabSwitcher"
                                            SwitchType="Classic"
                                            Tab1_Title="Products"
-                                           Tab2_Title="Sallar"/>
+                                           Tab2_Title="Seller"/>
             <RefreshView x:Name="listProduct" 
                          IsRefreshing="{Binding IsRefreshingProduct}"
                          Command="{Binding RefreshProductCommand}"
@@ -62,7 +62,8 @@
                                                                     NewPrice="{Binding NewPrice}"
                                                                     OldPrice="{Binding OldPrice}"
                                                                     Stars="{Binding Stars}"
-                                                                    Distance="{Binding Distance}"/>
+                                                                    Distance="{Binding Distance}"
+                                                                    ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserFavoritesPage}}, Path=BindingContext.ClickProductCommand}"/>
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -93,7 +94,8 @@
                                                             WorkingTime="{Binding WorkingTime}"
                                                             Stars="{Binding Stars}"
                                                             Distance="{Binding Distance}"
-                                                            ShowLiked="False"/>        
+                                                            ShowLiked="False"
+                                                            ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserFavoritesPage}}, Path=BindingContext.ClickCompanyCommand}"/>        
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

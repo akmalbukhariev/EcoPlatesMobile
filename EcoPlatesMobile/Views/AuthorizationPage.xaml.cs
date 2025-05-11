@@ -1,3 +1,4 @@
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 
 namespace EcoPlatesMobile.Views;

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
@@ -15,7 +16,8 @@ public partial class UserCompanyPage : ContentPage
         Shell.SetTabBarIsVisible(this, false);
 
         BindingContext = viewModel;
-	}
+        viewModel.PropertyChanged += ViewModel_PropertyChanged;
+    }
 
     protected override async void OnAppearing()
     {
@@ -35,9 +37,15 @@ public partial class UserCompanyPage : ContentPage
         await Shell.Current.GoToAsync("..");
     }
 
-    private void Share_Tapped(object sender, TappedEventArgs e)
+    private async void Home_Tapped(object sender, TappedEventArgs e)
     {
+        if (sender is VisualElement element)
+        {
+            await element.ScaleTo(1.3, 100, Easing.CubicOut);
+            await element.ScaleTo(1.0, 100, Easing.CubicIn);
+        }
 
+        await Shell.Current.GoToAsync($"///{nameof(UserMainPage)}");
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
@@ -46,6 +54,17 @@ public partial class UserCompanyPage : ContentPage
         {
             await element.ScaleTo(1.3, 100, Easing.CubicOut);
             await element.ScaleTo(1.0, 100, Easing.CubicIn);
+        }
+
+        await viewModel.CompanyLiked();
+    }
+
+    private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(viewModel.ShowLikedView) && viewModel.ShowLikedView)
+        {
+            await likeView.DisplayAsAnimation();
+            viewModel.ShowLikedView = false;
         }
     }
 

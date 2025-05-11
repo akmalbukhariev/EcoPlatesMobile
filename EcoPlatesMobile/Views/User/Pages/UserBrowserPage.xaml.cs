@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.ViewModels.User;
 using Microsoft.Maui.Controls.Shapes;
 
@@ -22,7 +23,8 @@ public partial class UserBrowserPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-         
+
+        AppService.Get<AppControl>().ShowCompanyMoreInfo = false;
         await viewModel.LoadInitialAsync();
     }
 
@@ -66,14 +68,6 @@ public partial class UserBrowserPage : ContentPage
         {
             await likeView.DisplayAsAnimation();
             viewModel.ShowLikedView = false;
-        }
-    }
-
-    private async void DeleteItem_Invoked(object sender, EventArgs e)
-    {
-        if (sender is SwipeItem swipeItem && swipeItem.BindingContext is CompanyModel company)
-        {
-            await viewModel.DeleteProduct(company);
         }
     }
 }
