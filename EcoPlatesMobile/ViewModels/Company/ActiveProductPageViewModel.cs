@@ -8,10 +8,16 @@ namespace EcoPlatesMobile.ViewModels.Company
     {
         [ObservableProperty]
         private ObservableCollection<ProductModel> products;
-        
+
         public ActiveProductPageViewModel()
         {
-             
+            products = new ObservableCollection<ProductModel>();
+            products.Add(new ProductModel());
+            products.Add(new ProductModel());
+            products.Add(new ProductModel());
+            products.Add(new ProductModel());
+            products.Add(new ProductModel());
+            products.Add(new ProductModel());
         }
     }
 }
