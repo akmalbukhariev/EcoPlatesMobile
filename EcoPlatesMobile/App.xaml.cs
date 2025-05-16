@@ -21,8 +21,8 @@ namespace EcoPlatesMobile
         protected override Window CreateWindow(IActivationState? activationState)
         {
             //return new Window(new NavigationPage(new LoginPage())); 
-            return new Window(new AppUserShell());
-            //return new Window(new DetailProductPage());
+            //return new Window(new AppUserShell());
+            return new Window(new AppCompanyShell());
         }
 
         private void RegisterRoutes()
