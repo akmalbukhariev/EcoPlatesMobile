@@ -4,8 +4,7 @@ using EcoPlatesMobile.Views.User.Pages;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
-
-
+ 
 namespace EcoPlatesMobile
 {
     public partial class App : Application

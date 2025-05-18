@@ -4,7 +4,7 @@ using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
-public partial class UserMainPage : ContentPage
+public partial class UserMainPage : BasePage
 {
 	private UserMainPageViewModel viewModel;
 
@@ -12,9 +12,9 @@ public partial class UserMainPage : ContentPage
 	{
 		InitializeComponent();
 
-		viewModel =  new UserMainPageViewModel(Navigation);
-		BindingContext = viewModel;
-
+        viewModel = ResolveViewModel<UserMainPageViewModel>();
+        SetViewModel(viewModel);
+         
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         companyTypeList.EventTypeClick += CompanyTypeList_EventTypeClick;
     }

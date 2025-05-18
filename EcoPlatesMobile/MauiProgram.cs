@@ -2,6 +2,7 @@
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.ViewModels.User;
 using Microsoft.Extensions.Logging;
 using RestSharp;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -55,6 +56,9 @@ namespace EcoPlatesMobile
                     ThrowOnAnyError = false,
                     Timeout = TimeSpan.FromSeconds(30)
                 }));
+            builder.Services.AddSingleton<IViewModelFactory, ViewModelFactory>();
+
+            builder.Services.AddSingleton<UserMainPageViewModel>();
         }
 
         private static void RegisterTransient(MauiAppBuilder builder)

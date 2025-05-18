@@ -24,7 +24,7 @@ namespace EcoPlatesMobile.ViewModels.User
     //https://github.com/dotnet-architecture/eshop-mobile-client/blob/main/eShopOnContainers/Services/Navigation/MauiNavigationService.cs
     //https://github.com/dotnet/maui
 
-    public partial class UserMainPageViewModel : ObservableObject
+    public partial class UserMainPageViewModel : ObservableObject, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ProductModel selectedProduct;
@@ -39,15 +39,13 @@ namespace EcoPlatesMobile.ViewModels.User
         private bool hasMoreItems = true;
         private INavigation Navigation;
 
-        public UserMainPageViewModel(INavigation navigation)
+        public UserMainPageViewModel()
         {
-            Navigation = navigation;
-
             Products = new ObservableRangeCollection<ProductModel>();
 
             LikeProductCommand = new Command<ProductModel>(ProductLiked);
             ClickProductCommand = new Command<ProductModel>(ProductClicked);
-        }
+        } 
         
         private async void ProductLiked(ProductModel product)
         {
@@ -229,7 +227,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
-
+         
         public ICommand LikeProductCommand { get; }
         public ICommand ClickProductCommand { get; }
         
