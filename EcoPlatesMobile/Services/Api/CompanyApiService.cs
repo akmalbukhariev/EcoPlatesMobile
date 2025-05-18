@@ -18,11 +18,12 @@ namespace EcoPlatesMobile.Services
         private const string GET_COMPANY = $"{BASE_URL}getCompany";
         private const string UPDATE_COMPANY_INFO = $"{BASE_URL}updateUserInfo";
         private const string REGISTER_POSTER = $"{BASE_URL}registerPoster";
-        private const string GET_POSTER = $"{BASE_URL}getCompanyPoster";
+        private const string GET_POSTER = $"{BASE_URL}poster/getCompanyPoster";
         private const string DELETE_POSTER = $"{BASE_URL}deletePoster";
 
         public CompanyApiService(RestClient client) : base(client)
         {
+            token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrMTIzNDU2Nzg5OCIsImF1dGgiOiJST0xFX0NPTVBBTlkiLCJleHAiOjE3NzkwNjkzMTd9.F2Wds5Z0017foj4GmtkYuK6bO7COS5_33VvhLdAEJcM";
         }
 
         public async Task<LoginCompanyResponse> Login(LoginRequest data)
@@ -234,13 +235,13 @@ namespace EcoPlatesMobile.Services
             return response;
         }
 
-        public async Task<PosterListResponse> GetCompanyPoster()
+        public async Task<PosterListResponse> GetCompanyPoster(PaginationRequest data)
         {
             var response = new PosterListResponse();
 
             try
             {
-                var receivedData = await GetAsync(GET_POSTER);
+                var receivedData = await PostAsync(GET_POSTER, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

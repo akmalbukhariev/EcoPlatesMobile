@@ -3,12 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.Company.Components.ProductView">
 
-    <Frame Padding="0"
+    <Frame x:Name="mainFrame" 
+           Padding="0"
            CornerRadius="15"
            HeightRequest="115"
            HasShadow="True">
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="Product_Tapped" 
+                                  NumberOfTapsRequired="1"/>
+        </Frame.GestureRecognizers>
         <Grid ColumnDefinitions="Auto, *">
-            <Image Source="cake.png"
+            <Image x:Name="productImage" 
+                   Source="{Binding ProductImage}"
                    Aspect="AspectFill"
                    WidthRequest="150"/>
             <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
@@ -16,21 +22,26 @@
                   VerticalOptions="Center" 
                   Grid.Column="1">
                   <VerticalStackLayout>
-                        <Label Text="Tort rogalik"
+                        <Label x:Name="productName" 
+                               Text="{Binding ProductName}"
                                TextColor="Black"
                                FontSize="14"
                                FontAttributes="Bold"/>
-                        <Label Text="Qoldiq: 2 dona"
+                        <Label x:Name="productCount" 
+                               IsVisible="Collapse"
+                               Text="{Binding ProductCount}"
                                TextColor="Gray"
                                FontSize="12"
                                FontAttributes="Bold"/>
                   </VerticalStackLayout>
                   <VerticalStackLayout Grid.Row="2">
-                        <Label Text="150 000 so'm"
+                        <Label x:Name="newPrice" 
+                               Text="{Binding NewPrice}"
                                TextColor="Green"
                                FontSize="14"
                                FontAttributes="Bold"/>
-                        <Label Text="250 000 so'm"
+                        <Label x:Name="oldPrice" 
+                               Text="{Binding OldPrice}"
                                TextColor="Gray"
                                TextDecorations="Strikethrough"
                                FontSize="12"
@@ -43,7 +54,8 @@
                             <Image Source="star.png" 
                                    WidthRequest="16" 
                                    HeightRequest="16"/>
-                            <Label Text="3.1" 
+                            <Label x:Name="stars" 
+                                   Text="{Binding Stars}" 
                                    FontSize="11"
                                    VerticalTextAlignment="Center"/>
                         </HorizontalStackLayout>

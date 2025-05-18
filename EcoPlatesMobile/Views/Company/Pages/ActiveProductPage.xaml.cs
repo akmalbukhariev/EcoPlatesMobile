@@ -12,4 +12,11 @@ public partial class ActiveProductPage : ContentPage
 		viewModel = new ActiveProductPageViewModel();
 		BindingContext = viewModel;
 	}
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+         
+        await viewModel.LoadInitialAsync();
+    }
 }

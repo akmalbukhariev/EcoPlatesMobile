@@ -37,8 +37,7 @@ namespace EcoPlatesMobile.ViewModels.User
         private int offset = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
-        private INavigation Navigation;
-
+       
         public UserMainPageViewModel()
         {
             Products = new ObservableRangeCollection<ProductModel>();
