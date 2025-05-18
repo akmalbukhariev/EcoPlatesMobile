@@ -9,8 +9,8 @@
            HasShadow="True">
         <Grid ColumnDefinitions="Auto, *">
             <Image Source="cake.png"
-                   Aspect="Fill"
-                   WidthRequest="110"/>
+                   Aspect="AspectFill"
+                   WidthRequest="150"/>
             <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
                   Margin="20,0,0,0"
                   VerticalOptions="Center" 
@@ -50,7 +50,7 @@
                         <BoxView BackgroundColor="LightGray"
                                  WidthRequest="1"
                                  HeightRequest="15"/>
-                        <HorizontalStackLayout Spacing="5">
+                        <HorizontalStackLayout Spacing="5" IsVisible="Collapse">
                             <Image Source="distance.png" 
                                    WidthRequest="16" 
                                    HeightRequest="16"/>
