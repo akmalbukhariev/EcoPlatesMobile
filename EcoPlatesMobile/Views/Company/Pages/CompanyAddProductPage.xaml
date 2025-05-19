@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyAddProductPage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyAddProductPage"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
 
     <Grid RowDefinitions="Auto, *, Auto">
         <component:CustomHeader Title="Yangi e'lon joylash"
@@ -31,7 +32,12 @@
                     <Setter Property="Margin" Value="10,5"/>
                 </Style>
             </VerticalStackLayout.Resources>
-            <Border Style="{StaticResource styleBorder}">
+            <Border x:Name="borderProductIcon" 
+                    Style="{StaticResource styleBorder}">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="SelectImage_Tapped"/>
+                </Border.GestureRecognizers>
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10"/>
                 </Border.StrokeShape>
@@ -42,23 +48,46 @@
                            FontSize="14"
                            VerticalTextAlignment="Center"
                            Margin="20, 0, 0, 0"/>   
-                    <Image Source="add_item.png"
+                    <Image x:Name="imProductIcon" 
+                           Source="add_item.png"
+                           Aspect="AspectFill"
                            WidthRequest="45"
                            HeightRequest="45"
                            HorizontalOptions="End"
                            Margin="0,10,15,10"/>
                 </Grid>
             </Border>
-            <component:CustomEntry EntryIcon="item_name.png"
+            <Border x:Name="borderSelectedProduct"  
+                    IsVisible="Collapse"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    Stroke="Gray"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 15"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="SelectImage_Tapped"/>
+                </Border.GestureRecognizers>
+                <Image x:Name="imSelectedProduct" 
+                       Source="add_item.png"
+                       Aspect="AspectFill" />
+            </Border>
+            <component:CustomEntry x:Name="entryProductName" 
+                                   EntryIcon="item_name.png"
                                    EntryPlaceHolder="Maxsulot nomi"
                                    EntryPlaceHolderColor="LightGray"
                                    Grid.Row="1"/>
-            <component:CustomEntry EntryIcon="item_count.png"
+            <component:CustomEntry x:Name="entryProductCount"
+                                   EntryIcon="item_count.png"
                                    EntryPlaceHolder="Maxsulot soni"
                                    EntryKeyboard="Numeric"
+                                   IsVisible="Collapse"
                                    EntryPlaceHolderColor="LightGray"
                                    Grid.Row="2"/>
             <component:CustomEntry EntryIcon="item_date.png"
+                                   IsVisible="Collapse"
                                    EntryPlaceHolder="Maxsulotning yaroqlilik muddati"
                                    EntryPlaceHolderColor="LightGray"
                                    Grid.Row="3"/>
@@ -78,14 +107,14 @@
                                HeightRequest="20"
                                Margin="0,0, 10,0"
                                VerticalOptions="Center"/>
-                        <Entry x:Name="labelOld"
+                        <Entry x:Name="entryOldPrice"
                                Keyboard="Numeric"
                                Text="000"
                                FontSize="16"
                                HorizontalOptions="Start" 
                                Grid.Column="1"/>
-                        <Label x:Name="startDateTimeLabel"
-                               Text="so'm  Avvalgi narxi"
+                        <Label x:Name="lbOldPrice"
+                               Text="so'm Avvalgi narxi"
                                Style="{StaticResource styleLabel}"
                                VerticalTextAlignment="Center"
                                Margin="0,0,10,0"
@@ -102,14 +131,14 @@
                                HeightRequest="20"
                                Margin="0,0, 10,0"
                                VerticalOptions="Center"/>
-                        <Entry x:Name="labelNew"
+                        <Entry x:Name="entryNewPrice"
                                Text="000"
                                Keyboard="Numeric"
                                HorizontalOptions="Start"
                                FontSize="16"
                                Grid.Column="1"/>
-                        <Label x:Name="endTimeLabel" 
-                               Text="so'm  Hozirgi narxi"
+                        <Label x:Name="lbNewPrice" 
+                               Text="so'm Hozirgi narxi"
                                Style="{StaticResource styleLabel}"
                                VerticalTextAlignment="Center"
                                Margin="0,0,10,0"
@@ -126,6 +155,13 @@
                 FontFamily="Roboto"
                 HeightRequest="50"
                 Margin="16,0,16,30"
+                Clicked="Register_Clicked"
                 Grid.Row="2"/>
+        <ActivityIndicator x:Name="IsLoading"
+                           Color="Green"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="3"/>
     </Grid>
-</ContentPage>
+</page:BasePage>

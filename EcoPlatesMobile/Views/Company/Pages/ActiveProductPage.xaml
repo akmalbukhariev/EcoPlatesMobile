@@ -66,6 +66,7 @@
                     Margin="0,0,0,30"
                     VerticalOptions="End"
                     HorizontalOptions="End"
+                    Clicked="AddItem_Clicked"
                     Grid.RowSpan="2"/>
         </Grid>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
@@ -73,6 +74,6 @@
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
-                           Grid.Row="2"/>
+                           Grid.RowSpan="2"/>
     </Grid>
 </ContentPage>

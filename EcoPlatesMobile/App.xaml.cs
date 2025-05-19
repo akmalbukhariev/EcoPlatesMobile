@@ -34,6 +34,8 @@ namespace EcoPlatesMobile
             //Routing.RegisterRoute(AppRoutes.PhoneNumberPage, typeof(PhoneNumberPage));
             //Routing.RegisterRoute(AppRoutes.UserMainPage, typeof(UserMainPage));
             //Routing.RegisterRoute(AppRoutes.CompanyRegistrationPage, typeof(CompanyRegistrationPage));
+
+            Routing.RegisterRoute(nameof(CompanyAddProductPage), typeof(CompanyAddProductPage));
         }
 
         private void Setting()

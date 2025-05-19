@@ -19,4 +19,9 @@ public partial class ActiveProductPage : ContentPage
          
         await viewModel.LoadInitialAsync();
     }
+
+    private async void AddItem_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(CompanyAddProductPage));
+    }
 }

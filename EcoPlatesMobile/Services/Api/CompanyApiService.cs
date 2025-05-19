@@ -17,7 +17,7 @@ namespace EcoPlatesMobile.Services
         private const string REGISTER_COMPANY = $"{BASE_URL}registerCompany";
         private const string GET_COMPANY = $"{BASE_URL}getCompany";
         private const string UPDATE_COMPANY_INFO = $"{BASE_URL}updateUserInfo";
-        private const string REGISTER_POSTER = $"{BASE_URL}registerPoster";
+        private const string REGISTER_POSTER = $"{BASE_URL}poster/registerPoster";
         private const string GET_POSTER = $"{BASE_URL}poster/getCompanyPoster";
         private const string DELETE_POSTER = $"{BASE_URL}deletePoster";
 
@@ -202,13 +202,13 @@ namespace EcoPlatesMobile.Services
             return response;
         }
 
-        public async Task<Response> RegisterPoster(RegisterPostersRequest data)
+        public async Task<Response> RegisterPoster(Stream imageStream, Dictionary<string, string>? additionalData)
         {
             var response = new Response();
 
             try
             {
-                var receivedData = await PostAsync(REGISTER_POSTER, data);
+                var receivedData = await PostImageAsync(REGISTER_POSTER, imageStream, additionalData);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

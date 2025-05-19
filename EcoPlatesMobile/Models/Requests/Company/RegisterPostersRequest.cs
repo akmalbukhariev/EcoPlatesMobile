@@ -15,8 +15,7 @@ namespace EcoPlatesMobile.Models.Requests.Company
         public required decimal old_price { get; set; }      
         public required decimal new_price { get; set; }      
         public string? image_url { get; set; }               
-        public Stream? image_data { get; set; }                
-        public required PosterType category { get; set; }    
+        public Stream? image_data { get; set; }        
         public int quantity_available { get; set; } = 0;     
         public string? end_date { get; set; }                
 

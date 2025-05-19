@@ -18,11 +18,20 @@ namespace EcoPlatesMobile.Views
             BindingContext = viewModel;
         }
 
-        protected Task AnimateElement(VisualElement element)
+        protected Task AnimateElementScaleUp(VisualElement element)
         {
             return Task.Run(async () =>
             {
                 await element.ScaleTo(1.3, 100, Easing.CubicOut);
+                await element.ScaleTo(1.0, 100, Easing.CubicIn);
+            });
+        }
+
+        protected Task AnimateElementScaleDown(VisualElement element)
+        {
+            return Task.Run(async () =>
+            {
+                await element.ScaleTo(0.9, 100, Easing.CubicOut);
                 await element.ScaleTo(1.0, 100, Easing.CubicIn);
             });
         }

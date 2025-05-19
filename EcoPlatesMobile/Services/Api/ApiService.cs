@@ -110,12 +110,41 @@ namespace EcoPlatesMobile.Services
             return await ExecuteRequestAsync(request);
         }
 
+        public async Task<string> PostImageAsync(string endpoint, Stream imageStream, Dictionary<string, string>? additionalData = null)
+        {
+            var request = new RestRequest(endpoint, Method.Post);
+            request.AddHeader("Authorization", $"Bearer {token}");
+            request.AlwaysMultipartFormData = true;
+
+            if (additionalData != null)
+            {
+                foreach (var entry in additionalData)
+                {
+                    request.AddParameter(entry.Key, entry.Value);
+                }
+            }
+
+            var fileBytes = await ConvertStreamToByteArrayAsync(imageStream);
+            request.AddFile("image_data", fileBytes, "image.jpg", "image/jpeg");
+
+            return await ExecuteRequestAsync(request);
+        }
+
         public async Task<string> DeleteAsync(string endpoint)
         {
             var request =  new RestRequest(endpoint, Method.Delete);
             request.AddHeader("Authorization", $"Bearer {token}");
 
             return await ExecuteRequestAsync(request);
+        }
+         
+        private async Task<byte[]> ConvertStreamToByteArrayAsync(Stream stream)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await stream.CopyToAsync(memoryStream);
+                return memoryStream.ToArray();
+            }
         }
 
         /// <summary>

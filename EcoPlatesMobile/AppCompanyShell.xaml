@@ -22,4 +22,5 @@
                           Shell.NavBarIsVisible="False"/>
         </Tab>
     </TabBar>
+    
 </Shell>
