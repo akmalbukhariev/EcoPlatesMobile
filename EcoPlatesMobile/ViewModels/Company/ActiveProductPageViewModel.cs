@@ -8,6 +8,7 @@ using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.Company.Pages;
 
 namespace EcoPlatesMobile.ViewModels.Company
 { 
@@ -33,7 +34,10 @@ namespace EcoPlatesMobile.ViewModels.Company
 
         private async void ProductClicked(ProductModel product)
         {
-             
+            await Shell.Current.GoToAsync(nameof(CompanyAddProductPage), new Dictionary<string, object>
+            {
+                ["ProductModel"] = product
+            });
         }
 
         public async Task LoadInitialAsync()

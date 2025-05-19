@@ -1,18 +1,45 @@
 using CommunityToolkit.Maui.Views;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
+[QueryProperty(nameof(ProductModel), nameof(ProductModel))]
 public partial class CompanyAddProductPage : BasePage
 {
+    private ProductModel productModel;
+    public ProductModel ProductModel
+    {
+        get => productModel;
+        set
+        {
+            productModel = value;
+        }
+    }
     private Stream? imageStream = null;
     public CompanyAddProductPage()
 	{
 		InitializeComponent();
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if(ProductModel != null)
+        {
+            btnRegisterOrUpdate.Text = "Update";
+            borderProductIcon.IsVisible = false;
+            borderSelectedProduct.IsVisible = true;
+
+            imSelectedProduct.Source = ProductModel.ProductImage;
+            entryProductName.SetEntryText(ProductModel.ProductName);
+            entryNewPrice.Text = ProductModel.NewPrice;
+            entryOldPrice.Text = ProductModel.OldPrice;
+        }
+    }
 
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)
     {
@@ -63,10 +90,42 @@ public partial class CompanyAddProductPage : BasePage
         }
     }
 
-    private async void Register_Clicked(object sender, EventArgs e)
+    private async void RegisterOrUpdate_Clicked(object sender, EventArgs e)
     {
         try
         {
+            var title = entryProductName.GetEntryText()?.Trim();
+            var oldPriceText = entryOldPrice.Text?.Trim();
+            var newPriceText = entryNewPrice.Text?.Trim();
+ 
+            if (imageStream == null)
+            {
+                await DisplayAlert("Error", "Please select an image before registering.", "OK");
+                return;
+            }
+ 
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                await DisplayAlert("Error", "Please enter a product name.", "OK");
+                return;
+            }
+ 
+            if (decimal.TryParse(oldPriceText, out decimal oldPrice) && 
+                decimal.TryParse(newPriceText, out decimal newPrice))
+            {
+                if (oldPrice == newPrice)
+                {
+                    await DisplayAlert("Error", "Old price and new price cannot be the same.", "OK");
+                    return;
+                }
+            }
+            else
+            {
+                await DisplayAlert("Error", "Please enter valid prices.", "OK");
+                return;
+            }
+
+
             var apiService = AppService.Get<CompanyApiService>();
  
             var additionalData = new Dictionary<string, string>

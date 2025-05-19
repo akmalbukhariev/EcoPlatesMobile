@@ -91,6 +91,11 @@ public partial class CustomEntry : ContentView
         return customEntry.Text;
     }
 
+    public void SetEntryText(string text)
+    {
+        customEntry.Text = text;
+    }
+
     public bool IsPhoneNumber{get; set;}
     private const int MaxPhoneLength = 9;
 
