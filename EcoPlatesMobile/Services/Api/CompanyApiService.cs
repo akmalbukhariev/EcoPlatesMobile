@@ -20,7 +20,7 @@ namespace EcoPlatesMobile.Services
         private const string REGISTER_POSTER = $"{BASE_URL}poster/registerPoster";
         private const string UPDATE_POSTER = $"{BASE_URL}poster/updatePoster";
         private const string GET_POSTER = $"{BASE_URL}poster/getCompanyPoster";
-        private const string DELETE_POSTER = $"{BASE_URL}deletePoster";
+        private const string CHANGE_POSTER_DELETION_STATUS = $"{BASE_URL}poster/changePosterDeletionStatus";
 
         public CompanyApiService(RestClient client) : base(client)
         {
@@ -269,7 +269,7 @@ namespace EcoPlatesMobile.Services
             return response;
         }
 
-        public async Task<PosterListResponse> GetCompanyPoster(PaginationRequest data)
+        public async Task<PosterListResponse> GetCompanyPoster(PaginationWithDeletedParam data)
         {
             var response = new PosterListResponse();
 
@@ -302,13 +302,13 @@ namespace EcoPlatesMobile.Services
             return response;
         }
 
-        public async Task<Response> DeletePoster(ChangePosterDeletionRequest data)
+        public async Task<Response> ChangePosterDeletionStatus(ChangePosterDeletionRequest data)
         {
             var response = new Response();
 
             try
             {
-                var receivedData = await PostAsync(DELETE_POSTER, data);
+                var receivedData = await PostAsync(CHANGE_POSTER_DELETION_STATUS, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
@@ -329,7 +329,7 @@ namespace EcoPlatesMobile.Services
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"ChangePosterDeletionStatus Error: {ex.Message}";
             }
 
             return response;

@@ -55,8 +55,9 @@ namespace EcoPlatesMobile.ViewModels.Company
 
                 var apiService = AppService.Get<CompanyApiService>();
 
-                PaginationRequest request = new PaginationRequest
+                PaginationWithDeletedParam request = new PaginationWithDeletedParam
                 {
+                    deleted = false,
                     offset = offset,
                     pageSize = PageSize  
                 };
@@ -138,10 +139,11 @@ namespace EcoPlatesMobile.ViewModels.Company
 
                 var apiService = AppService.Get<CompanyApiService>();
 
-                PaginationRequest request = new PaginationRequest
+                PaginationWithDeletedParam request = new PaginationWithDeletedParam
                 {
+                    deleted = false,
                     offset = offset,
-                    pageSize = PageSize
+                    pageSize = PageSize  
                 };
 
                 PosterListResponse response = await apiService.GetCompanyPoster(request);

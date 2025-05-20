@@ -207,10 +207,4 @@ public partial class CompanyAddProductPage : BasePage
         Uri uri = new Uri(url);
         return Path.GetFileName(uri.LocalPath);
     }
-
-    private async Task<byte[]> GetImageBytesFromUrl(string url)
-    {
-        using var httpClient = new HttpClient();
-        return await httpClient.GetByteArrayAsync(url);
-    }
-}
+  }

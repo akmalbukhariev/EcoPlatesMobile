@@ -9,7 +9,7 @@ namespace EcoPlatesMobile.Models.Requests.Company
 {
     public class ChangePosterDeletionRequest
     {
-        private string? poster_id { get; set; }
-        private bool deleted { get; set; }
+        public long? poster_id { get; set; }
+        public bool deleted { get; set; }
     }
 }

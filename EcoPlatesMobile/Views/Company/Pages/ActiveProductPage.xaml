@@ -38,9 +38,11 @@
                                 <SwipeView.RightItems>
                                     <SwipeItems>
                                         <SwipeItem Text="Edit"
-                                                   BackgroundColor="#8338EC"/>
+                                                   BackgroundColor="#8338EC"
+                                                   Invoked="EditProduct_Invoked"/>
                                         <SwipeItem Text="Non active"
-                                                   BackgroundColor="Red"/>
+                                                   BackgroundColor="Red"
+                                                   Invoked="NoActiveProduct_Invoked"/>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <com_component:ProductView ProductImage="{Binding ProductImage}"
