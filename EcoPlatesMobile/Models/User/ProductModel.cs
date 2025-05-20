@@ -10,8 +10,11 @@ namespace EcoPlatesMobile.Models.User
 {
     public partial class ProductModel : ObservableObject
     {
+        public long CompanyId;
         public long PromotionId;
         public long BookmarkId = 0;
+        public decimal NewPriceDigit;
+        public decimal OldPriceDigit;
         [ObservableProperty] private string productImage;
         [ObservableProperty] private string count;
         [ObservableProperty] private string productName;

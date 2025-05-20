@@ -124,8 +124,11 @@ namespace EcoPlatesMobile.Services
                 }
             }
 
-            var fileBytes = await ConvertStreamToByteArrayAsync(imageStream);
-            request.AddFile("image_data", fileBytes, "image.jpg", "image/jpeg");
+            if (imageStream != null)
+            {
+                var fileBytes = await ConvertStreamToByteArrayAsync(imageStream);
+                request.AddFile("image_data", fileBytes, "image.jpg", "image/jpeg");
+            }
 
             return await ExecuteRequestAsync(request);
         }

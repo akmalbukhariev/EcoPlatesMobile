@@ -34,6 +34,7 @@ namespace EcoPlatesMobile.ViewModels.Company
 
         private async void ProductClicked(ProductModel product)
         {
+            product.CompanyId = 11;
             await Shell.Current.GoToAsync(nameof(CompanyAddProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
@@ -81,6 +82,8 @@ namespace EcoPlatesMobile.ViewModels.Company
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",
+                        NewPriceDigit = item.new_price ?? 0,
+                        OldPriceDigit = item.old_price ?? 0,
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
@@ -162,6 +165,8 @@ namespace EcoPlatesMobile.ViewModels.Company
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",
+                        NewPriceDigit = item.new_price ?? 0,
+                        OldPriceDigit = item.old_price ?? 0,
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,

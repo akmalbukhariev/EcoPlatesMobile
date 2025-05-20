@@ -20,6 +20,8 @@ public partial class CompanyAddProductPage : BasePage
         }
     }
     private Stream? imageStream = null;
+    private bool isNewImageSelected = false;
+
     public CompanyAddProductPage()
 	{
 		InitializeComponent();
@@ -28,7 +30,10 @@ public partial class CompanyAddProductPage : BasePage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        if(ProductModel != null)
+        
+        isNewImageSelected = false;
+
+        if (ProductModel != null)
         {
             btnRegisterOrUpdate.Text = "Update";
             borderProductIcon.IsVisible = false;
@@ -36,8 +41,8 @@ public partial class CompanyAddProductPage : BasePage
 
             imSelectedProduct.Source = ProductModel.ProductImage;
             entryProductName.SetEntryText(ProductModel.ProductName);
-            entryNewPrice.Text = ProductModel.NewPrice;
-            entryOldPrice.Text = ProductModel.OldPrice;
+            entryNewPrice.Text = ProductModel.NewPriceDigit.ToString();
+            entryOldPrice.Text = ProductModel.OldPriceDigit.ToString();
         }
     }
 
@@ -81,9 +86,9 @@ public partial class CompanyAddProductPage : BasePage
                 await sourceStream.CopyToAsync(localFileStream);
             }
  
-            imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
-
+            imSelectedProduct.Source = ImageSource.FromFile(localFilePath); 
             imageStream = await result.OpenReadAsync();
+            isNewImageSelected = true;
 
             borderProductIcon.IsVisible = false;
             borderSelectedProduct.IsVisible = true;
@@ -97,13 +102,7 @@ public partial class CompanyAddProductPage : BasePage
             var title = entryProductName.GetEntryText()?.Trim();
             var oldPriceText = entryOldPrice.Text?.Trim();
             var newPriceText = entryNewPrice.Text?.Trim();
- 
-            if (imageStream == null)
-            {
-                await DisplayAlert("Error", "Please select an image before registering.", "OK");
-                return;
-            }
- 
+  
             if (string.IsNullOrWhiteSpace(title))
             {
                 await DisplayAlert("Error", "Please enter a product name.", "OK");
@@ -125,21 +124,63 @@ public partial class CompanyAddProductPage : BasePage
                 return;
             }
 
-
             var apiService = AppService.Get<CompanyApiService>();
- 
-            var additionalData = new Dictionary<string, string>
-            {
-                { "company_id", "11" },
-                { "title", entryProductName.GetEntryText() ?? string.Empty },
-                { "old_price", entryOldPrice.Text ?? "0" },
-                { "new_price", entryNewPrice.Text ?? "0" },
-            };
-
+  
             IsLoading.IsVisible = true;
             IsLoading.IsRunning = true;
 
-            Response response = await apiService.RegisterPoster(imageStream, additionalData);
+            Response response;
+            if (ProductModel == null)
+            {
+                if (imageStream == null)
+                {
+                    await DisplayAlert("Error", "Please select an image before registering.", "OK");
+                    return;
+                }
+
+                var additionalData = new Dictionary<string, string>
+                {
+                    { "company_id", ProductModel.CompanyId.ToString() },
+                    { "title", title },
+                    { "old_price", oldPrice.ToString() },
+                    { "new_price", newPrice.ToString() },
+                };
+
+                response = await apiService.RegisterPoster(imageStream, additionalData);
+            }
+            else
+            {
+                if (title.Trim().Equals(ProductModel.ProductName.Trim()) &&
+                    oldPriceText.Trim().Equals(newPriceText.Trim()) &&
+                    !isNewImageSelected)
+                {
+                    IsLoading.IsVisible = false;
+                    IsLoading.IsRunning = false;
+
+                    await Shell.Current.GoToAsync("..");
+                    return;
+                }
+
+                string oldFileName = GetFileNameFromUrl(ProductModel.ProductImage);
+                                
+                if (!isNewImageSelected)
+                {
+                    imageStream = null;
+                }
+
+                var additionalData = new Dictionary<string, string>
+                {
+                    { "company_id", ProductModel.CompanyId.ToString() },
+                    { "poster_id", ProductModel.PromotionId.ToString() },
+                    { "title", title },
+                    { "old_price", oldPrice.ToString() },
+                    { "new_price", newPrice.ToString() },
+                    { "image_file_name", oldFileName },
+                    { "delete_image", isNewImageSelected.ToString().ToLower() }
+                };
+                response = await apiService.UpdatePoster(imageStream, additionalData);
+            }
+
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync("Register poster", "Success.");
@@ -159,5 +200,17 @@ public partial class CompanyAddProductPage : BasePage
             IsLoading.IsVisible = false;
             IsLoading.IsRunning = false;
         }
+    }
+
+    private string GetFileNameFromUrl(string url)
+    {
+        Uri uri = new Uri(url);
+        return Path.GetFileName(uri.LocalPath);
+    }
+
+    private async Task<byte[]> GetImageBytesFromUrl(string url)
+    {
+        using var httpClient = new HttpClient();
+        return await httpClient.GetByteArrayAsync(url);
     }
 }
