@@ -4,6 +4,7 @@
              x:Class="EcoPlatesMobile.Views.Company.Pages.NonActiveItemPage"
              xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
              xmlns:com_component="clr-namespace:EcoPlatesMobile.Views.Company.Components"
+             xmlns:local="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
              BackgroundColor="#F7F9FB">
    
     <Grid RowDefinitions="Auto, *">
@@ -13,34 +14,55 @@
         <Grid RowDefinitions="Auto, *"
               Margin="16,20,16,10"
               Grid.Row="1">
-            <Label Text="Activ bo'lmagan maxsulotlar soni 8 dona"
+            <Label Text="{Binding ActiveProductCount}"
                    TextColor="Black"
                    FontAttributes="Bold"
                    Margin="0,0,0,20"
                    FontSize="15"/>
-            <CollectionView ItemsSource="{Binding Products}" 
-                            Grid.Row="1">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" 
-                                     VerticalItemSpacing="10"
-                                     HorizontalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem Text="Edit"
-                                                   BackgroundColor="#8338EC"/>
-                                    <SwipeItem Text="Active"
-                                                   BackgroundColor="Green"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <com_component:ProductView IsNonActiveProduct="True"/>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <RefreshView x:Name="listProduct" 
+                         IsRefreshing="{Binding IsRefreshing}"
+                         Command="{Binding RefreshCommand}"
+                         Margin="10"
+                         Grid.Row="1">
+                <CollectionView ItemsSource="{Binding Products}"
+                                RemainingItemsThreshold="1"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" 
+                                         VerticalItemSpacing="10"
+                                         HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Edit"
+                                                   BackgroundColor="#8338EC"
+                                                   Invoked="EditProduct_Invoked"/>
+                                        <SwipeItem Text="Active"
+                                                   BackgroundColor="Green"
+                                                   Invoked="ActiveProduct_Invoked"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <com_component:ProductView ProductImage="{Binding ProductImage}"
+                                                           ProductName="{Binding ProductName}"
+                                                           NewPrice="{Binding NewPrice}"
+                                                           OldPrice="{Binding OldPrice}"
+                                                           Stars="{Binding Stars}"
+                                                           ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:NonActiveItemPage}}, Path=BindingContext.ClickProductCommand}"
+                                                           IsNonActiveProduct="False"/>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
         </Grid>
-   </Grid>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           Color="Green"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="2"/>
+    </Grid>
 </ContentPage>

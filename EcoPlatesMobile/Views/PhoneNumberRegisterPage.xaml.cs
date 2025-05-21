@@ -10,9 +10,9 @@ using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.Views;
 
-public partial class PhoneNumberPage : BasePage
+public partial class PhoneNumberRegisterPage : BasePage
 {
-	public PhoneNumberPage()
+	public PhoneNumberRegisterPage()
 	{
 		InitializeComponent(); 
     }

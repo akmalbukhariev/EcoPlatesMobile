@@ -86,6 +86,12 @@
 	  <Compile Update="AppUserShell.xaml.cs">
 	    <DependentUpon>AppUserShell.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Company\Pages\CompanyProfilePage.xaml.cs">
+	    <DependentUpon>CompanyProfilePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PhoneNumberRegisterPage.xaml.cs">
+	    <DependentUpon>PhoneNumberRegisterPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\User\Components\ProductView.xaml.cs">
 	    <DependentUpon>ProductView.xaml</DependentUpon>
 	  </Compile>
@@ -107,7 +113,10 @@
 	  <MauiXaml Update="Views\Company\Pages\CompanyAddItemPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Company\Pages\CompanyPrifilePage.xaml">
+	  <MauiXaml Update="Views\Company\Pages\CompanyProfilePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Company\Pages\CompanyProfileInfoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Company\Pages\CompanyRegistrationPage.xaml">
@@ -140,7 +149,13 @@
 	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PhoneNumberPage.xaml">
+	  <MauiXaml Update="Views\PhoneNumberChangePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PhoneNumberNewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PhoneNumberRegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\User\Components\CompanyProductView.xaml">

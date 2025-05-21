@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               BackgroundColor="#EFEEF2"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               x:Class="EcoPlatesMobile.Views.PhoneNumberChangePage">
+
+    <Grid RowDefinitions="Auto, *, Auto, 30, Auto, 20, Auto, *">
+        <component:CustomHeader Title="Change Number"
+                                HeaderBackground="#8338EC"/>
+        <Image Source="phone1.png"
+               Aspect="AspectFit"
+               WidthRequest="100"
+               HeightRequest="100"
+               HorizontalOptions="Center"
+               Grid.Row="2"/>
+        <VerticalStackLayout Spacing="10"
+                             HorizontalOptions="Center"
+                             Margin="20,0,20,0"
+                             Grid.Row="4">
+            <Label x:Name="lbPhone" 
+                   Text="+82104410694"
+                   TextColor="Gray"
+                   FontSize="17"
+                   HorizontalTextAlignment="Center"
+                   FontAttributes="Bold"/>
+            <Label x:Name="lbTitle"
+                   TextColor="Gray"
+                   HorizontalTextAlignment="Center"
+                   FontSize="17"/>
+        </VerticalStackLayout>
+        <Button Text="Change Number"
+                FontSize="17"
+                FontAttributes="Bold"
+                TextColor="#3080DD"
+                BackgroundColor="White"
+                Margin="10,0,10,0"
+                Clicked="Next_Clicked"
+                Grid.Row="6"/>
+    </Grid>
+    
+</page:BasePage>

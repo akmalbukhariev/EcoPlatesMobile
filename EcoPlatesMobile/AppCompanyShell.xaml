@@ -9,16 +9,16 @@
        Shell.TabBarForegroundColor="#8338EC">
  
     <TabBar>
-         <Tab Icon="home1.png">
+         <!--<Tab Icon="home1.png">
             <ShellContent ContentTemplate="{DataTemplate companyPages:ActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="active_product.png">
             <ShellContent ContentTemplate="{DataTemplate companyPages:NonActiveItemPage}"
                           Shell.NavBarIsVisible="False"/>
-        </Tab>
+        </Tab>-->
         <Tab Icon="company.png">
-            <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyPrifilePage}"
+            <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyProfileInfoPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
     </TabBar>

@@ -21,7 +21,7 @@ namespace EcoPlatesMobile
         {
             //return new Window(new NavigationPage(new LoginPage())); 
             //return new Window(new AppUserShell());
-            return new Window(new AppCompanyShell());
+            return new Window(new AuthorizationPage());
         }
 
         private void RegisterRoutes()
@@ -34,8 +34,10 @@ namespace EcoPlatesMobile
             //Routing.RegisterRoute(AppRoutes.PhoneNumberPage, typeof(PhoneNumberPage));
             //Routing.RegisterRoute(AppRoutes.UserMainPage, typeof(UserMainPage));
             //Routing.RegisterRoute(AppRoutes.CompanyRegistrationPage, typeof(CompanyRegistrationPage));
-
+            
             Routing.RegisterRoute(nameof(CompanyAddProductPage), typeof(CompanyAddProductPage));
+            Routing.RegisterRoute(nameof(PhoneNumberChangePage), typeof(PhoneNumberChangePage));
+            Routing.RegisterRoute(nameof(PhoneNumberNewPage), typeof(PhoneNumberNewPage));
         }
 
         private void Setting()

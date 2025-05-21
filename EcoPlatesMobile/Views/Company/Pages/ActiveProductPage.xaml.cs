@@ -76,7 +76,8 @@ public partial class ActiveProductPage : ContentPage
                 Response response = await apiService.ChangePosterDeletionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await viewModel.LoadInitialAsync();
+                    //await viewModel.LoadInitialAsync();
+                    viewModel.Products.Remove(product);
                 }
                 else
                 {

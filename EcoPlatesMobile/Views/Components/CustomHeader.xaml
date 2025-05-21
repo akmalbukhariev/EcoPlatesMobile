@@ -4,7 +4,7 @@
              x:Class="EcoPlatesMobile.Views.Components.CustomHeader">
 
     <Grid x:Name="mainGrid" 
-          BackgroundColor="#007200"
+          BackgroundColor="{Binding HeaderBackground}"
           HeightRequest="87"
           ColumnDefinitions="Auto,*">
         <Image x:Name="imBack" 
@@ -21,7 +21,7 @@
         <Label x:Name="lbTitle"
                Text="{Binding Title}"
                FontFamily="Roboto"
-               TextColor="White"
+               TextColor="{Binding TitleColor}"
                FontSize="20"
                VerticalOptions="Center"
                HorizontalOptions="Center"

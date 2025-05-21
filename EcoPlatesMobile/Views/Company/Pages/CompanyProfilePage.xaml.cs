@@ -3,7 +3,7 @@ using EcoPlatesMobile.Models;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
-public partial class CompanyPrifilePage : ContentPage
+public partial class CompanyProfilePage : ContentPage
 {
 	public ObservableCollection<LanguageModel> Languages { get; set; }
 
@@ -29,7 +29,7 @@ public partial class CompanyPrifilePage : ContentPage
         }
     }
 
-    public CompanyPrifilePage()
+    public CompanyProfilePage()
     {
         InitializeComponent();
 

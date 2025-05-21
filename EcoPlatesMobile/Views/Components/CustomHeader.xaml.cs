@@ -3,10 +3,14 @@ namespace EcoPlatesMobile.Views.Components;
 public partial class CustomHeader : ContentView
 {
     public static readonly BindableProperty TitleProperty =
-      BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomEntry), default(string), propertyChanged: OnTitleChanged);
-  
+      BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomHeader), default(string), propertyChanged: OnTitleChanged);
+
+    public static readonly BindableProperty TitleColorProperty =
+        BindableProperty.Create(nameof(TitleColor), typeof(Color), typeof(CustomHeader), Colors.White, propertyChanged: TitleColorChanged);
+
+
     public static readonly BindableProperty ShowBackProperty =
-      BindableProperty.Create(nameof(ShowBack), typeof(bool), typeof(CustomEntry), true, propertyChanged: OnShowBackChanged);
+      BindableProperty.Create(nameof(ShowBack), typeof(bool), typeof(CustomHeader), true, propertyChanged: OnShowBackChanged);
 
     public static readonly BindableProperty HeaderBackgroundColorProperty =
         BindableProperty.Create(nameof(HeaderBackground), typeof(Color), typeof(CustomHeader), Color.FromArgb("#007200"), propertyChanged: HeaderBackgroundChanged);
@@ -15,6 +19,12 @@ public partial class CustomHeader : ContentView
     {
         get => (string)GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
+    }
+
+    public Color TitleColor
+    {
+        get => (Color)GetValue(TitleColorProperty);
+        set => SetValue(TitleColorProperty, value);
     }
 
     public bool ShowBack
@@ -39,6 +49,12 @@ public partial class CustomHeader : ContentView
     {
         var control = (CustomHeader)bindable;
         control.lbTitle.Text = (string)newValue;
+    }
+
+    private static void TitleColorChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CustomHeader)bindable;
+        control.lbTitle.TextColor = (Color)newValue;
     }
 
     private static void OnShowBackChanged(BindableObject bindable, object oldValue, object newValue)

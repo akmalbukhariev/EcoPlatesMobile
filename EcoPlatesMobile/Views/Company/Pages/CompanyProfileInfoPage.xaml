@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyProfileInfoPage"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views">
+
+    <Grid RowDefinitions="Auto, Auto, Auto, *, Auto, 20"
+          BackgroundColor="#EFEEF2">
+        <Grid ColumnDefinitions="Auto, *, Auto">
+            <Button Text="Cancel"
+                    TextColor="#8338EC"
+                    FontSize="17"
+                    FontAttributes="Bold"
+                    BackgroundColor="Transparent"
+                    Clicked="Cancel_Clicked"/>
+            <Button Text="Done"
+                    TextColor="#8338EC"
+                    FontSize="17"
+                    FontAttributes="Bold"
+                    BackgroundColor="Transparent"
+                    Clicked="Done_Clicked"
+                    Grid.Column="2"/>
+        </Grid>
+        <VerticalStackLayout Spacing="20" Grid.Row="1">
+            <Border x:Name="borderCompany"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    Stroke="Gray"
+                    StrokeThickness="0.2"
+                    StrokeShape="RoundRectangle 100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="BorderImage_Tapped"/>
+                </Border.GestureRecognizers>
+                <Image x:Name="imCompany" 
+                       Source="add_item.png"
+                       Aspect="AspectFit" />
+            </Border>
+            <Button Text="Set New Photo"
+                    TextColor="#8338EC"
+                    FontSize="17"
+                    FontAttributes="Bold"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"/>
+            <Border StrokeShape="RoundRectangle 15"
+                    StrokeThickness="0.2"
+                    BackgroundColor="White"
+                    Margin="10,0,10,0">
+                <Grid RowDefinitions="Auto, 1, 50"
+                      RowSpacing="10"
+                      Margin="10">
+                    <Entry Placeholder="Company name"
+                           FontSize="17"
+                           PlaceholderColor="LightGray"/>
+                    <BoxView BackgroundColor="LightGray" Grid.Row="1"/>
+                    <Grid x:Name="grdPhoneNumber" 
+                          ColumnDefinitions="Auto, *, Auto" 
+                          Grid.Row="2">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Tapped="PhoneNumber_Tapped"/>
+                        </Grid.GestureRecognizers>
+                        <Label Text="Change Number"
+                               TextColor="Black"
+                               FontSize="17"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="Center"/>
+                        <Label Text="+8284410694"
+                               TextColor="Gray"
+                               FontSize="17"
+                               HorizontalTextAlignment="End"
+                               VerticalTextAlignment="Center"
+                               Grid.Column="1"/>
+                        <Image Source="left.png"
+                               Aspect="AspectFit"
+                               Margin="15,0,10,0"
+                               Grid.Column="2"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
+        <Button Text="Log Out" 
+                BackgroundColor="Red"
+                TextColor="White"
+                Margin="10,0,10,0"
+                Grid.Row="4"/>
+    </Grid>
+
+</page:BasePage>
