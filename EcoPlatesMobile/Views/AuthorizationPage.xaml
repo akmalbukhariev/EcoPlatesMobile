@@ -80,7 +80,6 @@
                     Grid.Row="5"/>
         </Grid>
         <component:LoadingView x:Name="loading" 
-                               IsLoading="False"
                                Grid.RowSpan="2"/>
     </Grid>
 </view:BasePage>

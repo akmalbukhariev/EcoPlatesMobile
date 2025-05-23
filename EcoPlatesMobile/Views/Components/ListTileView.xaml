@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.Components.ListTileView">
 
-    <Grid ColumnDefinitions="Auto, *">
+    <Grid x:Name="grdMain" 
+          ColumnDefinitions="Auto, *, Auto">
         <Grid.GestureRecognizers>
             <TapGestureRecognizer NumberOfTapsRequired="1"
                                   Tapped="Tile_Tapped"/>
@@ -16,9 +17,21 @@
                VerticalOptions="Center"/>
         <Label x:Name="label" 
                Text="{Binding TileText}"
-               TextColor="{Binding TileTitleColor}"
-               FontSize="{Binding TileTitleSize}"
+               TextColor="{Binding TileTextColor}"
+               FontSize="{Binding TileTextSize}"
                VerticalTextAlignment="Center"
                Grid.Column="1"/>
+        <Border x:Name="borderTileTex1" 
+                IsVisible="Collapse"
+                BackgroundColor="LightGray" 
+                WidthRequest="25"
+                StrokeShape="RoundRectangle 4"
+                Grid.Column="2">
+            <Label x:Name="label1"
+                   Text="{Binding TileText1}"
+                   TextColor="{Binding TileText1Color}"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+        </Border>
     </Grid>
 </ContentView>

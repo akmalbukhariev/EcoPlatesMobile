@@ -22,7 +22,7 @@
                     Grid.Column="2"/>
         </Grid>
         <VerticalStackLayout Spacing="20" Grid.Row="1">
-            <Border x:Name="borderCompany"
+            <Border x:Name="borderCompanyImage"
                     WidthRequest="150"
                     HeightRequest="150"
                     Stroke="Gray"
@@ -36,14 +36,15 @@
                 </Border.GestureRecognizers>
                 <Image x:Name="imCompany" 
                        Source="add_item.png"
-                       Aspect="AspectFit" />
+                       Aspect="AspectFill" />
             </Border>
             <Button Text="Set New Photo"
                     TextColor="#8338EC"
                     FontSize="17"
                     FontAttributes="Bold"
                     BackgroundColor="Transparent"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    Clicked="ChangeImage_Clicked"/>
             <Border StrokeShape="RoundRectangle 15"
                     StrokeThickness="0.2"
                     BackgroundColor="White"
@@ -51,7 +52,8 @@
                 <Grid RowDefinitions="Auto, 1, 50"
                       RowSpacing="10"
                       Margin="10">
-                    <Entry Placeholder="Company name"
+                    <Entry x:Name="entryCompanyName" 
+                           Placeholder="Company name"
                            FontSize="17"
                            PlaceholderColor="LightGray"/>
                     <BoxView BackgroundColor="LightGray" Grid.Row="1"/>
@@ -67,7 +69,8 @@
                                FontSize="17"
                                HorizontalTextAlignment="Start"
                                VerticalTextAlignment="Center"/>
-                        <Label Text="+8284410694"
+                        <Label x:Name="lbPhoneNUmber" 
+                               Text="+998 00 000 00 00"
                                TextColor="Gray"
                                FontSize="17"
                                HorizontalTextAlignment="End"
@@ -86,6 +89,28 @@
                 TextColor="White"
                 Margin="10,0,10,0"
                 Grid.Row="4"/>
+        <ActivityIndicator x:Name="loading"
+                           Color="Green"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="6"/>
+        <BoxView x:Name="boxFullImage"
+                 BackgroundColor="Black"
+                 IsVisible="False"
+                 Opacity="0.7"
+                 Grid.RowSpan="6"/>
+        <Image x:Name="fullImage"
+               Aspect="AspectFit"
+               IsVisible="False"
+               Grid.RowSpan="6">
+            <Image.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Up"
+                                        Swiped="OnImage_Swiped"/>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="OnImage_Tapped"/>
+            </Image.GestureRecognizers>
+        </Image>
     </Grid>
 
 </page:BasePage>

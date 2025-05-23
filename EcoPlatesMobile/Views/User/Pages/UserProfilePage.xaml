@@ -82,21 +82,21 @@
                 </HorizontalStackLayout>
             </Grid>
             <component:ListTileView TileIcon="share.png" 
-                                    TileTitle="Do'stlar bilan ulashish"
-                                    TileTitleSize="15"
-                                    TileTitleColor="#444444"
+                                    TileText="Do'stlar bilan ulashish"
+                                    TileTextSize="15"
+                                    TileTextColor="#444444"
                                     Margin="0,0,0,20"
                                     Grid.Row="1"/>
             <component:ListTileView TileIcon="info.png" 
-                                    TileTitle="Dastur haqida"
-                                    TileTitleSize="15"
-                                    TileTitleColor="#444444"
+                                    TileText="Dastur haqida"
+                                    TileTextSize="15"
+                                    TileTextColor="#444444"
                                     Margin="0,0,0,20"
                                     Grid.Row="2"/>
             <component:ListTileView TileIcon="offer.png" 
-                                    TileTitle="Taklif va shikoyatlar"
-                                    TileTitleSize="15"
-                                    TileTitleColor="#444444"
+                                    TileText="Taklif va shikoyatlar"
+                                    TileTextSize="15"
+                                    TileTextColor="#444444"
                                     Grid.Row="3"/>
         </Grid>
         <Grid RowDefinitions="Auto, Auto, Auto" 

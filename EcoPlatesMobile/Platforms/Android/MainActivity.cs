@@ -24,6 +24,8 @@ namespace EcoPlatesMobile
         {
             base.OnCreate(savedInstanceState);
 
+            Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
+
             Instance = this;
         }
 

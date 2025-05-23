@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.User;
@@ -8,8 +9,20 @@ using EcoPlatesMobile.ViewModels.Company;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
-public partial class ActiveProductPage : ContentPage
+[QueryProperty(nameof(ShowBackQuery), nameof(ShowBackQuery))]
+public partial class ActiveProductPage : BasePage
 {
+    private bool ShowBack { get; set; } = false;
+
+    public string ShowBackQuery
+    {
+        set
+        {
+            if (bool.TryParse(value, out var result))
+                ShowBack = result;
+        }
+    }
+
     private ActiveProductPageViewModel viewModel;
     public ActiveProductPage()
     {
@@ -22,7 +35,7 @@ public partial class ActiveProductPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
+        header.ShowBack = ShowBack;
         await viewModel.LoadInitialAsync();
     }
 

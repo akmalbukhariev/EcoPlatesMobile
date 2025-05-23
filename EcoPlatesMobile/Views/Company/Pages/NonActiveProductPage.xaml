@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.Company.Pages.NonActiveItemPage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             xmlns:com_component="clr-namespace:EcoPlatesMobile.Views.Company.Components"
-             xmlns:local="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
-             BackgroundColor="#F7F9FB">
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.NonActiveProductPage"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:com_component="clr-namespace:EcoPlatesMobile.Views.Company.Components"
+               xmlns:local="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
+               BackgroundColor="#F7F9FB">
    
     <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="Activ bo'lmagan maxsulotlar"
+        <component:CustomHeader x:Name="header" 
+                                Title="Activ bo'lmagan maxsulotlar"
                                 ShowBack="False"
                                 HeaderBackground="#8338EC"/>
         <Grid RowDefinitions="Auto, *"
@@ -50,7 +52,7 @@
                                                            NewPrice="{Binding NewPrice}"
                                                            OldPrice="{Binding OldPrice}"
                                                            Stars="{Binding Stars}"
-                                                           ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:NonActiveItemPage}}, Path=BindingContext.ClickProductCommand}"
+                                                           ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:NonActiveProductPage}}, Path=BindingContext.ClickProductCommand}"
                                                            IsNonActiveProduct="False"/>
                             </SwipeView>
                         </DataTemplate>
@@ -65,4 +67,4 @@
                            HorizontalOptions="Center"
                            Grid.RowSpan="2"/>
     </Grid>
-</ContentPage>
+</page:BasePage>

@@ -7,10 +7,22 @@ using EcoPlatesMobile.ViewModels.Company;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
-public partial class NonActiveItemPage : ContentPage
+[QueryProperty(nameof(ShowBackQuery), nameof(ShowBackQuery))]
+public partial class NonActiveProductPage : BasePage
 {
-	private NonActiveProductPageViewModel viewModel;
-	public NonActiveItemPage()
+    private bool ShowBack { get; set; } = false;
+
+    public string ShowBackQuery
+    {
+        set
+        {
+            if (bool.TryParse(value, out var result))
+                ShowBack = result;
+        }
+    }
+
+    private NonActiveProductPageViewModel viewModel;
+	public NonActiveProductPage()
 	{
 		InitializeComponent();
 		
@@ -21,7 +33,7 @@ public partial class NonActiveItemPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
+        header.ShowBack = ShowBack;
         await viewModel.LoadInitialAsync();
     }
 

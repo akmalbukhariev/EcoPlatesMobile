@@ -59,8 +59,7 @@
                 Margin="16,0,16,0"
                 Clicked="Button_Clicked"
                 Grid.Row="4"/>
-        <component:LoadingView x:Name="loadingView" 
-                               IsLoading="False"
+        <component:LoadingView x:Name="loadingView"
                                Grid.RowSpan="6"/>
     </Grid>
 </view:BasePage>

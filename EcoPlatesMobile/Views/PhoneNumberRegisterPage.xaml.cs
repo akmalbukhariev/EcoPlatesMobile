@@ -38,7 +38,7 @@ public partial class PhoneNumberRegisterPage : BasePage
 
         Response response = null;
 
-        loadingView.IsLoading = true;
+        loadingView.ShowLoading = true;
         try
         {
             if (session.Role == UserRole.Company)
@@ -54,7 +54,7 @@ public partial class PhoneNumberRegisterPage : BasePage
         }
         finally
         {
-            loadingView.IsLoading = false;
+            loadingView.ShowLoading = false;
         }
 
         if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())

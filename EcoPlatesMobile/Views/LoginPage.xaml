@@ -53,6 +53,6 @@
                 </Button.Background>
             </Button>
         </Grid>
-        <loading:LoadingView IsLoading="False"/>
+        <loading:LoadingView ShowLoading="False"/>
     </Grid>
 </view:BasePage>

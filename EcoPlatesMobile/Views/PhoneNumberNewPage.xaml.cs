@@ -23,4 +23,11 @@ public partial class PhoneNumberNewPage : BasePage
     {
         // Logic when user presses "done" or enter
     }
+
+    private async void Back_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(imBack);
+
+        await Shell.Current.GoToAsync("..", true);
+    }
 }

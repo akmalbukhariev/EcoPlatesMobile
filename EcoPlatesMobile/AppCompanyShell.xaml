@@ -14,11 +14,11 @@
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="active_product.png">
-            <ShellContent ContentTemplate="{DataTemplate companyPages:NonActiveItemPage}"
+            <ShellContent ContentTemplate="{DataTemplate companyPages:NonActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>-->
         <Tab Icon="company.png">
-            <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyProfileInfoPage}"
+            <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyProfilePage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
     </TabBar>

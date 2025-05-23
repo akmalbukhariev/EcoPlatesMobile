@@ -1,9 +1,13 @@
 using System.Collections.ObjectModel;
 using EcoPlatesMobile.Models;
+using EcoPlatesMobile.Models.Responses.Company;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.Components;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
-public partial class CompanyProfilePage : ContentPage
+public partial class CompanyProfilePage : BasePage
 {
 	public ObservableCollection<LanguageModel> Languages { get; set; }
 
@@ -29,6 +33,7 @@ public partial class CompanyProfilePage : ContentPage
         }
     }
 
+    CompanyProfileInfoResponse response;
     public CompanyProfilePage()
     {
         InitializeComponent();
@@ -43,6 +48,34 @@ public partial class CompanyProfilePage : ContentPage
         SelectedFlag = Languages[0].Flag;
         SelectedLanguage = Languages[0].Name;
         BindingContext = this;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        loading.ShowLoading = true;
+
+        var apiService = AppService.Get<CompanyApiService>();
+
+        response = await apiService.GetCompanyProfileInfo(11);
+        if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
+        {
+            imCompany.Source = response.resultData.logo_url;
+            lbCompanyName.Text = response.resultData.company_name;
+            lbPhoneNumber.Text = response.resultData.phone_number;
+            tileActive.TileText1 = response.resultData.active_products.ToString();
+            tileNoActive.TileText1 = response.resultData.non_active_products.ToString();
+        }
+
+        loading.ShowLoading = false;
+    }
+
+    private async void UserInfo_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(grdUserInfo);
+        string uri = $"?CompanyImage={response?.resultData.logo_url}&CompanyName={response?.resultData.company_name}&CompanyPhone={response?.resultData.phone_number}";
+        await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}{uri}");
     }
 
     private void OnLanguageTapped(object sender, TappedEventArgs e)
@@ -71,5 +104,27 @@ public partial class CompanyProfilePage : ContentPage
     {
         dropdownListBack.IsVisible = false;
         dropdownList.IsVisible = false;
+    }
+
+    private async void Tile_EventClick(object obj)
+    {
+        ListTileView view = (ListTileView)obj;
+        switch (view.TileType)
+        {
+            case ListTileView.ListTileType.ActiveAds:
+                await Shell.Current.GoToAsync($"{nameof(ActiveProductPage)}?ShowBackQuery={true}");
+                break;
+            case ListTileView.ListTileType.PreviousAds:
+                await Shell.Current.GoToAsync($"{nameof(NonActiveProductPage)}?ShowBackQuery={true}");
+                break;
+            case ListTileView.ListTileType.Share:
+                break;
+            case ListTileView.ListTileType.AboutApp:
+                break;
+            case ListTileView.ListTileType.Suggestions:
+                break;
+            case ListTileView.ListTileType.Message:
+                break;
+        }
     }
 }
