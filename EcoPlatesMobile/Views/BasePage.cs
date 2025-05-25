@@ -9,7 +9,7 @@ namespace EcoPlatesMobile.Views
         protected BasePage() 
         {
             Shell.SetNavBarIsVisible(this, false);
-            Shell.SetTabBarIsVisible(this, false);
+            //Shell.SetTabBarIsVisible(this, false);
         }
 
         protected void SetViewModel(IViewModel viewModel)

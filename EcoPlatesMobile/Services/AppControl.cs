@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,15 @@ namespace EcoPlatesMobile.Services
     public class AppControl
     {
         public bool ShowCompanyMoreInfo { get; set; } = true;
+
+        public Dictionary<string, string> businessTypeList = new Dictionary<string, string>
+        {
+            { "Restaurant", "RESTAURANT" },
+            { "Bakery", "BAKERY" },
+            { "Fast Food", "FAST_FOOD" },
+            { "Cafe", "CAFE" },
+            { "Supermarket", "SUPERMARKET" },
+            { "Other", "OTHER" }
+        };
     }
 }

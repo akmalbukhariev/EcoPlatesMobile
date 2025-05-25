@@ -22,6 +22,7 @@ namespace EcoPlatesMobile.Services
         private const string GET_POSTER = $"{BASE_URL}poster/getCompanyPoster";
         private const string CHANGE_POSTER_DELETION_STATUS = $"{BASE_URL}poster/changePosterDeletionStatus";
         private const string GET_COMPANY_PROFILE_INFO = $"{BASE_URL}company/getCompanyProfileInfo/";
+        private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";
 
         public CompanyApiService(RestClient client) : base(client)
         {
@@ -331,6 +332,39 @@ namespace EcoPlatesMobile.Services
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"CompanyProfileInfoResponse Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> UpdateCompanyProfileInfo(Stream imageStream, Dictionary<string, string>? additionalData)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostImageAsync(UPDATE_COMPANY_PROFILE_INFO, imageStream, additionalData, "logo_data");
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"UpdateCompanyProfileInfo Error: {ex.Message}";
             }
 
             return response;

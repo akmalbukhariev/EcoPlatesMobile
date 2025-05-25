@@ -4,6 +4,7 @@ using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Components;
+using Newtonsoft.Json;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -74,8 +75,17 @@ public partial class CompanyProfilePage : BasePage
     private async void UserInfo_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(grdUserInfo);
-        string uri = $"?CompanyImage={response?.resultData.logo_url}&CompanyName={response?.resultData.company_name}&CompanyPhone={response?.resultData.phone_number}";
-        await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}{uri}");
+        //string uri = $"?CompanyImage={response?.resultData.logo_url}&CompanyName={response?.resultData.company_name}&CompanyPhone={response?.resultData.phone_number}";
+
+        //await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}{uri}");
+ 
+        //string json = JsonConvert.SerializeObject(response.resultData);
+        //await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}?CompanyProfileInfoJson={Uri.EscapeDataString(json)}");
+ 
+        await Shell.Current.GoToAsync(nameof(CompanyProfileInfoPage), new Dictionary<string, object>
+        {
+            ["CompanyProfileInfo"] = response.resultData
+        });
     }
 
     private void OnLanguageTapped(object sender, TappedEventArgs e)

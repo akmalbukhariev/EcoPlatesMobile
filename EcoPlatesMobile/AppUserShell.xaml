@@ -11,9 +11,8 @@
 
     <TabBar>
         <Tab Icon="home1.png">
-            <ShellContent Route="UserMainPage"
-                          Shell.NavBarIsVisible="False"
-                          ContentTemplate="{DataTemplate userPages:UserMainPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
+                          Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="browser1.png">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserBrowserPage}"

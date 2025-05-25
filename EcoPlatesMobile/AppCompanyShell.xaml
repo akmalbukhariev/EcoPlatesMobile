@@ -5,18 +5,19 @@
        xmlns:local="clr-namespace:EcoPlatesMobile"
        xmlns:companyPages="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
        Shell.FlyoutBehavior="Disabled"
+       Shell.TabBarBackgroundColor="#F3F8F9"
        Shell.TabBarUnselectedColor="Gray"
        Shell.TabBarForegroundColor="#8338EC">
- 
+    
     <TabBar>
-         <!--<Tab Icon="home1.png">
+         <Tab Icon="home1.png">
             <ShellContent ContentTemplate="{DataTemplate companyPages:ActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="active_product.png">
             <ShellContent ContentTemplate="{DataTemplate companyPages:NonActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
-        </Tab>-->
+        </Tab>
         <Tab Icon="company.png">
             <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyProfilePage}"
                           Shell.NavBarIsVisible="False"/>

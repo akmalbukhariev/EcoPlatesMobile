@@ -1,30 +1,64 @@
-﻿namespace EcoPlatesMobile.Views.Company.Pages;
+﻿using EcoPlatesMobile.Models.Company;
+using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
+using Newtonsoft.Json;
+using System.Linq;
 
-[QueryProperty(nameof(CompanyImage), nameof(CompanyImage))]
-[QueryProperty(nameof(CompanyName), nameof(CompanyName))]
-[QueryProperty(nameof(CompanyPhone), nameof(CompanyPhone))]
+namespace EcoPlatesMobile.Views.Company.Pages;
+
+[QueryProperty(nameof(CompanyProfileInfo), nameof(CompanyProfileInfo))]
 public partial class CompanyProfileInfoPage : BasePage
 {
-    public string CompanyImage { get; set; }
-    public string CompanyName { get; set; }
-    public string CompanyPhone { get; set; }
-
+    private CompanyProfileInfo _companyProfileInfo;
+    public CompanyProfileInfo CompanyProfileInfo
+    {
+        get => _companyProfileInfo;
+        set
+        {
+            _companyProfileInfo = value;
+        }
+     }
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
 
     public CompanyProfileInfoPage()
     {
-		InitializeComponent();
+        InitializeComponent();
+
+        pickType.ItemsSource = AppService.Get<AppControl>().businessTypeList.Keys.ToList();
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        imCompany.Source = CompanyImage;
-        fullImage.Source = CompanyImage;
-        entryCompanyName.Text = CompanyName;
-        lbPhoneNUmber.Text = CompanyPhone;
+        imCompany.Source = CompanyProfileInfo.logo_url;
+        fullImage.Source = CompanyProfileInfo.logo_url;
+        entryCompanyName.Text = CompanyProfileInfo.company_name;
+        lbPhoneNUmber.Text = CompanyProfileInfo.phone_number;
+
+        string[] times = CompanyProfileInfo.working_hours.Split(" - ");
+        if (times.Length == 2)
+        {
+            if (DateTime.TryParse(times[0], out DateTime startTime) &&
+                DateTime.TryParse(times[1], out DateTime endTime))
+            {
+                startTimePicker.Time = startTime.TimeOfDay;
+                endTimePicker.Time = endTime.TimeOfDay;
+            }
+            else
+            {
+                Console.WriteLine("Invalid time format received from server.");
+            }
+        }
+        
+        var selectedItem = AppService.Get<AppControl>().businessTypeList.FirstOrDefault(kvp => kvp.Value == CompanyProfileInfo.business_type).Key;
+
+        if (selectedItem != null)
+        {
+            pickType.SelectedItem = selectedItem;
+        }
     }
 
     private async void BorderImage_Tapped(object sender, TappedEventArgs e)
@@ -65,6 +99,7 @@ public partial class CompanyProfileInfoPage : BasePage
 
         if (result != null)
         {
+            /*
             string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
 
             using (Stream sourceStream = await result.OpenReadAsync())
@@ -77,6 +112,22 @@ public partial class CompanyProfileInfoPage : BasePage
             fullImage.Source = imCompany.Source;
             imageStream = await result.OpenReadAsync();
             isNewImageSelected = true;
+            */
+
+            string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
+
+            using (Stream sourceStream = await result.OpenReadAsync())
+            using (FileStream localFileStream = File.Create(localFilePath))
+            {
+                await sourceStream.CopyToAsync(localFileStream);
+            }
+
+            imCompany.Source = ImageSource.FromFile(localFilePath);
+            fullImage.Source = imCompany.Source;
+ 
+            imageStream = File.OpenRead(localFilePath);
+
+            isNewImageSelected = true;
         }
     }
 
@@ -87,7 +138,78 @@ public partial class CompanyProfileInfoPage : BasePage
 
     private async void Done_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("..", true);
+        try
+        {
+            string enteredName = entryCompanyName.Text?.Trim();
+            string selectedType = pickType.SelectedItem as string;
+            TimeSpan selectedStartTime = startTimePicker.Time;
+            TimeSpan selectedEndTime = endTimePicker.Time;
+
+            TimeSpan? startTimeFromServer = null;
+            TimeSpan? endTimeFromServer = null;
+
+            if (!string.IsNullOrEmpty(CompanyProfileInfo.working_hours))
+            {
+                var parts = CompanyProfileInfo.working_hours.Split(" - ");
+                if (parts.Length == 2 &&
+                    DateTime.TryParse(parts[0], out var startTime) &&
+                    DateTime.TryParse(parts[1], out var endTime))
+                {
+                    startTimeFromServer = startTime.TimeOfDay;
+                    endTimeFromServer = endTime.TimeOfDay;
+                }
+            }
+
+            bool isSame =
+            enteredName == CompanyProfileInfo.company_name?.Trim() &&
+            AppService.Get<AppControl>().businessTypeList[selectedType].ToUpper() == CompanyProfileInfo.business_type.ToUpper() &&
+            startTimeFromServer.HasValue && endTimeFromServer.HasValue &&
+            selectedStartTime == startTimeFromServer.Value &&
+            selectedEndTime == endTimeFromServer.Value;
+
+            if (!isSame || isNewImageSelected)
+            {
+                string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
+                var additionalData = new Dictionary<string, string>
+                {
+                    { "company_id", "11" },
+                    { "company_name", enteredName },
+                    { "business_type", AppService.Get<AppControl>().businessTypeList[selectedType] },
+                    { "working_hours",  formattedWorkingHours},
+                };
+
+                if (!isNewImageSelected)
+                {
+                    imageStream = null;
+                }
+
+                loading.ShowLoading = true;
+                var apiService = AppService.Get<CompanyApiService>();
+                Response response = await apiService.UpdateCompanyProfileInfo(imageStream, additionalData);
+
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync("Update profile", "Success.");
+                    await Shell.Current.GoToAsync("..", true);
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                }
+            }
+            else
+            {
+                await Shell.Current.GoToAsync("..", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            loading.ShowLoading = false;
+        }
     }
 
     private async void PhoneNumber_Tapped(object sender, TappedEventArgs e)
@@ -113,5 +235,14 @@ public partial class CompanyProfileInfoPage : BasePage
     {
         boxFullImage.IsVisible = false;
         fullImage.IsVisible = false;
+    }
+
+    private void BusinessType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string selectedDisplay = pickType.SelectedItem as string;
+        if (selectedDisplay != null && AppService.Get<AppControl>().businessTypeList.TryGetValue(selectedDisplay, out var backendValue))
+        {
+             
+        }
     }
 }

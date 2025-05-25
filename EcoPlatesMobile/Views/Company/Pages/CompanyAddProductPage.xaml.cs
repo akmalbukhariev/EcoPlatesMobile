@@ -81,7 +81,7 @@ public partial class CompanyAddProductPage : BasePage
             string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
 
             using (Stream sourceStream = await result.OpenReadAsync())
-            using (FileStream localFileStream = File.OpenWrite(localFilePath))
+            using (FileStream localFileStream = File.Create(localFilePath))
             {
                 await sourceStream.CopyToAsync(localFileStream);
             }

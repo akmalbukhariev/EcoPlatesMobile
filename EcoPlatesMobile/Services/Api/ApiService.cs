@@ -58,15 +58,9 @@ namespace EcoPlatesMobile.Services
         private async Task<string> ExecuteRequestAsync(RestRequest request)
         { 
             var response = await _client.ExecuteAsync(request);
-            Console.WriteLine($"Status Code: {response.StatusCode}");
-            Console.WriteLine($"Content Length: {response.RawBytes?.Length}");
-            Console.WriteLine($"Response Headers: {string.Join(", ", response.Headers.Select(h => $"{h.Name}: {h.Value}"))}");
-            Console.WriteLine("Raw Content:");
             if (response.RawBytes != null && response.RawBytes.Length > 0)
             {
                 var json = Encoding.UTF8.GetString(response.RawBytes);
-                Console.WriteLine("Decoded JSON:");
-                Console.WriteLine(json);
                 return json;
             }
 
@@ -110,7 +104,7 @@ namespace EcoPlatesMobile.Services
             return await ExecuteRequestAsync(request);
         }
 
-        public async Task<string> PostImageAsync(string endpoint, Stream imageStream, Dictionary<string, string>? additionalData = null)
+        public async Task<string> PostImageAsync(string endpoint, Stream imageStream, Dictionary<string, string>? additionalData = null, string streamName = "image_data")
         {
             var request = new RestRequest(endpoint, Method.Post);
             request.AddHeader("Authorization", $"Bearer {token}");
@@ -127,7 +121,7 @@ namespace EcoPlatesMobile.Services
             if (imageStream != null)
             {
                 var fileBytes = await ConvertStreamToByteArrayAsync(imageStream);
-                request.AddFile("image_data", fileBytes, "image.jpg", "image/jpeg");
+                request.AddFile(streamName, fileBytes, "image.jpg", "image/jpeg");
             }
 
             return await ExecuteRequestAsync(request);
