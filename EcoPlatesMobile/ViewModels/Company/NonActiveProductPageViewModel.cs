@@ -35,7 +35,7 @@ namespace EcoPlatesMobile.ViewModels.Company
         private async void ProductClicked(ProductModel product)
         {
             product.CompanyId = 11;
-            await Shell.Current.GoToAsync(nameof(CompanyAddProductPage), new Dictionary<string, object>
+            await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
             });

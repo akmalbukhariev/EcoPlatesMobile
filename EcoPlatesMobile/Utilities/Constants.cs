@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace EcoPlatesMobile.Utilities
 {
     internal class Constants
@@ -11,9 +6,9 @@ namespace EcoPlatesMobile.Utilities
         //public const string BASE_USER_URL = "http://www.ecoplates.uz/user/";
         //public const string BASE_USER_URL = "http://192.168.219.102:8083";
         public const string BASE_USER_URL = "http://10.0.2.2:8083";
-
-        //public const string BASE_COMPANY_URL = "http://www.ecoplates.uz/company/";
-        public const string BASE_COMPANY_URL = "http://192.168.219.103:8081";
+        
+        public const string BASE_COMPANY_URL = "http://www.ecoplates.uz/company/";
+        //public const string BASE_COMPANY_URL = "http://192.168.219.103:8081";
         //public const string BASE_COMPANY_URL = "http://10.0.2.2:8081";
     }
 }

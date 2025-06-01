@@ -6,15 +6,23 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
- 
-public partial class CompanyAddProductPage : BasePage
+
+[QueryProperty(nameof(ProductModel), nameof(ProductModel))]
+public partial class CompanyEditProductPage : BasePage
 {
     private ProductModel productModel;
-     
+    public ProductModel ProductModel
+    {
+        get => productModel;
+        set
+        {
+            productModel = value;
+        }
+    }
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
 
-    public CompanyAddProductPage()
+    public CompanyEditProductPage()
 	{
 		InitializeComponent();
 	}
@@ -24,19 +32,35 @@ public partial class CompanyAddProductPage : BasePage
         base.OnAppearing();
         
         isNewImageSelected = false;
+
+        if (ProductModel != null)
+        {
+            imSelectedProduct.Source = ProductModel.ProductImage;
+            fullImage.Source = ProductModel.ProductImage;
+            entryProductName.SetEntryText(ProductModel.ProductName);
+            entryNewPrice.Text = ProductModel.NewPriceDigit.ToString();
+            entryOldPrice.Text = ProductModel.OldPriceDigit.ToString();
+            editorDescription.Text = ProductModel.description;
+        }
     }
 
-    private async void SelectImage_Tapped(object sender, TappedEventArgs e)
+    private async void ProductImage_Tapped(object sender, TappedEventArgs e)
     {
-        if (borderProductIcon.IsVisible)
-        {
-            await AnimateElementScaleDown(borderProductIcon);
-        }
-        else
-        {
-            await AnimateElementScaleDown(imSelectedProduct);
-        }
-        
+        await AnimateElementScaleDown(imSelectedProduct);
+
+        fullImage.TranslationY = -100;
+        fullImage.Opacity = 0;
+        fullImage.IsVisible = true;
+        boxFullImage.IsVisible = true;
+
+        await Task.WhenAll(
+            fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
+            fullImage.FadeTo(1, 250, Easing.SinIn)
+        );
+    }
+
+    private async void ChangeImage_Clicked(object sender, EventArgs e)
+    {
         string action = await DisplayActionSheet("Choose an option", "Cancel", null, "Select from Gallery", "Take a Photo");
 
         FileResult result = null;
@@ -69,13 +93,10 @@ public partial class CompanyAddProductPage : BasePage
             imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
             imageStream = await result.OpenReadAsync();
             isNewImageSelected = true;
-
-            borderProductIcon.IsVisible = false;
-            imSelectedProduct.IsVisible = true;
         }
     }
 
-    private async void RegisterOrUpdate_Clicked(object sender, EventArgs e)
+    private async void BtnUpdate_Clicked(object sender, EventArgs e)
     {
         try
         {
@@ -108,24 +129,48 @@ public partial class CompanyAddProductPage : BasePage
   
             IsLoading.IsVisible = true;
             IsLoading.IsRunning = true;
-  
-            if (imageStream == null)
+
+            Response response;
+              
+            if (title.Trim().Equals(ProductModel.ProductName?.Trim() ?? string.Empty) &&
+                oldPriceText.Trim().Equals(ProductModel.OldPriceDigit?.ToString() ?? string.Empty) &&
+                newPriceText.Trim().Equals(ProductModel.NewPriceDigit?.ToString() ?? string.Empty) &&
+                editorDescription.Text.Equals(ProductModel.description) &&
+                !isNewImageSelected)
             {
-                await DisplayAlert("Error", "Please select an image before registering.", "OK");
+                IsLoading.IsVisible = false;
+                IsLoading.IsRunning = false;
+
+                await Shell.Current.GoToAsync("..");
                 return;
+            }
+
+            if (oldPriceText.Trim().Equals(newPriceText.Trim()))
+            {
+                await DisplayAlert("Error", "Product prices can not be equal.", "OK");
+                return;
+            }
+
+            string oldFileName = GetFileNameFromUrl(ProductModel.ProductImage);
+                            
+            if (!isNewImageSelected)
+            {
+                imageStream = null;
             }
 
             var additionalData = new Dictionary<string, string>
             {
-                { "company_id", "11" },
+                { "company_id", ProductModel.CompanyId.ToString() },
+                { "poster_id", ProductModel.PromotionId.ToString() },
                 { "title", title },
                 { "old_price", oldPrice.ToString() },
                 { "new_price", newPrice.ToString() },
+                { "image_file_name", oldFileName },
+                { "delete_image", isNewImageSelected.ToString().ToLower() },
                 { "description", editorDescription.Text ?? string.Empty },
             };
-
-            Response response = await apiService.RegisterPoster(imageStream, additionalData);
-             
+            response = await apiService.UpdatePoster(imageStream, additionalData);
+              
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync("Register poster", "Success.");
@@ -145,6 +190,25 @@ public partial class CompanyAddProductPage : BasePage
             IsLoading.IsVisible = false;
             IsLoading.IsRunning = false;
         }
+    }
+
+    private async void OnImage_Swiped(object sender, SwipedEventArgs e)
+    {
+        await Task.WhenAll(
+            fullImage.TranslateTo(0, -100, 250, Easing.SinOut),
+            fullImage.FadeTo(0, 250, Easing.SinOut)
+        );
+
+        boxFullImage.IsVisible = false;
+        fullImage.IsVisible = false;
+        fullImage.Opacity = 1;
+        fullImage.TranslationY = 0;
+    }
+
+    private void OnImage_Tapped(object sender, TappedEventArgs e)
+    {
+        boxFullImage.IsVisible = false;
+        fullImage.IsVisible = false;
     }
 
     private string GetFileNameFromUrl(string url)

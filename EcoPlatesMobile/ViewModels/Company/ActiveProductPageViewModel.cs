@@ -12,7 +12,7 @@ using EcoPlatesMobile.Views.Company.Pages;
 
 namespace EcoPlatesMobile.ViewModels.Company
 { 
-    public partial class ActiveProductPageViewModel : ObservableObject
+    public partial class ActiveProductPageViewModel : ObservableObject, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ProductModel selectedProduct;
@@ -35,7 +35,7 @@ namespace EcoPlatesMobile.ViewModels.Company
         private async void ProductClicked(ProductModel product)
         {
             product.CompanyId = 11;
-            await Shell.Current.GoToAsync(nameof(CompanyAddProductPage), new Dictionary<string, object>
+            await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
             });
@@ -85,6 +85,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                         OldPrice = $"{item.old_price:N0} so'm",
                         NewPriceDigit = item.new_price ?? 0,
                         OldPriceDigit = item.old_price ?? 0,
+                        description = item.description,
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,

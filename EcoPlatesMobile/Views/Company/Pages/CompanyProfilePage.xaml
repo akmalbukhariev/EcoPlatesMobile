@@ -5,7 +5,7 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
     
-    <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto">
+    <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto, Auto">
         <component:CustomHeader Title="Mening profilim"
                                 ShowBack="False"
                                 HeaderBackground="#8338EC"/>
@@ -151,17 +151,17 @@
               Grid.Row="5">
             <Image Source="logo1.png"
                    Aspect="AspectFit"
-                   WidthRequest="150"
-                   HeightRequest="150"
+                   WidthRequest="110"
+                   HeightRequest="110"
                    VerticalOptions="Center"/>
             <Label Text="SaleTop application"
                    TextColor="LightGray"
-                   FontSize="17"
+                   FontSize="14"
                    HorizontalTextAlignment="Center"
                    Grid.Row="1"/>
             <Label Text="v. 1.1 (Android -2025)"
                    TextColor="LightGray"
-                   FontSize="15"
+                   FontSize="14"
                    HorizontalTextAlignment="Center"
                    Grid.Row="2"/>
         </Grid>
@@ -208,7 +208,15 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Frame>
-        <component:LoadingView x:Name="loading"
-                               Grid.RowSpan="6"/>
+        <ActivityIndicator x:Name="loading"
+                          Color="Green"
+                          Scale="1.5"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"
+                          Grid.RowSpan="6"/>
+        <BoxView Grid.Row="6"
+                 HeightRequest="1"
+                 BackgroundColor="LightGray"
+                 HorizontalOptions="Fill" />
     </Grid>
 </page:BasePage>

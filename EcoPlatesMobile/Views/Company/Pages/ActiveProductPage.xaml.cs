@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.User;
@@ -10,9 +8,11 @@ using EcoPlatesMobile.ViewModels.Company;
 namespace EcoPlatesMobile.Views.Company.Pages;
 
 [QueryProperty(nameof(ShowBackQuery), nameof(ShowBackQuery))]
+[QueryProperty(nameof(ShowTabBarQuery), nameof(ShowTabBarQuery))]
 public partial class ActiveProductPage : BasePage
 {
     private bool ShowBack { get; set; } = false;
+    private bool ShowTabBar { get; set; } = true;
 
     public string ShowBackQuery
     {
@@ -23,18 +23,30 @@ public partial class ActiveProductPage : BasePage
         }
     }
 
+    public string ShowTabBarQuery
+    {
+        set
+        {
+            if (bool.TryParse(value, out var result))
+                ShowTabBar = result;
+        }
+    }
+
     private ActiveProductPageViewModel viewModel;
     public ActiveProductPage()
     {
         InitializeComponent();
 
-        viewModel = new ActiveProductPageViewModel();
-        BindingContext = viewModel;
+        viewModel = ResolveViewModel<ActiveProductPageViewModel>();
+        SetViewModel(viewModel);
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+    
+        Shell.SetTabBarIsVisible(this, ShowTabBar);
+
         header.ShowBack = ShowBack;
         await viewModel.LoadInitialAsync();
     }
@@ -52,7 +64,7 @@ public partial class ActiveProductPage : BasePage
             swipeView.BindingContext is ProductModel product)
         {
             product.CompanyId = 11;
-            await Shell.Current.GoToAsync(nameof(CompanyAddProductPage), new Dictionary<string, object>
+            await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
             });

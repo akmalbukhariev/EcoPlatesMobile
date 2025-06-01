@@ -9,7 +9,7 @@ namespace EcoPlatesMobile.Views
         protected BasePage() 
         {
             Shell.SetNavBarIsVisible(this, false);
-            //Shell.SetTabBarIsVisible(this, false);
+            Shell.SetTabBarIsVisible(this, false);
         }
 
         protected void SetViewModel(IViewModel viewModel)
@@ -35,7 +35,7 @@ namespace EcoPlatesMobile.Views
                 await element.ScaleTo(1.0, 100, Easing.CubicIn);
             });
         }
-
+        
         /// <summary>
         /// Resolves the ViewModel through the DI container.
         /// </summary>
@@ -60,6 +60,5 @@ namespace EcoPlatesMobile.Views
 
             return viewModel;
         }
-
     }
 }

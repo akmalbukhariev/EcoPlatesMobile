@@ -55,7 +55,9 @@ public partial class CompanyProfilePage : BasePage
     {
         base.OnAppearing();
 
-        loading.ShowLoading = true;
+        Shell.SetTabBarIsVisible(this, true);
+
+        loading.IsRunning = true;
 
         var apiService = AppService.Get<CompanyApiService>();
 
@@ -69,7 +71,7 @@ public partial class CompanyProfilePage : BasePage
             tileNoActive.TileText1 = response.resultData.non_active_products.ToString();
         }
 
-        loading.ShowLoading = false;
+        loading.IsRunning = false;
     }
 
     private async void UserInfo_Tapped(object sender, TappedEventArgs e)
@@ -122,10 +124,10 @@ public partial class CompanyProfilePage : BasePage
         switch (view.TileType)
         {
             case ListTileView.ListTileType.ActiveAds:
-                await Shell.Current.GoToAsync($"{nameof(ActiveProductPage)}?ShowBackQuery={true}");
+                await Shell.Current.GoToAsync($"{nameof(ActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.PreviousAds:
-                await Shell.Current.GoToAsync($"{nameof(NonActiveProductPage)}?ShowBackQuery={true}");
+                await Shell.Current.GoToAsync($"{nameof(NonActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.Share:
                 break;

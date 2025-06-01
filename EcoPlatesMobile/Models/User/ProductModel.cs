@@ -13,8 +13,9 @@ namespace EcoPlatesMobile.Models.User
         public long CompanyId;
         public long PromotionId;
         public long BookmarkId = 0;
-        public decimal NewPriceDigit;
-        public decimal OldPriceDigit;
+        public decimal? NewPriceDigit;
+        public decimal? OldPriceDigit;
+        public string description;
         [ObservableProperty] private string productImage;
         [ObservableProperty] private string count;
         [ObservableProperty] private string productName;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-               x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyAddProductPage"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyEditProductPage"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
 
@@ -10,64 +10,48 @@
                                 HeaderBackground="#8338EC"/>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *, Auto">
-                <Image x:Name="imSelectedProduct"
-                        IsVisible="Collapse"
-                        HeightRequest="250"
-                        Source="add_item.png"
-                        Aspect="AspectFill">
+                <Grid RowDefinitions="Auto, Auto">
+                    <Image x:Name="imSelectedProduct"
+                           Source="add_item.png"
+                           Aspect="AspectFill">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                  Tapped="SelectImage_Tapped"/>
+                                                  Tapped="ProductImage_Tapped"/>    
                         </Image.GestureRecognizers>
-                </Image>
+                    </Image>
+                    <Button Text="Set New Photo"
+                            TextColor="#8338EC"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Center"
+                            Clicked="ChangeImage_Clicked"
+                            Grid.Row="1"/>
+                </Grid>
                 <VerticalStackLayout Margin="16,20,16,10"
                                      Spacing="15"
                                      Grid.Row="1">
                         <VerticalStackLayout.Resources>
-                        <Style x:Key="styleEntry" TargetType="component:CustomEntry">
-                            <Setter Property="EntryBorderColor" Value="#E9E9E9"/>
-                            <Setter Property="EntryBackgroundColor" Value="#F5F5F5"/>
-                        </Style>
-                        <Style x:Key="styleBorder" TargetType="Border">
-                            <Setter Property="StrokeThickness" Value="1"/>
-                            <Setter Property="Stroke" Value="#E9E9E9"/>
-                            <Setter Property="BackgroundColor" Value="#F5F5F5"/>
-                        </Style>
-                        <Style x:Key="styleLabel" TargetType="Label">
-                            <Setter Property="TextColor" Value="#666666"/>
-                            <Setter Property="FontSize" Value="14"/>
-                        </Style>
-                        <Style x:Key="CustomPickerStyle" TargetType="Picker">
-                            <Setter Property="BackgroundColor" Value="White"/>
-                            <Setter Property="TextColor" Value="Black"/>
-                            <Setter Property="FontSize" Value="16"/>
-                            <Setter Property="Margin" Value="10,5"/>
-                        </Style>
-                    </VerticalStackLayout.Resources>
-                        <Border x:Name="borderProductIcon"
-                                Style="{StaticResource styleBorder}">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                    Tapped="SelectImage_Tapped"/>
-                            </Border.GestureRecognizers>
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10"/>
-                            </Border.StrokeShape>
-                            <Grid ColumnDefinitions="*, Auto">
-                                <Label Text="Maxsulot suratlari"
-                                       FontFamily="Roboto"
-                                       TextColor="#666666"
-                                       FontSize="14"
-                                       VerticalTextAlignment="Center"
-                                       Margin="20, 0, 0, 0"/>   
-                                <Image x:Name="imProductIcon"
-                                       Source="add_item.png"
-                                       Aspect="AspectFill"
-                                       HeightRequest="45"
-                                       HorizontalOptions="End"
-                                       Margin="0,10,15,10"/>
-                            </Grid>
-                        </Border>
+                            <Style x:Key="styleEntry" TargetType="component:CustomEntry">
+                                <Setter Property="EntryBorderColor" Value="#E9E9E9"/>
+                                <Setter Property="EntryBackgroundColor" Value="#F5F5F5"/>
+                            </Style>
+                            <Style x:Key="styleBorder" TargetType="Border">
+                                <Setter Property="StrokeThickness" Value="1"/>
+                                <Setter Property="Stroke" Value="#E9E9E9"/>
+                                <Setter Property="BackgroundColor" Value="#F5F5F5"/>
+                            </Style>
+                            <Style x:Key="styleLabel" TargetType="Label">
+                                <Setter Property="TextColor" Value="#666666"/>
+                                <Setter Property="FontSize" Value="14"/>
+                            </Style>
+                            <Style x:Key="CustomPickerStyle" TargetType="Picker">
+                                <Setter Property="BackgroundColor" Value="White"/>
+                                <Setter Property="TextColor" Value="Black"/>
+                                <Setter Property="FontSize" Value="16"/>
+                                <Setter Property="Margin" Value="10,5"/>
+                            </Style>
+                        </VerticalStackLayout.Resources> 
                         <component:CustomEntry x:Name="entryProductName" 
                                             EntryIcon="item_name.png"
                                             EntryPlaceHolder="Maxsulot nomi"
@@ -92,25 +76,26 @@
                             <RoundRectangle CornerRadius="10"/>
                         </Border.StrokeShape>
                         <StackLayout VerticalOptions="Center"
-                                     Spacing="0">
+                                    Spacing="0">
                             <Grid ColumnDefinitions="Auto, *, Auto"
-                                  Margin="20,0,20,5"
-                                  VerticalOptions="Center">
+                                Margin="20,0,20,5"
+                                VerticalOptions="Center">
                                 <Image Source="dollar.png"
-                                       WidthRequest="20"
-                                       HeightRequest="20"
-                                       Margin="0,0, 10,0"
-                                       VerticalOptions="Center"/>
+                                        WidthRequest="20"
+                                        HeightRequest="20"
+                                        Margin="0,0, 10,0"
+                                        VerticalOptions="Center"/>
                                 <Entry x:Name="entryOldPrice"
                                        Keyboard="Numeric"
+                                       Text="000"
                                        FontSize="16"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbOldPrice"
-                                        Text="so'm Avvalgi narxi"
-                                        Style="{StaticResource styleLabel}"
-                                        VerticalTextAlignment="Center"
-                                        Margin="0,0,10,0"
-                                        Grid.Column="3"/>
+                                    Text="so'm Avvalgi narxi"
+                                    Style="{StaticResource styleLabel}"
+                                    VerticalTextAlignment="Center"
+                                    Margin="0,0,10,0"
+                                    Grid.Column="3"/>
                             </Grid>
                             <Border BackgroundColor="#E9E9E9" 
                                     HeightRequest="2"
@@ -119,11 +104,12 @@
                             <Grid ColumnDefinitions="Auto, *, Auto"
                                   Margin="20,5,20,0">
                                 <Image Source="percent.png"
-                                       WidthRequest="20"
-                                       HeightRequest="20"
-                                       Margin="0,0, 10,0"
-                                       VerticalOptions="Center"/>
+                                    WidthRequest="20"
+                                    HeightRequest="20"
+                                    Margin="0,0, 10,0"
+                                    VerticalOptions="Center"/>
                                 <Entry x:Name="entryNewPrice"
+                                       Text="000"
                                        Keyboard="Numeric"
                                        FontSize="16"
                                        Grid.Column="1"/>
@@ -135,18 +121,18 @@
                                     Grid.Column="2"/>
                             </Grid>
                         </StackLayout>
-                        </Border>
-                        <Border Style="{StaticResource styleBorder}"
-                                HeightRequest="200">
+                    </Border>
+                    <Border Style="{StaticResource styleBorder}"
+                            HeightRequest="200">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
                             <Editor x:Name="editorDescription"
                                     Placeholder="Enter description about the product"
                                     FontSize="16"/>
-                        </Border>
+                    </Border>
                 </VerticalStackLayout>
-                <Button x:Name="btnRegisterOrUpdate"
+                <Button x:Name="btnUpdate"
                         Text="Qo'shish"
                         BackgroundColor="#8338EC"
                         CornerRadius="30"
@@ -154,7 +140,7 @@
                         FontFamily="Roboto"
                         HeightRequest="50"
                         Margin="16,0,16,30"
-                        Clicked="RegisterOrUpdate_Clicked"
+                        Clicked="BtnUpdate_Clicked"
                         Grid.Row="2"/>  
             </Grid>
         </ScrollView>
@@ -164,5 +150,21 @@
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
                            Grid.RowSpan="2"/>
+        <BoxView x:Name="boxFullImage"
+                BackgroundColor="Black"
+                IsVisible="False"
+                Opacity="0.7"
+                Grid.RowSpan="2"/>
+        <Image x:Name="fullImage"
+               Aspect="AspectFit"
+               IsVisible="False"
+               Grid.RowSpan="2">
+            <Image.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Up"
+                                        Swiped="OnImage_Swiped"/>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="OnImage_Tapped"/>
+            </Image.GestureRecognizers>
+        </Image>
     </Grid>
 </page:BasePage>

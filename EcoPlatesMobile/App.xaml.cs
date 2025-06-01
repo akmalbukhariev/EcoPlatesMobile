@@ -40,6 +40,7 @@ namespace EcoPlatesMobile
             Routing.RegisterRoute(nameof(CompanyProfileInfoPage), typeof(CompanyProfileInfoPage));
             Routing.RegisterRoute(nameof(CompanyProfilePage), typeof(CompanyProfilePage));
             Routing.RegisterRoute(nameof(CompanyAddProductPage), typeof(CompanyAddProductPage));
+            Routing.RegisterRoute(nameof(CompanyEditProductPage), typeof(CompanyEditProductPage));
             Routing.RegisterRoute(nameof(PhoneNumberChangePage), typeof(PhoneNumberChangePage));
             Routing.RegisterRoute(nameof(PhoneNumberNewPage), typeof(PhoneNumberNewPage));
         }
@@ -69,6 +70,14 @@ namespace EcoPlatesMobile
             {
                 handler.PlatformView.BackgroundTintList =
                     Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
+            });
+
+            EditorHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+                if (handler.PlatformView is Android.Widget.EditText editText)
+                {
+                    editText.Background = null; // Removes underline
+                }
             });
 
             //Microsoft.Maui.Handlers.TimePickerHandler.Mapper.AppendToMapping("Force24Hour", (handler, view) =>
