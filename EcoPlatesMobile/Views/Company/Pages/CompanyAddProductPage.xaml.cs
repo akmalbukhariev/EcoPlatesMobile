@@ -146,10 +146,4 @@ public partial class CompanyAddProductPage : BasePage
             IsLoading.IsRunning = false;
         }
     }
-
-    private string GetFileNameFromUrl(string url)
-    {
-        Uri uri = new Uri(url);
-        return Path.GetFileName(uri.LocalPath);
-    }
-  }
+}

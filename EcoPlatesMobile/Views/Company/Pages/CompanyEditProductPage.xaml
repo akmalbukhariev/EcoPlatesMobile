@@ -13,6 +13,7 @@
                 <Grid RowDefinitions="Auto, Auto">
                     <Image x:Name="imSelectedProduct"
                            Source="add_item.png"
+                           HeightRequest="250"
                            Aspect="AspectFill">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1"

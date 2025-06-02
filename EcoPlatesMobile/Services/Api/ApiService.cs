@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Maui.Graphics.Platform;
+using Newtonsoft.Json;
 using RestSharp;
+using SkiaSharp;
 using System.Text;
 
 namespace EcoPlatesMobile.Services
@@ -120,7 +122,8 @@ namespace EcoPlatesMobile.Services
 
             if (imageStream != null)
             {
-                var fileBytes = await ConvertStreamToByteArrayAsync(imageStream);
+                //var fileBytes = await ConvertStreamToByteArrayAsync(imageStream);
+                var fileBytes = ResizeImage(imageStream);
                 request.AddFile(streamName, fileBytes, "image.jpg", "image/jpeg");
             }
 
@@ -142,6 +145,42 @@ namespace EcoPlatesMobile.Services
                 await stream.CopyToAsync(memoryStream);
                 return memoryStream.ToArray();
             }
+        }
+
+        public static byte[] ResizeImage(Stream imageStream, int maxWidth = 1024, int maxHeight = 1024, int quality = 80)
+        {
+            using var original = SKBitmap.Decode(imageStream);
+            if (original == null)
+                throw new Exception("Could not decode image.");
+
+            int originalWidth = original.Width;
+            int originalHeight = original.Height;
+
+            // Skip resize if image is small enough
+            if (originalWidth <= maxWidth && originalHeight <= maxHeight)
+            {
+                using var ms = new MemoryStream();
+                original.Encode(ms, SKEncodedImageFormat.Jpeg, quality);
+                return ms.ToArray();
+            }
+
+            float ratioX = (float)maxWidth / originalWidth;
+            float ratioY = (float)maxHeight / originalHeight;
+            float ratio = Math.Min(ratioX, ratioY);
+
+            int newWidth = (int)(originalWidth * ratio);
+            int newHeight = (int)(originalHeight * ratio);
+
+            var sampling = new SKSamplingOptions(SKFilterMode.Linear); // Linear is better for scaling
+            using var resized = original.Resize(new SKImageInfo(newWidth, newHeight), sampling);
+            if (resized == null)
+                throw new Exception("Image resize failed.");
+
+            using var image = SKImage.FromBitmap(resized);
+            using var msFinal = new MemoryStream();
+            image.Encode(SKEncodedImageFormat.Jpeg, quality).SaveTo(msFinal);
+
+            return msFinal.ToArray();
         }
 
         /// <summary>
