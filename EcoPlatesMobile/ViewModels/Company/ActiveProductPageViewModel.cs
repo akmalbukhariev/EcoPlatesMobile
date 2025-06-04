@@ -170,6 +170,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                         OldPrice = $"{item.old_price:N0} so'm",
                         NewPriceDigit = item.new_price ?? 0,
                         OldPriceDigit = item.old_price ?? 0,
+                        description = item.description,
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,

@@ -1,9 +1,6 @@
 ﻿using SkiaSharp;
 using SkiaSharp.Views.Maui;
-using SkiaSharp.Extended;
 using Svg.Skia;
-using System.Threading.Tasks;
-using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 
 namespace EcoPlatesMobile.Views;
@@ -86,13 +83,13 @@ public partial class LoginPage : BasePage
         else if (sender == btnUser)
         {
             session?.SetUser(UserRole.User);
-        } 
-        
-        await Navigation.PushAsync(new PhoneNumberRegisterPage());
+        }
+
+        await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+        //await Navigation.PushAsync(new PhoneNumberRegisterPage());
         
         //await AppNavigatorService.NavigateTo($"//{AppRoutes.UserMainPage}");
         //Application.Current.MainPage = new AppUserShell();
         //await AppNavigatorService.NavigateTo(AppRoutes.PhoneNumberPage);
-    }   
-
+    }
 }

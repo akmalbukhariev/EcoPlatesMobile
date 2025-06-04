@@ -19,22 +19,28 @@ namespace EcoPlatesMobile
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
+            return new Window(new AppEntryShell());
             //return new Window(new NavigationPage(new LoginPage())); 
             //return new Window(new AppUserShell());
-            return new Window(new AppCompanyShell());
+            //return new Window(new AppCompanyShell());
         }
 
         private void RegisterRoutes()
         {
+            #region Entry pages
+            Routing.RegisterRoute(nameof(PhoneNumberRegisterPage), typeof(PhoneNumberRegisterPage));
+            Routing.RegisterRoute(nameof(AuthorizationPage), typeof(AuthorizationPage));
+            #endregion
+
+            #region User pages
             Routing.RegisterRoute(nameof(ReviewProductPage), typeof(ReviewProductPage));
             Routing.RegisterRoute(nameof(DetailProductPage), typeof(DetailProductPage));
             Routing.RegisterRoute(nameof(UserCompanyPage), typeof(UserCompanyPage));
             Routing.RegisterRoute(nameof(UserMainPage), typeof(UserMainPage));
-            //Routing.RegisterRoute(AppRoutes.LoginPage, typeof(LoginPage));
-            //Routing.RegisterRoute(AppRoutes.PhoneNumberPage, typeof(PhoneNumberPage));
-            //Routing.RegisterRoute(AppRoutes.UserMainPage, typeof(UserMainPage));
-            //Routing.RegisterRoute(AppRoutes.CompanyRegistrationPage, typeof(CompanyRegistrationPage));
-            
+            Routing.RegisterRoute(nameof(UserRegistrationPage), typeof(UserRegistrationPage));
+            #endregion
+
+            #region Company pages
             Routing.RegisterRoute(nameof(ActiveProductPage), typeof(ActiveProductPage));
             Routing.RegisterRoute(nameof(NonActiveProductPage), typeof(NonActiveProductPage));
             Routing.RegisterRoute(nameof(CompanyProfileInfoPage), typeof(CompanyProfileInfoPage));
@@ -43,6 +49,8 @@ namespace EcoPlatesMobile
             Routing.RegisterRoute(nameof(CompanyEditProductPage), typeof(CompanyEditProductPage));
             Routing.RegisterRoute(nameof(PhoneNumberChangePage), typeof(PhoneNumberChangePage));
             Routing.RegisterRoute(nameof(PhoneNumberNewPage), typeof(PhoneNumberNewPage));
+            Routing.RegisterRoute(nameof(CompanyRegistrationPage), typeof(CompanyRegistrationPage));
+            #endregion
         }
 
         private void Setting()

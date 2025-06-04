@@ -40,6 +40,7 @@ namespace EcoPlatesMobile.Services
             return Task.CompletedTask;
         }
 
+        /*
         private async Task<RestRequest> CreateRequestAsync(string endpoint, Method method, bool includeToken = true)
         {
             var request = new RestRequest(endpoint, method);
@@ -56,9 +57,19 @@ namespace EcoPlatesMobile.Services
 
             return request;
         }
+        */
+
+        private async Task SetToken(RestRequest request)
+        { 
+            string? token = await GetTokenAsync();
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.AddHeader("Authorization", $"Bearer {token}");
+            }
+        }
 
         private async Task<string> ExecuteRequestAsync(RestRequest request)
-        { 
+        {
             var response = await _client.ExecuteAsync(request);
             if (response.RawBytes != null && response.RawBytes.Length > 0)
             {
@@ -70,9 +81,9 @@ namespace EcoPlatesMobile.Services
         }
 
         public async Task<string> GetAsync(string endpoint, bool includeToken = true)
-        {
-            var request = await CreateRequestAsync(endpoint, Method.Get, includeToken);
-            request.AddHeader("Authorization", $"Bearer {token}");
+        { 
+            var request = new RestRequest(endpoint, Method.Get);
+            await SetToken(request);
 
             return await ExecuteRequestAsync(request);
         }
@@ -81,7 +92,7 @@ namespace EcoPlatesMobile.Services
         {         
             var request = new RestRequest(endpoint, Method.Post);
             request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", $"Bearer {token}");
+            await SetToken(request);
 
             if (data != null)
             {
@@ -96,6 +107,7 @@ namespace EcoPlatesMobile.Services
         {
             var request = new RestRequest(endpoint, Method.Put);
             request.AddHeader("Content-Type", "application/json");
+            await SetToken(request);
 
             if (data != null)
             {
@@ -109,7 +121,7 @@ namespace EcoPlatesMobile.Services
         public async Task<string> PostImageAsync(string endpoint, Stream imageStream, Dictionary<string, string>? additionalData = null, string streamName = "image_data")
         {
             var request = new RestRequest(endpoint, Method.Post);
-            request.AddHeader("Authorization", $"Bearer {token}");
+            await SetToken(request);
             request.AlwaysMultipartFormData = true;
 
             if (additionalData != null)
@@ -133,7 +145,7 @@ namespace EcoPlatesMobile.Services
         public async Task<string> DeleteAsync(string endpoint)
         {
             var request =  new RestRequest(endpoint, Method.Delete);
-            request.AddHeader("Authorization", $"Bearer {token}");
+            await SetToken(request);
 
             return await ExecuteRequestAsync(request);
         }
@@ -148,6 +160,97 @@ namespace EcoPlatesMobile.Services
         }
 
         public static byte[] ResizeImage(Stream imageStream, int maxWidth = 1024, int maxHeight = 1024, int quality = 80)
+        {
+            // Read stream into byte array to allow re-use
+            using var msOriginal = new MemoryStream();
+            imageStream.CopyTo(msOriginal);
+            byte[] imageBytes = msOriginal.ToArray();
+
+            // Decode image and apply orientation
+            using var original = SKBitmap.Decode(imageBytes);
+            if (original == null)
+                throw new Exception("Could not decode image.");
+
+            // Check EXIF orientation and correct it
+            using var codec = SKCodec.Create(new SKMemoryStream(imageBytes));
+            var orientation = codec.EncodedOrigin;
+
+            using var orientedBitmap = ApplyExifOrientation(original, orientation);
+
+            int originalWidth = orientedBitmap.Width;
+            int originalHeight = orientedBitmap.Height;
+
+            // Skip resize if already small
+            if (originalWidth <= maxWidth && originalHeight <= maxHeight)
+            {
+                using var ms = new MemoryStream();
+                orientedBitmap.Encode(ms, SKEncodedImageFormat.Jpeg, quality);
+                return ms.ToArray();
+            }
+
+            float ratioX = (float)maxWidth / originalWidth;
+            float ratioY = (float)maxHeight / originalHeight;
+            float ratio = Math.Min(ratioX, ratioY);
+
+            int newWidth = (int)(originalWidth * ratio);
+            int newHeight = (int)(originalHeight * ratio);
+
+            var sampling = new SKSamplingOptions(SKFilterMode.Linear);
+            using var resized = orientedBitmap.Resize(new SKImageInfo(newWidth, newHeight), sampling);
+            if (resized == null)
+                throw new Exception("Image resize failed.");
+
+            using var image = SKImage.FromBitmap(resized);
+            using var msFinal = new MemoryStream();
+            image.Encode(SKEncodedImageFormat.Jpeg, quality).SaveTo(msFinal);
+
+            return msFinal.ToArray();
+        }
+
+        private static SKBitmap ApplyExifOrientation(SKBitmap bitmap, SKEncodedOrigin origin)
+        {
+            SKBitmap rotated;
+
+            switch (origin)
+            {
+                case SKEncodedOrigin.BottomRight: // 180°
+                    rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+                    using (var canvas = new SKCanvas(rotated))
+                    {
+                        canvas.RotateDegrees(180, bitmap.Width / 2, bitmap.Height / 2);
+                        canvas.DrawBitmap(bitmap, 0, 0);
+                    }
+                    break;
+
+                case SKEncodedOrigin.RightTop: // 90° CW
+                    rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+                    using (var canvas = new SKCanvas(rotated))
+                    {
+                        canvas.Translate(rotated.Width, 0);
+                        canvas.RotateDegrees(90);
+                        canvas.DrawBitmap(bitmap, 0, 0);
+                    }
+                    break;
+
+                case SKEncodedOrigin.LeftBottom: // 270° CW
+                    rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+                    using (var canvas = new SKCanvas(rotated))
+                    {
+                        canvas.Translate(0, rotated.Height);
+                        canvas.RotateDegrees(270);
+                        canvas.DrawBitmap(bitmap, 0, 0);
+                    }
+                    break;
+
+                default:
+                    // No rotation needed
+                    return bitmap;
+            }
+
+            return rotated;
+        }
+
+        /*public static byte[] ResizeImage(Stream imageStream, int maxWidth = 1024, int maxHeight = 1024, int quality = 80)
         {
             using var original = SKBitmap.Decode(imageStream);
             if (original == null)
@@ -181,7 +284,7 @@ namespace EcoPlatesMobile.Services
             image.Encode(SKEncodedImageFormat.Jpeg, quality).SaveTo(msFinal);
 
             return msFinal.ToArray();
-        }
+        }*/
 
         /// <summary>
         /// Generic login method that allows different response types.

@@ -168,11 +168,11 @@ public partial class CompanyProfileInfoPage : BasePage
             selectedEndTime == endTimeFromServer.Value;
 
             if (!isSame || isNewImageSelected)
-            {
+            { 
                 string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
                 var additionalData = new Dictionary<string, string>
                 {
-                    { "company_id", "11" },
+                    { "company_id", AppService.Get<AppControl>().CompanyInfo.company_id.ToString() },
                     { "company_name", enteredName },
                     { "business_type", AppService.Get<AppControl>().businessTypeList[selectedType] },
                     { "working_hours",  formattedWorkingHours},
@@ -215,7 +215,7 @@ public partial class CompanyProfileInfoPage : BasePage
     private async void PhoneNumber_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(grdPhoneNumber);
-        await Shell.Current.GoToAsync(nameof(PhoneNumberChangePage));
+        await AppNavigatorService.NavigateTo(nameof(PhoneNumberChangePage));
     }
 
     private async void OnImage_Swiped(object sender, SwipedEventArgs e)

@@ -50,18 +50,52 @@ public partial class NonActiveProductPage : BasePage
         await viewModel.LoadInitialAsync();
     }
 
-    private async void EditProduct_Invoked(object sender, EventArgs e)
+    private async void DeleteProduct_Invoked(object sender, EventArgs e)
     {
         if (sender is SwipeItem swipeItem &&
             swipeItem.Parent is SwipeItems swipeItems &&
             swipeItems.Parent is SwipeView swipeView &&
             swipeView.BindingContext is ProductModel product)
         {
+            bool answer = await Application.Current.MainPage.DisplayAlert(
+                                "Confirm",
+                                "Do you want to proceed?",
+                                "Yes",
+                                "No"
+                            );
+            if (!answer) return;
+
             product.CompanyId = 11;
+            try
+            {
+                viewModel.IsLoading = true;
+                var apiService = AppService.Get<CompanyApiService>();
+                Response response = await apiService.DeletePoster(product.PromotionId);
+
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync("Delete poster", "Success.");
+                    viewModel.Products.Remove(product);
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                await AlertService.ShowAlertAsync("Error", ex.Message);
+            }
+            finally
+            {
+                viewModel.IsLoading = false;
+            }
+            /*
             await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
             });
+            */
         }
     }
 

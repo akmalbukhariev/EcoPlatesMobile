@@ -12,9 +12,9 @@ namespace EcoPlatesMobile.Views;
 
 public partial class PhoneNumberRegisterPage : BasePage
 {
-	public PhoneNumberRegisterPage()
-	{
-		InitializeComponent(); 
+    public PhoneNumberRegisterPage()
+    {
+        InitializeComponent();
     }
 
     private void OnOfferTapped(object sender, EventArgs e)
@@ -28,7 +28,7 @@ public partial class PhoneNumberRegisterPage : BasePage
         var session = AppService.Get<UserSessionService>();
         if (session == null) return;
 
-        string phoneNumber = "01084410697";//entryNumber.GetEntryText();
+        string phoneNumber = entryNumber.GetEntryText();
 
         if (string.IsNullOrWhiteSpace(phoneNumber))
         {
@@ -41,40 +41,47 @@ public partial class PhoneNumberRegisterPage : BasePage
         loadingView.ShowLoading = true;
         try
         {
+            phoneNumber = "998" + phoneNumber;
             if (session.Role == UserRole.Company)
             {
                 var apiService = AppService.Get<CompanyApiService>();
                 response = await apiService.CheckUser(phoneNumber);
+
+                if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
+                {
+                    await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
+                }
+                else if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString())
+                {
+                    await Navigation.PushAsync(new CompanyRegistrationPage());
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                }
             }
             else if (session.Role == UserRole.User)
             {
-                var apiService = AppService.Get<UserApiService>(); 
+                var apiService = AppService.Get<UserApiService>();
                 response = await apiService.CheckUser(phoneNumber);
+
+                if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
+                {
+                    await Navigation.PushAsync(new AuthorizationPage());
+                }
+                else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
+                {
+                    await Navigation.PushAsync(new UserRegistrationPage());
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                }
             }
         }
         finally
         {
             loadingView.ShowLoading = false;
-        }
-
-        if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
-        {
-            await Navigation.PushAsync(new AuthorizationPage());
-        }
-        else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
-        {
-            if (session.Role == UserRole.Company)
-            {
-                await Navigation.PushAsync(new UserRegistrationPage());
-            }
-            else if (session.Role == UserRole.User)
-            {
-                await Navigation.PushAsync(new CompanyRegistrationPage());
-            }
-        }
-        else
-        {
-            await AlertService.ShowAlertAsync("Error", response.resultMsg);
         }
     }
 

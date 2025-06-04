@@ -9,9 +9,9 @@
     
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="Avtorizatsiya"/>
-        <Grid RowDefinitions="70, Auto, *, Auto, 20, Auto, 30"
-                Margin="16,0, 16,0"
-                Grid.Row="1">
+        <ScrollView Grid.Row="1"> 
+            <Grid RowDefinitions="70, Auto, *, Auto, 20, Auto, 30"
+                Margin="16,0, 16,0">
             <Grid.Resources>
                 <Style x:Key="styleLabel" TargetType="Label">
                     <Setter Property="FontSize" Value="14"/>
@@ -21,7 +21,8 @@
             </Grid.Resources>
             <StackLayout Spacing="40"
                          Grid.Row="1">
-                <Label Text="Iltimos, 998 90 999 00 99 telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting"
+                <Label x:Name="lbTitle" 
+                       Text="Iltimos, 998 90 999 00 99 telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting"
                        HorizontalTextAlignment="Center"
                     Style="{StaticResource styleLabel}"/>
                 <!-- <Grid ColumnDefinitions="70, 70, 70, 70"
@@ -79,6 +80,7 @@
                     Clicked="Button_Clicked"
                     Grid.Row="5"/>
         </Grid>
+        </ScrollView>
         <component:LoadingView x:Name="loading" 
                                Grid.RowSpan="2"/>
     </Grid>

@@ -6,7 +6,7 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
 
     <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="Yangi e'lon joylash"
+        <component:CustomHeader Title="E'lonni yangilash"
                                 HeaderBackground="#8338EC"/>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *, Auto">
@@ -134,7 +134,7 @@
                     </Border>
                 </VerticalStackLayout>
                 <Button x:Name="btnUpdate"
-                        Text="Qo'shish"
+                        Text="Update"
                         BackgroundColor="#8338EC"
                         CornerRadius="30"
                         TextColor="White"

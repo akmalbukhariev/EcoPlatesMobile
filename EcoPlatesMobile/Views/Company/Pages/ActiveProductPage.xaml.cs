@@ -53,9 +53,9 @@ public partial class ActiveProductPage : BasePage
 
     private async void AddItem_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(CompanyAddProductPage));
+        await AppNavigatorService.NavigateTo(nameof(CompanyAddProductPage));
     }
-
+    
     private async void EditProduct_Invoked(object sender, EventArgs e)
     {
         if (sender is SwipeItem swipeItem &&
@@ -64,7 +64,7 @@ public partial class ActiveProductPage : BasePage
             swipeView.BindingContext is ProductModel product)
         {
             product.CompanyId = 11;
-            await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
+            await AppNavigatorService.NavigateTo(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
             });
@@ -101,7 +101,6 @@ public partial class ActiveProductPage : BasePage
                 Response response = await apiService.ChangePosterDeletionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    //await viewModel.LoadInitialAsync();
                     viewModel.Products.Remove(product);
                 }
                 else

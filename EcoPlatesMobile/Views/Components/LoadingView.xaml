@@ -5,7 +5,7 @@
 
     <Grid x:Name="overlayLoading"
           BackgroundColor="Black"
-          Opacity="0.7"
+          Opacity="0.5"
           InputTransparent="False">
         <ActivityIndicator x:Name="loading"
                            Color="Green"

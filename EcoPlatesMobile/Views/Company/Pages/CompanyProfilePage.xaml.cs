@@ -61,7 +61,8 @@ public partial class CompanyProfilePage : BasePage
 
         var apiService = AppService.Get<CompanyApiService>();
 
-        response = await apiService.GetCompanyProfileInfo(11);
+        int compayId = (int)AppService.Get<AppControl>().CompanyInfo.company_id;
+        response = await apiService.GetCompanyProfileInfo(compayId);
         if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
         {
             imCompany.Source = response.resultData.logo_url;
@@ -84,7 +85,7 @@ public partial class CompanyProfilePage : BasePage
         //string json = JsonConvert.SerializeObject(response.resultData);
         //await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}?CompanyProfileInfoJson={Uri.EscapeDataString(json)}");
  
-        await Shell.Current.GoToAsync(nameof(CompanyProfileInfoPage), new Dictionary<string, object>
+        await AppNavigatorService.NavigateTo(nameof(CompanyProfileInfoPage), new Dictionary<string, object>
         {
             ["CompanyProfileInfo"] = response.resultData
         });

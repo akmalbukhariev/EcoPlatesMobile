@@ -1,4 +1,5 @@
-﻿using EcoPlatesMobile.Models.Requests;
+﻿using EcoPlatesMobile.Models.Company;
+using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
@@ -10,8 +11,8 @@ namespace EcoPlatesMobile.Services
 {
     public class CompanyApiService : ApiService
     {
-        private const string BASE_URL = "";//"/ecoplatescompany/api/v1/";
-        private const string LOGIN_COMPANY = $"{BASE_URL}login";
+        private const string BASE_URL = "";///ecoplatescompany/api/v1/";
+        private const string LOGIN_COMPANY = $"{BASE_URL}company/login";
         private const string CHECK_COMPANY = $"{BASE_URL}company/checkUser/";
         private const string LOGOUT_COMPANY = $"{BASE_URL}logout";
         private const string REGISTER_COMPANY = $"{BASE_URL}registerCompany";
@@ -20,13 +21,14 @@ namespace EcoPlatesMobile.Services
         private const string REGISTER_POSTER = $"{BASE_URL}poster/registerPoster";
         private const string UPDATE_POSTER = $"{BASE_URL}poster/updatePoster";
         private const string GET_POSTER = $"{BASE_URL}poster/getCompanyPoster";
+        private const string DELETE_POSTER = $"{BASE_URL}poster/deletePoster/";
         private const string CHANGE_POSTER_DELETION_STATUS = $"{BASE_URL}poster/changePosterDeletionStatus";
         private const string GET_COMPANY_PROFILE_INFO = $"{BASE_URL}company/getCompanyProfileInfo/";
-        private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";
+        private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";//
 
         public CompanyApiService(RestClient client) : base(client)
         {
-            token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrMTIzNDU2Nzg5OCIsImF1dGgiOiJST0xFX0NPTVBBTlkiLCJleHAiOjE3NzkwNjkzMTd9.F2Wds5Z0017foj4GmtkYuK6bO7COS5_33VvhLdAEJcM";
+            //token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTgxMjM0NTY3ODk4IiwiYXV0aCI6IlJPTEVfQ09NUEFOWSIsImV4cCI6MTc4MDQ4MzEzMH0.6PFhl1xAwm5wnlrtwDMYA4o2j0vOC9fdC5_uS3EWzCk";
         }
 
         public async Task<LoginCompanyResponse> Login(LoginRequest data)
@@ -398,6 +400,39 @@ namespace EcoPlatesMobile.Services
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"ChangePosterDeletionStatus Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> DeletePoster(long poster_id)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await DeleteAsync($"{DELETE_POSTER}{poster_id}");
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
             }
 
             return response;
