@@ -5,61 +5,64 @@
                xmlns:view="clr-namespace:EcoPlatesMobile.Views"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
 
-    <Grid RowDefinitions="Auto, 50, Auto, *, Auto, 30">
+    <Grid RowDefinitions="Auto, 30, *, 30">
         <component:CustomHeader Title="Avtorizatsiya"/>
-        <VerticalStackLayout Spacing="20"
-                            Margin="16,0,16,0"
-                            Grid.Row="2">
-            <Label Text="Iltimos, telefon raqamingizni kiriting"/>
-            <component:CustomEntry x:Name="entryNumber" 
-                                   EntryIcon="phone.png"
-                                   EntryShowPrefix="True"
-                                   IsPhoneNumber="False"
-                                   EntryKeyboard="Numeric"
-                                   EntryBorderColor="#E9E9E9"
-                                   EntryBackgroundColor="#F5F5F5"
-                                   EntryPlaceHolder="Ism sharifingiz"/>
-            <Grid>
-                <Label Text="Ushbu telefon raqam orqali siz platformadan unumli foydalanishingiz mumkin. Telefon raqamingizni to’g’ri kiritishingiz juda ham muhim."/>
-            </Grid>
-            <Grid>
-                <Label Text="Telefon raqamingizni kiritishingiz orqali siz ommaviy ofertaga roziligingizni bildirasiz."/>
-            </Grid>
-            <Grid Padding="0"
-                  Background="#1415CA18"
-                  ColumnDefinitions="Auto, *"
-                  VerticalOptions="Start">
-                <CheckBox x:Name="chkAgreement"
-                        Margin="0,0,0,0" />
-                <Label Grid.Column="1"
-                       VerticalOptions="Start"
-                       LineBreakMode="WordWrap"
-                       HorizontalTextAlignment="Start">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Ommaviy oferta "
-                                  TextColor="Purple"
-                                  TextDecorations="Underline">
-                                <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnOfferTapped" />
-                                </Span.GestureRecognizers>
-                            </Span>
-                            <Span Text="bilan tanishdim va men undagi shartlarga roziman" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </Grid>
-        </VerticalStackLayout>
-        <Button Text="Keyingisi"
-                BackgroundColor="#8338EC"
-                CornerRadius="30"
-                TextColor="White"
-                FontFamily="Roboto"
-                HeightRequest="50"
-                Margin="16,0,16,0"
-                Clicked="Button_Clicked"
-                Grid.Row="4"/>
+        <ScrollView Grid.Row="2">
+            <Grid RowDefinitions="*, 10, Auto">
+                <VerticalStackLayout Spacing="20"
+                                     Margin="16,0,16,0">
+                    <Label Text="Iltimos, telefon raqamingizni kiriting"/>
+                    <component:CustomEntry x:Name="entryNumber"
+                                           EntryIcon="phone.png"
+                                           EntryShowPrefix="True"
+                                           IsPhoneNumber="False"
+                                           EntryKeyboard="Numeric"
+                                           EntryBorderColor="#E9E9E9"
+                                           EntryBackgroundColor="#F5F5F5"
+                                           EntryPlaceHolder="Ism sharifingiz"/>
+                    <Grid>
+                        <Label Text="Ushbu telefon raqam orqali siz platformadan unumli foydalanishingiz mumkin. Telefon raqamingizni to’g’ri kiritishingiz juda ham muhim."/>
+                    </Grid>
+                    <Grid>
+                        <Label Text="Telefon raqamingizni kiritishingiz orqali siz ommaviy ofertaga roziligingizni bildirasiz."/>
+                    </Grid>
+                    <Grid Padding="0"
+                        Background="#1415CA18"
+                        ColumnDefinitions="Auto, *"
+                        VerticalOptions="Start">
+                        <CheckBox x:Name="chkAgreement"
+                                Margin="0,0,0,0" />
+                        <Label Grid.Column="1"
+                            VerticalOptions="Start"
+                            LineBreakMode="WordWrap"
+                            HorizontalTextAlignment="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Ommaviy oferta "
+                                        TextColor="Purple"
+                                        TextDecorations="Underline">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnOfferTapped" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text="bilan tanishdim va men undagi shartlarga roziman" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                </VerticalStackLayout>
+                <Button Text="Keyingisi"
+                        BackgroundColor="#8338EC"
+                        CornerRadius="30"
+                        TextColor="White"
+                        FontFamily="Roboto"
+                        HeightRequest="50"
+                        Margin="16,0,16,0"
+                        Clicked="Button_Clicked"
+                        Grid.Row="2"/>
+                </Grid>
+        </ScrollView>
         <component:LoadingView x:Name="loadingView"
-                               Grid.RowSpan="6"/>
+                               Grid.RowSpan="4"/>
     </Grid>
 </view:BasePage>

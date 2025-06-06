@@ -11,11 +11,11 @@ namespace EcoPlatesMobile.Services
 {
     public class CompanyApiService : ApiService
     {
-        private const string BASE_URL = "";///ecoplatescompany/api/v1/";
+        private const string BASE_URL = "";//"ecoplatescompany/api/v1/";
         private const string LOGIN_COMPANY = $"{BASE_URL}company/login";
         private const string CHECK_COMPANY = $"{BASE_URL}company/checkUser/";
-        private const string LOGOUT_COMPANY = $"{BASE_URL}logout";
-        private const string REGISTER_COMPANY = $"{BASE_URL}registerCompany";
+        private const string LOGOUT_COMPANY = $"{BASE_URL}company/logout";
+        private const string REGISTER_COMPANY = $"{BASE_URL}company/registerCompany";
         private const string GET_COMPANY = $"{BASE_URL}getCompany";
         private const string UPDATE_COMPANY_INFO = $"{BASE_URL}updateUserInfo";
         private const string REGISTER_POSTER = $"{BASE_URL}poster/registerPoster";
@@ -108,6 +108,7 @@ namespace EcoPlatesMobile.Services
             return response;
         }
 
+        /*
         public async Task<Response> RegisterUser(RegisterCompanyRequest data)
         {
             var response = new Response();
@@ -136,6 +137,40 @@ namespace EcoPlatesMobile.Services
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+        */
+        
+        public async Task<Response> RegisterCompany(Stream imageStream, Dictionary<string, string>? additionalData)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostImageAsync(REGISTER_COMPANY, imageStream, additionalData, "logo_data");
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"RegisterPoster Error: {ex.Message}";
             }
 
             return response;

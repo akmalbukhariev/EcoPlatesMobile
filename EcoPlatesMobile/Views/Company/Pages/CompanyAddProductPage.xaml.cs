@@ -117,7 +117,7 @@ public partial class CompanyAddProductPage : BasePage
 
             var additionalData = new Dictionary<string, string>
             {
-                { "company_id", "11" },
+                { "company_id", AppService.Get<AppControl>().CompanyInfo.company_id.ToString() },
                 { "title", title },
                 { "old_price", oldPrice.ToString() },
                 { "new_price", newPrice.ToString() },

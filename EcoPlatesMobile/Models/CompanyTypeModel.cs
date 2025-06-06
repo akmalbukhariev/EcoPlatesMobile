@@ -1,7 +1,9 @@
 
+using CommunityToolkit.Mvvm.ComponentModel;
 using EcoPlatesMobile.Models;
 
-public class CompanyTypeModel : BaseModel
+public partial class CompanyTypeModel : ObservableObject
 {
-    public string Type { get { return GetValue<string>(); } set => SetValue(value); }
+    [ObservableProperty] private string type;
+    public string Type_value;
 }

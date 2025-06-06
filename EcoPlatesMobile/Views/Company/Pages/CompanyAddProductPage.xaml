@@ -15,10 +15,10 @@
                         HeightRequest="250"
                         Source="add_item.png"
                         Aspect="AspectFill">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                  Tapped="SelectImage_Tapped"/>
-                        </Image.GestureRecognizers>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="SelectImage_Tapped"/>
+                    </Image.GestureRecognizers>
                 </Image>
                 <VerticalStackLayout Margin="16,20,16,10"
                                      Spacing="15"

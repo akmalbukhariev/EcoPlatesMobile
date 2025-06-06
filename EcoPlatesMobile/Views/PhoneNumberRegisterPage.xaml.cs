@@ -41,7 +41,7 @@ public partial class PhoneNumberRegisterPage : BasePage
         loadingView.ShowLoading = true;
         try
         {
-            phoneNumber = "998" + phoneNumber;
+            phoneNumber = $"998{phoneNumber}";
             if (session.Role == UserRole.Company)
             {
                 var apiService = AppService.Get<CompanyApiService>();
@@ -49,11 +49,14 @@ public partial class PhoneNumberRegisterPage : BasePage
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
+                    session.IsCompanyRegistrated = true;
                     await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
                 }
                 else if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString())
                 {
-                    await Navigation.PushAsync(new CompanyRegistrationPage());
+                    session.IsCompanyRegistrated = false;
+                    await AlertService.ShowAlertAsync("Phone Number Not Registered", "This phone number is not registered in our system. You will be redirected to the registration page.");
+                    await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
                 }
                 else
                 {

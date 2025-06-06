@@ -1,6 +1,8 @@
 
 public class UserSessionService
 {
+    public bool IsCompanyRegistrated { get; set; } = false;
+    public bool IsUserRegistrated { get; set; } = false;
     public string? UserId { get; private set; }
     public UserRole Role { get; private set; } = UserRole.None;
 

@@ -1,75 +1,175 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using EcoPlatesMobile.Helper;
+using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
-public partial class CompanyRegistrationPage : ContentPage
+ [QueryProperty(nameof(PhoneNumber), nameof(PhoneNumber))]
+public partial class CompanyRegistrationPage : BasePage
 {
-	public ObservableCollection<CompanyTypeModel> CompanyTypeList { get; set; }
-
-    private string _selectedCompanyType;
-    public string SelectedCompanyType
+    private string _phoneNumber;
+    public string PhoneNumber
     {
-        get => _selectedCompanyType;
         set
         {
-            _selectedCompanyType = value;
-            OnPropertyChanged(nameof(SelectedCompanyType)); // ✅ Notify UI
+            _phoneNumber = value;
         }
     }
 
-	public CompanyRegistrationPage()
-	{
-		InitializeComponent();
+    public ObservableCollection<CompanyTypeModel> CompanyTypeList { get; set; }
+   
+    private CompanyTypeModel selectedCompanyType = null;
+    private Stream? imageStream = null;
+    private bool isNewImageSelected = false;
 
-		CompanyTypeList = new ObservableCollection<CompanyTypeModel>
-        {
-            new CompanyTypeModel { Type = "Cafe"},
-            new CompanyTypeModel { Type = "Restaurant"},
-            new CompanyTypeModel { Type = "Bakery"},
-			new CompanyTypeModel { Type = "Fastfood"},
-			new CompanyTypeModel { Type = "Super Market"}
-        };
-
-		BindingContext = this;
-	}
-     
-    private async void CompanyTypeTapped(object sender, EventArgs e)
-	{
-		var popup = new CompanyTypePickerPopup(CompanyTypeList);
-        var result = await this.ShowPopupAsync(popup);
-
-        /*if (result is CompanyTypeModel selected)
-        {
-            labelCompanyType.Text = selected.Type;
-        }*/
-	}
-
-	private async void CompanyTypeSelected(object sender, SelectionChangedEventArgs e)
+    public CompanyRegistrationPage()
     {
-        
+        InitializeComponent();
+
+        CompanyTypeList = new ObservableCollection<CompanyTypeModel>(
+            AppService.Get<AppControl>().businessTypeList.Select(kvp => new CompanyTypeModel
+            {
+                Type = kvp.Key,
+                Type_value = kvp.Value
+            })
+        );
+
+        BindingContext = this;
+
+        startTimePicker.Time = new TimeSpan(9, 0, 0);
+        endTimePicker.Time = new TimeSpan(6, 0, 0);
     }
 
-	private void OnStartDateSelected(object sender, DateChangedEventArgs e)
-	{
-		//startTimeLabel.Text = e.NewDate.ToString("MMM d, HH:mm");
-		//startTimeLabel.TextColor = Colors.Black;
-	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
 
-	private void OnEndDateSelected(object sender, DateChangedEventArgs e)
-	{
-		//endTimeLabel.Text = e.NewDate.ToString("MMM d, HH:mm");
-		//endTimeLabel.TextColor = Colors.Black;
-	}
+        if(!string.IsNullOrEmpty(_phoneNumber))
+            entryPhone.SetEntryText(_phoneNumber.Replace("998",""));
+    }
 
-	private void OnStartDateOrTimeChanged(object sender, EventArgs e)
-	{
-		/*var date = startDatePicker.Date;
-		var time = startTimePicker.Time;
+    private async void SelectImage_Tapped(object sender, TappedEventArgs e)
+    {
+        if (borderProductIcon.IsVisible)
+        {
+            await AnimateElementScaleDown(borderProductIcon);
+        }
+        else
+        {
+            await AnimateElementScaleDown(imSelectedProduct);
+        }
 
-		var combined = date + time;
-		startDateTimeLabel.Text = combined.ToString("dd MMM yyyy HH:mm");
-		startDateTimeLabel.TextColor = Colors.Black;*/
-	}
+        string action = await DisplayActionSheet("Choose an option", "Cancel", null, "Select from Gallery", "Take a Photo");
+
+        FileResult result = null;
+
+        if (action == "Select from Gallery")
+        {
+            if (MediaPicker.Default.IsCaptureSupported)
+            {
+                result = await MediaPicker.PickPhotoAsync();
+            }
+        }
+        else if (action == "Take a Photo")
+        {
+            if (MediaPicker.Default.IsCaptureSupported)
+            {
+                result = await MediaPicker.CapturePhotoAsync();
+            }
+        }
+
+        if (result != null)
+        {
+            string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
+
+            using (Stream sourceStream = await result.OpenReadAsync())
+            using (FileStream localFileStream = File.Create(localFilePath))
+            {
+                await sourceStream.CopyToAsync(localFileStream);
+            }
+
+            imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
+            imageStream = await result.OpenReadAsync();
+            isNewImageSelected = true;
+
+            borderProductIcon.IsVisible = false;
+            imSelectedProduct.IsVisible = true;
+        }
+    }
+
+    private async void CompanyTypeTapped(object sender, EventArgs e)
+    {
+        var popup = new CompanyTypePickerPopup(CompanyTypeList);
+        var result = await this.ShowPopupAsync(popup);
+
+        if (result is CompanyTypeModel selected)
+        {
+            labelCompanyType.Text = selected.Type;
+            selectedCompanyType = selected;
+        }
+    }
+
+    private async void BtnRegister_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            string companyName = entryCompanyName.GetEntryText();
+            string selectedType = selectedCompanyType == null ? null : selectedCompanyType.Type_value;
+            string phoneNumber = entryPhone.GetEntryText();
+            string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
+
+            if (string.IsNullOrEmpty(companyName) || string.IsNullOrEmpty(phoneNumber))
+            {
+                await AlertService.ShowAlertAsync("Field", "Field can not be emty.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(selectedType))
+            {
+                await AlertService.ShowAlertAsync("Field", "Please select the company type.");
+                return;
+            }
+
+            if (imageStream == null)
+            {
+                await AlertService.ShowAlertAsync("Field", "Please select or take picture of the organization.");
+                return;
+            }
+
+            var additionalData = new Dictionary<string, string>
+            {
+                { "company_name", companyName },
+                { "business_type", selectedType },
+                { "phone_number", $"998{phoneNumber}"},
+                { "location_latitude", "37.504721"},
+                { "location_longitude", "126.721078"},
+                { "working_hours",  formattedWorkingHours},
+            };
+
+            loading.ShowLoading = true;
+            var apiService = AppService.Get<CompanyApiService>();
+
+            Response response = await apiService.RegisterCompany(imageStream, additionalData);
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                await AlertService.ShowAlertAsync("Success", "Registration has been completed successfully.");
+                //await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
+            }
+            else
+            { 
+                await AlertService.ShowAlertAsync("Error", response.resultMsg);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            loading.ShowLoading = false;
+        }
+    }
 }

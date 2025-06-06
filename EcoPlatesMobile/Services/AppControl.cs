@@ -19,7 +19,7 @@ namespace EcoPlatesMobile.Services
             { "Fast Food", "FAST_FOOD" },
             { "Cafe", "CAFE" },
             { "Supermarket", "SUPERMARKET" },
-            { "Other", "OTHER" }
+            //{ "Other", "OTHER" }
         };
     }
 }
