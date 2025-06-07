@@ -2,6 +2,7 @@
 using SkiaSharp.Views.Maui;
 using Svg.Skia;
 using EcoPlatesMobile.Services;
+using System.Threading.Tasks;
 
 namespace EcoPlatesMobile.Views;
 
@@ -13,6 +14,26 @@ public partial class LoginPage : BasePage
 		InitializeComponent();
 
         LoadSvg();
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        var store = AppService.Get<AppStoreService>();
+        UserRole role = store.Get(AppKeys.UserRole, UserRole.None);
+        bool isLoggedIn = store.Get(AppKeys.IsLoggedIn, false);
+        string phoneNumber = store.Get(AppKeys.PhoneNumber, "");
+
+        if (isLoggedIn)
+        {
+            if (role == UserRole.Company)
+            {
+                loading.ShowLoading = true;
+                await AppService.Get<AppControl>().LoginCompany(phoneNumber);
+                loading.ShowLoading = false;
+            }
+        }
     }
 
     private async void LoadSvg()
@@ -86,10 +107,5 @@ public partial class LoginPage : BasePage
         }
 
         await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
-        //await Navigation.PushAsync(new PhoneNumberRegisterPage());
-        
-        //await AppNavigatorService.NavigateTo($"//{AppRoutes.UserMainPage}");
-        //Application.Current.MainPage = new AppUserShell();
-        //await AppNavigatorService.NavigateTo(AppRoutes.PhoneNumberPage);
     }
 }

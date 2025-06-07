@@ -65,7 +65,7 @@ public partial class NonActiveProductPage : BasePage
                             );
             if (!answer) return;
 
-            product.CompanyId = 11;
+            product.CompanyId = (long)AppService.Get<AppControl>().CompanyInfo.company_id;
             try
             {
                 viewModel.IsLoading = true;
@@ -76,6 +76,7 @@ public partial class NonActiveProductPage : BasePage
                 {
                     await AlertService.ShowAlertAsync("Delete poster", "Success.");
                     viewModel.Products.Remove(product);
+                    viewModel.UpdateTitle();
                 }
                 else
                 {
@@ -90,12 +91,6 @@ public partial class NonActiveProductPage : BasePage
             {
                 viewModel.IsLoading = false;
             }
-            /*
-            await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
-            {
-                ["ProductModel"] = product
-            });
-            */
         }
     }
 
@@ -129,6 +124,7 @@ public partial class NonActiveProductPage : BasePage
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     viewModel.Products.Remove(product);
+                    viewModel.UpdateTitle();
                 }
                 else
                 {

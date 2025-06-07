@@ -108,13 +108,15 @@
                             </Grid>
                         </Border>
                         
-                        <component:CustomEntry x:Name="entryPhone" EntryIcon="phone.png"
-                                            IsPhoneNumber="True"
-                                            EntryKeyboard="Numeric"
-                                            EntryShowPrefix="True"
-                                            EntryPlaceHolder="Telfon raqam"
-                                            Style="{StaticResource styleEntry}"
-                                            Grid.Row="3"/>
+                        <component:CustomEntry x:Name="entryPhone" 
+                                               IsVisible="Collapse"
+                                                EntryIcon="phone.png"
+                                                IsPhoneNumber="True"
+                                                EntryKeyboard="Numeric"
+                                                EntryShowPrefix="True"
+                                                EntryPlaceHolder="Telfon raqam"
+                                                Style="{StaticResource styleEntry}"
+                                                Grid.Row="3"/>
                         <component:CustomEntry EntryIcon="email.png"
                                                IsVisible="Collapse"
                                                EntryPlaceHolder="Elektron manzil(e-mail)"

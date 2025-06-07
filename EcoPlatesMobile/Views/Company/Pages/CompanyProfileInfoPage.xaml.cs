@@ -26,7 +26,7 @@ public partial class CompanyProfileInfoPage : BasePage
     {
         InitializeComponent();
 
-        pickType.ItemsSource = AppService.Get<AppControl>().businessTypeList.Keys.ToList();
+        pickType.ItemsSource = AppService.Get<AppControl>().BusinessTypeList.Keys.ToList();
     }
 
     protected override void OnAppearing()
@@ -53,7 +53,7 @@ public partial class CompanyProfileInfoPage : BasePage
             }
         }
         
-        var selectedItem = AppService.Get<AppControl>().businessTypeList.FirstOrDefault(kvp => kvp.Value == CompanyProfileInfo.business_type).Key;
+        var selectedItem = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(kvp => kvp.Value == CompanyProfileInfo.business_type).Key;
 
         if (selectedItem != null)
         {
@@ -162,7 +162,7 @@ public partial class CompanyProfileInfoPage : BasePage
 
             bool isSame =
             enteredName == CompanyProfileInfo.company_name?.Trim() &&
-            AppService.Get<AppControl>().businessTypeList[selectedType].ToUpper() == CompanyProfileInfo.business_type.ToUpper() &&
+            AppService.Get<AppControl>().BusinessTypeList[selectedType].ToUpper() == CompanyProfileInfo.business_type.ToUpper() &&
             startTimeFromServer.HasValue && endTimeFromServer.HasValue &&
             selectedStartTime == startTimeFromServer.Value &&
             selectedEndTime == endTimeFromServer.Value;
@@ -174,7 +174,7 @@ public partial class CompanyProfileInfoPage : BasePage
                 {
                     { "company_id", AppService.Get<AppControl>().CompanyInfo.company_id.ToString() },
                     { "company_name", enteredName },
-                    { "business_type", AppService.Get<AppControl>().businessTypeList[selectedType] },
+                    { "business_type", AppService.Get<AppControl>().BusinessTypeList[selectedType] },
                     { "working_hours",  formattedWorkingHours},
                 };
 
@@ -240,9 +240,22 @@ public partial class CompanyProfileInfoPage : BasePage
     private void BusinessType_SelectedIndexChanged(object sender, EventArgs e)
     {
         string selectedDisplay = pickType.SelectedItem as string;
-        if (selectedDisplay != null && AppService.Get<AppControl>().businessTypeList.TryGetValue(selectedDisplay, out var backendValue))
+        if (selectedDisplay != null && AppService.Get<AppControl>().BusinessTypeList.TryGetValue(selectedDisplay, out var backendValue))
         {
              
         }
+    }
+
+    private async void ButtonLogOut_Clicked(object sender, EventArgs e)
+    {
+        bool answer = await Application.Current.MainPage.DisplayAlert(
+                                "Confirm",
+                                "Do you want to proceed?",
+                                "Yes",
+                                "No"
+                            );
+        if (!answer) return;
+
+        AppService.Get<AppControl>().LogoutCompany();
     }
 }

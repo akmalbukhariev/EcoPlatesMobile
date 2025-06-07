@@ -61,7 +61,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                     offset = offset,
                     pageSize = PageSize
                 };
-
+                
                 PosterListResponse response = await apiService.GetCompanyPoster(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
@@ -85,6 +85,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                         OldPrice = $"{item.old_price:N0} so'm",
                         NewPriceDigit = item.new_price ?? 0,
                         OldPriceDigit = item.old_price ?? 0,
+                        description = item.description,
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
@@ -92,7 +93,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                     }).ToList();
                     Products.AddRange(productModels);
 
-                    ActiveProductCount = $"Amaldagi activ maxsulotlar soni {Products.Count} dona.";
+                    UpdateTitle();
 
                     offset += PageSize;
                     if (productModels.Count < PageSize)
@@ -169,6 +170,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                         OldPrice = $"{item.old_price:N0} so'm",
                         NewPriceDigit = item.new_price ?? 0,
                         OldPriceDigit = item.old_price ?? 0,
+                        description = item.description,
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
@@ -177,7 +179,7 @@ namespace EcoPlatesMobile.ViewModels.Company
 
                     Products.AddRange(productModels);
 
-                    ActiveProductCount = $"Amaldagi activ maxsulotlar soni {Products.Count} dona.";
+                    UpdateTitle();
 
                     offset += PageSize;
                     if (productModels.Count < PageSize)
@@ -200,6 +202,11 @@ namespace EcoPlatesMobile.ViewModels.Company
                 IsLoading = false;
                 ShowAddButton = true;
             }
+        }
+
+        public void UpdateTitle()
+        { 
+            ActiveProductCount = $"Amaldagi non activ maxsulotlar soni {Products.Count} dona.";
         }
 
         public ICommand ClickProductCommand { get; }

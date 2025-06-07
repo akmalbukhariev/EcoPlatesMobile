@@ -1,13 +1,15 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using EcoPlatesMobile.Helper;
+using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
- [QueryProperty(nameof(PhoneNumber), nameof(PhoneNumber))]
+[QueryProperty(nameof(PhoneNumber), nameof(PhoneNumber))]
 public partial class CompanyRegistrationPage : BasePage
 {
     private string _phoneNumber;
@@ -20,7 +22,7 @@ public partial class CompanyRegistrationPage : BasePage
     }
 
     public ObservableCollection<CompanyTypeModel> CompanyTypeList { get; set; }
-   
+
     private CompanyTypeModel selectedCompanyType = null;
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
@@ -30,7 +32,7 @@ public partial class CompanyRegistrationPage : BasePage
         InitializeComponent();
 
         CompanyTypeList = new ObservableCollection<CompanyTypeModel>(
-            AppService.Get<AppControl>().businessTypeList.Select(kvp => new CompanyTypeModel
+            AppService.Get<AppControl>().BusinessTypeList.Select(kvp => new CompanyTypeModel
             {
                 Type = kvp.Key,
                 Type_value = kvp.Value
@@ -47,8 +49,8 @@ public partial class CompanyRegistrationPage : BasePage
     {
         base.OnAppearing();
 
-        if(!string.IsNullOrEmpty(_phoneNumber))
-            entryPhone.SetEntryText(_phoneNumber.Replace("998",""));
+        if (!string.IsNullOrEmpty(_phoneNumber))
+            entryPhone.SetEntryText(_phoneNumber.Replace("998", ""));
     }
 
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)
@@ -118,7 +120,7 @@ public partial class CompanyRegistrationPage : BasePage
         {
             string companyName = entryCompanyName.GetEntryText();
             string selectedType = selectedCompanyType == null ? null : selectedCompanyType.Type_value;
-            string phoneNumber = entryPhone.GetEntryText();
+            string phoneNumber = _phoneNumber;
             string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
 
             if (string.IsNullOrEmpty(companyName) || string.IsNullOrEmpty(phoneNumber))
@@ -143,7 +145,7 @@ public partial class CompanyRegistrationPage : BasePage
             {
                 { "company_name", companyName },
                 { "business_type", selectedType },
-                { "phone_number", $"998{phoneNumber}"},
+                { "phone_number", phoneNumber},
                 { "location_latitude", "37.504721"},
                 { "location_longitude", "126.721078"},
                 { "working_hours",  formattedWorkingHours},
@@ -156,10 +158,10 @@ public partial class CompanyRegistrationPage : BasePage
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync("Success", "Registration has been completed successfully.");
-                //await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
+                await AppService.Get<AppControl>().LoginCompany(_phoneNumber);
             }
             else
-            { 
+            {
                 await AlertService.ShowAlertAsync("Error", response.resultMsg);
             }
         }
@@ -172,4 +174,39 @@ public partial class CompanyRegistrationPage : BasePage
             loading.ShowLoading = false;
         }
     }
+
+    /*
+    private async Task LoginCompany()
+    {
+        Application.Current.MainPage = new ContentPage
+        {
+            BackgroundColor = Colors.White,
+            Content = new ActivityIndicator
+            {
+                IsRunning = true,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center
+            }
+        };
+
+        await Task.Delay(100);
+
+        var apiService = AppService.Get<CompanyApiService>();
+        LoginRequest request = new LoginRequest()
+        {
+            phone_number = _phoneNumber
+        };
+
+        LoginCompanyResponse response = await apiService.Login(request);
+        if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+        {
+            AppService.Get<AppControl>().CompanyInfo = response.resultData;
+            AppService.Get<AppStoreService>().Set(AppKeys.UserRole, UserRole.Company);
+            AppService.Get<AppStoreService>().Set(AppKeys.IsLoggedIn, true);
+            AppService.Get<AppStoreService>().Set(AppKeys.PhoneNumber, _phoneNumber);
+
+            Application.Current.MainPage = new AppCompanyShell();
+        }
+    }
+    */
 }

@@ -50,7 +50,7 @@ public partial class ActiveProductPage : BasePage
         header.ShowBack = ShowBack;
         await viewModel.LoadInitialAsync();
     }
-
+    
     private async void AddItem_Clicked(object sender, EventArgs e)
     {
         await AppNavigatorService.NavigateTo(nameof(CompanyAddProductPage));
@@ -63,7 +63,7 @@ public partial class ActiveProductPage : BasePage
             swipeItems.Parent is SwipeView swipeView &&
             swipeView.BindingContext is ProductModel product)
         {
-            product.CompanyId = 11;
+            product.CompanyId = (long)AppService.Get<AppControl>().CompanyInfo.company_id;
             await AppNavigatorService.NavigateTo(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
@@ -102,6 +102,7 @@ public partial class ActiveProductPage : BasePage
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     viewModel.Products.Remove(product);
+                    viewModel.UpdateTitle();
                 }
                 else
                 {

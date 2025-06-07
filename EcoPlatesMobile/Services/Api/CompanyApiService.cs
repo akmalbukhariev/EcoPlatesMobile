@@ -11,6 +11,7 @@ namespace EcoPlatesMobile.Services
 {
     public class CompanyApiService : ApiService
     {
+        #region Url
         private const string BASE_URL = "";//"ecoplatescompany/api/v1/";
         private const string LOGIN_COMPANY = $"{BASE_URL}company/login";
         private const string CHECK_COMPANY = $"{BASE_URL}company/checkUser/";
@@ -25,6 +26,7 @@ namespace EcoPlatesMobile.Services
         private const string CHANGE_POSTER_DELETION_STATUS = $"{BASE_URL}poster/changePosterDeletionStatus";
         private const string GET_COMPANY_PROFILE_INFO = $"{BASE_URL}company/getCompanyProfileInfo/";
         private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";//
+        #endregion
 
         public CompanyApiService(RestClient client) : base(client)
         {

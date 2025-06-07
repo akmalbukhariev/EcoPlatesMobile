@@ -92,8 +92,8 @@ namespace EcoPlatesMobile.ViewModels.Company
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
                     Products.AddRange(productModels);
-
-                    ActiveProductCount = $"Amaldagi activ maxsulotlar soni {Products.Count} dona.";
+ 
+                    UpdateTitle();
 
                     offset += PageSize;
                     if (productModels.Count < PageSize)
@@ -179,7 +179,7 @@ namespace EcoPlatesMobile.ViewModels.Company
 
                     Products.AddRange(productModels);
 
-                    ActiveProductCount = $"Amaldagi activ maxsulotlar soni {Products.Count} dona.";
+                    UpdateTitle();
 
                     offset += PageSize;
                     if (productModels.Count < PageSize)
@@ -202,6 +202,11 @@ namespace EcoPlatesMobile.ViewModels.Company
                 IsLoading = false;
                 ShowAddButton = true;
             }
+        }
+
+        public void UpdateTitle()
+        { 
+            ActiveProductCount = $"Amaldagi activ maxsulotlar soni {Products.Count} dona.";
         }
 
         public ICommand ClickProductCommand { get; }

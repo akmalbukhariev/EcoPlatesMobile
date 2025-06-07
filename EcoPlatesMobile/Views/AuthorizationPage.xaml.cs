@@ -45,10 +45,10 @@ public partial class AuthorizationPage : BasePage
 		{
 			if (session.IsCompanyRegistrated)
 			{
-				await LoginCompany();
+				await AppService.Get<AppControl>().LoginCompany(_phoneNumber);
 			}
 			else
-			{ 
+			{
 				await AppNavigatorService.NavigateTo($"{nameof(CompanyRegistrationPage)}?PhoneNumber={_phoneNumber}");
 			}
 		}
@@ -57,35 +57,6 @@ public partial class AuthorizationPage : BasePage
 			var apiService = AppService.Get<UserApiService>();
 
 			Application.Current.MainPage = new AppUserShell();
-		}
-	}
-
-	private async Task LoginCompany()
-	{
-		Application.Current.MainPage = new ContentPage
-		{
-			BackgroundColor = Colors.White,
-			Content = new ActivityIndicator
-			{
-				IsRunning = true,
-				VerticalOptions = LayoutOptions.Center,
-				HorizontalOptions = LayoutOptions.Center
-			}
-		};
-
-		await Task.Delay(100);
-
-		var apiService = AppService.Get<CompanyApiService>();
-		LoginRequest request = new LoginRequest()
-		{
-			phone_number = _phoneNumber
-		};
-
-		LoginCompanyResponse response = await apiService.Login(request);
-		if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-		{
-			AppService.Get<AppControl>().CompanyInfo = response.resultData;
-			Application.Current.MainPage = new AppCompanyShell();
 		}
 	}
 }
