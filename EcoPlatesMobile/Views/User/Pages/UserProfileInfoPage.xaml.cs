@@ -1,70 +1,35 @@
-﻿using EcoPlatesMobile.Models.Company;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Models.Responses.User;
+using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
-using Newtonsoft.Json;
-using System.Linq;
 
-namespace EcoPlatesMobile.Views.Company.Pages;
-
-[QueryProperty(nameof(CompanyProfileInfo), nameof(CompanyProfileInfo))]
-public partial class CompanyProfileInfoPage : BasePage
-{
-    private CompanyProfileInfo _companyProfileInfo;
-    public CompanyProfileInfo CompanyProfileInfo
-    {
-        get => _companyProfileInfo;
-        set
-        {
-            _companyProfileInfo = value;
-        }
-     }
-
+namespace EcoPlatesMobile.Views.User.Pages;
+ 
+public partial class UserProfileInfoPage : BasePage
+{ 
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
-
-    public CompanyProfileInfoPage()
-    {
-        InitializeComponent();
-
-        pickType.ItemsSource = AppService.Get<AppControl>().BusinessTypeList.Keys.ToList();
-    }
+     
+    public UserProfileInfoPage()
+	{
+		InitializeComponent();
+	}
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        imCompany.Source = CompanyProfileInfo.logo_url;
-        fullImage.Source = CompanyProfileInfo.logo_url;
-        entryCompanyName.Text = CompanyProfileInfo.company_name;
-        lbPhoneNUmber.Text = CompanyProfileInfo.phone_number;
-
-        string[] times = CompanyProfileInfo.working_hours.Split(" - ");
-        if (times.Length == 2)
-        {
-            if (DateTime.TryParse(times[0], out DateTime startTime) &&
-                DateTime.TryParse(times[1], out DateTime endTime))
-            {
-                startTimePicker.Time = startTime.TimeOfDay;
-                endTimePicker.Time = endTime.TimeOfDay;
-            }
-            else
-            {
-                Console.WriteLine("Invalid time format received from server.");
-            }
-        }
-        
-        var selectedItem = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(kvp => kvp.Value == CompanyProfileInfo.business_type).Key;
-
-        if (selectedItem != null)
-        {
-            pickType.SelectedItem = selectedItem;
-        }
+        UserInfo info = AppService.Get<AppControl>().UserInfo;
+        imUser.Source = info.profile_picture_url;
+        fullImage.Source = info.profile_picture_url;
+        entryUserName.Text = info.first_name;
+        lbPhoneNumber.Text = info.phone_number;
     }
 
     private async void BorderImage_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(borderCompanyImage);
+        await AnimateElementScaleDown(borderUserImage);
 
         fullImage.TranslationY = -100;
         fullImage.Opacity = 0;
@@ -100,21 +65,6 @@ public partial class CompanyProfileInfoPage : BasePage
 
         if (result != null)
         {
-            /*
-            string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
-
-            using (Stream sourceStream = await result.OpenReadAsync())
-            using (FileStream localFileStream = File.OpenWrite(localFilePath))
-            {
-                await sourceStream.CopyToAsync(localFileStream);
-            }
-
-            imCompany.Source = ImageSource.FromFile(localFilePath);
-            fullImage.Source = imCompany.Source;
-            imageStream = await result.OpenReadAsync();
-            isNewImageSelected = true;
-            */
-
             string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
 
             using (Stream sourceStream = await result.OpenReadAsync())
@@ -123,9 +73,9 @@ public partial class CompanyProfileInfoPage : BasePage
                 await sourceStream.CopyToAsync(localFileStream);
             }
 
-            imCompany.Source = ImageSource.FromFile(localFilePath);
-            fullImage.Source = imCompany.Source;
- 
+            imUser.Source = ImageSource.FromFile(localFilePath);
+            fullImage.Source = imUser.Source;
+
             imageStream = File.OpenRead(localFilePath);
 
             isNewImageSelected = true;
@@ -141,35 +91,17 @@ public partial class CompanyProfileInfoPage : BasePage
     {
         try
         {
-            string enteredName = entryCompanyName.Text?.Trim();
-            string selectedType = pickType.SelectedItem as string;
-            TimeSpan selectedStartTime = startTimePicker.Time;
-            TimeSpan selectedEndTime = endTimePicker.Time;
-
-            TimeSpan? startTimeFromServer = null;
-            TimeSpan? endTimeFromServer = null;
-
-            if (!string.IsNullOrEmpty(CompanyProfileInfo.working_hours))
-            {
-                var parts = CompanyProfileInfo.working_hours.Split(" - ");
-                if (parts.Length == 2 &&
-                    DateTime.TryParse(parts[0], out var startTime) &&
-                    DateTime.TryParse(parts[1], out var endTime))
-                {
-                    startTimeFromServer = startTime.TimeOfDay;
-                    endTimeFromServer = endTime.TimeOfDay;
-                }
-            }
-
-            bool isSame =
-            enteredName == CompanyProfileInfo.company_name?.Trim() &&
+            /*
+            string enteredName = entryUserName.Text?.Trim();
+              
+            bool isSame = enteredName == CompanyProfileInfo.company_name?.Trim() &&
             AppService.Get<AppControl>().BusinessTypeList[selectedType].ToUpper() == CompanyProfileInfo.business_type.ToUpper() &&
             startTimeFromServer.HasValue && endTimeFromServer.HasValue &&
             selectedStartTime == startTimeFromServer.Value &&
             selectedEndTime == endTimeFromServer.Value;
 
             if (!isSame || isNewImageSelected)
-            { 
+            {
                 string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
                 var additionalData = new Dictionary<string, string>
                 {
@@ -202,6 +134,7 @@ public partial class CompanyProfileInfoPage : BasePage
             {
                 await Shell.Current.GoToAsync("..", true);
             }
+            */
         }
         catch (Exception ex)
         {
@@ -238,15 +171,6 @@ public partial class CompanyProfileInfoPage : BasePage
         fullImage.IsVisible = false;
     }
 
-    private void BusinessType_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        string selectedDisplay = pickType.SelectedItem as string;
-        if (selectedDisplay != null && AppService.Get<AppControl>().BusinessTypeList.TryGetValue(selectedDisplay, out var backendValue))
-        {
-             
-        }
-    }
-
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
         bool answer = await Application.Current.MainPage.DisplayAlert(
@@ -257,6 +181,6 @@ public partial class CompanyProfileInfoPage : BasePage
                             );
         if (!answer) return;
 
-        AppService.Get<AppControl>().LogoutCompany();
+        AppService.Get<AppControl>().LogoutUser();
     }
 }

@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.User.Pages.UserRegistrationPage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               x:Class="EcoPlatesMobile.Views.User.Pages.UserRegistrationPage"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
     
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="Shaxsni ro‘yxatga olish"/>
-        <Grid 
-            RowDefinitions="Auto, *, Auto, 40"
-            Margin="16, 30, 16, 0"
-            Grid.Row="1">
+        <Grid RowDefinitions="Auto, *, Auto, 40"
+              Margin="16, 30, 16, 0"
+              Grid.Row="1">
             <StackLayout Spacing="10">
-                <component:CustomEntry EntryIcon="user.png"
+                <component:CustomEntry x:Name="entryName"
+                                       EntryIcon="user.png"
                                        EntryBorderColor="#E9E9E9"
                                        EntryBackgroundColor="#F5F5F5"
-                                       EntryPlaceHolder="Ism sharifingiz"/>
+                                       EntryPlaceHolder="Ismingizni kiriting"
+                                       EntryPlaceHolderColor="Gray"/>
                 <component:CustomEntry EntryIcon="phone.png"
+                                       IsVisible="Collapse"
                                        EntryBorderColor="#E9E9E9"
                                        EntryBackgroundColor="#F5F5F5"
                                        EntryPlaceHolder="Telefon raqam"/>
                 <component:CustomEntry EntryIcon="email.png"
+                                       IsVisible="Collapse"
                                        EntryBorderColor="#E9E9E9"
                                        EntryBackgroundColor="#F5F5F5"
                                        EntryPlaceHolder="Elektron manzil"/>
             </StackLayout>
             <Button Text="Ro‘yxatdan o‘tish"
-                    BackgroundColor="#DCE0E2"
+                    BackgroundColor="#007200"
                     CornerRadius="30"
-                    TextColor="#525B5D"
+                    TextColor="White"
                     FontFamily="Roboto"
                     HeightRequest="50"
+                    Clicked="ButtonNext_Clicked"
                     Grid.Row="2"/>
         </Grid>
+        <component:LoadingView x:Name="loading"
+                               Grid.RowSpan="2"/>
     </Grid>
-</ContentPage>
+</page:BasePage>

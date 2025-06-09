@@ -86,14 +86,16 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 var apiService = AppService.Get<UserApiService>();
 
+                var userInfo = AppService.Get<AppControl>().UserInfo;
+
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = 10,
-                    user_lat = 37.518313,
-                    user_lon = 126.724187
+                    user_lat = userInfo.location_latitude,//37.518313,
+                    user_lon = userInfo.location_longitude//126.724187
                 };
 
                 PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
@@ -166,14 +168,16 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 var apiService = AppService.Get<UserApiService>();
 
+                var userInfo = AppService.Get<AppControl>().UserInfo;
+
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = 10,
-                    user_lat = 37.518313,
-                    user_lon = 126.724187
+                    user_lat = userInfo.location_latitude,//37.518313,
+                    user_lon = userInfo.location_longitude//126.724187
                 };
 
                 PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
@@ -192,7 +196,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     { 
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                        Count = "2 qoldi",
+                        //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",

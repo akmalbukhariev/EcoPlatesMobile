@@ -1,11 +1,16 @@
 using EcoPlatesMobile.Models;
+using EcoPlatesMobile.Models.Responses.User;
+using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Services.Api;
+using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.ViewModels.User;
 using Microsoft.Maui.Controls.Shapes;
 using System.Collections.ObjectModel;
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
-public partial class UserProfilePage : ContentPage
+public partial class UserProfilePage : BasePage
 {
     public ObservableCollection<LanguageModel> Languages { get; set; }
 
@@ -31,6 +36,8 @@ public partial class UserProfilePage : ContentPage
         }
     }
 
+    //GetUserInfoResponse response;
+
     public UserProfilePage()
     {
         InitializeComponent();
@@ -45,6 +52,41 @@ public partial class UserProfilePage : ContentPage
         SelectedFlag = Languages[0].Flag;
         SelectedLanguage = Languages[0].Name;
         BindingContext = this;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        Shell.SetTabBarIsVisible(this, true);
+
+        UserInfo info = AppService.Get<AppControl>().UserInfo;
+        imUser.Source = info.profile_picture_url;
+        lbUserName.Text = info.first_name;
+        lbPhoneNumber.Text = info.phone_number;
+
+        /*
+        loading.ShowLoading = true;
+
+        var apiService = AppService.Get<UserApiService>();
+         
+        response = await apiService.GetUserInfo();
+        if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
+        {
+            imUser.Source = response.resultData.profile_picture_url;
+            lbUserName.Text = response.resultData.first_name;
+            lbPhoneNumber.Text = response.resultData.phone_number;
+        }
+
+        loading.ShowLoading = false;
+        */
+    }
+
+    private async void UserInfo_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(grdUserInfo);
+
+        await AppNavigatorService.NavigateTo(nameof(UserProfileInfoPage));
     }
 
     private void OnLanguageTapped(object sender, TappedEventArgs e)

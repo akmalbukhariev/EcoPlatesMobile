@@ -4,6 +4,7 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Company.Pages;
+using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.Views;
 
@@ -35,7 +36,10 @@ public partial class AuthorizationPage : BasePage
 	{
 		base.OnAppearing();
 		lbTitle.Text = $"Iltimos, {_phoneNumber} telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting";
-		//Use phone verification API
+
+		/*
+		 * Use phone verification API
+		 */
 	}
 
 	private async void Button_Clicked(object sender, EventArgs e)
@@ -56,7 +60,14 @@ public partial class AuthorizationPage : BasePage
 		{
 			var apiService = AppService.Get<UserApiService>();
 
-			Application.Current.MainPage = new AppUserShell();
-		}
+            if (session.IsUserRegistrated)
+            {
+                await AppService.Get<AppControl>().LoginUser(_phoneNumber);
+            }
+            else
+            {
+                await AppNavigatorService.NavigateTo($"{nameof(UserRegistrationPage)}?PhoneNumber={_phoneNumber}");
+            }
+        }
 	}
 }

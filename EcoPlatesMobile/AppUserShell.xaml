@@ -22,10 +22,10 @@
             <ShellContent ContentTemplate="{DataTemplate userPages:UserFavoritesPage}"
                   Shell.NavBarIsVisible="False"/>
         </Tab>
-        <!-- 
+         
         <Tab Icon="user.png">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserProfilePage}"
                           Shell.NavBarIsVisible="False"/>
-        </Tab> -->
+        </Tab> 
     </TabBar>
 </Shell>

@@ -3,7 +3,7 @@ using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
-public partial class UserFavoritesPage : ContentPage
+public partial class UserFavoritesPage : BasePage
 {
 	private UserFavoritesViewModel viewModel;
 
@@ -20,7 +20,9 @@ public partial class UserFavoritesPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-         
+
+        Shell.SetTabBarIsVisible(this, true);
+
         await viewModel.LoadInitialProductAsync();
         await viewModel.LoadInitialCompanyAsync();
     }

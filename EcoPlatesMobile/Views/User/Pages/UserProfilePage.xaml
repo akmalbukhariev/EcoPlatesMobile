@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.User.Pages.UserProfilePage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               x:Class="EcoPlatesMobile.Views.User.Pages.UserProfilePage">
 
     <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto">
-        <Grid BackgroundColor="Green"
-              HeightRequest="87">
-            <Label Text="Mening profilim"
-                     FontSize="20"
-                     TextColor="White"
-                     FontAttributes="Bold"
-                     VerticalOptions="Center"
-                     HorizontalOptions="Center"/>
-        </Grid>
-        <Grid ColumnDefinitions="Auto, *, Auto"
+        <component:CustomHeader Title="Mening profilim"
+                                ShowBack="False"
+                                HeaderBackground="Green"/>
+        <Grid x:Name="grdUserInfo" 
+              ColumnDefinitions="Auto, *, Auto"
               Margin="20, 20, 20, 0"
               Grid.Row="1">
-            <Image Source="user1.png"
-                   Aspect="AspectFill"
-                   WidthRequest="64"
-                   HeightRequest="64"
-                   Margin="0,0,20,0"
-                   VerticalOptions="Center"/>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="UserInfo_Tapped"/>
+            </Grid.GestureRecognizers>
+            <Border x:Name="borderUser"
+                    WidthRequest="64"
+                    HeightRequest="64"
+                    Stroke="Gray"
+                    StrokeThickness="0.2"
+                    StrokeShape="RoundRectangle 100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="0,0,20,0">
+                <Image x:Name="imUser" 
+                       Source="add_item.png"
+                       Aspect="AspectFill"
+                       WidthRequest="64"
+                       HeightRequest="64"/>
+            </Border>
             <Grid RowDefinitions="Auto,Auto,Auto"
                   Grid.Column="1">
-                <Label Text="Akmal Bukhariev"
+                <Label x:Name="lbUserName" 
+                       Text="-----------------------"
                        FontSize="17"
                        TextColor="Black"
                        FontAttributes="Bold"/>
-                <Label Text="+998 90 999 90 09"
+                <Label x:Name="lbPhoneNumber"
+                       Text="+998 00 000 00 00"
                        FontSize="15"
                        TextColor="#999999"
                        FontAttributes="Bold"
@@ -48,7 +59,7 @@
         </Grid>
         <BoxView BackgroundColor="LightGray" 
                  Grid.Row="3"/>
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto" 
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto"
               Margin="20"
               Grid.Row="4">
             <Grid ColumnDefinitions="Auto, *, Auto"
@@ -161,6 +172,8 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Frame>
+        <component:LoadingView x:Name="loading"
+                               Grid.RowSpan="6"/>
     </Grid>
 
-</ContentPage>
+</page:BasePage>

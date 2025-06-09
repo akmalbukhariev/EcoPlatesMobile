@@ -23,6 +23,7 @@ public partial class UserMainPage : BasePage
 	{
 		base.OnAppearing();
 
+        Shell.SetTabBarIsVisible(this, true);
         AppService.Get<AppControl>().ShowCompanyMoreInfo = true;
 
         viewModel.BusinessType = Utilities.BusinessType.RESTAURANT;

@@ -39,8 +39,8 @@
                             BackgroundColor="White"
                             Margin="10,0,10,0">
                         <Grid RowDefinitions="Auto, 1, Auto, 1, 50"
-                            RowSpacing="10"
-                            Margin="10">
+                              RowSpacing="10"
+                              Margin="10">
                             <Entry x:Name="entryCompanyName" 
                                 Placeholder="Company name"
                                 FontSize="17"
@@ -57,8 +57,8 @@
                             </Grid>
                             <BoxView BackgroundColor="LightGray" Grid.Row="3"/>
                             <Grid x:Name="grdPhoneNumber" 
-                                ColumnDefinitions="Auto, *, Auto" 
-                                Grid.Row="4">
+                                  ColumnDefinitions="Auto, *, Auto" 
+                                  Grid.Row="4">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer NumberOfTapsRequired="1"
                                                         Tapped="PhoneNumber_Tapped"/>
@@ -76,9 +76,9 @@
                                     VerticalTextAlignment="Center"
                                     Grid.Column="1"/>
                                 <Image Source="left.png"
-                                    Aspect="AspectFit"
-                                    Margin="15,0,10,0"
-                                    Grid.Column="2"/>
+                                       Aspect="AspectFit"
+                                       Margin="15,0,10,0"
+                                       Grid.Column="2"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -160,9 +160,9 @@
                     Grid.Column="2"/>
         </Grid>
         <BoxView x:Name="boxFullImage"
-                BackgroundColor="Black"
-                IsVisible="False"
-                Opacity="0.7"/>
+                 BackgroundColor="Black"
+                 IsVisible="False"
+                 Opacity="0.7"/>
         <Image x:Name="fullImage"
                Aspect="AspectFit"
                IsVisible="False">

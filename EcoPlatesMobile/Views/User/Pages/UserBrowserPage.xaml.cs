@@ -6,7 +6,7 @@ using Microsoft.Maui.Controls.Shapes;
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
-public partial class UserBrowserPage : ContentPage
+public partial class UserBrowserPage : BasePage
 {
     private UserBrowserPageViewModel viewModel;
 	public UserBrowserPage()
@@ -23,6 +23,7 @@ public partial class UserBrowserPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        Shell.SetTabBarIsVisible(this, true);
 
         AppService.Get<AppControl>().ShowCompanyMoreInfo = false;
         await viewModel.LoadInitialAsync();

@@ -12,12 +12,13 @@ namespace EcoPlatesMobile.Services.Api
 {
     public class UserApiService : ApiService
     {
+        #region Url
         private const string BASE_URL = "/ecoplatesuser/api/v1/";
         private const string LOGIN_USER = $"{BASE_URL}user/login";
         private const string CHECK_USER = $"{BASE_URL}user/checkUser/";
         private const string LOGOUT_USER = $"{BASE_URL}user/logout";
         private const string REGISTER_USER = $"{BASE_URL}user/register";
-        private const string GET_USER_INFO = $"{BASE_URL}user/getUserByToken";
+        private const string GET_USER_INFO = $"{BASE_URL}user/getUserInfo";
         private const string UPDATE_USER_INFO = $"{BASE_URL}user/updateUserInfo";
         private const string REGISTER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/registerBookmarkPromotion";
         private const string SAVE_OR_UPDATE_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/saveOrUpdateBookmarkPromotion";
@@ -29,6 +30,7 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_SPECIFIC_PROMOTION_WITH_COMPANY_INFO = $"{BASE_URL}promotions/getSpecificPromotionWithCompanyInfo";
         private const string GET_COMPANY_WITH_POSTERS = $"{BASE_URL}company/getCompanyWithPosters/";
         private const string REGISTER_POSTER_FEEDBACK = $"{BASE_URL}feedbacks/registerPosterFeedback";
+        #endregion
 
         public UserApiService(RestClient client) : base(client)
         {
