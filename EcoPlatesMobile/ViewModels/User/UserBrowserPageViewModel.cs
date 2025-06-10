@@ -41,7 +41,7 @@ namespace EcoPlatesMobile.ViewModels.User
  
             SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
             {
-                user_id = 16,
+                user_id = AppService.Get<AppControl>().UserInfo.user_id,
                 company_id = product.CompanyId,
                 deleted = product.Liked ? false : true,
             };
@@ -71,17 +71,18 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var apiService = AppService.Get<UserApiService>();
+                var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
                     radius_km = 2,
-                    user_lat = 37.518313,
-                    user_lon = 126.724187,
+                    user_lat = userInfo.location_latitude,//37.518313,
+                    user_lon = userInfo.location_longitude,//126.724187,
                     offset = offset,
                     pageSize = PageSize,
                 };
 
+                var apiService = AppService.Get<UserApiService>();
                 CompanyListResponse response = await apiService.GetCompaniesByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
@@ -147,18 +148,18 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     IsLoading = true;
                 }
-                 
-                var apiService = AppService.Get<UserApiService>();
-
+                   
+                var userInfo = AppService.Get<AppControl>().UserInfo;
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
                     radius_km = 2,
-                    user_lat = 37.518313,
-                    user_lon = 126.724187,
+                    user_lat = userInfo.location_latitude,//37.518313,
+                    user_lon = userInfo.location_longitude,//126.724187,
                     offset = offset,
                     pageSize = PageSize,
                 };
 
+                var apiService = AppService.Get<UserApiService>();
                 CompanyListResponse response = await apiService.GetCompaniesByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())

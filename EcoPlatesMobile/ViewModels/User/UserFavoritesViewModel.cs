@@ -60,15 +60,17 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var apiService = AppService.Get<UserApiService>();
+                var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
-                    user_lat = 37.518313,
-                    user_lon = 126.724187,
+                    user_lat = userInfo.location_latitude,//37.518313,
+                    user_lon = userInfo.location_longitude,//126.724187,
                     offset = offsetProduct,
                     pageSize = PageSize
                 };
+
+                var apiService = AppService.Get<UserApiService>();
                 BookmarkPromotionListResponse response = await apiService.GetUserBookmarkPromotion(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
@@ -129,15 +131,17 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var apiService = AppService.Get<UserApiService>();
+                var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
-                    user_lat = 37.518313,
-                    user_lon = 126.724187,
+                    user_lat = userInfo.location_latitude,//37.518313,
+                    user_lon = userInfo.location_longitude,//126.724187,
                     offset = offsetCompany,
                     pageSize = PageSize
                 };
+
+                var apiService = AppService.Get<UserApiService>();
                 BookmarkCompanyListResponse response = await apiService.GetUserBookmarkCompany(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
@@ -192,7 +196,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
                 {
-                    user_id = 16,
+                    user_id = AppService.Get<AppControl>().UserInfo.user_id,
                     promotion_id = product.PromotionId,
                     deleted = true,
                 };
@@ -222,7 +226,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
                 {
-                    user_id = 16,
+                    user_id = AppService.Get<AppControl>().UserInfo.user_id,
                     company_id = product.CompanyId,
                     deleted = true,
                 };
@@ -263,15 +267,17 @@ namespace EcoPlatesMobile.ViewModels.User
                     IsLoading = true;
                 }
 
-                var apiService = AppService.Get<UserApiService>();
+                var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
-                     user_lat = 37.518313,
-                     user_lon = 126.724187,
+                     user_lat = userInfo.location_latitude,//37.518313,
+                     user_lon = userInfo.location_longitude,//126.724187,
                      offset = offsetProduct,
                      pageSize = PageSize
                 };
+
+                var apiService = AppService.Get<UserApiService>();
                 BookmarkPromotionListResponse response = await apiService.GetUserBookmarkPromotion(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
@@ -341,16 +347,18 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     IsLoading = true;
                 }
-
-                var apiService = AppService.Get<UserApiService>();
+   
+                var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
-                    user_lat = 37.518313,
-                    user_lon = 126.724187,
+                    user_lat = userInfo.location_latitude,//37.518313,
+                    user_lon = userInfo.location_longitude,//126.724187,
                     offset = offsetCompany,
                     pageSize = PageSize
                 };
+
+                var apiService = AppService.Get<UserApiService>();
                 BookmarkCompanyListResponse response = await apiService.GetUserBookmarkCompany(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())

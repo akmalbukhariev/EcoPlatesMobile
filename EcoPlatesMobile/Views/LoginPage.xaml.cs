@@ -33,6 +33,12 @@ public partial class LoginPage : BasePage
                 await AppService.Get<AppControl>().LoginCompany(phoneNumber);
                 loading.ShowLoading = false;
             }
+            else if (role == UserRole.User)
+            { 
+                loading.ShowLoading = true;
+                await AppService.Get<AppControl>().LoginUser(phoneNumber);
+                loading.ShowLoading = false;
+            }
         }
     }
 

@@ -51,7 +51,7 @@ namespace EcoPlatesMobile.ViewModels.User
             product.Liked = !product.Liked;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
             {
-                user_id = 16,
+                user_id = AppService.Get<AppControl>().UserInfo.user_id,
                 promotion_id = product.PromotionId,
                 deleted = product.Liked ? false : true,
             };
