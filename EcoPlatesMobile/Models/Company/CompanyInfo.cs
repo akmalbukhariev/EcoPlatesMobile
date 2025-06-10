@@ -1,4 +1,5 @@
-﻿using EcoPlatesMobile.Utilities;
+﻿using EcoPlatesMobile.Converters;
+using EcoPlatesMobile.Utilities;
 using Newtonsoft.Json;
 
 namespace EcoPlatesMobile.Models.Company
@@ -20,21 +21,14 @@ namespace EcoPlatesMobile.Models.Company
         public string token_mb { get; set; } = string.Empty;
         public UserOrCompanyStatus status { get; set; } = UserOrCompanyStatus.INACTIVE;
         private string about { get; set; } = string.Empty;
-
-        
+         
         [JsonProperty("created_at")]
-        public long _created_at { get; set; }
-
-        [JsonIgnore]
-        public DateTime created_at => DateTimeOffset.FromUnixTimeMilliseconds(_created_at).UtcDateTime;
+        [JsonConverter(typeof(FlexibleDateTimeConverter))]
+        public DateTime created_at { get; set; }
 
         [JsonProperty("updated_at")]
-        public long _updated_at { get; set; }
-
-        [JsonIgnore]
-        public DateTime updated_at => DateTimeOffset.FromUnixTimeMilliseconds(_updated_at).UtcDateTime;
-
-
+        [JsonConverter(typeof(FlexibleDateTimeConverter))]
+        public DateTime updated_at { get; set; }
 
         public long? bookmark_id { get; set; } = 0;
         public bool liked { get; set; }

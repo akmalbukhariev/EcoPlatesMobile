@@ -2,6 +2,7 @@ using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Views.User.Pages;
@@ -91,24 +92,23 @@ public partial class UserProfileInfoPage : BasePage
     {
         try
         {
-            /*
             string enteredName = entryUserName.Text?.Trim();
-              
-            bool isSame = enteredName == CompanyProfileInfo.company_name?.Trim() &&
-            AppService.Get<AppControl>().BusinessTypeList[selectedType].ToUpper() == CompanyProfileInfo.business_type.ToUpper() &&
-            startTimeFromServer.HasValue && endTimeFromServer.HasValue &&
-            selectedStartTime == startTimeFromServer.Value &&
-            selectedEndTime == endTimeFromServer.Value;
+            if (string.IsNullOrEmpty(enteredName))
+            {
+                await AlertService.ShowAlertAsync("Update profile", "Enter the name.");
+                return;
+            }
+
+            UserInfo userInfo = AppService.Get<AppControl>().UserInfo;
+
+            bool isSame = enteredName == userInfo.first_name?.Trim();
 
             if (!isSame || isNewImageSelected)
             {
-                string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
                 var additionalData = new Dictionary<string, string>
                 {
-                    { "company_id", AppService.Get<AppControl>().CompanyInfo.company_id.ToString() },
-                    { "company_name", enteredName },
-                    { "business_type", AppService.Get<AppControl>().BusinessTypeList[selectedType] },
-                    { "working_hours",  formattedWorkingHours},
+                    { "user_id", userInfo.user_id.ToString() },
+                    { "first_name", enteredName },
                 };
 
                 if (!isNewImageSelected)
@@ -117,8 +117,8 @@ public partial class UserProfileInfoPage : BasePage
                 }
 
                 loading.ShowLoading = true;
-                var apiService = AppService.Get<CompanyApiService>();
-                Response response = await apiService.UpdateCompanyProfileInfo(imageStream, additionalData);
+                var apiService = AppService.Get<UserApiService>();
+                Response response = await apiService.UpdateUserProfileInfo(imageStream, additionalData);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -134,7 +134,6 @@ public partial class UserProfileInfoPage : BasePage
             {
                 await Shell.Current.GoToAsync("..", true);
             }
-            */
         }
         catch (Exception ex)
         {

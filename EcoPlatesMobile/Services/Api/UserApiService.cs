@@ -212,6 +212,39 @@ namespace EcoPlatesMobile.Services.Api
 
             return response;
         }
+         
+        public async Task<Response> UpdateUserProfileInfo(Stream imageStream, Dictionary<string, string>? additionalData)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostImageAsync(UPDATE_USER_INFO, imageStream, additionalData, "profile_picture_data");
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"UpdateCompanyProfileInfo Error: {ex.Message}";
+            }
+
+            return response;
+        }
 
         public async Task<Response> RegisterUserBookmarkPromotion(RegisterBookmarkPropmotionRequest data)
         {

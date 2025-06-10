@@ -1,4 +1,5 @@
-﻿using EcoPlatesMobile.Utilities;
+﻿using EcoPlatesMobile.Converters;
+using EcoPlatesMobile.Utilities;
 using Newtonsoft.Json;
 
 namespace EcoPlatesMobile.Models.User
@@ -9,11 +10,11 @@ namespace EcoPlatesMobile.Models.User
         public string profile_picture_url { get; set; } = string.Empty;
         public string last_name { get; set; } = string.Empty;
 
-        [JsonIgnore]
-        public DateTime created_at => DateTimeOffset.FromUnixTimeMilliseconds(_created_at).UtcDateTime;
+        //[JsonProperty("created_at")]
+        //private long _created_at { get; set; }
 
-        [JsonProperty("created_at")]
-        public long _created_at { get; set; }
+        //[JsonIgnore]
+        //public DateTime created_at => DateTimeOffset.FromUnixTimeMilliseconds(_created_at).UtcDateTime;
 
         public string token_mb { get; set; } = string.Empty;
         public string full_name { get; set; } = string.Empty;
@@ -24,11 +25,11 @@ namespace EcoPlatesMobile.Models.User
         [JsonIgnore]
         public bool deleted => _deleted.Equals("true", StringComparison.OrdinalIgnoreCase);
 
-        [JsonIgnore]
-        public DateTime updated_at => DateTimeOffset.FromUnixTimeMilliseconds(_updated_at).UtcDateTime;
+        //[JsonProperty("updated_at")]
+        //private long _updated_at { get; set; }
 
-        [JsonProperty("updated_at")]
-        public long _updated_at { get; set; }
+        //[JsonIgnore]
+        //public DateTime updated_at => DateTimeOffset.FromUnixTimeMilliseconds(_updated_at).UtcDateTime;
 
         public int user_id { get; set; }
         public string phone_number { get; set; } = string.Empty;
@@ -36,5 +37,13 @@ namespace EcoPlatesMobile.Models.User
         public double location_longitude { get; set; }
         public string email { get; set; } = string.Empty;
         public string status { get; set; } = string.Empty;
+
+        [JsonProperty("created_at")]
+        [JsonConverter(typeof(FlexibleDateTimeConverter))]
+        public DateTime created_at { get; set; }
+
+        [JsonProperty("updated_at")]
+        [JsonConverter(typeof(FlexibleDateTimeConverter))]
+        public DateTime updated_at { get; set; }
     }
 }
