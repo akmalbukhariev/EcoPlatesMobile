@@ -48,11 +48,12 @@ public partial class DetailProductPage : BasePage
     {
         if (sender is VisualElement element)
         {
-            await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            await element.ScaleTo(1.0, 100, Easing.CubicIn);
+            //await element.ScaleTo(1.3, 100, Easing.CubicOut);
+            //await element.ScaleTo(1.0, 100, Easing.CubicIn);
+            await AnimateElementScaleDown(element);
         }
 
-        await Shell.Current.GoToAsync($"///{nameof(UserMainPage)}");
+        Application.Current.MainPage = new AppUserShell();
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
