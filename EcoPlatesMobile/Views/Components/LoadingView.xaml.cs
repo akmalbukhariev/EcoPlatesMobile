@@ -16,4 +16,8 @@ public partial class LoadingView : ContentView
 			overlayLoading.IsVisible = value;
 		}
 	}
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+    }
 }

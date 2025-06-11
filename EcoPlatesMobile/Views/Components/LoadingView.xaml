@@ -7,6 +7,10 @@
           BackgroundColor="Black"
           Opacity="0.5"
           InputTransparent="False">
+          <Grid.GestureRecognizers>
+            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                  Tapped="TapGestureRecognizer_Tapped"/>
+          </Grid.GestureRecognizers>
         <ActivityIndicator x:Name="loading"
                            Color="Green"
                            Scale="1.5"
