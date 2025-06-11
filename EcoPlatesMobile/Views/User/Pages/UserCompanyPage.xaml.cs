@@ -3,7 +3,7 @@ using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
-public partial class UserCompanyPage : ContentPage
+public partial class UserCompanyPage : BasePage
 {
 	private UserCompanyPageViewModel viewModel;
 
@@ -11,10 +11,7 @@ public partial class UserCompanyPage : ContentPage
 	{
 		InitializeComponent();
 		viewModel = new UserCompanyPageViewModel();
-
-        Shell.SetNavBarIsVisible(this, false);
-        Shell.SetTabBarIsVisible(this, false);
-
+          
         BindingContext = viewModel;
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
     }

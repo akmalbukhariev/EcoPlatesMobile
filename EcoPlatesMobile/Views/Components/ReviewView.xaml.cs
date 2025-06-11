@@ -3,8 +3,9 @@ namespace EcoPlatesMobile.Views.Components;
 public partial class ReviewView : ContentView
 {
     public event Action EventReviewClick;
+    public event Action EventCloseClick;
 
-	public ReviewView()
+    public ReviewView()
 	{
 		InitializeComponent();
 	}
@@ -20,5 +21,6 @@ public partial class ReviewView : ContentView
     private void Close_Tapped(object sender, TappedEventArgs e)
     {
         this.IsVisible = false;
+        EventCloseClick?.Invoke();
     }
 }

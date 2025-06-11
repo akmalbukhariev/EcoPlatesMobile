@@ -6,7 +6,7 @@ using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.ViewModels.User;
 using Microsoft.Maui.Controls; 
 
-public partial class DetailProductPage : ContentPage
+public partial class DetailProductPage : BasePage
 {
     private DetailProductPageViewModel viewModel;
     public DetailProductPage()
@@ -15,13 +15,18 @@ public partial class DetailProductPage : ContentPage
         viewModel = new DetailProductPageViewModel();
         BindingContext = viewModel;
 
-        Shell.SetNavBarIsVisible(this, false);
-        Shell.SetTabBarIsVisible(this, false);
-
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         reviewView.EventReviewClick += ReviewView_EventReviewClick;
+
+        reviewView.EventCloseClick += ReviewView_EventCloseClick;
     }
-     
+
+    private void ReviewView_EventCloseClick()
+    {
+        blockingOverlay.IsVisible = false;
+        reviewView.IsVisible = false;
+    }
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -84,6 +89,8 @@ public partial class DetailProductPage : ContentPage
 
     private async void Star_Tapped(object sender, TappedEventArgs e)
     {
+        blockingOverlay.IsVisible = true;
+
         reviewView.Scale = 0.5;
         reviewView.Opacity = 0;
         reviewView.IsVisible = true;
@@ -96,6 +103,7 @@ public partial class DetailProductPage : ContentPage
 
     private async void ReviewView_EventReviewClick()
     {
+        blockingOverlay.IsVisible = false;
         reviewView.IsVisible = false;
         await Shell.Current.GoToAsync(nameof(ReviewProductPage), true, new Dictionary<string, object>
         {
@@ -103,5 +111,10 @@ public partial class DetailProductPage : ContentPage
             ["ProductName"] = viewModel.ProductName,
             ["PromotionId"] = viewModel.ProductModel.PromotionId
         });
+    }
+
+    private void Overlay_Tapped(object sender, EventArgs e)
+    {
+        ReviewView_EventCloseClick();
     }
 }

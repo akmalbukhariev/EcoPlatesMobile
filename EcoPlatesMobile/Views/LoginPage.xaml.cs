@@ -25,21 +25,19 @@ public partial class LoginPage : BasePage
         bool isLoggedIn = store.Get(AppKeys.IsLoggedIn, false);
         string phoneNumber = store.Get(AppKeys.PhoneNumber, "");
 
+        loading.ShowLoading = true;
         if (isLoggedIn)
         {
             if (role == UserRole.Company)
             {
-                loading.ShowLoading = true;
                 await AppService.Get<AppControl>().LoginCompany(phoneNumber);
-                loading.ShowLoading = false;
             }
             else if (role == UserRole.User)
             { 
-                loading.ShowLoading = true;
                 await AppService.Get<AppControl>().LoginUser(phoneNumber);
-                loading.ShowLoading = false;
             }
         }
+        loading.ShowLoading = false;
     }
 
     private async void LoadSvg()

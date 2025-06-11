@@ -52,7 +52,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 PosterGetFeedbackRequest request = new PosterGetFeedbackRequest()
                 {
                     promotion_id = (int)ProductModel.PromotionId,
-                    user_id = 16
+                    user_id = AppService.Get<AppControl>().UserInfo.user_id
                 };
 
                 SpecificPromotionWithCompanyInfoResponse response = await apiService.GetSpecificPromotionWithCompanyInfo(request);
@@ -105,7 +105,7 @@ namespace EcoPlatesMobile.ViewModels.User
             ProductModel.Liked = !ProductModel.Liked;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
             {
-                user_id = 16,
+                user_id = AppService.Get<AppControl>().UserInfo.user_id,
                 promotion_id = ProductModel.PromotionId,
                 deleted = ProductModel.Liked ? false : true,
             };

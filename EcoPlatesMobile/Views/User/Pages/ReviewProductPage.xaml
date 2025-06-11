@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.User.Pages.ReviewProductPage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             BackgroundColor="White"
-             Title="ReviewProductPage">
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.User.Pages.ReviewProductPage"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader ShowBack="True"
@@ -146,4 +146,4 @@
                            HorizontalOptions="Center"
                            Grid.RowSpan="2"/>
     </Grid>
-</ContentPage>
+</page:BasePage>

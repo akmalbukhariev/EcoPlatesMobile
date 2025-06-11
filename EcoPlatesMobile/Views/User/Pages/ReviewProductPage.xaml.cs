@@ -9,7 +9,7 @@ namespace EcoPlatesMobile.Views.User.Pages;
 [QueryProperty(nameof(ProductImage), nameof(ProductImage))]
 [QueryProperty(nameof(ProductName), nameof(ProductName))]
 [QueryProperty(nameof(PromotionId), nameof(PromotionId))]
-public partial class ReviewProductPage : ContentPage
+public partial class ReviewProductPage : BasePage
 {
     private string _productImage;
     public string ProductImage
@@ -49,9 +49,6 @@ public partial class ReviewProductPage : ContentPage
     public ReviewProductPage()
 	{
 		InitializeComponent();
-
-        Shell.SetNavBarIsVisible(this, false);
-        Shell.SetTabBarIsVisible(this, false);
     }
      
     private void UpdateProductName()

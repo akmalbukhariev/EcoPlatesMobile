@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:EcoPlatesMobile.Converters"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             x:Class="EcoPlatesMobile.Views.User.Pages.DetailProductPage">
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:EcoPlatesMobile.Converters"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               x:Class="EcoPlatesMobile.Views.User.Pages.DetailProductPage">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -233,7 +234,17 @@
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"/>
+        <BoxView x:Name="blockingOverlay"
+                 BackgroundColor="Black"
+                 Opacity="0.5"
+                 IsVisible="False"
+                 InputTransparent="False">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Overlay_Tapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
         <component:ReviewView x:Name="reviewView"
                               IsVisible="False"/>
     </Grid>
-</ContentPage>
+</page:BasePage>

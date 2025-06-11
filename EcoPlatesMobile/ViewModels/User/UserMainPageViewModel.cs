@@ -84,8 +84,6 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var apiService = AppService.Get<UserApiService>();
-
                 var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PosterLocationRequest request = new PosterLocationRequest
@@ -98,6 +96,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     user_lon = userInfo.location_longitude//126.724187
                 };
 
+                var apiService = AppService.Get<UserApiService>();
                 PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())

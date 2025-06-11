@@ -58,7 +58,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
             SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
             {
-                user_id = 16,
+                user_id = AppService.Get<AppControl>().UserInfo.user_id,
                 company_id = CompanyId,
                 deleted = likedCompany ? false : true,
             };
