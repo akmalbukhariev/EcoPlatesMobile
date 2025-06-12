@@ -63,7 +63,7 @@
             <HorizontalStackLayout Margin="10,15,0,0"
                                    Spacing="10"
                                    Grid.Row="2">
-                <HorizontalStackLayout Spacing="5">
+                <HorizontalStackLayout Spacing="5" IsVisible="Collapse">
                     <Image Source="star.png" 
                            WidthRequest="16" 
                            HeightRequest="16"/>
@@ -73,6 +73,7 @@
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
                 <BoxView BackgroundColor="LightGray"
+                         IsVisible="Collapse"
                          WidthRequest="1"
                          HeightRequest="15"/>
                 <HorizontalStackLayout Spacing="5">

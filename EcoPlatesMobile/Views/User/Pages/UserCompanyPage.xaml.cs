@@ -27,9 +27,6 @@ public partial class UserCompanyPage : BasePage
     {
         if (sender is VisualElement element)
         {
-            //await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            //await element.ScaleTo(1.0, 100, Easing.CubicIn);
-
             await AnimateElementScaleDown(element);
         }
 
@@ -40,9 +37,6 @@ public partial class UserCompanyPage : BasePage
     {
         if (sender is VisualElement element)
         {
-            //await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            //await element.ScaleTo(1.0, 100, Easing.CubicIn);
-
             await AnimateElementScaleDown(element);
         }
 
@@ -53,8 +47,6 @@ public partial class UserCompanyPage : BasePage
     {
         if (sender is VisualElement element)
         {
-            //await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            //await element.ScaleTo(1.0, 100, Easing.CubicIn);
             await AnimateElementScaleDown(element);
         }
 
@@ -79,8 +71,6 @@ public partial class UserCompanyPage : BasePage
     {
         if (sender is VisualElement element)
         {
-            //await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            //await element.ScaleTo(1.0, 100, Easing.CubicIn);
             await AnimateElementScaleDown(element);
         }
 
@@ -92,8 +82,6 @@ public partial class UserCompanyPage : BasePage
     {
         if (sender is VisualElement element)
         {
-            //await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            //await element.ScaleTo(1.0, 100, Easing.CubicIn);
             await AnimateElementScaleDown(element);
         }
     }
@@ -102,8 +90,6 @@ public partial class UserCompanyPage : BasePage
     {
         if (sender is VisualElement element)
         {
-            //await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            //await element.ScaleTo(1.0, 100, Easing.CubicIn);
             await AnimateElementScaleDown(element);
         }
     }

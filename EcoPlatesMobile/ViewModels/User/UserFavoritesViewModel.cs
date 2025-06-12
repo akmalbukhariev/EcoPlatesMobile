@@ -92,7 +92,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",
-                        Stars = "3.1",
+                        Stars = $"{item.avg_rating}({item.total_reviews})",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
@@ -299,7 +299,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",
-                        Stars = "3.1",
+                        Stars = $"{item.avg_rating}({item.total_reviews})",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
