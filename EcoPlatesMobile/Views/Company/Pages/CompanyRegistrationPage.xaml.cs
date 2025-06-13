@@ -141,14 +141,18 @@ public partial class CompanyRegistrationPage : BasePage
                 return;
             }
 
+            Location location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
+
             var additionalData = new Dictionary<string, string>
             {
                 { "company_name", companyName },
                 { "business_type", selectedType },
                 { "phone_number", phoneNumber},
-                { "location_latitude", "37.504721"},
-                { "location_longitude", "126.721078"},
-                { "working_hours",  formattedWorkingHours},
+                //{ "location_latitude",  "37.504721"},
+                //{ "location_longitude", "126.721078"},
+                { "location_latitude",  location.Latitude.ToString()},
+                { "location_longitude", location.Longitude.ToString()},
+                { "working_hours", formattedWorkingHours},
             };
 
             loading.ShowLoading = true;
@@ -174,39 +178,4 @@ public partial class CompanyRegistrationPage : BasePage
             loading.ShowLoading = false;
         }
     }
-
-    /*
-    private async Task LoginCompany()
-    {
-        Application.Current.MainPage = new ContentPage
-        {
-            BackgroundColor = Colors.White,
-            Content = new ActivityIndicator
-            {
-                IsRunning = true,
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center
-            }
-        };
-
-        await Task.Delay(100);
-
-        var apiService = AppService.Get<CompanyApiService>();
-        LoginRequest request = new LoginRequest()
-        {
-            phone_number = _phoneNumber
-        };
-
-        LoginCompanyResponse response = await apiService.Login(request);
-        if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-        {
-            AppService.Get<AppControl>().CompanyInfo = response.resultData;
-            AppService.Get<AppStoreService>().Set(AppKeys.UserRole, UserRole.Company);
-            AppService.Get<AppStoreService>().Set(AppKeys.IsLoggedIn, true);
-            AppService.Get<AppStoreService>().Set(AppKeys.PhoneNumber, _phoneNumber);
-
-            Application.Current.MainPage = new AppCompanyShell();
-        }
-    }
-    */
 }

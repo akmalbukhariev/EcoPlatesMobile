@@ -10,6 +10,7 @@ public partial class ListTileView : ContentView
         ActiveAds,
         PreviousAds,
         Share,
+        Location,
         AboutApp,
         Suggestions,
         Message
@@ -133,7 +134,6 @@ public partial class ListTileView : ContentView
     {
         await grdMain.ScaleTo(0.95, 100, Easing.CubicOut);
         await grdMain.ScaleTo(1.0, 100, Easing.CubicIn);
-
 
         EventClickTile?.Invoke(this);
     }

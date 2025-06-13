@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.LocationPage">
+
+    <Grid RowDefinitions="Auto, *, Auto, 20">
+        <component:CustomHeader ShowBack="True"
+                                HeaderBackground="#8338EC"
+                                Title="Setting current location"/>
+        <!--<BoxView x:Name="map"
+                 IsVisible="True"
+                 BackgroundColor="Aqua"
+                 Grid.Row="1"
+                 Grid.RowSpan="3"/>-->
+        <maps:Map x:Name="map" 
+                  MapType="Street"
+                  IsShowingUser="False"
+                  IsZoomEnabled="False"
+                  Grid.Row="1"
+                  Grid.RowSpan="3"/>
+        <Button Text="Save" 
+                BackgroundColor="#8338EC"
+                TextColor="White"
+                Margin="10,0,10,0"
+                HeightRequest="50"
+                Clicked="Save_Clicked"
+                Grid.Row="2"/>
+    </Grid>
+    
+</page:BasePage>

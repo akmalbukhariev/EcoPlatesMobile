@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-               x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyProfilePage"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
-               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyProfilePage">
     
     <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto, Auto">
         <component:CustomHeader Title="Mening profilim"
@@ -59,7 +59,7 @@
         </Grid>
         <BoxView BackgroundColor="LightGray" 
                  Grid.Row="3"/>
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
               Margin="20"
               Grid.Row="4">
             <component:ListTileView x:Name="tileActive" 
@@ -114,6 +114,22 @@
                            VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Grid>
+            <component:ListTileView TileIcon="my_chat.png" 
+                                    TileText="Yozishmalar"
+                                    TileTextSize="15"
+                                    TileTextColor="#444444"
+                                    TileType="Message"
+                                    Margin="0,0,0,20"
+                                    EventClickTile="Tile_EventClick"
+                                    Grid.Row="3"/>
+            <component:ListTileView TileIcon="browser1.png" 
+                                    TileText="Location"
+                                    TileTextSize="15"
+                                    TileTextColor="#444444"
+                                    TileType="Location"
+                                    Margin="0,0,0,20"
+                                    EventClickTile="Tile_EventClick"
+                                    Grid.Row="4"/>
             <component:ListTileView TileIcon="share.png" 
                                     TileText="Do'stlar bilan ulashish"
                                     TileTextSize="15"
@@ -121,15 +137,7 @@
                                     TileType="Share"
                                     Margin="0,0,0,20"
                                     EventClickTile="Tile_EventClick"
-                                    Grid.Row="3"/>
-            <component:ListTileView TileIcon="info.png" 
-                                    TileText="Dastur haqida"
-                                    TileTextSize="15"
-                                    TileTextColor="#444444"
-                                    TileType="AboutApp"
-                                    Margin="0,0,0,20"
-                                    EventClickTile="Tile_EventClick"
-                                    Grid.Row="4"/>
+                                    Grid.Row="5"/>
             <component:ListTileView TileIcon="offer.png" 
                                     TileText="Taklif va shikoyatlar"
                                     TileTextSize="15"
@@ -137,14 +145,15 @@
                                     TileType="Suggestions"
                                     Margin="0,0,0,20"
                                     EventClickTile="Tile_EventClick"
-                                    Grid.Row="5"/>
-            <component:ListTileView TileIcon="my_chat.png" 
-                                    TileText="Yozishmalar"
+                                    Grid.Row="6"/>
+            <component:ListTileView TileIcon="info.png" 
+                                    TileText="Dastur haqida"
                                     TileTextSize="15"
                                     TileTextColor="#444444"
-                                    TileType="Message"
+                                    TileType="AboutApp"
+                                    Margin="0,0,0,20"
                                     EventClickTile="Tile_EventClick"
-                                    Grid.Row="6"/>
+                                    Grid.Row="7"/>
         </Grid>
         <Grid RowDefinitions="Auto, Auto, Auto" 
               Margin="0,0,0,30"

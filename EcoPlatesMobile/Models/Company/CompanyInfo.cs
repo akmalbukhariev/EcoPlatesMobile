@@ -15,10 +15,13 @@ namespace EcoPlatesMobile.Models.Company
         public double? location_latitude { get; set; } = 0;
         public double? location_longitude { get; set; } = 0;
         public double? distance_km { get; set; } = 0;
+        public string business_type { get; set; }
         public string working_hours { get; set; } = string.Empty;
         public string telegram_link { get; set; } = string.Empty;                    
         public string social_profile_link { get; set; } = string.Empty;
         public string token_mb { get; set; } = string.Empty;
+        public long active_products { get; set; }
+        public long non_active_products { get; set; }
         public UserOrCompanyStatus status { get; set; } = UserOrCompanyStatus.INACTIVE;
         private string about { get; set; } = string.Empty;
          

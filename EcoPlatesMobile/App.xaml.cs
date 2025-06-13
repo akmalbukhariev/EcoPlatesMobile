@@ -51,6 +51,7 @@ namespace EcoPlatesMobile
             Routing.RegisterRoute(nameof(PhoneNumberChangePage), typeof(PhoneNumberChangePage));
             Routing.RegisterRoute(nameof(PhoneNumberNewPage), typeof(PhoneNumberNewPage));
             Routing.RegisterRoute(nameof(CompanyRegistrationPage), typeof(CompanyRegistrationPage));
+            Routing.RegisterRoute(nameof(LocationPage), typeof(LocationPage));
             #endregion
         }
 

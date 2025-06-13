@@ -34,7 +34,7 @@ public partial class CompanyProfilePage : BasePage
         }
     }
 
-    CompanyProfileInfoResponse response;
+    GetCompanyInfoResponse response;
     public CompanyProfilePage()
     {
         InitializeComponent();
@@ -61,8 +61,7 @@ public partial class CompanyProfilePage : BasePage
 
         var apiService = AppService.Get<CompanyApiService>();
 
-        int compayId = (int)AppService.Get<AppControl>().CompanyInfo.company_id;
-        response = await apiService.GetCompanyProfileInfo(compayId);
+        response = await apiService.GetCompanyInfo();
         if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
         {
             imCompany.Source = response.resultData.logo_url;
@@ -70,6 +69,8 @@ public partial class CompanyProfilePage : BasePage
             lbPhoneNumber.Text = response.resultData.phone_number;
             tileActive.TileText1 = response.resultData.active_products.ToString();
             tileNoActive.TileText1 = response.resultData.non_active_products.ToString();
+
+            AppService.Get<AppControl>().CompanyInfo = response.resultData;
         }
 
         loading.IsRunning = false;
@@ -81,14 +82,16 @@ public partial class CompanyProfilePage : BasePage
         //string uri = $"?CompanyImage={response?.resultData.logo_url}&CompanyName={response?.resultData.company_name}&CompanyPhone={response?.resultData.phone_number}";
 
         //await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}{uri}");
- 
+
         //string json = JsonConvert.SerializeObject(response.resultData);
         //await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}?CompanyProfileInfoJson={Uri.EscapeDataString(json)}");
- 
-        await AppNavigatorService.NavigateTo(nameof(CompanyProfileInfoPage), new Dictionary<string, object>
-        {
-            ["CompanyProfileInfo"] = response.resultData
-        });
+
+        //await AppNavigatorService.NavigateTo(nameof(CompanyProfileInfoPage), new Dictionary<string, object>
+        //{
+        //    ["CompanyInfo"] = response.resultData
+        //});
+
+        await AppNavigatorService.NavigateTo(nameof(CompanyProfileInfoPage));
     }
 
     private void OnLanguageTapped(object sender, TappedEventArgs e)
@@ -125,18 +128,21 @@ public partial class CompanyProfilePage : BasePage
         switch (view.TileType)
         {
             case ListTileView.ListTileType.ActiveAds:
-                await Shell.Current.GoToAsync($"{nameof(ActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
+                await AppNavigatorService.NavigateTo($"{nameof(ActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.PreviousAds:
-                await Shell.Current.GoToAsync($"{nameof(NonActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
+                await AppNavigatorService.NavigateTo($"{nameof(NonActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.Share:
                 break;
-            case ListTileView.ListTileType.AboutApp:
+            case ListTileView.ListTileType.Location:
+                await AppNavigatorService.NavigateTo(nameof(LocationPage));
                 break;
             case ListTileView.ListTileType.Suggestions:
                 break;
             case ListTileView.ListTileType.Message:
+                break;
+            case ListTileView.ListTileType.AboutApp:
                 break;
         }
     }

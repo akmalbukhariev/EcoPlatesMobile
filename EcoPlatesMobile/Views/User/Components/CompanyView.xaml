@@ -45,7 +45,7 @@
                            TextColor="White" 
                            FontSize="16" 
                            FontAttributes="Bold"
-                           VerticalOptions="Center" />
+                           VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Grid>
             <VerticalStackLayout Margin="10,10,0,0"

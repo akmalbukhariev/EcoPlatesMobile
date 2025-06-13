@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace EcoPlatesMobile.Models.Responses.Company
 {
-    public class CompanyProfileInfoResponse : Response<CompanyProfileInfo>
-    {
+    //public class CompanyProfileInfoResponse : Response<CompanyProfileInfo>
+    //{
 
-    }
+    //}
 }

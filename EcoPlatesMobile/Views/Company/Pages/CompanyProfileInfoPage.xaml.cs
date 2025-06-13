@@ -7,18 +7,18 @@ using System.Linq;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
-[QueryProperty(nameof(CompanyProfileInfo), nameof(CompanyProfileInfo))]
+//[QueryProperty(nameof(CompanyInfo), nameof(CompanyInfo))]
 public partial class CompanyProfileInfoPage : BasePage
 {
-    private CompanyProfileInfo _companyProfileInfo;
-    public CompanyProfileInfo CompanyProfileInfo
-    {
-        get => _companyProfileInfo;
-        set
-        {
-            _companyProfileInfo = value;
-        }
-     }
+    private CompanyInfo _companyInfo;
+    //public CompanyInfo CompanyInfo
+    //{
+    //    get => _companyInfo;
+    //    set
+    //    {
+    //        _companyInfo = value;
+    //    }
+    // }
 
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
@@ -28,18 +28,19 @@ public partial class CompanyProfileInfoPage : BasePage
         InitializeComponent();
 
         pickType.ItemsSource = AppService.Get<AppControl>().BusinessTypeList.Keys.ToList();
+        _companyInfo = AppService.Get<AppControl>().CompanyInfo;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        imCompany.Source = CompanyProfileInfo.logo_url;
-        fullImage.Source = CompanyProfileInfo.logo_url;
-        entryCompanyName.Text = CompanyProfileInfo.company_name;
-        lbPhoneNUmber.Text = CompanyProfileInfo.phone_number;
+        imCompany.Source = _companyInfo.logo_url;
+        fullImage.Source = _companyInfo.logo_url;
+        entryCompanyName.Text = _companyInfo.company_name;
+        lbPhoneNUmber.Text = _companyInfo.phone_number;
 
-        string[] times = CompanyProfileInfo.working_hours.Split(" - ");
+        string[] times = _companyInfo.working_hours.Split(" - ");
         if (times.Length == 2)
         {
             if (DateTime.TryParse(times[0], out DateTime startTime) &&
@@ -54,7 +55,7 @@ public partial class CompanyProfileInfoPage : BasePage
             }
         }
         
-        var selectedItem = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(kvp => kvp.Value == CompanyProfileInfo.business_type).Key;
+        var selectedItem = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(kvp => kvp.Value == _companyInfo.business_type).Key;
 
         if (selectedItem != null)
         {
@@ -149,9 +150,9 @@ public partial class CompanyProfileInfoPage : BasePage
             TimeSpan? startTimeFromServer = null;
             TimeSpan? endTimeFromServer = null;
 
-            if (!string.IsNullOrEmpty(CompanyProfileInfo.working_hours))
+            if (!string.IsNullOrEmpty(_companyInfo.working_hours))
             {
-                var parts = CompanyProfileInfo.working_hours.Split(" - ");
+                var parts = _companyInfo.working_hours.Split(" - ");
                 if (parts.Length == 2 &&
                     DateTime.TryParse(parts[0], out var startTime) &&
                     DateTime.TryParse(parts[1], out var endTime))
@@ -161,9 +162,8 @@ public partial class CompanyProfileInfoPage : BasePage
                 }
             }
 
-            bool isSame =
-            enteredName == CompanyProfileInfo.company_name?.Trim() &&
-            AppService.Get<AppControl>().BusinessTypeList[selectedType].ToUpper() == CompanyProfileInfo.business_type.ToUpper() &&
+            bool isSame = enteredName == _companyInfo.company_name?.Trim() &&
+            AppService.Get<AppControl>().BusinessTypeList[selectedType].ToUpper() == _companyInfo.business_type.ToUpper() &&
             startTimeFromServer.HasValue && endTimeFromServer.HasValue &&
             selectedStartTime == startTimeFromServer.Value &&
             selectedEndTime == endTimeFromServer.Value;
