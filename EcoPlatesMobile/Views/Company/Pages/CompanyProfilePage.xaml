@@ -5,7 +5,7 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyProfilePage">
     
-    <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto, Auto">
+    <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto">
         <component:CustomHeader Title="Mening profilim"
                                 ShowBack="False"
                                 HeaderBackground="#8338EC"/>
@@ -59,6 +59,26 @@
         </Grid>
         <BoxView BackgroundColor="LightGray" 
                  Grid.Row="3"/>
+        <Grid RowDefinitions="Auto, Auto, Auto" 
+              Margin="0,0,0,30"
+              VerticalOptions="End"
+              Grid.Row="4">
+            <Image Source="logo1.png"
+                   Aspect="AspectFit"
+                   WidthRequest="110"
+                   HeightRequest="110"
+                   VerticalOptions="Center"/>
+            <Label Text="SaleTop application"
+                   TextColor="LightGray"
+                   FontSize="14"
+                   HorizontalTextAlignment="Center"
+                   Grid.Row="1"/>
+            <Label Text="v. 1.1 (Android -2025)"
+                   TextColor="LightGray"
+                   FontSize="14"
+                   HorizontalTextAlignment="Center"
+                   Grid.Row="2"/>
+        </Grid>
         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
               Margin="20"
               Grid.Row="4">
@@ -155,30 +175,11 @@
                                     EventClickTile="Tile_EventClick"
                                     Grid.Row="7"/>
         </Grid>
-        <Grid RowDefinitions="Auto, Auto, Auto" 
-              Margin="0,0,0,30"
-              Grid.Row="5">
-            <Image Source="logo1.png"
-                   Aspect="AspectFit"
-                   WidthRequest="110"
-                   HeightRequest="110"
-                   VerticalOptions="Center"/>
-            <Label Text="SaleTop application"
-                   TextColor="LightGray"
-                   FontSize="14"
-                   HorizontalTextAlignment="Center"
-                   Grid.Row="1"/>
-            <Label Text="v. 1.1 (Android -2025)"
-                   TextColor="LightGray"
-                   FontSize="14"
-                   HorizontalTextAlignment="Center"
-                   Grid.Row="2"/>
-        </Grid>
         <BoxView x:Name="dropdownListBack" 
                  Opacity="0.5"
                  IsVisible="False"
                  BackgroundColor="Black"
-                 Grid.RowSpan="6">
+                 Grid.RowSpan="5">
             <BoxView.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                       Tapped="OnLanguageBackTapped"/>
@@ -194,7 +195,7 @@
                Margin="0,0,0,100"
                HorizontalOptions="Center"
                VerticalOptions="Center"
-               Grid.RowSpan="6">
+               Grid.RowSpan="5">
             <CollectionView ItemsSource="{Binding Languages}"
                             SelectionMode="Single"
                             SelectionChanged="OnLanguageSelected">
@@ -222,10 +223,10 @@
                           Scale="1.5"
                           VerticalOptions="Center"
                           HorizontalOptions="Center"
-                          Grid.RowSpan="6"/>
+                          Grid.RowSpan="5"/>
         <BoxView HeightRequest="1"
                  BackgroundColor="LightGray"
                  HorizontalOptions="Fill"
-                 Grid.Row="6"/>
+                 Grid.Row="5"/>
     </Grid>
 </page:BasePage>

@@ -6,21 +6,24 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.Company.Pages.LocationPage">
 
-    <Grid RowDefinitions="Auto, *, Auto, 20">
+    <Grid RowDefinitions="Auto, *, Auto, 40">
         <component:CustomHeader ShowBack="True"
                                 HeaderBackground="#8338EC"
                                 Title="Setting current location"/>
-        <!--<BoxView x:Name="map"
-                 IsVisible="True"
-                 BackgroundColor="Aqua"
-                 Grid.Row="1"
-                 Grid.RowSpan="3"/>-->
         <maps:Map x:Name="map" 
                   MapType="Street"
-                  IsShowingUser="False"
-                  IsZoomEnabled="False"
+                  IsShowingUser="true"
+                  IsZoomEnabled="true"
                   Grid.Row="1"
                   Grid.RowSpan="3"/>
+        <Image Source="location.png"
+                WidthRequest="40"
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                InputTransparent="True" />
         <Button Text="Save" 
                 BackgroundColor="#8338EC"
                 TextColor="White"
@@ -28,6 +31,8 @@
                 HeightRequest="50"
                 Clicked="Save_Clicked"
                 Grid.Row="2"/>
+        <component:LoadingView x:Name="loading"
+                               Grid.RowSpan="4"/>
     </Grid>
     
 </page:BasePage>

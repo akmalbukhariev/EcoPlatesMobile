@@ -7,6 +7,7 @@ using EcoPlatesMobile.ViewModels.User;
 using Microsoft.Extensions.Logging;
 using RestSharp;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using Microsoft.Maui.Maps.Handlers;
 
 namespace EcoPlatesMobile
 {
@@ -27,8 +28,15 @@ namespace EcoPlatesMobile
                 }) 
                 .UseMauiMaps();
  
+ #if ANDROID
+        MapHandler.Mapper.AppendToMapping("DisableZoomControls", (handler, view) =>
+        {
+            handler.PlatformView?.GetMapAsync(new ZoomControlDisabler());
+        });
+#endif
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
             RegisterSingleton(builder);
             RegisterTransient(builder);

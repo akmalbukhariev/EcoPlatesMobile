@@ -1,3 +1,7 @@
+using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
+
 namespace EcoPlatesMobile.Views.Company.Pages;
 
 public partial class LocationPage : BasePage
@@ -7,8 +11,49 @@ public partial class LocationPage : BasePage
 		InitializeComponent();
 	}
 
-    private void Save_Clicked(object sender, EventArgs e)
-    {
+	private async void Save_Clicked(object sender, EventArgs e)
+	{
+		try
+		{
+			var visibleRegion = map.VisibleRegion;
+			if (visibleRegion == null)
+			{
+				return;
+			}
 
+			var center = new Location(
+				visibleRegion.Center.Latitude,
+				visibleRegion.Center.Longitude
+			);
+
+			var additionalData = new Dictionary<string, string>
+			{
+				{ "company_id", AppService.Get<AppControl>().CompanyInfo.company_id.ToString() },
+				{ "location_latitude", center.Latitude.ToString("F6") },
+				{ "location_longitude", center.Longitude.ToString("F6") }
+			};
+
+			loading.ShowLoading = true;
+			var apiService = AppService.Get<CompanyApiService>();
+			Response response = await apiService.UpdateCompanyProfileInfo(null, additionalData);
+
+			if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+			{
+				await AlertService.ShowAlertAsync("Update location", "Success.");
+				await Shell.Current.GoToAsync("..", true);
+			}
+			else
+			{
+				await AlertService.ShowAlertAsync("Error", response.resultMsg);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+		finally
+		{
+			loading.ShowLoading = false;
+		}
     }
 }
