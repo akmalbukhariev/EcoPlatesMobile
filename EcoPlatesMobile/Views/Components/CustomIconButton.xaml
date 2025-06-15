@@ -6,6 +6,10 @@
     <Grid x:Name="grdMain" 
           WidthRequest="{Binding ButtonWidth}"
           HeightRequest="{Binding ButtonHeight}">
+          <Grid.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="MainGrid_Tapped"/>
+          </Grid.GestureRecognizers>
         <Border x:Name="border"
                 Stroke="{Binding ButtonBorderColor}"
                 StrokeThickness="1"

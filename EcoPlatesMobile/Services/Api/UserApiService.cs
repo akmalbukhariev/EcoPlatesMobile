@@ -27,6 +27,7 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_USER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/getUserBookmarkPromotion";
         private const string GET_USER_BOOKMARK_COMPANY = $"{BASE_URL}bookmark/getUserBookmarkCompany";
         private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}company/getCompaniesByCurrentLocation";
+        private const string GET_COMPANIES_BY_USER_LOCATION_WITHOUT_LIMIT = $"{BASE_URL}company/getCompaniesByCurrentLocationWithoutLimit";
         private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
         private const string GET_SPECIFIC_PROMOTION_WITH_COMPANY_INFO = $"{BASE_URL}promotions/getSpecificPromotionWithCompanyInfo";
         private const string GET_COMPANY_WITH_POSTERS = $"{BASE_URL}company/getCompanyWithPosters/";
@@ -35,7 +36,7 @@ namespace EcoPlatesMobile.Services.Api
 
         public UserApiService(RestClient client) : base(client)
         {
-            token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMTA4NDQxMDY5NyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3Nzg4MjkyOTZ9.t4cxo0f8fXsrXE5CgXi_pXBMyoaQ7tv4d7xcrnU6p0U";
+            //token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMTA4NDQxMDY5NyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3Nzg4MjkyOTZ9.t4cxo0f8fXsrXE5CgXi_pXBMyoaQ7tv4d7xcrnU6p0U";
         }
 
         public async Task<LoginUserResponse> Login(LoginRequest data)
@@ -419,6 +420,39 @@ namespace EcoPlatesMobile.Services.Api
             try
             {
                 var receivedData = await PostAsync(GET_COMPANIES_BY_USER_LOCATION, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<CompanyListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<CompanyListResponse> GetCompaniesByCurrentLocationWithoutLimit(CompanyLocationRequest data)
+        {
+            var response = new CompanyListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_COMPANIES_BY_USER_LOCATION_WITHOUT_LIMIT, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

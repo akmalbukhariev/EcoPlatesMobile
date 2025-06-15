@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               x:Class="EcoPlatesMobile.Views.User.Pages.LocationSettingPage">
+
+    <Grid RowDefinitions="60, *, Auto">
+        <Grid ColumnDefinitions="*, Auto" 
+              BackgroundColor="White">
+          <Label Text="Choose a location to see what's available"
+                 TextColor="Black"
+                 FontAttributes="Bold"
+                 FontSize="16"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center"/>
+          <Image Source="close.png"
+                 Aspect="AspectFill"
+                 WidthRequest="30"
+                 HeightRequest="30"
+                 VerticalOptions="Center"
+                 Margin="0,0,5,0"
+                 Grid.Column="1">
+                 <Image.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="Close_Tapped"/>
+                 </Image.GestureRecognizers>
+          </Image>
+        </Grid>
+        <maps:Map x:Name="map"
+                  MapType="Street"
+                  IsShowingUser="false"
+                  Grid.Row="1"
+                  Grid.RowSpan="3"/>
+        <Frame BackgroundColor="White"
+                CornerRadius="20"
+                Padding="10"
+                HasShadow="True"
+                VerticalOptions="End"
+                HeightRequest="250"
+                Margin="0"
+                TranslationY="10"
+                Grid.Row="2">
+        <VerticalStackLayout Spacing="15">
+            <Label Text="Select a distance"
+                   FontSize="16"
+                   HorizontalOptions="Center" />
+           <Grid ColumnDefinitions="*, Auto"
+                 Padding="0"
+                 Margin="0"
+                 VerticalOptions="Center">
+                <Slider x:Name="distanceSlider"
+                        Minimum="1"
+                        Maximum="10"
+                        Value="5"
+                        ValueChanged="DistanceSlider_ValueChanged"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand" />
+                <Label x:Name="distanceLabel"
+                        Text="5 km"
+                        FontSize="16"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Margin="10,0,10,0"
+                        Grid.Column="1"/>
+                </Grid>
+            <Button Text="📍 Use my current location"
+                    BackgroundColor="Transparent"
+                    TextColor="Teal"
+                    Clicked="UseCurrentLocation_Clicked" />
+            <Button Text="Show results"
+                    BackgroundColor="#004d40"
+                    TextColor="White"
+                    CornerRadius="25"
+                    HeightRequest="45"
+                    Clicked="ShowResults_Clicked"/>
+        </VerticalStackLayout>
+    </Frame>
+        
+        <Button Text="Save" 
+                BackgroundColor="Green"
+                TextColor="White"
+                Margin="10,0,10,0"
+                HeightRequest="50"
+                Clicked="Save_Clicked"
+                Grid.Row="2"/>
+        <component:LoadingView x:Name="loading"
+                               Grid.RowSpan="4"/>
+    </Grid>
+    
+</page:BasePage>

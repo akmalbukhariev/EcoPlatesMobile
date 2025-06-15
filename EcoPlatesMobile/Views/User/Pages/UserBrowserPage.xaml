@@ -9,13 +9,13 @@
              xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
 
     <Grid>
-        <BoxView x:Name="map"
+        <!--<BoxView x:Name="map"
                  IsVisible="False"
-                 BackgroundColor="Aqua"/>
-        <!--<maps:Map x:Name="map" 
+                 BackgroundColor="Aqua"/>-->
+        <maps:Map x:Name="map" 
                   MapType="Street"
-                  IsShowingUser="False"
-                  IsVisible="False"/>-->
+                  IsVisible="False"
+                  IsShowingUser="False"/>
         <Grid RowDefinitions="Auto, 10, Auto, *"
               Margin="16,10,16,0">
             <Grid ColumnDefinitions="*, Auto, Auto">
@@ -34,7 +34,8 @@
                                             ButtonCornerRadius="5"
                                             Margin="5,0,5,0"
                                             Grid.Column="1"/>
-                <component:CustomIconButton ButtonIcon="pin3.png"
+                <component:CustomIconButton x:Name="btnLocation" 
+                                            ButtonIcon="pin3.png"
                                             ButtonWidth="50"
                                             ButtonHeight="50"
                                             ButtonBorderColor="Gray"
@@ -47,12 +48,12 @@
                                            Tab1_Title="List"
                                            Tab2_Title="Map"
                                            Grid.Row="2"/>
-            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+            <RefreshView x:Name="list"
+                         IsRefreshing="{Binding IsRefreshing}"
                          Command="{Binding RefreshCommand}"
                          Margin="10"
                          Grid.Row="3">
-                <CollectionView x:Name="list" 
-                                ItemsSource="{Binding Companies}"
+                <CollectionView ItemsSource="{Binding Companies}"
                                 RemainingItemsThreshold="1"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                     <CollectionView.ItemTemplate>

@@ -153,8 +153,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
                     radius_km = 2,
-                    user_lat = userInfo.location_latitude,//37.518313,
-                    user_lon = userInfo.location_longitude,//126.724187,
+                    user_lat = 37.518313,
+                    user_lon = 126.724187,
                     offset = offset,
                     pageSize = PageSize,
                 };
@@ -207,7 +207,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
-
+        
         public async Task DeleteProduct(CompanyModel product)
         {
             try

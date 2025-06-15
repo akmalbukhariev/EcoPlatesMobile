@@ -85,7 +85,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = true;
 
                 var userInfo = AppService.Get<AppControl>().UserInfo;
-
+                
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType.GetValue(),

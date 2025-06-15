@@ -43,6 +43,19 @@ public partial class TabSwitcherView : ContentView
         InitializeComponent();
     }
 
+    public void Init()
+    {
+        if (SwitchType == TabSwitchType.Classic)
+        {
+            OnTabClicked(button1, null);
+        }
+        else if (SwitchType == TabSwitchType.Modern)
+        { 
+            SetActiveTab(true);
+            TabChanged?.Invoke(this, Tab1_Title);
+        }
+    }
+
     private void OnTabClicked(object sender, EventArgs e)
     {
         if (sender is Button clickedButton)

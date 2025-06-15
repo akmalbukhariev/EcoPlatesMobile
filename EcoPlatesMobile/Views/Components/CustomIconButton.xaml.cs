@@ -19,8 +19,8 @@ public partial class CustomIconButton : ContentView
     public static readonly BindableProperty ButtonBorderColorProperty =
         BindableProperty.Create(nameof(ButtonBorderColor), typeof(Color), typeof(CustomIconButton), Colors.Grey, propertyChanged: ButtonBorderColorChanged);
 
-   public static readonly BindableProperty ButtonCornerRadiusProperty =
-      BindableProperty.Create(nameof(ButtonCornerRadius), typeof(double), typeof(CustomEntry), 10.0, propertyChanged: ButtonCornerRadiusChanged);
+    public static readonly BindableProperty ButtonCornerRadiusProperty =
+       BindableProperty.Create(nameof(ButtonCornerRadius), typeof(double), typeof(CustomEntry), 10.0, propertyChanged: ButtonCornerRadiusChanged);
 
     public int ButtonWidth
     {
@@ -58,9 +58,11 @@ public partial class CustomIconButton : ContentView
         set => SetValue(ButtonCornerRadiusProperty, value);
     }
 
+    public event Action EventClick;
+
     public CustomIconButton()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         BindingContext = this;
     }
@@ -99,5 +101,20 @@ public partial class CustomIconButton : ContentView
     {
         var control = (CustomIconButton)bindable;
         control.border.StrokeShape = new RoundRectangle { CornerRadius = (double)newValue };
+    }
+
+    private async void MainGrid_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(sender as Grid);
+        EventClick?.Invoke();
+    }
+    
+    protected Task AnimateElementScaleDown(VisualElement element)
+    {
+        return Task.Run(async () =>
+        {
+            await element.ScaleTo(0.9, 100, Easing.CubicOut);
+            await element.ScaleTo(1.0, 100, Easing.CubicIn);
+        });
     }
 }
