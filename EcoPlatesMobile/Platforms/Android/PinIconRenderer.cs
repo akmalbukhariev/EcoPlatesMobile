@@ -83,7 +83,6 @@ namespace EcoPlatesMobile.Platforms.Android
 
                     var markerOptions = new MarkerOptions()
                             .SetPosition(location)
-                            .SetTitle(null)
                             .SetIcon(icon);
 
                     var marker = googleMap.AddMarker(markerOptions);

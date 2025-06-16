@@ -35,6 +35,7 @@ namespace EcoPlatesMobile.Models.User
         public string phone_number { get; set; } = string.Empty;
         public string first_name { get; set; } = string.Empty;
         public double location_longitude { get; set; }
+        public int radius_km{ get; set; }
         public string email { get; set; } = string.Empty;
         public string status { get; set; } = string.Empty;
 

@@ -42,49 +42,41 @@
                 Margin="0"
                 TranslationY="10"
                 Grid.Row="2">
-        <VerticalStackLayout Spacing="15">
-            <Label Text="Select a distance"
-                   FontSize="16"
-                   HorizontalOptions="Center" />
-           <Grid ColumnDefinitions="*, Auto"
-                 Padding="0"
-                 Margin="0"
-                 VerticalOptions="Center">
-                <Slider x:Name="distanceSlider"
-                        Minimum="1"
-                        Maximum="10"
-                        Value="5"
-                        ValueChanged="DistanceSlider_ValueChanged"
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand" />
-                <Label x:Name="distanceLabel"
-                        Text="5 km"
-                        FontSize="16"
-                        VerticalOptions="Center"
-                        HorizontalOptions="End"
-                        Margin="10,0,10,0"
-                        Grid.Column="1"/>
-                </Grid>
-            <Button Text="📍 Use my current location"
-                    BackgroundColor="Transparent"
-                    TextColor="Teal"
-                    Clicked="UseCurrentLocation_Clicked" />
-            <Button Text="Show results"
-                    BackgroundColor="#004d40"
-                    TextColor="White"
-                    CornerRadius="25"
-                    HeightRequest="45"
-                    Clicked="ShowResults_Clicked"/>
-        </VerticalStackLayout>
-    </Frame>
-        
-        <Button Text="Save" 
-                BackgroundColor="Green"
-                TextColor="White"
-                Margin="10,0,10,0"
-                HeightRequest="50"
-                Clicked="Save_Clicked"
-                Grid.Row="2"/>
+                <VerticalStackLayout Spacing="15">
+                        <Label Text="Select a distance"
+                                FontSize="16"
+                                HorizontalOptions="Center" />
+                        <Grid ColumnDefinitions="*, Auto"
+                                Padding="0"
+                                Margin="0"
+                                VerticalOptions="Center">
+                                <Slider x:Name="distanceSlider"
+                                        Minimum="1"
+                                        Maximum="10"
+                                        Value="5"
+                                        ValueChanged="DistanceSlider_ValueChanged"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="FillAndExpand" />
+                                <Label x:Name="distanceLabel"
+                                        Text="5 km"
+                                        FontSize="16"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="End"
+                                        Margin="10,0,10,0"
+                                        Grid.Column="1"/>
+                                </Grid>
+                        <Button Text="📍 Use my current location"
+                                BackgroundColor="Transparent"
+                                TextColor="Teal"
+                                Clicked="UseCurrentLocation_Clicked" />
+                        <Button Text="Show results"
+                                BackgroundColor="#004d40"
+                                TextColor="White"
+                                CornerRadius="25"
+                                HeightRequest="45"
+                                Clicked="ShowResults_Clicked"/>
+                </VerticalStackLayout>
+         </Frame>
         <component:LoadingView x:Name="loading"
                                Grid.RowSpan="4"/>
     </Grid>
