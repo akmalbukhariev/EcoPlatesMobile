@@ -109,7 +109,7 @@ public partial class LocationSettingPage : BasePage
 
     private async void UseCurrentLocation_Clicked(object sender, EventArgs e)
     {
-        var location = await Geolocation.GetLocationAsync();
+        var location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
         if (location != null)
         {
             var center = new Location(location.Latitude, location.Longitude);
