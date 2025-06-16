@@ -77,6 +77,6 @@ public partial class CustomHeader : ContentView
             await element.ScaleTo(1.0, 100, Easing.CubicIn);
         }
 
-        await Shell.Current.GoToAsync("..");
+        await AppNavigatorService.NavigateTo("..");
     }
 }

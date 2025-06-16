@@ -6,13 +6,26 @@ using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
+using EcoPlatesMobile.Services.Api;
+using EcoPlatesMobile.Models.Responses.Company;
+using EcoPlatesMobile.Models.Requests.Company;
+using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Helper;
+using System.Linq.Expressions;
+
+#if ANDROID
+using EcoPlatesMobile.Platforms.Android;
+#endif
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
 public partial class UserBrowserPage : BasePage
 {
     private bool created = false;
+    private bool openedCompanyPage = false;
     private UserBrowserPageViewModel viewModel;
+    private List<CustomPin> _customPins = new();
+
     public UserBrowserPage()
     {
         InitializeComponent();
@@ -29,29 +42,90 @@ public partial class UserBrowserPage : BasePage
     {
         base.OnAppearing();
 
-        if (created)
+        if (!openedCompanyPage)
         {
-            tabSwitcher.Init();
+            if (created)
+            {
+                tabSwitcher.Init();
+            }
+
+            created = true;
+
+            Shell.SetTabBarIsVisible(this, true);
+
+            AppService.Get<AppControl>().ShowCompanyMoreInfo = false;
+
+            await viewModel.LoadInitialAsync();
+            await CenterMapToCurrentLocation();
+            await GetAllCompaniesUsingMap();
         }
 
-        created = true;
-
-        Shell.SetTabBarIsVisible(this, true);
-
-        AppService.Get<AppControl>().ShowCompanyMoreInfo = false;
-        await viewModel.LoadInitialAsync();
-        await CenterMapToCurrentLocation();
+        openedCompanyPage = false;
     }
-    
+
+    private async Task GetAllCompaniesUsingMap()
+    {
+        try
+        {
+            viewModel.IsLoading = true;
+            var apiService = AppService.Get<UserApiService>();
+
+            var userInfo = AppService.Get<AppControl>().UserInfo;
+            CompanyLocationRequest request = new CompanyLocationRequest()
+            {
+                radius_km = 2,
+                user_lat = userInfo.location_latitude,
+                user_lon = userInfo.location_longitude,
+                business_type = BusinessType.OTHER.GetValue()
+            };
+
+            CompanyListResponse response = await apiService.GetCompaniesByCurrentLocationWithoutLimit(request);
+
+            if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
+            {
+                foreach (var item in response.resultData)
+                {
+                    _customPins.Add(new CustomPin
+                    {
+                        CompanyId = (long)item.company_id,
+                        Label = item.company_name,
+                        Location = new Location(
+                            (double)item.location_latitude,
+                            (double)item.location_longitude),
+                        LogoUrl = item.logo_url
+                    });
+                }
+
+                RefreshCustomPins();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            viewModel.IsLoading = false;
+        }
+    }
+
+    private void RefreshCustomPins()
+    {
+#if ANDROID
+        if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView nativeMapView)
+        {
+            PinIconRenderer render = new PinIconRenderer(_customPins);
+            render.EventPinClick += PinCompanyClicked;
+            nativeMapView.GetMapAsync(render);
+        }
+#endif
+    }
+
     private async Task CenterMapToCurrentLocation()
     {
         try
         {
-            var location = await Geolocation.GetLocationAsync(new GeolocationRequest
-            {
-                DesiredAccuracy = GeolocationAccuracy.Medium,
-                Timeout = TimeSpan.FromSeconds(10)
-            });
+            var location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
 
             if (location != null)
             {
@@ -67,6 +141,15 @@ public partial class UserBrowserPage : BasePage
         {
             await DisplayAlert("Error", $"Failed to get location: {ex.Message}", "OK");
         }
+    }
+
+    private void PinCompanyClicked(CustomPin pin)
+    {
+        Application.Current.Dispatcher.Dispatch(async () =>
+        {
+            openedCompanyPage = true;
+            await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={pin.CompanyId}");
+        });
     }
 
     private async void Click_Location()

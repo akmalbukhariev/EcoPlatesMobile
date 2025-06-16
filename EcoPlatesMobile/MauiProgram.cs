@@ -9,6 +9,10 @@ using RestSharp;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Microsoft.Maui.Maps.Handlers;
 
+#if ANDROID
+using EcoPlatesMobile.Platforms.Android;
+#endif
+
 namespace EcoPlatesMobile
 {
     public static class MauiProgram
@@ -27,12 +31,17 @@ namespace EcoPlatesMobile
  
                 }) 
                 .UseMauiMaps();
- 
- #if ANDROID
-        MapHandler.Mapper.AppendToMapping("DisableZoomControls", (handler, view) =>
-        {
-            handler.PlatformView?.GetMapAsync(new ZoomControlDisabler());
-        });
+
+#if ANDROID
+        //MapHandler.Mapper.AppendToMapping("DisableZoomControls", (handler, view) =>
+        //{
+        //    handler.PlatformView?.GetMapAsync(new ZoomControlDisabler());
+        //});
+
+        //MapHandler.Mapper.AppendToMapping("CustomPinIcons", (handler, view) =>
+        //{
+        //    handler.PlatformView?.GetMapAsync(new PinIconRenderer(((Microsoft.Maui.Controls.Maps.Map)view)?.Pins));
+        //});
 #endif
 
 #if DEBUG

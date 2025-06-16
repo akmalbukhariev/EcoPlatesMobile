@@ -13,5 +13,6 @@ namespace EcoPlatesMobile.Models.Requests.Company
         public double user_lat { get; set; }
         public double user_lon { get; set; }
         public double radius_km { get; set; }
+        public string business_type { get; set; }
     }
 }

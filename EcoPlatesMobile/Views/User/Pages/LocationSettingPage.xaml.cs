@@ -92,10 +92,13 @@ public partial class LocationSettingPage : BasePage
             loading.ShowLoading = false;
         }
         */
+
+        await AppNavigatorService.NavigateTo("..");
     }
 
-    private void Close_Tapped(object sender, TappedEventArgs e)
+    private async void Close_Tapped(object sender, TappedEventArgs e)
     {
+        await AppNavigatorService.NavigateTo("..");
     }
 
     private async void UseCurrentLocation_Clicked(object sender, EventArgs e)

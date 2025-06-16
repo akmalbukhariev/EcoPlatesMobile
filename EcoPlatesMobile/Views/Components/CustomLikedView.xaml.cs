@@ -45,8 +45,6 @@ public partial class CustomLikedView : ContentView
             this.ScaleTo(1.2, 150, Easing.SinInOut)
         );
         await this.ScaleTo(1.0, 50, Easing.SinInOut);
-        //await this.ScaleTo(1.2, 150, Easing.SinInOut);
-        //await this.ScaleTo(1.0, 150, Easing.SinInOut);
 
         await Task.Delay(500);
 
