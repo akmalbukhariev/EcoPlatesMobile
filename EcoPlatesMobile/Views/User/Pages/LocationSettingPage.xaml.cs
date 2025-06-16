@@ -28,7 +28,9 @@ public partial class LocationSettingPage : BasePage
 
     private async Task InitCircle()
     {
-        var location = await Geolocation.GetLocationAsync();
+        loading.ShowLoading = true;
+
+        var location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
         if (location == null) return;
 
         currentCenter = new Location(location.Latitude, location.Longitude);
@@ -46,6 +48,8 @@ public partial class LocationSettingPage : BasePage
         };
 
         map.MapElements.Add(distanceCircle);
+
+        loading.ShowLoading = false;
     }
     
     private async void Save_Clicked(object sender, EventArgs e)
