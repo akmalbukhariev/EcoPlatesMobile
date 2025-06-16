@@ -1,17 +1,12 @@
 using System.ComponentModel;
-using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.ViewModels.User;
-using Microsoft.Maui.Controls.Shapes;
-using Microsoft.Maui.Devices.Sensors;
-using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Helper;
-using System.Linq.Expressions;
 
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;

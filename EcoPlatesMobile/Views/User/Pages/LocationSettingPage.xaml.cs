@@ -38,9 +38,11 @@ public partial class LocationSettingPage : BasePage
         {
             Center = currentCenter,
             Radius = new Distance(distanceSlider.Value * 1000), // km → meters
-            StrokeColor = Color.FromArgb("#4481c2ff"), // semi-transparent stroke
-            FillColor = Color.FromArgb("#221E90FF"),   // semi-transparent fill
-            StrokeWidth = 2
+            //StrokeColor = Color.FromArgb("#4481c2ff"), // semi-transparent stroke
+            //FillColor = Color.FromArgb("#221E90FF"),   // semi-transparent fill
+            StrokeColor = Color.FromArgb("#99000000"),
+            FillColor = Color.FromArgb("#55000000"),
+            StrokeWidth = 1
         };
 
         map.MapElements.Add(distanceCircle);
