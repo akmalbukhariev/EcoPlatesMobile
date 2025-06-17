@@ -18,10 +18,12 @@
                        HeightRequest="100"
                        WidthRequest="100"
                        HorizontalOptions="Center" />
-                <Label Text="Suggestions and Complaints"
-                       FontSize="24"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center" />
+                 <StackLayout>
+                        <Label Text="Suggestions and Complaints"
+                                FontSize="24"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center" />
+                </StackLayout>
                 <Label Text="We value your feedback and are here to help."
                        FontSize="16"
                        TextColor="Gray"
