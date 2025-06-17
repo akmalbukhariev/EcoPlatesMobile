@@ -97,17 +97,22 @@
                                     TileTextSize="15"
                                     TileTextColor="#444444"
                                     Margin="0,0,0,20"
+                                    EventClickTile="Tile_EventClick"
                                     Grid.Row="1"/>
             <component:ListTileView TileIcon="info.png" 
                                     TileText="Dastur haqida"
+                                    TileType="AboutApp"
                                     TileTextSize="15"
                                     TileTextColor="#444444"
                                     Margin="0,0,0,20"
+                                    EventClickTile="Tile_EventClick"
                                     Grid.Row="2"/>
             <component:ListTileView TileIcon="offer.png" 
                                     TileText="Taklif va shikoyatlar"
+                                    TileType="Suggestions"
                                     TileTextSize="15"
                                     TileTextColor="#444444"
+                                    EventClickTile="Tile_EventClick"
                                     Grid.Row="3"/>
         </Grid>
         <Grid RowDefinitions="Auto, Auto, Auto" 

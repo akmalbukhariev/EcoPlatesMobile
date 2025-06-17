@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               x:Class="EcoPlatesMobile.Views.AboutPage">
+
+    <Grid RowDefinitions="80, *, Auto, 20">
+        <Grid x:Name="headerGrid" 
+              ColumnDefinitions="*, Auto" 
+              BackgroundColor="Green">
+            <Label x:Name="lbTitle" 
+                   Text="About the Application"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   FontSize="16"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Image Source="close.png"
+                   Aspect="AspectFill"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   VerticalOptions="Center"
+                   Margin="0,0,5,0"
+                   Grid.Column="1">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Close_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="20">
+                <Image x:Name="roleIcon"
+                       HeightRequest="100"
+                       WidthRequest="100"
+                       HorizontalOptions="Center" />
+                <Label x:Name="roleTitle"
+                       Text="For Clients"
+                       FontAttributes="Bold"
+                       FontSize="24"
+                       HorizontalOptions="Center"/>
+                <Label x:Name="roleSubtitle"
+                       Text="Discover discounted food items nearby"
+                       FontSize="18"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"/>
+                <Label x:Name="point1" Text="• Browse a variety of discounted food offers" FontSize="16" />
+                <Label x:Name="point2" Text="• View available items on a map" FontSize="16" />
+                <Label x:Name="point3" Text="• Adjust the radius to find offers within your location" FontSize="16" />
+                <Label x:Name="point4" Text="• Receive notifications about new deals near you" FontSize="16" />
+                <Label x:Name="finalMessage"
+                       Text="Save money, reduce waste, and support your local community."
+                       FontAttributes="Italic"
+                       FontSize="16"
+                       HorizontalTextAlignment="Center"
+                       TextColor="DarkSlateGray"/>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button x:Name="btnClose" 
+                Text="Close"
+                BackgroundColor="#8338EC"
+                CornerRadius="30"
+                TextColor="White"
+                FontFamily="Roboto"
+                HeightRequest="50"
+                Margin="20,0,20,0"
+                Clicked="Close_Clicked"
+                Grid.Row="2"/>
+    </Grid>
+</page:BasePage>

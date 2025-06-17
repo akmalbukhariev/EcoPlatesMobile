@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               x:Class="EcoPlatesMobile.Views.SuggestionsPage">
+
+    <Grid RowDefinitions="80, *, Auto, 20"
+          BackgroundColor="#FAF9FA">
+        <component:CustomHeader x:Name="header" 
+                                Title="Suggestions and Complaints"
+                                HeaderBackground="Green"/>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" 
+                                 Spacing="20">
+                <Image x:Name="imFeedBack" 
+                       Source="feedback_icon.png" 
+                       HeightRequest="100"
+                       WidthRequest="100"
+                       HorizontalOptions="Center" />
+                <Label Text="Suggestions and Complaints"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <Label Text="We value your feedback and are here to help."
+                       FontSize="16"
+                       TextColor="Gray"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Type:" FontAttributes="Bold" />
+                <Frame Padding="0" HasShadow="False" BorderColor="Gray" CornerRadius="6">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Picker x:Name="typePicker"
+                                Title="Select feedback type"
+                                ItemsSource="{Binding FeedbackTypes}"
+                                SelectedItem="{Binding SelectedType}"
+                                BackgroundColor="Transparent"
+                                TextColor="Black" />
+                        <Image Source="down.png"
+                               Aspect="AspectFit"
+                               Margin="0,0,15,0"
+                               Grid.Column="1"/>
+                    </Grid>
+                 </Frame>
+                <Label Text="Message:" FontAttributes="Bold" />
+                <Frame Padding="0" HasShadow="False" BorderColor="Gray" CornerRadius="6">
+                    <Editor x:Name="messageEditor"
+                            Placeholder="Write your message..."
+                            AutoSize="TextChanges"
+                            HeightRequest="150"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Margin="0" />
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button x:Name="btnSubmit" 
+                Text="Submit"
+                TextColor="White"
+                HeightRequest="50"
+                Margin="20,0,20,0"
+                Clicked="OnSubmitClicked"
+                Grid.Row="2"/>
+    </Grid>
+</page:BasePage>

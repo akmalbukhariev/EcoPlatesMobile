@@ -54,12 +54,7 @@ public partial class LocationSettingPage : BasePage
 
         loading.ShowLoading = false;
     }
-     
-    private async void Close_Tapped(object sender, TappedEventArgs e)
-    {
-        await AppNavigatorService.NavigateTo("..");
-    }
-
+      
     private async void UseCurrentLocation_Clicked(object sender, EventArgs e)
     {
         var location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
@@ -69,7 +64,7 @@ public partial class LocationSettingPage : BasePage
             map.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromKilometers(5)));
         }
     }
- 
+    
     private void DistanceSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
         int km = (int)Math.Round(e.NewValue);
@@ -134,5 +129,10 @@ public partial class LocationSettingPage : BasePage
         {
             loading.ShowLoading = false;
         }
+    }
+
+    private async void Close_Tapped(object sender, TappedEventArgs e)
+    {
+        await AppNavigatorService.NavigateTo("..");
     }
 }

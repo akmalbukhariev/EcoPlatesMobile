@@ -53,7 +53,17 @@ public partial class CompanyTypeListView : ContentView
 
         BindingContext = this;
     }
-     
+
+    public void InitType(TypeItem item)
+    {
+        foreach (TypeItem tItem in Items)
+        {
+            tItem.Unclick();
+        }
+
+        item.Click();
+    }
+
     private async void Item_Tapped(object sender, TappedEventArgs e)
     {
         if (sender is VisualElement element)

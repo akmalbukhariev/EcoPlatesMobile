@@ -7,6 +7,7 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserMainPage : BasePage
 {
 	private UserMainPageViewModel viewModel;
+    Components.TypeItem typeItem = null;
 
     public UserMainPage()
 	{
@@ -26,12 +27,22 @@ public partial class UserMainPage : BasePage
         Shell.SetTabBarIsVisible(this, true);
         AppService.Get<AppControl>().ShowCompanyMoreInfo = true;
 
-        viewModel.BusinessType = Utilities.BusinessType.RESTAURANT;
+        if (typeItem == null)
+        {
+            viewModel.BusinessType = Utilities.BusinessType.RESTAURANT;
+        }
+        else
+        {
+            viewModel.BusinessType = typeItem.Type;
+            companyTypeList.InitType(typeItem);
+        }
+
         await viewModel.LoadInitialAsync();
     }
 
     private async void CompanyTypeList_EventTypeClick(Components.TypeItem item)
     {
+        typeItem = item;
         viewModel.BusinessType = item.Type;
         await viewModel.LoadInitialAsync();
     }
