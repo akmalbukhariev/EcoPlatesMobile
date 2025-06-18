@@ -298,6 +298,7 @@ namespace EcoPlatesMobile.Services
                 var json = JsonConvert.SerializeObject(data);
                 request.AddJsonBody(json);
 
+                var request111 = _client.BuildUri(request);
                 var response = await _client.ExecuteAsync(request);
 
                 if (response.IsSuccessful && !string.IsNullOrWhiteSpace(response.Content))

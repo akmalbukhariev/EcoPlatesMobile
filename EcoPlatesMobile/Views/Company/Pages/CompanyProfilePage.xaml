@@ -104,7 +104,6 @@
                                     EventClickTile="Tile_EventClick"
                                     Grid.Row="1"/>
             <Grid ColumnDefinitions="Auto, *, Auto"
-                  HeightRequest="50"
                   Margin="0,0,0,20"
                   Grid.Row="2">
                 <Grid.GestureRecognizers>
