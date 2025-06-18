@@ -1,3 +1,10 @@
+using EcoPlatesMobile.Models.Requests.Company;
+using EcoPlatesMobile.Models.Requests.User;
+using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Services.Api;
+using EcoPlatesMobile.Utilities;
+
 namespace EcoPlatesMobile.Views;
 
 [QueryProperty(nameof(IsUser), nameof(IsUser))]
@@ -42,15 +49,66 @@ public partial class SuggestionsPage : BasePage
     {
         if (string.IsNullOrWhiteSpace(SelectedType) || string.IsNullOrWhiteSpace(messageEditor.Text))
         {
-            await DisplayAlert("Missing Info", "Please select a type and enter your message.", "OK");
+            await AlertService.ShowAlertAsync("Missing Info", "Please select a type and enter your message.", "OK");
             return;
         }
 
-        
-        await DisplayAlert("Thank you!", "Your feedback has been submitted.", "Close");
-        await AppNavigatorService.NavigateTo("..");
+        try
+        {
+            loading.ShowLoading = true;
+            if (_isUser)
+            {
+                UserFeedbackInfoRequest request = new UserFeedbackInfoRequest()
+                {
+                    user_id = AppService.Get<AppControl>().UserInfo.user_id,
+                    feedback_text = messageEditor.Text,
+                    feedback_type = SelectedType.ToUpper(),
+                };
 
-        typePicker.SelectedIndex = -1;
-        messageEditor.Text = string.Empty;
+                var apiService = AppService.Get<UserApiService>();
+                Response response = await apiService.RegisterUserFeedBack(request);
+
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync("Thank you!", "Your feedback has been submitted.", "Close");
+                    await AppNavigatorService.NavigateTo("..");
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync("Error!", response.resultMsg, "Close");
+                }
+            }
+            else
+            {
+                CompanyFeedbackInfoRequest request = new CompanyFeedbackInfoRequest()
+                {
+                    company_id = AppService.Get<AppControl>().CompanyInfo.company_id,
+                    feedback_text = messageEditor.Text,
+                    feedback_type = SelectedType.ToUpper(),
+                };
+
+                var apiService = AppService.Get<CompanyApiService>();
+                Response response = await apiService.RegisterCompanyFeedBack(request);
+
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync("Thank you!", "Your feedback has been submitted.", "Close");
+                    await AppNavigatorService.NavigateTo("..");
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync("Error!", response.resultMsg, "Close");
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            loading.ShowLoading = false;
+        }
     }
 }

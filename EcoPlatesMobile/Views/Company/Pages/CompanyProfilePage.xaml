@@ -135,6 +135,7 @@
                 </HorizontalStackLayout>
             </Grid>
             <component:ListTileView TileIcon="my_chat.png" 
+                                    IsVisible="Collapse"
                                     TileText="Yozishmalar"
                                     TileTextSize="15"
                                     TileTextColor="#444444"

@@ -97,7 +97,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                     var companyModels = items.Select(item => new CompanyModel
                     {
-                        CompanyId = item.company_id ?? 0,
+                        CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,
@@ -174,7 +174,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                     var companyModels = items.Select(item => new CompanyModel
                     {
-                        CompanyId = item.company_id ?? 0,
+                        CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,

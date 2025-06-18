@@ -5,7 +5,7 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.SuggestionsPage">
 
-    <Grid RowDefinitions="80, *, Auto, 20"
+    <Grid RowDefinitions="Auto, *, Auto, 20"
           BackgroundColor="#FAF9FA">
         <component:CustomHeader x:Name="header" 
                                 Title="Suggestions and Complaints"
@@ -62,5 +62,8 @@
                 Margin="20,0,20,0"
                 Clicked="OnSubmitClicked"
                 Grid.Row="2"/>
+        <component:LoadingView x:Name="loading"
+                               Grid.Row="1"
+                               Grid.RowSpan="3"/>
     </Grid>
 </page:BasePage>

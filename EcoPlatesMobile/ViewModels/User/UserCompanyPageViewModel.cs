@@ -83,7 +83,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = true;
 
                 var apiService = AppService.Get<UserApiService>();
-                CompanyWithPosterListResponse response = await apiService.getCompanyWithPosters(CompanyId);
+                CompanyWithPosterListResponse response = await apiService.GetCompanyWithPosters(CompanyId);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {

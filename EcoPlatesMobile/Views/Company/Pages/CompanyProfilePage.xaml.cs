@@ -139,10 +139,12 @@ public partial class CompanyProfilePage : BasePage
                 await AppNavigatorService.NavigateTo(nameof(LocationPage));
                 break;
             case ListTileView.ListTileType.Suggestions:
+                await AppNavigatorService.NavigateTo($"{nameof(SuggestionsPage)}?IsUser={false}");
                 break;
             case ListTileView.ListTileType.Message:
                 break;
             case ListTileView.ListTileType.AboutApp:
+                await AppNavigatorService.NavigateTo($"{nameof(AboutPage)}?IsUser={false}");
                 break;
         }
     }

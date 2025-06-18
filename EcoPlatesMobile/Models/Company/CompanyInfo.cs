@@ -6,7 +6,7 @@ namespace EcoPlatesMobile.Models.Company
 {
     public class CompanyInfo
     {
-        public long? company_id { get; set; } = 0;                      
+        public int company_id { get; set; } = 0;                      
         public string company_name { get; set; } = string.Empty;
         public string phone_number { get; set; } = string.Empty;
         public string email { get; set; } = string.Empty;

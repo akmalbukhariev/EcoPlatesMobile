@@ -32,6 +32,7 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_SPECIFIC_PROMOTION_WITH_COMPANY_INFO = $"{BASE_URL}promotions/getSpecificPromotionWithCompanyInfo";
         private const string GET_COMPANY_WITH_POSTERS = $"{BASE_URL}company/getCompanyWithPosters/";
         private const string REGISTER_POSTER_FEEDBACK = $"{BASE_URL}feedbacks/registerPosterFeedback";
+        private const string REGISTER_USER_FEEDBACK = $"{BASE_URL}feedbacks_user/registerUserFeedback";
         #endregion
 
         public UserApiService(RestClient client) : base(client)
@@ -545,7 +546,7 @@ namespace EcoPlatesMobile.Services.Api
             return response;
         }
 
-        public async Task<CompanyWithPosterListResponse> getCompanyWithPosters(int company_id)
+        public async Task<CompanyWithPosterListResponse> GetCompanyWithPosters(int company_id)
         {
             var response = new CompanyWithPosterListResponse();
 
@@ -585,6 +586,39 @@ namespace EcoPlatesMobile.Services.Api
             try
             {
                 var receivedData = await PostAsync(REGISTER_POSTER_FEEDBACK, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> RegisterUserFeedBack(UserFeedbackInfoRequest data)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostAsync(REGISTER_USER_FEEDBACK, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
