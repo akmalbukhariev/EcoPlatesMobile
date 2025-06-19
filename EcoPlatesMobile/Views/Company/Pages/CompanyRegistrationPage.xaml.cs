@@ -148,8 +148,6 @@ public partial class CompanyRegistrationPage : BasePage
                 { "company_name", companyName },
                 { "business_type", selectedType },
                 { "phone_number", phoneNumber},
-                //{ "location_latitude",  "37.504721"},
-                //{ "location_longitude", "126.721078"},
                 { "location_latitude",  location.Latitude.ToString()},
                 { "location_longitude", location.Longitude.ToString()},
                 { "working_hours", formattedWorkingHours},

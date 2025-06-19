@@ -43,14 +43,20 @@ public partial class LocationSettingPage : BasePage
         {
             Center = currentCenter,
             Radius = new Distance(distanceSlider.Value * 1000), // km → meters
-            //StrokeColor = Color.FromArgb("#4481c2ff"), // semi-transparent stroke
-            //FillColor = Color.FromArgb("#221E90FF"),   // semi-transparent fill
             StrokeColor = Color.FromArgb("#99000000"),
             FillColor = Color.FromArgb("#55000000"),
             StrokeWidth = 1
         };
 
         map.MapElements.Add(distanceCircle);
+
+        var currentLocationPin = new Pin
+        {
+            Label = "You are here",
+            Location = currentCenter,
+            Type = PinType.Generic
+        };
+        map.Pins.Add(currentLocationPin);
 
         loading.ShowLoading = false;
     }
@@ -80,7 +86,7 @@ public partial class LocationSettingPage : BasePage
 
     private async void ShowResults_Clicked(object sender, EventArgs e)
     {
-        double selectedDistance = distanceSlider.Value;
+        int selectedDistance = (int)Math.Round(distanceSlider.Value);
         
         try
         {
@@ -111,9 +117,9 @@ public partial class LocationSettingPage : BasePage
             {
                 AppService.Get<AppControl>().UserInfo.location_latitude = center.Latitude;
                 AppService.Get<AppControl>().UserInfo.location_longitude = center.Longitude;
-                AppService.Get<AppControl>().UserInfo.radius_km = (int)selectedDistance;
+                AppService.Get<AppControl>().UserInfo.radius_km = selectedDistance;
 
-                await AlertService.ShowAlertAsync("Update location", "Success.");
+                //await AlertService.ShowAlertAsync("Update location", "Success.");
                 await Shell.Current.GoToAsync("..", true);
             }
             else

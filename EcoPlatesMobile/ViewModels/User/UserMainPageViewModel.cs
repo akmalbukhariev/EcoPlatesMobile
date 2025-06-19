@@ -91,7 +91,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
-                    radius_km = 10,
+                    radius_km = userInfo.radius_km,
                     user_lat = userInfo.location_latitude,//37.518313,
                     user_lon = userInfo.location_longitude//126.724187
                 };
@@ -174,7 +174,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
-                    radius_km = 10,
+                    radius_km = userInfo.radius_km,
                     user_lat = userInfo.location_latitude,//37.518313,
                     user_lon = userInfo.location_longitude//126.724187
                 };

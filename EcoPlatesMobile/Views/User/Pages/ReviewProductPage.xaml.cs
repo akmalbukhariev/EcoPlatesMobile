@@ -123,7 +123,7 @@ public partial class ReviewProductPage : BasePage
             loading.IsRunning = true;
             RegisterPosterFeedbackRequest request = new RegisterPosterFeedbackRequest()
             {
-                user_id = 16,
+                user_id = AppService.Get<AppControl>().UserInfo.user_id,
                 promotion_id = PromotionId,
                 feedback_type1 = checkBox1.IsChecked ? PosterFeedbackType.GREAT_VALUE.GetValue() : PosterFeedbackType.NONE.GetValue(),
                 feedback_type2 = checkBox2.IsChecked ? PosterFeedbackType.DELICIOUS_FOOD.GetValue() : PosterFeedbackType.NONE.GetValue(),

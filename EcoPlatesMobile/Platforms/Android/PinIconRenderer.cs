@@ -1,4 +1,5 @@
-﻿using Android.Gms.Maps;
+﻿using Android.Gms.Common.Apis;
+using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
 using EcoPlatesMobile.Helper;
@@ -30,6 +31,8 @@ namespace EcoPlatesMobile.Platforms.Android
 
         public async void OnMapReady(GoogleMap googleMap)
         {
+            googleMap.Clear();
+
             foreach (var pin in _pins)
             {
                 if (pin is CustomPin customPin)
@@ -89,13 +92,12 @@ namespace EcoPlatesMobile.Platforms.Android
                     marker.Tag = new CustomPinWrapper(customPin);
                 } 
             }
-
+            
             googleMap.MarkerClick += (s, e) =>
             {
                 if (e.Marker?.Tag is CustomPinWrapper wrapper)
                 {
-                    var tappedPin = wrapper.Pin;
-                    EventPinClick?.Invoke(tappedPin);
+                    EventPinClick?.Invoke(wrapper.Pin);
                 }
 
                 e.Handled = true;

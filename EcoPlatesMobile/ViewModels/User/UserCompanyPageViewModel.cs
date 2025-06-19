@@ -106,7 +106,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     {
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                        Count = "2 qoldi",
+                        //Count = "2 qoldi",
                         ProductName = item.title,
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",

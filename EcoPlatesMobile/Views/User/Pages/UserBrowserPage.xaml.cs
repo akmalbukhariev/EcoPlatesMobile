@@ -68,7 +68,7 @@ public partial class UserBrowserPage : BasePage
             var userInfo = AppService.Get<AppControl>().UserInfo;
             CompanyLocationRequest request = new CompanyLocationRequest()
             {
-                radius_km = 2,
+                radius_km = userInfo.radius_km,
                 user_lat = userInfo.location_latitude,
                 user_lon = userInfo.location_longitude,
                 business_type = BusinessType.OTHER.GetValue()
@@ -78,6 +78,7 @@ public partial class UserBrowserPage : BasePage
 
             if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
             {
+                _customPins.Clear();
                 foreach (var item in response.resultData)
                 {
                     _customPins.Add(new CustomPin
@@ -106,6 +107,9 @@ public partial class UserBrowserPage : BasePage
 
     private void RefreshCustomPins()
     {
+        map.Pins.Clear();
+        map.MapElements.Clear();
+
 #if ANDROID
         if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView nativeMapView)
         {

@@ -75,7 +75,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
-                    radius_km = 2,
+                    radius_km = userInfo.radius_km,
                     user_lat = userInfo.location_latitude,//37.518313,
                     user_lon = userInfo.location_longitude,//126.724187,
                     offset = offset,
@@ -101,7 +101,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,
-                        Stars = "3.1",
+                        //Stars = "3.1",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
@@ -152,9 +152,9 @@ namespace EcoPlatesMobile.ViewModels.User
                 var userInfo = AppService.Get<AppControl>().UserInfo;
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
-                    radius_km = 2,
-                    user_lat = 37.518313,
-                    user_lon = 126.724187,
+                    radius_km = userInfo.radius_km,
+                    user_lat = userInfo.location_latitude,
+                    user_lon = userInfo.location_longitude,
                     offset = offset,
                     pageSize = PageSize,
                 };
@@ -178,7 +178,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,
-                        Stars = "3.1",
+                        //Stars = "3.1",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
@@ -208,6 +208,7 @@ namespace EcoPlatesMobile.ViewModels.User
             }
         }
         
+        /*
         public async Task DeleteProduct(CompanyModel product)
         {
             try
@@ -237,6 +238,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
+        */
 
         public ICommand LikeCompanyCommand { get; }
 

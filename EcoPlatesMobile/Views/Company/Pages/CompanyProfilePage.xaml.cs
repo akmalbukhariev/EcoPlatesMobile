@@ -79,18 +79,7 @@ public partial class CompanyProfilePage : BasePage
     private async void UserInfo_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(grdUserInfo);
-        //string uri = $"?CompanyImage={response?.resultData.logo_url}&CompanyName={response?.resultData.company_name}&CompanyPhone={response?.resultData.phone_number}";
-
-        //await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}{uri}");
-
-        //string json = JsonConvert.SerializeObject(response.resultData);
-        //await Shell.Current.GoToAsync($"{nameof(CompanyProfileInfoPage)}?CompanyProfileInfoJson={Uri.EscapeDataString(json)}");
-
-        //await AppNavigatorService.NavigateTo(nameof(CompanyProfileInfoPage), new Dictionary<string, object>
-        //{
-        //    ["CompanyInfo"] = response.resultData
-        //});
-
+      
         await AppNavigatorService.NavigateTo(nameof(CompanyProfileInfoPage));
     }
 

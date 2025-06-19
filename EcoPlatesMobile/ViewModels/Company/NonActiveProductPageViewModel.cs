@@ -34,7 +34,7 @@ namespace EcoPlatesMobile.ViewModels.Company
 
         private async void ProductClicked(ProductModel product)
         {
-            product.CompanyId = 11;
+            product.CompanyId = AppService.Get<AppControl>().CompanyInfo.company_id;
             await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
@@ -163,7 +163,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                     {
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                        Count = "2 qoldi",
+                        //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",

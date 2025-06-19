@@ -87,7 +87,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     {
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                        Count = "2 qoldi",
+                        //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",
@@ -160,7 +160,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,
-                        Stars = "3.1",
+                        //Stars = "3.1",
                         Liked = item.liked,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
@@ -294,7 +294,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     {
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                        Count = "2 qoldi",
+                        //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
                         NewPrice = $"{item.new_price:N0} so'm",
@@ -377,7 +377,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,
-                        Stars = "3.1",
+                        //Stars = "3.1",
                         Liked = item.liked,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();

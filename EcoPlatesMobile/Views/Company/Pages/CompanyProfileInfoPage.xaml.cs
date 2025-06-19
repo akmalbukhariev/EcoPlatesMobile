@@ -173,7 +173,7 @@ public partial class CompanyProfileInfoPage : BasePage
                 string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
                 var additionalData = new Dictionary<string, string>
                 {
-                    { "company_id", AppService.Get<AppControl>().CompanyInfo.company_id.ToString() },
+                    { "company_id", _companyInfo.company_id.ToString() },
                     { "company_name", enteredName },
                     { "business_type", AppService.Get<AppControl>().BusinessTypeList[selectedType] },
                     { "working_hours",  formattedWorkingHours},
