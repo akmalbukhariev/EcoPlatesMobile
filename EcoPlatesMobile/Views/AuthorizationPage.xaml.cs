@@ -58,8 +58,6 @@ public partial class AuthorizationPage : BasePage
 		}
 		else if (session?.Role == UserRole.User)
 		{
-			var apiService = AppService.Get<UserApiService>();
-
             if (session.IsUserRegistrated)
             {
                 await AppService.Get<AppControl>().LoginUser(_phoneNumber);
