@@ -70,7 +70,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     LikeImage = info.liked ? "liked.png" : "like.png";
                     OldPrice = info.old_price.ToString() + " so'm";
                     NewPrice = info.new_price.ToString() + " so'm";
-                    UserNeedToKnow = info.user_need_to_know;
+                    UserNeedToKnow = info.description;
 
                     if (info.ratingInfo != null)
                     {

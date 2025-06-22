@@ -31,6 +31,7 @@
                                    EntryBackgroundColor="White"
                                    EntryPlaceHolderColor="Gray"
                                    EntryPlaceHolder="Izlash"
+                                   IsEnabled="False"
                                    Grid.Row="1"/>
             <Label Text="Yo'nalishlar"
                    TextColor="Black"
