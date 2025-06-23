@@ -83,15 +83,15 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
+                var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PosterLocationAndNameRequest request = new PosterLocationAndNameRequest()
                 {
                     offset = offsetProduct,
                     pageSize = PageSize,
-                    user_lat = 37.518305,//userInfo.location_latitude,
-                    user_lon = 126.724128,//userInfo.location_longitude,
-                    radius_km = 2,//userInfo.radius_km,
+                    user_lat = userInfo.location_latitude,
+                    user_lon = userInfo.location_longitude,
+                    radius_km = userInfo.radius_km,
                     title = SearchText
                 };
 
