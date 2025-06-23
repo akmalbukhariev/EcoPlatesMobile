@@ -90,7 +90,7 @@
                                TextColor="Gray"
                                FontSize="14"/>
                     </VerticalStackLayout>
-                    <Image Source="left.png"
+                    <Image Source="right.png"
                            Aspect="AspectFill"
                            WidthRequest="10"
                            HeightRequest="15"

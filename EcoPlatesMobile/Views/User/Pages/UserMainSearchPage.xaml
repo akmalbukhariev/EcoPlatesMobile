@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
+               xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               x:Class="EcoPlatesMobile.Views.User.Pages.UserMainSearchPage">
+
+    <Grid RowDefinitions="Auto, 10, *">
+        <Grid ColumnDefinitions="Auto, *, Auto"
+              ColumnSpacing="10"
+              Margin="15,10,0,0">
+            <Image Source="left.png"
+                   Aspect="AspectFit"
+                   WidthRequest="10"
+                   Margin="0,0,10,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Back_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Border Stroke="Gray"
+                    StrokeThickness="1"
+                    Grid.Column="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid>
+                    <Entry x:Name="entrySearch"
+                           Text="{Binding SearchText}"
+                           Placeholder="Type"
+                           PlaceholderColor="LightGray"
+                           VerticalOptions="Center"
+                           BackgroundColor="Transparent"
+                           TextColor="Black"
+                           Margin="10,0,0,0"
+                           TextChanged="OnEntryTextChanged"/>
+                    <ImageButton x:Name="clearButton"
+                                 Source="clean_entry.png"
+                                 BackgroundColor="Transparent"
+                                 WidthRequest="20"
+                                 HeightRequest="20"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Center"
+                                 Margin="0,0,10,0"
+                                 Clicked="OnClearClicked"
+                                 IsVisible="False"/>
+                </Grid>
+            </Border>
+            <Image Source="search.png"
+                   Aspect="AspectFit"
+                   WidthRequest="20"
+                   Margin="0,0,10,0"
+                   Grid.Column="2">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Search_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+        <Grid RowDefinitions="Auto, Auto, *"
+              IsVisible="{Binding ShowRecentSearchList}"
+              RowSpacing="10"
+              Margin="10, 0, 10, 0"
+              Grid.Row="2">
+            <Label Text="Recent searches"
+                   TextColor="Black"
+                   FontSize="16"
+                   FontAttributes="Bold"/>
+            <CollectionView ItemsSource="{Binding HistoryList}"
+                            HorizontalScrollBarVisibility="Always"
+                            Grid.Row="1">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"
+                                       ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="Gray"
+                                Padding="5"
+                                StrokeThickness="1">    
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20"/>
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.ClickHistoryCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding SearchedText}"
+                                   TextColor="Black"
+                                   FontSize="16"
+                                   VerticalOptions="Center"/>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+        <CollectionView ItemsSource="{Binding HistoryList}"
+                        IsVisible="{Binding ShowFilterSearchList}"
+                        Grid.Row="2">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 VerticalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="Auto, *, Auto"
+                          RowDefinitions="*, 1">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.ClickHistoryCommand}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Grid.GestureRecognizers>
+                        <Image Source="history.png"
+                               Aspect="AspectFit"
+                               WidthRequest="20"
+                               Margin="10,0,0,10"/>
+                        <Label Text="{Binding SearchedText}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               Margin="10,0,0,10"
+                               Grid.Column="1"/>
+                        <Image Source="close.png"
+                               Aspect="AspectFit"
+                               WidthRequest="20"
+                               Margin="0,0,10,10"
+                               Grid.Column="2">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.RemoveHistoryCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <BoxView BackgroundColor="Gray"
+                                 Grid.ColumnSpan="3"
+                                 Grid.Row="1"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <CollectionView ItemsSource="{Binding Products}"
+                        IsVisible="{Binding ShowProductResult}"
+                        RemainingItemsThreshold="1"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadProductMoreCommand}"
+                        Margin="15,0,15,0"
+                        Grid.Row="2">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 VerticalItemSpacing="10"
+                                 HorizontalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                        <user_component:FavoriteProductView ProductImage="{Binding ProductImage}"
+                                                            ProductName="{Binding ProductName}"
+                                                            ProductMakerName="{Binding PoductMakerName}"
+                                                            NewPrice="{Binding NewPrice}"
+                                                            OldPrice="{Binding OldPrice}"
+                                                            Stars="{Binding Stars}"
+                                                            Distance="{Binding Distance}"
+                                                            ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserMainSearchPage}}, Path=BindingContext.ClickProductCommand}"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           Color="Green"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="3"/>
+    </Grid>
+</page:BasePage>

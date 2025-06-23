@@ -50,7 +50,7 @@
                                 <Picker x:Name ="pickType"
                                         FontSize="17"
                                         SelectedIndexChanged="BusinessType_SelectedIndexChanged"/>
-                                <Image Source="left.png"
+                                <Image Source="right.png"
                                        Aspect="AspectFit"
                                        HorizontalOptions="End"
                                        Margin="0,0,10,0"/>
@@ -75,7 +75,7 @@
                                     HorizontalTextAlignment="End"
                                     VerticalTextAlignment="Center"
                                     Grid.Column="1"/>
-                                <Image Source="left.png"
+                                <Image Source="right.png"
                                        Aspect="AspectFit"
                                        Margin="15,0,10,0"
                                        Grid.Column="2"/>
