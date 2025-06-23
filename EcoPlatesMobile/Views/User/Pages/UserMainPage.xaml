@@ -33,6 +33,13 @@
                                    EntryPlaceHolder="Izlash"
                                    IsEnabled="False"
                                    Grid.Row="1"/>
+            <BoxView BackgroundColor="Transparent" 
+                     Grid.Row="1">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Search_Tapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
             <Label Text="Yo'nalishlar"
                    TextColor="Black"
                    FontAttributes="Bold"

@@ -199,4 +199,9 @@ public partial class UserBrowserPage : BasePage
             viewModel.ShowLikedView = false;
         }
     }
+
+    private async void Search_Tapped(object sender, TappedEventArgs e)
+    {
+        await AppNavigatorService.NavigateTo(nameof(UserBrowserSearchPage));
+    }
 }

@@ -20,12 +20,19 @@
               Margin="16,10,16,0">
             <Grid ColumnDefinitions="*, Auto, Auto">
                 <component:CustomEntry EntryIcon="search.png"
+                                       IsEnabled="False"
                                        EntryHeight="50"
                                        EntryBorderColor="Gray"
                                        EntryCornerRadius="7"
                                        EntryBackgroundColor="White"
                                        EntryPlaceHolder="Izlash"
                                        EntryPlaceHolderColor="Gray"/>
+                <BoxView Background="Transparent">
+                    <BoxView.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="Search_Tapped"/>
+                    </BoxView.GestureRecognizers>
+                </BoxView>
                 <component:CustomIconButton ButtonIcon="filter.png"
                                             ButtonWidth="50"
                                             ButtonHeight="50"

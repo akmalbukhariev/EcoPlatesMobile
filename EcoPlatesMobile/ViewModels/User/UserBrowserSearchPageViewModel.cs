@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.User;
@@ -12,41 +13,41 @@ using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserMainSearchPageViewModel : ObservableObject
+    public partial class UserBrowserSearchPageViewModel : ObservableObject
     {
-        [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
+        [ObservableProperty] private ObservableRangeCollection<CompanyModel> companies;
         [ObservableProperty] private ObservableRangeCollection<HistoryDataInfo> historyList;
 
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private bool isRefreshingProduct;
         [ObservableProperty] private bool isRefreshingCompany;
-        [ObservableProperty] private bool showProductResult;
+        [ObservableProperty] private bool showCompanyResult;
         [ObservableProperty] private bool showFilterSearchList;
         [ObservableProperty] private bool showRecentSearchList;
         [ObservableProperty] private string searchText;
 
-        private const string HistoryKey = "SearchHistoryProduct";
+        private const string HistoryKey = "SearchHistoryCompany";
 
         private int offsetProduct = 0;
         private int offsetCompany = 0;
         private const int PageSize = 4;
-        private bool hasMoreProductItems = true;
+        private bool hasMoreCompanyItems = true;
         private List<HistoryDataInfo> AllHistoryItems = new();
 
-        public ICommand ClickProductCommand { get; }
+        public ICommand ClickCompanyCommand { get; }
         public ICommand ClickHistoryCommand { get; }
         public ICommand RemoveHistoryCommand { get; }
 
-        public UserMainSearchPageViewModel()
+        public UserBrowserSearchPageViewModel()
         {
-            products = new ObservableRangeCollection<ProductModel>();
+            companies = new ObservableRangeCollection<CompanyModel>();
             historyList = new ObservableRangeCollection<HistoryDataInfo>();
 
-            ClickProductCommand = new Command<ProductModel>(ProductClicked);
+            ClickCompanyCommand = new Command<CompanyModel>(ComapnyClicked);
             ClickHistoryCommand = new Command<HistoryDataInfo>(ClickHistoryItem);
             RemoveHistoryCommand = new Command<HistoryDataInfo>(RemoveHistoryItem);
              
-            ShowProductResult = false;
+            ShowCompanyResult = false;
             ShowFilterSearchList = false;
             ShowRecentSearchList = true;
 
@@ -60,79 +61,72 @@ namespace EcoPlatesMobile.ViewModels.User
             FilterHistory(SearchText);
         }
 
-        private async void ProductClicked(ProductModel product)
+        private async void ComapnyClicked(CompanyModel company)
         {
-            await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
-            {
-                ["ProductModel"] = product
-            });
+            await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
         }
 
-        public async Task LoadInitialProductAsync()
+        public async Task LoadInitialCompanyAsync()
         {
-            offsetProduct = 0;
-            Products.Clear();
-            hasMoreProductItems = true;
- 
+            offsetCompany = 0;
+            Companies.Clear();
+            hasMoreCompanyItems = true;
+
             try
             {
                 IsLoading = true;
 
                 var userInfo = AppService.Get<AppControl>().UserInfo;
-
-                PosterLocationAndNameRequest request = new PosterLocationAndNameRequest()
+                CompanyLocationAndNameRequest request = new CompanyLocationAndNameRequest()
                 {
-                    offset = offsetProduct,
-                    pageSize = PageSize,
+                    radius_km = userInfo.radius_km,
                     user_lat = userInfo.location_latitude,
                     user_lon = userInfo.location_longitude,
-                    radius_km = userInfo.radius_km,
-                    title = SearchText
+                    offset = offsetCompany,
+                    pageSize = PageSize,
+                    company_name = SearchText
                 };
 
                 var apiService = AppService.Get<UserApiService>();
-                PosterListResponse response = await apiService.GetPostersByCurrentLocationAndName(request);
+                CompanyListResponse response = await apiService.GetCompaniesByCurrentLocationAndName(request);
 
-                if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
+                if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
                     var items = response.resultData;
 
                     if (items == null || items.Count == 0)
                     {
-                        hasMoreProductItems = false;
+                        hasMoreCompanyItems = false;
                         return;
                     }
 
-                    var productModels = items.Select(item => new ProductModel
+                    var companyModels = items.Select(item => new CompanyModel
                     {
-                        PromotionId = item.poster_id ?? 0,
-                        ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                        ProductName = item.title,
-                        ProductMakerName = item.company_name,
-                        NewPrice = $"{item.new_price:N0} so'm",
-                        OldPrice = $"{item.old_price:N0} so'm",
-                        Stars = $"{item.avg_rating}({item.total_reviews})",
+                        CompanyId = item.company_id,
+                        CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
+                        CompanyName = item.company_name,
+                        WorkingTime = item.working_hours,
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
-                    Products.AddRange(productModels);
+                    Companies.AddRange(companyModels);
 
-                    offsetProduct += PageSize;
-                    if (productModels.Count < PageSize)
+                    offsetCompany += PageSize;
+                    if (companyModels.Count < PageSize)
                     {
-                        hasMoreProductItems = false;
+                        hasMoreCompanyItems = false;
                     }
                 }
                 else
                 {
-                    hasMoreProductItems = false;
+                    hasMoreCompanyItems = false;
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[ERROR] LoadInitialProductAsync: {ex.Message}");
+                Debug.WriteLine($"[ERROR] LoadInitialCompanyAsync: {ex.Message}");
             }
             finally
             {
@@ -146,7 +140,7 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 ShowRecentSearchList = true;
                 ShowFilterSearchList = false;
-                ShowProductResult = false;
+                showCompanyResult = false;
 
                 HistoryList.ReplaceRange(AllHistoryItems); // Show full history again
             }
@@ -154,7 +148,7 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 ShowRecentSearchList = false;
                 ShowFilterSearchList = true;
-                ShowProductResult = false;
+                showCompanyResult = false;
 
                 FilterHistory(value); // Filter history by typed input
             }
@@ -164,12 +158,12 @@ namespace EcoPlatesMobile.ViewModels.User
         {
              SearchText = item.SearchedText;
 
-            ShowProductResult = true;
+            showCompanyResult = true;
             ShowFilterSearchList = false;
             ShowRecentSearchList = false;
 
             ExecuteSearch(item.SearchedText);
-            await LoadInitialProductAsync();
+            await LoadInitialCompanyAsync();
         }
 
         private void RemoveHistoryItem(HistoryDataInfo item)
@@ -190,7 +184,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
             SaveSearchTerm(term);
             ShowFilterSearchList = false;
-            ShowProductResult = true;
+            ShowCompanyResult = true;
             ShowRecentSearchList = false;
         }
 

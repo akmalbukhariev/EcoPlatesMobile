@@ -2,14 +2,14 @@
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
-public partial class UserMainSearchPage : BasePage
+public partial class UserBrowserSearchPage : BasePage
 {
-    private UserMainSearchPageViewModel viewModel;
-	public UserMainSearchPage()
+    private UserBrowserSearchPageViewModel viewModel;
+	public UserBrowserSearchPage()
 	{
 		InitializeComponent();
 
-        viewModel = new UserMainSearchPageViewModel();
+        viewModel = new UserBrowserSearchPageViewModel();
         BindingContext = viewModel;
     }
 
@@ -28,20 +28,19 @@ public partial class UserMainSearchPage : BasePage
     {
         entrySearch.Text = string.Empty;
         viewModel.ShowFilterSearchList = false;
-        viewModel.ShowProductResult = false;
+        viewModel.ShowCompanyResult = false;
         viewModel.ShowRecentSearchList = true;
     }
 
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as Image);
-
-        entrySearch.Unfocus();
-        viewModel.ShowProductResult = true;
+ 
+        viewModel.ShowCompanyResult = true;
         viewModel.ShowFilterSearchList = false;
         viewModel.ShowRecentSearchList = false;
 
         viewModel.ExecuteSearch();
-        await viewModel.LoadInitialProductAsync();
+        await viewModel.LoadInitialCompanyAsync();
     }
 }

@@ -27,6 +27,7 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_USER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/getUserBookmarkPromotion";
         private const string GET_USER_BOOKMARK_COMPANY = $"{BASE_URL}bookmark/getUserBookmarkCompany";
         private const string GET_COMPANIES_BY_USER_LOCATION = $"{BASE_URL}company/getCompaniesByCurrentLocation";
+        private const string GET_COMPANIES_BY_USER_LOCATION_AND_NAME = $"{BASE_URL}company/getCompaniesByCurrentLocationAndName";
         private const string GET_COMPANIES_BY_USER_LOCATION_WITHOUT_LIMIT = $"{BASE_URL}company/getCompaniesByCurrentLocationWithoutLimit";
         private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
         private const string GET_POSTERS_BY_USER_LOCATION_AND_NAME = $"{BASE_URL}promotions/getPostersByCurrentLocationAndName";
@@ -422,6 +423,39 @@ namespace EcoPlatesMobile.Services.Api
             try
             {
                 var receivedData = await PostAsync(GET_COMPANIES_BY_USER_LOCATION, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<CompanyListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<CompanyListResponse> GetCompaniesByCurrentLocationAndName(CompanyLocationAndNameRequest data)
+        {
+            var response = new CompanyListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_COMPANIES_BY_USER_LOCATION_AND_NAME, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
