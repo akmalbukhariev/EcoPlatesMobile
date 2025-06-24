@@ -65,8 +65,7 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             offset = 0;
             hasMoreItems = true;
-            Companies.Clear();
-
+            
             try
             {
                 IsLoading = true;
@@ -101,13 +100,15 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,
-                        //Stars = "3.1",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
-                    Companies.AddRange(companyModels);
+                    await MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        Companies.ReplaceRange(companyModels);
+                    });
 
                     offset += PageSize;
                     if (companyModels.Count < PageSize)
@@ -142,7 +143,6 @@ namespace EcoPlatesMobile.ViewModels.User
                     IsRefreshing = true;
                     offset = 0;
                     hasMoreItems = true;
-                    Companies.Clear();
                 }
                 else
                 {
@@ -178,13 +178,22 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,
-                        //Stars = "3.1",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
-                    Companies.AddRange(companyModels);
+                    await MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        if (isRefresh)
+                        {
+                            Companies.ReplaceRange(companyModels);
+                        }
+                        else
+                        {
+                            Companies.AddRange(companyModels);
+                        }
+                    });
 
                     offset += PageSize;
                     if (companyModels.Count < PageSize)
@@ -208,38 +217,6 @@ namespace EcoPlatesMobile.ViewModels.User
             }
         }
         
-        /*
-        public async Task DeleteProduct(CompanyModel product)
-        {
-            try
-            {
-                IsLoading = true;
-                
-                SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
-                {
-                    user_id = 16,
-                    company_id = product.CompanyId,
-                    deleted = true,
-                };
-
-                var apiService = AppService.Get<UserApiService>();
-                Response response = await apiService.UpdateUserBookmarkCompanyStatus(request);
-                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-                {
-                    Companies.Remove(product);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[ERROR] DeleteCompany: {ex.Message}");
-            }
-            finally
-            {
-                IsLoading = false;
-            }
-        }
-        */
-
         public ICommand LikeCompanyCommand { get; }
 
         public ICommand ClickCompanyCommand { get; }

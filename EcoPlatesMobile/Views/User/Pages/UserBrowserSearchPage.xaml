@@ -143,8 +143,6 @@
         </CollectionView>
         <CollectionView ItemsSource="{Binding Companies}"
                         IsVisible="{Binding ShowCompanyResult}"
-                        RemainingItemsThreshold="1"
-                        RemainingItemsThresholdReachedCommand="{Binding LoadProductMoreCommand}"
                         Margin="15,0,15,0"
                         Grid.Row="2">
             <CollectionView.ItemsLayout>
@@ -160,7 +158,7 @@
                                                     Stars="{Binding Stars}"
                                                     Distance="{Binding Distance}"
                                                     Liked="{Binding Liked}"
-                                                    ShowLiked="True"
+                                                    ShowLiked="False"
                                                     LikeCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserBrowserPage}}, Path=BindingContext.LikeCompanyCommand}"
                                                     ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserBrowserPage}}, Path=BindingContext.ClickCompanyCommand}"/>
                 </DataTemplate>

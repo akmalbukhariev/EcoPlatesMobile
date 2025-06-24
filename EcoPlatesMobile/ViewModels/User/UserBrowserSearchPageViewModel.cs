@@ -140,7 +140,7 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 ShowRecentSearchList = true;
                 ShowFilterSearchList = false;
-                showCompanyResult = false;
+                ShowCompanyResult = false;
 
                 HistoryList.ReplaceRange(AllHistoryItems); // Show full history again
             }
@@ -148,7 +148,7 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 ShowRecentSearchList = false;
                 ShowFilterSearchList = true;
-                showCompanyResult = false;
+                ShowCompanyResult = false;
 
                 FilterHistory(value); // Filter history by typed input
             }
@@ -158,7 +158,7 @@ namespace EcoPlatesMobile.ViewModels.User
         {
              SearchText = item.SearchedText;
 
-            showCompanyResult = true;
+            ShowCompanyResult = true;
             ShowFilterSearchList = false;
             ShowRecentSearchList = false;
 

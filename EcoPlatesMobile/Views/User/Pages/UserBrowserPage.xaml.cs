@@ -78,21 +78,22 @@ public partial class UserBrowserPage : BasePage
 
             if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
             {
-                _customPins.Clear();
-                foreach (var item in response.resultData)
+                var pins = response.resultData.Select(item => new CustomPin
                 {
-                    _customPins.Add(new CustomPin
-                    {
-                        CompanyId = (long)item.company_id,
-                        Label = item.company_name,
-                        Location = new Location(
-                            (double)item.location_latitude,
-                            (double)item.location_longitude),
-                        LogoUrl = item.logo_url
-                    });
-                }
+                    CompanyId = (long)item.company_id,
+                    Label = item.company_name,
+                    Location = new Location(
+                    (double)item.location_latitude,
+                    (double)item.location_longitude),
+                    LogoUrl = item.logo_url
+                }).ToList();
 
-                RefreshCustomPins();
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    _customPins.Clear();
+                    _customPins.AddRange(pins);
+                    RefreshCustomPins();
+                });
             }
         }
         catch (Exception ex)
