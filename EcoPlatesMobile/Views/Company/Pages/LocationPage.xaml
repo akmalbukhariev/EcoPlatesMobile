@@ -7,10 +7,6 @@
                x:Class="EcoPlatesMobile.Views.Company.Pages.LocationPage">
 
     <Grid RowDefinitions="Auto, *, Auto, 40">
-        <!--<component:CustomHeader ShowBack="True"
-                                IsVisible="Collapse"
-                                HeaderBackground="#8338EC"
-                                Title="Setting current location"/>-->
         <Grid ColumnDefinitions="Auto, *, Auto"
               BackgroundColor="#8338EC"
               HeightRequest="60">
@@ -58,14 +54,6 @@
                 Grid.Row="1"
                 Grid.RowSpan="2"
                 InputTransparent="True" />
-        <!--<Button Text="Save"
-                IsVisible="Collapse"
-                BackgroundColor="#8338EC"
-                TextColor="White"
-                Margin="10,0,10,0"
-                HeightRequest="50"
-                Clicked="Save_Clicked"
-                Grid.Row="2"/>-->
         <component:LoadingView x:Name="loading"
                                Grid.RowSpan="4"/>
     </Grid>
