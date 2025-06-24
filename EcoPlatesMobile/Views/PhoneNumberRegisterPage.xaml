@@ -6,7 +6,9 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
 
     <Grid RowDefinitions="Auto, 30, *, 30">
-        <component:CustomHeader Title="Avtorizatsiya"/>
+        <component:CustomHeader x:Name="header" 
+                                Title="Avtorizatsiya"
+                                HeaderBackground="#8338EC"/>
         <ScrollView Grid.Row="2">
             <Grid RowDefinitions="*, 10, Auto">
                 <VerticalStackLayout Spacing="20"
@@ -51,7 +53,8 @@
                         </Label>
                     </Grid>
                 </VerticalStackLayout>
-                <Button Text="Keyingisi"
+                <Button x:Name="btnNext" 
+                        Text="Keyingisi"
                         BackgroundColor="#8338EC"
                         CornerRadius="30"
                         TextColor="White"

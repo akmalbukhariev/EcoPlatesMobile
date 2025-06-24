@@ -7,13 +7,47 @@
                x:Class="EcoPlatesMobile.Views.Company.Pages.LocationPage">
 
     <Grid RowDefinitions="Auto, *, Auto, 40">
-        <component:CustomHeader ShowBack="True"
+        <!--<component:CustomHeader ShowBack="True"
+                                IsVisible="Collapse"
                                 HeaderBackground="#8338EC"
-                                Title="Setting current location"/>
+                                Title="Setting current location"/>-->
+        <Grid ColumnDefinitions="Auto, *, Auto"
+              BackgroundColor="#8338EC"
+              HeightRequest="60">
+            <Image x:Name="imBack" 
+                   Source="back.png"
+                   WidthRequest="24"
+                   HeightRequest="24"
+                   Margin="16, 4.44, 0, 0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Back_Tapped"
+                                          NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label x:Name="lbTitle"
+                   Text="Setting current location"
+                   FontFamily="Roboto"
+                   TextColor="White"
+                   FontSize="18"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   Margin="15,0,0,0"
+                   Grid.Column="1"/>
+            <Image x:Name="imSave" 
+                   Source="save_location.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   Margin="0, 4.44, 20, 0"
+                   Grid.Column="2">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Save_Tapped"
+                                          NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
         <maps:Map x:Name="map" 
                   MapType="Street"
                   IsShowingUser="true"
-                  IsZoomEnabled="true"
                   Grid.Row="1"
                   Grid.RowSpan="3"/>
         <Image Source="location.png"
@@ -24,13 +58,14 @@
                 Grid.Row="1"
                 Grid.RowSpan="2"
                 InputTransparent="True" />
-        <Button Text="Save" 
+        <!--<Button Text="Save"
+                IsVisible="Collapse"
                 BackgroundColor="#8338EC"
                 TextColor="White"
                 Margin="10,0,10,0"
                 HeightRequest="50"
                 Clicked="Save_Clicked"
-                Grid.Row="2"/>
+                Grid.Row="2"/>-->
         <component:LoadingView x:Name="loading"
                                Grid.RowSpan="4"/>
     </Grid>

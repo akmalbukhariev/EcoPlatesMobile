@@ -33,8 +33,8 @@
                     Grid.Row="4">
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#A100F2" Offset="0.0"/>
-                        <GradientStop Color="#F400A1" Offset="1.0"/>
+                        <GradientStop Color="#009688" Offset="0.0"/>
+                        <GradientStop Color="#4CAF50" Offset="1.0"/>
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
@@ -47,8 +47,8 @@
                     Grid.Row="6">
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#009688" Offset="0.0"/>
-                        <GradientStop Color="#4CAF50" Offset="1.0"/>
+                        <GradientStop Color="#8338EC" Offset="0.0"/>
+                        <GradientStop Color="#B983FF" Offset="1.0"/>
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>

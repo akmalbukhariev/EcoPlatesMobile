@@ -7,7 +7,9 @@
                xmlns:pinview="clr-namespace:PINView.Maui;assembly=PINView.Maui">
 
     <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="Avtorizatsiya"/>
+        <component:CustomHeader x:Name="header" 
+                                Title="Avtorizatsiya"
+                                HeaderBackground="#8338EC"/>
         <ScrollView Grid.Row="1"> 
             <Grid RowDefinitions="70, Auto, *, Auto, 20, Auto, 30"
                 Margin="16,0, 16,0">
@@ -70,7 +72,8 @@
                         Style="{StaticResource styleLabel}"
                         TextColor="Green"/>
             </StackLayout>
-            <Button Text="Tasdiqlash"
+            <Button x:Name="btnNext" 
+                    Text="Tasdiqlash"
                     BackgroundColor="#8338EC"
                     CornerRadius="30"
                     TextColor="White"

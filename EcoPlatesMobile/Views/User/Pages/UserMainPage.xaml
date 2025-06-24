@@ -7,7 +7,7 @@
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserMainPage">
 
-    <Grid RowDefinitions="Auto, Auto, *">
+    <Grid RowDefinitions="Auto, Auto, *, Auto">
         <Grid BackgroundColor="#007200"
               HeightRequest="87">
             <HorizontalStackLayout VerticalOptions="Center"
@@ -89,5 +89,9 @@
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
                            Grid.Row="2"/>
+        <BoxView HeightRequest="1"
+                 BackgroundColor="LightGray"
+                 HorizontalOptions="Fill"
+                 Grid.Row="3"/>
     </Grid>
 </page:BasePage>

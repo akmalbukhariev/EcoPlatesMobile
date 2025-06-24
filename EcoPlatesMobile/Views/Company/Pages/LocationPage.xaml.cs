@@ -11,9 +11,11 @@ public partial class LocationPage : BasePage
 		InitializeComponent();
 	}
 
-	private async void Save_Clicked(object sender, EventArgs e)
+	private async void Save_Tapped(object sender, TappedEventArgs e)
 	{
-		try
+        await AnimateElementScaleDown(sender as Image);
+
+        try
 		{
 			var visibleRegion = map.VisibleRegion;
 			if (visibleRegion == null)
@@ -55,5 +57,11 @@ public partial class LocationPage : BasePage
 		{
 			loading.ShowLoading = false;
 		}
+    }
+
+    private async void Back_Tapped(object sender, TappedEventArgs e)
+    {
+		await AnimateElementScaleDown(sender as Image);
+        await AppNavigatorService.NavigateTo("..");
     }
 }

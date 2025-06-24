@@ -5,7 +5,7 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserProfilePage">
 
-    <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto">
+    <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto, Auto">
         <component:CustomHeader Title="Mening profilim"
                                 ShowBack="False"
                                 HeaderBackground="Green"/>
@@ -179,6 +179,10 @@
         </Frame>
         <component:LoadingView x:Name="loading"
                                Grid.RowSpan="6"/>
+        <BoxView HeightRequest="1"
+                 BackgroundColor="LightGray"
+                 HorizontalOptions="Fill"
+                 Grid.Row="6"/>
     </Grid>
 
 </page:BasePage>

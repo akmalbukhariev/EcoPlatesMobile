@@ -15,6 +15,12 @@ public partial class PhoneNumberRegisterPage : BasePage
     public PhoneNumberRegisterPage()
     {
         InitializeComponent();
+
+        var session = AppService.Get<UserSessionService>();
+        if (session.Role == UserRole.User)
+        {
+            header.HeaderBackground = btnNext.BackgroundColor = Colors.Green;
+        }
     }
 
     private void OnOfferTapped(object sender, EventArgs e)
