@@ -13,8 +13,7 @@
                                   NumberOfTapsRequired="1"/>
         </Frame.GestureRecognizers>
         <Grid ColumnDefinitions="Auto, *">
-            <Image x:Name="productImage" 
-                   Source="{Binding ProductImage}"
+            <Image x:Name="productImage"
                    Aspect="AspectFill"
                    WidthRequest="170"/>
             <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
@@ -22,25 +21,21 @@
                   VerticalOptions="Center" 
                   Grid.Column="1">
                 <VerticalStackLayout>
-                    <Label x:Name="productName" 
-                           Text="{Binding ProductName}"
+                    <Label x:Name="productName"
                            TextColor="Black"
                            FontSize="14"
                            FontAttributes="Bold"/>
-                    <Label x:Name="productMakerName" 
-                           Text="{Binding ProductMakerName}"
+                    <Label x:Name="productMakerName"
                            TextColor="Gray"
                            FontSize="12"
                            FontAttributes="Bold"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Row="2">
-                    <Label x:Name="newPrice" 
-                           Text="{Binding NewPrice}" 
+                    <Label x:Name="newPrice"
                            TextColor="Green"
                            FontSize="14"
                            FontAttributes="Bold"/>
-                    <Label x:Name="oldPrice" 
-                           Text="{Binding OldPrice}"
+                    <Label x:Name="oldPrice"
                            TextColor="Gray"
                            TextDecorations="Strikethrough"
                            FontSize="12"
@@ -53,8 +48,7 @@
                         <Image Source="star.png" 
                                WidthRequest="16" 
                                HeightRequest="16"/>
-                        <Label x:Name="stars" 
-                               Text="{Binding Stars}" 
+                        <Label x:Name="stars"
                                FontSize="11"
                                VerticalTextAlignment="Center"/>
                     </HorizontalStackLayout>

@@ -61,7 +61,6 @@
                 BackgroundColor="#8338EC"
                 CornerRadius="30"
                 TextColor="White"
-                FontFamily="Roboto"
                 HeightRequest="50"
                 Margin="20,0,20,0"
                 Clicked="Close_Clicked"

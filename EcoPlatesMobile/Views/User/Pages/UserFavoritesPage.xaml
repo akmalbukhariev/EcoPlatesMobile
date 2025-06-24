@@ -13,7 +13,6 @@
               ColumnDefinitions="*,Auto">
             <Label x:Name="lbTitle"
                    Text="Menga yoqqanlar"
-                   FontFamily="Roboto"
                    TextColor="White"
                    FontSize="20"
                    VerticalOptions="Center"
@@ -58,7 +57,7 @@
                                 </SwipeView.RightItems>
                                 <user_component:FavoriteProductView ProductImage="{Binding ProductImage}"
                                                                     ProductName="{Binding ProductName}"
-                                                                    ProductMakerName="{Binding PoductMakerName}"
+                                                                    ProductMakerName="{Binding ProductMakerName}"
                                                                     NewPrice="{Binding NewPrice}"
                                                                     OldPrice="{Binding OldPrice}"
                                                                     Stars="{Binding Stars}"

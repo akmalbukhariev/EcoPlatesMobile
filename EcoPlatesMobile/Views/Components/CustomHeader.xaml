@@ -20,7 +20,6 @@
         </Image>
         <Label x:Name="lbTitle"
                Text="{Binding Title}"
-               FontFamily="Roboto"
                TextColor="{Binding TitleColor}"
                FontSize="20"
                VerticalOptions="Center"

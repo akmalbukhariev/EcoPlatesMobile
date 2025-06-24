@@ -55,7 +55,6 @@
                             </Border.StrokeShape>
                             <Grid ColumnDefinitions="*, Auto">
                                 <Label Text="Korxona logotipi"
-                                    FontFamily="Roboto"
                                     TextColor="#666666"
                                     FontSize="14"
                                     VerticalTextAlignment="Center"
@@ -209,7 +208,6 @@
                             BackgroundColor="#DCE0E2"
                             CornerRadius="30"
                             TextColor="#525B5D"
-                            FontFamily="Roboto"
                             HeightRequest="50"
                             Margin="0,0,0,30"
                             Clicked="BtnRegister_Clicked"

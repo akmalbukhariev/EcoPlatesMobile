@@ -22,7 +22,6 @@
             </Image>
             <Label x:Name="lbTitle"
                    Text="Setting current location"
-                   FontFamily="Roboto"
                    TextColor="White"
                    FontSize="18"
                    VerticalOptions="Center"

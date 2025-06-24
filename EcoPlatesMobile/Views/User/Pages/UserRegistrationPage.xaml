@@ -32,7 +32,6 @@
                     BackgroundColor="#007200"
                     CornerRadius="30"
                     TextColor="White"
-                    FontFamily="Roboto"
                     HeightRequest="50"
                     Clicked="ButtonNext_Clicked"
                     Grid.Row="2"/>

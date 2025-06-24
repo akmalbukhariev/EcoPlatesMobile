@@ -16,10 +16,10 @@ public partial class CompanyView : ContentView
        BindableProperty.Create(nameof(WorkingTime), typeof(string), typeof(CompanyView), default(string), propertyChanged: WorkingTimeChanged);
 
     public static readonly BindableProperty StarsProperty =
-      BindableProperty.Create(nameof(Stars), typeof(double), typeof(CompanyView), 0.0, propertyChanged: StarsChanged);
+      BindableProperty.Create(nameof(Stars), typeof(string), typeof(CompanyView), "0", propertyChanged: StarsChanged);
 
     public static readonly BindableProperty DistanceProperty =
-      BindableProperty.Create(nameof(Distance), typeof(double), typeof(CompanyView), 0.0, propertyChanged: DistanceChanged);
+      BindableProperty.Create(nameof(Distance), typeof(string), typeof(CompanyView), "0.0", propertyChanged: DistanceChanged);
 
     public static readonly BindableProperty LikedProperty =
      BindableProperty.Create(nameof(Liked), typeof(bool), typeof(CompanyView), false, propertyChanged: LikedChanged);
@@ -51,15 +51,15 @@ public partial class CompanyView : ContentView
         set => SetValue(WorkingTimeProperty, value);
     }
 
-    public double Stars
+    public string Stars
     {
-        get => (double)GetValue(StarsProperty);
+        get => (string)GetValue(StarsProperty);
         set => SetValue(StarsProperty, value);
     }
 
-    public double Distance
+    public string Distance
     {
-        get => (double)GetValue(DistanceProperty);
+        get => (string)GetValue(DistanceProperty);
         set => SetValue(DistanceProperty, value);
     }
 
@@ -114,13 +114,13 @@ public partial class CompanyView : ContentView
     private static void StarsChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CompanyView)bindable;
-        control.stars.Text = ((double)newValue).ToString();
+        control.stars.Text = (string)newValue;
     }
 
     private static void DistanceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CompanyView)bindable;
-        control.distance.Text = ((double)newValue).ToString();
+        control.distance.Text = (string)newValue;
     }
 
     private static void LikedChanged(BindableObject bindable, object oldValue, object newValue)

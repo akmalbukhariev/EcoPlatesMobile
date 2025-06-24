@@ -17,7 +17,6 @@
                 <Style x:Key="styleLabel" TargetType="Label">
                     <Setter Property="FontSize" Value="14"/>
                     <Setter Property="TextColor" Value="#444444"/>
-                    <Setter Property="FontFamily" Value="Roboto"/>
                 </Style>
             </Grid.Resources>
             <StackLayout Spacing="40"
@@ -77,7 +76,6 @@
                     BackgroundColor="#8338EC"
                     CornerRadius="30"
                     TextColor="White"
-                    FontFamily="Roboto"
                     HeightRequest="50"
                     Clicked="Button_Clicked"
                     Grid.Row="5"/>

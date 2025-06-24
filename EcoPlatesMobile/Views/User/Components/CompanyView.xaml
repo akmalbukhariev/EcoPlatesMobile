@@ -16,7 +16,6 @@
         <Grid RowDefinitions="Auto, 50, 40">
             <Grid RowDefinitions="30, Auto">
                 <Image x:Name="companyImage"
-                       Source="{Binding CompanyImage}"
                        HeightRequest="110" 
                        Aspect="AspectFill"
                        VerticalOptions="Start"
@@ -51,24 +50,22 @@
             <VerticalStackLayout Margin="10,10,0,0"
                                  Spacing="5"
                                  Grid.Row="1">
-                <Label x:Name="companyName" 
-                       Text="{Binding CompanyName}"
+                <Label x:Name="companyName"
                        FontSize="18" 
                        FontAttributes="Bold"/>
                 <Label x:Name="companyWorkingTime"
-                       Text="{Binding WorkingTime}"
                        FontSize="14" 
                        TextColor="Black"/>
             </VerticalStackLayout>
             <HorizontalStackLayout Margin="10,15,0,0"
                                    Spacing="10"
                                    Grid.Row="2">
-                <HorizontalStackLayout Spacing="5" IsVisible="Collapse">
+                <HorizontalStackLayout Spacing="5" 
+                                       IsVisible="Collapse">
                     <Image Source="star.png" 
                            WidthRequest="16" 
                            HeightRequest="16"/>
-                    <Label x:Name="stars"  
-                           Text="{Binding Stars}" 
+                    <Label x:Name="stars"
                            FontSize="14"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
@@ -81,7 +78,6 @@
                            WidthRequest="16" 
                            HeightRequest="16"/>
                     <Label x:Name="distance" 
-                           Text="{Binding Distance}"  
                            FontSize="14"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>

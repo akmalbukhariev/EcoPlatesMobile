@@ -14,8 +14,7 @@
         </Frame.GestureRecognizers>
         <Grid RowDefinitions="Auto, Auto, Auto, Auto">
             <Grid ColumnDefinitions="*,*">
-                <Image x:Name="productImage" 
-                       Source="{Binding ProductImage}"
+                <Image x:Name="productImage"
                        Aspect="AspectFill"
                        HeightRequest="135"
                        Grid.ColumnSpan="2"/>
@@ -32,8 +31,7 @@
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
                     </Border>
-                    <Label x:Name="productCount" 
-                           Text="{Binding ProductCount}"
+                    <Label x:Name="productCount"
                            TextColor="Black"
                            FontSize="16"
                            FontAttributes="Bold"
@@ -57,21 +55,18 @@
             <VerticalStackLayout Margin="10,0,0,0"
                                  Spacing="0"
                                  Grid.Row="1">
-                <Label x:Name="productName" 
-                       Text="{Binding ProductName}" 
+                <Label x:Name="productName"
                        FontSize="18" 
                        LineBreakMode="TailTruncation"
                        FontAttributes="Bold"/>
-                <Label x:Name="productMakerName" 
-                       Text="{Binding ProductMakerName}" 
+                <Label x:Name="productMakerName"
                        FontSize="14" 
                        TextColor="Black"/>
             </VerticalStackLayout>
             <VerticalStackLayout Margin="10,5,0,0"
                                  Spacing="0"
                                  Grid.Row="2">
-                <Label x:Name="newPrice" 
-                       Text="{Binding NewPrice}" 
+                <Label x:Name="newPrice"
                        FontSize="18" 
                        TextColor="Green"
                        FontAttributes="Bold"/>
@@ -89,8 +84,7 @@
                     <Image Source="star.png" 
                            WidthRequest="16" 
                            HeightRequest="16"/>
-                    <Label x:Name="stars" 
-                           Text="{Binding Stars}"
+                    <Label x:Name="stars"
                            FontSize="14"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
@@ -101,8 +95,7 @@
                     <Image Source="distance.png" 
                            WidthRequest="16" 
                            HeightRequest="16"/>
-                    <Label x:Name="distance" 
-                           Text="{Binding Distance}" 
+                    <Label x:Name="distance"
                            FontSize="14"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>

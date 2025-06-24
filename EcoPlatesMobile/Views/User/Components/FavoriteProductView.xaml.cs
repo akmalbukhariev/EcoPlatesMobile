@@ -18,16 +18,16 @@ public partial class FavoriteProductView : ContentView
        BindableProperty.Create(nameof(ProductMakerName), typeof(string), typeof(FavoriteProductView), default(string), propertyChanged: ProductMakerNameChanged);
 
     public static readonly BindableProperty NewPriceProperty =
-       BindableProperty.Create(nameof(NewPrice), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: NewPriceChanged);
+       BindableProperty.Create(nameof(NewPrice), typeof(string), typeof(FavoriteProductView), "0.0", propertyChanged: NewPriceChanged);
 
     public static readonly BindableProperty OldPriceProperty =
-      BindableProperty.Create(nameof(OldPrice), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: OldPriceChanged);
+      BindableProperty.Create(nameof(OldPrice), typeof(string), typeof(FavoriteProductView), "0.0", propertyChanged: OldPriceChanged);
 
     public static readonly BindableProperty StarsProperty =
-      BindableProperty.Create(nameof(Stars), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: StarsChanged);
+      BindableProperty.Create(nameof(Stars), typeof(string), typeof(FavoriteProductView), "0", propertyChanged: StarsChanged);
 
     public static readonly BindableProperty DistanceProperty =
-     BindableProperty.Create(nameof(Distance), typeof(double), typeof(FavoriteProductView), 0.0, propertyChanged: DistanceChanged);
+     BindableProperty.Create(nameof(Distance), typeof(string), typeof(FavoriteProductView), "0.0", propertyChanged: DistanceChanged);
 
     public static readonly BindableProperty ClickCommandProperty =
         BindableProperty.Create(nameof(ClickCommand), typeof(ICommand), typeof(CompanyView));
@@ -56,27 +56,27 @@ public partial class FavoriteProductView : ContentView
         set => SetValue(ProductMakerNameProperty, value);
     }
 
-    public double NewPrice
+    public string NewPrice
     {
-        get => (double)GetValue(NewPriceProperty);
+        get => (string)GetValue(NewPriceProperty);
         set => SetValue(NewPriceProperty, value);
     }
 
-    public double OldPrice
+    public string OldPrice
     {
-        get => (double)GetValue(OldPriceProperty);
+        get => (string)GetValue(OldPriceProperty);
         set => SetValue(OldPriceProperty, value);
     }
 
-    public double Stars
+    public string Stars
     {
-        get => (double)GetValue(StarsProperty);
+        get => (string)GetValue(StarsProperty);
         set => SetValue(StarsProperty, value);
     }
 
-    public double Distance
+    public string Distance
     {
-        get => (double)GetValue(DistanceProperty);
+        get => (string)GetValue(DistanceProperty);
         set => SetValue(DistanceProperty, value);
     }
 
@@ -118,25 +118,25 @@ public partial class FavoriteProductView : ContentView
     private static void NewPriceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (FavoriteProductView)bindable;
-        control.newPrice.Text = ((double)newValue).ToString();
+        control.newPrice.Text = (string)newValue;
     }
 
     private static void OldPriceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (FavoriteProductView)bindable;
-        control.oldPrice.Text = ((double)newValue).ToString();
+        control.oldPrice.Text = (string)newValue;
     }
 
     private static void StarsChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (FavoriteProductView)bindable;
-        control.stars.Text = ((double)newValue).ToString();
+        control.stars.Text = (string)newValue;
     }
 
     private static void DistanceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (FavoriteProductView)bindable;
-        control.distance.Text = ((double)newValue).ToString();
+        control.distance.Text = (string)newValue;
     }
 
     private async void Product_Tapped(object sender, TappedEventArgs e)

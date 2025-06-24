@@ -116,6 +116,7 @@
                 </CollectionView>
             </RefreshView>
             <Button Text="Back"
+                    IsVisible="Collapse"
                     BackgroundColor="Green"
                     HeightRequest="50"
                     Margin="10,0,10,0"

@@ -11,7 +11,6 @@
                      CornerRadius ="5"
                      Grid.ColumnSpan="2"/>
             <Button x:Name="button1"
-                    Text="{Binding Tab1_Title}"
                     FontSize="16"
                     BackgroundColor="White"
                     TextColor="Black"
@@ -21,7 +20,6 @@
                     CornerRadius="3"
                     Clicked="OnTabClicked"/>
             <Button x:Name="button2"
-                    Text="{Binding Tab2_Title}"
                     FontSize="16"
                     BackgroundColor="Transparent"
                     TextColor="Gray"
@@ -46,8 +44,7 @@
                     <RoundRectangle CornerRadius="10,0,10,0" />
                 </Border.StrokeShape>
             </Border>
-            <Label x:Name="label1" 
-                   Text="{Binding Tab1_Title}"
+            <Label x:Name="label1"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    FontAttributes="Bold"
@@ -62,8 +59,7 @@
                     <RoundRectangle CornerRadius="0,10,0,10" />
                 </Border.StrokeShape>
             </Border>
-            <Label x:Name="label2" 
-                   Text="{Binding Tab2_Title}"
+            <Label x:Name="label2"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    FontAttributes="Bold"

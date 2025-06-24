@@ -67,7 +67,7 @@
                     <DataTemplate>
                         <user_component:ProductView ProductImage="{Binding ProductImage}"
                                                     ProductName="{Binding ProductName}"
-                                                    ProductMakerName="{Binding PoductMakerName}"
+                                                    ProductMakerName="{Binding ProductMakerName}"
                                                     NewPrice="{Binding NewPrice}"
                                                     OldPrice="{Binding OldPrice}"
                                                     Stars="{Binding Stars}"

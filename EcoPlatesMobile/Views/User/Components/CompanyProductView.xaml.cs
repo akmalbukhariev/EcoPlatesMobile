@@ -15,13 +15,13 @@ public partial class CompanyProductView : ContentView
        BindableProperty.Create(nameof(ProductName), typeof(string), typeof(CompanyProductView), default(string), propertyChanged: ProductNameChanged);
 
     public static readonly BindableProperty NewPriceProperty =
-      BindableProperty.Create(nameof(NewPrice), typeof(double), typeof(CompanyProductView), 0.0, propertyChanged: NewPriceChanged);
+      BindableProperty.Create(nameof(NewPrice), typeof(string), typeof(CompanyProductView), "0.0", propertyChanged: NewPriceChanged);
 
     public static readonly BindableProperty OldPriceProperty =
-      BindableProperty.Create(nameof(OldPrice), typeof(double), typeof(CompanyProductView), 0.0, propertyChanged: OldPriceChanged);
+      BindableProperty.Create(nameof(OldPrice), typeof(string), typeof(CompanyProductView), "0.0", propertyChanged: OldPriceChanged);
 
     public static readonly BindableProperty StarsProperty =
-      BindableProperty.Create(nameof(Stars), typeof(double), typeof(CompanyProductView), 0.0, propertyChanged: StarsChanged);
+      BindableProperty.Create(nameof(Stars), typeof(string), typeof(CompanyProductView), "0", propertyChanged: StarsChanged);
 
     public static readonly BindableProperty ClickCommandProperty =
         BindableProperty.Create(nameof(ClickCommand), typeof(ICommand), typeof(CompanyProductView));
@@ -44,21 +44,21 @@ public partial class CompanyProductView : ContentView
         set => SetValue(ProductNameProperty, value);
     }
 
-    public double NewPrice
+    public string NewPrice
     {
-        get => (double)GetValue(NewPriceProperty);
+        get => (string)GetValue(NewPriceProperty);
         set => SetValue(NewPriceProperty, value);
     }
 
-    public double OldPrice
+    public string OldPrice
     {
-        get => (double)GetValue(OldPriceProperty);
+        get => (string)GetValue(OldPriceProperty);
         set => SetValue(OldPriceProperty, value);
     }
 
-    public double Stars
+    public string Stars
     {
-        get => (double)GetValue(StarsProperty);
+        get => (string)GetValue(StarsProperty);
         set => SetValue(StarsProperty, value);
     }
 
@@ -94,19 +94,19 @@ public partial class CompanyProductView : ContentView
     private static void NewPriceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CompanyProductView)bindable;
-        control.newPrice.Text = ((double)newValue).ToString();
+        control.newPrice.Text = (string)newValue;
     }
 
     private static void OldPriceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CompanyProductView)bindable;
-        control.oldPrice.Text = ((double)newValue).ToString();
+        control.oldPrice.Text = (string)newValue;
     }
 
     private static void StarsChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CompanyProductView)bindable;
-        control.stars.Text = ((double)newValue).ToString();
+        control.stars.Text = (string)newValue;
     }
 
     private async void Product_Tapped(object sender, TappedEventArgs e)
