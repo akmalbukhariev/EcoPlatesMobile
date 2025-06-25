@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.User;
@@ -45,7 +46,7 @@ namespace EcoPlatesMobile.ViewModels.User
             ClickProductCommand = new Command<ProductModel>(ProductClicked);
             ClickHistoryCommand = new Command<HistoryDataInfo>(ClickHistoryItem);
             RemoveHistoryCommand = new Command<HistoryDataInfo>(RemoveHistoryItem);
-             
+
             ShowProductResult = false;
             ShowFilterSearchList = false;
             ShowRecentSearchList = true;
@@ -70,6 +71,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public async Task LoadInitialProductAsync()
         {
+            if (IsLoading || !hasMoreProductItems)
+                return;
+
             offsetProduct = 0;
             Products.Clear();
             hasMoreProductItems = true;
@@ -139,6 +143,14 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
+
+        public IRelayCommand LoadProductMoreCommand => new RelayCommand( async () =>
+        {
+            if (IsLoading)
+                return;
+
+            await LoadInitialProductAsync();
+        });
 
         partial void OnSearchTextChanged(string value)
         {

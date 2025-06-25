@@ -37,6 +37,7 @@ public partial class UserMainPage : BasePage
             companyTypeList.InitType(typeItem);
         }
 
+        lbHeader.Text = $"Sizga yaqin — {AppService.Get<AppControl>().UserInfo.radius_km} km atrofda.";
         await viewModel.LoadInitialAsync();
     }
 

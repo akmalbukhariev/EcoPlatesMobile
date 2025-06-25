@@ -96,8 +96,6 @@
                          Margin="20"
                          Grid.Row="2">
                 <CollectionView ItemsSource="{Binding Products}"
-                                RemainingItemsThreshold="1"
-                                RemainingItemsThresholdReachedCommand="{Binding LoadProductMoreCommand}"
                                 Margin="0,20,0,0">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 
