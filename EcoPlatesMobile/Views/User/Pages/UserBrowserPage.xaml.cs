@@ -17,7 +17,6 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserBrowserPage : BasePage
 {
     private bool created = false;
-    private bool openedCompanyPage = false;
     private UserBrowserPageViewModel viewModel;
     private List<CustomPin> _customPins = new();
 
@@ -37,25 +36,25 @@ public partial class UserBrowserPage : BasePage
     {
         base.OnAppearing();
 
-        if (!openedCompanyPage)
+        if (created)
         {
-            if (created)
-            {
-                tabSwitcher.Init();
-            }
+            tabSwitcher.Init();
+        }
 
-            created = true;
+        created = true;
 
-            Shell.SetTabBarIsVisible(this, true);
+        Shell.SetTabBarIsVisible(this, true);
 
-            AppService.Get<AppControl>().ShowCompanyMoreInfo = false;
+        AppControl control = AppService.Get<AppControl>();
 
+        if (control.RefreshBrowserPage)
+        {
             await viewModel.LoadInitialAsync();
             await CenterMapToCurrentLocation();
             await GetAllCompaniesUsingMap();
-        }
 
-        openedCompanyPage = false;
+            control.RefreshBrowserPage = false;
+        }
     }
 
     private async Task GetAllCompaniesUsingMap()
@@ -147,7 +146,6 @@ public partial class UserBrowserPage : BasePage
     {
         Application.Current.Dispatcher.Dispatch(async () =>
         {
-            openedCompanyPage = true;
             await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={pin.CompanyId}");
         });
     }

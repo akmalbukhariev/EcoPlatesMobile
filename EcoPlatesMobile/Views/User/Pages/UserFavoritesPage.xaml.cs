@@ -1,4 +1,5 @@
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
@@ -22,9 +23,19 @@ public partial class UserFavoritesPage : BasePage
         base.OnAppearing();
 
         Shell.SetTabBarIsVisible(this, true);
+        AppControl control = AppService.Get<AppControl>();
 
-        await viewModel.LoadInitialProductAsync();
-        await viewModel.LoadInitialCompanyAsync();
+        if (control.RefreshFavoriteProduct)
+        {
+            await viewModel.LoadInitialProductAsync();
+            control.RefreshFavoriteProduct = false;
+        }
+
+        if (control.RefreshFavoriteCompany)
+        {
+            await viewModel.LoadInitialCompanyAsync();
+            control.RefreshFavoriteCompany = false;
+        }
     }
 
     private async void TabSwitcher_TabChanged(object? sender, string e)

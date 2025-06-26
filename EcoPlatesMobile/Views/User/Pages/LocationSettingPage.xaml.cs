@@ -115,9 +115,16 @@ public partial class LocationSettingPage : BasePage
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                AppService.Get<AppControl>().UserInfo.location_latitude = center.Latitude;
-                AppService.Get<AppControl>().UserInfo.location_longitude = center.Longitude;
-                AppService.Get<AppControl>().UserInfo.radius_km = selectedDistance;
+                var appControl = AppService.Get<AppControl>();
+
+                appControl.UserInfo.location_latitude = center.Latitude;
+                appControl.UserInfo.location_longitude = center.Longitude;
+                appControl.UserInfo.radius_km = selectedDistance;
+
+                appControl.RefreshMainPage = true;
+                appControl.RefreshBrowserPage = true;
+                appControl.RefreshFavoriteProduct = true;
+                appControl.RefreshFavoriteCompany = true;
 
                 //await AlertService.ShowAlertAsync("Update location", "Success.");
                 await Shell.Current.GoToAsync("..", true);

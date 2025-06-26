@@ -61,28 +61,27 @@ public partial class UserProfilePage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
-        /*
-        UserInfo info = AppService.Get<AppControl>().UserInfo;
-        imUser.Source = info.profile_picture_url;
-        lbUserName.Text = info.first_name;
-        lbPhoneNumber.Text = info.phone_number;
-        */
-        
-        loading.ShowLoading = true;
+        AppControl control = AppService.Get<AppControl>();
 
-        var apiService = AppService.Get<UserApiService>();
-         
-        response = await apiService.GetUserInfo();
-        if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
+        if (control.RefreshProfilePage)
         {
-            imUser.Source = response.resultData.profile_picture_url;
-            lbUserName.Text = response.resultData.first_name;
-            lbPhoneNumber.Text = response.resultData.phone_number;
+            loading.ShowLoading = true;
 
-            AppService.Get<AppControl>().UserInfo = response.resultData;
+            var apiService = AppService.Get<UserApiService>();
+
+            response = await apiService.GetUserInfo();
+            if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
+            {
+                imUser.Source = response.resultData.profile_picture_url;
+                lbUserName.Text = response.resultData.first_name;
+                lbPhoneNumber.Text = response.resultData.phone_number;
+
+                control.UserInfo = response.resultData;
+            }
+
+            loading.ShowLoading = false;
+            control.RefreshProfilePage = false;
         }
-
-        loading.ShowLoading = false;
     }
 
     private async void UserInfo_Tapped(object sender, TappedEventArgs e)

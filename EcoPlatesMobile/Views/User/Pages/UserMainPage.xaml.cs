@@ -25,7 +25,6 @@ public partial class UserMainPage : BasePage
 		base.OnAppearing();
 
         Shell.SetTabBarIsVisible(this, true);
-        AppService.Get<AppControl>().ShowCompanyMoreInfo = true;
 
         if (typeItem == null)
         {
@@ -37,8 +36,15 @@ public partial class UserMainPage : BasePage
             companyTypeList.InitType(typeItem);
         }
 
-        lbHeader.Text = $"Sizga yaqin — {AppService.Get<AppControl>().UserInfo.radius_km} km atrofda.";
-        await viewModel.LoadInitialAsync();
+        AppControl control = AppService.Get<AppControl>();
+
+        lbHeader.Text = $"Sizga yaqin — {control.UserInfo.radius_km} km atrofda.";
+
+        if (control.RefreshMainPage)
+        {
+            await viewModel.LoadInitialAsync();
+            control.RefreshMainPage = false;
+        }
     }
 
     private async void CompanyTypeList_EventTypeClick(Components.TypeItem item)

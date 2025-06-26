@@ -6,10 +6,13 @@ namespace EcoPlatesMobile.Views
     public abstract class BasePage : ContentPage
     {
         protected IViewModel viewModel;
+        //protected bool LoadData = false;
+
         protected BasePage() 
         {
             Shell.SetNavBarIsVisible(this, false);
             Shell.SetTabBarIsVisible(this, false);
+            //LoadData = true;
         }
 
         protected void SetViewModel(IViewModel viewModel)

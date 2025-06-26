@@ -5,13 +5,17 @@ using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
-using EcoPlatesMobile.Views;
 
 namespace EcoPlatesMobile.Services
 {
     public class AppControl
     {
-        public bool ShowCompanyMoreInfo { get; set; } = true;
+        public bool RefreshFavoriteProduct { get; set; } = true;
+        public bool RefreshFavoriteCompany { get; set; } = true;
+        public bool RefreshMainPage { get; set; } = true;
+        public bool RefreshBrowserPage { get; set; } = true;
+        public bool RefreshProfilePage { get; set; } = true;
+
         public CompanyInfo CompanyInfo { get; set; }
         public UserInfo UserInfo { get; set; }
 
