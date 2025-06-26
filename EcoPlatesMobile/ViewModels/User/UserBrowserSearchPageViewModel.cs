@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses.Company;
@@ -31,7 +32,7 @@ namespace EcoPlatesMobile.ViewModels.User
         private int offsetProduct = 0;
         private int offsetCompany = 0;
         private const int PageSize = 4;
-        private bool hasMoreCompanyItems = true;
+        private bool hasMoreItems = true;
         private List<HistoryDataInfo> AllHistoryItems = new();
 
         public ICommand ClickCompanyCommand { get; }
@@ -66,11 +67,19 @@ namespace EcoPlatesMobile.ViewModels.User
             await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
         }
 
-        public async Task LoadInitialCompanyAsync()
+        public async Task LoadInitialCompanyAsync(bool loadMore = false)
         {
-            offsetCompany = 0;
-            Companies.Clear();
-            hasMoreCompanyItems = true;
+            if (loadMore)
+            {
+                if (IsLoading || !hasMoreItems)
+                    return;
+            }
+            else
+            {
+                offsetCompany = 0;
+                Companies.Clear();
+                hasMoreItems = true;
+            }
 
             try
             {
@@ -96,7 +105,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                     if (items == null || items.Count == 0)
                     {
-                        hasMoreCompanyItems = false;
+                        hasMoreItems = false;
                         return;
                     }
 
@@ -116,12 +125,12 @@ namespace EcoPlatesMobile.ViewModels.User
                     offsetCompany += PageSize;
                     if (companyModels.Count < PageSize)
                     {
-                        hasMoreCompanyItems = false;
+                        hasMoreItems = false;
                     }
                 }
                 else
                 {
-                    hasMoreCompanyItems = false;
+                    hasMoreItems = false;
                 }
             }
             catch (Exception ex)
@@ -133,6 +142,14 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
+
+        public IRelayCommand LoadCompanyMoreCommand => new RelayCommand(async () =>
+        {
+            if (IsLoading || !hasMoreItems)
+                return;
+
+            await LoadInitialCompanyAsync(true);
+        });
 
         partial void OnSearchTextChanged(string value)
         {

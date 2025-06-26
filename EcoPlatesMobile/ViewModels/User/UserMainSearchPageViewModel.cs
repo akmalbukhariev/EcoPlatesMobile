@@ -31,7 +31,7 @@ namespace EcoPlatesMobile.ViewModels.User
         private int offsetProduct = 0;
         private int offsetCompany = 0;
         private const int PageSize = 4;
-        private bool hasMoreProductItems = true;
+        private bool hasMoreItems = true;
         private List<HistoryDataInfo> AllHistoryItems = new();
 
         public ICommand ClickProductCommand { get; }
@@ -69,15 +69,20 @@ namespace EcoPlatesMobile.ViewModels.User
             });
         }
 
-        public async Task LoadInitialProductAsync()
+        public async Task LoadInitialProductAsync(bool loadMore = false)
         {
-            if (IsLoading || !hasMoreProductItems)
-                return;
+            if (loadMore)
+            {
+                if (IsLoading || !hasMoreItems)
+                    return;
+            }
+            else
+            {
+                offsetProduct = 0;
+                Products.Clear();
+                hasMoreItems = true;
+            }
 
-            offsetProduct = 0;
-            Products.Clear();
-            hasMoreProductItems = true;
- 
             try
             {
                 IsLoading = true;
@@ -103,7 +108,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                     if (items == null || items.Count == 0)
                     {
-                        hasMoreProductItems = false;
+                        hasMoreItems = false;
                         return;
                     }
 
@@ -126,12 +131,12 @@ namespace EcoPlatesMobile.ViewModels.User
                     offsetProduct += PageSize;
                     if (productModels.Count < PageSize)
                     {
-                        hasMoreProductItems = false;
+                        hasMoreItems = false;
                     }
                 }
                 else
                 {
-                    hasMoreProductItems = false;
+                    hasMoreItems = false;
                 }
             }
             catch (Exception ex)
@@ -143,13 +148,13 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
-
+        
         public IRelayCommand LoadProductMoreCommand => new RelayCommand( async () =>
         {
-            if (IsLoading)
+            if (IsLoading || !hasMoreItems)
                 return;
 
-            await LoadInitialProductAsync();
+            await LoadInitialProductAsync(true);
         });
 
         partial void OnSearchTextChanged(string value)

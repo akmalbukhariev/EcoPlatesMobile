@@ -143,6 +143,8 @@
         </CollectionView>
         <CollectionView ItemsSource="{Binding Companies}"
                         IsVisible="{Binding ShowCompanyResult}"
+                        RemainingItemsThreshold="1"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadCompanyMoreCommand}"
                         Margin="15,0,15,0"
                         Grid.Row="2">
             <CollectionView.ItemsLayout>
