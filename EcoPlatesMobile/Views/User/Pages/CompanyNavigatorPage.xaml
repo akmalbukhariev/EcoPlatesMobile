@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               x:Class="EcoPlatesMobile.Views.User.Pages.CompanyNavigatorPage">
+
+    <Grid RowDefinitions="Auto, *">
+        <Grid ColumnDefinitions="Auto, *"
+              BackgroundColor="Green"
+              HeightRequest="70">
+            <Image x:Name="imBack" 
+                   Source="back.png"
+                   WidthRequest="24"
+                   HeightRequest="24"
+                   Margin="16, 4.44, 0, 0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Back_Tapped"
+                                          NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label x:Name="lbTitle"
+                   Text="Navigate to the company"
+                   TextColor="White"
+                   FontSize="17"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Grid.Column="1"/>
+        </Grid>
+        <maps:Map x:Name="map" 
+                  MapType="Street"
+                  IsShowingUser="true"
+                  Grid.Row="1"/>
+    </Grid>
+    
+</page:BasePage>

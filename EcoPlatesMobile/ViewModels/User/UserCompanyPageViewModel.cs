@@ -31,6 +31,8 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] bool isRefreshing;
         [ObservableProperty] bool showLikedView;
         [ObservableProperty] bool isLikedViewLiked;
+        public double Latitude;
+        public double Longitude;
 
         public UserCompanyPageViewModel()
         {
@@ -88,6 +90,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
                     CompanyImage = response.resultData.logo_url;
+                    Latitude = response.resultData.location_latitude;
+                    Longitude = response.resultData.location_longitude;
                     likedCompany = response.resultData.liked;
                     LikeImage = likedCompany ? "liked.png" : "like.png";
                     CompanyName = response.resultData.company_name;

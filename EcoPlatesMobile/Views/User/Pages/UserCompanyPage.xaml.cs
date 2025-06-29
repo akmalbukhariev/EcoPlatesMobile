@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
@@ -83,6 +84,20 @@ public partial class UserCompanyPage : BasePage
         if (sender is VisualElement element)
         {
             await AnimateElementScaleDown(element);
+
+            AppControl control = AppService.Get<AppControl>();
+
+            var userLocation = new Location(control.UserInfo.location_latitude, control.UserInfo.location_longitude);
+            var companyLocation = new Location(viewModel.Latitude, viewModel.Longitude);
+
+            string uri = $"https://www.google.com/maps/dir/?api=1" +
+             $"&origin={userLocation.Latitude},{userLocation.Longitude}" +
+             $"&destination={companyLocation.Latitude},{companyLocation.Longitude}" +
+             $"&travelmode=driving";
+
+            await Launcher.Default.OpenAsync(uri);
+
+            //await AppNavigatorService.NavigateTo($"{nameof(CompanyNavigatorPage)}?Latitude={viewModel.Latitude}&Longitude={viewModel.Longitude}");
         }
     }
 

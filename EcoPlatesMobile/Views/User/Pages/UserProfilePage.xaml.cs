@@ -47,7 +47,7 @@ public partial class UserProfilePage : BasePage
         {
             new LanguageModel { Name = "O'zbekcha", Flag = "flag_uz.png", IsSelected = true },
             new LanguageModel { Name = "English", Flag = "flag_en.png", IsSelected = false },
-            new LanguageModel { Name = "¨≤¨Â¨„¨„¨‹¨⁄¨€", Flag = "flag_ru.png", IsSelected = false }
+            new LanguageModel { Name = "–†—É—Å—Å–∫–∏–π", Flag = "flag_ru.png", IsSelected = false }
         };
 
         SelectedFlag = Languages[0].Flag;
