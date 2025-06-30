@@ -18,5 +18,9 @@ namespace EcoPlatesMobile.Utilities
 
         public static readonly string OsName = DeviceInfo.Current.Platform.ToString();      // Android, iOS, macOS, Windows
         public static readonly string OsVersion = DeviceInfo.Current.VersionString;         // OS version string
+
+        public const string UZ = "uz";
+        public const string EN = "en";
+        public const string RU = "ru";
     }
 }

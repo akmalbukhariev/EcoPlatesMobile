@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="EcoPlatesMobile.Views.LoginPage"
                xmlns:view="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:loading="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls">
 
@@ -19,13 +20,13 @@
             <StackLayout WidthRequest="250" 
                         HorizontalOptions="Center"
                         Grid.Row="2">
-                <Label Text="Foydalanuvchi sifatida o’zingizni rolingizni tanlang"
+                <Label Text="{x:Static language:AppResource.SelectRole}"
                         TextColor="Gray"
                         HorizontalTextAlignment="Center"
                         LineBreakMode="WordWrap"/>
             </StackLayout>
             <Button x:Name="btnUser" 
-                    Text="Xaridor"
+                    Text="{x:Static language:AppResource.Buyer}"
                     HeightRequest="50"
                     CornerRadius="0"
                     VerticalOptions="End"
@@ -39,7 +40,7 @@
                 </Button.Background>
             </Button>
             <Button x:Name="btnComapny"
-                    Text="Sotuvchi"
+                    Text="{x:Static language:AppResource.Seller}"
                     HeightRequest="50"
                     CornerRadius="0"
                     VerticalOptions="End"

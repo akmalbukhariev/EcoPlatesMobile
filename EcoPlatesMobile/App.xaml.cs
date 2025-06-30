@@ -1,10 +1,10 @@
-﻿using EcoPlatesMobile.Views;
+﻿using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Views;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
-using Microsoft.Maui.Controls;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
- 
+
 namespace EcoPlatesMobile
 {
     public partial class App : Application
@@ -19,6 +19,8 @@ namespace EcoPlatesMobile
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
+            AppService.Get<LanguageService>().Init();
+
             return new Window(new AppEntryShell());
             //return new Window(new NavigationPage(new LoginPage())); 
             //return new Window(new AppUserShell());

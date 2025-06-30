@@ -56,17 +56,30 @@ public partial class UserProfilePage : BasePage
     {
         InitializeComponent();
 
+        Init();
+    }
+
+    private void Init()
+    {
+        var currentLangCode = AppService.Get<LanguageService>().GetCurrentLanguage();
+
         Languages = new ObservableCollection<LanguageModel>
         {
-            new LanguageModel { Name = "O'zbekcha", Flag = "flag_uz.png", IsSelected = true },
-            new LanguageModel { Name = "English", Flag = "flag_en.png", IsSelected = false },
-            new LanguageModel { Name = "Русский", Flag = "flag_ru.png", IsSelected = false }
+            new LanguageModel { Name = "O'zbekcha", Flag = "flag_uz.png", IsSelected = true,  Code = Constants.UZ },
+            new LanguageModel { Name = "English",   Flag = "flag_en.png", IsSelected = false, Code = Constants.EN },
+            new LanguageModel { Name = "Русский",   Flag = "flag_ru.png", IsSelected = false, Code = Constants.RU }
         };
 
-        SelectedFlag = Languages[0].Flag;
-        SelectedLanguage = Languages[0].Name;
-        BindingContext = this;
-         
+        foreach (var lang in Languages)
+        {
+            lang.IsSelected = lang.Code == currentLangCode;
+            if (lang.IsSelected)
+            {
+                SelectedFlag = lang.Flag;
+                SelectedLanguage = lang.Name;
+            }
+        }
+
         lbVersion.Text = $"v. {Constants.Version} ({Constants.OsName} - {Constants.OsVersion})";
     }
 
@@ -111,7 +124,6 @@ public partial class UserProfilePage : BasePage
 
         loading.ShowLoading = false;
     }
-     
 
     private async void UserInfo_Tapped(object sender, TappedEventArgs e)
     {

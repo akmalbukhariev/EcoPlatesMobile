@@ -44,7 +44,7 @@
                                  Color="#442C2E" />
                 <Label Text="Ushbu tasdiqlash kodi orqali siz platformadan unumli foydalanishingiz mumkin. Tasdiqlash kodining to’g’ri kiritishingiz juda ham muhim."
                        HorizontalTextAlignment="Center"
-                    Style="{StaticResource styleLabel}"/>
+                       Style="{StaticResource styleLabel}"/>
             </StackLayout>
             <StackLayout x:Name="stackTime" 
                          Spacing="10"
