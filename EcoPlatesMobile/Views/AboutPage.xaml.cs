@@ -1,4 +1,6 @@
-﻿namespace EcoPlatesMobile.Views;
+﻿using EcoPlatesMobile.Resources.Languages;
+
+namespace EcoPlatesMobile.Views;
 
 [QueryProperty(nameof(IsUser), nameof(IsUser))]
 public partial class AboutPage : BasePage
@@ -14,8 +16,8 @@ public partial class AboutPage : BasePage
     }
 
     public AboutPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
     }
@@ -23,6 +25,8 @@ public partial class AboutPage : BasePage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        /*
+        lbTitle.Text = AppResource.AboutApp;
 
         if (_isUser)
         {
@@ -30,32 +34,33 @@ public partial class AboutPage : BasePage
             btnClose.BackgroundColor = Colors.Green;
 
             roleIcon.Source = "about_user.png";
-            roleTitle.Text = "For Clients";
-            roleSubtitle.Text = "Discover discounted food items nearby";
+            roleTitle.Text = AppResource.ForClient;
+            roleSubtitle.Text = AppResource.RoleSubtitleClient;
 
-            point1.Text = "• Browse a variety of discounted food offers";
-            point2.Text = "• View available items on a map";
-            point3.Text = "• Adjust the radius to find offers within your location";
-            point4.Text = "• Receive notifications about new deals near you";
+            point1.Text = $"• {AppResource.AboutAppPoint1Client}";
+            point2.Text = $"• {AppResource.AboutAppPoint2Client}";
+            point3.Text = $"• {AppResource.AboutAppPoint3Client}";
+            point4.Text = $"• {AppResource.AboutAppPoint4Client}";
 
-            finalMessage.Text = "Save money, reduce waste, and support your local community.";
+            finalMessage.Text = AppResource.FinalMessageClient;
         }
         else
         {
             btnClose.BackgroundColor = Color.FromArgb("#8338EC");
             headerGrid.BackgroundColor = Color.FromArgb("#8338EC");
-            
+
             roleIcon.Source = "about_company.png";
-            roleTitle.Text = "For Sellers";
-            roleSubtitle.Text = "Turn near-expiry stock into sales instead of waste";
+            roleTitle.Text = AppResource.ForSeller;
+            roleSubtitle.Text = AppResource.RoleSubtitleSeller;
 
-            point1.Text = "• Upload edible products before their expiration date.";
-            point2.Text = "• Offer discounts to attract nearby customers.";
-            point3.Text = "• Get notified when your product is about to expire";
-            point4.Text = "• Reach new buyers who are actively looking for affordable items.";
+            point1.Text = $"• {AppResource.AboutAppPoint1Seller}";
+            point2.Text = $"• {AppResource.AboutAppPoint2Seller}";
+            point3.Text = $"• {AppResource.AboutAppPoint3Seller}";
+            point4.Text = $"• {AppResource.AboutAppPoint4Seller}";
 
-            finalMessage.Text = "Sell smarter, reduce waste, and promote a sustainable business image.";
+            finalMessage.Text = AppResource.FinalMessageSeller;
         }
+        */
     }
 
     private async void Close_Tapped(object sender, TappedEventArgs e)
