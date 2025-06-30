@@ -61,6 +61,7 @@ namespace EcoPlatesMobile.Views
                 throw new InvalidOperationException($"Unable to resolve ViewModel of type {typeof(T).Name}");
             }
 
+            SetViewModel(viewModel);
             return viewModel;
         }
     }

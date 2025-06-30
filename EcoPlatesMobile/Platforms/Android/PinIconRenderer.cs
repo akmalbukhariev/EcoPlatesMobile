@@ -33,7 +33,7 @@ namespace EcoPlatesMobile.Platforms.Android
         {
             googleMap.Clear();
 
-            foreach (var pin in _pins)
+            foreach (var pin in _pins.ToList())
             {
                 if (pin is CustomPin customPin)
                 {

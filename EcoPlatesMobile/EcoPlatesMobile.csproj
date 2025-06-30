@@ -229,4 +229,9 @@
 	  </None>
 	</ItemGroup>
 
+	<PropertyGroup>
+	  <ApplicationVersion>1</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	</PropertyGroup>
+
 </Project>

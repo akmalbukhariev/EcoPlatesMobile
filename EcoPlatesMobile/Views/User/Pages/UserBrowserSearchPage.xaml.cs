@@ -9,8 +9,7 @@ public partial class UserBrowserSearchPage : BasePage
 	{
 		InitializeComponent();
 
-        viewModel = new UserBrowserSearchPageViewModel();
-        BindingContext = viewModel;
+        viewModel = ResolveViewModel<UserBrowserSearchPageViewModel>();
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)

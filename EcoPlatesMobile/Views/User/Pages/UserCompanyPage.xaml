@@ -76,7 +76,9 @@
                            Margin="10, 0, 0, 0"
                            Grid.Row="1"/>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Grid.Column="2" Grid.Row="4">
+                <HorizontalStackLayout IsVisible="Collapse" 
+                                       Grid.Column="2" 
+                                       Grid.Row="4">
                     <HorizontalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1"
                                               Tapped="Message_Tapped"/>

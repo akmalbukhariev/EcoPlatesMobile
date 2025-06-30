@@ -23,9 +23,7 @@ public partial class UserBrowserPage : BasePage
     public UserBrowserPage()
     {
         InitializeComponent();
-        viewModel = new UserBrowserPageViewModel();
-
-        BindingContext = viewModel;
+        viewModel = ResolveViewModel<UserBrowserPageViewModel>();
 
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
         viewModel.PropertyChanged += ViewModel_PropertyChanged;

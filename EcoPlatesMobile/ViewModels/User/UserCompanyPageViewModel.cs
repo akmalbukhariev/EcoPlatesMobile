@@ -14,7 +14,7 @@ using EcoPlatesMobile.Views.User.Pages;
 namespace EcoPlatesMobile.ViewModels.User
 {
     [QueryProperty(nameof(CompanyId), nameof(CompanyId))]
-    public partial class UserCompanyPageViewModel : ObservableObject
+    public partial class UserCompanyPageViewModel : ObservableObject, IViewModel
     {
         [ObservableProperty] int companyId;
         [ObservableProperty] ObservableRangeCollection<ProductModel> products;

@@ -11,7 +11,7 @@ using EcoPlatesMobile.Utilities;
 namespace EcoPlatesMobile.ViewModels.User
 {
     [QueryProperty(nameof(ProductModel), nameof(ProductModel))]
-    public partial class DetailProductPageViewModel : ObservableObject
+    public partial class DetailProductPageViewModel : ObservableObject, IViewModel
     {
         [ObservableProperty] ProductModel productModel;
         [ObservableProperty] private ImageSource productImage;

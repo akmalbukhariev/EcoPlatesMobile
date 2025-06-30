@@ -11,9 +11,8 @@ public partial class UserCompanyPage : BasePage
     public UserCompanyPage()
 	{
 		InitializeComponent();
-		viewModel = new UserCompanyPageViewModel();
-          
-        BindingContext = viewModel;
+        viewModel = ResolveViewModel<UserCompanyPageViewModel>();
+
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
     }
 

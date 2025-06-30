@@ -38,7 +38,6 @@ public partial class ActiveProductPage : BasePage
         InitializeComponent();
 
         viewModel = ResolveViewModel<ActiveProductPageViewModel>();
-        SetViewModel(viewModel);
     }
 
     protected override async void OnAppearing()
@@ -50,12 +49,7 @@ public partial class ActiveProductPage : BasePage
         header.ShowBack = ShowBack;
         await viewModel.LoadInitialAsync();
     }
-    
-    private async void AddItem_Clicked(object sender, EventArgs e)
-    {
-        await AppNavigatorService.NavigateTo(nameof(CompanyAddProductPage));
-    }
-    
+     
     private async void EditProduct_Invoked(object sender, EventArgs e)
     {
         if (sender is SwipeItem swipeItem &&
@@ -118,5 +112,11 @@ public partial class ActiveProductPage : BasePage
                 viewModel.IsLoading = false;
             }
         }
+    }
+
+    private async void Add_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(sender as Image);
+        await AppNavigatorService.NavigateTo(nameof(CompanyAddProductPage));
     }
 }

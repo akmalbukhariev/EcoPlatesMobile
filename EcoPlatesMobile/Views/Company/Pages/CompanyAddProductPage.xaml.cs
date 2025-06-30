@@ -17,7 +17,9 @@ public partial class CompanyAddProductPage : BasePage
     public CompanyAddProductPage()
 	{
 		InitializeComponent();
-	}
+
+        Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
+    }
 
     protected override void OnAppearing()
     {

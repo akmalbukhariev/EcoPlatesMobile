@@ -12,7 +12,7 @@ using EcoPlatesMobile.Views.Company.Pages;
 
 namespace EcoPlatesMobile.ViewModels.Company
 { 
-    public partial class NonActiveProductPageViewModel : ObservableObject
+    public partial class NonActiveProductPageViewModel : ObservableObject, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ProductModel selectedProduct;

@@ -73,7 +73,8 @@
                    FontSize="14"
                    HorizontalTextAlignment="Center"
                    Grid.Row="1"/>
-            <Label Text="v. 1.1 (Android -2025)"
+            <Label x:Name="lbVersion" 
+                   Text="v. 1.1 (Android -2025)"
                    TextColor="LightGray"
                    FontSize="14"
                    HorizontalTextAlignment="Center"
@@ -120,7 +121,8 @@
                        FontSize="15"
                        VerticalTextAlignment="Center"
                        Grid.Column="1"/>
-                <HorizontalStackLayout Spacing="5" Grid.Column="2">
+                <HorizontalStackLayout Spacing="5" 
+                                       Grid.Column="2">
                     <Image Source="{Binding SelectedFlag}" 
                            WidthRequest="30" 
                            HeightRequest="20"

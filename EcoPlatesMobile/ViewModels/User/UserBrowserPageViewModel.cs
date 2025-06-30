@@ -16,7 +16,7 @@ using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserBrowserPageViewModel : ObservableObject
+    public partial class UserBrowserPageViewModel : ObservableObject, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<CompanyModel> companies;
         [ObservableProperty] private bool isLoading;

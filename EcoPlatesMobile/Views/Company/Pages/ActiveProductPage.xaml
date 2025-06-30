@@ -59,19 +59,19 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
-            <Button Text="+"
-                    IsVisible="{Binding ShowAddButton}"
-                    FontSize="30"
-                    TextColor="White"
-                    BackgroundColor="#8338EC"
-                    CornerRadius="30"
-                    WidthRequest="60"
-                    HeightRequest="60"
-                    Margin="0,0,0,30"
-                    VerticalOptions="End"
-                    HorizontalOptions="End"
-                    Clicked="AddItem_Clicked"
-                    Grid.RowSpan="2"/>
+            <Image Source="add.png"
+                   IsVisible="{Binding ShowAddButton}"
+                   WidthRequest="60"
+                   HeightRequest="60"
+                   Margin="0,0,0,30"
+                   VerticalOptions="End"
+                   HorizontalOptions="End"
+                   Grid.RowSpan="2">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Add_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
                            Color="Green"

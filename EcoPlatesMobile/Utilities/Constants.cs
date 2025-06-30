@@ -1,4 +1,7 @@
-﻿namespace EcoPlatesMobile.Utilities
+﻿using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Devices;
+
+namespace EcoPlatesMobile.Utilities
 {
     internal class Constants
     {
@@ -9,5 +12,11 @@
         public const string BASE_COMPANY_URL = "http://www.ecoplates.uz:8080/company/";
         //public const string BASE_COMPANY_URL = "http://192.168.219.181:8081";
         //public const string BASE_COMPANY_URL = "http://10.0.2.2:8081";
+
+        public static readonly string Version = AppInfo.Current.VersionString;     // e.g., "1.0"
+        public static readonly string Build = AppInfo.Current.BuildString;         // e.g., "1.0.0"
+
+        public static readonly string OsName = DeviceInfo.Current.Platform.ToString();      // Android, iOS, macOS, Windows
+        public static readonly string OsVersion = DeviceInfo.Current.VersionString;         // OS version string
     }
 }

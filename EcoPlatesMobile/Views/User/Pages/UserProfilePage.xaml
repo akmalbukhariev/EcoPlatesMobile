@@ -59,81 +59,83 @@
         </Grid>
         <BoxView BackgroundColor="LightGray" 
                  Grid.Row="3"/>
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto"
-              Margin="20"
-              Grid.Row="4">
-            <Grid ColumnDefinitions="Auto, *, Auto"
-                  HeightRequest="50"
-                  Margin="0,0,0,20">
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1"
-                                          Tapped="OnLanguageTapped"/>
-                </Grid.GestureRecognizers>
-                <Image Source="language.png"
-                       WidthRequest="23"
-                       HeightRequest="23"
-                       Margin="0,0,20,0"
-                       VerticalOptions="Center"/>
-                <Label Text="{Binding SelectedLanguage}"
-                       TextColor="#444444"
-                       FontSize="15"
-                       VerticalTextAlignment="Center"
-                       Grid.Column="1"/>
-                <HorizontalStackLayout Spacing="5" Grid.Column="2">
-                    <Image Source="{Binding SelectedFlag}" 
-                           WidthRequest="30" 
-                           HeightRequest="20"
-                           VerticalOptions="Center" 
-                           Margin="5"/>
-                    <Image Source="down.png" 
-                           WidthRequest="15" 
-                           HeightRequest="15"
-                           Margin="0, 0, 0, 0" 
+        <RefreshView Command="{Binding RefreshCommand}"
+             IsRefreshing="{Binding IsRefreshing}"
+             Grid.Row="4">
+            <Grid RowDefinitions="*,Auto" HeightRequest="{OnPlatform Android=700, iOS=700}">
+                <!-- Scrollable Content -->
+                <ScrollView Grid.Row="0">
+                    <VerticalStackLayout Padding="20" Spacing="20">
+                        <!-- Language Row -->
+                        <Grid ColumnDefinitions="Auto, *, Auto"
+                      HeightRequest="50">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLanguageTapped" />
+                            </Grid.GestureRecognizers>
+                            <Image Source="language.png"
+                           WidthRequest="23"
+                           Margin="0,0,20,0"
                            VerticalOptions="Center"/>
-                </HorizontalStackLayout>
-            </Grid>
-            <component:ListTileView TileIcon="share.png" 
-                                    TileText="Do'stlar bilan ulashish"
-                                    TileTextSize="15"
-                                    TileTextColor="#444444"
-                                    Margin="0,0,0,20"
-                                    EventClickTile="Tile_EventClick"
-                                    Grid.Row="1"/>
-            <component:ListTileView TileIcon="info.png" 
-                                    TileText="Dastur haqida"
-                                    TileType="AboutApp"
-                                    TileTextSize="15"
-                                    TileTextColor="#444444"
-                                    Margin="0,0,0,20"
-                                    EventClickTile="Tile_EventClick"
-                                    Grid.Row="2"/>
-            <component:ListTileView TileIcon="offer.png" 
-                                    TileText="Taklif va shikoyatlar"
-                                    TileType="Suggestions"
-                                    TileTextSize="15"
-                                    TileTextColor="#444444"
-                                    EventClickTile="Tile_EventClick"
-                                    Grid.Row="3"/>
-        </Grid>
-        <Grid RowDefinitions="Auto, Auto, Auto" 
-              Margin="0,0,0,30"
-              Grid.Row="5">
-            <Image Source="logo1.png"
+                            <Label Text="{Binding SelectedLanguage}"
+                           TextColor="#444444"
+                           FontSize="15"
+                           VerticalTextAlignment="Center"
+                           Grid.Column="1"/>
+                            <HorizontalStackLayout Spacing="5" Grid.Column="2">
+                                <Image Source="{Binding SelectedFlag}" 
+                               WidthRequest="30" 
+                               HeightRequest="20"
+                               VerticalOptions="Center" 
+                               Margin="5"/>
+                                <Image Source="down.png" 
+                               WidthRequest="15" 
+                               HeightRequest="15"
+                               VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+
+                        <!-- List tiles -->
+                        <component:ListTileView TileIcon="share.png" 
+                                        TileText="Do'stlar bilan ulashish"
+                                        TileTextSize="15"
+                                        TileTextColor="#444444"
+                                        EventClickTile="Tile_EventClick"/>
+                        <component:ListTileView TileIcon="info.png" 
+                                        TileText="Dastur haqida"
+                                        TileType="AboutApp"
+                                        TileTextSize="15"
+                                        TileTextColor="#444444"
+                                        EventClickTile="Tile_EventClick"/>
+                        <component:ListTileView TileIcon="offer.png" 
+                                        TileText="Taklif va shikoyatlar"
+                                        TileType="Suggestions"
+                                        TileTextSize="15"
+                                        TileTextColor="#444444"
+                                        EventClickTile="Tile_EventClick"/>
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <!-- Footer always at bottom -->
+                <VerticalStackLayout Grid.Row="1"
+                             Padding="0,20"
+                             HorizontalOptions="Center">
+                    <Image Source="logo1.png"
                    Aspect="AspectFit"
                    WidthRequest="150"
-                   HeightRequest="150"
-                   VerticalOptions="Center"/>
-            <Label Text="SaleTop application"
+                   HeightRequest="150"/>
+                    <Label Text="SaleTop application"
                    TextColor="LightGray"
                    FontSize="17"
-                   HorizontalTextAlignment="Center"
-                   Grid.Row="1"/>
-            <Label Text="v. 1.1 (Android -2025)"
+                   HorizontalTextAlignment="Center"/>
+                    <Label x:Name="lbVersion" 
+                   Text="v. 1.1.0 (Android -13)"
                    TextColor="LightGray"
                    FontSize="15"
-                   HorizontalTextAlignment="Center"
-                   Grid.Row="2"/>
-        </Grid>
+                   HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+        </RefreshView>
+
         <BoxView x:Name="dropdownListBack" 
                  Opacity="0.5"
                  IsVisible="False"

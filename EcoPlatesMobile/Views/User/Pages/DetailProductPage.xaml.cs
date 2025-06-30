@@ -12,8 +12,7 @@ public partial class DetailProductPage : BasePage
     public DetailProductPage()
 	{
 		InitializeComponent();
-        viewModel = new DetailProductPageViewModel();
-        BindingContext = viewModel;
+        viewModel = ResolveViewModel<DetailProductPageViewModel>();
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         reviewView.EventReviewClick += ReviewView_EventReviewClick;

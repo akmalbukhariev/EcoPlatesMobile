@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserBrowserSearchPageViewModel : ObservableObject
+    public partial class UserBrowserSearchPageViewModel : ObservableObject, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<CompanyModel> companies;
         [ObservableProperty] private ObservableRangeCollection<HistoryDataInfo> historyList;

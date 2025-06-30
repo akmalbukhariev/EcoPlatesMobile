@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserMainSearchPageViewModel : ObservableObject
+    public partial class UserMainSearchPageViewModel : ObservableObject, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ObservableRangeCollection<HistoryDataInfo> historyList;

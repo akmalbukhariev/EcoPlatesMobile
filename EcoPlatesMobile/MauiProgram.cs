@@ -79,6 +79,13 @@ namespace EcoPlatesMobile
             builder.Services.AddSingleton<UserMainPageViewModel>();
             builder.Services.AddSingleton<ActiveProductPageViewModel>();
             builder.Services.AddSingleton<NonActiveProductPageViewModel>();
+
+            builder.Services.AddSingleton<UserBrowserPageViewModel>();
+            builder.Services.AddSingleton<UserBrowserSearchPageViewModel>();
+            builder.Services.AddSingleton<UserCompanyPageViewModel>();
+            builder.Services.AddSingleton<UserFavoritesViewModel>();
+            builder.Services.AddSingleton<UserMainSearchPageViewModel>();
+            builder.Services.AddSingleton<DetailProductPageViewModel>();
         }
 
         private static void RegisterTransient(MauiAppBuilder builder)

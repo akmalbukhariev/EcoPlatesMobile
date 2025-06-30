@@ -49,6 +49,8 @@ public partial class CompanyProfilePage : BasePage
         SelectedFlag = Languages[0].Flag;
         SelectedLanguage = Languages[0].Name;
         BindingContext = this;
+
+        lbVersion.Text = $"v. {Constants.Version} ({Constants.OsName} - {Constants.OsVersion})";
     }
 
     protected override async void OnAppearing()

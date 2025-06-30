@@ -12,8 +12,7 @@ public partial class UserFavoritesPage : BasePage
 	{
 		InitializeComponent();
 
-		viewModel = new UserFavoritesViewModel();
-		BindingContext = viewModel;
+		viewModel = ResolveViewModel<UserFavoritesViewModel>();
 
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
     }

@@ -14,7 +14,6 @@ public partial class UserMainPage : BasePage
 		InitializeComponent();
 
         viewModel = ResolveViewModel<UserMainPageViewModel>();
-        SetViewModel(viewModel);
          
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         companyTypeList.EventTypeClick += CompanyTypeList_EventTypeClick;

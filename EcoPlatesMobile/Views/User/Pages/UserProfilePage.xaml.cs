@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
@@ -8,10 +9,11 @@ using EcoPlatesMobile.ViewModels.User;
 using EcoPlatesMobile.Views.Components;
 using Microsoft.Maui.Controls.Shapes;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
-public partial class UserProfilePage : BasePage
+public partial class UserProfilePage : BasePage 
 {
     public ObservableCollection<LanguageModel> Languages { get; set; }
 
@@ -37,6 +39,17 @@ public partial class UserProfilePage : BasePage
         }
     }
 
+    public bool IsRefreshing
+    {
+        get => _isRefreshing;
+        set
+        {
+            _isRefreshing = value;
+            OnPropertyChanged(nameof(IsRefreshing));
+        }
+    }
+    private bool _isRefreshing;
+    
     GetUserInfoResponse response;
 
     public UserProfilePage()
@@ -53,6 +66,8 @@ public partial class UserProfilePage : BasePage
         SelectedFlag = Languages[0].Flag;
         SelectedLanguage = Languages[0].Name;
         BindingContext = this;
+         
+        lbVersion.Text = $"v. {Constants.Version} ({Constants.OsName} - {Constants.OsVersion})";
     }
 
     protected override async void OnAppearing()
@@ -65,24 +80,38 @@ public partial class UserProfilePage : BasePage
 
         if (control.RefreshProfilePage)
         {
-            loading.ShowLoading = true;
-
-            var apiService = AppService.Get<UserApiService>();
-
-            response = await apiService.GetUserInfo();
-            if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
-            {
-                imUser.Source = response.resultData.profile_picture_url;
-                lbUserName.Text = response.resultData.first_name;
-                lbPhoneNumber.Text = response.resultData.phone_number;
-
-                control.UserInfo = response.resultData;
-            }
-
-            loading.ShowLoading = false;
+            await LoadData(control);
             control.RefreshProfilePage = false;
         }
     }
+
+    public IRelayCommand RefreshCommand => new RelayCommand(async () =>
+    {
+        IsRefreshing = true;
+        var control = AppService.Get<AppControl>();
+        await LoadData(control);
+        IsRefreshing = false;
+    });
+
+    private async Task LoadData(AppControl control)
+    {
+        loading.ShowLoading = true;
+
+        var apiService = AppService.Get<UserApiService>();
+
+        response = await apiService.GetUserInfo();
+        if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
+        {
+            imUser.Source = response.resultData.profile_picture_url;
+            lbUserName.Text = response.resultData.first_name;
+            lbPhoneNumber.Text = response.resultData.phone_number;
+
+            control.UserInfo = response.resultData;
+        }
+
+        loading.ShowLoading = false;
+    }
+     
 
     private async void UserInfo_Tapped(object sender, TappedEventArgs e)
     {

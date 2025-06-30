@@ -35,9 +35,8 @@ public partial class NonActiveProductPage : BasePage
 	public NonActiveProductPage()
 	{
 		InitializeComponent();
-		
-		viewModel = new NonActiveProductPageViewModel();
-		BindingContext = viewModel;
+
+        viewModel = ResolveViewModel<NonActiveProductPageViewModel>();
 	}
 
     protected override async void OnAppearing()
