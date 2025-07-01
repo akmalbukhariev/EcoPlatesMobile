@@ -10,7 +10,7 @@ namespace EcoPlatesMobile.Views.Company.Pages;
 
 [QueryProperty(nameof(ShowBackQuery), nameof(ShowBackQuery))]
 [QueryProperty(nameof(ShowTabBarQuery), nameof(ShowTabBarQuery))]
-public partial class NonActiveProductPage : BasePage
+public partial class InActiveProductPage : BasePage
 {
     private bool ShowBack { get; set; } = false;
     private bool ShowTabBar { get; set; } = true;
@@ -32,12 +32,12 @@ public partial class NonActiveProductPage : BasePage
         }
     }
 
-    private NonActiveProductPageViewModel viewModel;
-	public NonActiveProductPage()
+    private InActiveProductPageViewModel viewModel;
+	public InActiveProductPage()
 	{
 		InitializeComponent();
 
-        viewModel = ResolveViewModel<NonActiveProductPageViewModel>();
+        viewModel = ResolveViewModel<InActiveProductPageViewModel>();
 	}
 
     protected override async void OnAppearing()

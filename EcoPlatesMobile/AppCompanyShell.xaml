@@ -19,7 +19,7 @@
         </Tab>
         <Tab Icon="active_product.png" 
              Title="{x:Static language:AppResource.Inactive}">
-            <ShellContent ContentTemplate="{DataTemplate companyPages:NonActiveProductPage}"
+            <ShellContent ContentTemplate="{DataTemplate companyPages:InActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="company.png" 

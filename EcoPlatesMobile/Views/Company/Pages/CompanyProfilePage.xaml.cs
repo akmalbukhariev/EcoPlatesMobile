@@ -139,7 +139,7 @@ public partial class CompanyProfilePage : BasePage
                 await AppNavigatorService.NavigateTo($"{nameof(ActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.PreviousAds:
-                await AppNavigatorService.NavigateTo($"{nameof(NonActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
+                await AppNavigatorService.NavigateTo($"{nameof(InActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.Share:
                 break;

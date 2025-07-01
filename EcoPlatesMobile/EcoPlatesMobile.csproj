@@ -79,10 +79,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\Company\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="AppUserShell.xaml.cs">
 	    <DependentUpon>AppUserShell.xaml</DependentUpon>
 	  </Compile>
@@ -94,8 +90,8 @@
 	  <Compile Update="Views\Company\Pages\CompanyProfilePage.xaml.cs">
 	    <DependentUpon>CompanyProfilePage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Company\Pages\NonActiveProductPage.xaml.cs">
-	    <DependentUpon>NonActiveProductPage.xaml</DependentUpon>
+	  <Compile Update="Views\Company\Pages\InActiveProductPage.xaml.cs">
+	    <DependentUpon>InActiveProductPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\PhoneNumberRegisterPage.xaml.cs">
 	    <DependentUpon>PhoneNumberRegisterPage.xaml</DependentUpon>
@@ -143,7 +139,7 @@
 	  <MauiXaml Update="Views\Company\Pages\LocationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Company\Pages\NonActiveProductPage.xaml">
+	  <MauiXaml Update="Views\Company\Pages\InActiveProductPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Components\CustomEntry.xaml">

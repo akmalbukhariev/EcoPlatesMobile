@@ -79,7 +79,7 @@ namespace EcoPlatesMobile
 
             builder.Services.AddSingleton<UserMainPageViewModel>();
             builder.Services.AddSingleton<ActiveProductPageViewModel>();
-            builder.Services.AddSingleton<NonActiveProductPageViewModel>();
+            builder.Services.AddSingleton<InActiveProductPageViewModel>();
 
             builder.Services.AddSingleton<UserBrowserPageViewModel>();
             builder.Services.AddSingleton<UserBrowserSearchPageViewModel>();

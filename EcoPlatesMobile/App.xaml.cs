@@ -48,7 +48,7 @@ namespace EcoPlatesMobile
 
             #region Company pages
             Routing.RegisterRoute(nameof(ActiveProductPage), typeof(ActiveProductPage));
-            Routing.RegisterRoute(nameof(NonActiveProductPage), typeof(NonActiveProductPage));
+            Routing.RegisterRoute(nameof(InActiveProductPage), typeof(InActiveProductPage));
             Routing.RegisterRoute(nameof(CompanyProfileInfoPage), typeof(CompanyProfileInfoPage));
             Routing.RegisterRoute(nameof(CompanyProfilePage), typeof(CompanyProfilePage));
             Routing.RegisterRoute(nameof(CompanyAddProductPage), typeof(CompanyAddProductPage));
