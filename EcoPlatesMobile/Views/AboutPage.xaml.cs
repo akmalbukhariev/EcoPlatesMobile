@@ -25,7 +25,7 @@ public partial class AboutPage : BasePage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        /*
+        
         lbTitle.Text = AppResource.AboutApp;
 
         if (_isUser)
@@ -60,7 +60,6 @@ public partial class AboutPage : BasePage
 
             finalMessage.Text = AppResource.FinalMessageSeller;
         }
-        */
     }
 
     private async void Close_Tapped(object sender, TappedEventArgs e)

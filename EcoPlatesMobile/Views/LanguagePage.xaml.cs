@@ -1,4 +1,6 @@
 ﻿using EcoPlatesMobile.Models;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using Svg.Skia;
@@ -37,49 +39,61 @@ public partial class LanguagePage : BasePage
 	{
 		InitializeComponent();
 
-        Languages = new ObservableCollection<LanguageModel>
-        {
-            new LanguageModel { Name = "O'zbekcha", Flag = "flag_uz.png", IsSelected = true },
-            new LanguageModel { Name = "English", Flag = "flag_en.png", IsSelected = false },
-            new LanguageModel { Name = "Русский", Flag = "flag_ru.png", IsSelected = false }
-        };
+        Init();
 
-        SelectedLanguage = Languages[0].Name;
-        SelectedFlag = Languages[0].Flag;
         BindingContext = this;
     }
 
-    // Handle tap on Frame to show Picker
+    private void Init()
+    {
+        var currentLangCode = AppService.Get<LanguageService>().GetCurrentLanguage();
+
+        Languages = new ObservableCollection<LanguageModel>
+        {
+            new LanguageModel { Name = "O'zbekcha", Flag = "flag_uz.png", IsSelected = true,  Code = Constants.UZ },
+            new LanguageModel { Name = "English",   Flag = "flag_en.png", IsSelected = false, Code = Constants.EN },
+            new LanguageModel { Name = "Русский",   Flag = "flag_ru.png", IsSelected = false, Code = Constants.RU }
+        };
+
+        foreach (var lang in Languages)
+        {
+            lang.IsSelected = lang.Code == currentLangCode;
+            if (lang.IsSelected)
+            {
+                SelectedFlag = lang.Flag;
+                SelectedLanguage = lang.Name;
+            }
+        }
+    }
+
     private async void OnFrameTapped(object sender, EventArgs e)
     {
         if (!DropdownList.IsVisible)
         {
             DropdownList.Opacity = 0;
             DropdownList.IsVisible = true;
-            await DropdownList.FadeTo(1, 250); // ✅ Smooth fade-in
+            await DropdownList.FadeTo(1, 250);
         }
         else
         {
             await DropdownList.FadeTo(0, 250);
-            DropdownList.IsVisible = false; // ✅ Hide after fade-out
+            DropdownList.IsVisible = false;
         }
     }
 
-    // Handle language selection
     private async void OnLanguageSelected(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.FirstOrDefault() is LanguageModel selectedLang)
         {
-            // ✅ Deselect previous selection
             foreach (var lang in Languages)
                 lang.IsSelected = false;
 
-            // ✅ Set new selection
             selectedLang.IsSelected = true;
             SelectedLanguage = selectedLang.Name;
             SelectedFlag = selectedLang.Flag;
 
-            // ✅ Hide dropdown smoothly
+            AppService.Get<LanguageService>().SetCulture(selectedLang.Code);
+
             await DropdownList.FadeTo(0, 250);
             DropdownList.IsVisible = false;
         }

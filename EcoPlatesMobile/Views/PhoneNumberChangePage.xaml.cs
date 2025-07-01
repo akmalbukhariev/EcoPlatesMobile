@@ -1,4 +1,6 @@
-﻿namespace EcoPlatesMobile.Views;
+﻿using EcoPlatesMobile.Resources.Languages;
+
+namespace EcoPlatesMobile.Views;
 
 public partial class PhoneNumberChangePage : BasePage
 {
@@ -6,7 +8,7 @@ public partial class PhoneNumberChangePage : BasePage
 	{
 		InitializeComponent();
 
-        lbTitle.Text = "You can change your Saletop number here. Your account and all your cloud data — messages, media, contacts, etc. will be moved to the new number.";
+        lbTitle.Text = AppResource.ChangeNumberTitle;
     }
 
     private async void Next_Clicked(object sender, EventArgs e)

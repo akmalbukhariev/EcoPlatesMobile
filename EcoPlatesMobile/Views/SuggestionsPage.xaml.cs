@@ -1,6 +1,7 @@
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -20,7 +21,7 @@ public partial class SuggestionsPage : BasePage
         }
     }
 
-    public List<string> FeedbackTypes { get; set; } = new() { "Suggestions", "Complaints" };
+    public List<string> FeedbackTypes { get; set; } = new() { AppResource.Suggestions, AppResource.Complaints };
     public string SelectedType { get; set; }
 
     public SuggestionsPage()
@@ -49,7 +50,7 @@ public partial class SuggestionsPage : BasePage
     {
         if (string.IsNullOrWhiteSpace(SelectedType) || string.IsNullOrWhiteSpace(messageEditor.Text))
         {
-            await AlertService.ShowAlertAsync("Missing Info", "Please select a type and enter your message.", "OK");
+            await AlertService.ShowAlertAsync(AppResource.MissingInfo, AppResource.MessageMissingInfo, AppResource.Ok);
             return;
         }
 
@@ -70,12 +71,12 @@ public partial class SuggestionsPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync("Thank you!", "Your feedback has been submitted.", "Close");
+                    await AlertService.ShowAlertAsync(AppResource.ThankYou, AppResource.MessageFeedback, AppResource.Close);
                     await AppNavigatorService.NavigateTo("..");
                 }
                 else
                 {
-                    await AlertService.ShowAlertAsync("Error!", response.resultMsg, "Close");
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg, AppResource.Close);
                 }
             }
             else
@@ -92,12 +93,12 @@ public partial class SuggestionsPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync("Thank you!", "Your feedback has been submitted.", "Close");
+                    await AlertService.ShowAlertAsync(AppResource.ThankYou, AppResource.MessageFeedback, AppResource.Close);
                     await AppNavigatorService.NavigateTo("..");
                 }
                 else
                 {
-                    await AlertService.ShowAlertAsync("Error!", response.resultMsg, "Close");
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg, AppResource.Close);
                 }
             }
 

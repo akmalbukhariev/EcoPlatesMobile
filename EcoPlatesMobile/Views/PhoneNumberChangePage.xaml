@@ -2,12 +2,13 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-               BackgroundColor="#EFEEF2"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
-               x:Class="EcoPlatesMobile.Views.PhoneNumberChangePage">
+               x:Class="EcoPlatesMobile.Views.PhoneNumberChangePage"
+               BackgroundColor="#EFEEF2">
 
     <Grid RowDefinitions="Auto, *, Auto, 30, Auto, 20, Auto, *">
-        <component:CustomHeader Title="Change Number"
+        <component:CustomHeader Title="{x:Static language:AppResource.ChangeNumber}"
                                 HeaderBackground="#8338EC"/>
         <Image Source="phone1.png"
                Aspect="AspectFit"
@@ -30,7 +31,7 @@
                    HorizontalTextAlignment="Center"
                    FontSize="17"/>
         </VerticalStackLayout>
-        <Button Text="Change Number"
+        <Button Text="{x:Static language:AppResource.ChangeNumber}"
                 FontSize="17"
                 FontAttributes="Bold"
                 TextColor="#3080DD"

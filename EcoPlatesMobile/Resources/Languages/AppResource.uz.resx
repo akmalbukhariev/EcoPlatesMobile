@@ -119,26 +119,215 @@
   </resheader>
   <data name="Buyer" xml:space="preserve">
     <value>Xaridor</value>
-    <comment/>
+    <comment>LoginPage</comment>
   </data>
   <data name="EnterPhoneCorrectly" xml:space="preserve">
     <value>Ushbu telefon raqam orqali siz platformadan unumli foydalanishingiz mumkin. Telefon raqamingizni to'g'ri kiritishingiz juda ham muhim.</value>
-    <comment/>
+    <comment>AuthorizationPage</comment>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
     <value>Iltimos, telefon raqamingizni kiriting</value>
-    <comment/>
+    <comment>AuthorizationPage</comment>
   </data>
   <data name="SelectRole" xml:space="preserve">
     <value>Foydalanuvchi sifatida o’zingizni rolingizni tanlang</value>
-    <comment/>
+    <comment>LoginPage</comment>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Sotuvchi</value>
-    <comment/>
+    <comment>LoginPage</comment>
   </data>
   <data name="AboutApp" xml:space="preserve">
     <value>About the Application</value>
     <comment>AboutPage</comment>
   </data>
+	<data name="ForClient" xml:space="preserve">
+  <value>Mijozlar uchun</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="RoleSubtitleClient" xml:space="preserve">
+  <value>Yaqiningizdagi chegirmadagi oziq-ovqat mahsulotlarini kashf eting</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint1Client" xml:space="preserve">
+  <value>Chegirmadagi turli xil oziq-ovqat takliflarini ko‘zdan kechiring.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint2Client" xml:space="preserve">
+  <value>Mavjud mahsulotlarni xaritada ko‘rish.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint3Client" xml:space="preserve">
+  <value>Joylashuvingiz bo‘yicha takliflarni topish uchun radiusni sozlang.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint4Client" xml:space="preserve">
+  <value>Yaqiningizdagi yangi chegirmalar haqida bildirishnomalar oling.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="FinalMessageClient" xml:space="preserve">
+  <value>Pul tejang, chiqindilarni kamaytiring va mahalliy hamjamiyatingizni qo‘llab-quvvatlang.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="ForSeller" xml:space="preserve">
+  <value>Sotuvchilar uchun</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="RoleSubtitleSeller" xml:space="preserve">
+  <value>Yaroqlilik muddati yaqinlashgan mahsulotlarni chiqindiga emas, savdoga aylantiring</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint1Seller" xml:space="preserve">
+  <value>Yaroqlilik muddati tugashidan oldin iste’mol qilinadigan mahsulotlarni yuklang.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint2Seller" xml:space="preserve">
+  <value>Yaqin atrofdagi mijozlarni jalb qilish uchun chegirmalar taklif qiling.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint3Seller" xml:space="preserve">
+  <value>Mahsulotingizning yaroqlilik muddati tugash arafasida bo‘lsa, xabarnoma oling.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint4Seller" xml:space="preserve">
+  <value>Arzon mahsulotlarni faol izlayotgan yangi xaridorlarga yetib boring.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="FinalMessageSeller" xml:space="preserve">
+  <value>Aqlli savdo qiling, chiqindilarni kamaytiring va barqaror biznes imidjini targ‘ib qiling.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="Next" xml:space="preserve">
+  <value>Keyingi</value>
+  <comment>AllPage</comment>
+</data>
+	<data name="ChangeNumber" xml:space="preserve">
+  <value>Raqamni o‘zgartirish</value>
+  <comment>PhoneNumberChangePage</comment>
+</data>
+	<data name="ChangeNumberTitle" xml:space="preserve">
+  <value>Bu yerda Saletop raqamingizni o‘zgartirishingiz mumkin. Hisobingiz va barcha bulutdagi ma'lumotlaringiz — xabarlar, media, kontaktlar va boshqalar yangi raqamga ko‘chiriladi.</value>
+  <comment>PhoneNumberChangePage</comment>
+</data>
+	<data name="NewNumber" xml:space="preserve">
+  <value>Yangi raqam</value>
+  <comment>PhoneNumberNewPage</comment>
+</data>
+	<data name="NewNumberTitle" xml:space="preserve">
+  <value>Yangi raqamingizga SMS orqali tasdiqlash kodi yuboriladi.</value>
+  <comment>PhoneNumberNewPage</comment>
+</data>
+	<data name="Continue" xml:space="preserve">
+  <value>Davom etish</value>
+  <comment>PhoneNumberNewPage</comment>
+</data>
+	<data name="Authorization" xml:space="preserve">
+  <value>Avtorizatsiya</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="AuthorizationTitle1" xml:space="preserve">
+  <value>Ushbu telefon raqam orqali siz platformadan samarali foydalanishingiz mumkin. Telefon raqamingizni to‘g‘ri kiritishingiz juda muhim.</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="AuthorizationTitle2" xml:space="preserve">
+  <value>Telefon raqamingizni kiritish orqali siz ommaviy ofertaga rozilik bildirasiz.</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="MessageEnterPhoneNumber" xml:space="preserve">
+  <value>Iltimos, telefon raqamingizni kiriting!</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="PhoneNumber" xml:space="preserve">
+  <value>Telefon raqami</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="PhoneNumberNotRegistered" xml:space="preserve">
+  <value>Telefon raqami ro‘yxatdan o‘tmagan</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="MessageEnterPhoneNumberNotRegistered" xml:space="preserve">
+  <value>Bu telefon raqami tizimimizda ro‘yxatdan o‘tmagan. Siz ro‘yxatdan o‘tish sahifasiga yo‘naltirilasiz.</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="Error" xml:space="preserve">
+  <value>Xatolik</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="ErrorUnexpected" xml:space="preserve">
+  <value>Kutilmagan xatolik yuz berdi.</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="SuggestionTitle1" xml:space="preserve">
+  <value>Taklif va shikoyatlar</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="SuggestionTitle2" xml:space="preserve">
+  <value>Fikringiz biz uchun muhim va biz sizga yordam berishga tayyormiz.</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="SelectFeedbackType" xml:space="preserve">
+  <value>Fikr-mulohaza turini tanlang</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="WriteYourMessage" xml:space="preserve">
+  <value>Xabaringizni yozing...</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Submit" xml:space="preserve">
+  <value>Yuborish</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Message" xml:space="preserve">
+  <value>Xabar</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Suggestions" xml:space="preserve">
+  <value>Takliflar</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Complaints" xml:space="preserve">
+  <value>Shikoyatlar</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="MissingInfo" xml:space="preserve">
+  <value>Ma’lumot yetishmayapti</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="MessageMissingInfo" xml:space="preserve">
+  <value>Iltimos, turini tanlang va xabaringizni kiriting.</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Ok" xml:space="preserve">
+  <value>Ok</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="ThankYou" xml:space="preserve">
+  <value>Rahmat!</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="MessageFeedback" xml:space="preserve">
+  <value>Fikringiz yuborildi.</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Close" xml:space="preserve">
+  <value>Yopish</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Please" xml:space="preserve">
+  <value>Iltimos</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="ConfirmationCodeTime" xml:space="preserve">
+  <value>Kodni tasdiqlash uchun ajratilgan vaqt.</value>
+  <comment>AuthorizationPage</comment>
+</data>
+	<data name="Confirm" xml:space="preserve">
+  <value>Tasdiqlash</value>
+  <comment>AuthorizationPage</comment>
+</data>
+	<data name="ConfirmTitle" xml:space="preserve">
+  <value>telefon raqamingizga SMS orqali yuborilgan tasdiqlash kodini kiriting.</value>
+  <comment>AuthorizationPage</comment>
+</data>
+
 </root>

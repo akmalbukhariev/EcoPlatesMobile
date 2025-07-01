@@ -119,26 +119,215 @@
   </resheader>
   <data name="Buyer" xml:space="preserve">
     <value>Покупатель</value>
-    <comment/>
+    <comment>LoginPage</comment>
   </data>
   <data name="EnterPhoneCorrectly" xml:space="preserve">
     <value>С помощью этого номера телефона вы сможете эффективно пользоваться платформой. Очень важно ввести свой номер телефона правильно.</value>
-    <comment/>
+    <comment>AuthorizationPage</comment>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
     <value>Пожалуйста, введите свой номер телефона</value>
-    <comment/>
+    <comment>AuthorizationPage</comment>
   </data>
   <data name="SelectRole" xml:space="preserve">
     <value>Выберите свою роль как пользователь</value>
-    <comment/>
+    <comment>LoginPage</comment>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Продавец</value>
-    <comment/>
+    <comment>LoginPage</comment>
   </data>
   <data name="AboutApp" xml:space="preserve">
     <value>About the Application</value>
     <comment>AboutPage</comment>
   </data>
+	<data name="ForClient" xml:space="preserve">
+  <value>Для клиентов</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="RoleSubtitleClient" xml:space="preserve">
+  <value>Открывайте для себя продукты со скидками рядом с вами</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint1Client" xml:space="preserve">
+  <value>Просматривайте разнообразные предложения со скидками на продукты питания.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint2Client" xml:space="preserve">
+  <value>Просматривать доступные товары на карте.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint3Client" xml:space="preserve">
+  <value>Настройте радиус, чтобы найти предложения в вашем районе.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint4Client" xml:space="preserve">
+  <value>Получайте уведомления о новых предложениях рядом с вами.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="FinalMessageClient" xml:space="preserve">
+  <value>Экономьте деньги, сокращайте отходы и поддерживайте своё местное сообщество.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="ForSeller" xml:space="preserve">
+  <value>Для продавцов</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="RoleSubtitleSeller" xml:space="preserve">
+  <value>Превратите товары с истекающим сроком годности не в отходы, а в продажи</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint1Seller" xml:space="preserve">
+  <value>Загружайте продукты питания до истечения срока их годности.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint2Seller" xml:space="preserve">
+  <value>Предлагайте скидки, чтобы привлечь клиентов поблизости.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint3Seller" xml:space="preserve">
+  <value>Получайте уведомления, когда срок годности вашего продукта подходит к концу.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="AboutAppPoint4Seller" xml:space="preserve">
+  <value>Охватывайте новых покупателей, которые активно ищут доступные товары.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="FinalMessageSeller" xml:space="preserve">
+  <value>Продавайте разумно, сокращайте отходы и продвигайте устойчивый имидж бизнеса.</value>
+  <comment>AboutPage</comment>
+</data>
+	<data name="Next" xml:space="preserve">
+  <value>Далее</value>
+  <comment>AllPage</comment>
+</data>
+	<data name="ChangeNumber" xml:space="preserve">
+  <value>Сменить номер</value>
+  <comment>PhoneNumberChangePage</comment>
+</data>
+	<data name="ChangeNumberTitle" xml:space="preserve">
+  <value>Здесь вы можете изменить свой номер Saletop. Ваша учетная запись и все данные в облаке — сообщения, медиа, контакты и др. — будут перенесены на новый номер.</value>
+  <comment>PhoneNumberChangePage</comment>
+</data>
+	<data name="NewNumber" xml:space="preserve">
+  <value>Новый номер</value>
+  <comment>PhoneNumberNewPage</comment>
+</data>
+	<data name="NewNumberTitle" xml:space="preserve">
+  <value>На ваш новый номер будет отправлен код подтверждения по SMS.</value>
+  <comment>PhoneNumberNewPage</comment>
+</data>
+	<data name="Continue" xml:space="preserve">
+  <value>Продолжить</value>
+  <comment>PhoneNumberNewPage</comment>
+</data>
+	<data name="Authorization" xml:space="preserve">
+  <value>Авторизация</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="AuthorizationTitle1" xml:space="preserve">
+  <value>С помощью этого номера телефона вы сможете эффективно пользоваться платформой. Очень важно ввести номер правильно.</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="AuthorizationTitle2" xml:space="preserve">
+  <value>Вводя свой номер телефона, вы соглашаетесь с публичной офертой.</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="MessageEnterPhoneNumber" xml:space="preserve">
+  <value>Пожалуйста, введите номер телефона!</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="PhoneNumber" xml:space="preserve">
+  <value>Номер телефона</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="PhoneNumberNotRegistered" xml:space="preserve">
+  <value>Номер телефона не зарегистрирован</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="MessageEnterPhoneNumberNotRegistered" xml:space="preserve">
+  <value>Этот номер телефона не зарегистрирован в нашей системе. Вы будете перенаправлены на страницу регистрации.</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="Error" xml:space="preserve">
+  <value>Ошибка</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="ErrorUnexpected" xml:space="preserve">
+  <value>Произошла непредвиденная ошибка.</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+	<data name="SuggestionTitle1" xml:space="preserve">
+  <value>Предложения и жалобы</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="SuggestionTitle2" xml:space="preserve">
+  <value>Мы ценим ваше мнение и готовы помочь.</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="SelectFeedbackType" xml:space="preserve">
+  <value>Выберите тип отзыва</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="WriteYourMessage" xml:space="preserve">
+  <value>Напишите ваше сообщение...</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Submit" xml:space="preserve">
+  <value>Отправить</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Message" xml:space="preserve">
+  <value>Сообщение</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Suggestions" xml:space="preserve">
+  <value>Предложения</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Complaints" xml:space="preserve">
+  <value>Жалобы</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="MissingInfo" xml:space="preserve">
+  <value>Недостаточно информации</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="MessageMissingInfo" xml:space="preserve">
+  <value>Пожалуйста, выберите тип и введите сообщение.</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Ok" xml:space="preserve">
+  <value>Ок</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="ThankYou" xml:space="preserve">
+  <value>Спасибо!</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="MessageFeedback" xml:space="preserve">
+  <value>Ваш отзыв отправлен.</value>
+  <comment>SuggestionsPage</comment>
+</data>
+  <data name="Close" xml:space="preserve">
+  <value>Закрыть</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="Please" xml:space="preserve">
+  <value>Пожалуйста</value>
+  <comment>SuggestionsPage</comment>
+</data>
+	<data name="ConfirmationCodeTime" xml:space="preserve">
+  <value>Время, отведенное на подтверждение кода.</value>
+  <comment>AuthorizationPage</comment>
+</data>
+	<data name="Confirm" xml:space="preserve">
+  <value>Подтвердить</value>
+  <comment>AuthorizationPage</comment>
+</data>
+	<data name="ConfirmTitle" xml:space="preserve">
+  <value>введите код подтверждения, отправленный на ваш номер телефона по SMS.</value>
+  <comment>AuthorizationPage</comment>
+</data>
+
 </root>

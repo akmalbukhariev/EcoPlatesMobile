@@ -2,13 +2,14 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.SuggestionsPage">
 
     <Grid RowDefinitions="Auto, *, Auto, 20"
           BackgroundColor="#FAF9FA">
         <component:CustomHeader x:Name="header" 
-                                Title="Suggestions and Complaints"
+                                Title="{x:Static language:AppResource.SuggestionTitle1}"
                                 HeaderBackground="Green"/>
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="20" 
@@ -19,12 +20,12 @@
                        WidthRequest="100"
                        HorizontalOptions="Center" />
                  <StackLayout>
-                        <Label Text="Suggestions and Complaints"
-                                FontSize="24"
-                                FontAttributes="Bold"
-                                HorizontalTextAlignment="Center" />
+                    <Label Text="{x:Static language:AppResource.SuggestionTitle1}"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"/>
                 </StackLayout>
-                <Label Text="We value your feedback and are here to help."
+                <Label Text="{x:Static language:AppResource.SuggestionTitle2}"
                        FontSize="16"
                        TextColor="Gray"
                        HorizontalTextAlignment="Center" />
@@ -32,7 +33,7 @@
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" CornerRadius="6">
                     <Grid ColumnDefinitions="*, Auto">
                         <Picker x:Name="typePicker"
-                                Title="Select feedback type"
+                                Title="{x:Static language:AppResource.SelectFeedbackType}"
                                 ItemsSource="{Binding FeedbackTypes}"
                                 SelectedItem="{Binding SelectedType}"
                                 BackgroundColor="Transparent"
@@ -43,10 +44,10 @@
                                Grid.Column="1"/>
                     </Grid>
                  </Frame>
-                <Label Text="Message:" FontAttributes="Bold" />
+                <Label Text="{x:Static language:AppResource.Message}" FontAttributes="Bold" />
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" CornerRadius="6">
                     <Editor x:Name="messageEditor"
-                            Placeholder="Write your message..."
+                            Placeholder="{x:Static language:AppResource.WriteYourMessage}"
                             AutoSize="TextChanges"
                             HeightRequest="150"
                             BackgroundColor="Transparent"
@@ -56,7 +57,7 @@
             </VerticalStackLayout>
         </ScrollView>
         <Button x:Name="btnSubmit" 
-                Text="Submit"
+                Text="{x:Static language:AppResource.Submit}"
                 TextColor="White"
                 HeightRequest="50"
                 Margin="20,0,20,0"

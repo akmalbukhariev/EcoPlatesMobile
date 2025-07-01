@@ -61,11 +61,191 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About the Application.
+        /// </summary>
+        internal static string AboutApp {
+            get {
+                return ResourceManager.GetString("AboutApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse a variety of discounted food offers..
+        /// </summary>
+        internal static string AboutAppPoint1Client {
+            get {
+                return ResourceManager.GetString("AboutAppPoint1Client", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload edible products before their expiration date..
+        /// </summary>
+        internal static string AboutAppPoint1Seller {
+            get {
+                return ResourceManager.GetString("AboutAppPoint1Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View available items on a map..
+        /// </summary>
+        internal static string AboutAppPoint2Client {
+            get {
+                return ResourceManager.GetString("AboutAppPoint2Client", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offer discounts to attract nearby customers..
+        /// </summary>
+        internal static string AboutAppPoint2Seller {
+            get {
+                return ResourceManager.GetString("AboutAppPoint2Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adjust the radius to find offers within your location..
+        /// </summary>
+        internal static string AboutAppPoint3Client {
+            get {
+                return ResourceManager.GetString("AboutAppPoint3Client", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get notified when your product is about to expire..
+        /// </summary>
+        internal static string AboutAppPoint3Seller {
+            get {
+                return ResourceManager.GetString("AboutAppPoint3Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receive notifications about new deals near you..
+        /// </summary>
+        internal static string AboutAppPoint4Client {
+            get {
+                return ResourceManager.GetString("AboutAppPoint4Client", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reach new buyers who are actively looking for affordable items..
+        /// </summary>
+        internal static string AboutAppPoint4Seller {
+            get {
+                return ResourceManager.GetString("AboutAppPoint4Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization.
+        /// </summary>
+        internal static string Authorization {
+            get {
+                return ResourceManager.GetString("Authorization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With this phone number, you can use the platform effectively. It is very important to enter your phone number correctly..
+        /// </summary>
+        internal static string AuthorizationTitle1 {
+            get {
+                return ResourceManager.GetString("AuthorizationTitle1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By entering your phone number, you agree to the public offer..
+        /// </summary>
+        internal static string AuthorizationTitle2 {
+            get {
+                return ResourceManager.GetString("AuthorizationTitle2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buyer.
         /// </summary>
         internal static string Buyer {
             get {
                 return ResourceManager.GetString("Buyer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Number.
+        /// </summary>
+        internal static string ChangeNumber {
+            get {
+                return ResourceManager.GetString("ChangeNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can change your Saletop number here. Your account and all your cloud data — messages, media, contacts, etc. will be moved to the new number..
+        /// </summary>
+        internal static string ChangeNumberTitle {
+            get {
+                return ResourceManager.GetString("ChangeNumberTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complaints.
+        /// </summary>
+        internal static string Complaints {
+            get {
+                return ResourceManager.GetString("Complaints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time allocated to confirm the code..
+        /// </summary>
+        internal static string ConfirmationCodeTime {
+            get {
+                return ResourceManager.GetString("ConfirmationCodeTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enter the verification code sent via SMS to your phone number..
+        /// </summary>
+        internal static string ConfirmTitle {
+            get {
+                return ResourceManager.GetString("ConfirmTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue..
+        /// </summary>
+        internal static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
@@ -88,6 +268,204 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected error occurred..
+        /// </summary>
+        internal static string ErrorUnexpected {
+            get {
+                return ResourceManager.GetString("ErrorUnexpected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save money, reduce waste, and support your local community..
+        /// </summary>
+        internal static string FinalMessageClient {
+            get {
+                return ResourceManager.GetString("FinalMessageClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sell smarter, reduce waste, and promote a sustainable business image..
+        /// </summary>
+        internal static string FinalMessageSeller {
+            get {
+                return ResourceManager.GetString("FinalMessageSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For Clients.
+        /// </summary>
+        internal static string ForClient {
+            get {
+                return ResourceManager.GetString("ForClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For Sellers.
+        /// </summary>
+        internal static string ForSeller {
+            get {
+                return ResourceManager.GetString("ForSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        internal static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the phone number!.
+        /// </summary>
+        internal static string MessageEnterPhoneNumber {
+            get {
+                return ResourceManager.GetString("MessageEnterPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This phone number is not registered in our system. You will be redirected to the registration page..
+        /// </summary>
+        internal static string MessageEnterPhoneNumberNotRegistered {
+            get {
+                return ResourceManager.GetString("MessageEnterPhoneNumberNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your feedback has been submitted..
+        /// </summary>
+        internal static string MessageFeedback {
+            get {
+                return ResourceManager.GetString("MessageFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a type and enter your message..
+        /// </summary>
+        internal static string MessageMissingInfo {
+            get {
+                return ResourceManager.GetString("MessageMissingInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing Info.
+        /// </summary>
+        internal static string MissingInfo {
+            get {
+                return ResourceManager.GetString("MissingInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Number.
+        /// </summary>
+        internal static string NewNumber {
+            get {
+                return ResourceManager.GetString("NewNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your new number will receive a confirmation code via SMS..
+        /// </summary>
+        internal static string NewNumberTitle {
+            get {
+                return ResourceManager.GetString("NewNumberTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        internal static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Number Not Registered.
+        /// </summary>
+        internal static string PhoneNumberNotRegistered {
+            get {
+                return ResourceManager.GetString("PhoneNumberNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please.
+        /// </summary>
+        internal static string Please {
+            get {
+                return ResourceManager.GetString("Please", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discover discounted food items nearby.
+        /// </summary>
+        internal static string RoleSubtitleClient {
+            get {
+                return ResourceManager.GetString("RoleSubtitleClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn near-expiry stock into sales instead of waste.
+        /// </summary>
+        internal static string RoleSubtitleSeller {
+            get {
+                return ResourceManager.GetString("RoleSubtitleSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select feedback type.
+        /// </summary>
+        internal static string SelectFeedbackType {
+            get {
+                return ResourceManager.GetString("SelectFeedbackType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select your role as a user.
         /// </summary>
         internal static string SelectRole {
@@ -102,6 +480,60 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Seller {
             get {
                 return ResourceManager.GetString("Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        internal static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suggestions.
+        /// </summary>
+        internal static string Suggestions {
+            get {
+                return ResourceManager.GetString("Suggestions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suggestions and Complaints.
+        /// </summary>
+        internal static string SuggestionTitle1 {
+            get {
+                return ResourceManager.GetString("SuggestionTitle1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We value your feedback and are here to help..
+        /// </summary>
+        internal static string SuggestionTitle2 {
+            get {
+                return ResourceManager.GetString("SuggestionTitle2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you!.
+        /// </summary>
+        internal static string ThankYou {
+            get {
+                return ResourceManager.GetString("ThankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write your message....
+        /// </summary>
+        internal static string WriteYourMessage {
+            get {
+                return ResourceManager.GetString("WriteYourMessage", resourceCulture);
             }
         }
     }

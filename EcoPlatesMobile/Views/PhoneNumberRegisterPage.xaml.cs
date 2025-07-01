@@ -2,6 +2,7 @@ using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -37,7 +38,7 @@ public partial class PhoneNumberRegisterPage : BasePage
         string rawPhone = entryNumber.GetEntryText();
         if (string.IsNullOrWhiteSpace(rawPhone))
         {
-            await AlertService.ShowAlertAsync("Phone Number", "Please enter the phone number!");
+            await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessageEnterPhoneNumber);
             return;
         }
 
@@ -89,18 +90,17 @@ public partial class PhoneNumberRegisterPage : BasePage
                 if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString() ||
                     response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync("Phone Number Not Registered",
-                        "This phone number is not registered in our system. You will be redirected to the registration page.");
+                    await AlertService.ShowAlertAsync(AppResource.PhoneNumberNotRegistered, AppResource.MessageEnterPhoneNumberNotRegistered);
                     await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
                 }
                 else
                 {
-                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
                 }
             }
             else
             {
-                await AlertService.ShowAlertAsync("Error", "Unexpected error occurred.");
+                await AlertService.ShowAlertAsync(AppResource.Error, AppResource.ErrorUnexpected);
             }
         }
         finally
@@ -108,75 +108,4 @@ public partial class PhoneNumberRegisterPage : BasePage
             loadingView.ShowLoading = false;
         }
     }
-     
-    /*
-    private async void Button_Clicked(object sender, EventArgs e)
-    {
-        var session = AppService.Get<UserSessionService>();
-        if (session == null) return;
-
-        string phoneNumber = entryNumber.GetEntryText();
-
-        if (string.IsNullOrWhiteSpace(phoneNumber))
-        {
-            await AlertService.ShowAlertAsync("Phone Number", "Please enter the phone number!");
-            return;
-        }
-
-        Response response = null;
-
-        loadingView.ShowLoading = true;
-        try
-        {
-            phoneNumber = $"998{phoneNumber}";
-
-            if (session.Role == UserRole.Company)
-            {
-                var apiService = AppService.Get<CompanyApiService>();
-                response = await apiService.CheckUser(phoneNumber);
-
-                if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
-                {
-                    session.IsCompanyRegistrated = true;
-                    await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
-                }
-                else if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString())
-                {
-                    session.IsCompanyRegistrated = false;
-                    await AlertService.ShowAlertAsync("Phone Number Not Registered", "This phone number is not registered in our system. You will be redirected to the registration page.");
-                    await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
-                }
-                else
-                {
-                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
-                }
-            }
-            else if (session.Role == UserRole.User)
-            {
-                var apiService = AppService.Get<UserApiService>();
-                response = await apiService.CheckUser(phoneNumber);
-
-                if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
-                {
-                    session.IsUserRegistrated = true;
-                    await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
-                }
-                else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
-                {
-                    session.IsUserRegistrated = false;
-                    await AlertService.ShowAlertAsync("Phone Number Not Registered", "This phone number is not registered in our system. You will be redirected to the registration page.");
-                    await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
-                }
-                else
-                {
-                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
-                }
-            }
-        }
-        finally
-        {
-            loadingView.ShowLoading = false;
-        }
-    }
-    */
 }

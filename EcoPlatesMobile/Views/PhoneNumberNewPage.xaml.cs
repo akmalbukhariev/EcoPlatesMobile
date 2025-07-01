@@ -13,9 +13,9 @@ public partial class PhoneNumberNewPage : BasePage
  
         phoneEntry.TextChanged += (s, e) =>
         {
-            ContinueButton.IsEnabled = !string.IsNullOrWhiteSpace(phoneEntry.Text);
-            ContinueButton.BackgroundColor = ContinueButton.IsEnabled ? Color.FromArgb("#0088cc") : Color.FromArgb("#e0e0e0");
-            ContinueButton.TextColor = ContinueButton.IsEnabled ? Colors.White : Colors.Gray;
+            btnContinue.IsEnabled = !string.IsNullOrWhiteSpace(phoneEntry.Text);
+            btnContinue.BackgroundColor = btnContinue.IsEnabled ? Color.FromArgb("#0088cc") : Color.FromArgb("#e0e0e0");
+            btnContinue.TextColor = btnContinue.IsEnabled ? Colors.White : Colors.Gray;
         };
     }
 

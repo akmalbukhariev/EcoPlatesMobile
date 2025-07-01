@@ -197,4 +197,137 @@
     <value>Sell smarter, reduce waste, and promote a sustainable business image.</value>
     <comment>AboutPage</comment>
   </data>
+
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+    <comment>AllPage</comment>
+  </data>
+  <data name="ChangeNumber" xml:space="preserve">
+    <value>Change Number</value>
+    <comment>PhoneNumberChangePage</comment>
+  </data>
+  <data name="ChangeNumberTitle" xml:space="preserve">
+    <value>You can change your Saletop number here. Your account and all your cloud data — messages, media, contacts, etc. will be moved to the new number.</value>
+    <comment>PhoneNumberChangePage</comment>
+  </data>
+  <data name="NewNumber" xml:space="preserve">
+    <value>New Number</value>
+    <comment>PhoneNumberNewPage</comment>
+  </data>
+  <data name="NewNumberTitle" xml:space="preserve">
+    <value>Your new number will receive a confirmation code via SMS.</value>
+    <comment>PhoneNumberNewPage</comment>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue.</value>
+    <comment>PhoneNumberNewPage</comment>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Authorization</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="AuthorizationTitle1" xml:space="preserve">
+    <value>With this phone number, you can use the platform effectively. It is very important to enter your phone number correctly.</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="AuthorizationTitle2" xml:space="preserve">
+    <value>By entering your phone number, you agree to the public offer.</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="MessageEnterPhoneNumber" xml:space="preserve">
+    <value>Please enter the phone number!</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="PhoneNumberNotRegistered" xml:space="preserve">
+    <value>Phone Number Not Registered</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="MessageEnterPhoneNumberNotRegistered" xml:space="preserve">
+    <value>This phone number is not registered in our system. You will be redirected to the registration page.</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>  
+  <data name="ErrorUnexpected" xml:space="preserve">
+    <value>Unexpected error occurred.</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="SuggestionTitle1" xml:space="preserve">
+    <value>Suggestions and Complaints</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="SuggestionTitle2" xml:space="preserve">
+    <value>We value your feedback and are here to help.</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="SelectFeedbackType" xml:space="preserve">
+    <value>Select feedback type</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="WriteYourMessage" xml:space="preserve">
+    <value>Write your message...</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="Suggestions" xml:space="preserve">
+    <value>Suggestions</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="Complaints" xml:space="preserve">
+    <value>Complaints</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="MissingInfo" xml:space="preserve">
+    <value>Missing Info</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="MessageMissingInfo" xml:space="preserve">
+    <value>Please select a type and enter your message.</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Thank you!</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="MessageFeedback" xml:space="preserve">
+    <value>Your feedback has been submitted.</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="Please" xml:space="preserve">
+    <value>Please</value>
+    <comment>SuggestionsPage</comment>
+  </data>
+  <data name="ConfirmationCodeTime" xml:space="preserve">
+    <value>Time allocated to confirm the code.</value>
+    <comment>AuthorizationPage</comment>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+    <comment>AuthorizationPage</comment>
+  </data>
+  <data name="ConfirmTitle" xml:space="preserve">
+    <value>enter the verification code sent via SMS to your phone number.</value>
+    <comment>AuthorizationPage</comment>
+  </data>
 </root>

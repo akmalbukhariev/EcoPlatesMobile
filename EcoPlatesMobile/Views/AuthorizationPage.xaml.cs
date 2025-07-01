@@ -1,5 +1,6 @@
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses.Company;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -41,7 +42,7 @@ public partial class AuthorizationPage : BasePage
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
-		lbTitle.Text = $"Iltimos, {_phoneNumber} telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting";
+		lbTitle.Text = $"{AppResource.Please}, {_phoneNumber} {AppResource.ConfirmTitle}";
 
 		/*
 		 * Use phone verification API
