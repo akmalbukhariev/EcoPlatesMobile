@@ -2,11 +2,12 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserProfilePage">
 
     <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto, Auto">
-        <component:CustomHeader Title="Mening profilim"
+        <component:CustomHeader Title="{x:Static language:AppResource.MyProfile}"
                                 ShowBack="False"
                                 HeaderBackground="Green"/>
         <Grid x:Name="grdUserInfo" 
@@ -45,7 +46,7 @@
                        TextColor="#999999"
                        FontAttributes="Bold"
                        Grid.Row="1"/>
-                <Label Text="Maqomi: Xaridor"
+                <Label Text="{x:Static language:AppResource.RoleBuyer}"
                        FontSize="14"
                        TextColor="#999999"
                        Grid.Row="2"/>
@@ -97,18 +98,18 @@
 
                         <!-- List tiles -->
                         <component:ListTileView TileIcon="share.png" 
-                                                TileText="Do'stlar bilan ulashish"
+                                                TileText="{x:Static language:AppResource.Share}"
                                                 TileTextSize="15"
                                                 TileTextColor="#444444"
                                                 EventClickTile="Tile_EventClick"/>
                         <component:ListTileView TileIcon="info.png" 
-                                                TileText="Dastur haqida"
+                                                TileText="{x:Static language:AppResource.AboutApp}"
                                                 TileType="AboutApp"
                                                 TileTextSize="15"
                                                 TileTextColor="#444444"
                                                 EventClickTile="Tile_EventClick"/>
                         <component:ListTileView TileIcon="offer.png" 
-                                                TileText="Taklif va shikoyatlar"
+                                                TileText="{x:Static language:AppResource.FeedbackComplaints}"
                                                 TileType="Suggestions"
                                                 TileTextSize="15"
                                                 TileTextColor="#444444"

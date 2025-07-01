@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.ViewModels.User;
 
@@ -37,7 +38,7 @@ public partial class UserMainPage : BasePage
 
         AppControl control = AppService.Get<AppControl>();
 
-        lbHeader.Text = $"Sizga yaqin — {control.UserInfo.radius_km} km atrofda.";
+        lbHeader.Text = $"{AppResource.NearbyWithin} {control.UserInfo.radius_km} km {AppResource.Around}.";
 
         if (control.RefreshMainPage)
         {

@@ -7,6 +7,8 @@ using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Helper;
+using EcoPlatesMobile.Resources.Languages;
+
 
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;
@@ -131,12 +133,12 @@ public partial class UserBrowserPage : BasePage
             }
             else
             {
-                await DisplayAlert("Location Error", "Could not get current location.", "OK");
+                await DisplayAlert($"{AppResource.Location} {AppResource.Error}", AppResource.CouldNotGetCurrentLocation, AppResource.Ok);
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Failed to get location: {ex.Message}", "OK");
+            await DisplayAlert(AppResource.Error, $"{AppResource.FailedGetLocation} {ex.Message}", AppResource.Ok);
         }
     }
 

@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserMainPage">
@@ -32,7 +33,7 @@
                                    EntryBorderColor="LightGray"
                                    EntryBackgroundColor="White"
                                    EntryPlaceHolderColor="Gray"
-                                   EntryPlaceHolder="Izlash"
+                                   EntryPlaceHolder="{x:Static language:AppResource.Search}"
                                    IsEnabled="False"
                                    Margin="0,0,0,0"
                                    Grid.Row="1"/>

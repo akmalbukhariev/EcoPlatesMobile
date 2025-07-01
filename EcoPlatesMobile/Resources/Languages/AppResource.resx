@@ -553,7 +553,6 @@
     <value>Update location</value>
     <comment>LocationPage</comment>
   </data>
-
   <data name="ActiveProductCount" xml:space="preserve">
     <value>Currently active products:</value>
     <comment>ActiveProductPage</comment>
@@ -561,5 +560,41 @@
   <data name="InActiveProductCount" xml:space="preserve">
     <value>Inactive products:</value>
     <comment>ActiveProductPage</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+    <comment>UserMainPage</comment>
+  </data>
+  <data name="NearbyWithin" xml:space="preserve">
+    <value>Nearby — within</value>
+    <comment>UserMainPage</comment>
+  </data>
+  <data name="Around" xml:space="preserve">
+    <value>around</value>
+    <comment>UserMainPage</comment>
+  </data>
+  <data name="RecentSearches" xml:space="preserve">
+    <value>Recent searches</value>
+    <comment>UserMainSearchPage</comment>
+  </data>
+  <data name="FailedGetLocation" xml:space="preserve">
+    <value>Failed to get location:</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+  <data name="CouldNotGetCurrentLocation" xml:space="preserve">
+    <value>Could not get current location.</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+    <comment>UserBrowserSearchPage</comment>
+  </data>
+  <data name="Favorites " xml:space="preserve">
+    <value>Favorites </value>
+    <comment>UserFavoritesPage</comment>
+  </data>
+ <data name="RoleBuyer" xml:space="preserve">
+    <value>Role: Buyer</value>
+    <comment>UserProfilePage</comment>
   </data>
 </root>

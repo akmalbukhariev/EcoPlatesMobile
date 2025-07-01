@@ -553,5 +553,41 @@
   <value>Joylashuvni yangilash</value>
   <comment>LocationPage</comment>
 </data>
+	<data name="Search" xml:space="preserve">
+  <value>Qidirish</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="NearbyWithin" xml:space="preserve">
+  <value>Yaqin atrof —</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="Around" xml:space="preserve">
+  <value>atrofida</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="RecentSearches" xml:space="preserve">
+  <value>So‘nggi qidiruvlar</value>
+  <comment>UserMainSearchPage</comment>
+</data>
+	<data name="FailedGetLocation" xml:space="preserve">
+  <value>Joylashuvni aniqlab bo‘lmadi:</value>
+  <comment>UserBrowserPage</comment>
+</data>
+	<data name="CouldNotGetCurrentLocation" xml:space="preserve">
+  <value>Joriy joylashuvni aniqlab bo‘lmadi.</value>
+  <comment>UserBrowserPage</comment>
+</data>
+	<data name="Type" xml:space="preserve">
+  <value>Tur</value>
+  <comment>UserBrowserSearchPage</comment>
+</data>
+	<data name="Favorites " xml:space="preserve">
+  <value>Sevimlilar</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+	<data name="RoleBuyer" xml:space="preserve">
+  <value>Rol: Xaridor</value>
+  <comment>UserProfilePage</comment>
+</data>
 
 </root>

@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserMainSearchPage">
 
@@ -63,7 +64,7 @@
               RowSpacing="10"
               Margin="10, 0, 10, 0"
               Grid.Row="2">
-            <Label Text="Recent searches"
+            <Label Text="{x:Static language:AppResource.RecentSearches}"
                    TextColor="Black"
                    FontSize="16"
                    FontAttributes="Bold"/>

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.User.Pages.UserFavoritesPage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             xmlns:page="clr-namespace:EcoPlatesMobile.Views"
-             xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
-             xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.User.Pages.UserFavoritesPage"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
+               xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
 
     <Grid RowDefinitions="Auto, *, Auto">
         <Grid BackgroundColor="#007200"
               HeightRequest="87"
               ColumnDefinitions="*,Auto">
             <Label x:Name="lbTitle"
-                   Text="Menga yoqqanlar"
+                   Text="{x:Static language:AppResource.Favorites}"
                    TextColor="White"
                    FontSize="20"
                    VerticalOptions="Center"
@@ -28,9 +29,9 @@
               Margin="16, 30, 16, 0"
               Grid.Row="1">
             <user_component:TabSwitcherView x:Name="tabSwitcher"
-                                           SwitchType="Classic"
-                                           Tab1_Title="Products"
-                                           Tab2_Title="Seller"/>
+                                            SwitchType="Classic"
+                                            Tab1_Title="Products"
+                                            Tab2_Title="Seller"/>
             <RefreshView x:Name="listProduct" 
                          IsRefreshing="{Binding IsRefreshingProduct}"
                          Command="{Binding RefreshProductCommand}"
@@ -50,7 +51,7 @@
                             <SwipeView>
                                 <SwipeView.RightItems>
                                     <SwipeItems>
-                                        <SwipeItem Text="Delete"
+                                        <SwipeItem Text="{x:Static language:AppResource.Delete}"
                                                    BackgroundColor="Red"
                                                    Invoked="DeleteProduct_Invoked"/>
                                     </SwipeItems>
@@ -83,7 +84,7 @@
                             <SwipeView>
                                 <SwipeView.RightItems>
                                     <SwipeItems>
-                                        <SwipeItem Text="Delete"
+                                        <SwipeItem Text="{x:Static language:AppResource.Delete}"
                                                    BackgroundColor="Red"
                                                    Invoked="DeleteCompany_Invoked"/>
                                     </SwipeItems>

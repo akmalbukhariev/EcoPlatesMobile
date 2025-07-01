@@ -553,5 +553,41 @@
   <value>Обновить местоположение</value>
   <comment>LocationPage</comment>
 </data>
+	<data name="Search" xml:space="preserve">
+  <value>Поиск</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="NearbyWithin" xml:space="preserve">
+  <value>Рядом — в пределах</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="Around" xml:space="preserve">
+  <value>вокруг</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="RecentSearches" xml:space="preserve">
+  <value>Последние поиски</value>
+  <comment>UserMainSearchPage</comment>
+</data>
+	<data name="FailedGetLocation" xml:space="preserve">
+  <value>Не удалось определить местоположение:</value>
+  <comment>UserBrowserPage</comment>
+</data>
+	<data name="CouldNotGetCurrentLocation" xml:space="preserve">
+  <value>Не удалось определить текущее местоположение.</value>
+  <comment>UserBrowserPage</comment>
+</data>
+	<data name="Type" xml:space="preserve">
+  <value>Тип</value>
+  <comment>UserBrowserSearchPage</comment>
+</data>
+	<data name="Favorites " xml:space="preserve">
+  <value>Избранное</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+	<data name="RoleBuyer" xml:space="preserve">
+  <value>Роль: Покупатель</value>
+  <comment>UserProfilePage</comment>
+</data>
 
 </root>

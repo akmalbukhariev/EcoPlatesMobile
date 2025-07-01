@@ -178,6 +178,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to around.
+        /// </summary>
+        internal static string Around {
+            get {
+                return ResourceManager.GetString("Around", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authorization.
         /// </summary>
         internal static string Authorization {
@@ -349,6 +358,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not get current location..
+        /// </summary>
+        internal static string CouldNotGetCurrentLocation {
+            get {
+                return ResourceManager.GetString("CouldNotGetCurrentLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to so&apos;m Current price.
         /// </summary>
         internal static string CurrentPrice {
@@ -444,6 +462,24 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Failed {
             get {
                 return ResourceManager.GetString("Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get location:.
+        /// </summary>
+        internal static string FailedGetLocation {
+            get {
+                return ResourceManager.GetString("FailedGetLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favorites .
+        /// </summary>
+        internal static string Favorites_ {
+            get {
+                return ResourceManager.GetString("Favorites ", resourceCulture);
             }
         }
         
@@ -682,6 +718,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nearby — within.
+        /// </summary>
+        internal static string NearbyWithin {
+            get {
+                return ResourceManager.GetString("NearbyWithin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Number.
         /// </summary>
         internal static string NewNumber {
@@ -817,6 +862,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recent searches.
+        /// </summary>
+        internal static string RecentSearches {
+            get {
+                return ResourceManager.GetString("RecentSearches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register product..
         /// </summary>
         internal static string RegisterProduct {
@@ -831,6 +885,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Registration {
             get {
                 return ResourceManager.GetString("Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role: Buyer.
+        /// </summary>
+        internal static string RoleBuyer {
+            get {
+                return ResourceManager.GetString("RoleBuyer", resourceCulture);
             }
         }
         
@@ -858,6 +921,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string RoleSubtitleSeller {
             get {
                 return ResourceManager.GetString("RoleSubtitleSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         
@@ -993,6 +1065,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string ThankYou {
             get {
                 return ResourceManager.GetString("ThankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
         

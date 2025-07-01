@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.User.Pages.UserBrowserPage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
-             xmlns:page="clr-namespace:EcoPlatesMobile.Views"
-             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
-             xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.User.Pages.UserBrowserPage"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+               xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
 
     <Grid RowDefinitions="*, Auto">
         <!--<BoxView x:Name="map"
@@ -25,7 +26,7 @@
                                        EntryBorderColor="Gray"
                                        EntryCornerRadius="7"
                                        EntryBackgroundColor="White"
-                                       EntryPlaceHolder="Izlash"
+                                       EntryPlaceHolder="{x:Static language:AppResource.Search}"
                                        EntryPlaceHolderColor="Gray"/>
                 <BoxView Background="Transparent">
                     <BoxView.GestureRecognizers>
