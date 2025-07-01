@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyProfileInfoPage"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views">
     
     <Grid>
@@ -21,13 +22,13 @@
                             VerticalOptions="Center">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                Tapped="BorderImage_Tapped"/>
+                                                  Tapped="BorderImage_Tapped"/>
                         </Border.GestureRecognizers>
                         <Image x:Name="imCompany" 
-                            Source="add_item.png"
-                            Aspect="AspectFill" />
+                               Source="add_item.png"
+                               Aspect="AspectFill" />
                     </Border>
-                    <Button Text="Set New Photo"
+                    <Button Text="{x:Static language:AppResource.SetNewPhoto}"
                             TextColor="#8338EC"
                             FontSize="17"
                             FontAttributes="Bold"
@@ -42,9 +43,9 @@
                               RowSpacing="10"
                               Margin="10">
                             <Entry x:Name="entryCompanyName" 
-                                Placeholder="Company name"
-                                FontSize="17"
-                                PlaceholderColor="LightGray"/>
+                                   Placeholder="{x:Static language:AppResource.CompanyName}"
+                                   FontSize="17"
+                                   PlaceholderColor="LightGray"/>
                             <BoxView BackgroundColor="LightGray" Grid.Row="1"/>
                             <Grid Grid.Row="2">
                                 <Picker x:Name ="pickType"
@@ -61,20 +62,20 @@
                                   Grid.Row="4">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                        Tapped="PhoneNumber_Tapped"/>
+                                                          Tapped="PhoneNumber_Tapped"/>
                                 </Grid.GestureRecognizers>
-                                <Label Text="Change Number"
-                                    TextColor="Black"
-                                    FontSize="17"
-                                    HorizontalTextAlignment="Start"
-                                    VerticalTextAlignment="Center"/>
+                                <Label Text="{x:Static language:AppResource.ChangeNumber}"
+                                       TextColor="Black"
+                                       FontSize="17"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center"/>
                                 <Label x:Name="lbPhoneNUmber" 
-                                    Text="+998 00 000 00 00"
-                                    TextColor="Gray"
-                                    FontSize="17"
-                                    HorizontalTextAlignment="End"
-                                    VerticalTextAlignment="Center"
-                                    Grid.Column="1"/>
+                                       Text="+998 00 000 00 00"
+                                       TextColor="Gray"
+                                       FontSize="17"
+                                       HorizontalTextAlignment="End"
+                                       VerticalTextAlignment="Center"
+                                       Grid.Column="1"/>
                                 <Image Source="right.png"
                                        Aspect="AspectFit"
                                        Margin="15,0,10,0"
@@ -91,24 +92,24 @@
                     <StackLayout VerticalOptions="Center"
                                 Spacing="0">
                             <Grid ColumnDefinitions="Auto, *, Auto"
-                                Margin="20,0,20,5"
-                                VerticalOptions="Center">
+                                  Margin="20,0,20,5"
+                                  VerticalOptions="Center">
                                 <Image Source="time_start.png"
-                                        WidthRequest="20"
-                                        HeightRequest="20"
-                                        Margin="0,0, 10,0"
-                                        VerticalOptions="Center"/>
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       Margin="0,0, 10,0"
+                                       VerticalOptions="Center"/>
                                 <TimePicker x:Name="startTimePicker"
                                             FontSize="17"
                                             HorizontalOptions="Start" 
                                             Grid.Column="1"/>
                                 <Label x:Name="startDateTimeLabel"
-                                        Text="Ish boshlash vaqti"
-                                        VerticalTextAlignment="Center"
-                                        FontSize="17"
-                                        TextColor="Gray"
-                                        Margin="0,0,10,0"
-                                        Grid.Column="3"/>
+                                       Text="{x:Static language:AppResource.StartWorkingTime}"
+                                       VerticalTextAlignment="Center"
+                                       FontSize="17"
+                                       TextColor="Gray"
+                                       Margin="0,0,10,0"
+                                       Grid.Column="3"/>
                             </Grid>
                             <Border BackgroundColor="#E9E9E9" 
                                     HeightRequest="2"
@@ -117,16 +118,16 @@
                             <Grid ColumnDefinitions="Auto, *, Auto"
                                   Margin="20,5,20,0">
                                 <Image Source="time_end.png"
-                                    WidthRequest="20"
-                                    HeightRequest="20"
-                                    Margin="0,0, 10,0"
-                                    VerticalOptions="Center"/>
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       Margin="0,0, 10,0"
+                                       VerticalOptions="Center"/>
                                 <TimePicker x:Name="endTimePicker"
                                             HorizontalOptions="Start"
                                             FontSize="17"
                                             Grid.Column="1"/>
                                 <Label x:Name="endTimeLabel" 
-                                       Text="Ish tugashi vaqti"
+                                       Text="{x:Static language:AppResource.EndWorkingTime}"
                                        FontSize="17"
                                        TextColor="Gray"
                                        VerticalTextAlignment="Center"
@@ -135,7 +136,7 @@
                             </Grid>
                     </StackLayout>
                 </Border>
-                <Button Text="Log Out" 
+                <Button Text="{x:Static language:AppResource.LogOut}" 
                         BackgroundColor="Red"
                         TextColor="White"
                         Margin="10,0,10,0"
@@ -145,13 +146,13 @@
         </ScrollView>
         <Grid ColumnDefinitions="Auto, *, Auto"
               VerticalOptions="Start">
-            <Button Text="Cancel"
+            <Button Text="{x:Static language:AppResource.Cancel}"
                     TextColor="#8338EC"
                     FontSize="17"
                     FontAttributes="Bold"
                     BackgroundColor="Transparent"
                     Clicked="Cancel_Clicked"/>
-            <Button Text="Done"
+            <Button Text="{x:Static language:AppResource.Done}"
                     TextColor="#8338EC"
                     FontSize="17"
                     FontAttributes="Bold"
@@ -170,7 +171,7 @@
                 <SwipeGestureRecognizer Direction="Up"
                                         Swiped="OnImage_Swiped"/>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
-                                    Tapped="OnImage_Tapped"/>
+                                      Tapped="OnImage_Tapped"/>
             </Image.GestureRecognizers>
         </Image>
         <component:LoadingView x:Name="loading"/>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyRegistrationPage"
-             xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-             xmlns:page="clr-namespace:EcoPlatesMobile.Views">
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyRegistrationPage"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views">
 
     <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="Korxonani ro’yxatga olish"/>
+        <component:CustomHeader Title="{x:Static language:AppResource.CompanyRegistration}"/>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *">
                 <Image x:Name="imSelectedProduct"
@@ -54,24 +55,24 @@
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
                             <Grid ColumnDefinitions="*, Auto">
-                                <Label Text="Korxona logotipi"
-                                    TextColor="#666666"
-                                    FontSize="14"
-                                    VerticalTextAlignment="Center"
-                                    Margin="20, 0, 0, 0"/>
+                                <Label Text="{x:Static language:AppResource.CompanyLogo}"
+                                       TextColor="#666666"
+                                       FontSize="14"
+                                       VerticalTextAlignment="Center"
+                                       Margin="20, 0, 0, 0"/>
                                 <Image Source="choose_logo.png"
-                                    WidthRequest="45"
-                                    HeightRequest="45"
-                                    HorizontalOptions="End"
-                                    Margin="0,10,15,10"/>
+                                       WidthRequest="45"
+                                       HeightRequest="45"
+                                       HorizontalOptions="End"
+                                       Margin="0,10,15,10"/>
                             </Grid>
                         </Border>
 
                         <component:CustomEntry x:Name="entryCompanyName"
                                                EntryIcon="company.png"
-                                            EntryPlaceHolder="Korxona nomi"
-                                            Style="{StaticResource styleEntry}"
-                                            Grid.Row="1"/>
+                                               EntryPlaceHolder="{x:Static language:AppResource.CompanyName}"
+                                               Style="{StaticResource styleEntry}"
+                                               Grid.Row="1"/>
                         <Border x:Name="pickCompany"
                                 StrokeThickness="2"
                                 Stroke="#E9E9E9"
@@ -82,40 +83,40 @@
                                 <RoundRectangle CornerRadius="35"/>
                             </Border.StrokeShape>
                             <Grid ColumnDefinitions="Auto, *, Auto"
-                                VerticalOptions="Center">
+                                  VerticalOptions="Center">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="CompanyTypeTapped"/>
                                 </Grid.GestureRecognizers>
                                 <Image Source="company_type.png"
-                                        WidthRequest="25"
-                                        HeightRequest="25"
-                                        VerticalOptions="Center"
-                                        Margin="8,0, 10, 0"/>
+                                       WidthRequest="25"
+                                       HeightRequest="25"
+                                       VerticalOptions="Center"
+                                       Margin="8,0, 10, 0"/>
                                 <Label x:Name="labelCompanyType" 
-                                    Text="Korxona turi"
-                                        FontSize="14"
-                                        TextColor="#666666"
-                                        VerticalTextAlignment="Center"
-                                        Grid.Column="1"/>
+                                       Text="{x:Static language:AppResource.CompanyType}"
+                                       FontSize="14"
+                                       TextColor="#666666"
+                                       VerticalTextAlignment="Center"
+                                       Grid.Column="1"/>
                                 <Image Source="down.png"
-                                    WidthRequest="16"
-                                    HeightRequest="16"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="End"
-                                    Margin="8,0"
-                                    Grid.Column="2"/>
+                                       WidthRequest="16"
+                                       HeightRequest="16"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End"
+                                       Margin="8,0"
+                                       Grid.Column="2"/>
                             </Grid>
                         </Border>
                         
                         <component:CustomEntry x:Name="entryPhone" 
                                                IsVisible="Collapse"
-                                                EntryIcon="phone.png"
-                                                IsPhoneNumber="True"
-                                                EntryKeyboard="Numeric"
-                                                EntryShowPrefix="True"
-                                                EntryPlaceHolder="Telfon raqam"
-                                                Style="{StaticResource styleEntry}"
-                                                Grid.Row="3"/>
+                                               EntryIcon="phone.png"
+                                               IsPhoneNumber="True"
+                                               EntryKeyboard="Numeric"
+                                               EntryShowPrefix="True"
+                                               EntryPlaceHolder="Telfon raqam"
+                                               Style="{StaticResource styleEntry}"
+                                               Grid.Row="3"/>
                         <component:CustomEntry EntryIcon="email.png"
                                                IsVisible="Collapse"
                                                EntryPlaceHolder="Elektron manzil(e-mail)"
@@ -128,16 +129,16 @@
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
                             <Grid RowDefinitions="Auto, 2, *"
-                                Margin="10">
+                                  Margin="10">
                                 <StackLayout Orientation="Horizontal"
                                             Margin="0,5,0,10">
                                     <Image Source="pin.png"
-                                        WidthRequest="20"
-                                        HeightRequest="20"
-                                        Margin="0,0,10,0"
-                                        VerticalOptions="Center"/>
-                                    <Label Text="Korxona manzili"
-                                        Style="{StaticResource styleLabel}"/>
+                                           WidthRequest="20"
+                                           HeightRequest="20"
+                                           Margin="0,0,10,0"
+                                           VerticalOptions="Center"/>
+                                    <Label Text="{x:Static language:AppResource.CompanyAddress}"
+                                           Style="{StaticResource styleLabel}"/>
                                 </StackLayout>
                                 <Border BackgroundColor="#E9E9E9"
                                         Grid.Row="1"/>
@@ -158,25 +159,25 @@
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
                             <StackLayout VerticalOptions="Center"
-                                        Spacing="0">
+                                         Spacing="0">
                                 <Grid ColumnDefinitions="Auto, *, Auto"
-                                        Margin="20,0,20,5"
-                                        VerticalOptions="Center">
+                                      Margin="20,0,20,5"
+                                      VerticalOptions="Center">
                                         <Image Source="time_start.png"
-                                                WidthRequest="20"
-                                                HeightRequest="20"
-                                                Margin="0,0, 10,0"
-                                                VerticalOptions="Center"/>
+                                               WidthRequest="20"
+                                               HeightRequest="20"
+                                               Margin="0,0, 10,0"
+                                               VerticalOptions="Center"/>
                                         <TimePicker x:Name="startTimePicker"
                                                     FontSize="16"
                                                     HorizontalOptions="Start" 
                                                     Grid.Column="1"/>
                                         <Label x:Name="startDateTimeLabel"
-                                                Text="Ish boshlash vaqti"
-                                                Style="{StaticResource styleLabel}"
-                                                VerticalTextAlignment="Center"
-                                                Margin="0,0,10,0"
-                                                Grid.Column="3"/>
+                                               Text="{x:Static language:AppResource.StartWorkingTime}"
+                                               Style="{StaticResource styleLabel}"
+                                               VerticalTextAlignment="Center"
+                                               Margin="0,0,10,0"
+                                               Grid.Column="3"/>
                                 </Grid>
                                 <Border BackgroundColor="#E9E9E9" 
                                         HeightRequest="2"
@@ -185,26 +186,26 @@
                                 <Grid ColumnDefinitions="Auto, *, Auto"
                                       Margin="20,5,20,0">
                                     <Image Source="time_end.png"
-                                            WidthRequest="20"
-                                            HeightRequest="20"
-                                            Margin="0,0, 10,0"
-                                            VerticalOptions="Center"/>
+                                           WidthRequest="20"
+                                           HeightRequest="20"
+                                           Margin="0,0, 10,0"
+                                           VerticalOptions="Center"/>
                                     <TimePicker x:Name="endTimePicker"
                                                 HorizontalOptions="Start"
                                                 FontSize="16"
                                                 Grid.Column="1"/>
                                     <Label x:Name="endTimeLabel" 
-                                           Text="Ish tugashi vaqti"
-                                            Style="{StaticResource styleLabel}"
-                                            VerticalTextAlignment="Center"
-                                            Margin="0,0,10,0"
-                                            Grid.Column="2"/>
+                                           Text="{x:Static language:AppResource.EndWorkingTime}"
+                                           Style="{StaticResource styleLabel}"
+                                           VerticalTextAlignment="Center"
+                                           Margin="0,0,10,0"
+                                           Grid.Column="2"/>
                                 </Grid>
                             </StackLayout>
                         </Border>
                     </StackLayout>
                     <Button x:Name="btnRegister"
-                            Text="Ro‘yxatdan o‘tish"
+                            Text="{x:Static language:AppResource.Registration}"
                             BackgroundColor="#DCE0E2"
                             CornerRadius="30"
                             TextColor="#525B5D"

@@ -1,4 +1,5 @@
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 
@@ -41,12 +42,12 @@ public partial class LocationPage : BasePage
 
 			if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
 			{
-				await AlertService.ShowAlertAsync("Update location", "Success.");
+				await AlertService.ShowAlertAsync(AppResource.MessageUpdateLocation, AppResource.Success);
 				await Shell.Current.GoToAsync("..", true);
 			}
 			else
 			{
-				await AlertService.ShowAlertAsync("Error", response.resultMsg);
+				await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
 			}
 		}
 		catch (Exception ex)

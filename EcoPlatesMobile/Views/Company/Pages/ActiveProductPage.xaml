@@ -5,12 +5,13 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:com_component="clr-namespace:EcoPlatesMobile.Views.Company.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
                BackgroundColor="#F7F9FB">
    
    <Grid RowDefinitions="Auto, *, Auto">
         <component:CustomHeader x:Name="header" 
-                                Title="Activ maxsulotlar"
+                                Title="{x:Static language:AppResource.ActiveProducts}"
                                 ShowBack="False"
                                 HeaderBackground="#8338EC"/>
         <Grid RowDefinitions="Auto, *"
@@ -39,10 +40,10 @@
                             <SwipeView>
                                 <SwipeView.RightItems>
                                     <SwipeItems>
-                                        <SwipeItem Text="Edit"
+                                        <SwipeItem Text="{x:Static language:AppResource.Edit}"
                                                    BackgroundColor="#8338EC"
                                                    Invoked="EditProduct_Invoked"/>
-                                        <SwipeItem Text="Non active"
+                                        <SwipeItem Text="{x:Static language:AppResource.Inactive}"
                                                    BackgroundColor="Red"
                                                    Invoked="NoActiveProduct_Invoked"/>
                                     </SwipeItems>

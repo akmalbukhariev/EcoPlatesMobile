@@ -197,7 +197,6 @@
     <value>Sell smarter, reduce waste, and promote a sustainable business image.</value>
     <comment>AboutPage</comment>
   </data>
-
   <data name="Next" xml:space="preserve">
     <value>Next</value>
     <comment>AllPage</comment>
@@ -329,5 +328,238 @@
   <data name="ConfirmTitle" xml:space="preserve">
     <value>enter the verification code sent via SMS to your phone number.</value>
     <comment>AuthorizationPage</comment>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactive</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="ActiveProducts" xml:space="preserve">
+    <value>Active products</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="MessageConfirm" xml:space="preserve">
+    <value>Do you want to proceed?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="InactiveProducts" xml:space="preserve">
+    <value>Inactive products</value>
+    <comment>NonActiveProductPage</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>NonActiveProductPage</comment>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+    <comment>NonActiveProductPage</comment>
+  </data>
+  <data name="DeleteProduct" xml:space="preserve">
+    <value>Delete product</value>
+    <comment>NonActiveProductPage</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success.</value>
+    <comment>NonActiveProductPage</comment>
+  </data>
+  <data name="NewProduct" xml:space="preserve">
+    <value>New product.</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="ProductImages" xml:space="preserve">
+    <value>Product images</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Product name</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="ProductQuantity" xml:space="preserve">
+    <value>Product quantity</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="PreviousPrice" xml:space="preserve">
+    <value>so'm Previous price</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="CurrentPrice" xml:space="preserve">
+    <value>so'm Current price</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Enter a description of the product</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="ChooseOption" xml:space="preserve">
+    <value>Choose an option</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="SelectGallery" xml:space="preserve">
+    <value>Select from Gallery</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Take a Photo</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="PleaseEnterProductName" xml:space="preserve">
+    <value>Please enter a product name.</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="MessageOldAndNewPrice" xml:space="preserve">
+    <value>Old price and new price cannot be the same.</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="MessageValidPrice" xml:space="preserve">
+    <value>Please enter valid prices.</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="MessageSelectImage" xml:space="preserve">
+    <value>Please select an image before registering.</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="RegisterProduct" xml:space="preserve">
+    <value>Register product.</value>
+    <comment>CompanyAddProductPage</comment>
+  </data>
+  <data name="UpdateProduct" xml:space="preserve">
+    <value>Update product</value>
+    <comment>CompanyEditProductPage</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+    <comment>CompanyEditProductPage</comment>
+  </data>
+  <data name="SetNewPhoto" xml:space="preserve">
+    <value>Set New Photo</value>
+    <comment>CompanyEditProductPage</comment>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company name</value>
+    <comment>CompanyProfileInfoPage</comment>
+  </data>
+  <data name="ChangeNumber" xml:space="preserve">
+    <value>Change Number</value>
+    <comment>CompanyProfileInfoPage</comment>
+  </data>
+  <data name="StartWorkingTime" xml:space="preserve">
+    <value>Work start time</value>
+    <comment>CompanyProfileInfoPage</comment>
+  </data>
+  <data name="EndWorkingTime" xml:space="preserve">
+    <value>Work end time</value>
+    <comment>CompanyProfileInfoPage</comment>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log Out</value>
+    <comment>CompanyProfileInfoPage</comment>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+    <comment>CompanyProfileInfoPage</comment>
+  </data>
+  <data name="UpdateProfile" xml:space="preserve">
+    <value>Update profile</value>
+    <comment>CompanyProfileInfoPage</comment>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>My Profile</value>
+    <comment>CompanyProfileInfoPage</comment>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+  <data name="FeedbackComplaints" xml:space="preserve">
+    <value>Feedback and complaints</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+  <data name="AboutApp" xml:space="preserve">
+    <value>About the app</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+  <data name="RoleSeller" xml:space="preserve">
+    <value>Role: Seller</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+  <data name="CompanyRegistration" xml:space="preserve">
+    <value>Company registration</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="CompanyLogo" xml:space="preserve">
+    <value>Company logo</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="CompanyType" xml:space="preserve">
+    <value>Company type</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Company address</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registration</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="MessageFieldCannotBeEmty" xml:space="preserve">
+    <value>Field can not be emty</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="MessageSelectCompanyType" xml:space="preserve">
+    <value>Please select the company type.</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="MessageSelectCompanyLogo" xml:space="preserve">
+    <value>Please select or take picture of the organization.</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="MessageRegistrationSuccess" xml:space="preserve">
+    <value>Registration has been completed successfully.</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
+  <data name="SettingCurrentLocation" xml:space="preserve">
+    <value>Setting current location</value>
+    <comment>LocationPage</comment>
+  </data>
+  <data name="MessageUpdateLocation" xml:space="preserve">
+    <value>Update location</value>
+    <comment>LocationPage</comment>
+  </data>
+
+  <data name="ActiveProductCount" xml:space="preserve">
+    <value>Currently active products:</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="InActiveProductCount" xml:space="preserve">
+    <value>Inactive products:</value>
+    <comment>ActiveProductPage</comment>
   </data>
 </root>

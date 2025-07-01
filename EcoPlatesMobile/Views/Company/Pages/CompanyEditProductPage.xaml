@@ -3,10 +3,11 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyEditProductPage"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
 
     <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="E'lonni yangilash"
+        <component:CustomHeader Title="{x:Static language:AppResource.UpdateProduct}"
                                 HeaderBackground="#8338EC"/>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *, Auto">
@@ -20,7 +21,7 @@
                                                   Tapped="ProductImage_Tapped"/>    
                         </Image.GestureRecognizers>
                     </Image>
-                    <Button Text="Set New Photo"
+                    <Button Text="{x:Static language:AppResource.SetNewPhoto}"
                             TextColor="#8338EC"
                             FontSize="17"
                             FontAttributes="Bold"
@@ -54,22 +55,22 @@
                             </Style>
                         </VerticalStackLayout.Resources> 
                         <component:CustomEntry x:Name="entryProductName" 
-                                            EntryIcon="item_name.png"
-                                            EntryPlaceHolder="Maxsulot nomi"
-                                            EntryPlaceHolderColor="LightGray"
-                                            Grid.Row="1"/>
+                                               EntryIcon="item_name.png"
+                                               EntryPlaceHolder="{x:Static language:AppResource.ProductName}"
+                                               EntryPlaceHolderColor="LightGray"
+                                               Grid.Row="1"/>
                         <component:CustomEntry x:Name="entryProductCount"
-                                            EntryIcon="item_count.png"
-                                            EntryPlaceHolder="Maxsulot soni"
-                                            EntryKeyboard="Numeric"
-                                            IsVisible="Collapse"
-                                            EntryPlaceHolderColor="LightGray"
-                                            Grid.Row="2"/>
+                                               EntryIcon="item_count.png"
+                                               EntryPlaceHolder="{x:Static language:AppResource.ProductQuantity}"
+                                               EntryKeyboard="Numeric"
+                                               IsVisible="Collapse"
+                                               EntryPlaceHolderColor="LightGray"
+                                               Grid.Row="2"/>
                         <component:CustomEntry EntryIcon="item_date.png"
-                                            IsVisible="Collapse"
-                                            EntryPlaceHolder="Maxsulotning yaroqlilik muddati"
-                                            EntryPlaceHolderColor="LightGray"
-                                            Grid.Row="3"/>
+                                               IsVisible="Collapse"
+                                               EntryPlaceHolder="Maxsulotning yaroqlilik muddati"
+                                               EntryPlaceHolderColor="LightGray"
+                                               Grid.Row="3"/>
                         <Border Style="{StaticResource styleBorder}"
                                 HeightRequest="100"
                                 Grid.Row="4">   
@@ -92,11 +93,11 @@
                                        FontSize="16"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbOldPrice"
-                                    Text="so'm Avvalgi narxi"
-                                    Style="{StaticResource styleLabel}"
-                                    VerticalTextAlignment="Center"
-                                    Margin="0,0,10,0"
-                                    Grid.Column="3"/>
+                                       Text="{x:Static language:AppResource.PreviousPrice}"
+                                       Style="{StaticResource styleLabel}"
+                                       VerticalTextAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Grid.Column="3"/>
                             </Grid>
                             <Border BackgroundColor="#E9E9E9" 
                                     HeightRequest="2"
@@ -105,21 +106,21 @@
                             <Grid ColumnDefinitions="Auto, *, Auto"
                                   Margin="20,5,20,0">
                                 <Image Source="percent.png"
-                                    WidthRequest="20"
-                                    HeightRequest="20"
-                                    Margin="0,0, 10,0"
-                                    VerticalOptions="Center"/>
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       Margin="0,0, 10,0"
+                                       VerticalOptions="Center"/>
                                 <Entry x:Name="entryNewPrice"
                                        Text="000"
                                        Keyboard="Numeric"
                                        FontSize="16"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbNewPrice" 
-                                    Text="so'm Hozirgi narxi"
-                                    Style="{StaticResource styleLabel}"
-                                    VerticalTextAlignment="Center"
-                                    Margin="0,0,10,0"
-                                    Grid.Column="2"/>
+                                       Text="{x:Static language:AppResource.CurrentPrice}"
+                                       Style="{StaticResource styleLabel}"
+                                       VerticalTextAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Grid.Column="2"/>
                             </Grid>
                         </StackLayout>
                     </Border>
@@ -129,12 +130,12 @@
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
                             <Editor x:Name="editorDescription"
-                                    Placeholder="Enter description about the product"
+                                    Placeholder="{x:Static language:AppResource.ProductDescription}"
                                     FontSize="16"/>
                     </Border>
                 </VerticalStackLayout>
                 <Button x:Name="btnUpdate"
-                        Text="Update"
+                        Text="{x:Static language:AppResource.Update}"
                         BackgroundColor="#8338EC"
                         CornerRadius="30"
                         TextColor="White"

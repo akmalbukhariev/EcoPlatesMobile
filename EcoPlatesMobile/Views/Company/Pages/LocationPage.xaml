@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.Company.Pages.LocationPage">
 
@@ -21,7 +22,7 @@
                 </Image.GestureRecognizers>
             </Image>
             <Label x:Name="lbTitle"
-                   Text="Setting current location"
+                   Text="{x:Static language:AppResource.SettingCurrentLocation}"
                    TextColor="White"
                    FontSize="18"
                    VerticalOptions="Center"

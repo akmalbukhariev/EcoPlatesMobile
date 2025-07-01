@@ -2,11 +2,12 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyProfilePage">
     
     <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto">
-        <component:CustomHeader Title="Mening profilim"
+        <component:CustomHeader Title="{x:Static language:AppResource.MyProfile}"
                                 ShowBack="False"
                                 HeaderBackground="#8338EC"/>
         <Grid x:Name="grdUserInfo"
@@ -45,7 +46,7 @@
                        TextColor="#999999"
                        FontAttributes="Bold"
                        Grid.Row="1"/>
-                <Label Text="Maqomi: Sotuvchi"
+                <Label Text="{x:Static language:AppResource.RoleSeller}"
                        FontSize="14"
                        TextColor="#999999"
                        Grid.Row="2"/>
@@ -85,7 +86,7 @@
               Grid.Row="4">
             <component:ListTileView x:Name="tileActive" 
                                     TileIcon="active.png" 
-                                    TileText="Active e'lonlar"
+                                    TileText="{x:Static language:AppResource.ActiveProducts}"
                                     TileTextSize="15"
                                     TileTextColor="#8338EC"
                                     TileText1Color="Black"
@@ -95,7 +96,7 @@
                                     EventClickTile="Tile_EventClick"/>
             <component:ListTileView x:Name="tileNoActive"
                                     TileIcon="no_active.png" 
-                                    TileText="Avvalgi e'lonlar"
+                                    TileText="{x:Static language:AppResource.InactiveProducts}"
                                     TileTextSize="15"
                                     TileTextColor="#8338EC"
                                     TileText1Color="Black"
@@ -145,7 +146,7 @@
                                     EventClickTile="Tile_EventClick"
                                     Grid.Row="3"/>
             <component:ListTileView TileIcon="browser1.png" 
-                                    TileText="Location"
+                                    TileText="{x:Static language:AppResource.Location}"
                                     TileTextSize="15"
                                     TileTextColor="#444444"
                                     TileType="Location"
@@ -153,7 +154,7 @@
                                     EventClickTile="Tile_EventClick"
                                     Grid.Row="4"/>
             <component:ListTileView TileIcon="share.png" 
-                                    TileText="Do'stlar bilan ulashish"
+                                    TileText="{x:Static language:AppResource.Share}"
                                     TileTextSize="15"
                                     TileTextColor="#444444"
                                     TileType="Share"
@@ -161,7 +162,7 @@
                                     EventClickTile="Tile_EventClick"
                                     Grid.Row="5"/>
             <component:ListTileView TileIcon="offer.png" 
-                                    TileText="Taklif va shikoyatlar"
+                                    TileText="{x:Static language:AppResource.FeedbackComplaints}"
                                     TileTextSize="15"
                                     TileTextColor="#444444"
                                     TileType="Suggestions"
@@ -169,7 +170,7 @@
                                     EventClickTile="Tile_EventClick"
                                     Grid.Row="6"/>
             <component:ListTileView TileIcon="info.png" 
-                                    TileText="Dastur haqida"
+                                    TileText="{x:Static language:AppResource.AboutApp}"
                                     TileTextSize="15"
                                     TileTextColor="#444444"
                                     TileType="AboutApp"
@@ -192,7 +193,7 @@
                BackgroundColor="White" 
                CornerRadius="10"
                HasShadow="True" 
-               Padding="5" 
+               Padding="5"
                WidthRequest="250"
                Margin="0,0,0,100"
                HorizontalOptions="Center"

@@ -1,6 +1,7 @@
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.ViewModels.Company;
@@ -74,10 +75,9 @@ public partial class ActiveProductPage : BasePage
         {
 
             bool answer = await Application.Current.MainPage.DisplayAlert(
-                                "Confirm",
-                                "Do you want to proceed?",
-                                "Yes",
-                                "No"
+                                AppResource.Confirm,
+                                AppResource.MessageConfirm,
+                                AppResource.Yes, AppResource.No
                             );
 
             if (!answer) return;
@@ -100,12 +100,12 @@ public partial class ActiveProductPage : BasePage
                 }
                 else
                 {
-                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
                 }
             }
             catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync("Error", ex.Message);
+                await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
             }
             finally
             {

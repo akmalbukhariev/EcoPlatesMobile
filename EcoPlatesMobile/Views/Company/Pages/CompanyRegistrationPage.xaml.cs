@@ -4,6 +4,7 @@ using EcoPlatesMobile.Helper;
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 
@@ -64,18 +65,22 @@ public partial class CompanyRegistrationPage : BasePage
             await AnimateElementScaleDown(imSelectedProduct);
         }
 
-        string action = await DisplayActionSheet("Choose an option", "Cancel", null, "Select from Gallery", "Take a Photo");
+        string action = await DisplayActionSheet(AppResource.ChooseOption,
+                                                 AppResource.Cancel, 
+                                                 null,
+                                                 AppResource.SelectGallery,
+                                                 AppResource.TakePhoto);
 
         FileResult result = null;
 
-        if (action == "Select from Gallery")
+        if (action == AppResource.SelectGallery)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 result = await MediaPicker.PickPhotoAsync();
             }
         }
-        else if (action == "Take a Photo")
+        else if (action == AppResource.TakePhoto)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
@@ -125,19 +130,19 @@ public partial class CompanyRegistrationPage : BasePage
 
             if (string.IsNullOrEmpty(companyName) || string.IsNullOrEmpty(phoneNumber))
             {
-                await AlertService.ShowAlertAsync("Field", "Field can not be emty.");
+                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageFieldCannotBeEmty);
                 return;
             }
 
             if (string.IsNullOrEmpty(selectedType))
             {
-                await AlertService.ShowAlertAsync("Field", "Please select the company type.");
+                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageSelectCompanyType);
                 return;
             }
 
             if (imageStream == null)
             {
-                await AlertService.ShowAlertAsync("Field", "Please select or take picture of the organization.");
+                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageSelectCompanyLogo);
                 return;
             }
 
@@ -159,12 +164,12 @@ public partial class CompanyRegistrationPage : BasePage
             Response response = await apiService.RegisterCompany(imageStream, additionalData);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                await AlertService.ShowAlertAsync("Success", "Registration has been completed successfully.");
+                await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageRegistrationSuccess);
                 await AppService.Get<AppControl>().LoginCompany(_phoneNumber);
             }
             else
             {
-                await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
             }
         }
         catch (Exception ex)

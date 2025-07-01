@@ -2,6 +2,7 @@ using CommunityToolkit.Maui.Views;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 
@@ -39,18 +40,22 @@ public partial class CompanyAddProductPage : BasePage
             await AnimateElementScaleDown(imSelectedProduct);
         }
         
-        string action = await DisplayActionSheet("Choose an option", "Cancel", null, "Select from Gallery", "Take a Photo");
+        string action = await DisplayActionSheet(AppResource.ChooseOption, 
+                                                 AppResource.Cancel, 
+                                                 null, 
+                                                 AppResource.SelectGallery, 
+                                                 AppResource.TakePhoto);
 
         FileResult result = null;
 
-        if (action == "Select from Gallery")
+        if (action == AppResource.SelectGallery)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 result = await MediaPicker.PickPhotoAsync();
             }
         }
-        else if (action == "Take a Photo")
+        else if (action == AppResource.TakePhoto)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
@@ -87,7 +92,7 @@ public partial class CompanyAddProductPage : BasePage
   
             if (string.IsNullOrWhiteSpace(title))
             {
-                await DisplayAlert("Error", "Please enter a product name.", "OK");
+                await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
                 return;
             }
  
@@ -96,13 +101,13 @@ public partial class CompanyAddProductPage : BasePage
             {
                 if (oldPrice == newPrice)
                 {
-                    await DisplayAlert("Error", "Old price and new price cannot be the same.", "OK");
+                    await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
                     return;
                 }
             }
             else
             {
-                await DisplayAlert("Error", "Please enter valid prices.", "OK");
+                await DisplayAlert(AppResource.Error, AppResource.MessageValidPrice, AppResource.Ok);
                 return;
             }
 
@@ -113,7 +118,7 @@ public partial class CompanyAddProductPage : BasePage
   
             if (imageStream == null)
             {
-                await DisplayAlert("Error", "Please select an image before registering.", "OK");
+                await DisplayAlert(AppResource.Error, AppResource.MessageSelectImage, AppResource.Ok);
                 return;
             }
 
@@ -130,17 +135,17 @@ public partial class CompanyAddProductPage : BasePage
              
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                await AlertService.ShowAlertAsync("Register poster", "Success.");
+                await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);
                 await Shell.Current.GoToAsync("..");
             }
             else
             {
-                await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", ex.Message, "OK");
+            await DisplayAlert(AppResource.Error, ex.Message, AppResource.Ok);
         }
         finally
         {

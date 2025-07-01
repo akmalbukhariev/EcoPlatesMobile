@@ -329,5 +329,229 @@
   <value>введите код подтверждения, отправленный на ваш номер телефона по SMS.</value>
   <comment>AuthorizationPage</comment>
 </data>
+	<data name="Edit" xml:space="preserve">
+  <value>Редактировать</value>
+  <comment>ActiveProductPage</comment>
+</data>
+	<data name="Inactive" xml:space="preserve">
+  <value>Неактивно</value>
+  <comment>ActiveProductPage</comment>
+</data>
+	<data name="ActiveProducts" xml:space="preserve">
+  <value>Активные товары</value>
+  <comment>ActiveProductPage</comment>
+</data>
+	<data name="MessageConfirm" xml:space="preserve">
+  <value>Вы хотите продолжить?</value>
+  <comment>ActiveProductPage</comment>
+</data>
+	<data name="Yes" xml:space="preserve">
+  <value>Да</value>
+  <comment>ActiveProductPage</comment>
+</data>
+	<data name="No" xml:space="preserve">
+  <value>Нет</value>
+  <comment>ActiveProductPage</comment>
+</data>
+	<data name="InactiveProducts" xml:space="preserve">
+  <value>Неактивные товары</value>
+  <comment>NonActiveProductPage</comment>
+</data>
+	<data name="Delete" xml:space="preserve">
+  <value>Удалить</value>
+  <comment>NonActiveProductPage</comment>
+</data>
+	<data name="Active" xml:space="preserve">
+  <value>Активно</value>
+  <comment>NonActiveProductPage</comment>
+</data>
+	<data name="DeleteProduct" xml:space="preserve">
+  <value>Удалить товар</value>
+  <comment>NonActiveProductPage</comment>
+</data>
+	<data name="Success" xml:space="preserve">
+  <value>Успешно</value>
+  <comment>NonActiveProductPage</comment>
+</data>
+	<data name="NewProduct" xml:space="preserve">
+  <value>Новый товар</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="ProductImages" xml:space="preserve">
+  <value>Изображения товара</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="ProductName" xml:space="preserve">
+  <value>Название товара</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="ProductQuantity" xml:space="preserve">
+  <value>Количество товара</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="PreviousPrice" xml:space="preserve">
+  <value>сум Предыдущая цена</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="CurrentPrice" xml:space="preserve">
+  <value>сум Текущая цена</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="ProductDescription" xml:space="preserve">
+  <value>Введите описание товара</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="Add" xml:space="preserve">
+  <value>Добавить</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="ChooseOption" xml:space="preserve">
+  <value>Выберите вариант</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="SelectGallery" xml:space="preserve">
+  <value>Выбрать из галереи</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="TakePhoto" xml:space="preserve">
+  <value>Сделать фото</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="Cancel" xml:space="preserve">
+  <value>Отмена</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="PleaseEnterProductName" xml:space="preserve">
+  <value>Пожалуйста, введите название товара.</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="MessageOldAndNewPrice" xml:space="preserve">
+  <value>Старая и новая цена не могут совпадать.</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="MessageValidPrice" xml:space="preserve">
+  <value>Пожалуйста, введите корректные цены.</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="MessageSelectImage" xml:space="preserve">
+  <value>Пожалуйста, выберите изображение перед регистрацией.</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="RegisterProduct" xml:space="preserve">
+  <value>Зарегистрировать товар</value>
+  <comment>CompanyAddProductPage</comment>
+</data>
+	<data name="UpdateProduct" xml:space="preserve">
+  <value>Обновить товар</value>
+  <comment>CompanyEditProductPage</comment>
+</data>
+	<data name="Update" xml:space="preserve">
+  <value>Обновить</value>
+  <comment>CompanyEditProductPage</comment>
+</data>
+	<data name="SetNewPhoto" xml:space="preserve">
+  <value>Установить новое фото</value>
+  <comment>CompanyEditProductPage</comment>
+</data>
+	<data name="CompanyName" xml:space="preserve">
+  <value>Название компании</value>
+  <comment>CompanyProfileInfoPage</comment>
+</data>
+	<data name="ChangeNumber" xml:space="preserve">
+  <value>Сменить номер</value>
+  <comment>CompanyProfileInfoPage</comment>
+</data>
+	<data name="StartWorkingTime" xml:space="preserve">
+  <value>Время начала работы</value>
+  <comment>CompanyProfileInfoPage</comment>
+</data>
+	<data name="EndWorkingTime" xml:space="preserve">
+  <value>Время окончания работы</value>
+  <comment>CompanyProfileInfoPage</comment>
+</data>
+	<data name="LogOut" xml:space="preserve">
+  <value>Выйти</value>
+  <comment>CompanyProfileInfoPage</comment>
+</data>
+	<data name="Done" xml:space="preserve">
+  <value>Готово</value>
+  <comment>CompanyProfileInfoPage</comment>
+</data>
+	<data name="UpdateProfile" xml:space="preserve">
+  <value>Обновить профиль</value>
+  <comment>CompanyProfileInfoPage</comment>
+</data>
+	<data name="MyProfile" xml:space="preserve">
+  <value>Мой профиль</value>
+  <comment>CompanyProfileInfoPage</comment>
+</data>
+	<data name="Location" xml:space="preserve">
+  <value>Местоположение</value>
+  <comment>CompanyProfilePage</comment>
+</data>
+	<data name="Share" xml:space="preserve">
+  <value>Поделиться</value>
+  <comment>CompanyProfilePage</comment>
+</data>
+	<data name="FeedbackComplaints" xml:space="preserve">
+  <value>Отзывы и жалобы</value>
+  <comment>CompanyProfilePage</comment>
+</data>
+	<data name="AboutApp" xml:space="preserve">
+  <value>О приложении</value>
+  <comment>CompanyProfilePage</comment>
+</data>
+	<data name="RoleSeller" xml:space="preserve">
+  <value>Роль: Продавец</value>
+  <comment>CompanyProfilePage</comment>
+</data>
+	<data name="CompanyRegistration" xml:space="preserve">
+  <value>Регистрация компании</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="CompanyLogo" xml:space="preserve">
+  <value>Логотип компании</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="CompanyType" xml:space="preserve">
+  <value>Тип компании</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="CompanyAddress" xml:space="preserve">
+  <value>Адрес компании</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="Registration" xml:space="preserve">
+  <value>Регистрация</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="Failed" xml:space="preserve">
+  <value>Ошибка</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="MessageFieldCannotBeEmty" xml:space="preserve">
+  <value>Поле не может быть пустым</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="MessageSelectCompanyType" xml:space="preserve">
+  <value>Пожалуйста, выберите тип компании.</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="MessageSelectCompanyLogo" xml:space="preserve">
+  <value>Пожалуйста, выберите или сделайте фото организации.</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="MessageRegistrationSuccess" xml:space="preserve">
+  <value>Регистрация прошла успешно.</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+	<data name="SettingCurrentLocation" xml:space="preserve">
+  <value>Установка текущего местоположения</value>
+  <comment>LocationPage</comment>
+</data>
+	<data name="MessageUpdateLocation" xml:space="preserve">
+  <value>Обновить местоположение</value>
+  <comment>LocationPage</comment>
+</data>
 
 </root>

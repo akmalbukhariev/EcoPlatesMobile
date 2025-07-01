@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Company.Pages;
@@ -19,7 +20,7 @@ namespace EcoPlatesMobile.ViewModels.Company
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private bool isRefreshing;
         [ObservableProperty] private bool showAddButton;
-        [ObservableProperty] private string activeProductCount;
+        [ObservableProperty] private string inActiveProductCount;
 
         private int offset = 0;
         private const int PageSize = 4;
@@ -205,8 +206,8 @@ namespace EcoPlatesMobile.ViewModels.Company
         }
 
         public void UpdateTitle()
-        { 
-            ActiveProductCount = $"Amaldagi non activ maxsulotlar soni {Products.Count} dona.";
+        {
+            InActiveProductCount = AppResource.InActiveProductCount + " " + Products.Count;
         }
 
         public ICommand ClickProductCommand { get; }

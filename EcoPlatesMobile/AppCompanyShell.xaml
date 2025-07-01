@@ -4,6 +4,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:EcoPlatesMobile"
        xmlns:companyPages="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
+       xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
        Shell.FlyoutBehavior="Disabled"
        Shell.TabBarBackgroundColor="#F3F8F9"
        Shell.TitleColor="#8338EC"
@@ -11,15 +12,18 @@
        Shell.TabBarForegroundColor="#8338EC">
     
     <TabBar>
-         <Tab Icon="home1.png" Title="Active">
+         <Tab Icon="home1.png" 
+              Title="{x:Static language:AppResource.Active}">
             <ShellContent ContentTemplate="{DataTemplate companyPages:ActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
-        <Tab Icon="active_product.png" Title="Non active">
+        <Tab Icon="active_product.png" 
+             Title="{x:Static language:AppResource.Inactive}">
             <ShellContent ContentTemplate="{DataTemplate companyPages:NonActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
-        <Tab Icon="company.png" Title="Profile">
+        <Tab Icon="company.png" 
+             Title="{x:Static language:AppResource.MyProfile}">
             <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyProfilePage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>

@@ -1,25 +1,17 @@
 ﻿using EcoPlatesMobile.Models.Company;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using Newtonsoft.Json;
 using System.Linq;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
-
-//[QueryProperty(nameof(CompanyInfo), nameof(CompanyInfo))]
+ 
 public partial class CompanyProfileInfoPage : BasePage
 {
     private CompanyInfo _companyInfo;
-    //public CompanyInfo CompanyInfo
-    //{
-    //    get => _companyInfo;
-    //    set
-    //    {
-    //        _companyInfo = value;
-    //    }
-    // }
-
+      
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
 
@@ -80,18 +72,21 @@ public partial class CompanyProfileInfoPage : BasePage
 
     private async void ChangeImage_Clicked(object sender, EventArgs e)
     {
-        string action = await DisplayActionSheet("Choose an option", "Cancel", null, "Select from Gallery", "Take a Photo");
+        string action = await DisplayActionSheet(AppResource.ChooseOption,
+                                                 AppResource.Cancel, null, 
+                                                 AppResource.SelectGallery,
+                                                 AppResource.TakePhoto);
 
         FileResult result = null;
 
-        if (action == "Select from Gallery")
+        if (action == AppResource.SelectGallery)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 result = await MediaPicker.PickPhotoAsync();
             }
         }
-        else if (action == "Take a Photo")
+        else if (action == AppResource.TakePhoto)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
@@ -190,12 +185,12 @@ public partial class CompanyProfileInfoPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync("Update profile", "Success.");
+                    await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
                     await Shell.Current.GoToAsync("..", true);
                 }
                 else
                 {
-                    await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
                 }
             }
             else
@@ -250,10 +245,9 @@ public partial class CompanyProfileInfoPage : BasePage
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
         bool answer = await Application.Current.MainPage.DisplayAlert(
-                                "Confirm",
-                                "Do you want to proceed?",
-                                "Yes",
-                                "No"
+                                AppResource.Confirm,
+                                AppResource.MessageConfirm,
+                                AppResource.Yes,AppResource.No
                             );
         if (!answer) return;
 

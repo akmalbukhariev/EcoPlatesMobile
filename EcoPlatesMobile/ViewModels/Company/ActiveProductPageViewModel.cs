@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Company.Pages;
@@ -205,8 +206,8 @@ namespace EcoPlatesMobile.ViewModels.Company
         }
 
         public void UpdateTitle()
-        { 
-            ActiveProductCount = $"Amaldagi activ maxsulotlar soni {Products.Count} dona.";
+        {
+            ActiveProductCount = AppResource.ActiveProductCount + " " + Products.Count;
         }
 
         public ICommand ClickProductCommand { get; }
