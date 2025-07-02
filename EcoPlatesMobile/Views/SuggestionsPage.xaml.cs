@@ -38,11 +38,13 @@ public partial class SuggestionsPage : BasePage
         {
             header.HeaderBackground = btnSubmit.BackgroundColor = Colors.Green;
             imFeedBack.Source = "user_feedback_icon.png";
+            loading.ChangeColor(Colors.Green);
         }
         else
         {
             header.HeaderBackground = btnSubmit.BackgroundColor = Color.FromArgb("#8338EC");
             imFeedBack.Source = "company_feedback_icon.png";
+            loading.ChangeColor(Color.FromArgb("#8338EC"));
         }
     }
 

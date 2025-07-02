@@ -232,7 +232,8 @@
         <component:CustomLikedView x:Name="likeView" 
                                    ShowLiked="{Binding IsLikedViewLiked}"
                                    IsVisible="{Binding ShowLikedView}"/>
-        <ActivityIndicator IsRunning="{Binding IsLoading}"
+        <ActivityIndicator x:Name="loading" 
+                           IsRunning="{Binding IsLoading}"
                            Color="Green"
                            Scale="1.5"
                            VerticalOptions="Center"

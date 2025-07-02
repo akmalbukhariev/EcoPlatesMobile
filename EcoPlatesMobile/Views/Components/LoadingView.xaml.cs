@@ -17,6 +17,11 @@ public partial class LoadingView : ContentView
 		}
 	}
 
+	public void ChangeColor(Color color)
+	{
+		loading.Color = color;
+	}
+
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
     }

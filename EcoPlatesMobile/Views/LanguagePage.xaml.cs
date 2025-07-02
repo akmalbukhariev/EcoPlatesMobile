@@ -50,9 +50,9 @@ public partial class LanguagePage : BasePage
 
         Languages = new ObservableCollection<LanguageModel>
         {
-            new LanguageModel { Name = "O'zbekcha", Flag = "flag_uz.png", IsSelected = true,  Code = Constants.UZ },
-            new LanguageModel { Name = "English",   Flag = "flag_en.png", IsSelected = false, Code = Constants.EN },
-            new LanguageModel { Name = "Русский",   Flag = "flag_ru.png", IsSelected = false, Code = Constants.RU }
+            new LanguageModel { Name = Constants.LAN_UZBEK,   Flag = Constants.LAN_ICON_UZBEK, IsSelected = true,  Code = Constants.UZ },
+            new LanguageModel { Name = Constants.LAN_ENGLISH, Flag = Constants.LAN_ICON_ENGLISH, IsSelected = false, Code = Constants.EN },
+            new LanguageModel { Name = Constants.LAN_RUSSIAN, Flag = Constants.LAN_ICON_RUSSIAN, IsSelected = false, Code = Constants.RU }
         };
 
         foreach (var lang in Languages)

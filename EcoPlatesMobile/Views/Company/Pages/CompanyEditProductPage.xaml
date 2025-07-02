@@ -146,7 +146,7 @@
             </Grid>
         </ScrollView>
         <ActivityIndicator x:Name="IsLoading"
-                           Color="Green"
+                           Color="#8338EC"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"

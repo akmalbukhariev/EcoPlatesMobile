@@ -21,6 +21,8 @@ public partial class CompanyProfileInfoPage : BasePage
 
         pickType.ItemsSource = AppService.Get<AppControl>().BusinessTypeList.Keys.ToList();
         _companyInfo = AppService.Get<AppControl>().CompanyInfo;
+
+        loading.ChangeColor(Color.FromArgb("#8338EC"));
     }
 
     protected override void OnAppearing()

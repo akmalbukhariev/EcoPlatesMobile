@@ -22,5 +22,13 @@ namespace EcoPlatesMobile.Utilities
         public const string UZ = "uz";
         public const string EN = "en";
         public const string RU = "ru";
+
+        public const string LAN_UZBEK = "O'zbekcha";
+        public const string LAN_ENGLISH = "English";
+        public const string LAN_RUSSIAN = "Русский";
+
+        public const string LAN_ICON_UZBEK = "flag_uz.png";
+        public const string LAN_ICON_ENGLISH = "flag_en.png";
+        public const string LAN_ICON_RUSSIAN = "flag_ru.png";
     }
 }

@@ -222,7 +222,7 @@
             </CollectionView>
         </Frame>
         <ActivityIndicator x:Name="loading"
-                          Color="Green"
+                          Color="#8338EC"
                           Scale="1.5"
                           VerticalOptions="Center"
                           HorizontalOptions="Center"

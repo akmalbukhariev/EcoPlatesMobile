@@ -10,6 +10,8 @@ public partial class LocationPage : BasePage
 	public LocationPage()
 	{
 		InitializeComponent();
+
+		loading.ChangeColor(Color.FromArgb("#8338EC"));
 	}
 
 	private async void Save_Tapped(object sender, TappedEventArgs e)

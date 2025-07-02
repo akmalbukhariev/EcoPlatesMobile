@@ -42,8 +42,17 @@ public partial class PhoneNumberRegisterPage : BasePage
             return;
         }
 
+        if (session.Role == UserRole.User)
+        {
+            loading.ChangeColor(Colors.Green);
+        }
+        else
+        {
+            loading.ChangeColor(Color.FromArgb("#8338EC"));
+        }
+
         string phoneNumber = $"998{rawPhone}";
-        loadingView.ShowLoading = true;
+        loading.ShowLoading = true;
 
         try
         {
@@ -105,7 +114,7 @@ public partial class PhoneNumberRegisterPage : BasePage
         }
         finally
         {
-            loadingView.ShowLoading = false;
+            loading.ShowLoading = false;
         }
     }
 }

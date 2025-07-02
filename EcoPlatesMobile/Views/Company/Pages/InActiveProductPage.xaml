@@ -62,7 +62,7 @@
             </RefreshView>
         </Grid>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
-                           Color="Green"
+                           Color="#8338EC"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"

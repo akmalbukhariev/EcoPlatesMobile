@@ -44,6 +44,8 @@ public partial class CompanyRegistrationPage : BasePage
 
         startTimePicker.Time = new TimeSpan(9, 0, 0);
         endTimePicker.Time = new TimeSpan(6, 0, 0);
+
+        loading.ChangeColor(Color.FromArgb("#8338EC"));
     }
 
     protected override void OnAppearing()
