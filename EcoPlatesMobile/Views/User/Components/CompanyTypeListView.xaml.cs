@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using EcoPlatesMobile.Models;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Utilities;
 using System.Collections.ObjectModel;
 
@@ -43,11 +44,11 @@ public partial class CompanyTypeListView : ContentView
         
         Items = new ObservableCollection<TypeItem>
         {
-            new TypeItem { Name = "Restaurant", Image = "restaurant.png", Type = BusinessType.RESTAURANT },
-            new TypeItem { Name = "Bakery", Image = "bakery.png", Type = BusinessType.BAKERY },
-            new TypeItem { Name = "Fast Food", Image = "fast_food.png", Type = BusinessType.FAST_FOOD },
-            new TypeItem { Name = "Cafe", Image = "cafe.png", Type = BusinessType.CAFE },
-            new TypeItem { Name = "Supermarket", Image = "market.png", Type = BusinessType.SUPERMARKET }
+            new TypeItem { Name = AppResource.Restaurant, Image = "restaurant.png", Type = BusinessType.RESTAURANT },
+            new TypeItem { Name = AppResource.Bakery, Image = "bakery.png", Type = BusinessType.BAKERY },
+            new TypeItem { Name = AppResource.FastFood, Image = "fast_food.png", Type = BusinessType.FAST_FOOD },
+            new TypeItem { Name = AppResource.Cafe, Image = "cafe.png", Type = BusinessType.CAFE },
+            new TypeItem { Name = AppResource.Supermarket, Image = "market.png", Type = BusinessType.SUPERMARKET }
         };
         Items[0].Click();
 

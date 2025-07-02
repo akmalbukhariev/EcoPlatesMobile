@@ -1,5 +1,6 @@
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -135,7 +136,7 @@ public partial class ReviewProductPage : BasePage
             Response response = await apiService.RegisterPosterFeedBack(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                await AlertService.ShowAlertAsync("Rating", "Thank you.");
+                await AlertService.ShowAlertAsync(AppResource.Rating, AppResource.ThankYou);
                 await Shell.Current.GoToAsync("..");
             }
         }

@@ -1,6 +1,7 @@
 ﻿ 
 using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Utilities;
+using HarfBuzzSharp;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -34,6 +35,8 @@ namespace EcoPlatesMobile.Services
             var culture = new CultureInfo(cultureCode);
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
+
+            AppResource.Culture = culture;
 
             _appStore.Set(LanguageKey, cultureCode);
         }

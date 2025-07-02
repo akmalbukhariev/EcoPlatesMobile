@@ -1,5 +1,6 @@
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -30,7 +31,7 @@ public partial class UserRegistrationPage : BasePage
             string name = entryName.GetEntryText();
             if (string.IsNullOrEmpty(name))
             {
-                await AlertService.ShowAlertAsync("Field", "Please enter the name.");
+                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.PleaseEnterName);
                 return;
             }
 
@@ -47,12 +48,12 @@ public partial class UserRegistrationPage : BasePage
             Response response = await apiService.RegisterUser(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                await AlertService.ShowAlertAsync("Success", "Registration has been completed successfully.");
+                await AlertService.ShowAlertAsync(AppResource.Success, AppResource.RegistrationCompleted);
                 await AppService.Get<AppControl>().LoginUser(_phoneNumber);
             }
             else
             {
-                await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
             }
         }
         catch (Exception ex)

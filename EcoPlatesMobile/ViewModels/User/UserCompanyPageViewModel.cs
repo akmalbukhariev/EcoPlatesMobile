@@ -97,7 +97,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     CompanyName = response.resultData.company_name;
                     PhoneNumber = response.resultData.phone_number;
                     WorkingTime = response.resultData.working_hours;
-                    CompanyType = response.resultData.business_type;
+                    CompanyType = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(item => item.Value == response.resultData.business_type).Key;
                      
                     var items = response.resultData;
 

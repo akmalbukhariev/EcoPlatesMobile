@@ -138,7 +138,7 @@
     <comment>LoginPage</comment>
   </data>
   <data name="AboutApp" xml:space="preserve">
-    <value>About the Application</value>
+    <value>О приложении</value>
     <comment>AboutPage</comment>
   </data>
 	<data name="ForClient" xml:space="preserve">
@@ -549,45 +549,221 @@
   <value>Установка текущего местоположения</value>
   <comment>LocationPage</comment>
 </data>
-	<data name="MessageUpdateLocation" xml:space="preserve">
+  <data name="MessageUpdateLocation" xml:space="preserve">
   <value>Обновить местоположение</value>
   <comment>LocationPage</comment>
 </data>
-	<data name="Search" xml:space="preserve">
+<data name="ActiveProductCount" xml:space="preserve">
+  <value>Текущие активные товары:</value>
+  <comment>ActiveProductPage</comment>
+</data> 
+<data name="InActiveProductCount" xml:space="preserve">
+  <value>Неактивные товары:</value>
+  <comment>ActiveProductPage</comment>
+</data>
+<data name="Search" xml:space="preserve">
   <value>Поиск</value>
   <comment>UserMainPage</comment>
 </data>
-	<data name="NearbyWithin" xml:space="preserve">
+<data name="NearbyWithin" xml:space="preserve">
   <value>Рядом — в пределах</value>
   <comment>UserMainPage</comment>
 </data>
-	<data name="Around" xml:space="preserve">
+<data name="Around" xml:space="preserve">
   <value>вокруг</value>
   <comment>UserMainPage</comment>
 </data>
-	<data name="RecentSearches" xml:space="preserve">
+<data name="Restaurant" xml:space="preserve">
+  <value>Ресторан</value>
+  <comment>UserMainPage</comment>
+</data>
+<data name="Bakery" xml:space="preserve">
+  <value>Пекарня</value>
+  <comment>UserMainPage</comment>
+</data>
+<data name="FastFood" xml:space="preserve">
+  <value>Фастфуд</value>
+  <comment>UserMainPage</comment>
+</data>
+<data name="Cafe" xml:space="preserve">
+  <value>Кафе</value>
+  <comment>UserMainPage</comment>
+</data>
+<data name="Supermarket" xml:space="preserve">
+  <value>Супермаркет</value>
+  <comment>UserMainPage</comment>
+</data>
+<data name="RecentSearches" xml:space="preserve">
   <value>Последние поиски</value>
   <comment>UserMainSearchPage</comment>
 </data>
-	<data name="FailedGetLocation" xml:space="preserve">
+<data name="FailedGetLocation" xml:space="preserve">
   <value>Не удалось определить местоположение:</value>
   <comment>UserBrowserPage</comment>
 </data>
-	<data name="CouldNotGetCurrentLocation" xml:space="preserve">
+<data name="CouldNotGetCurrentLocation" xml:space="preserve">
   <value>Не удалось определить текущее местоположение.</value>
   <comment>UserBrowserPage</comment>
 </data>
-	<data name="Type" xml:space="preserve">
+<data name="List" xml:space="preserve">
+  <value>Список</value>
+  <comment>UserBrowserPage</comment>
+</data>
+<data name="Map" xml:space="preserve">
+  <value>Карта</value>
+  <comment>UserBrowserPage</comment>
+</data>
+<data name="Type" xml:space="preserve">
   <value>Тип</value>
   <comment>UserBrowserSearchPage</comment>
 </data>
-	<data name="Favorites " xml:space="preserve">
+	<data name="Favorites" xml:space="preserve">
   <value>Избранное</value>
   <comment>UserFavoritesPage</comment>
 </data>
-	<data name="RoleBuyer" xml:space="preserve">
+<data name="Products" xml:space="preserve">
+  <value>Товары</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+	<data name="Seller" xml:space="preserve">
+  <value>Продавец</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="Type" xml:space="preserve">
+  <value>Тип</value>
+  <comment>UserBrowserSearchPage</comment>
+</data>
+	<data name="Favorites" xml:space="preserve">
+  <value>Избранное</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+  <data name="RoleBuyer" xml:space="preserve">
   <value>Роль: Покупатель</value>
   <comment>UserProfilePage</comment>
+</data>
+<data name="LanguageChanged" xml:space="preserve">
+  <value>Язык изменен</value>
+  <comment>UserProfilePage</comment>
+</data>
+<data name="MessageLanguageChanged" xml:space="preserve">
+  <value>Приложение перезапустится для применения выбранного языка.</value>
+  <comment>UserProfilePage</comment>
+</data>
+<data name="WhatOtherPeopleSaying" xml:space="preserve">
+  <value>ЧТО ГОВОРЯТ ДРУГИЕ</value>
+  <comment>DetailProductPage</comment>
+</data>
+	<data name="WhatYouNeedToKnow" xml:space="preserve">
+  <value>Что нужно знать</value>
+  <comment>DetailProductPage</comment>
+</data>
+	<data name="Back" xml:space="preserve">
+  <value>Назад</value>
+  <comment>DetailProductPage</comment>
+</data>
+	<data name="MoreInfoAboutStore" xml:space="preserve">
+  <value>Дополнительная информация о магазине</value>
+  <comment>DetailProductPage</comment>
+</data>
+	<data name="ChooseLocationAvailable" xml:space="preserve">
+  <value>Выберите локацию, чтобы увидеть доступные товары</value>
+  <comment>DetailProductPage</comment>
+</data>
+<data name="Top" xml:space="preserve">
+  <value>Топ</value>
+  <comment>DetailProductPage</comment>
+</data>
+<data name="Highlights" xml:space="preserve">
+  <value>Основные моменты</value>
+  <comment>DetailProductPage</comment>
+</data>
+<data name="SelectDistance" xml:space="preserve">
+  <value>Выберите расстояние</value>
+  <comment>LocationSettingPage</comment>
+</data>
+	<data name="UseMyCurrentLocation" xml:space="preserve">
+  <value>📍 Использовать мое текущее местоположение</value>
+  <comment>LocationSettingPage</comment>
+</data>
+	<data name="ShowResult" xml:space="preserve">
+  <value>Показать результаты</value>
+  <comment>LocationSettingPage</comment>
+</data>
+	<data name="LeaveReview" xml:space="preserve">
+  <value>Оставить отзыв</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="EvaluateProduct" xml:space="preserve">
+  <value>Оцените качество товара</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="HowSatisfiedTitle" xml:space="preserve">
+  <value>Насколько вы довольны качеством этого продукта?</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="PleaseRateTitle" xml:space="preserve">
+  <value>Пожалуйста, подробно оцените этот продукт.</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="GreatValue" xml:space="preserve">
+  <value>Отличная цена</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="DeliciousFood" xml:space="preserve">
+  <value>Вкусная еда</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="GreatService" xml:space="preserve">
+  <value>Отличное обслуживание</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="ReviewCompleted" xml:space="preserve">
+  <value>Отзыв успешно завершён</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="Rating" xml:space="preserve">
+  <value>Оценка</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="MakerLocation" xml:space="preserve">
+  <value>Местоположение производителя</value>
+  <comment>UserCompanyPage</comment>
+</data>
+	<data name="UserName" xml:space="preserve">
+  <value>Имя пользователя</value>
+  <comment>UserProfileInfoPage</comment>
+</data>
+	<data name="EnterName" xml:space="preserve">
+  <value>Введите имя</value>
+  <comment>UserProfileInfoPage</comment>
+</data>
+	<data name="Register" xml:space="preserve">
+  <value>Регистрация</value>
+  <comment>UserRegistrationPage</comment>
+</data>
+	<data name="PleaseEnterName" xml:space="preserve">
+  <value>Пожалуйста, введите имя</value>
+  <comment>UserRegistrationPage</comment>
+</data>
+<data name="RegistrationCompleted" xml:space="preserve">
+  <value>Регистрация успешно завершена.</value>
+  <comment>UserRegistrationPage</comment>
+</data>
+<data name="Review" xml:space="preserve">
+  <value>Отзыв</value>
+  <comment>ReviewView</comment>
+</data>
+<data name="PleaseWriteIt" xml:space="preserve">
+  <value>Пожалуйста, напишите</value>
+  <comment>ReviewView</comment>
+</data>
+<data name="HonestTitle" xml:space="preserve">
+  <value>Честные мнения помогают другим покупателям</value>
+  <comment>ReviewView</comment>
+</data>
+<data name="WriteProductReview" xml:space="preserve">
+  <value>Написать отзыв о продукте ></value>
+  <comment>ReviewView</comment>
 </data>
 
 </root>

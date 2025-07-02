@@ -3,13 +3,14 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.User.Pages.LocationSettingPage">
 
     <Grid RowDefinitions="60, *, Auto">
         <Grid ColumnDefinitions="*, Auto" 
               BackgroundColor="White">
-          <Label Text="Choose a location to see what's available"
+          <Label Text="{x:Static language:AppResource.ChooseLocationAvailable}"
                  TextColor="Black"
                  FontAttributes="Bold"
                  FontSize="16"
@@ -34,22 +35,22 @@
                   Grid.Row="1"
                   Grid.RowSpan="3"/>
         <Frame BackgroundColor="White"
-                CornerRadius="20"
-                Padding="10"
-                HasShadow="True"
-                VerticalOptions="End"
-                HeightRequest="250"
-                Margin="0"
-                TranslationY="10"
-                Grid.Row="2">
+               CornerRadius="20"
+               Padding="10"
+               HasShadow="True"
+               VerticalOptions="End"
+               HeightRequest="250"
+               Margin="0"
+               TranslationY="10"
+               Grid.Row="2">
                 <VerticalStackLayout Spacing="15">
-                        <Label Text="Select a distance"
-                                FontSize="16"
-                                HorizontalOptions="Center" />
+                        <Label Text="{x:Static language:AppResource.SelectDistance}"
+                               FontSize="16"
+                               HorizontalOptions="Center" />
                         <Grid ColumnDefinitions="*, Auto"
-                                Padding="0"
-                                Margin="0"
-                                VerticalOptions="Center">
+                              Padding="0"
+                              Margin="0"
+                              VerticalOptions="Center">
                                 <Slider x:Name="distanceSlider"
                                         Minimum="1"
                                         Maximum="10"
@@ -65,11 +66,11 @@
                                         Margin="10,0,10,0"
                                         Grid.Column="1"/>
                                 </Grid>
-                        <Button Text="📍 Use my current location"
+                        <Button Text="{x:Static language:AppResource.UseMyCurrentLocation}"
                                 BackgroundColor="Transparent"
                                 TextColor="Teal"
                                 Clicked="UseCurrentLocation_Clicked" />
-                        <Button Text="Show results"
+                        <Button Text="{x:Static language:AppResource.ShowResult}"
                                 BackgroundColor="#004d40"
                                 TextColor="White"
                                 CornerRadius="25"

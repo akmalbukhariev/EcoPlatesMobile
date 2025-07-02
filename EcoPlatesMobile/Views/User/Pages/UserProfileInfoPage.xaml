@@ -2,6 +2,7 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserProfileInfoPage"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views">
 
@@ -27,7 +28,7 @@
                                Source="add_item.png"
                                Aspect="AspectFill" />
                     </Border>
-                    <Button Text="Set New Photo"
+                    <Button Text="{x:Static language:AppResource.SetNewPhoto}"
                             TextColor="Green"
                             FontSize="17"
                             FontAttributes="Bold"
@@ -42,7 +43,7 @@
                               RowSpacing="10"
                               Margin="10">
                             <Entry x:Name="entryUserName" 
-                                   Placeholder="User name"
+                                   Placeholder="{x:Static language:AppResource.UserName}"
                                    FontSize="17"
                                    PlaceholderColor="LightGray"/>
                             <BoxView BackgroundColor="LightGray" Grid.Row="1"/>
@@ -53,7 +54,7 @@
                                     <TapGestureRecognizer NumberOfTapsRequired="1"
                                                           Tapped="PhoneNumber_Tapped"/>
                                 </Grid.GestureRecognizers>
-                                <Label Text="Change Number"
+                                <Label Text="{x:Static language:AppResource.ChangeNumber}"
                                        TextColor="Black"
                                        FontSize="17"
                                        HorizontalTextAlignment="Start"
@@ -73,7 +74,7 @@
                         </Grid>
                     </Border>
                 </VerticalStackLayout>
-                <Button Text="Log Out" 
+                <Button Text="{x:Static language:AppResource.LogOut}" 
                         BackgroundColor="Red"
                         TextColor="White"
                         Margin="10,0,10,0"
@@ -83,13 +84,13 @@
         </ScrollView>
         <Grid ColumnDefinitions="Auto, *, Auto"
               VerticalOptions="Start">
-            <Button Text="Cancel"
+            <Button Text="{x:Static language:AppResource.Cancel}"
                     TextColor="Green"
                     FontSize="17"
                     FontAttributes="Bold"
                     BackgroundColor="Transparent"
                     Clicked="Cancel_Clicked"/>
-            <Button Text="Done"
+            <Button Text="{x:Static language:AppResource.Done}"
                     TextColor="Green"
                     FontSize="17"
                     FontAttributes="Bold"

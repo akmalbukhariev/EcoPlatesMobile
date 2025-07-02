@@ -64,11 +64,10 @@
                      IsRefreshing="{Binding IsRefreshing}"
                      Grid.Row="4">
             <Grid RowDefinitions="*,Auto" 
-                  HeightRequest="{OnPlatform Android=700, iOS=700}">
-                <!-- Scrollable Content -->
-                <ScrollView Grid.Row="0">
+                  HeightRequest="{OnPlatform Android=500, iOS=700}">
+                <ScrollView HorizontalScrollBarVisibility="Never" 
+                            Grid.Row="0">
                     <VerticalStackLayout Padding="20" Spacing="20">
-                        <!-- Language Row -->
                         <Grid ColumnDefinitions="Auto, *, Auto"
                               HeightRequest="50">
                             <Grid.GestureRecognizers>
@@ -95,8 +94,6 @@
                                        VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Grid>
-
-                        <!-- List tiles -->
                         <component:ListTileView TileIcon="share.png" 
                                                 TileText="{x:Static language:AppResource.Share}"
                                                 TileTextSize="15"
@@ -116,8 +113,6 @@
                                                 EventClickTile="Tile_EventClick"/>
                     </VerticalStackLayout>
                 </ScrollView>
-
-                <!-- Footer always at bottom -->
                 <VerticalStackLayout Grid.Row="1"
                                      Padding="0,20"
                                      HorizontalOptions="Center">

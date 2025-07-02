@@ -138,7 +138,7 @@
     <comment>LoginPage</comment>
   </data>
   <data name="AboutApp" xml:space="preserve">
-    <value>About the Application</value>
+    <value>Dastur haqida</value>
     <comment>AboutPage</comment>
   </data>
 	<data name="ForClient" xml:space="preserve">
@@ -553,7 +553,15 @@
   <value>Joylashuvni yangilash</value>
   <comment>LocationPage</comment>
 </data>
-	<data name="Search" xml:space="preserve">
+<data name="ActiveProductCount" xml:space="preserve">
+  <value>Hozirda faol mahsulotlar:</value>
+  <comment>ActiveProductPage</comment>
+</data>
+	<data name="InActiveProductCount" xml:space="preserve">
+  <value>Faol emas mahsulotlar:</value>
+  <comment>ActiveProductPage</comment>
+</data>
+  <data name="Search" xml:space="preserve">
   <value>Qidirish</value>
   <comment>UserMainPage</comment>
 </data>
@@ -565,7 +573,27 @@
   <value>atrofida</value>
   <comment>UserMainPage</comment>
 </data>
-	<data name="RecentSearches" xml:space="preserve">
+<data name="Restaurant" xml:space="preserve">
+  <value>Restoran</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="Bakery" xml:space="preserve">
+  <value>Nonvoyxona</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="FastFood" xml:space="preserve">
+  <value>Fastfud</value>
+  <comment>UserMainPage</comment>
+</data>
+	<data name="Cafe" xml:space="preserve">
+  <value>Kafe</value>
+  <comment>UserMainPage</comment>
+</data>
+<data name="Supermarket" xml:space="preserve">
+  <value>Supermarket</value>
+  <comment>UserMainPage</comment>
+</data>
+<data name="RecentSearches" xml:space="preserve">
   <value>So‘nggi qidiruvlar</value>
   <comment>UserMainSearchPage</comment>
 </data>
@@ -573,21 +601,169 @@
   <value>Joylashuvni aniqlab bo‘lmadi:</value>
   <comment>UserBrowserPage</comment>
 </data>
-	<data name="CouldNotGetCurrentLocation" xml:space="preserve">
+<data name="CouldNotGetCurrentLocation" xml:space="preserve">
   <value>Joriy joylashuvni aniqlab bo‘lmadi.</value>
   <comment>UserBrowserPage</comment>
 </data>
-	<data name="Type" xml:space="preserve">
+<data name="List" xml:space="preserve">
+  <value>Ro‘yxat</value>
+  <comment>UserBrowserPage</comment>
+</data>
+<data name="Map" xml:space="preserve">
+  <value>Xarita</value>
+  <comment>UserBrowserPage</comment>
+</data>
+<data name="Type" xml:space="preserve">
   <value>Tur</value>
   <comment>UserBrowserSearchPage</comment>
 </data>
-	<data name="Favorites " xml:space="preserve">
+	<data name="Favorites" xml:space="preserve">
+  <value>Sevimlilar</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+	<data name="Products" xml:space="preserve">
+  <value>Mahsulotlar</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="Seller" xml:space="preserve">
+  <value>Sotuvchi</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="Type" xml:space="preserve">
+  <value>Tur</value>
+  <comment>UserBrowserSearchPage</comment>
+</data>
+	<data name="Favorites" xml:space="preserve">
   <value>Sevimlilar</value>
   <comment>UserFavoritesPage</comment>
 </data>
 	<data name="RoleBuyer" xml:space="preserve">
   <value>Rol: Xaridor</value>
   <comment>UserProfilePage</comment>
+</data>
+<data name="LanguageChanged" xml:space="preserve">
+  <value>Til o‘zgartirildi</value>
+  <comment>UserProfilePage</comment>
+</data>
+<data name="MessageLanguageChanged" xml:space="preserve">
+  <value>Tanlangan tilni qo‘llash uchun ilova qayta yuklanadi.</value>
+  <comment>UserProfilePage</comment>
+</data>
+<data name="WhatOtherPeopleSaying" xml:space="preserve">
+  <value>BOSHQA ODAMLAR NIMA DEYMOQDA</value>
+  <comment>DetailProductPage</comment>
+</data>
+	<data name="WhatYouNeedToKnow" xml:space="preserve">
+  <value>Bilishingiz kerak bo‘lganlar</value>
+  <comment>DetailProductPage</comment>
+</data>
+	<data name="Back" xml:space="preserve">
+  <value>Orqaga</value>
+  <comment>DetailProductPage</comment>
+</data>
+	<data name="MoreInfoAboutStore" xml:space="preserve">
+  <value>Do‘kon haqida qo‘shimcha ma’lumot</value>
+  <comment>DetailProductPage</comment>
+</data>
+  <data name="ChooseLocationAvailable" xml:space="preserve">
+  <value>Mavjud mahsulotlarni ko‘rish uchun joylashuvni tanlang</value>
+  <comment>DetailProductPage</comment>
+</data>
+<data name="Top" xml:space="preserve">
+  <value>Eng yuqori</value>
+  <comment>DetailProductPage</comment>
+</data>
+  <data name="Highlights" xml:space="preserve">
+  <value>Asosiy jihatlar</value>
+  <comment>DetailProductPage</comment>
+</data>
+<data name="SelectDistance" xml:space="preserve">
+  <value>Masofani tanlang</value>
+  <comment>LocationSettingPage</comment>
+</data>
+	<data name="UseMyCurrentLocation" xml:space="preserve">
+  <value>📍 Joriy joylashuvimdan foydalanish</value>
+  <comment>LocationSettingPage</comment>
+</data>
+	<data name="ShowResult" xml:space="preserve">
+  <value>Natijalarni ko‘rsatish</value>
+  <comment>LocationSettingPage</comment>
+</data>
+	<data name="LeaveReview" xml:space="preserve">
+  <value>Sharh qoldiring</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="EvaluateProduct" xml:space="preserve">
+  <value>Mahsulot sifatini baholang</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="HowSatisfiedTitle" xml:space="preserve">
+  <value>Ushbu mahsulot sifati sizni qanchalik qoniqtirdi?</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="PleaseRateTitle" xml:space="preserve">
+  <value>Iltimos, mahsulotni batafsil baholang.</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="GreatValue" xml:space="preserve">
+  <value>Ajoyib narx</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="DeliciousFood" xml:space="preserve">
+  <value>Yoqimli ta’m</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="GreatService" xml:space="preserve">
+  <value>A’lo darajadagi xizmat</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="ReviewCompleted" xml:space="preserve">
+  <value>Sharh muvaffaqiyatli yakunlandi</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="Rating" xml:space="preserve">
+  <value>Reyting</value>
+  <comment>ReviewProductPage</comment>
+</data>
+	<data name="MakerLocation" xml:space="preserve">
+  <value>Ishlab chiqaruvchi manzili</value>
+  <comment>UserCompanyPage</comment>
+</data>
+	<data name="UserName" xml:space="preserve">
+  <value>Foydalanuvchi ismi</value>
+  <comment>UserProfileInfoPage</comment>
+</data>
+	<data name="EnterName" xml:space="preserve">
+  <value>Ismingizni kiriting</value>
+  <comment>UserProfileInfoPage</comment>
+</data>
+	<data name="Register" xml:space="preserve">
+  <value>Ro‘yxatdan o‘tish</value>
+  <comment>UserRegistrationPage</comment>
+</data>
+	<data name="PleaseEnterName" xml:space="preserve">
+  <value>Iltimos, ismingizni kiriting</value>
+  <comment>UserRegistrationPage</comment>
+</data>
+	<data name="RegistrationCompleted" xml:space="preserve">
+  <value>Ro‘yxatdan o‘tish muvaffaqiyatli yakunlandi.</value>
+  <comment>UserRegistrationPage</comment>
+</data>
+<data name="Review" xml:space="preserve">
+  <value>Sharh</value>
+  <comment>ReviewView</comment>
+</data>
+<data name="PleaseWriteIt" xml:space="preserve">
+  <value>Iltimos, yozing</value>
+  <comment>ReviewView</comment>
+</data>
+<data name="HonestTitle" xml:space="preserve">
+  <value>Halol fikrlar boshqa mijozlarga yordam beradi</value>
+  <comment>ReviewView</comment>
+</data>
+<data name="WriteProductReview" xml:space="preserve">
+  <value>Mahsulotga sharh yozing ></value>
+  <comment>ReviewView</comment>
 </data>
 
 </root>

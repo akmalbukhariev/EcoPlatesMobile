@@ -3,6 +3,7 @@ using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 
@@ -21,11 +22,11 @@ namespace EcoPlatesMobile.Services
 
         public Dictionary<string, string> BusinessTypeList = new Dictionary<string, string>
         {
-            { "Restaurant", "RESTAURANT" },
-            { "Bakery", "BAKERY" },
-            { "Fast Food", "FAST_FOOD" },
-            { "Cafe", "CAFE" },
-            { "Supermarket", "SUPERMARKET" },
+            { AppResource.Restaurant, "RESTAURANT" },
+            { AppResource.Bakery, "BAKERY" },
+            { AppResource.FastFood, "FAST_FOOD" },
+            { AppResource.Cafe, "CAFE" },
+            { AppResource.Supermarket, "SUPERMARKET" },
             //{ "Other", "OTHER" }
         };
 
@@ -109,6 +110,7 @@ namespace EcoPlatesMobile.Services
             AppService.Get<CompanyApiService>().ClearTokenAsync();
 
             Application.Current.MainPage = new AppEntryShell();
+            //((App)Application.Current).ReloadAppShell();
         }
 
         public void LogoutUser()

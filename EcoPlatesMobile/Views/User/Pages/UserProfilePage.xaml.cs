@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -57,6 +58,7 @@ public partial class UserProfilePage : BasePage
         InitializeComponent();
 
         Init();
+        BindingContext = this;
     }
 
     private void Init()
@@ -138,7 +140,7 @@ public partial class UserProfilePage : BasePage
         dropdownList.IsVisible = true;
     }
 
-    private void OnLanguageSelected(object sender, SelectionChangedEventArgs e)
+    private async void OnLanguageSelected(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.FirstOrDefault() is LanguageModel selectedLang)
         {
@@ -151,6 +153,14 @@ public partial class UserProfilePage : BasePage
 
             dropdownListBack.IsVisible = false;
             dropdownList.IsVisible = false;
+
+            await AlertService.ShowAlertAsync(AppResource.LanguageChanged,
+                                             AppResource.MessageLanguageChanged,
+                                             AppResource.Ok);
+
+            AppService.Get<LanguageService>().SetCulture(selectedLang.Code);
+
+            ((App)Application.Current).ReloadAppShell();
         }
     }
 

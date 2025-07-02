@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserCompanyPage"
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
@@ -69,7 +70,7 @@
                     </HorizontalStackLayout.GestureRecognizers>
                     <Image Source="browser1.png"
                            Style="{StaticResource imStyle}"/>
-                    <Label Text="Maker location"
+                    <Label Text="{x:Static language:AppResource.MakerLocation}"
                            TextColor="Black"
                            FontSize="17"
                            FontAttributes="Bold"
@@ -85,7 +86,7 @@
                     </HorizontalStackLayout.GestureRecognizers>
                     <Image Source="my_chat.png"
                            Style="{StaticResource imStyle}"/>
-                    <Label Text="Message"
+                    <Label Text="{x:Static language:AppResource.Message}"
                            TextColor="Black"
                            FontSize="17"
                            Margin="10, 0, 0, 0"
@@ -115,7 +116,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
-            <Button Text="Back"
+            <Button Text="{x:Static language:AppResource.Back}"
                     IsVisible="Collapse"
                     BackgroundColor="Green"
                     HeightRequest="50"

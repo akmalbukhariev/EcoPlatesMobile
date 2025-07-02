@@ -107,5 +107,10 @@ namespace EcoPlatesMobile
             //});
 #endif
         }
+
+        public void ReloadAppShell()
+        {
+            MainPage = new AppEntryShell(); // or AppUserShell, etc.
+        }
     }
 }

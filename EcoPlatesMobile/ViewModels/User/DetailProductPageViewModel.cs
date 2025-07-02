@@ -4,6 +4,7 @@ using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -86,7 +87,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     if (info.typeInfo != null)
                     {
                         TypeInfoList = info.typeInfo;
-                        HighlightTitle = $"Top {TypeInfoList.Count} Highlights";
+                        HighlightTitle = $"{AppResource.Top} {TypeInfoList.Count} {AppResource.Highlights}";
                     }
                 }
             }

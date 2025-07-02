@@ -2,13 +2,14 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="EcoPlatesMobile.Views.User.Pages.ReviewProductPage"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader ShowBack="True"
-                                Title="Leave a review"/>
+                                Title="{x:Static language:AppResource.LeaveReview}"/>
         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, 20" 
               Grid.Row="1">
             <HorizontalStackLayout Spacing="15"
@@ -17,7 +18,7 @@
                        Aspect="AspectFill"
                        WidthRequest="30"
                        HeightRequest="30"/>
-                <Label Text="Evaluate product quality"
+                <Label Text="{x:Static language:AppResource.EvaluateProduct}"
                        TextColor="Black"
                        FontSize="17"/>
             </HorizontalStackLayout>
@@ -39,7 +40,7 @@
                        Grid.Column="1"/>
             </Grid>
             <Label x:Name="lbReviewTitle1"
-                   Text="How satisfied are you with the quality of this product?"
+                   Text="{x:Static language:AppResource.HowSatisfiedTitle}"
                    TextColor="Gray"
                    FontSize="15"
                    Margin="10,0,0,0"
@@ -84,7 +85,7 @@
                 </Image>
             </StackLayout>
             <Label x:Name="lbReviewTitle2"
-                   Text="Please rate this product in detail."
+                   Text="{x:Static language:AppResource.PleaseRateTitle}"
                    TextColor="Gray"
                    IsVisible="False"
                    FontSize="15"
@@ -98,7 +99,7 @@
                                  Grid.Row="5">
                 <HorizontalStackLayout>
                     <CheckBox x:Name="checkBox1" Color="Green" />
-                    <Label Text="Great Value"
+                    <Label Text="{x:Static language:AppResource.GreatValue}"
                            FontSize="17"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
@@ -109,7 +110,7 @@
 
                 <HorizontalStackLayout>
                     <CheckBox x:Name="checkBox2" Color="Green"/>
-                    <Label Text="Delicious Food"
+                    <Label Text="{x:Static language:AppResource.DeliciousFood}"
                            FontSize="17"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
@@ -120,7 +121,7 @@
 
                 <HorizontalStackLayout>
                     <CheckBox x:Name="checkBox3" Color="Green"/>
-                    <Label Text="Great Service"
+                    <Label Text="{x:Static language:AppResource.GreatService}"
                            FontSize="17"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
@@ -129,7 +130,7 @@
                     </Label>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
-            <Button Text="Review completed"
+            <Button Text="{x:Static language:AppResource.ReviewCompleted}"
                     FontSize="16"
                     BackgroundColor="Green"
                     HeightRequest="50"

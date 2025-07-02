@@ -573,6 +573,26 @@
     <value>around</value>
     <comment>UserMainPage</comment>
   </data>
+  <data name="Restaurant" xml:space="preserve">
+    <value>Restaurant</value>
+    <comment>UserMainPage</comment>
+  </data>
+  <data name="Bakery" xml:space="preserve">
+    <value>Bakery</value>
+    <comment>UserMainPage</comment>
+  </data>
+  <data name="FastFood" xml:space="preserve">
+    <value>Fast Food</value>
+    <comment>UserMainPage</comment>
+  </data>
+  <data name="Cafe" xml:space="preserve">
+    <value>Cafe</value>
+    <comment>UserMainPage</comment>
+  </data>
+  <data name="Supermarket" xml:space="preserve">
+    <value>Supermarket</value>
+    <comment>UserMainPage</comment>
+  </data>
   <data name="RecentSearches" xml:space="preserve">
     <value>Recent searches</value>
     <comment>UserMainSearchPage</comment>
@@ -585,16 +605,156 @@
     <value>Could not get current location.</value>
     <comment>UserBrowserPage</comment>
   </data>
+  <data name="List" xml:space="preserve">
+    <value>List</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Map</value>
+    <comment>UserBrowserPage</comment>
+  </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
     <comment>UserBrowserSearchPage</comment>
   </data>
-  <data name="Favorites " xml:space="preserve">
-    <value>Favorites </value>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favorites</value>
     <comment>UserFavoritesPage</comment>
   </data>
- <data name="RoleBuyer" xml:space="preserve">
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+    <comment>UserFavoritesPage</comment>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Seller</value>
+    <comment>UserFavoritesPage</comment>
+  </data>
+  <data name="RoleBuyer" xml:space="preserve">
     <value>Role: Buyer</value>
     <comment>UserProfilePage</comment>
+  </data>
+  <data name="LanguageChanged" xml:space="preserve">
+    <value>Language Changed</value>
+    <comment>UserProfilePage</comment>
+  </data>
+  <data name="MessageLanguageChanged" xml:space="preserve">
+    <value>The app will reload to apply the selected language.</value>
+    <comment>UserProfilePage</comment>
+  </data>
+  <data name="WhatOtherPeopleSaying" xml:space="preserve">
+    <value>WHAT OTHER PEOPLE ARE SAYING</value>
+    <comment>DetailProductPage</comment>
+  </data>
+  <data name="WhatYouNeedToKnow" xml:space="preserve">
+    <value>What you need to know</value>
+    <comment>DetailProductPage</comment>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+    <comment>DetailProductPage</comment>
+  </data>
+  <data name="MoreInfoAboutStore" xml:space="preserve">
+    <value>More information about the store</value>
+    <comment>DetailProductPage</comment>
+  </data>
+  <data name="ChooseLocationAvailable" xml:space="preserve">
+    <value>Choose a location to see what's available</value>
+    <comment>DetailProductPage</comment>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Top</value>
+    <comment>DetailProductPage</comment>
+  </data>
+  <data name="Highlights" xml:space="preserve">
+    <value>Highlights</value>
+    <comment>DetailProductPage</comment>
+  </data>
+  <data name="SelectDistance" xml:space="preserve">
+    <value>Select a distance</value>
+    <comment>LocationSettingPage</comment>
+  </data>
+  <data name="UseMyCurrentLocation" xml:space="preserve">
+    <value>📍 Use my current location</value>
+    <comment>LocationSettingPage</comment>
+  </data>
+  <data name="ShowResult" xml:space="preserve">
+    <value>Show results</value>
+    <comment>LocationSettingPage</comment>
+  </data>
+  <data name="LeaveReview" xml:space="preserve">
+    <value>Leave a review</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="EvaluateProduct" xml:space="preserve">
+    <value>Evaluate product quality</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="HowSatisfiedTitle" xml:space="preserve">
+    <value>How satisfied are you with the quality of this product?</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="PleaseRateTitle" xml:space="preserve">
+    <value>Please rate this product in detail.</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="GreatValue" xml:space="preserve">
+    <value>Great Value</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="DeliciousFood" xml:space="preserve">
+    <value>Delicious Food</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="GreatService" xml:space="preserve">
+    <value>Great Service</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="ReviewCompleted" xml:space="preserve">
+    <value>Review completed</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+    <comment>ReviewProductPage</comment>
+  </data>
+  <data name="MakerLocation" xml:space="preserve">
+    <value>Maker location</value>
+    <comment>UserCompanyPage</comment>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User name</value>
+    <comment>UserProfileInfoPage</comment>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Enter name</value>
+    <comment>UserProfileInfoPage</comment>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+    <comment>UserRegistrationPage</comment>
+  </data>
+  <data name="PleaseEnterName" xml:space="preserve">
+    <value>Please enter the name</value>
+    <comment>UserRegistrationPage</comment>
+  </data>
+  <data name="RegistrationCompleted" xml:space="preserve">
+    <value>Registration has been completed successfully.</value>
+    <comment>UserRegistrationPage</comment>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Review</value>
+    <comment>ReviewView</comment>
+  </data>
+  <data name="PleaseWriteIt" xml:space="preserve">
+    <value>Please write it</value>
+    <comment>ReviewView</comment>
+  </data>
+  <data name="HonestTitle" xml:space="preserve">
+    <value>Honest opinions help other customers</value>
+    <comment>ReviewView</comment>
+  </data>
+  <data name="WriteProductReview" xml:space="preserve">
+    <value>Write a product review  ></value>
+    <comment>ReviewView</comment>
   </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Converters
@@ -14,11 +15,11 @@ namespace EcoPlatesMobile.Converters
                 switch (type)
                 {
                     case PromotionFeedbackType.GREAT_VALUE:
-                        return "Great value";
+                        return AppResource.GreatValue;
                     case PromotionFeedbackType.DELICIOUS_FOOD:
-                        return "Delicious food";
+                        return AppResource.DeliciousFood;
                     case PromotionFeedbackType.GREAT_SERVICE:
-                        return "Great service";
+                        return AppResource.GreatService;
                     default:
                         return "Unknown";
                 }

@@ -2,11 +2,12 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserRegistrationPage"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
     
     <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="Shaxsni ro‘yxatga olish"/>
+        <component:CustomHeader Title="{x:Static language:AppResource.Registration}"/>
         <Grid RowDefinitions="Auto, *, Auto, 40"
               Margin="16, 30, 16, 0"
               Grid.Row="1">
@@ -15,7 +16,7 @@
                                        EntryIcon="user.png"
                                        EntryBorderColor="#E9E9E9"
                                        EntryBackgroundColor="#F5F5F5"
-                                       EntryPlaceHolder="Ismingizni kiriting"
+                                       EntryPlaceHolder="{x:Static language:AppResource.EnterName}"
                                        EntryPlaceHolderColor="Gray"/>
                 <component:CustomEntry EntryIcon="phone.png"
                                        IsVisible="Collapse"
@@ -28,7 +29,7 @@
                                        EntryBackgroundColor="#F5F5F5"
                                        EntryPlaceHolder="Elektron manzil"/>
             </StackLayout>
-            <Button Text="Ro‘yxatdan o‘tish"
+            <Button Text="{x:Static language:AppResource.Register}"
                     BackgroundColor="#007200"
                     CornerRadius="30"
                     TextColor="White"

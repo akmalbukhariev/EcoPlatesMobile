@@ -55,8 +55,8 @@
             </Grid>
             <user_component:TabSwitcherView x:Name="tabSwitcher"
                                            SwitchType="Modern"
-                                           Tab1_Title="List"
-                                           Tab2_Title="Map"
+                                           Tab1_Title="{x:Static language:AppResource.List}"
+                                           Tab2_Title="{x:Static language:AppResource.Map}"
                                            Grid.Row="2"/>
             <RefreshView x:Name="list"
                          IsRefreshing="{Binding IsRefreshing}"
