@@ -127,7 +127,7 @@ public partial class UserProfileInfoPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    AppService.Get<AppControl>().RefreshProfilePage = true;
+                    AppService.Get<AppControl>().RefreshUserProfilePage = true;
 
                     await AlertService.ShowAlertAsync(AppResource.UpdateProfile,AppResource.Success);
                     await Shell.Current.GoToAsync("..", true);

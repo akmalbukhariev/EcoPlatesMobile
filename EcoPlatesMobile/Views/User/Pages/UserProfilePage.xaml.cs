@@ -93,10 +93,10 @@ public partial class UserProfilePage : BasePage
 
         AppControl control = AppService.Get<AppControl>();
 
-        if (control.RefreshProfilePage)
+        if (control.RefreshUserProfilePage)
         {
             await LoadData(control);
-            control.RefreshProfilePage = false;
+            control.RefreshUserProfilePage = false;
         }
     }
 

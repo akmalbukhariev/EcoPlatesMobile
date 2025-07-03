@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Resources.Languages;
@@ -34,6 +35,17 @@ public partial class CompanyProfilePage : BasePage
             OnPropertyChanged(nameof(SelectedFlag));
         }
     }
+
+    public bool IsRefreshing
+    {
+        get => _isRefreshing;
+        set
+        {
+            _isRefreshing = value;
+            OnPropertyChanged(nameof(IsRefreshing));
+        }
+    }
+    private bool _isRefreshing;
 
     private GetCompanyInfoResponse response;
     public CompanyProfilePage()
@@ -75,6 +87,25 @@ public partial class CompanyProfilePage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
+        AppControl control = AppService.Get<AppControl>();
+
+        if (control.RefreshCompanyProfilePage)
+        {
+            await LoadData(control);
+            control.RefreshCompanyProfilePage = false;
+        }
+    }
+
+    public IRelayCommand RefreshCommand => new RelayCommand(async () =>
+    {
+        IsRefreshing = true;
+        var control = AppService.Get<AppControl>();
+        await LoadData(control);
+        IsRefreshing = false;
+    });
+
+    private async Task LoadData(AppControl control)
+    {
         loading.IsRunning = true;
 
         var apiService = AppService.Get<CompanyApiService>();
@@ -88,7 +119,7 @@ public partial class CompanyProfilePage : BasePage
             tileActive.TileText1 = response.resultData.active_products.ToString();
             tileNoActive.TileText1 = response.resultData.non_active_products.ToString();
 
-            AppService.Get<AppControl>().CompanyInfo = response.resultData;
+            control.CompanyInfo = response.resultData;
         }
 
         loading.IsRunning = false;

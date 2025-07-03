@@ -20,6 +20,7 @@ public partial class AboutPage : BasePage
         InitializeComponent();
 
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
+        btnClose.Text = AppResource.Close;
     }
 
     protected override void OnAppearing()

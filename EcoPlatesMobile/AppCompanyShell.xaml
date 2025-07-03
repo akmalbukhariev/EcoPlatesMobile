@@ -13,12 +13,12 @@
     
     <TabBar>
          <Tab Icon="home1.png" 
-              Title="{x:Static language:AppResource.Active}">
+              Title="{x:Static language:AppResource.ActiveTitle}">
             <ShellContent ContentTemplate="{DataTemplate companyPages:ActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="active_product.png" 
-             Title="{x:Static language:AppResource.Inactive}">
+             Title="{x:Static language:AppResource.InactiveTitle}">
             <ShellContent ContentTemplate="{DataTemplate companyPages:InActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>

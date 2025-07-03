@@ -15,7 +15,8 @@ namespace EcoPlatesMobile.Services
         public bool RefreshFavoriteCompany { get; set; } = true;
         public bool RefreshMainPage { get; set; } = true;
         public bool RefreshBrowserPage { get; set; } = true;
-        public bool RefreshProfilePage { get; set; } = true;
+        public bool RefreshUserProfilePage { get; set; } = true;
+        public bool RefreshCompanyProfilePage { get; set; } = true;
 
         public CompanyInfo CompanyInfo { get; set; }
         public UserInfo UserInfo { get; set; }
@@ -123,6 +124,23 @@ namespace EcoPlatesMobile.Services
             AppService.Get<UserApiService>().ClearTokenAsync();
 
             Application.Current.MainPage = new AppEntryShell();
+        }
+
+        public async Task MoveUserHome()
+        {
+            Application.Current.MainPage = new ContentPage
+            {
+                BackgroundColor = Colors.White,
+                Content = new ActivityIndicator
+                {
+                    IsRunning = true,
+                    VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.Center
+                }
+            };
+            await Task.Delay(100);
+
+            Application.Current.MainPage = new AppUserShell();
         }
     }
 }

@@ -365,6 +365,10 @@
     <value>Active</value>
     <comment>NonActiveProductPage</comment>
   </data>
+  <data name="ActiveTitle" xml:space="preserve">
+     <value> Active</value>
+     <comment>NonActiveProductPage</comment>
+  </data>
   <data name="DeleteProduct" xml:space="preserve">
     <value>Delete product</value>
     <comment>NonActiveProductPage</comment>
@@ -390,11 +394,11 @@
     <comment>CompanyAddProductPage</comment>
   </data>
   <data name="PreviousPrice" xml:space="preserve">
-    <value>so'm Previous price</value>
+    <value>so'm (previous price)</value>
     <comment>CompanyAddProductPage</comment>
   </data>
   <data name="CurrentPrice" xml:space="preserve">
-    <value>so'm Current price</value>
+    <value>so'm Current price)</value>
     <comment>CompanyAddProductPage</comment>
   </data>
   <data name="ProductDescription" xml:space="preserve">
@@ -561,6 +565,10 @@
     <value>Inactive products:</value>
     <comment>ActiveProductPage</comment>
   </data>
+  <data name="InactiveTitle" xml:space="preserve">
+     <value>Inactive</value>
+     <comment>ActiveProductPage</comment>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
     <comment>UserMainPage</comment>
@@ -718,7 +726,7 @@
     <comment>ReviewProductPage</comment>
   </data>
   <data name="MakerLocation" xml:space="preserve">
-    <value>Maker location</value>
+    <value>Address</value>
     <comment>UserCompanyPage</comment>
   </data>
   <data name="UserName" xml:space="preserve">
@@ -756,5 +764,21 @@
   <data name="WriteProductReview" xml:space="preserve">
     <value>Write a product review  ></value>
     <comment>ReviewView</comment>
+  </data>
+  <data name="Discover" xml:space="preserve">
+    <value>Discover</value>
+    <comment>AppUserShell</comment>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+    <comment>AppUserShell</comment>
+  </data>
+  <data name="Favourites" xml:space="preserve">
+    <value>Favourites</value>
+    <comment>AppUserShell</comment>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+    <comment>AppUserShell</comment>
   </data>
 </root>

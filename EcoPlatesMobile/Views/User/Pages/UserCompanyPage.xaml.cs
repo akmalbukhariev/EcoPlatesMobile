@@ -40,7 +40,7 @@ public partial class UserCompanyPage : BasePage
             await AnimateElementScaleDown(element);
         }
 
-        Application.Current.MainPage = new AppUserShell();
+        await AppService.Get<AppControl>().MoveUserHome();
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)

@@ -63,31 +63,30 @@
         <RefreshView Command="{Binding RefreshCommand}"
                      IsRefreshing="{Binding IsRefreshing}"
                      Grid.Row="4">
-            <Grid RowDefinitions="*,Auto" 
+            <Grid RowDefinitions="*, Auto"
                   HeightRequest="{OnPlatform Android=500, iOS=700}">
-                <ScrollView HorizontalScrollBarVisibility="Never" 
-                            Grid.Row="0">
-                    <VerticalStackLayout Padding="20" Spacing="20">
-                        <Grid ColumnDefinitions="Auto, *, Auto"
-                              HeightRequest="50">
+                <ScrollView HorizontalScrollBarVisibility="Never">
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+                          RowSpacing="20"
+                          Margin="20">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnLanguageTapped" />
                             </Grid.GestureRecognizers>
                             <Image Source="language.png"
                                    WidthRequest="23"
-                                   Margin="0,0,20,0"
+                                   Margin="0,0,10,0"
                                    VerticalOptions="Center"/>
                             <Label Text="{Binding SelectedLanguage}"
                                    TextColor="#444444"
                                    FontSize="15"
                                    VerticalTextAlignment="Center"
                                    Grid.Column="1"/>
-                            <HorizontalStackLayout Spacing="5" Grid.Column="2">
+                            <HorizontalStackLayout Spacing="10" Grid.Column="2">
                                 <Image Source="{Binding SelectedFlag}" 
                                        WidthRequest="30" 
                                        HeightRequest="20"
-                                       VerticalOptions="Center" 
-                                       Margin="5"/>
+                                       VerticalOptions="Center"/>
                                 <Image Source="down.png" 
                                        WidthRequest="15" 
                                        HeightRequest="15"
@@ -98,20 +97,23 @@
                                                 TileText="{x:Static language:AppResource.Share}"
                                                 TileTextSize="15"
                                                 TileTextColor="#444444"
-                                                EventClickTile="Tile_EventClick"/>
+                                                EventClickTile="Tile_EventClick"
+                                                Grid.Row="1"/>
                         <component:ListTileView TileIcon="info.png" 
                                                 TileText="{x:Static language:AppResource.AboutApp}"
                                                 TileType="AboutApp"
                                                 TileTextSize="15"
                                                 TileTextColor="#444444"
-                                                EventClickTile="Tile_EventClick"/>
+                                                EventClickTile="Tile_EventClick"
+                                                Grid.Row="2"/>
                         <component:ListTileView TileIcon="offer.png" 
                                                 TileText="{x:Static language:AppResource.FeedbackComplaints}"
                                                 TileType="Suggestions"
                                                 TileTextSize="15"
                                                 TileTextColor="#444444"
-                                                EventClickTile="Tile_EventClick"/>
-                    </VerticalStackLayout>
+                                                EventClickTile="Tile_EventClick"
+                                                Grid.Row="3"/>
+                    </Grid>
                 </ScrollView>
                 <VerticalStackLayout Grid.Row="1"
                                      Padding="0,20"

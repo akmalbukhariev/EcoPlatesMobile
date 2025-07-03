@@ -7,16 +7,18 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.User.Pages.LocationSettingPage">
 
-    <Grid RowDefinitions="60, *, Auto">
+    <Grid RowDefinitions="70, *, Auto">
         <Grid ColumnDefinitions="*, Auto" 
-              BackgroundColor="White">
-          <Label Text="{x:Static language:AppResource.ChooseLocationAvailable}"
-                 TextColor="Black"
-                 FontAttributes="Bold"
-                 FontSize="16"
-                 VerticalOptions="Center"
-                 HorizontalOptions="Center"/>
-          <Image Source="close.png"
+              BackgroundColor="Green">
+            <Grid>
+                <Label Text="{x:Static language:AppResource.ChooseLocationAvailable}"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       FontSize="15"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="Center"/>
+            </Grid>
+            <Image Source="close.png"
                  Aspect="AspectFill"
                  WidthRequest="30"
                  HeightRequest="30"

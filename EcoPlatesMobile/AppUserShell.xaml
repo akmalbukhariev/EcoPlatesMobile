@@ -4,26 +4,31 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:EcoPlatesMobile"
        xmlns:userPages="clr-namespace:EcoPlatesMobile.Views.User.Pages"
+       xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
        Shell.FlyoutBehavior="Disabled"
        Shell.TabBarBackgroundColor="#F3F8F9"
        Shell.TabBarUnselectedColor="Gray"
        Shell.TabBarForegroundColor="Green">
 
     <TabBar>
-        <Tab Icon="home1.png">
+        <Tab Icon="home1.png"
+             Title="{x:Static language:AppResource.Discover}">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
-        <Tab Icon="browser1.png">
+        <Tab Icon="browser1.png"
+             Title="{x:Static language:AppResource.Browse}">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserBrowserPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
-        <Tab Icon="favorites.png">
+        <Tab Icon="favorites.png"
+             Title="{x:Static language:AppResource.Favourites}">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserFavoritesPage}"
                   Shell.NavBarIsVisible="False"/>
         </Tab>
          
-        <Tab Icon="user.png">
+        <Tab Icon="user.png"
+             Title="{x:Static language:AppResource.Profile}">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserProfilePage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab> 

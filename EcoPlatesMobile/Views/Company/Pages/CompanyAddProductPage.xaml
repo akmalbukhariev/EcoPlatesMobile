@@ -130,6 +130,7 @@
                                 <Label x:Name="lbNewPrice" 
                                        Text="{x:Static language:AppResource.CurrentPrice}"
                                        Style="{StaticResource styleLabel}"
+                                       FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
                                        Margin="0,0,10,0"
                                        Grid.Column="2"/>
@@ -143,6 +144,7 @@
                             </Border.StrokeShape>
                             <Editor x:Name="editorDescription"
                                     Placeholder="{x:Static language:AppResource.ProductDescription}"
+                                    Margin="5"
                                     FontSize="16"/>
                         </Border>
                 </VerticalStackLayout>
