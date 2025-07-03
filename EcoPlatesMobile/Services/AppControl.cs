@@ -1,5 +1,6 @@
 ﻿using EcoPlatesMobile.Models.Company;
 using EcoPlatesMobile.Models.Requests;
+using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
@@ -90,6 +91,7 @@ namespace EcoPlatesMobile.Services
                     Content = new ActivityIndicator
                     {
                         IsRunning = true,
+                        Color = Colors.Green,
                         VerticalOptions = LayoutOptions.Center,
                         HorizontalOptions = LayoutOptions.Center
                     }
@@ -101,27 +103,40 @@ namespace EcoPlatesMobile.Services
             }
         }
 
-        public void LogoutCompany()
-        { 
+        public async Task LogoutCompany()
+        {
+            CompanyApiService companyApi = AppService.Get<CompanyApiService>();
+            Response response = await companyApi.LogOut();
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                //do something
+            }
+
             var store = AppService.Get<AppStoreService>();
             store.Remove(AppKeys.UserRole);
             store.Remove(AppKeys.IsLoggedIn);
             store.Remove(AppKeys.PhoneNumber);
 
-            AppService.Get<CompanyApiService>().ClearTokenAsync();
+            await companyApi.ClearTokenAsync();
 
             Application.Current.MainPage = new AppEntryShell();
-            //((App)Application.Current).ReloadAppShell();
         }
 
-        public void LogoutUser()
+        public async Task LogoutUser()
         {
+            UserApiService userApi = AppService.Get<UserApiService>();
+            Response response = await userApi.LogOut();
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                //do something
+            }
+
             var store = AppService.Get<AppStoreService>();
             store.Remove(AppKeys.UserRole);
             store.Remove(AppKeys.IsLoggedIn);
             store.Remove(AppKeys.PhoneNumber);
 
-            AppService.Get<UserApiService>().ClearTokenAsync();
+            await userApi.ClearTokenAsync();
 
             Application.Current.MainPage = new AppEntryShell();
         }
@@ -134,6 +149,7 @@ namespace EcoPlatesMobile.Services
                 Content = new ActivityIndicator
                 {
                     IsRunning = true,
+                    Color = Colors.Green,
                     VerticalOptions = LayoutOptions.Center,
                     HorizontalOptions = LayoutOptions.Center
                 }

@@ -92,7 +92,7 @@ namespace EcoPlatesMobile.Services.Api
 
             try
             {
-                var receivedData = await PostAsync(LOGOUT_USER, null);
+                var receivedData = await PostAsync(LOGOUT_USER, null, false);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

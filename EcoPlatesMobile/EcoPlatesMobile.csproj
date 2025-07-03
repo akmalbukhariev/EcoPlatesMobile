@@ -41,6 +41,22 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>$(UserProfile)\.android\debug.keystore</AndroidSigningKeyStore>
+		<AndroidSigningStorePass>android</AndroidSigningStorePass>
+		<AndroidSigningKeyAlias>androiddebugkey</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>android</AndroidSigningKeyPass>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>$(HOME)/.android/debug.keystore</AndroidSigningKeyStore>
+		<AndroidSigningStorePass>android</AndroidSigningStorePass>
+		<AndroidSigningKeyAlias>androiddebugkey</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>android</AndroidSigningKeyPass>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<MauiAsset Include="Resources/Raw/sale_top_logo.svg" />
 		<MauiAsset Include="Resources/Raw/sale_top_logo1.svg" />

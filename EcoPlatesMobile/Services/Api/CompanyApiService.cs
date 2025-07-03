@@ -85,7 +85,7 @@ namespace EcoPlatesMobile.Services
 
             try
             {
-                var receivedData = await PostAsync(LOGOUT_COMPANY, null);
+                var receivedData = await PostAsync(LOGOUT_COMPANY, null, false);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

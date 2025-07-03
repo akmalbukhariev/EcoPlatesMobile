@@ -253,6 +253,8 @@ public partial class CompanyProfileInfoPage : BasePage
                             );
         if (!answer) return;
 
-        AppService.Get<AppControl>().LogoutCompany();
+        loading.ShowLoading = true;
+        await AppService.Get<AppControl>().LogoutCompany();
+        loading.ShowLoading = false;
     }
 }

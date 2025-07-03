@@ -183,10 +183,11 @@ public partial class UserProfileInfoPage : BasePage
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
                                 AppResource.Yes,
-                                AppResource.No
-                            );
+                                AppResource.No);
         if (!answer) return;
 
-        AppService.Get<AppControl>().LogoutUser();
+        loading.ShowLoading = true;
+        await AppService.Get<AppControl>().LogoutUser();
+        loading.ShowLoading = false;
     }
 }

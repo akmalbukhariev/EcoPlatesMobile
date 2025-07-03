@@ -88,10 +88,12 @@ namespace EcoPlatesMobile.Services
             return await ExecuteRequestAsync(request);
         }
 
-        public async Task<string> PostAsync(string endpoint, object? data = null)
+        public async Task<string> PostAsync(string endpoint, object? data = null, bool addHeader = true)
         {         
             var request = new RestRequest(endpoint, Method.Post);
-            request.AddHeader("Content-Type", "application/json");
+            if (addHeader)
+                request.AddHeader("Content-Type", "application/json");
+
             await SetToken(request);
 
             if (data != null)
