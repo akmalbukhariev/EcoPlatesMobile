@@ -15,9 +15,12 @@ public partial class AboutPage : BasePage
         }
     }
 
-    public AboutPage()
+    private UserSessionService userSessionService;
+
+    public AboutPage(UserSessionService userSessionService)
     {
         InitializeComponent();
+        this.userSessionService = userSessionService;
 
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
         btnClose.Text = AppResource.Close;
@@ -29,7 +32,7 @@ public partial class AboutPage : BasePage
         
         lbTitle.Text = AppResource.AboutApp;
 
-        if (_isUser)
+        if (userSessionService.Role == UserRole.User)
         {
             headerGrid.BackgroundColor = Colors.Green;
             btnClose.BackgroundColor = Colors.Green;

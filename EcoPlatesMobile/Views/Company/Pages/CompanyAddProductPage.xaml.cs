@@ -15,9 +15,15 @@ public partial class CompanyAddProductPage : BasePage
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
 
-    public CompanyAddProductPage()
+    private AppControl appControl;
+    private CompanyApiService companyApiService;
+
+    public CompanyAddProductPage(CompanyApiService companyApiService, AppControl appControl)
 	{
 		InitializeComponent();
+
+        this.companyApiService = companyApiService;
+        this.appControl = appControl;
 
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
     }
@@ -111,7 +117,7 @@ public partial class CompanyAddProductPage : BasePage
                 return;
             }
 
-            var apiService = AppService.Get<CompanyApiService>();
+            //var apiService = AppService.Get<CompanyApiService>();
   
             IsLoading.IsVisible = true;
             IsLoading.IsRunning = true;
@@ -124,14 +130,14 @@ public partial class CompanyAddProductPage : BasePage
 
             var additionalData = new Dictionary<string, string>
             {
-                { "company_id", AppService.Get<AppControl>().CompanyInfo.company_id.ToString() },
+                { "company_id", appControl.CompanyInfo.company_id.ToString() },
                 { "title", title },
                 { "old_price", oldPrice.ToString() },
                 { "new_price", newPrice.ToString() },
                 { "description", editorDescription.Text ?? string.Empty },
             };
 
-            Response response = await apiService.RegisterPoster(imageStream, additionalData);
+            Response response = await companyApiService.RegisterPoster(imageStream, additionalData);
              
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {

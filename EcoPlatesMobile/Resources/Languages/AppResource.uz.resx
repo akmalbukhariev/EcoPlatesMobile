@@ -465,11 +465,7 @@
   <value>Kompaniya nomi</value>
   <comment>CompanyProfileInfoPage</comment>
 </data>
-	<data name="ChangeNumber" xml:space="preserve">
-  <value>Raqamni o‘zgartirish</value>
-  <comment>CompanyProfileInfoPage</comment>
-</data>
-	<data name="StartWorkingTime" xml:space="preserve">
+<data name="StartWorkingTime" xml:space="preserve">
   <value>Ish boshlanish vaqti</value>
   <comment>CompanyProfileInfoPage</comment>
 </data>
@@ -505,11 +501,7 @@
   <value>Fikr va shikoyatlar</value>
   <comment>CompanyProfilePage</comment>
 </data>
-	<data name="AboutApp" xml:space="preserve">
-  <value>Ilova haqida</value>
-  <comment>CompanyProfilePage</comment>
-</data>
-	<data name="RoleSeller" xml:space="preserve">
+ <data name="RoleSeller" xml:space="preserve">
   <value>Rol: Sotuvchi</value>
   <comment>CompanyProfilePage</comment>
 </data>
@@ -629,19 +621,11 @@
   <value>Sevimlilar</value>
   <comment>UserFavoritesPage</comment>
 </data>
-	<data name="Products" xml:space="preserve">
+<data name="Products" xml:space="preserve">
   <value>Mahsulotlar</value>
   <comment>UserFavoritesPage</comment>
 </data>
-<data name="Seller" xml:space="preserve">
-  <value>Sotuvchi</value>
-  <comment>UserFavoritesPage</comment>
-</data>
-	<data name="Favorites" xml:space="preserve">
-  <value>Sevimlilar</value>
-  <comment>UserFavoritesPage</comment>
-</data>
-	<data name="RoleBuyer" xml:space="preserve">
+ <data name="RoleBuyer" xml:space="preserve">
   <value>Rol: Xaridor</value>
   <comment>UserProfilePage</comment>
 </data>
@@ -693,7 +677,11 @@
   <value>Natijani ko‘rish</value>
   <comment>LocationSettingPage</comment>
 </data>
-	<data name="LeaveReview" xml:space="preserve">
+<data name="YouAreHere" xml:space="preserve">
+    <value>Siz shu yerdasiz</value>
+    <comment>LocationSettingPage</comment>
+  </data>
+<data name="LeaveReview" xml:space="preserve">
   <value>Sharh qoldiring</value>
   <comment>ReviewProductPage</comment>
 </data>

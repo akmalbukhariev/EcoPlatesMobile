@@ -9,9 +9,17 @@ namespace EcoPlatesMobile.Views;
 public partial class LoginPage : BasePage
 {
     private SKSvg svg;
-    public LoginPage()
+    private AppStoreService appStoreService;
+    private AppControl appControl;
+    private UserSessionService userSessionService;
+
+    public LoginPage(AppStoreService appStoreService, AppControl appControl, UserSessionService userSessionService)
 	{
 		InitializeComponent();
+
+        this.appStoreService = appStoreService;
+        this.appControl = appControl;
+        this.userSessionService = userSessionService;
 
         LoadSvg();
     }
@@ -20,21 +28,20 @@ public partial class LoginPage : BasePage
     {
         base.OnAppearing();
 
-        var store = AppService.Get<AppStoreService>();
-        UserRole role = store.Get(AppKeys.UserRole, UserRole.None);
-        bool isLoggedIn = store.Get(AppKeys.IsLoggedIn, false);
-        string phoneNumber = store.Get(AppKeys.PhoneNumber, "");
+        UserRole role = appStoreService.Get(AppKeys.UserRole, UserRole.None);
+        bool isLoggedIn = appStoreService.Get(AppKeys.IsLoggedIn, false);
+        string phoneNumber = appStoreService.Get(AppKeys.PhoneNumber, "");
 
         loading.ShowLoading = true;
         if (isLoggedIn)
         {
             if (role == UserRole.Company)
             {
-                await AppService.Get<AppControl>().LoginCompany(phoneNumber);
+                await appControl.LoginCompany(phoneNumber);
             }
             else if (role == UserRole.User)
             { 
-                await AppService.Get<AppControl>().LoginUser(phoneNumber);
+                await appControl.LoginUser(phoneNumber);
             }
         }
         loading.ShowLoading = false;
@@ -99,15 +106,13 @@ public partial class LoginPage : BasePage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        var session = AppService.Get<UserSessionService>();
-        
         if (sender == btnComapny)
         {
-            session?.SetUser(UserRole.Company);
+            userSessionService.SetUser(UserRole.Company);
         }
         else if (sender == btnUser)
         {
-            session?.SetUser(UserRole.User);
+            userSessionService.SetUser(UserRole.User);
         }
 
         await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));

@@ -24,9 +24,20 @@ public partial class SuggestionsPage : BasePage
     public List<string> FeedbackTypes { get; set; } = new() { AppResource.Suggestions, AppResource.Complaints };
     public string SelectedType { get; set; }
 
-    public SuggestionsPage()
+    private UserSessionService userSessionService;
+    private AppControl appControl;
+    private UserApiService userApiService;
+    private CompanyApiService companyApiService;
+
+    public SuggestionsPage(UserSessionService userSessionService, AppControl appControl, UserApiService userApiService, CompanyApiService companyApiService)
 	{
 		InitializeComponent();
+
+        this.userSessionService = userSessionService;
+        this.appControl = appControl;
+        this.userApiService = userApiService;
+        this.companyApiService = companyApiService;
+
         BindingContext = this;
     }
 
@@ -34,7 +45,7 @@ public partial class SuggestionsPage : BasePage
     {
         base.OnAppearing();
 
-        if (_isUser)
+        if (userSessionService.Role == UserRole.User)//_isUser)
         {
             header.HeaderBackground = btnSubmit.BackgroundColor = Colors.Green;
             imFeedBack.Source = "user_feedback_icon.png";
@@ -59,17 +70,17 @@ public partial class SuggestionsPage : BasePage
         try
         {
             loading.ShowLoading = true;
-            if (_isUser)
+            if (userSessionService.Role == UserRole.User)//_isUser)
             {
                 UserFeedbackInfoRequest request = new UserFeedbackInfoRequest()
                 {
-                    user_id = AppService.Get<AppControl>().UserInfo.user_id,
+                    user_id = appControl.UserInfo.user_id,
                     feedback_text = messageEditor.Text,
                     feedback_type = SelectedType.ToUpper(),
                 };
 
-                var apiService = AppService.Get<UserApiService>();
-                Response response = await apiService.RegisterUserFeedBack(request);
+                //var apiService = AppService.Get<UserApiService>();
+                Response response = await userApiService.RegisterUserFeedBack(request);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -85,13 +96,13 @@ public partial class SuggestionsPage : BasePage
             {
                 CompanyFeedbackInfoRequest request = new CompanyFeedbackInfoRequest()
                 {
-                    company_id = AppService.Get<AppControl>().CompanyInfo.company_id,
+                    company_id = appControl.CompanyInfo.company_id,
                     feedback_text = messageEditor.Text,
                     feedback_type = SelectedType.ToUpper(),
                 };
 
-                var apiService = AppService.Get<CompanyApiService>();
-                Response response = await apiService.RegisterCompanyFeedBack(request);
+                //var apiService = AppService.Get<CompanyApiService>();
+                Response response = await companyApiService.RegisterCompanyFeedBack(request);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {

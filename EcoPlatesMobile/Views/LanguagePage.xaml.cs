@@ -35,9 +35,12 @@ public partial class LanguagePage : BasePage
         }
     }
 
-    public LanguagePage()
+    private LanguageService languageService;
+
+    public LanguagePage(LanguageService languageService)
 	{
 		InitializeComponent();
+        this.languageService = languageService;
 
         Init();
 
@@ -46,7 +49,7 @@ public partial class LanguagePage : BasePage
 
     private void Init()
     {
-        var currentLangCode = AppService.Get<LanguageService>().GetCurrentLanguage();
+        var currentLangCode = languageService.GetCurrentLanguage();
 
         Languages = new ObservableCollection<LanguageModel>
         {
@@ -92,7 +95,7 @@ public partial class LanguagePage : BasePage
             SelectedLanguage = selectedLang.Name;
             SelectedFlag = selectedLang.Flag;
 
-            AppService.Get<LanguageService>().SetCulture(selectedLang.Code);
+            languageService.SetCulture(selectedLang.Code);
 
             await DropdownList.FadeTo(0, 250);
             DropdownList.IsVisible = false;

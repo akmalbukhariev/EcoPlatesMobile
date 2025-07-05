@@ -61,7 +61,7 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About the app.
+        ///   Looks up a localized string similar to About the Application.
         /// </summary>
         internal static string AboutApp {
             get {
@@ -1524,6 +1524,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are here.
+        /// </summary>
+        internal static string YouAreHere {
+            get {
+                return ResourceManager.GetString("YouAreHere", resourceCulture);
             }
         }
     }

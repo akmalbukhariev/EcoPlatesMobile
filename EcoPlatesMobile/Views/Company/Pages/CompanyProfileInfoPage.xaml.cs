@@ -10,17 +10,20 @@ namespace EcoPlatesMobile.Views.Company.Pages;
  
 public partial class CompanyProfileInfoPage : BasePage
 {
-    private CompanyInfo _companyInfo;
-      
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
 
-    public CompanyProfileInfoPage()
+    private AppControl appControl;
+    private CompanyApiService companyApiService;
+
+    public CompanyProfileInfoPage(CompanyApiService companyApiService, AppControl appControl)
     {
         InitializeComponent();
 
-        pickType.ItemsSource = AppService.Get<AppControl>().BusinessTypeList.Keys.ToList();
-        _companyInfo = AppService.Get<AppControl>().CompanyInfo;
+        this.companyApiService = companyApiService;
+        this.appControl = appControl;
+
+        pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
 
         loading.ChangeColor(Color.FromArgb("#8338EC"));
     }
@@ -29,12 +32,12 @@ public partial class CompanyProfileInfoPage : BasePage
     {
         base.OnAppearing();
 
-        imCompany.Source = _companyInfo.logo_url;
-        fullImage.Source = _companyInfo.logo_url;
-        entryCompanyName.Text = _companyInfo.company_name;
-        lbPhoneNUmber.Text = _companyInfo.phone_number;
+        imCompany.Source = appControl.CompanyInfo.logo_url;
+        fullImage.Source = appControl.CompanyInfo.logo_url;
+        entryCompanyName.Text = appControl.CompanyInfo.company_name;
+        lbPhoneNUmber.Text = appControl.CompanyInfo.phone_number;
 
-        string[] times = _companyInfo.working_hours.Split(" - ");
+        string[] times = appControl.CompanyInfo.working_hours.Split(" - ");
         if (times.Length == 2)
         {
             if (DateTime.TryParse(times[0], out DateTime startTime) &&
@@ -49,7 +52,7 @@ public partial class CompanyProfileInfoPage : BasePage
             }
         }
         
-        var selectedItem = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(kvp => kvp.Value == _companyInfo.business_type).Key;
+        var selectedItem = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(kvp => kvp.Value == appControl.CompanyInfo.business_type).Key;
 
         if (selectedItem != null)
         {
@@ -147,9 +150,9 @@ public partial class CompanyProfileInfoPage : BasePage
             TimeSpan? startTimeFromServer = null;
             TimeSpan? endTimeFromServer = null;
 
-            if (!string.IsNullOrEmpty(_companyInfo.working_hours))
+            if (!string.IsNullOrEmpty(appControl.CompanyInfo.working_hours))
             {
-                var parts = _companyInfo.working_hours.Split(" - ");
+                var parts = appControl.CompanyInfo.working_hours.Split(" - ");
                 if (parts.Length == 2 &&
                     DateTime.TryParse(parts[0], out var startTime) &&
                     DateTime.TryParse(parts[1], out var endTime))
@@ -159,8 +162,8 @@ public partial class CompanyProfileInfoPage : BasePage
                 }
             }
 
-            bool isSame = enteredName == _companyInfo.company_name?.Trim() &&
-            AppService.Get<AppControl>().BusinessTypeList[selectedType].ToUpper() == _companyInfo.business_type.ToUpper() &&
+            bool isSame = enteredName == appControl.CompanyInfo.company_name?.Trim() &&
+            appControl.BusinessTypeList[selectedType].ToUpper() == appControl.CompanyInfo.business_type.ToUpper() &&
             startTimeFromServer.HasValue && endTimeFromServer.HasValue &&
             selectedStartTime == startTimeFromServer.Value &&
             selectedEndTime == endTimeFromServer.Value;
@@ -170,9 +173,9 @@ public partial class CompanyProfileInfoPage : BasePage
                 string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
                 var additionalData = new Dictionary<string, string>
                 {
-                    { "company_id", _companyInfo.company_id.ToString() },
+                    { "company_id", appControl.CompanyInfo.company_id.ToString() },
                     { "company_name", enteredName },
-                    { "business_type", AppService.Get<AppControl>().BusinessTypeList[selectedType] },
+                    { "business_type", appControl.BusinessTypeList[selectedType] },
                     { "working_hours",  formattedWorkingHours},
                 };
 
@@ -182,8 +185,8 @@ public partial class CompanyProfileInfoPage : BasePage
                 }
 
                 loading.ShowLoading = true;
-                var apiService = AppService.Get<CompanyApiService>();
-                Response response = await apiService.UpdateCompanyProfileInfo(imageStream, additionalData);
+                //var apiService = AppService.Get<CompanyApiService>();
+                Response response = await companyApiService.UpdateCompanyProfileInfo(imageStream, additionalData);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -238,7 +241,7 @@ public partial class CompanyProfileInfoPage : BasePage
     private void BusinessType_SelectedIndexChanged(object sender, EventArgs e)
     {
         string selectedDisplay = pickType.SelectedItem as string;
-        if (selectedDisplay != null && AppService.Get<AppControl>().BusinessTypeList.TryGetValue(selectedDisplay, out var backendValue))
+        if (selectedDisplay != null && appControl.BusinessTypeList.TryGetValue(selectedDisplay, out var backendValue))
         {
              
         }
@@ -246,7 +249,7 @@ public partial class CompanyProfileInfoPage : BasePage
 
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
-        bool answer = await Application.Current.MainPage.DisplayAlert(
+        bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
                                 AppResource.Yes,AppResource.No
@@ -254,7 +257,7 @@ public partial class CompanyProfileInfoPage : BasePage
         if (!answer) return;
 
         loading.ShowLoading = true;
-        await AppService.Get<AppControl>().LogoutCompany();
+        await appControl.LogoutCompany();
         loading.ShowLoading = false;
     }
 }

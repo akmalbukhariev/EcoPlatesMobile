@@ -22,11 +22,15 @@ public partial class CompanyEditProductPage : BasePage
     }
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
+     
+    private CompanyApiService companyApiService;
 
-    public CompanyEditProductPage()
+    public CompanyEditProductPage(CompanyApiService companyApiService)
 	{
 		InitializeComponent();
-	}
+
+        this.companyApiService = companyApiService;
+    }
 
     protected override void OnAppearing()
     {
@@ -129,7 +133,7 @@ public partial class CompanyEditProductPage : BasePage
                 return;
             }
 
-            var apiService = AppService.Get<CompanyApiService>();
+            //var apiService = AppService.Get<CompanyApiService>();
   
             IsLoading.IsVisible = true;
             IsLoading.IsRunning = true;
@@ -173,7 +177,7 @@ public partial class CompanyEditProductPage : BasePage
                 { "delete_image", isNewImageSelected.ToString().ToLower() },
                 { "description", editorDescription.Text ?? string.Empty },
             };
-            response = await apiService.UpdatePoster(imageStream, additionalData);
+            response = await companyApiService.UpdatePoster(imageStream, additionalData);
               
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {

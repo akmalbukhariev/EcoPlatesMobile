@@ -12,21 +12,26 @@ public partial class UserProfileInfoPage : BasePage
 { 
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
-     
-    public UserProfileInfoPage()
+
+    private AppControl appControl;
+    private UserApiService userApiService;
+    public UserProfileInfoPage(AppControl appControl, UserApiService userApiService)
 	{
 		InitializeComponent();
+
+        this.appControl = appControl;
+        this.userApiService = userApiService;
 	}
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        UserInfo info = AppService.Get<AppControl>().UserInfo;
-        imUser.Source = info.profile_picture_url;
-        fullImage.Source = info.profile_picture_url;
-        entryUserName.Text = info.first_name;
-        lbPhoneNumber.Text = info.phone_number;
+        //UserInfo info = appControl.UserInfo;
+        imUser.Source = appControl.UserInfo.profile_picture_url;
+        fullImage.Source = appControl.UserInfo.profile_picture_url;
+        entryUserName.Text = appControl.UserInfo.first_name;
+        lbPhoneNumber.Text = appControl.UserInfo.phone_number;
     }
 
     private async void BorderImage_Tapped(object sender, TappedEventArgs e)
@@ -104,7 +109,7 @@ public partial class UserProfileInfoPage : BasePage
                 return;
             }
 
-            UserInfo userInfo = AppService.Get<AppControl>().UserInfo;
+            UserInfo userInfo = appControl.UserInfo;
 
             bool isSame = enteredName == userInfo.first_name?.Trim();
 
@@ -122,12 +127,12 @@ public partial class UserProfileInfoPage : BasePage
                 }
 
                 loading.ShowLoading = true;
-                var apiService = AppService.Get<UserApiService>();
-                Response response = await apiService.UpdateUserProfileInfo(imageStream, additionalData);
+                //var apiService = AppService.Get<UserApiService>();
+                Response response = await userApiService.UpdateUserProfileInfo(imageStream, additionalData);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    AppService.Get<AppControl>().RefreshUserProfilePage = true;
+                    appControl.RefreshUserProfilePage = true;
 
                     await AlertService.ShowAlertAsync(AppResource.UpdateProfile,AppResource.Success);
                     await Shell.Current.GoToAsync("..", true);
@@ -179,7 +184,7 @@ public partial class UserProfileInfoPage : BasePage
 
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
-        bool answer = await Application.Current.MainPage.DisplayAlert(
+        bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
                                 AppResource.Yes,
@@ -187,7 +192,7 @@ public partial class UserProfileInfoPage : BasePage
         if (!answer) return;
 
         loading.ShowLoading = true;
-        await AppService.Get<AppControl>().LogoutUser();
+        await appControl.LogoutUser();
         loading.ShowLoading = false;
     }
 }

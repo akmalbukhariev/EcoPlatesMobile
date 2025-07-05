@@ -53,9 +53,17 @@ public partial class UserProfilePage : BasePage
     
     GetUserInfoResponse response;
 
-    public UserProfilePage()
+    private LanguageService languageService;
+    private AppControl appControl;
+    private UserApiService userApiService;
+
+    public UserProfilePage(LanguageService languageService, AppControl appControl, UserApiService userApiService)
     {
         InitializeComponent();
+
+        this.languageService = languageService;
+        this.appControl = appControl;
+        this.userApiService = userApiService;
 
         Init();
         BindingContext = this;
@@ -63,7 +71,7 @@ public partial class UserProfilePage : BasePage
 
     private void Init()
     {
-        var currentLangCode = AppService.Get<LanguageService>().GetCurrentLanguage();
+        var currentLangCode = languageService.GetCurrentLanguage();
 
         Languages = new ObservableCollection<LanguageModel>
         {
@@ -91,37 +99,34 @@ public partial class UserProfilePage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
-        AppControl control = AppService.Get<AppControl>();
-
-        if (control.RefreshUserProfilePage)
+        if (appControl.RefreshUserProfilePage)
         {
-            await LoadData(control);
-            control.RefreshUserProfilePage = false;
+            await LoadData();
+            appControl.RefreshUserProfilePage = false;
         }
     }
 
     public IRelayCommand RefreshCommand => new RelayCommand(async () =>
     {
         IsRefreshing = true;
-        var control = AppService.Get<AppControl>();
-        await LoadData(control);
+        await LoadData();
         IsRefreshing = false;
     });
 
-    private async Task LoadData(AppControl control)
+    private async Task LoadData()
     {
         loading.ShowLoading = true;
 
-        var apiService = AppService.Get<UserApiService>();
+        //var apiService = AppService.Get<UserApiService>();
 
-        response = await apiService.GetUserInfo();
+        response = await userApiService.GetUserInfo();
         if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
         {
             imUser.Source = response.resultData.profile_picture_url;
             lbUserName.Text = response.resultData.first_name;
             lbPhoneNumber.Text = response.resultData.phone_number;
 
-            control.UserInfo = response.resultData;
+            appControl.UserInfo = response.resultData;
         }
 
         loading.ShowLoading = false;
@@ -158,7 +163,7 @@ public partial class UserProfilePage : BasePage
                                              AppResource.MessageLanguageChanged,
                                              AppResource.Ok);
 
-            AppService.Get<LanguageService>().SetCulture(selectedLang.Code);
+            languageService.SetCulture(selectedLang.Code);
 
             ((App)Application.Current).ReloadAppShell();
         }

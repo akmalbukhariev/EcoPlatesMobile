@@ -48,18 +48,27 @@ public partial class CompanyProfilePage : BasePage
     private bool _isRefreshing;
 
     private GetCompanyInfoResponse response;
-    public CompanyProfilePage()
+
+    private CompanyApiService companyApiService;
+    private LanguageService languageService;
+    private AppControl appControl;
+
+    public CompanyProfilePage(CompanyApiService companyApiService, LanguageService languageService, AppControl appControl)
     {
         InitializeComponent();
 
-        Init();
+        this.companyApiService = companyApiService;
+        this.languageService = languageService;
+        this.appControl = appControl;
 
+        Init();
+        
         BindingContext = this;
     }
 
     private void Init()
     {
-        var currentLangCode = AppService.Get<LanguageService>().GetCurrentLanguage();
+        var currentLangCode = languageService.GetCurrentLanguage();
 
         Languages = new ObservableCollection<LanguageModel>
         {
@@ -87,30 +96,25 @@ public partial class CompanyProfilePage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
-        AppControl control = AppService.Get<AppControl>();
-
-        if (control.RefreshCompanyProfilePage)
+        if (appControl.RefreshCompanyProfilePage)
         {
-            await LoadData(control);
-            control.RefreshCompanyProfilePage = false;
+            await LoadData();
+            appControl.RefreshCompanyProfilePage = false;
         }
     }
 
     public IRelayCommand RefreshCommand => new RelayCommand(async () =>
     {
         IsRefreshing = true;
-        var control = AppService.Get<AppControl>();
-        await LoadData(control);
+        await LoadData();
         IsRefreshing = false;
     });
 
-    private async Task LoadData(AppControl control)
+    private async Task LoadData()
     {
         loading.IsRunning = true;
 
-        var apiService = AppService.Get<CompanyApiService>();
-
-        response = await apiService.GetCompanyInfo();
+        response = await companyApiService.GetCompanyInfo();
         if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
         {
             imCompany.Source = response.resultData.logo_url;
@@ -119,7 +123,7 @@ public partial class CompanyProfilePage : BasePage
             tileActive.TileText1 = response.resultData.active_products.ToString();
             tileNoActive.TileText1 = response.resultData.non_active_products.ToString();
 
-            control.CompanyInfo = response.resultData;
+            appControl.CompanyInfo = response.resultData;
         }
 
         loading.IsRunning = false;
@@ -156,7 +160,7 @@ public partial class CompanyProfilePage : BasePage
                                               AppResource.MessageLanguageChanged,
                                               AppResource.Ok);
 
-            AppService.Get<LanguageService>().SetCulture(selectedLang.Code);
+            languageService.SetCulture(selectedLang.Code);
 
             ((App)Application.Current).ReloadAppShell();
         }
@@ -185,12 +189,14 @@ public partial class CompanyProfilePage : BasePage
                 await AppNavigatorService.NavigateTo(nameof(LocationPage));
                 break;
             case ListTileView.ListTileType.Suggestions:
-                await AppNavigatorService.NavigateTo($"{nameof(SuggestionsPage)}?IsUser={false}");
+                //await AppNavigatorService.NavigateTo($"{nameof(SuggestionsPage)}?IsUser={false}");
+                await AppNavigatorService.NavigateTo(nameof(SuggestionsPage));
                 break;
             case ListTileView.ListTileType.Message:
                 break;
             case ListTileView.ListTileType.AboutApp:
-                await AppNavigatorService.NavigateTo($"{nameof(AboutPage)}?IsUser={false}");
+                //await AppNavigatorService.NavigateTo($"{nameof(AboutPage)}?IsUser={false}");
+                await AppNavigatorService.NavigateTo(nameof(AboutPage));
                 break;
         }
     }

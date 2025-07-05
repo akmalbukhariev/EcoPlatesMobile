@@ -12,7 +12,7 @@ using EcoPlatesMobile.Utilities;
 namespace EcoPlatesMobile.ViewModels.User
 {
     [QueryProperty(nameof(ProductModel), nameof(ProductModel))]
-    public partial class DetailProductPageViewModel : ObservableObject, IViewModel
+    public partial class DetailProductPageViewModel : ObservableObject//, IViewModel
     {
         [ObservableProperty] ProductModel productModel;
         [ObservableProperty] private ImageSource productImage;
@@ -37,8 +37,14 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private bool isLikedViewLiked;
         public int CompanyId { get; set; } = 0;
 
-        public DetailProductPageViewModel()
+        private UserApiService userApiService;
+        private AppControl appControl;
+
+        public DetailProductPageViewModel(UserApiService userApiService, AppControl appControl)
         {
+            this.userApiService = userApiService;
+            this.appControl = appControl;
+
             LikeImage = "like.png";
         }
 
@@ -48,15 +54,15 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var apiService = AppService.Get<UserApiService>();
+                //var apiService = AppService.Get<UserApiService>();
 
                 PosterGetFeedbackRequest request = new PosterGetFeedbackRequest()
                 {
                     promotion_id = (int)ProductModel.PromotionId,
-                    user_id = AppService.Get<AppControl>().UserInfo.user_id
+                    user_id = appControl.UserInfo.user_id
                 };
 
-                SpecificPromotionWithCompanyInfoResponse response = await apiService.GetSpecificPromotionWithCompanyInfo(request);
+                SpecificPromotionWithCompanyInfoResponse response = await userApiService.GetSpecificPromotionWithCompanyInfo(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -106,13 +112,13 @@ namespace EcoPlatesMobile.ViewModels.User
             ProductModel.Liked = !ProductModel.Liked;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
             {
-                user_id = AppService.Get<AppControl>().UserInfo.user_id,
+                user_id = appControl.UserInfo.user_id,
                 promotion_id = ProductModel.PromotionId,
                 deleted = ProductModel.Liked ? false : true,
             };
 
-            var apiService = AppService.Get<UserApiService>();
-            Response response = await apiService.UpdateUserBookmarkPromotionStatus(request);
+            //var apiService = AppService.Get<UserApiService>();
+            Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {

@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserBrowserSearchPageViewModel : ObservableObject, IViewModel
+    public partial class UserBrowserSearchPageViewModel : ObservableObject//, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<CompanyModel> companies;
         [ObservableProperty] private ObservableRangeCollection<HistoryDataInfo> historyList;
@@ -29,7 +29,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private const string HistoryKey = "SearchHistoryCompany";
 
-        private int offsetProduct = 0;
+        //private int offsetProduct = 0;
         private int offsetCompany = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
@@ -39,8 +39,16 @@ namespace EcoPlatesMobile.ViewModels.User
         public ICommand ClickHistoryCommand { get; }
         public ICommand RemoveHistoryCommand { get; }
 
-        public UserBrowserSearchPageViewModel()
+        private UserApiService userApiService;
+        private AppControl appControl;
+        private AppStoreService appStoreService;
+
+        public UserBrowserSearchPageViewModel(UserApiService userApiService, AppControl appControl, AppStoreService appStoreService)
         {
+            this.userApiService = userApiService;
+            this.appControl = appControl;
+            this.appStoreService = appStoreService;
+
             companies = new ObservableRangeCollection<CompanyModel>();
             historyList = new ObservableRangeCollection<HistoryDataInfo>();
 
@@ -57,7 +65,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private void LoadSearchHistory()
         {
-            var stored = AppService.Get<AppStoreService>().Get<List<string>>(HistoryKey, new());
+            var stored = appStoreService.Get<List<string>>(HistoryKey, new());
             AllHistoryItems = stored.Select(t => new HistoryDataInfo { SearchedText = t }).ToList();
             FilterHistory(SearchText);
         }
@@ -85,19 +93,19 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var userInfo = AppService.Get<AppControl>().UserInfo;
+                //var userInfo = AppService.Get<AppControl>().UserInfo;
                 CompanyLocationAndNameRequest request = new CompanyLocationAndNameRequest()
                 {
-                    radius_km = userInfo.radius_km,
-                    user_lat = userInfo.location_latitude,
-                    user_lon = userInfo.location_longitude,
+                    radius_km = appControl.UserInfo.radius_km,
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude,
                     offset = offsetCompany,
                     pageSize = PageSize,
                     company_name = SearchText
                 };
 
-                var apiService = AppService.Get<UserApiService>();
-                CompanyListResponse response = await apiService.GetCompaniesByCurrentLocationAndName(request);
+                //var apiService = AppService.Get<UserApiService>();
+                CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocationAndName(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
@@ -219,7 +227,7 @@ namespace EcoPlatesMobile.ViewModels.User
         private void SaveHistory()
         {
             var saved = AllHistoryItems.Select(h => h.SearchedText).ToList();
-            AppService.Get<AppStoreService>().Set(HistoryKey, saved);
+            appStoreService.Set(HistoryKey, saved);
         }
 
         private void FilterHistory(string? keyword)

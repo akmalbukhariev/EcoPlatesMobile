@@ -7,14 +7,20 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserFavoritesPage : BasePage
 {
 	private UserFavoritesViewModel viewModel;
+    private AppControl appControl;
 
-    public UserFavoritesPage()
+    public UserFavoritesPage(UserFavoritesViewModel vm, AppControl appControl)
 	{
 		InitializeComponent();
 
-		viewModel = ResolveViewModel<UserFavoritesViewModel>();
+        this.viewModel = vm;
+        this.appControl = appControl;
+
+        //viewModel = ResolveViewModel<UserFavoritesViewModel>();
 
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
+
+        BindingContext = viewModel;
     }
 
     protected override async void OnAppearing()
@@ -22,18 +28,18 @@ public partial class UserFavoritesPage : BasePage
         base.OnAppearing();
 
         Shell.SetTabBarIsVisible(this, true);
-        AppControl control = AppService.Get<AppControl>();
+        //AppControl control = AppService.Get<AppControl>();
 
-        if (control.RefreshFavoriteProduct)
+        if (appControl.RefreshFavoriteProduct)
         {
             await viewModel.LoadInitialProductAsync();
-            control.RefreshFavoriteProduct = false;
+            appControl.RefreshFavoriteProduct = false;
         }
 
-        if (control.RefreshFavoriteCompany)
+        if (appControl.RefreshFavoriteCompany)
         {
             await viewModel.LoadInitialCompanyAsync();
-            control.RefreshFavoriteCompany = false;
+            appControl.RefreshFavoriteCompany = false;
         }
     }
 

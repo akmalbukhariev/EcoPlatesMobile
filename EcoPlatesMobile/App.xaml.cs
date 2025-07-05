@@ -110,7 +110,7 @@ namespace EcoPlatesMobile
 
         public void ReloadAppShell()
         {
-            MainPage = new AppEntryShell(); // or AppUserShell, etc.
+            MainPage = new AppEntryShell();
         }
     }
 }

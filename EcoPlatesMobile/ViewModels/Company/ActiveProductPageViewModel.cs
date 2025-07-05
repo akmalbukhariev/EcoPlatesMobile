@@ -13,7 +13,7 @@ using EcoPlatesMobile.Views.Company.Pages;
 
 namespace EcoPlatesMobile.ViewModels.Company
 { 
-    public partial class ActiveProductPageViewModel : ObservableObject, IViewModel
+    public partial class ActiveProductPageViewModel : ObservableObject//, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ProductModel selectedProduct;
@@ -26,8 +26,14 @@ namespace EcoPlatesMobile.ViewModels.Company
         private const int PageSize = 4;
         private bool hasMoreItems = true;
 
-        public ActiveProductPageViewModel()
+        private CompanyApiService companyApiService;
+        private AppControl appControl;
+
+        public ActiveProductPageViewModel(CompanyApiService companyApiService, AppControl appControl)
         {
+            this.companyApiService = companyApiService;
+            this.appControl = appControl;
+
             products = new ObservableRangeCollection<ProductModel>();
 
             ClickProductCommand = new Command<ProductModel>(ProductClicked);
@@ -35,7 +41,7 @@ namespace EcoPlatesMobile.ViewModels.Company
 
         private async void ProductClicked(ProductModel product)
         {
-            product.CompanyId = AppService.Get<AppControl>().CompanyInfo.company_id;
+            product.CompanyId = appControl.CompanyInfo.company_id;
             await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
@@ -54,7 +60,7 @@ namespace EcoPlatesMobile.ViewModels.Company
             {
                 IsLoading = true;
 
-                var apiService = AppService.Get<CompanyApiService>();
+                //var apiService = AppService.Get<CompanyApiService>();
 
                 PaginationWithDeletedParam request = new PaginationWithDeletedParam
                 {
@@ -63,7 +69,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                     pageSize = PageSize  
                 };
 
-                PosterListResponse response = await apiService.GetCompanyPoster(request);
+                PosterListResponse response = await companyApiService.GetCompanyPoster(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -139,7 +145,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                     IsLoading = true;
                 }
 
-                var apiService = AppService.Get<CompanyApiService>();
+                //var apiService = AppService.Get<CompanyApiService>();
 
                 PaginationWithDeletedParam request = new PaginationWithDeletedParam
                 {
@@ -148,7 +154,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                     pageSize = PageSize  
                 };
 
-                PosterListResponse response = await apiService.GetCompanyPoster(request);
+                PosterListResponse response = await companyApiService.GetCompanyPoster(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {

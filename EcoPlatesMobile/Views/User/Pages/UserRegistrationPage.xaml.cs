@@ -19,9 +19,15 @@ public partial class UserRegistrationPage : BasePage
         }
     }
 
-    public UserRegistrationPage()
+    private UserApiService userApiService;
+    private AppControl appControl;
+
+    public UserRegistrationPage(UserApiService userApiService, AppControl appControl)
 	{
 		InitializeComponent();
+
+        this.userApiService = userApiService;
+        this.appControl = appControl;
 	}
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)
@@ -44,12 +50,12 @@ public partial class UserRegistrationPage : BasePage
             };
 
             loading.ShowLoading = true;
-            var apiService = AppService.Get<UserApiService>();
-            Response response = await apiService.RegisterUser(request);
+            //var apiService = AppService.Get<UserApiService>();
+            Response response = await userApiService.RegisterUser(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.Success, AppResource.RegistrationCompleted);
-                await AppService.Get<AppControl>().LoginUser(_phoneNumber);
+                await appControl.LoginUser(_phoneNumber);
             }
             else
             {

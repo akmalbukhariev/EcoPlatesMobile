@@ -13,6 +13,6 @@ public partial class PhoneNumberChangePage : BasePage
 
     private async void Next_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(PhoneNumberNewPage));
+        await AppNavigatorService.NavigateTo(nameof(PhoneNumberNewPage));
     }
 }

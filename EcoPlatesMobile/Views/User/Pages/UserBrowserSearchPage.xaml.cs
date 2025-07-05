@@ -5,11 +5,13 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserBrowserSearchPage : BasePage
 {
     private UserBrowserSearchPageViewModel viewModel;
-	public UserBrowserSearchPage()
+	public UserBrowserSearchPage(UserBrowserSearchPageViewModel vm)
 	{
 		InitializeComponent();
 
-        viewModel = ResolveViewModel<UserBrowserSearchPageViewModel>();
+        //viewModel = ResolveViewModel<UserBrowserSearchPageViewModel>();
+        this.viewModel = vm;
+        BindingContext = viewModel;
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)

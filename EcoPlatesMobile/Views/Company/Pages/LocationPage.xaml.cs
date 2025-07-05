@@ -7,9 +7,15 @@ namespace EcoPlatesMobile.Views.Company.Pages;
 
 public partial class LocationPage : BasePage
 {
-	public LocationPage()
+	private AppControl appControl;
+	private CompanyApiService companyApiService;
+
+    public LocationPage(AppControl appControl, CompanyApiService companyApiService)
 	{
 		InitializeComponent();
+
+		this.appControl = appControl;
+		this.companyApiService = companyApiService;
 
 		loading.ChangeColor(Color.FromArgb("#8338EC"));
 	}
@@ -33,19 +39,19 @@ public partial class LocationPage : BasePage
 
 			var additionalData = new Dictionary<string, string>
 			{
-				{ "company_id", AppService.Get<AppControl>().CompanyInfo.company_id.ToString() },
+				{ "company_id", appControl.CompanyInfo.company_id.ToString() },
 				{ "location_latitude", center.Latitude.ToString("F6") },
 				{ "location_longitude", center.Longitude.ToString("F6") }
 			};
 
 			loading.ShowLoading = true;
-			var apiService = AppService.Get<CompanyApiService>();
-			Response response = await apiService.UpdateCompanyProfileInfo(null, additionalData);
+			//var apiService = AppService.Get<CompanyApiService>();
+			Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
 
 			if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
 			{
 				await AlertService.ShowAlertAsync(AppResource.MessageUpdateLocation, AppResource.Success);
-				await Shell.Current.GoToAsync("..", true);
+				await AppNavigatorService.NavigateTo("..", true);
 			}
 			else
 			{

@@ -461,10 +461,6 @@
     <value>Company name</value>
     <comment>CompanyProfileInfoPage</comment>
   </data>
-  <data name="ChangeNumber" xml:space="preserve">
-    <value>Change Number</value>
-    <comment>CompanyProfileInfoPage</comment>
-  </data>
   <data name="StartWorkingTime" xml:space="preserve">
     <value>Work start time</value>
     <comment>CompanyProfileInfoPage</comment>
@@ -499,10 +495,6 @@
   </data>
   <data name="FeedbackComplaints" xml:space="preserve">
     <value>Feedback and complaints</value>
-    <comment>CompanyProfilePage</comment>
-  </data>
-  <data name="AboutApp" xml:space="preserve">
-    <value>About the app</value>
     <comment>CompanyProfilePage</comment>
   </data>
   <data name="RoleSeller" xml:space="preserve">
@@ -633,10 +625,6 @@
     <value>Products</value>
     <comment>UserFavoritesPage</comment>
   </data>
-  <data name="Seller" xml:space="preserve">
-    <value>Seller</value>
-    <comment>UserFavoritesPage</comment>
-  </data>
   <data name="RoleBuyer" xml:space="preserve">
     <value>Role: Buyer</value>
     <comment>UserProfilePage</comment>
@@ -687,6 +675,10 @@
   </data>
   <data name="ShowResult" xml:space="preserve">
     <value>Show results</value>
+    <comment>LocationSettingPage</comment>
+  </data>
+  <data name="YouAreHere" xml:space="preserve">
+    <value>You are here</value>
     <comment>LocationSettingPage</comment>
   </data>
   <data name="LeaveReview" xml:space="preserve">

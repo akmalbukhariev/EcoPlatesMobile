@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -13,11 +14,19 @@ public partial class LocationSettingPage : BasePage
     private Circle distanceCircle;
     private Location currentCenter;
 
-    public LocationSettingPage()
+    private LocationService locationService;
+    private AppControl appControl;
+    private UserApiService userApiService;
+
+    public LocationSettingPage(LocationService locationService, AppControl appControl, UserApiService userApiService)
     {
         InitializeComponent();
 
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
+
+        this.locationService = locationService;
+        this.appControl = appControl;
+        this.userApiService = userApiService;
     }
 
     protected override async void OnAppearing()
@@ -31,13 +40,13 @@ public partial class LocationSettingPage : BasePage
     {
         loading.ShowLoading = true;
 
-        var location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
+        var location = await locationService.GetCurrentLocationAsync();
         if (location == null) return;
 
         currentCenter = new Location(location.Latitude, location.Longitude);
         map.MoveToRegion(MapSpan.FromCenterAndRadius(currentCenter, Distance.FromKilometers(2)));
 
-        distanceSlider.Value = AppService.Get<AppControl>().UserInfo.radius_km;
+        distanceSlider.Value = appControl.UserInfo.radius_km;
         
         distanceCircle = new Circle
         {
@@ -52,7 +61,7 @@ public partial class LocationSettingPage : BasePage
 
         var currentLocationPin = new Pin
         {
-            Label = "You are here",
+            Label = AppResource.YouAreHere,
             Location = currentCenter,
             Type = PinType.Generic
         };
@@ -63,7 +72,7 @@ public partial class LocationSettingPage : BasePage
       
     private async void UseCurrentLocation_Clicked(object sender, EventArgs e)
     {
-        var location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
+        var location = await locationService.GetCurrentLocationAsync();
         if (location != null)
         {
             var center = new Location(location.Latitude, location.Longitude);
@@ -103,19 +112,19 @@ public partial class LocationSettingPage : BasePage
 
             var additionalData = new Dictionary<string, string>
             {
-                { "user_id", AppService.Get<AppControl>().UserInfo.user_id.ToString() },
+                { "user_id", appControl.UserInfo.user_id.ToString() },
                 { "location_latitude", center.Latitude.ToString("F6") },
                 { "location_longitude", center.Longitude.ToString("F6") },
                 { "radius_km", ((int)selectedDistance).ToString() }
             };
 
             loading.ShowLoading = true;
-            var apiService = AppService.Get<UserApiService>();
-            Response response = await apiService.UpdateUserProfileInfo(null, additionalData);
+            //var apiService = AppService.Get<UserApiService>();
+            Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                var appControl = AppService.Get<AppControl>();
+                //var appControl = AppService.Get<AppControl>();
 
                 appControl.UserInfo.location_latitude = center.Latitude;
                 appControl.UserInfo.location_longitude = center.Longitude;
@@ -127,7 +136,7 @@ public partial class LocationSettingPage : BasePage
                 appControl.RefreshFavoriteCompany = true;
 
                 //await AlertService.ShowAlertAsync("Update location", "Success.");
-                await Shell.Current.GoToAsync("..", true);
+                await AppNavigatorService.NavigateTo("..", true);
             }
             else
             {

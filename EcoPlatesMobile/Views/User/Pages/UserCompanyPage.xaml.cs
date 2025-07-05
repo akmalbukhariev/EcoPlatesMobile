@@ -7,11 +7,14 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserCompanyPage : BasePage
 {
 	private UserCompanyPageViewModel viewModel;
+    private AppControl appControl;
 
-    public UserCompanyPage()
+    public UserCompanyPage(UserCompanyPageViewModel vm, AppControl appControl)
 	{
 		InitializeComponent();
-        viewModel = ResolveViewModel<UserCompanyPageViewModel>();
+        //viewModel = ResolveViewModel<UserCompanyPageViewModel>();
+        this.viewModel = vm;
+        this.appControl = appControl;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
     }
@@ -84,9 +87,9 @@ public partial class UserCompanyPage : BasePage
         {
             await AnimateElementScaleDown(element);
 
-            AppControl control = AppService.Get<AppControl>();
+            //AppControl control = AppService.Get<AppControl>();
 
-            var userLocation = new Location(control.UserInfo.location_latitude, control.UserInfo.location_longitude);
+            var userLocation = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
             var companyLocation = new Location(viewModel.Latitude, viewModel.Longitude);
 
             string uri = $"https://www.google.com/maps/dir/?api=1" +

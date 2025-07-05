@@ -28,8 +28,14 @@ namespace EcoPlatesMobile.ViewModels.User
         private const int PageSize = 4;
         private bool hasMoreItems = true;
 
-        public UserBrowserPageViewModel()
+        private UserApiService userApiService;
+        private AppControl appControl;
+
+        public UserBrowserPageViewModel(UserApiService userApiService, AppControl appControl)
         {
+            this.userApiService = userApiService;
+            this.appControl = appControl;
+
             Companies = new ObservableRangeCollection<CompanyModel>();
             LikeCompanyCommand = new Command<CompanyModel>(CompanyLiked);
             ClickCompanyCommand = new Command<CompanyModel>(ComapnyClicked);
@@ -41,13 +47,13 @@ namespace EcoPlatesMobile.ViewModels.User
  
             SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
             {
-                user_id = AppService.Get<AppControl>().UserInfo.user_id,
+                user_id = appControl.UserInfo.user_id,
                 company_id = product.CompanyId,
                 deleted = product.Liked ? false : true,
             };
 
-            var apiService = AppService.Get<UserApiService>();
-            Response response = await apiService.UpdateUserBookmarkCompanyStatus(request);
+            //var apiService = AppService.Get<UserApiService>();
+            Response response = await userApiService.UpdateUserBookmarkCompanyStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
@@ -70,19 +76,19 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var userInfo = AppService.Get<AppControl>().UserInfo;
+                //var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
-                    radius_km = userInfo.radius_km,
-                    user_lat = userInfo.location_latitude,//37.518313,
-                    user_lon = userInfo.location_longitude,//126.724187,
+                    radius_km = appControl.UserInfo.radius_km,
+                    user_lat = appControl.UserInfo.location_latitude,//37.518313,
+                    user_lon = appControl.UserInfo.location_longitude,//126.724187,
                     offset = offset,
                     pageSize = PageSize,
                 };
 
-                var apiService = AppService.Get<UserApiService>();
-                CompanyListResponse response = await apiService.GetCompaniesByCurrentLocation(request);
+                //var apiService = AppService.Get<UserApiService>();
+                CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
@@ -149,18 +155,18 @@ namespace EcoPlatesMobile.ViewModels.User
                     IsLoading = true;
                 }
                    
-                var userInfo = AppService.Get<AppControl>().UserInfo;
+                //var userInfo = AppService.Get<AppControl>().UserInfo;
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
-                    radius_km = userInfo.radius_km,
-                    user_lat = userInfo.location_latitude,
-                    user_lon = userInfo.location_longitude,
+                    radius_km = appControl.UserInfo.radius_km,
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude,
                     offset = offset,
                     pageSize = PageSize,
                 };
 
-                var apiService = AppService.Get<UserApiService>();
-                CompanyListResponse response = await apiService.GetCompaniesByCurrentLocation(request);
+                //var apiService = AppService.Get<UserApiService>();
+                CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {

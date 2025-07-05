@@ -465,11 +465,7 @@
   <value>Название компании</value>
   <comment>CompanyProfileInfoPage</comment>
 </data>
-	<data name="ChangeNumber" xml:space="preserve">
-  <value>Сменить номер</value>
-  <comment>CompanyProfileInfoPage</comment>
-</data>
-	<data name="StartWorkingTime" xml:space="preserve">
+<data name="StartWorkingTime" xml:space="preserve">
   <value>Время начала работы</value>
   <comment>CompanyProfileInfoPage</comment>
 </data>
@@ -505,11 +501,7 @@
   <value>Отзывы и жалобы</value>
   <comment>CompanyProfilePage</comment>
 </data>
-	<data name="AboutApp" xml:space="preserve">
-  <value>О приложении</value>
-  <comment>CompanyProfilePage</comment>
-</data>
-	<data name="RoleSeller" xml:space="preserve">
+<data name="RoleSeller" xml:space="preserve">
   <value>Роль: Продавец</value>
   <comment>CompanyProfilePage</comment>
 </data>
@@ -633,14 +625,6 @@
   <value>Товары</value>
   <comment>UserFavoritesPage</comment>
 </data>
-<data name="Seller" xml:space="preserve">
-  <value>Продавец</value>
-  <comment>UserFavoritesPage</comment>
-</data>
- <data name="Favorites" xml:space="preserve">
-  <value>Избранное</value>
-  <comment>UserFavoritesPage</comment>
-</data>
   <data name="RoleBuyer" xml:space="preserve">
   <value>Роль: Покупатель</value>
   <comment>UserProfilePage</comment>
@@ -693,6 +677,10 @@
   <value>Показать результаты</value>
   <comment>LocationSettingPage</comment>
 </data>
+<data name="YouAreHere" xml:space="preserve">
+    <value>Вы здесь</value>
+    <comment>LocationSettingPage</comment>
+  </data>
 	<data name="LeaveReview" xml:space="preserve">
   <value>Оставить отзыв</value>
   <comment>ReviewProductPage</comment>

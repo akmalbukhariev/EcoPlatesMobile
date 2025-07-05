@@ -28,6 +28,6 @@ public partial class PhoneNumberNewPage : BasePage
     {
         await AnimateElementScaleDown(imBack);
 
-        await Shell.Current.GoToAsync("..", true);
+        await AppNavigatorService.NavigateTo("..");
     }
 }

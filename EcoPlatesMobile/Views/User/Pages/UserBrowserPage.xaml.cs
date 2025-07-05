@@ -19,13 +19,21 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserBrowserPage : BasePage
 {
     private bool created = false;
-    private UserBrowserPageViewModel viewModel;
     private List<CustomPin> _customPins = new();
 
-    public UserBrowserPage()
+    private UserBrowserPageViewModel viewModel;
+    private UserApiService userApiService;
+    private AppControl appControl;
+    private LocationService locationService;
+
+    public UserBrowserPage(UserBrowserPageViewModel vm, UserApiService userApiService, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
-        viewModel = ResolveViewModel<UserBrowserPageViewModel>();
+        //viewModel = ResolveViewModel<UserBrowserPageViewModel>();
+        this.viewModel = vm;
+        this.userApiService = userApiService;
+        this.appControl = appControl;
+        this.locationService = locationService;
 
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
@@ -45,15 +53,13 @@ public partial class UserBrowserPage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
-        AppControl control = AppService.Get<AppControl>();
-
-        if (control.RefreshBrowserPage)
+        if (appControl.RefreshBrowserPage)
         {
             await viewModel.LoadInitialAsync();
             await CenterMapToCurrentLocation();
             await GetAllCompaniesUsingMap();
 
-            control.RefreshBrowserPage = false;
+            appControl.RefreshBrowserPage = false;
         }
     }
 
@@ -62,9 +68,9 @@ public partial class UserBrowserPage : BasePage
         try
         {
             viewModel.IsLoading = true;
-            var apiService = AppService.Get<UserApiService>();
+            //var apiService = AppService.Get<UserApiService>();
 
-            var userInfo = AppService.Get<AppControl>().UserInfo;
+            var userInfo = appControl.UserInfo;
             CompanyLocationRequest request = new CompanyLocationRequest()
             {
                 radius_km = userInfo.radius_km,
@@ -73,7 +79,7 @@ public partial class UserBrowserPage : BasePage
                 business_type = BusinessType.OTHER.GetValue()
             };
 
-            CompanyListResponse response = await apiService.GetCompaniesByCurrentLocationWithoutLimit(request);
+            CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocationWithoutLimit(request);
 
             if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
             {
@@ -124,7 +130,7 @@ public partial class UserBrowserPage : BasePage
     {
         try
         {
-            var location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
+            var location = await locationService.GetCurrentLocationAsync();
 
             if (location != null)
             {

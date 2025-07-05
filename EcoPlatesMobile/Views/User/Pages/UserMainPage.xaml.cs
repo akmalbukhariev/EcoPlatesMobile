@@ -7,17 +7,23 @@ namespace EcoPlatesMobile.Views.User.Pages;
 
 public partial class UserMainPage : BasePage
 {
-	private UserMainPageViewModel viewModel;
     Components.TypeItem typeItem = null;
 
-    public UserMainPage()
+    private UserMainPageViewModel viewModel;
+    private AppControl appControl;
+
+    public UserMainPage(UserMainPageViewModel vm, AppControl appControl)
 	{
 		InitializeComponent();
+        this.viewModel = vm;
+        this.appControl = appControl;
 
-        viewModel = ResolveViewModel<UserMainPageViewModel>();
+        //viewModel = ResolveViewModel<UserMainPageViewModel>();
          
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         companyTypeList.EventTypeClick += CompanyTypeList_EventTypeClick;
+
+        BindingContext = viewModel;
     }
      
     protected override async void OnAppearing()
@@ -36,14 +42,12 @@ public partial class UserMainPage : BasePage
             companyTypeList.InitType(typeItem);
         }
 
-        AppControl control = AppService.Get<AppControl>();
+        lbHeader.Text = $"{AppResource.NearbyWithin} {appControl.UserInfo.radius_km} km {AppResource.Around}.";
 
-        lbHeader.Text = $"{AppResource.NearbyWithin} {control.UserInfo.radius_km} km {AppResource.Around}.";
-
-        if (control.RefreshMainPage)
+        if (appControl.RefreshMainPage)
         {
             await viewModel.LoadInitialAsync();
-            control.RefreshMainPage = false;
+            appControl.RefreshMainPage = false;
         }
     }
 

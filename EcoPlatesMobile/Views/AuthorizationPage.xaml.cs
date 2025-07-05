@@ -21,19 +21,26 @@ public partial class AuthorizationPage : BasePage
 		}
 	}
 
-	public AuthorizationPage()
+	private UserSessionService userSessionService;
+	private AppControl appControl;
+
+	public AuthorizationPage(UserSessionService userSessionService, AppControl appControl)
 	{
 		InitializeComponent();
 
+		this.userSessionService = userSessionService;
+		this.appControl = appControl;
+
+        #region 
         // number1.NextEntry = number2;
         // number2.PreviousEntry = number1;
         // number2.NextEntry = number3;
         // number3.PreviousEntry = number2;
         // number3.NextEntry = number4;
         // number4.PreviousEntry = number3;
+        #endregion
 
-        var session = AppService.Get<UserSessionService>();
-        if (session.Role == UserRole.User)
+        if (userSessionService.Role == UserRole.User)
         {
             header.HeaderBackground = btnNext.BackgroundColor = Colors.Green;
         }
@@ -51,23 +58,22 @@ public partial class AuthorizationPage : BasePage
 
 	private async void Button_Clicked(object sender, EventArgs e)
 	{
-		var session = AppService.Get<UserSessionService>();
-		if (session?.Role == UserRole.Company)
+		if (userSessionService.Role == UserRole.Company)
 		{
-			if (session.IsCompanyRegistrated)
+			if (userSessionService.IsCompanyRegistrated)
 			{
-				await AppService.Get<AppControl>().LoginCompany(_phoneNumber);
+				await appControl.LoginCompany(_phoneNumber);
 			}
 			else
 			{
 				await AppNavigatorService.NavigateTo($"{nameof(CompanyRegistrationPage)}?PhoneNumber={_phoneNumber}");
 			}
 		}
-		else if (session?.Role == UserRole.User)
+		else if (userSessionService.Role == UserRole.User)
 		{
-            if (session.IsUserRegistrated)
+            if (userSessionService.IsUserRegistrated)
             {
-                await AppService.Get<AppControl>().LoginUser(_phoneNumber);
+                await appControl.LoginUser(_phoneNumber);
             }
             else
             {

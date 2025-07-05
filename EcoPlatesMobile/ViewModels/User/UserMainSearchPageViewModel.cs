@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserMainSearchPageViewModel : ObservableObject, IViewModel
+    public partial class UserMainSearchPageViewModel : ObservableObject//, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ObservableRangeCollection<HistoryDataInfo> historyList;
@@ -38,8 +38,16 @@ namespace EcoPlatesMobile.ViewModels.User
         public ICommand ClickHistoryCommand { get; }
         public ICommand RemoveHistoryCommand { get; }
 
-        public UserMainSearchPageViewModel()
+        private UserApiService userApiService;
+        private AppControl appControl;
+        private AppStoreService appStoreService;
+
+        public UserMainSearchPageViewModel(UserApiService userApiService, AppControl appControl, AppStoreService appStoreService)
         {
+            this.userApiService = userApiService;
+            this.appControl = appControl;
+            this.appStoreService = appStoreService;
+
             products = new ObservableRangeCollection<ProductModel>();
             historyList = new ObservableRangeCollection<HistoryDataInfo>();
 
@@ -56,7 +64,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private void LoadSearchHistory()
         {
-            var stored = AppService.Get<AppStoreService>().Get<List<string>>(HistoryKey, new());
+            var stored = appStoreService.Get<List<string>>(HistoryKey, new());
             AllHistoryItems = stored.Select(t => new HistoryDataInfo { SearchedText = t }).ToList();
             FilterHistory(SearchText);
         }
@@ -87,20 +95,20 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var userInfo = AppService.Get<AppControl>().UserInfo;
+                //var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PosterLocationAndNameRequest request = new PosterLocationAndNameRequest()
                 {
                     offset = offsetProduct,
                     pageSize = PageSize,
-                    user_lat = userInfo.location_latitude,
-                    user_lon = userInfo.location_longitude,
-                    radius_km = userInfo.radius_km,
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude,
+                    radius_km = appControl.UserInfo.radius_km,
                     title = SearchText
                 };
 
-                var apiService = AppService.Get<UserApiService>();
-                PosterListResponse response = await apiService.GetPostersByCurrentLocationAndName(request);
+                //var apiService = AppService.Get<UserApiService>();
+                PosterListResponse response = await userApiService.GetPostersByCurrentLocationAndName(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -225,7 +233,7 @@ namespace EcoPlatesMobile.ViewModels.User
         private void SaveHistory()
         {
             var saved = AllHistoryItems.Select(h => h.SearchedText).ToList();
-            AppService.Get<AppStoreService>().Set(HistoryKey, saved);
+            appStoreService.Set(HistoryKey, saved);
         }
 
         private void FilterHistory(string? keyword)

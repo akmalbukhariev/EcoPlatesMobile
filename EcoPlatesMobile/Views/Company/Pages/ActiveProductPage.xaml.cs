@@ -34,11 +34,19 @@ public partial class ActiveProductPage : BasePage
     }
 
     private ActiveProductPageViewModel viewModel;
-    public ActiveProductPage()
+    private AppControl appControl;
+    private CompanyApiService companyApiService;
+
+    public ActiveProductPage(ActiveProductPageViewModel vm, CompanyApiService companyApiService, AppControl appControl)
     {
         InitializeComponent();
 
-        viewModel = ResolveViewModel<ActiveProductPageViewModel>();
+        this.viewModel = vm;
+        this.companyApiService = companyApiService;
+        this.appControl = appControl;
+
+        this.BindingContext = viewModel;
+        //viewModel = ResolveViewModel<ActiveProductPageViewModel>();
     }
 
     protected override async void OnAppearing()
@@ -58,7 +66,7 @@ public partial class ActiveProductPage : BasePage
             swipeItems.Parent is SwipeView swipeView &&
             swipeView.BindingContext is ProductModel product)
         {
-            product.CompanyId = (long)AppService.Get<AppControl>().CompanyInfo.company_id;
+            product.CompanyId = (long)appControl.CompanyInfo.company_id;
             await AppNavigatorService.NavigateTo(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
@@ -74,11 +82,10 @@ public partial class ActiveProductPage : BasePage
             swipeView.BindingContext is ProductModel product)
         {
 
-            bool answer = await Application.Current.MainPage.DisplayAlert(
+            bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
-                                AppResource.Yes, AppResource.No
-                            );
+                                AppResource.Yes, AppResource.No);
 
             if (!answer) return;
 
@@ -91,8 +98,8 @@ public partial class ActiveProductPage : BasePage
                     deleted = true
                 };
 
-                var apiService = AppService.Get<CompanyApiService>();
-                Response response = await apiService.ChangePosterDeletionStatus(request);
+                //var apiService = AppService.Get<CompanyApiService>();
+                Response response = await companyApiService.ChangePosterDeletionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     viewModel.Products.Remove(product);

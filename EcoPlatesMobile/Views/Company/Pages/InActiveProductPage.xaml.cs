@@ -33,11 +33,19 @@ public partial class InActiveProductPage : BasePage
     }
 
     private InActiveProductPageViewModel viewModel;
-	public InActiveProductPage()
+    private AppControl appControl;
+    private CompanyApiService companyApiService;
+
+    public InActiveProductPage(InActiveProductPageViewModel vm, AppControl appControl, CompanyApiService companyApiService)
 	{
 		InitializeComponent();
 
-        viewModel = ResolveViewModel<InActiveProductPageViewModel>();
+        this.viewModel = vm;
+        this.appControl = appControl;
+        this.companyApiService = companyApiService;
+
+        BindingContext = viewModel;
+        //viewModel = ResolveViewModel<InActiveProductPageViewModel>();
 	}
 
     protected override async void OnAppearing()
@@ -57,19 +65,18 @@ public partial class InActiveProductPage : BasePage
             swipeItems.Parent is SwipeView swipeView &&
             swipeView.BindingContext is ProductModel product)
         {
-            bool answer = await Application.Current.MainPage.DisplayAlert(
+            bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
-                                AppResource.Yes,AppResource.No
-                            );
+                                AppResource.Yes,AppResource.No);
             if (!answer) return;
 
-            product.CompanyId = (long)AppService.Get<AppControl>().CompanyInfo.company_id;
+            product.CompanyId = (long)appControl.CompanyInfo.company_id;
             try
             {
                 viewModel.IsLoading = true;
-                var apiService = AppService.Get<CompanyApiService>();
-                Response response = await apiService.DeletePoster(product.PromotionId);
+                //var apiService = AppService.Get<CompanyApiService>();
+                Response response = await companyApiService.DeletePoster(product.PromotionId);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -100,11 +107,10 @@ public partial class InActiveProductPage : BasePage
             swipeItems.Parent is SwipeView swipeView &&
             swipeView.BindingContext is ProductModel product)
         {
-            bool answer = await Application.Current.MainPage.DisplayAlert(
+            bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
-                                AppResource.Yes,AppResource.No
-                            );
+                                AppResource.Yes,AppResource.No);
 
             if (!answer) return;
 
@@ -117,8 +123,8 @@ public partial class InActiveProductPage : BasePage
                     deleted = false
                 };
 
-                var apiService = AppService.Get<CompanyApiService>();
-                Response response = await apiService.ChangePosterDeletionStatus(request);
+                //var apiService = AppService.Get<CompanyApiService>();
+                Response response = await companyApiService.ChangePosterDeletionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     viewModel.Products.Remove(product);

@@ -47,9 +47,15 @@ public partial class ReviewProductPage : BasePage
     private int selectedRating = 0;
     private bool showedOption = false;
 
-    public ReviewProductPage()
+    private UserApiService userApiService;
+    private AppControl appControl;
+
+    public ReviewProductPage(UserApiService userApiService, AppControl appControl)
 	{
 		InitializeComponent();
+
+        this.userApiService = userApiService;
+        this.appControl = appControl;
     }
      
     private void UpdateProductName()
@@ -124,7 +130,7 @@ public partial class ReviewProductPage : BasePage
             loading.IsRunning = true;
             RegisterPosterFeedbackRequest request = new RegisterPosterFeedbackRequest()
             {
-                user_id = AppService.Get<AppControl>().UserInfo.user_id,
+                user_id = appControl.UserInfo.user_id,
                 promotion_id = PromotionId,
                 feedback_type1 = checkBox1.IsChecked ? PosterFeedbackType.GREAT_VALUE.GetValue() : PosterFeedbackType.NONE.GetValue(),
                 feedback_type2 = checkBox2.IsChecked ? PosterFeedbackType.DELICIOUS_FOOD.GetValue() : PosterFeedbackType.NONE.GetValue(),
@@ -132,8 +138,8 @@ public partial class ReviewProductPage : BasePage
                 rating = selectedRating,
             };
 
-            var apiService = AppService.Get<UserApiService>();
-            Response response = await apiService.RegisterPosterFeedBack(request);
+            //var apiService = AppService.Get<UserApiService>();
+            Response response = await userApiService.RegisterPosterFeedBack(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.Rating, AppResource.ThankYou);

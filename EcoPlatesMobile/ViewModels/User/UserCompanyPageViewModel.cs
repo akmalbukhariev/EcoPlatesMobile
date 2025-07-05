@@ -34,8 +34,14 @@ namespace EcoPlatesMobile.ViewModels.User
         public double Latitude;
         public double Longitude;
 
-        public UserCompanyPageViewModel()
+        private UserApiService userApiService;
+        private AppControl appControl;
+
+        public UserCompanyPageViewModel(UserApiService userApiService, AppControl appControl)
         {
+            this.userApiService = userApiService;
+            this.appControl = appControl;
+
             Products = new ObservableRangeCollection<ProductModel>();
 
             CompanyImage = "no_image.png";
@@ -60,13 +66,13 @@ namespace EcoPlatesMobile.ViewModels.User
 
             SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
             {
-                user_id = AppService.Get<AppControl>().UserInfo.user_id,
+                user_id = appControl.UserInfo.user_id,
                 company_id = CompanyId,
                 deleted = likedCompany ? false : true,
             };
 
-            var apiService = AppService.Get<UserApiService>();
-            Response response = await apiService.UpdateUserBookmarkCompanyStatus(request);
+            //var apiService = AppService.Get<UserApiService>();
+            Response response = await userApiService.UpdateUserBookmarkCompanyStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
@@ -84,8 +90,8 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var apiService = AppService.Get<UserApiService>();
-                CompanyWithPosterListResponse response = await apiService.GetCompanyWithPosters(CompanyId);
+                //var apiService = AppService.Get<UserApiService>();
+                CompanyWithPosterListResponse response = await userApiService.GetCompanyWithPosters(CompanyId);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
@@ -97,7 +103,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     CompanyName = response.resultData.company_name;
                     PhoneNumber = response.resultData.phone_number;
                     WorkingTime = response.resultData.working_hours;
-                    CompanyType = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(item => item.Value == response.resultData.business_type).Key;
+                    CompanyType = appControl.BusinessTypeList.FirstOrDefault(item => item.Value == response.resultData.business_type).Key;
                      
                     var items = response.resultData;
 

@@ -28,17 +28,25 @@ public partial class CompanyRegistrationPage : BasePage
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
 
-    public CompanyRegistrationPage()
+    private CompanyApiService companyApiService;
+    private AppControl appControl;
+    private LocationService locationService;
+
+    public CompanyRegistrationPage(CompanyApiService companyApiService, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
 
         CompanyTypeList = new ObservableCollection<CompanyTypeModel>(
-            AppService.Get<AppControl>().BusinessTypeList.Select(kvp => new CompanyTypeModel
+            appControl.BusinessTypeList.Select(kvp => new CompanyTypeModel
             {
                 Type = kvp.Key,
                 Type_value = kvp.Value
             })
         );
+
+        this.appControl = appControl;
+        this.companyApiService = companyApiService;
+        this.locationService = locationService;
 
         BindingContext = this;
 
@@ -148,7 +156,7 @@ public partial class CompanyRegistrationPage : BasePage
                 return;
             }
 
-            Location location = await AppService.Get<LocationService>().GetCurrentLocationAsync();
+            Location location = await locationService.GetCurrentLocationAsync();
 
             var additionalData = new Dictionary<string, string>
             {
@@ -161,13 +169,13 @@ public partial class CompanyRegistrationPage : BasePage
             };
 
             loading.ShowLoading = true;
-            var apiService = AppService.Get<CompanyApiService>();
+            //var apiService = AppService.Get<CompanyApiService>();
 
-            Response response = await apiService.RegisterCompany(imageStream, additionalData);
+            Response response = await companyApiService.RegisterCompany(imageStream, additionalData);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageRegistrationSuccess);
-                await AppService.Get<AppControl>().LoginCompany(_phoneNumber);
+                await appControl.LoginCompany(_phoneNumber);
             }
             else
             {

@@ -24,7 +24,7 @@ namespace EcoPlatesMobile.ViewModels.User
     //https://github.com/dotnet-architecture/eshop-mobile-client/blob/main/eShopOnContainers/Services/Navigation/MauiNavigationService.cs
     //https://github.com/dotnet/maui
 
-    public partial class UserMainPageViewModel : ObservableObject, IViewModel
+    public partial class UserMainPageViewModel : ObservableObject//, IViewModel
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ProductModel selectedProduct;
@@ -38,8 +38,14 @@ namespace EcoPlatesMobile.ViewModels.User
         private const int PageSize = 4;
         private bool hasMoreItems = true;
        
-        public UserMainPageViewModel()
+        private UserApiService userApiService;
+        private AppControl appControl;
+
+        public UserMainPageViewModel(UserApiService userApiService, AppControl appControl)
         {
+            this.userApiService = userApiService;
+            this.appControl = appControl;
+
             Products = new ObservableRangeCollection<ProductModel>();
 
             LikeProductCommand = new Command<ProductModel>(ProductLiked);
@@ -51,13 +57,13 @@ namespace EcoPlatesMobile.ViewModels.User
             product.Liked = !product.Liked;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
             {
-                user_id = AppService.Get<AppControl>().UserInfo.user_id,
+                user_id = appControl.UserInfo.user_id,
                 promotion_id = product.PromotionId,
                 deleted = product.Liked ? false : true,
             };
 
-            var apiService = AppService.Get<UserApiService>();
-            Response response = await apiService.UpdateUserBookmarkPromotionStatus(request);
+            //var apiService = AppService.Get<UserApiService>();
+            Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
             
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
@@ -84,20 +90,20 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                var userInfo = AppService.Get<AppControl>().UserInfo;
+                //var userInfo = appControl.UserInfo;
                 
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
-                    radius_km = userInfo.radius_km,
-                    user_lat = userInfo.location_latitude,//37.518313,
-                    user_lon = userInfo.location_longitude//126.724187
+                    radius_km = appControl.UserInfo.radius_km,
+                    user_lat = appControl.UserInfo.location_latitude,//37.518313,
+                    user_lon = appControl.UserInfo.location_longitude//126.724187
                 };
 
-                var apiService = AppService.Get<UserApiService>();
-                PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
+                //var apiService = AppService.Get<UserApiService>();
+                PosterListResponse response = await userApiService.GetPostersByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -165,21 +171,20 @@ namespace EcoPlatesMobile.ViewModels.User
                     IsLoading = true;
                 }
 
-                var apiService = AppService.Get<UserApiService>();
-
-                var userInfo = AppService.Get<AppControl>().UserInfo;
+                //var apiService = AppService.Get<UserApiService>();
+                //var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
-                    radius_km = userInfo.radius_km,
-                    user_lat = userInfo.location_latitude,//37.518313,
-                    user_lon = userInfo.location_longitude//126.724187
+                    radius_km = appControl.UserInfo.radius_km,
+                    user_lat = appControl.UserInfo.location_latitude,//37.518313,
+                    user_lon = appControl.UserInfo.location_longitude//126.724187
                 };
 
-                PosterListResponse response = await apiService.GetPostersByCurrentLocation(request);
+                PosterListResponse response = await userApiService.GetPostersByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {

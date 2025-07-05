@@ -13,15 +13,22 @@ namespace EcoPlatesMobile.Views;
 
 public partial class PhoneNumberRegisterPage : BasePage
 {
-    public PhoneNumberRegisterPage()
+    private UserSessionService userSessionService;
+    private CompanyApiService companyApiService;
+    private UserApiService userApiService;
+
+    public PhoneNumberRegisterPage(UserSessionService userSessionService, CompanyApiService companyApiService, UserApiService userApiService)
     {
         InitializeComponent();
 
-        var session = AppService.Get<UserSessionService>();
-        if (session.Role == UserRole.User)
+        if (userSessionService.Role == UserRole.User)
         {
             header.HeaderBackground = btnNext.BackgroundColor = Colors.Green;
         }
+
+        this.userSessionService = userSessionService;
+        this.companyApiService = companyApiService;
+        this.userApiService = userApiService;
     }
 
     private void OnOfferTapped(object sender, EventArgs e)
@@ -31,10 +38,7 @@ public partial class PhoneNumberRegisterPage : BasePage
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
-    {
-        var session = AppService.Get<UserSessionService>();
-        if (session == null) return;
-
+    { 
         string rawPhone = entryNumber.GetEntryText();
         if (string.IsNullOrWhiteSpace(rawPhone))
         {
@@ -42,7 +46,7 @@ public partial class PhoneNumberRegisterPage : BasePage
             return;
         }
 
-        if (session.Role == UserRole.User)
+        if (userSessionService.Role == UserRole.User)
         {
             loading.ChangeColor(Colors.Green);
         }
@@ -59,34 +63,32 @@ public partial class PhoneNumberRegisterPage : BasePage
             Response response = null;
             bool isRegistered = false;
 
-            if (session.Role == UserRole.Company)
+            if (userSessionService.Role == UserRole.Company)
             {
-                var apiService = AppService.Get<CompanyApiService>();
-                response = await apiService.CheckUser(phoneNumber);
+                response = await companyApiService.CheckUser(phoneNumber);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
-                    session.IsCompanyRegistrated = true;
+                    userSessionService.IsCompanyRegistrated = true;
                     isRegistered = true;
                 }
                 else if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString())
                 {
-                    session.IsCompanyRegistrated = false;
+                    userSessionService.IsCompanyRegistrated = false;
                 }
             }
-            else if (session.Role == UserRole.User)
+            else if (userSessionService.Role == UserRole.User)
             {
-                var apiService = AppService.Get<UserApiService>();
-                response = await apiService.CheckUser(phoneNumber);
+                response = await userApiService.CheckUser(phoneNumber);
 
                 if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
                 {
-                    session.IsUserRegistrated = true;
+                    userSessionService.IsUserRegistrated = true;
                     isRegistered = true;
                 }
                 else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
                 {
-                    session.IsUserRegistrated = false;
+                    userSessionService.IsUserRegistrated = false;
                 }
             }
             

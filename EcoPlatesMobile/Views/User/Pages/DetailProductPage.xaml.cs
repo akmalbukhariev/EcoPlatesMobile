@@ -9,15 +9,21 @@ using Microsoft.Maui.Controls;
 public partial class DetailProductPage : BasePage
 {
     private DetailProductPageViewModel viewModel;
-    public DetailProductPage()
+    private AppControl appControl;
+    public DetailProductPage(DetailProductPageViewModel vm, AppControl appControl)
 	{
 		InitializeComponent();
-        viewModel = ResolveViewModel<DetailProductPageViewModel>();
+
+        this.viewModel = vm;
+        this.appControl = appControl;
+        //viewModel = ResolveViewModel<DetailProductPageViewModel>();
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         reviewView.EventReviewClick += ReviewView_EventReviewClick;
 
         reviewView.EventCloseClick += ReviewView_EventCloseClick;
+
+        BindingContext = viewModel;
     }
 
     private void ReviewView_EventCloseClick()
@@ -39,7 +45,7 @@ public partial class DetailProductPage : BasePage
             await AnimateElementScaleDown(element);
         }
 
-        await Shell.Current.GoToAsync("..");
+        await AppNavigatorService.NavigateTo("..");
     }
 
     private async void Home_Tapped(object sender, TappedEventArgs e)
@@ -49,7 +55,7 @@ public partial class DetailProductPage : BasePage
             await AnimateElementScaleDown(element);
         }
 
-        await AppService.Get<AppControl>().MoveUserHome();
+        await appControl.MoveUserHome();
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
@@ -75,7 +81,7 @@ public partial class DetailProductPage : BasePage
         await gridCompany.ScaleTo(0.95, 100, Easing.CubicOut);
         await gridCompany.ScaleTo(1.0, 100, Easing.CubicIn);
 
-        await Shell.Current.GoToAsync($"{nameof(UserCompanyPage)}?CompanyId={viewModel.CompanyId}");
+        await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={viewModel.CompanyId}");
     }
 
     private async void BackButton_Clicked(object sender, EventArgs e)
