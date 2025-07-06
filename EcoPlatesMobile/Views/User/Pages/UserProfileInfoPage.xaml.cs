@@ -26,8 +26,7 @@ public partial class UserProfileInfoPage : BasePage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-
-        //UserInfo info = appControl.UserInfo;
+        
         imUser.Source = appControl.UserInfo.profile_picture_url;
         fullImage.Source = appControl.UserInfo.profile_picture_url;
         entryUserName.Text = appControl.UserInfo.first_name;
@@ -126,8 +125,7 @@ public partial class UserProfileInfoPage : BasePage
                     imageStream = null;
                 }
 
-                loading.ShowLoading = true;
-                //var apiService = AppService.Get<UserApiService>();
+                loading.ShowLoading = true; 
                 Response response = await userApiService.UpdateUserProfileInfo(imageStream, additionalData);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())

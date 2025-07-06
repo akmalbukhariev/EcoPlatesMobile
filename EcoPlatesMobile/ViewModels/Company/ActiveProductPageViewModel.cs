@@ -13,7 +13,7 @@ using EcoPlatesMobile.Views.Company.Pages;
 
 namespace EcoPlatesMobile.ViewModels.Company
 { 
-    public partial class ActiveProductPageViewModel : ObservableObject//, IViewModel
+    public partial class ActiveProductPageViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ProductModel selectedProduct;
@@ -59,9 +59,7 @@ namespace EcoPlatesMobile.ViewModels.Company
             try
             {
                 IsLoading = true;
-
-                //var apiService = AppService.Get<CompanyApiService>();
-
+ 
                 PaginationWithDeletedParam request = new PaginationWithDeletedParam
                 {
                     deleted = false,
@@ -144,9 +142,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                 {
                     IsLoading = true;
                 }
-
-                //var apiService = AppService.Get<CompanyApiService>();
-
+ 
                 PaginationWithDeletedParam request = new PaginationWithDeletedParam
                 {
                     deleted = false,

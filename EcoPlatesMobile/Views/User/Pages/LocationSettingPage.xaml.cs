@@ -118,14 +118,11 @@ public partial class LocationSettingPage : BasePage
                 { "radius_km", ((int)selectedDistance).ToString() }
             };
 
-            loading.ShowLoading = true;
-            //var apiService = AppService.Get<UserApiService>();
+            loading.ShowLoading = true; 
             Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                //var appControl = AppService.Get<AppControl>();
-
+            { 
                 appControl.UserInfo.location_latitude = center.Latitude;
                 appControl.UserInfo.location_longitude = center.Longitude;
                 appControl.UserInfo.radius_km = selectedDistance;
@@ -134,8 +131,7 @@ public partial class LocationSettingPage : BasePage
                 appControl.RefreshBrowserPage = true;
                 appControl.RefreshFavoriteProduct = true;
                 appControl.RefreshFavoriteCompany = true;
-
-                //await AlertService.ShowAlertAsync("Update location", "Success.");
+ 
                 await AppNavigatorService.NavigateTo("..", true);
             }
             else

@@ -116,9 +116,7 @@ public partial class UserProfilePage : BasePage
     private async Task LoadData()
     {
         loading.ShowLoading = true;
-
-        //var apiService = AppService.Get<UserApiService>();
-
+        
         response = await userApiService.GetUserInfo();
         if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
         {

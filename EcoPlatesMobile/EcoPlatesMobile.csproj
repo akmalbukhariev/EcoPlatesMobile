@@ -89,15 +89,16 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PINView.MAUI" Version="1.0.3" />
 		<PackageReference Include="RestSharp" Version="112.0.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.2" />
 		<PackageReference Include="SkiaSharp.Extended" Version="2.0.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
 		<PackageReference Include="Svg.Skia" Version="2.0.0.4" />
 	</ItemGroup>
-
+  
 	<ItemGroup>
 	  <Compile Update="AppUserShell.xaml.cs">
 	    <DependentUpon>AppUserShell.xaml</DependentUpon>
-	  </Compile>
+	  </Compile> 
 	  <Compile Update="Resources\Languages\AppResource.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>

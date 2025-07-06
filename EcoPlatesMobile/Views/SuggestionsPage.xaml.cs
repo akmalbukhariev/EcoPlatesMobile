@@ -45,7 +45,7 @@ public partial class SuggestionsPage : BasePage
     {
         base.OnAppearing();
 
-        if (userSessionService.Role == UserRole.User)//_isUser)
+        if (userSessionService.Role == UserRole.User)
         {
             header.HeaderBackground = btnSubmit.BackgroundColor = Colors.Green;
             imFeedBack.Source = "user_feedback_icon.png";
@@ -70,7 +70,7 @@ public partial class SuggestionsPage : BasePage
         try
         {
             loading.ShowLoading = true;
-            if (userSessionService.Role == UserRole.User)//_isUser)
+            if (userSessionService.Role == UserRole.User)
             {
                 UserFeedbackInfoRequest request = new UserFeedbackInfoRequest()
                 {
@@ -78,8 +78,7 @@ public partial class SuggestionsPage : BasePage
                     feedback_text = messageEditor.Text,
                     feedback_type = SelectedType.ToUpper(),
                 };
-
-                //var apiService = AppService.Get<UserApiService>();
+ 
                 Response response = await userApiService.RegisterUserFeedBack(request);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -100,8 +99,7 @@ public partial class SuggestionsPage : BasePage
                     feedback_text = messageEditor.Text,
                     feedback_type = SelectedType.ToUpper(),
                 };
-
-                //var apiService = AppService.Get<CompanyApiService>();
+ 
                 Response response = await companyApiService.RegisterCompanyFeedBack(request);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())

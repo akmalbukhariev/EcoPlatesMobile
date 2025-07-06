@@ -185,7 +185,7 @@ public partial class CompanyProfileInfoPage : BasePage
                 }
 
                 loading.ShowLoading = true;
-                //var apiService = AppService.Get<CompanyApiService>();
+                 
                 Response response = await companyApiService.UpdateCompanyProfileInfo(imageStream, additionalData);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())

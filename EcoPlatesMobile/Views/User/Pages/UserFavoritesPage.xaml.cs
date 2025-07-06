@@ -15,9 +15,7 @@ public partial class UserFavoritesPage : BasePage
 
         this.viewModel = vm;
         this.appControl = appControl;
-
-        //viewModel = ResolveViewModel<UserFavoritesViewModel>();
-
+  
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
 
         BindingContext = viewModel;
@@ -27,8 +25,7 @@ public partial class UserFavoritesPage : BasePage
     {
         base.OnAppearing();
 
-        Shell.SetTabBarIsVisible(this, true);
-        //AppControl control = AppService.Get<AppControl>();
+        Shell.SetTabBarIsVisible(this, true); 
 
         if (appControl.RefreshFavoriteProduct)
         {

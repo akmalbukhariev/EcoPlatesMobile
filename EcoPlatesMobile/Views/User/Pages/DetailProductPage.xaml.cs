@@ -15,8 +15,7 @@ public partial class DetailProductPage : BasePage
 		InitializeComponent();
 
         this.viewModel = vm;
-        this.appControl = appControl;
-        //viewModel = ResolveViewModel<DetailProductPageViewModel>();
+        this.appControl = appControl; 
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         reviewView.EventReviewClick += ReviewView_EventReviewClick;

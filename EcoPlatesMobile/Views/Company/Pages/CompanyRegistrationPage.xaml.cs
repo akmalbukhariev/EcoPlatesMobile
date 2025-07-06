@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using CommunityToolkit.Maui.Views;
 using EcoPlatesMobile.Helper;
 using EcoPlatesMobile.Models.Requests;
@@ -44,16 +45,18 @@ public partial class CompanyRegistrationPage : BasePage
             })
         );
 
+        pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
+
         this.appControl = appControl;
         this.companyApiService = companyApiService;
         this.locationService = locationService;
 
-        BindingContext = this;
-
         startTimePicker.Time = new TimeSpan(9, 0, 0);
-        endTimePicker.Time = new TimeSpan(6, 0, 0);
+        endTimePicker.Time = new TimeSpan(18, 0, 0);
 
         loading.ChangeColor(Color.FromArgb("#8338EC"));
+        
+        BindingContext = this;
     }
 
     protected override void OnAppearing()
@@ -62,6 +65,14 @@ public partial class CompanyRegistrationPage : BasePage
 
         if (!string.IsNullOrEmpty(_phoneNumber))
             entryPhone.SetEntryText(_phoneNumber.Replace("998", ""));
+
+        if (appControl.LocationForRegister != null)
+        {
+            string lat = appControl.LocationForRegister.Latitude.ToString("F4", CultureInfo.InvariantCulture);
+            string lon = appControl.LocationForRegister.Longitude.ToString("F4", CultureInfo.InvariantCulture);
+
+            lbLocation.Text = $"{AppResource.Location} {lat}, {lon}";
+        }
     }
 
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)
@@ -134,7 +145,7 @@ public partial class CompanyRegistrationPage : BasePage
         try
         {
             string companyName = entryCompanyName.GetEntryText();
-            string selectedType = selectedCompanyType == null ? null : selectedCompanyType.Type_value;
+            string selectedType = pickType.SelectedItem as string;
             string phoneNumber = _phoneNumber;
             string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
 
@@ -156,20 +167,28 @@ public partial class CompanyRegistrationPage : BasePage
                 return;
             }
 
-            Location location = await locationService.GetCurrentLocationAsync();
+            //Location location = await locationService.GetCurrentLocationAsync();
+            //if (location == null) return;
+
+            if (appControl.LocationForRegister == null)
+            {
+                await AlertService.ShowAlertAsync(AppResource.Failed, "Location can not be emty.");
+                return;
+            }
 
             var additionalData = new Dictionary<string, string>
             {
                 { "company_name", companyName },
-                { "business_type", selectedType },
+                { "business_type", appControl.BusinessTypeList[selectedType] },
                 { "phone_number", phoneNumber},
-                { "location_latitude",  location.Latitude.ToString()},
-                { "location_longitude", location.Longitude.ToString()},
+                //{ "location_latitude",  location.Latitude.ToString()},
+                //{ "location_longitude", location.Longitude.ToString()},
+                { "location_latitude", appControl.LocationForRegister.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
+				{ "location_longitude", appControl.LocationForRegister.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
                 { "working_hours", formattedWorkingHours},
             };
 
-            loading.ShowLoading = true;
-            //var apiService = AppService.Get<CompanyApiService>();
+            loading.ShowLoading = true; 
 
             Response response = await companyApiService.RegisterCompany(imageStream, additionalData);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -190,5 +209,20 @@ public partial class CompanyRegistrationPage : BasePage
         {
             loading.ShowLoading = false;
         }
+    }
+
+    private void BusinessType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string selectedDisplay = pickType.SelectedItem as string;
+        if (selectedDisplay != null && appControl.BusinessTypeList.TryGetValue(selectedDisplay, out var backendValue))
+        {
+             
+        }
+    }
+
+    private async void Location_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(sender as Border);
+        await AppNavigatorService.NavigateTo(nameof(LocationRegistrationPage));
     }
 }

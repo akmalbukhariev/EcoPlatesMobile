@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserFavoritesViewModel : ObservableObject//,IViewModel
+    public partial class UserFavoritesViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ObservableRangeCollection<CompanyModel> companies;
@@ -66,8 +66,6 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
-
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
                     user_lat = appControl.UserInfo.location_latitude,//37.518313,
@@ -76,7 +74,6 @@ namespace EcoPlatesMobile.ViewModels.User
                     pageSize = PageSize
                 };
 
-                //var apiService = AppService.Get<UserApiService>();
                 BookmarkPromotionListResponse response = await userApiService.GetUserBookmarkPromotion(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
@@ -135,18 +132,15 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
-
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
-
+ 
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
-                    user_lat = appControl.UserInfo.location_latitude,//37.518313,
-                    user_lon = appControl.UserInfo.location_longitude,//126.724187,
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude,
                     offset = offsetCompany,
                     pageSize = PageSize
                 };
 
-                //var apiService = AppService.Get<UserApiService>();
                 BookmarkCompanyListResponse response = await userApiService.GetUserBookmarkCompany(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
@@ -206,7 +200,6 @@ namespace EcoPlatesMobile.ViewModels.User
                     deleted = true,
                 };
 
-                //var apiService = AppService.Get<UserApiService>();
                 Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -236,7 +229,6 @@ namespace EcoPlatesMobile.ViewModels.User
                     deleted = true,
                 };
 
-                //var apiService = AppService.Get<UserApiService>();
                 Response response = await userApiService.UpdateUserBookmarkCompanyStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -270,19 +262,16 @@ namespace EcoPlatesMobile.ViewModels.User
                 else
                 {
                     IsLoading = true;
-                }
-
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
+                } 
 
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
-                     user_lat = appControl.UserInfo.location_latitude,//37.518313,
-                     user_lon = appControl.UserInfo.location_longitude,//126.724187,
+                     user_lat = appControl.UserInfo.location_latitude,
+                     user_lon = appControl.UserInfo.location_longitude,
                      offset = offsetProduct,
                      pageSize = PageSize
                 };
 
-                //var apiService = AppService.Get<UserApiService>();
                 BookmarkPromotionListResponse response = await userApiService.GetUserBookmarkPromotion(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
@@ -352,18 +341,15 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     IsLoading = true;
                 }
-   
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
 
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
-                    user_lat = appControl.UserInfo.location_latitude,//37.518313,
-                    user_lon = appControl.UserInfo.location_longitude,//126.724187,
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude,
                     offset = offsetCompany,
                     pageSize = PageSize
                 };
-
-                //var apiService = AppService.Get<UserApiService>();
+                
                 BookmarkCompanyListResponse response = await userApiService.GetUserBookmarkCompany(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())

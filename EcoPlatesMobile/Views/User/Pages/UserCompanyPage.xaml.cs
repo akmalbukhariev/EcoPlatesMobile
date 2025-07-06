@@ -10,13 +10,15 @@ public partial class UserCompanyPage : BasePage
     private AppControl appControl;
 
     public UserCompanyPage(UserCompanyPageViewModel vm, AppControl appControl)
-	{
-		InitializeComponent();
-        //viewModel = ResolveViewModel<UserCompanyPageViewModel>();
+    {
+        InitializeComponent();
+
         this.viewModel = vm;
         this.appControl = appControl;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
+
+        BindingContext = viewModel;
     }
 
     protected override async void OnAppearing()
@@ -43,7 +45,7 @@ public partial class UserCompanyPage : BasePage
             await AnimateElementScaleDown(element);
         }
 
-        await AppService.Get<AppControl>().MoveUserHome();
+        await appControl.MoveUserHome();
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
@@ -86,9 +88,7 @@ public partial class UserCompanyPage : BasePage
         if (sender is VisualElement element)
         {
             await AnimateElementScaleDown(element);
-
-            //AppControl control = AppService.Get<AppControl>();
-
+ 
             var userLocation = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
             var companyLocation = new Location(viewModel.Latitude, viewModel.Longitude);
 

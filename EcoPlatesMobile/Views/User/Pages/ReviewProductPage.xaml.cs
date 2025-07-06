@@ -137,8 +137,7 @@ public partial class ReviewProductPage : BasePage
                 feedback_type3 = checkBox3.IsChecked ? PosterFeedbackType.GREAT_VALUE.GetValue() : PosterFeedbackType.NONE.GetValue(),
                 rating = selectedRating,
             };
-
-            //var apiService = AppService.Get<UserApiService>();
+            
             Response response = await userApiService.RegisterPosterFeedBack(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {

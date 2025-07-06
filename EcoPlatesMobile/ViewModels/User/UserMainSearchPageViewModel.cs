@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserMainSearchPageViewModel : ObservableObject//, IViewModel
+    public partial class UserMainSearchPageViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ObservableRangeCollection<HistoryDataInfo> historyList;
@@ -29,7 +29,6 @@ namespace EcoPlatesMobile.ViewModels.User
         private const string HistoryKey = "SearchHistoryProduct";
 
         private int offsetProduct = 0;
-        private int offsetCompany = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
         private List<HistoryDataInfo> AllHistoryItems = new();
@@ -95,8 +94,6 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = true;
 
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
-
                 PosterLocationAndNameRequest request = new PosterLocationAndNameRequest()
                 {
                     offset = offsetProduct,
@@ -106,8 +103,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     radius_km = appControl.UserInfo.radius_km,
                     title = SearchText
                 };
-
-                //var apiService = AppService.Get<UserApiService>();
+ 
                 PosterListResponse response = await userApiService.GetPostersByCurrentLocationAndName(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())

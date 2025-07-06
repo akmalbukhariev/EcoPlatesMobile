@@ -17,9 +17,7 @@ public partial class UserMainPage : BasePage
 		InitializeComponent();
         this.viewModel = vm;
         this.appControl = appControl;
-
-        //viewModel = ResolveViewModel<UserMainPageViewModel>();
-         
+        
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         companyTypeList.EventTypeClick += CompanyTypeList_EventTypeClick;
 

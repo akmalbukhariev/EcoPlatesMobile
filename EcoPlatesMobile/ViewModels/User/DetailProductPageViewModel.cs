@@ -12,7 +12,7 @@ using EcoPlatesMobile.Utilities;
 namespace EcoPlatesMobile.ViewModels.User
 {
     [QueryProperty(nameof(ProductModel), nameof(ProductModel))]
-    public partial class DetailProductPageViewModel : ObservableObject//, IViewModel
+    public partial class DetailProductPageViewModel : ObservableObject
     {
         [ObservableProperty] ProductModel productModel;
         [ObservableProperty] private ImageSource productImage;
@@ -53,9 +53,7 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
-
-                //var apiService = AppService.Get<UserApiService>();
-
+ 
                 PosterGetFeedbackRequest request = new PosterGetFeedbackRequest()
                 {
                     promotion_id = (int)ProductModel.PromotionId,
@@ -116,8 +114,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 promotion_id = ProductModel.PromotionId,
                 deleted = ProductModel.Liked ? false : true,
             };
-
-            //var apiService = AppService.Get<UserApiService>();
+            
             Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())

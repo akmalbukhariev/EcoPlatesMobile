@@ -546,7 +546,7 @@
   <comment>CompanyRegistrationPage</comment>
 </data>
 	<data name="SettingCurrentLocation" xml:space="preserve">
-  <value>Joriy joylashuvni o‘rnatish</value>
+  <value>Hozirgi joylashuvim</value>
   <comment>LocationPage</comment>
 </data>
 	<data name="MessageUpdateLocation" xml:space="preserve">
@@ -773,4 +773,17 @@
   <value>Profil</value>
   <comment>AppUserShell</comment>
 </data>
+<data name="LocationPermissionRequired" xml:space="preserve">
+    <value>Joylashuv ruxsati talab qilinadi</value>
+    <comment>LocationService</comment>
+</data>
+<data name="MessageLocationPermission" xml:space="preserve">
+    <value>Iltimos, qurilmangiz sozlamalaridan joylashuvga ruxsat bering, chunki joylashuv ma'lumotlari ilova uchun muhimdir.</value>
+    <comment>LocationService</comment>
+</data>
+<data name="OpenSettings" xml:space="preserve">
+    <value>Sozlamalarni ochish</value>
+    <comment>LocationService</comment>
+</data>
+
 </root>

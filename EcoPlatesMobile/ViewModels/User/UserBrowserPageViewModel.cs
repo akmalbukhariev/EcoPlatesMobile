@@ -16,7 +16,7 @@ using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserBrowserPageViewModel : ObservableObject, IViewModel
+    public partial class UserBrowserPageViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<CompanyModel> companies;
         [ObservableProperty] private bool isLoading;
@@ -51,8 +51,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 company_id = product.CompanyId,
                 deleted = product.Liked ? false : true,
             };
-
-            //var apiService = AppService.Get<UserApiService>();
+ 
             Response response = await userApiService.UpdateUserBookmarkCompanyStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -75,9 +74,7 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
-
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
-
+ 
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
                     radius_km = appControl.UserInfo.radius_km,
@@ -86,8 +83,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     offset = offset,
                     pageSize = PageSize,
                 };
-
-                //var apiService = AppService.Get<UserApiService>();
+ 
                 CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
@@ -154,8 +150,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     IsLoading = true;
                 }
-                   
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
+                     
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
                     radius_km = appControl.UserInfo.radius_km,
@@ -164,8 +159,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     offset = offset,
                     pageSize = PageSize,
                 };
-
-                //var apiService = AppService.Get<UserApiService>();
+ 
                 CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())

@@ -44,8 +44,7 @@ public partial class InActiveProductPage : BasePage
         this.appControl = appControl;
         this.companyApiService = companyApiService;
 
-        BindingContext = viewModel;
-        //viewModel = ResolveViewModel<InActiveProductPageViewModel>();
+        BindingContext = viewModel; 
 	}
 
     protected override async void OnAppearing()
@@ -74,8 +73,7 @@ public partial class InActiveProductPage : BasePage
             product.CompanyId = (long)appControl.CompanyInfo.company_id;
             try
             {
-                viewModel.IsLoading = true;
-                //var apiService = AppService.Get<CompanyApiService>();
+                viewModel.IsLoading = true; 
                 Response response = await companyApiService.DeletePoster(product.PromotionId);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -122,8 +120,7 @@ public partial class InActiveProductPage : BasePage
                     poster_id = product.PromotionId,
                     deleted = false
                 };
-
-                //var apiService = AppService.Get<CompanyApiService>();
+ 
                 Response response = await companyApiService.ChangePosterDeletionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {

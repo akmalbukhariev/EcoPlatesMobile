@@ -546,7 +546,7 @@
   <comment>CompanyRegistrationPage</comment>
 </data>
 	<data name="SettingCurrentLocation" xml:space="preserve">
-  <value>Установка текущего местоположения</value>
+  <value>Местоположение</value>
   <comment>LocationPage</comment>
 </data>
   <data name="MessageUpdateLocation" xml:space="preserve">
@@ -772,6 +772,18 @@
 <data name="Profile" xml:space="preserve">
   <value>Профиль</value>
   <comment>AppUserShell</comment>
+</data>
+<data name="LocationPermissionRequired" xml:space="preserve">
+    <value>Требуется разрешение на доступ к геолокации</value>
+    <comment>LocationService</comment>
+</data>
+<data name="MessageLocationPermission" xml:space="preserve">
+    <value>Пожалуйста, включите доступ к геолокации в настройках устройства, так как ваше местоположение важно для приложения.</value>
+    <comment>LocationService</comment>
+</data>
+<data name="OpenSettings" xml:space="preserve">
+    <value>Открыть настройки</value>
+    <comment>LocationService</comment>
 </data>
 
 </root>

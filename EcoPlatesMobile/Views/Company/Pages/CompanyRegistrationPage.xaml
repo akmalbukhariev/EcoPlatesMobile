@@ -7,7 +7,8 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views">
 
     <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader Title="{x:Static language:AppResource.CompanyRegistration}"/>
+        <component:CustomHeader Title="{x:Static language:AppResource.CompanyRegistration}"
+                                HeaderBackground="#8338EC"/>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *">
                 <Image x:Name="imSelectedProduct"
@@ -70,6 +71,7 @@
 
                         <component:CustomEntry x:Name="entryCompanyName"
                                                EntryIcon="company.png"
+                                               EntryPlaceHolderColor="Gray"
                                                EntryPlaceHolder="{x:Static language:AppResource.CompanyName}"
                                                Style="{StaticResource styleEntry}"
                                                Grid.Row="1"/>
@@ -83,10 +85,8 @@
                                 <RoundRectangle CornerRadius="35"/>
                             </Border.StrokeShape>
                             <Grid ColumnDefinitions="Auto, *, Auto"
+                                HeightRequest="100"
                                   VerticalOptions="Center">
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="CompanyTypeTapped"/>
-                                </Grid.GestureRecognizers>
                                 <Image Source="company_type.png"
                                        WidthRequest="25"
                                        HeightRequest="25"
@@ -97,7 +97,14 @@
                                        FontSize="14"
                                        TextColor="#666666"
                                        VerticalTextAlignment="Center"
+                                       IsVisible="Collapse"
                                        Grid.Column="1"/>
+                                <Picker x:Name ="pickType"
+                                        Title="{x:Static language:AppResource.CompanyType}"
+                                        FontSize="15"
+                                        SelectedIndexChanged="BusinessType_SelectedIndexChanged"
+                                        VerticalOptions="Center"
+                                        Grid.Column="1"/>
                                 <Image Source="down.png"
                                        WidthRequest="16"
                                        HeightRequest="16"
@@ -125,6 +132,10 @@
                         <Border Style="{StaticResource styleBorder}"
                                 HeightRequest="170"
                                 Grid.Row="5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Tapped="Location_Tapped"/>
+                            </Border.GestureRecognizers>
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
@@ -137,17 +148,21 @@
                                            HeightRequest="20"
                                            Margin="0,0,10,0"
                                            VerticalOptions="Center"/>
-                                    <Label Text="{x:Static language:AppResource.CompanyAddress}"
+                                    <Label x:Name="lbLocation" 
+                                           Text="{x:Static language:AppResource.Location}"
                                            Style="{StaticResource styleLabel}"/>
                                 </StackLayout>
                                 <Border BackgroundColor="#E9E9E9"
                                         Grid.Row="1"/>
-                                <Border BackgroundColor="#D9D9D9"
-                                        Margin="0,10,0,0"
+                                <Border Margin="0,10,0,0"
+                                        BackgroundColor="White"
                                         Grid.Row="2">
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="0, 0, 10, 10"/>
                                     </Border.StrokeShape>
+                                    <Image x:Name="imClippedMap"
+                                           Source="map_image.png"
+                                           Aspect="AspectFit"/>
                                 </Border>
                             </Grid>
                         </Border>
@@ -206,9 +221,9 @@
                     </StackLayout>
                     <Button x:Name="btnRegister"
                             Text="{x:Static language:AppResource.Registration}"
-                            BackgroundColor="#DCE0E2"
+                            BackgroundColor="#8338EC"
                             CornerRadius="30"
-                            TextColor="#525B5D"
+                            TextColor="White"
                             HeightRequest="50"
                             Margin="0,0,0,30"
                             Clicked="BtnRegister_Clicked"

@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
-    public partial class UserBrowserSearchPageViewModel : ObservableObject//, IViewModel
+    public partial class UserBrowserSearchPageViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<CompanyModel> companies;
         [ObservableProperty] private ObservableRangeCollection<HistoryDataInfo> historyList;
@@ -29,7 +29,6 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private const string HistoryKey = "SearchHistoryCompany";
 
-        //private int offsetProduct = 0;
         private int offsetCompany = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
@@ -92,8 +91,7 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
-
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
+ 
                 CompanyLocationAndNameRequest request = new CompanyLocationAndNameRequest()
                 {
                     radius_km = appControl.UserInfo.radius_km,
@@ -103,8 +101,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     pageSize = PageSize,
                     company_name = SearchText
                 };
-
-                //var apiService = AppService.Get<UserApiService>();
+ 
                 CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocationAndName(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())

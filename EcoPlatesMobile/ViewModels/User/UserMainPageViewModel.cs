@@ -6,13 +6,7 @@ using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Views.User.Pages;
@@ -24,7 +18,7 @@ namespace EcoPlatesMobile.ViewModels.User
     //https://github.com/dotnet-architecture/eshop-mobile-client/blob/main/eShopOnContainers/Services/Navigation/MauiNavigationService.cs
     //https://github.com/dotnet/maui
 
-    public partial class UserMainPageViewModel : ObservableObject//, IViewModel
+    public partial class UserMainPageViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
         [ObservableProperty] private ProductModel selectedProduct;
@@ -62,7 +56,6 @@ namespace EcoPlatesMobile.ViewModels.User
                 deleted = product.Liked ? false : true,
             };
 
-            //var apiService = AppService.Get<UserApiService>();
             Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
             
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -89,20 +82,17 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
-
-                //var userInfo = appControl.UserInfo;
-                
+ 
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = appControl.UserInfo.radius_km,
-                    user_lat = appControl.UserInfo.location_latitude,//37.518313,
-                    user_lon = appControl.UserInfo.location_longitude//126.724187
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude
                 };
 
-                //var apiService = AppService.Get<UserApiService>();
                 PosterListResponse response = await userApiService.GetPostersByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
@@ -170,18 +160,15 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     IsLoading = true;
                 }
-
-                //var apiService = AppService.Get<UserApiService>();
-                //var userInfo = AppService.Get<AppControl>().UserInfo;
-
+ 
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = appControl.UserInfo.radius_km,
-                    user_lat = appControl.UserInfo.location_latitude,//37.518313,
-                    user_lon = appControl.UserInfo.location_longitude//126.724187
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude
                 };
 
                 PosterListResponse response = await userApiService.GetPostersByCurrentLocation(request);

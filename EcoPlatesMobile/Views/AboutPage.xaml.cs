@@ -1,20 +1,9 @@
 ﻿using EcoPlatesMobile.Resources.Languages;
 
 namespace EcoPlatesMobile.Views;
-
-[QueryProperty(nameof(IsUser), nameof(IsUser))]
+ 
 public partial class AboutPage : BasePage
 {
-    private bool _isUser = false;
-    public bool IsUser
-    {
-        get => _isUser;
-        set
-        {
-            _isUser = value;
-        }
-    }
-
     private UserSessionService userSessionService;
 
     public AboutPage(UserSessionService userSessionService)

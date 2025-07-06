@@ -7,27 +7,11 @@ namespace EcoPlatesMobile.Views
     public abstract class BasePage : ContentPage
     {
         protected IViewModel viewModel;
-
-        //protected AppControl appControl;
-        //protected AppStoreService appStore;
-        //protected UserSessionService userSession;
-        //protected UserApiService apiUserService;
-        //protected CompanyApiService apiCompanyService;
-        //protected LanguageService languageService;
-        //protected LocationService locationService;
-
+ 
         protected BasePage()
         {
             Shell.SetNavBarIsVisible(this, false);
             Shell.SetTabBarIsVisible(this, false);
-
-            //appControl = AppService.Get<AppControl>();
-            //appStore = AppService.Get<AppStoreService>();
-            //userSession = AppService.Get<UserSessionService>();
-            //apiUserService = AppService.Get<UserApiService>();
-            //apiCompanyService = AppService.Get<CompanyApiService>();
-            //languageService = AppService.Get<LanguageService>();
-            //locationService = AppService.Get<LocationService>();
         }
 
         protected void SetViewModel(IViewModel viewModel)

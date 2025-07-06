@@ -9,8 +9,8 @@ public partial class UserBrowserSearchPage : BasePage
 	{
 		InitializeComponent();
 
-        //viewModel = ResolveViewModel<UserBrowserSearchPageViewModel>();
         this.viewModel = vm;
+        
         BindingContext = viewModel;
     }
 

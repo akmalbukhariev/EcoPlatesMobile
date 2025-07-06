@@ -116,9 +116,7 @@ public partial class CompanyAddProductPage : BasePage
                 await DisplayAlert(AppResource.Error, AppResource.MessageValidPrice, AppResource.Ok);
                 return;
             }
-
-            //var apiService = AppService.Get<CompanyApiService>();
-  
+            
             IsLoading.IsVisible = true;
             IsLoading.IsRunning = true;
   

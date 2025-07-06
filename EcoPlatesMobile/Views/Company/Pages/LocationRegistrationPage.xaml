@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.LocationRegistrationPage">
+
+    <Grid x:Name="grdMain" 
+          RowDefinitions="Auto, *, Auto, 40">
+        <Grid ColumnDefinitions="Auto, *, Auto"
+              BackgroundColor="#8338EC"
+              HeightRequest="60">
+            <Image x:Name="imBack" 
+                   Source="back.png"
+                   WidthRequest="24"
+                   HeightRequest="24"
+                   Margin="16, 4.44, 0, 0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Back_Tapped"
+                                          NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label x:Name="lbTitle"
+                   Text="{x:Static language:AppResource.SettingCurrentLocation}"
+                   TextColor="White"
+                   FontSize="18"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   Margin="15,0,0,0"
+                   Grid.Column="1"/>
+            <Image x:Name="imSave" 
+                   Source="save_location.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   Margin="0, 4.44, 20, 0"
+                   Grid.Column="2">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Save_Tapped"
+                                          NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+        <Grid x:Name="MapOnlyContainer"
+              Grid.Row="1"
+              Grid.RowSpan="3">
+            <maps:Map x:Name="map"
+                      MapType="Street"
+                      IsShowingUser="true" />
+        </Grid>
+        <Image Source="location.png"
+                WidthRequest="40"
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                InputTransparent="True" />
+        <component:LoadingView x:Name="loading"
+                               Grid.RowSpan="4"/>
+    </Grid>
+    
+</page:BasePage>

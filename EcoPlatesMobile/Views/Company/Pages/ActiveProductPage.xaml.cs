@@ -46,7 +46,6 @@ public partial class ActiveProductPage : BasePage
         this.appControl = appControl;
 
         this.BindingContext = viewModel;
-        //viewModel = ResolveViewModel<ActiveProductPageViewModel>();
     }
 
     protected override async void OnAppearing()
@@ -97,8 +96,7 @@ public partial class ActiveProductPage : BasePage
                     poster_id = product.PromotionId,
                     deleted = true
                 };
-
-                //var apiService = AppService.Get<CompanyApiService>();
+ 
                 Response response = await companyApiService.ChangePosterDeletionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {

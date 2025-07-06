@@ -14,7 +14,7 @@ using EcoPlatesMobile.Views.User.Pages;
 namespace EcoPlatesMobile.ViewModels.User
 {
     [QueryProperty(nameof(CompanyId), nameof(CompanyId))]
-    public partial class UserCompanyPageViewModel : ObservableObject, IViewModel
+    public partial class UserCompanyPageViewModel : ObservableObject
     {
         [ObservableProperty] int companyId;
         [ObservableProperty] ObservableRangeCollection<ProductModel> products;
@@ -70,8 +70,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 company_id = CompanyId,
                 deleted = likedCompany ? false : true,
             };
-
-            //var apiService = AppService.Get<UserApiService>();
+            
             Response response = await userApiService.UpdateUserBookmarkCompanyStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -89,8 +88,7 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
-
-                //var apiService = AppService.Get<UserApiService>();
+ 
                 CompanyWithPosterListResponse response = await userApiService.GetCompanyWithPosters(CompanyId);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())

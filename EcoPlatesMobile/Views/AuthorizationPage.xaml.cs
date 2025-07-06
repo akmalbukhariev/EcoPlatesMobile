@@ -66,6 +66,7 @@ public partial class AuthorizationPage : BasePage
 			}
 			else
 			{
+				appControl.LocationForRegister = null;
 				await AppNavigatorService.NavigateTo($"{nameof(CompanyRegistrationPage)}?PhoneNumber={_phoneNumber}");
 			}
 		}

@@ -773,4 +773,18 @@
     <value>Profile</value>
     <comment>AppUserShell</comment>
   </data>
+
+  <data name="LocationPermissionRequired" xml:space="preserve">
+    <value>Location Permission Required</value>
+    <comment>LocationService</comment>
+  </data>
+  <data name="MessageLocationPermission" xml:space="preserve">
+    <value>Please enable location access in your device settings because your location is important for the app.</value>
+    <comment>LocationService</comment>
+  </data>
+  <data name="OpenSettings" xml:space="preserve">
+    <value>Open Settings</value>
+    <comment>LocationService</comment>
+  </data>
+
 </root>

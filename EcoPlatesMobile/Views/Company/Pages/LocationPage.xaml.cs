@@ -1,7 +1,9 @@
+using System.Globalization;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
+using Microsoft.Maui.Maps;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -9,22 +11,41 @@ public partial class LocationPage : BasePage
 {
 	private AppControl appControl;
 	private CompanyApiService companyApiService;
+	private LocationService locationService;
 
-    public LocationPage(AppControl appControl, CompanyApiService companyApiService)
+    public LocationPage(AppControl appControl, CompanyApiService companyApiService, LocationService locationService)
 	{
 		InitializeComponent();
 
 		this.appControl = appControl;
 		this.companyApiService = companyApiService;
+		this.locationService = locationService;
 
 		loading.ChangeColor(Color.FromArgb("#8338EC"));
 	}
 
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+
+		await MoveToCurrentLocation();
+	}
+
+	private async Task MoveToCurrentLocation()
+	{
+		var location = await locationService.GetCurrentLocationAsync();
+		if (location != null)
+		{
+			var center = new Location(location.Latitude, location.Longitude);
+			map.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromKilometers(5)));
+		}
+	}
+
 	private async void Save_Tapped(object sender, TappedEventArgs e)
 	{
-        await AnimateElementScaleDown(sender as Image);
+		await AnimateElementScaleDown(sender as Image);
 
-        try
+		try
 		{
 			var visibleRegion = map.VisibleRegion;
 			if (visibleRegion == null)
@@ -40,12 +61,11 @@ public partial class LocationPage : BasePage
 			var additionalData = new Dictionary<string, string>
 			{
 				{ "company_id", appControl.CompanyInfo.company_id.ToString() },
-				{ "location_latitude", center.Latitude.ToString("F6") },
-				{ "location_longitude", center.Longitude.ToString("F6") }
+				{ "location_latitude", center.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
+				{ "location_longitude", center.Longitude.ToString("F6", CultureInfo.InvariantCulture) }
 			};
 
 			loading.ShowLoading = true;
-			//var apiService = AppService.Get<CompanyApiService>();
 			Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
 
 			if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -66,7 +86,7 @@ public partial class LocationPage : BasePage
 		{
 			loading.ShowLoading = false;
 		}
-    }
+	}
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {

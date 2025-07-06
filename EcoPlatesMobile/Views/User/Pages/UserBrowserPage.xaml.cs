@@ -29,7 +29,7 @@ public partial class UserBrowserPage : BasePage
     public UserBrowserPage(UserBrowserPageViewModel vm, UserApiService userApiService, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
-        //viewModel = ResolveViewModel<UserBrowserPageViewModel>();
+
         this.viewModel = vm;
         this.userApiService = userApiService;
         this.appControl = appControl;
@@ -38,6 +38,8 @@ public partial class UserBrowserPage : BasePage
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         btnLocation.EventClick += Click_Location;
+
+        BindingContext = viewModel;
 	}
 
     protected override async void OnAppearing()
@@ -67,8 +69,7 @@ public partial class UserBrowserPage : BasePage
     {
         try
         {
-            viewModel.IsLoading = true;
-            //var apiService = AppService.Get<UserApiService>();
+            viewModel.IsLoading = true; 
 
             var userInfo = appControl.UserInfo;
             CompanyLocationRequest request = new CompanyLocationRequest()

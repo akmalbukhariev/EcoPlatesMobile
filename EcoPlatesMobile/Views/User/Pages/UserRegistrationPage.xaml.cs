@@ -21,14 +21,16 @@ public partial class UserRegistrationPage : BasePage
 
     private UserApiService userApiService;
     private AppControl appControl;
+    private LocationService locationService;
 
-    public UserRegistrationPage(UserApiService userApiService, AppControl appControl)
-	{
-		InitializeComponent();
+    public UserRegistrationPage(UserApiService userApiService, AppControl appControl, LocationService locationService)
+    {
+        InitializeComponent();
 
         this.userApiService = userApiService;
         this.appControl = appControl;
-	}
+        this.locationService = locationService;
+    }
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)
     {
@@ -41,16 +43,18 @@ public partial class UserRegistrationPage : BasePage
                 return;
             }
 
+            Location location = await locationService.GetCurrentLocationAsync();
+            if (location == null) return;
+            
             RegisterUserRequest request = new RegisterUserRequest()
             {
                 first_name = name,
                 phone_number = _phoneNumber,
-                location_latitude = 37.518313,
-                location_longitude = 126.724187
+                location_latitude = location.Latitude,//37.518313,
+                location_longitude = location.Longitude//126.724187
             };
 
-            loading.ShowLoading = true;
-            //var apiService = AppService.Get<UserApiService>();
+            loading.ShowLoading = true; 
             Response response = await userApiService.RegisterUser(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {

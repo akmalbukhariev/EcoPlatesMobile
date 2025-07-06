@@ -101,7 +101,8 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<CompanyProfileInfoPage>();
             builder.Services.AddTransient<CompanyRegistrationPage>();
             builder.Services.AddTransient<LocationPage>();
-
+            builder.Services.AddTransient<LocationRegistrationPage>();
+            
             builder.Services.AddTransient<ActiveProductPageViewModel>();
             builder.Services.AddTransient<InActiveProductPageViewModel>();
             #endregion
