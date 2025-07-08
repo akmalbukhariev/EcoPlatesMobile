@@ -172,7 +172,7 @@ public partial class CompanyRegistrationPage : BasePage
 
             if (appControl.LocationForRegister == null)
             {
-                await AlertService.ShowAlertAsync(AppResource.Failed, "Location can not be emty.");
+                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageLocationEmpty);
                 return;
             }
 
@@ -181,8 +181,6 @@ public partial class CompanyRegistrationPage : BasePage
                 { "company_name", companyName },
                 { "business_type", appControl.BusinessTypeList[selectedType] },
                 { "phone_number", phoneNumber},
-                //{ "location_latitude",  location.Latitude.ToString()},
-                //{ "location_longitude", location.Longitude.ToString()},
                 { "location_latitude", appControl.LocationForRegister.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
 				{ "location_longitude", appControl.LocationForRegister.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
                 { "working_hours", formattedWorkingHours},

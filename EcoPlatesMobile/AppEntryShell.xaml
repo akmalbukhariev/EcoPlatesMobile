@@ -5,6 +5,6 @@
        xmlns:local="clr-namespace:EcoPlatesMobile.Views"
        Shell.FlyoutBehavior="Disabled">
     
-    <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />
+    <!--<ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />-->
     
 </Shell>

@@ -35,6 +35,8 @@ public partial class LanguagePage : BasePage
         }
     }
 
+    LanguageModel selectedLang = null;
+
     private LanguageService languageService;
 
     public LanguagePage(LanguageService languageService)
@@ -65,6 +67,7 @@ public partial class LanguagePage : BasePage
             {
                 SelectedFlag = lang.Flag;
                 SelectedLanguage = lang.Name;
+                selectedLang = lang;
             }
         }
     }
@@ -91,14 +94,23 @@ public partial class LanguagePage : BasePage
             foreach (var lang in Languages)
                 lang.IsSelected = false;
 
+            this.selectedLang = selectedLang;
+
             selectedLang.IsSelected = true;
             SelectedLanguage = selectedLang.Name;
             SelectedFlag = selectedLang.Flag;
-
-            languageService.SetCulture(selectedLang.Code);
-
+             
             await DropdownList.FadeTo(0, 250);
             DropdownList.IsVisible = false;
         }
     }
-} 
+
+    private async void Next_Clicked(object sender, EventArgs e)
+    {
+        var store = AppService.Get<AppStoreService>();
+        store.Set(AppKeys.IsLanguageSet, true);
+
+        languageService.SetCulture(selectedLang.Code);
+        await AppNavigatorService.NavigateTo(nameof(LoginPage));
+    }
+}

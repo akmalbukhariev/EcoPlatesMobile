@@ -30,6 +30,7 @@ namespace EcoPlatesMobile
         private void RegisterRoutes()
         {
             #region Entry pages
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(PhoneNumberRegisterPage), typeof(PhoneNumberRegisterPage));
             Routing.RegisterRoute(nameof(AuthorizationPage), typeof(AuthorizationPage));
             #endregion

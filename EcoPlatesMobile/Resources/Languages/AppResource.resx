@@ -786,5 +786,8 @@
     <value>Open Settings</value>
     <comment>LocationService</comment>
   </data>
-
+  <data name="MessageLocationEmpty" xml:space="preserve">
+    <value>Location cannot be empty.</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
 </root>

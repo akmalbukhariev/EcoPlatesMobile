@@ -4,10 +4,7 @@ using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using Microsoft.Maui.Maps;
-
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
+ 
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 

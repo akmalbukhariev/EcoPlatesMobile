@@ -754,6 +754,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location Permission Required.
+        /// </summary>
+        internal static string LocationPermissionRequired {
+            get {
+                return ResourceManager.GetString("LocationPermissionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log Out.
         /// </summary>
         internal static string LogOut {
@@ -840,6 +849,24 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string MessageLanguageChanged {
             get {
                 return ResourceManager.GetString("MessageLanguageChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location cannot be empty..
+        /// </summary>
+        internal static string MessageLocationEmpty {
+            get {
+                return ResourceManager.GetString("MessageLocationEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enable location access in your device settings because your location is important for the app..
+        /// </summary>
+        internal static string MessageLocationPermission {
+            get {
+                return ResourceManager.GetString("MessageLocationPermission", resourceCulture);
             }
         }
         
@@ -1002,6 +1029,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Settings.
+        /// </summary>
+        internal static string OpenSettings {
+            get {
+                return ResourceManager.GetString("OpenSettings", resourceCulture);
             }
         }
         

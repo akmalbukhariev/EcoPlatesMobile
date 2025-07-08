@@ -785,5 +785,8 @@
     <value>Открыть настройки</value>
     <comment>LocationService</comment>
 </data>
-
+<data name="MessageLocationEmpty" xml:space="preserve">
+    <value>Местоположение обязательно.</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
 </root>

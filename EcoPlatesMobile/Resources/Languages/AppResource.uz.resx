@@ -785,5 +785,8 @@
     <value>Sozlamalarni ochish</value>
     <comment>LocationService</comment>
 </data>
-
+<data name="MessageLocationEmpty" xml:space="preserve">
+    <value>Iltimos joylashuvni belgilang.</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
 </root>

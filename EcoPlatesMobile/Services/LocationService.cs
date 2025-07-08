@@ -23,9 +23,9 @@ namespace EcoPlatesMobile.Services
                 if (status == PermissionStatus.Denied || status == PermissionStatus.Disabled)
                 {
                     bool openSettings = await Application.Current.MainPage.DisplayAlert(
-                        "AppResource.LocationPermissionRequired",
-                        "AppResource.MessageLocationPermission",
-                        "AppResource.OpenSettings",
+                        AppResource.LocationPermissionRequired,
+                        AppResource.MessageLocationPermission,
+                        AppResource.OpenSettings,
                         AppResource.Cancel);
 
                     if (openSettings)
