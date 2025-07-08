@@ -21,7 +21,7 @@ public partial class LoginPage : BasePage
         this.appControl = appControl;
         this.userSessionService = userSessionService;
 
-        LoadSvg();
+        //LoadSvg();
     }
 
     protected override async void OnAppearing()
@@ -47,6 +47,7 @@ public partial class LoginPage : BasePage
         loading.ShowLoading = false;
     }
 
+    /*
     private async void LoadSvg()
     {
         try
@@ -103,7 +104,7 @@ public partial class LoginPage : BasePage
         canvas.DrawPicture(svg.Picture);
         canvas.Restore();
     }
-
+    */
     private async void Button_Clicked(object sender, EventArgs e)
     {
         if (sender == btnComapny)
