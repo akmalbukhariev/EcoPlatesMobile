@@ -6,7 +6,6 @@ using EcoPlatesMobile.ViewModels.Company;
 using EcoPlatesMobile.ViewModels.User;
 using Microsoft.Extensions.Logging;
 using RestSharp;
-using SkiaSharp.Views.Maui.Controls.Hosting;
 using Microsoft.Maui.Maps.Handlers;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
@@ -26,7 +25,6 @@ namespace EcoPlatesMobile
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

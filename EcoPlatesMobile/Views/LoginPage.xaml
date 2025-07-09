@@ -4,25 +4,18 @@
                x:Class="EcoPlatesMobile.Views.LoginPage"
                xmlns:view="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
-               xmlns:loading="clr-namespace:EcoPlatesMobile.Views.Components"
-               xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls">
+               xmlns:loading="clr-namespace:EcoPlatesMobile.Views.Components">
 
     <Grid>
         <Grid RowDefinitions="*,100, 20, 80, Auto, 10, Auto"
               VerticalOptions="Center"
               Margin="36,0,36,0">
-               <Image x:Name="imLogo" 
+            <Image x:Name="imLogo" 
                       Source="logo1.png"
                       WidthRequest="200"
                       HeightRequest="200" 
                       HorizontalOptions="Center"
                       VerticalOptions="Center"/>
-            <!--<skia:SKCanvasView x:Name="skCanvasView" 
-                                WidthRequest="200"
-                                HeightRequest="200" 
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                PaintSurface="OnCanvasViewPaintSurface"/>-->
             <StackLayout WidthRequest="250" 
                         HorizontalOptions="Center"
                         Grid.Row="2">

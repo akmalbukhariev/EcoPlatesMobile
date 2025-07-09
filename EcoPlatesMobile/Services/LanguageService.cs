@@ -1,7 +1,6 @@
 ﻿ 
 using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Utilities;
-using HarfBuzzSharp;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

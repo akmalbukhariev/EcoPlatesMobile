@@ -86,7 +86,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#007200"/>
+	  <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#007200" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -100,7 +100,6 @@
 		<PackageReference Include="RestSharp" Version="112.0.0" />
 		<PackageReference Include="SkiaSharp.Extended" Version="2.0.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
-		<PackageReference Include="Svg.Skia" Version="2.0.0.4" />
 	</ItemGroup>
   
 	<ItemGroup>

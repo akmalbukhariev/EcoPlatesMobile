@@ -1,9 +1,6 @@
 ﻿using EcoPlatesMobile.Models;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
-using SkiaSharp;
-using SkiaSharp.Views.Maui;
-using Svg.Skia;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
