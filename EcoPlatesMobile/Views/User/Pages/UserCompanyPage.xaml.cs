@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Globalization;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.ViewModels.User;
 
@@ -93,8 +94,8 @@ public partial class UserCompanyPage : BasePage
             var companyLocation = new Location(viewModel.Latitude, viewModel.Longitude);
 
             string uri = $"https://www.google.com/maps/dir/?api=1" +
-             $"&origin={userLocation.Latitude},{userLocation.Longitude}" +
-             $"&destination={companyLocation.Latitude},{companyLocation.Longitude}" +
+             $"&origin={userLocation.Latitude.ToString(CultureInfo.InvariantCulture)},{userLocation.Longitude.ToString(CultureInfo.InvariantCulture)}" +
+             $"&destination={companyLocation.Latitude.ToString(CultureInfo.InvariantCulture)},{companyLocation.Longitude.ToString(CultureInfo.InvariantCulture)}" +
              $"&travelmode=driving";
 
             await Launcher.Default.OpenAsync(uri);
