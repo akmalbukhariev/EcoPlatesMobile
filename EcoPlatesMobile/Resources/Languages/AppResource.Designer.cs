@@ -889,6 +889,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid phone number..
+        /// </summary>
+        internal static string MessagePhoneNumberIsNotValid {
+            get {
+                return ResourceManager.GetString("MessagePhoneNumberIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registration has been completed successfully..
         /// </summary>
         internal static string MessageRegistrationSuccess {

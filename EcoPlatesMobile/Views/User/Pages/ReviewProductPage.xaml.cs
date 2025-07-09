@@ -127,6 +127,12 @@ public partial class ReviewProductPage : BasePage
     {
         try
         {
+            if(selectedRating == 0)
+            {
+                await Shell.Current.GoToAsync("..");
+                return;
+            }
+
             loading.IsRunning = true;
             RegisterPosterFeedbackRequest request = new RegisterPosterFeedbackRequest()
             {

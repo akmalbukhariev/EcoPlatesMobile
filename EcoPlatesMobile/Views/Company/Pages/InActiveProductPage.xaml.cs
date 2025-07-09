@@ -81,6 +81,8 @@ public partial class InActiveProductPage : BasePage
                     await AlertService.ShowAlertAsync(AppResource.DeleteProduct, AppResource.Success);
                     viewModel.Products.Remove(product);
                     viewModel.UpdateTitle();
+
+                    appControl.RefreshCompanyProfilePage = true;
                 }
                 else
                 {
@@ -126,6 +128,7 @@ public partial class InActiveProductPage : BasePage
                 {
                     viewModel.Products.Remove(product);
                     viewModel.UpdateTitle();
+                    appControl.RefreshCompanyProfilePage = true;
                 }
                 else
                 {

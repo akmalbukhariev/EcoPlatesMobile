@@ -25,7 +25,7 @@
                 <Label x:Name="lbTitle" 
                        Text="Iltimos, 998 90 999 00 99 telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting"
                        HorizontalTextAlignment="Center"
-                    Style="{StaticResource styleLabel}"/>
+                       Style="{StaticResource styleLabel}"/>
                 <!-- <Grid ColumnDefinitions="70, 70, 70, 70"
                       HorizontalOptions="Center">
                     <component:CustomEntryNumber x:Name="number1"/>

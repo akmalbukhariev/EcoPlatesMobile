@@ -257,6 +257,10 @@
     <value>Unexpected error occurred.</value>
     <comment>PhoneNumberRegisterPage</comment>
   </data>
+  <data name="MessagePhoneNumberIsNotValid" xml:space="preserve">
+    <value>Please enter a valid phone number.</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
   <data name="SuggestionTitle1" xml:space="preserve">
     <value>Suggestions and Complaints</value>
     <comment>SuggestionsPage</comment>

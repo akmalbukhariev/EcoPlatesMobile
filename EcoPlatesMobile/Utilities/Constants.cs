@@ -30,5 +30,7 @@ namespace EcoPlatesMobile.Utilities
         public const string LAN_ICON_UZBEK = "flag_uz.png";
         public const string LAN_ICON_ENGLISH = "flag_en.png";
         public const string LAN_ICON_RUSSIAN = "flag_ru.png";
+
+        public const string PHONE_PATTERN = @"^(\+998|998)?(90|91|93|94|95|97|98|99|33|88|20)\d{7}$";
     }
 }

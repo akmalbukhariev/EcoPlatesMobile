@@ -257,6 +257,10 @@
   <value>Kutilmagan xatolik yuz berdi.</value>
   <comment>PhoneNumberRegisterPage</comment>
 </data>
+<data name="MessagePhoneNumberIsNotValid" xml:space="preserve">
+    <value>Iltimos, yaroqli telefon raqamini kiriting.</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
 	<data name="SuggestionTitle1" xml:space="preserve">
   <value>Taklif va shikoyatlar</value>
   <comment>SuggestionsPage</comment>

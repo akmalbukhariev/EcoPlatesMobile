@@ -8,6 +8,7 @@ using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
+using System.Text.RegularExpressions;
 
 namespace EcoPlatesMobile.Views;
 
@@ -37,7 +38,7 @@ public partial class PhoneNumberRegisterPage : BasePage
         //Launcher.OpenAsync(new Uri(url));
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void ButtonNext_Clicked(object sender, EventArgs e)
     { 
         string rawPhone = entryNumber.GetEntryText();
         if (string.IsNullOrWhiteSpace(rawPhone))
@@ -56,6 +57,13 @@ public partial class PhoneNumberRegisterPage : BasePage
         }
 
         string phoneNumber = $"998{rawPhone}";
+
+        if (!IsValidUzbekistanPhoneNumber(phoneNumber))
+        {
+            await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneNumberIsNotValid);
+            return;
+        }
+
         loading.ShowLoading = true;
 
         try
@@ -118,5 +126,10 @@ public partial class PhoneNumberRegisterPage : BasePage
         {
             loading.ShowLoading = false;
         }
+    }
+
+    public static bool IsValidUzbekistanPhoneNumber(string phoneNumber)
+    { 
+        return Regex.IsMatch(phoneNumber, Constants.PHONE_PATTERN);
     }
 }

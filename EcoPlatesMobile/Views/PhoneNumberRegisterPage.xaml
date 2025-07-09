@@ -21,8 +21,7 @@
                                            IsPhoneNumber="False"
                                            EntryKeyboard="Numeric"
                                            EntryBorderColor="#E9E9E9"
-                                           EntryBackgroundColor="#F5F5F5"
-                                           EntryPlaceHolder="Ism sharifingiz"/>
+                                           EntryBackgroundColor="#F5F5F5"/>
                     <Grid>
                         <Label Text="{x:Static language:AppResource.AuthorizationTitle1}"/>
                     </Grid>
@@ -62,7 +61,7 @@
                         TextColor="White"
                         HeightRequest="50"
                         Margin="16,0,16,0"
-                        Clicked="Button_Clicked"
+                        Clicked="ButtonNext_Clicked"
                         Grid.Row="2"/>
                 </Grid>
         </ScrollView>

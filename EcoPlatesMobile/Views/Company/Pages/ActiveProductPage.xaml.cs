@@ -102,6 +102,7 @@ public partial class ActiveProductPage : BasePage
                 {
                     viewModel.Products.Remove(product);
                     viewModel.UpdateTitle();
+                    appControl.RefreshCompanyProfilePage = true;
                 }
                 else
                 {

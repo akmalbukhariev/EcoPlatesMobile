@@ -64,6 +64,7 @@ namespace EcoPlatesMobile.Services
 
                 await Task.Delay(100);
 
+                RefreshCompanyProfilePage = true;
                 Application.Current.MainPage = new AppCompanyShell();
             }
         }
@@ -100,6 +101,11 @@ namespace EcoPlatesMobile.Services
 
                 await Task.Delay(100);
 
+                RefreshMainPage = true;
+                RefreshBrowserPage = true;
+                RefreshFavoriteCompany = true;
+                RefreshFavoriteProduct = true;
+                RefreshUserProfilePage = true;
                 Application.Current.MainPage = new AppUserShell();
             }
         }
@@ -157,6 +163,7 @@ namespace EcoPlatesMobile.Services
             };
             await Task.Delay(100);
 
+            RefreshMainPage = true;
             Application.Current.MainPage = new AppUserShell();
         }
     }

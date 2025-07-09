@@ -257,6 +257,10 @@
   <value>Произошла непредвиденная ошибка.</value>
   <comment>PhoneNumberRegisterPage</comment>
 </data>
+<data name="MessagePhoneNumberIsNotValid" xml:space="preserve">
+    <value>Пожалуйста, введите корректный номер телефона.</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
 	<data name="SuggestionTitle1" xml:space="preserve">
   <value>Предложения и жалобы</value>
   <comment>SuggestionsPage</comment>

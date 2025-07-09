@@ -190,6 +190,7 @@ public partial class CompanyProfileInfoPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
+                    appControl.RefreshCompanyProfilePage = true;
                     await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
                     await Shell.Current.GoToAsync("..", true);
                 }
