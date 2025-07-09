@@ -118,7 +118,7 @@
                 <VerticalStackLayout Grid.Row="1"
                                      Padding="0,20"
                                      HorizontalOptions="Center">
-                    <Image Source="logo1.png"
+                    <Image Source="logo2.png"
                            Aspect="AspectFit"
                            WidthRequest="150"
                            HeightRequest="150"/>

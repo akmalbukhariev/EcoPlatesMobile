@@ -140,7 +140,7 @@ public partial class ReviewProductPage : BasePage
                 promotion_id = PromotionId,
                 feedback_type1 = checkBox1.IsChecked ? PosterFeedbackType.GREAT_VALUE.GetValue() : PosterFeedbackType.NONE.GetValue(),
                 feedback_type2 = checkBox2.IsChecked ? PosterFeedbackType.DELICIOUS_FOOD.GetValue() : PosterFeedbackType.NONE.GetValue(),
-                feedback_type3 = checkBox3.IsChecked ? PosterFeedbackType.GREAT_VALUE.GetValue() : PosterFeedbackType.NONE.GetValue(),
+                feedback_type3 = checkBox3.IsChecked ? PosterFeedbackType.GREAT_SERVICE.GetValue() : PosterFeedbackType.NONE.GetValue(),
                 rating = selectedRating,
             };
             

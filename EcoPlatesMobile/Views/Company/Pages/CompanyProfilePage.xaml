@@ -64,7 +64,7 @@
               Margin="0,0,0,30"
               VerticalOptions="End"
               Grid.Row="4">
-            <Image Source="logo1.png"
+            <Image Source="logo2.png"
                    Aspect="AspectFit"
                    WidthRequest="110"
                    HeightRequest="110"
@@ -118,10 +118,10 @@
                                               Tapped="OnLanguageTapped"/>
                             </Grid.GestureRecognizers>
                             <Image Source="language.png"
-                           WidthRequest="23"
-                           HeightRequest="23"
-                           Margin="0,0,20,0"
-                           VerticalOptions="Center"/>
+                                   WidthRequest="23"
+                                   HeightRequest="23"
+                                   Margin="0,0,20,0"
+                                   VerticalOptions="Center"/>
                             <Label Text="{Binding SelectedLanguage}"
                                    TextColor="#444444"
                                    FontSize="15"
