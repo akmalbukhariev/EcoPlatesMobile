@@ -100,7 +100,7 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<CompanyRegistrationPage>();
             builder.Services.AddTransient<LocationPage>();
             builder.Services.AddTransient<LocationRegistrationPage>();
-            
+
             builder.Services.AddTransient<ActiveProductPageViewModel>();
             builder.Services.AddTransient<InActiveProductPageViewModel>();
             #endregion
@@ -137,7 +137,8 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<PhoneNumberChangePage>();
             builder.Services.AddTransient<PhoneNumberNewPage>();
             builder.Services.AddTransient<PhoneNumberRegisterPage>();
-            builder.Services.AddTransient<SuggestionsPage>();
+            builder.Services.AddTransient<SuggestionsPage>(); 
+            builder.Services.AddTransient<PhoneNumberNewPage>();
             #endregion
         }
     }

@@ -21,6 +21,7 @@ namespace EcoPlatesMobile.Services.Api
         private const string REGISTER_USER = $"{BASE_URL}user/register";
         private const string GET_USER_INFO = $"{BASE_URL}user/getUserInfo";
         private const string UPDATE_USER_INFO = $"{BASE_URL}user/updateUserInfo";
+        private const string UPDATE_USER_PHONE_NUMBER = $"{BASE_URL}user/updateUserPhoneNumber";
         private const string REGISTER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/registerBookmarkPromotion";
         private const string SAVE_OR_UPDATE_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/saveOrUpdateBookmarkPromotion";
         private const string SAVE_OR_UPDATE_BOOKMARK_COMPANY = $"{BASE_URL}bookmark/saveOrUpdateBookmarkCompany";
@@ -93,6 +94,39 @@ namespace EcoPlatesMobile.Services.Api
             try
             {
                 var receivedData = await PostAsync(LOGOUT_USER, null, false);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> UpdateUserPhoneNumber()
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostAsync(UPDATE_USER_PHONE_NUMBER, null, false);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

@@ -38,12 +38,12 @@
                 <Grid ColumnDefinitions="Auto,*" 
                       ColumnSpacing="10" 
                       VerticalOptions="Center">
-                    <Label Text="+82" FontSize="18" VerticalOptions="Center" />
+                    <Label Text="+998" FontSize="18" VerticalOptions="Center" />
                     <Entry x:Name="phoneEntry"
-                           Placeholder="0 0000 0000"
+                           Placeholder="00 000 00 00"
                            FontSize="18"
                            Keyboard="Telephone"
-                           Margin="10,0,0,0"
+                           Margin="5,0,0,0"
                            PlaceholderColor="LightGray"
                            HorizontalOptions="Fill"
                            VerticalOptions="Center"
@@ -56,7 +56,8 @@
                         CornerRadius="8"
                         BackgroundColor="#e0e0e0"
                         TextColor="Gray"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Clicked="Continue_Clicked"/>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
