@@ -286,7 +286,7 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can change your Saletop number here. Your account and all your cloud data — messages, media, contacts, etc. will be moved to the new number..
+        ///   Looks up a localized string similar to You can change your SaleTop number here. All your saved data — listings, favorites, and messages — will be moved to the new number..
         /// </summary>
         internal static string ChangeNumberTitle {
             get {
@@ -871,6 +871,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The app will reload to apply your new phone number..
+        /// </summary>
+        internal static string MessageLoginAgain {
+            get {
+                return ResourceManager.GetString("MessageLoginAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select a type and enter your message..
         /// </summary>
         internal static string MessageMissingInfo {
@@ -885,6 +894,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string MessageOldAndNewPrice {
             get {
                 return ResourceManager.GetString("MessageOldAndNewPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The phone number is already exist!.
+        /// </summary>
+        internal static string MessagePhoneExist {
+            get {
+                return ResourceManager.GetString("MessagePhoneExist", resourceCulture);
             }
         }
         

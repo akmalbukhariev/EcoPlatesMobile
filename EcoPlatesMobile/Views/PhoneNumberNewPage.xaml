@@ -3,7 +3,8 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                x:Class="EcoPlatesMobile.Views.PhoneNumberNewPage"
-               xmlns:page="clr-namespace:EcoPlatesMobile.Views">
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
 
     <Grid RowDefinitions="60, *">
         <Image x:Name="imBack" 
@@ -36,18 +37,15 @@
                        TextColor="Gray"
                        Margin="0,-10,0,20" />
                 <Grid ColumnDefinitions="Auto,*" 
-                      ColumnSpacing="10" 
                       VerticalOptions="Center">
                     <Label Text="+998" FontSize="18" VerticalOptions="Center" />
                     <Entry x:Name="phoneEntry"
                            Placeholder="00 000 00 00"
                            FontSize="18"
                            Keyboard="Telephone"
-                           Margin="5,0,0,0"
                            PlaceholderColor="LightGray"
                            HorizontalOptions="Fill"
                            VerticalOptions="Center"
-                           Completed="PhoneEntry_Completed"
                            Grid.Column="1"/>
                 </Grid>
                 <Button x:Name="btnContinue" 
@@ -60,6 +58,8 @@
                         Clicked="Continue_Clicked"/>
             </VerticalStackLayout>
         </ScrollView>
+        <component:LoadingView x:Name="loading"
+                               Grid.RowSpan="2"/>
     </Grid>
      
 </page:BasePage>

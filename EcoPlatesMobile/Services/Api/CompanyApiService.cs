@@ -19,7 +19,8 @@ namespace EcoPlatesMobile.Services
         private const string LOGOUT_COMPANY = $"{BASE_URL}company/logout";
         private const string REGISTER_COMPANY = $"{BASE_URL}company/registerCompany";
         private const string GET_COMPANY = $"{BASE_URL}company/getComapnyInfo";
-        private const string UPDATE_COMPANY_INFO = $"{BASE_URL}updateUserInfo";
+        private const string UPDATE_COMPANY_INFO = $"{BASE_URL}company/updateUserInfo";
+        private const string UPDATE_COMPANY_PHONE_NUMBER = $"{BASE_URL}company/updateCompanyPhoneNumber/";
         private const string REGISTER_POSTER = $"{BASE_URL}poster/registerPoster";
         private const string UPDATE_POSTER = $"{BASE_URL}poster/updatePoster";
         private const string GET_POSTER = $"{BASE_URL}poster/getCompanyPoster";
@@ -111,7 +112,40 @@ namespace EcoPlatesMobile.Services
 
             return response;
         }
-         
+
+        public async Task<Response> UpdateCompanyPhoneNumber(string new_phone_number)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostAsync($"{UPDATE_COMPANY_PHONE_NUMBER}{new_phone_number}", null, false);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
         public async Task<Response> RegisterCompany(Stream imageStream, Dictionary<string, string>? additionalData)
         {
             var response = new Response();

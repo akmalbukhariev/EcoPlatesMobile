@@ -206,7 +206,7 @@
   <comment>PhoneNumberChangePage</comment>
 </data>
 	<data name="ChangeNumberTitle" xml:space="preserve">
-  <value>Bu yerda Saletop raqamingizni o‘zgartirishingiz mumkin. Hisobingiz va barcha bulutdagi ma'lumotlaringiz — xabarlar, media, kontaktlar va boshqalar yangi raqamga ko‘chiriladi.</value>
+  <value> SaleTop raqamingizni shu yerda o‘zgartirishingiz mumkin. Barcha saqlangan ma'lumotlaringiz — e'lonlar, tanlanganlar va xabarlar — yangi raqamga o‘tkaziladi.</value>
   <comment>PhoneNumberChangePage</comment>
 </data>
 	<data name="NewNumber" xml:space="preserve">
@@ -221,7 +221,15 @@
   <value>Davom etish</value>
   <comment>PhoneNumberNewPage</comment>
 </data>
-	<data name="Authorization" xml:space="preserve">
+<data name="MessagePhoneExist" xml:space="preserve">
+    <value>Telefon raqami mavjud!</value>
+    <comment>PhoneNumberNewPage</comment>
+ </data>
+<data name="MessageLoginAgain" xml:space="preserve">
+    <value>Ilova yangi telefon raqamingizni qo‘llash uchun qayta yuklanadi.</value>
+    <comment>PhoneNumberNewPage</comment>
+  </data>
+<data name="Authorization" xml:space="preserve">
   <value>Avtorizatsiya</value>
   <comment>PhoneNumberRegisterPage</comment>
 </data>

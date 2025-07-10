@@ -50,8 +50,8 @@ public partial class UserRegistrationPage : BasePage
             {
                 first_name = name,
                 phone_number = _phoneNumber,
-                location_latitude = location.Latitude,//37.518313,
-                location_longitude = location.Longitude//126.724187
+                location_latitude = location.Latitude,
+                location_longitude = location.Longitude
             };
 
             loading.ShowLoading = true; 

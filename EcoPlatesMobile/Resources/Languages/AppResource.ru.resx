@@ -205,23 +205,31 @@
   <value>Сменить номер</value>
   <comment>PhoneNumberChangePage</comment>
 </data>
-	<data name="ChangeNumberTitle" xml:space="preserve">
-  <value>Здесь вы можете изменить свой номер Saletop. Ваша учетная запись и все данные в облаке — сообщения, медиа, контакты и др. — будут перенесены на новый номер.</value>
+<data name="ChangeNumberTitle" xml:space="preserve">
+  <value>Здесь вы можете изменить свой номер в SaleTop. Все сохранённые данные — объявления, избранное и сообщения — будут перенесены на новый номер.</value>
   <comment>PhoneNumberChangePage</comment>
 </data>
-	<data name="NewNumber" xml:space="preserve">
+<data name="NewNumber" xml:space="preserve">
   <value>Новый номер</value>
   <comment>PhoneNumberNewPage</comment>
 </data>
-	<data name="NewNumberTitle" xml:space="preserve">
+<data name="NewNumberTitle" xml:space="preserve">
   <value>На ваш новый номер будет отправлен код подтверждения по SMS.</value>
   <comment>PhoneNumberNewPage</comment>
 </data>
-	<data name="Continue" xml:space="preserve">
+<data name="Continue" xml:space="preserve">
   <value>Продолжить</value>
   <comment>PhoneNumberNewPage</comment>
 </data>
-	<data name="Authorization" xml:space="preserve">
+<data name="MessagePhoneExist" xml:space="preserve">
+    <value>Номер телефона уже существует!</value>
+    <comment>PhoneNumberNewPage</comment>
+ </data>
+<data name="MessageLoginAgain" xml:space="preserve">
+    <value>Приложение перезагрузится, чтобы применить ваш новый номер телефона.</value>
+    <comment>PhoneNumberNewPage</comment>
+  </data>
+<data name="Authorization" xml:space="preserve">
   <value>Авторизация</value>
   <comment>PhoneNumberRegisterPage</comment>
 </data>

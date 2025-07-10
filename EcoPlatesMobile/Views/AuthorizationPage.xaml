@@ -78,7 +78,7 @@
                     CornerRadius="30"
                     TextColor="White"
                     HeightRequest="50"
-                    Clicked="Button_Clicked"
+                    Clicked="ButtonNext_Clicked"
                     Grid.Row="5"/>
         </Grid>
         </ScrollView>

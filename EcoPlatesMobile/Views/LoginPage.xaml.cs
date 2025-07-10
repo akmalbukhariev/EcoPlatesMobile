@@ -32,10 +32,12 @@ public partial class LoginPage : BasePage
         {
             if (role == UserRole.Company)
             {
+                userSessionService.SetUser(UserRole.Company);
                 await appControl.LoginCompany(phoneNumber);
             }
             else if (role == UserRole.User)
-            { 
+            {
+                userSessionService.SetUser(UserRole.User);
                 await appControl.LoginUser(phoneNumber);
             }
         }

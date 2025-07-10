@@ -120,13 +120,13 @@ namespace EcoPlatesMobile.Services.Api
             return response;
         }
 
-        public async Task<Response> UpdateUserPhoneNumber()
+        public async Task<Response> UpdateUserPhoneNumber(string new_phone_number)
         {
             var response = new Response();
 
             try
             {
-                var receivedData = await PostAsync(UPDATE_USER_PHONE_NUMBER, null, false);
+                var receivedData = await PostAsync($"{UPDATE_USER_PHONE_NUMBER}/{new_phone_number}", null, false);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

@@ -17,19 +17,26 @@ public partial class PhoneNumberRegisterPage : BasePage
     private UserSessionService userSessionService;
     private CompanyApiService companyApiService;
     private UserApiService userApiService;
+    private AppControl appControl;
 
-    public PhoneNumberRegisterPage(UserSessionService userSessionService, CompanyApiService companyApiService, UserApiService userApiService)
+    public PhoneNumberRegisterPage(UserSessionService userSessionService, CompanyApiService companyApiService, UserApiService userApiService, AppControl appControl)
     {
         InitializeComponent();
-
-        if (userSessionService.Role == UserRole.User)
-        {
-            header.HeaderBackground = btnNext.BackgroundColor = Colors.Green;
-        }
 
         this.userSessionService = userSessionService;
         this.companyApiService = companyApiService;
         this.userApiService = userApiService;
+        this.appControl = appControl;
+
+        if (userSessionService.Role == UserRole.User)
+        {
+            header.HeaderBackground = btnNext.BackgroundColor = Colors.Green;
+            loading.ChangeColor(Colors.Green);
+        }
+        else 
+        {
+            loading.ChangeColor(Color.FromArgb("#8338EC"));
+        }
     }
 
     private void OnOfferTapped(object sender, EventArgs e)
@@ -46,16 +53,7 @@ public partial class PhoneNumberRegisterPage : BasePage
             await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessageEnterPhoneNumber);
             return;
         }
-
-        if (userSessionService.Role == UserRole.User)
-        {
-            loading.ChangeColor(Colors.Green);
-        }
-        else
-        {
-            loading.ChangeColor(Color.FromArgb("#8338EC"));
-        }
-
+         
         string phoneNumber = $"998{rawPhone}";
 
         if (!IsValidUzbekistanPhoneNumber(phoneNumber))
@@ -71,6 +69,7 @@ public partial class PhoneNumberRegisterPage : BasePage
             Response response = null;
             bool isRegistered = false;
 
+            #region Check phone number
             if (userSessionService.Role == UserRole.Company)
             {
                 response = await companyApiService.CheckUser(phoneNumber);
@@ -99,9 +98,11 @@ public partial class PhoneNumberRegisterPage : BasePage
                     userSessionService.IsUserRegistrated = false;
                 }
             }
-            
+            #endregion
+
             if (isRegistered)
             {
+                appControl.IsPhoneNumberRegisterPage = true;
                 await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
             }
             else if (response != null)
@@ -110,6 +111,7 @@ public partial class PhoneNumberRegisterPage : BasePage
                     response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
                 {
                     await AlertService.ShowAlertAsync(AppResource.PhoneNumberNotRegistered, AppResource.MessageEnterPhoneNumberNotRegistered);
+                    appControl.IsPhoneNumberRegisterPage = true;
                     await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
                 }
                 else

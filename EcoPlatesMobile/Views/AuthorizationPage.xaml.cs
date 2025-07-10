@@ -1,4 +1,5 @@
 using EcoPlatesMobile.Models.Requests;
+using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
@@ -21,14 +22,18 @@ public partial class AuthorizationPage : BasePage
 		}
 	}
 
-	private UserSessionService userSessionService;
+    private CompanyApiService companyApiService;
+    private UserApiService userApiService;
+    private UserSessionService userSessionService;
 	private AppControl appControl;
 
-	public AuthorizationPage(UserSessionService userSessionService, AppControl appControl)
+	public AuthorizationPage(UserSessionService userSessionService, CompanyApiService companyApiService, UserApiService userApiService, AppControl appControl)
 	{
 		InitializeComponent();
 
 		this.userSessionService = userSessionService;
+		this.companyApiService = companyApiService;
+		this.userApiService = userApiService;
 		this.appControl = appControl;
 
         #region 
@@ -56,30 +61,80 @@ public partial class AuthorizationPage : BasePage
 		 */
 	}
 
-	private async void Button_Clicked(object sender, EventArgs e)
+	private async void ButtonNext_Clicked(object sender, EventArgs e)
 	{
-		if (userSessionService.Role == UserRole.Company)
-		{
-			if (userSessionService.IsCompanyRegistrated)
+        loading.ShowLoading = true;
+
+        try
+        {
+			if (appControl.IsPhoneNumberRegisterPage)
 			{
-				await appControl.LoginCompany(_phoneNumber);
+				if (userSessionService.Role == UserRole.Company)
+				{
+					if (userSessionService.IsCompanyRegistrated)
+					{
+						await appControl.LoginCompany(_phoneNumber);
+					}
+					else
+					{
+						appControl.LocationForRegister = null;
+						await AppNavigatorService.NavigateTo($"{nameof(CompanyRegistrationPage)}?PhoneNumber={_phoneNumber}");
+					}
+				}
+				else if (userSessionService.Role == UserRole.User)
+				{
+					if (userSessionService.IsUserRegistrated)
+					{
+						await appControl.LoginUser(_phoneNumber);
+					}
+					else
+					{
+						await AppNavigatorService.NavigateTo($"{nameof(UserRegistrationPage)}?PhoneNumber={_phoneNumber}");
+					}
+				}
 			}
 			else
 			{
-				appControl.LocationForRegister = null;
-				await AppNavigatorService.NavigateTo($"{nameof(CompanyRegistrationPage)}?PhoneNumber={_phoneNumber}");
+				Response response = null;
+				if (userSessionService.Role == UserRole.User)
+				{
+					response = await userApiService.UpdateUserPhoneNumber(_phoneNumber);
+					if (response?.resultCode == ApiResult.SUCCESS.GetCodeToString())
+					{
+						await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageLoginAgain);
+
+						var store = AppService.Get<AppStoreService>();
+						store.Set(AppKeys.PhoneNumber, _phoneNumber);
+
+						((App)Application.Current).ReloadAppShell();
+					}
+					else
+						await AlertService.ShowAlertAsync(AppResource.Error, response?.resultMsg);
+				}
+				else if (userSessionService.Role == UserRole.Company)
+				{
+					response = await companyApiService.UpdateCompanyPhoneNumber(_phoneNumber);
+					if (response?.resultCode == ApiResult.SUCCESS.GetCodeToString())
+					{
+						await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageLoginAgain);
+
+						var store = AppService.Get<AppStoreService>();
+						store.Set(AppKeys.PhoneNumber, _phoneNumber);
+
+						((App)Application.Current).ReloadAppShell();
+					}
+					else
+						await AlertService.ShowAlertAsync(AppResource.Error, response?.resultMsg);
+				}
 			}
 		}
-		else if (userSessionService.Role == UserRole.User)
+		catch (Exception ex)
 		{
-            if (userSessionService.IsUserRegistrated)
-            {
-                await appControl.LoginUser(_phoneNumber);
-            }
-            else
-            {
-                await AppNavigatorService.NavigateTo($"{nameof(UserRegistrationPage)}?PhoneNumber={_phoneNumber}");
-            }
-        }
+			Console.WriteLine(ex.ToString());
+		}
+		finally
+		{
+			loading.ShowLoading = false;
+		}
 	}
 }

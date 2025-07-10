@@ -1,3 +1,4 @@
+using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Resources.Languages;
@@ -9,97 +10,103 @@ namespace EcoPlatesMobile.Views;
 
 public partial class PhoneNumberNewPage : BasePage
 {
-    private UserSessionService sessionService;
+    private UserSessionService userSessionService;
     private UserApiService userApiService;
     private CompanyApiService companyApiService;
     private AppControl appControl;
-    public PhoneNumberNewPage(UserSessionService sessionService, UserApiService userApiService, CompanyApiService companyApiService, AppControl appControl)
+    public PhoneNumberNewPage(UserSessionService userSessionService, UserApiService userApiService, CompanyApiService companyApiService, AppControl appControl)
     {
         InitializeComponent();
 
-        this.sessionService = sessionService;
+        this.userSessionService = userSessionService;
         this.userApiService = userApiService;
         this.companyApiService = companyApiService;
         this.appControl = appControl;
+
+        if (userSessionService.Role == UserRole.User)
+        {
+            loading.ChangeColor(Colors.Green);
+        }
+        else
+        {
+            loading.ChangeColor(Color.FromArgb("#8338EC"));
+        }
 
         this.Loaded += (s, e) =>
         {
             phoneEntry.Focus();
         };
 
-        phoneEntry.TextChanged += (s, e) =>
-        {
-            Color btnColor = Color.FromArgb("#0088cc");
-            if (sessionService.Role == UserRole.User)
-            {
-                btnColor = Colors.Green;
-            }
-            else if (sessionService.Role == UserRole.Company)
-            {
-                btnColor = Color.FromArgb("#8338EC");
-            }
-
-            btnContinue.IsEnabled = !string.IsNullOrWhiteSpace(phoneEntry.Text);
-            btnContinue.BackgroundColor = btnContinue.IsEnabled ? btnColor : Color.FromArgb("#e0e0e0");
-            btnContinue.TextColor = btnContinue.IsEnabled ? Colors.White : Colors.Gray;
-        };
+        phoneEntry.TextChanged += PhoneEntry_TextChanged;
     }
 
-    private void PhoneEntry_Completed(object sender, EventArgs e)
+    private void PhoneEntry_TextChanged(object sender, TextChangedEventArgs e)
+    { 
+        var color = GetRoleColor(userSessionService.Role);
+
+        bool isFilled = !string.IsNullOrWhiteSpace(phoneEntry.Text);
+        btnContinue.IsEnabled = isFilled;
+        btnContinue.BackgroundColor = isFilled ? color : Color.FromArgb("#e0e0e0");
+        btnContinue.TextColor = isFilled ? Colors.White : Colors.Gray;
+    }
+
+    private static Color GetRoleColor(UserRole role) => role switch
     {
-        // Logic when user presses "done" or enter
-    }
+        UserRole.User => Colors.Green,
+        UserRole.Company => Color.FromArgb("#8338EC"),
+        _ => Color.FromArgb("#0088cc")
+    };
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(imBack);
-
         await AppNavigatorService.NavigateTo("..");
     }
 
     private async void Continue_Clicked(object sender, EventArgs e)
     {
-        string phoneNumber = phoneEntry.Text.Trim();
-        if (!IsValidUzbekistanPhoneNumber(phoneNumber))
+        var rawPhone = phoneEntry.Text?.Trim();
+        if (!IsValidUzbekistanPhoneNumber(rawPhone))
         {
             await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneNumberIsNotValid);
             return;
         }
 
+        string phoneNumber = $"998{rawPhone}";
+
         Response response = null;
-        if (sessionService.Role == UserRole.User)
-        {
-            response = await userApiService.CheckUser(phoneNumber);
-        }
-        else if (sessionService.Role == UserRole.Company)
-        {
-            response = await companyApiService.CheckUser(phoneNumber);
-        }
 
-        if (response?.resultCode == ApiResult.USER_EXIST.GetCodeToString() || response?.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
-        {
-            await AlertService.ShowAlertAsync(AppResource.PhoneNumber, "The phone numbe is already exist!");
-            return;
-        }
+        loading.ShowLoading = true;
 
-        if (sessionService.Role == UserRole.User)
+        try
         {
-            response = await userApiService.UpdateUserPhoneNumber();
-            if (response?.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            #region Check phone number
+            if (userSessionService.Role == UserRole.User)
+                response = await userApiService.CheckUser(phoneNumber);
+            else if (userSessionService.Role == UserRole.Company)
+                response = await companyApiService.CheckUser(phoneNumber);
+
+            if (response != null &&
+                (response.resultCode == ApiResult.USER_EXIST.GetCodeToString() ||
+                 response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString()))
             {
-                appControl.LogoutUser();
+                loading.ShowLoading = false;
+                await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneExist);
+                return;
             }
-            else
-            {
-                await AlertService.ShowAlertAsync(AppResource.Error, response?.resultMsg);
-            }
-        }
-        else if (sessionService.Role == UserRole.Company)
-        {
-            //response = await companyApiService.CheckUser(phoneNumber);
-        }
+            #endregion
 
-        
+            appControl.IsPhoneNumberRegisterPage = false;
+            await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            loading.ShowLoading = false;
+        }
     }
     
     public static bool IsValidUzbekistanPhoneNumber(string phoneNumber)

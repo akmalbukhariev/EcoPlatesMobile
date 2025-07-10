@@ -206,7 +206,7 @@
     <comment>PhoneNumberChangePage</comment>
   </data>
   <data name="ChangeNumberTitle" xml:space="preserve">
-    <value>You can change your Saletop number here. Your account and all your cloud data — messages, media, contacts, etc. will be moved to the new number.</value>
+    <value>You can change your SaleTop number here. All your saved data — listings, favorites, and messages — will be moved to the new number.</value>
     <comment>PhoneNumberChangePage</comment>
   </data>
   <data name="NewNumber" xml:space="preserve">
@@ -219,6 +219,14 @@
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue.</value>
+    <comment>PhoneNumberNewPage</comment>
+  </data>
+  <data name="MessagePhoneExist" xml:space="preserve">
+    <value>The phone number is already exist!</value>
+    <comment>PhoneNumberNewPage</comment>
+  </data>
+  <data name="MessageLoginAgain" xml:space="preserve">
+    <value>The app will reload to apply your new phone number.</value>
     <comment>PhoneNumberNewPage</comment>
   </data>
   <data name="Authorization" xml:space="preserve">
