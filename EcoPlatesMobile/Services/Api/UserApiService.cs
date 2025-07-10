@@ -13,8 +13,8 @@ namespace EcoPlatesMobile.Services.Api
     public class UserApiService : ApiService
     {
         #region Url
-        private const string BASE_URL = "";
-        //private const string BASE_URL = "/ecoplatesuser/api/v1/";
+        //private const string BASE_URL = "";
+        private const string BASE_URL = "/ecoplatesuser/api/v1/";
         private const string LOGIN_USER = $"{BASE_URL}user/login";
         private const string CHECK_USER = $"{BASE_URL}user/checkUser/";
         private const string LOGOUT_USER = $"{BASE_URL}user/logout";

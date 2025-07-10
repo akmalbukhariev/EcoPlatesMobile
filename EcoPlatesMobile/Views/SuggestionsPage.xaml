@@ -32,10 +32,8 @@
                 <Label Text="Type:" FontAttributes="Bold"/>
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" CornerRadius="6">
                     <Grid ColumnDefinitions="*, Auto">
-                        <Picker x:Name="typePicker"
+                        <Picker x:Name="pickType"
                                 Title="{x:Static language:AppResource.SelectFeedbackType}"
-                                ItemsSource="{Binding FeedbackTypes}"
-                                SelectedItem="{Binding SelectedType}"
                                 BackgroundColor="Transparent"
                                 TextColor="Black"/>
                         <Image Source="down.png"

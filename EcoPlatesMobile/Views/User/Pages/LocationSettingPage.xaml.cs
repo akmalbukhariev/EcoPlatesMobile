@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Threading.Tasks;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Resources.Languages;
@@ -96,7 +97,13 @@ public partial class LocationSettingPage : BasePage
     private async void ShowResults_Clicked(object sender, EventArgs e)
     {
         int selectedDistance = (int)Math.Round(distanceSlider.Value);
-        
+
+        if (selectedDistance == appControl.UserInfo.radius_km)
+        {
+            await AppNavigatorService.NavigateTo("..", true);
+            return;
+        }
+
         try
         {
             var visibleRegion = map.VisibleRegion;
@@ -113,8 +120,8 @@ public partial class LocationSettingPage : BasePage
             var additionalData = new Dictionary<string, string>
             {
                 { "user_id", appControl.UserInfo.user_id.ToString() },
-                { "location_latitude", center.Latitude.ToString("F6") },
-                { "location_longitude", center.Longitude.ToString("F6") },
+                { "location_latitude", center.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
+                { "location_longitude", center.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
                 { "radius_km", ((int)selectedDistance).ToString() }
             };
 

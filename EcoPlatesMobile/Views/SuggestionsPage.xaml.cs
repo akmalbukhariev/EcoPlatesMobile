@@ -8,22 +8,14 @@ using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Views;
 
-[QueryProperty(nameof(IsUser), nameof(IsUser))]
 public partial class SuggestionsPage : BasePage
 {
-    private bool _isUser = false;
-    public bool IsUser
+    public Dictionary<string, string> FeedbackTypes = new Dictionary<string, string>
     {
-        get => _isUser;
-        set
-        {
-            _isUser = value;
-        }
-    }
-
-    public List<string> FeedbackTypes { get; set; } = new() { AppResource.Suggestions, AppResource.Complaints };
-    public string SelectedType { get; set; }
-
+        { AppResource.Suggestions, "SUGGESTIONS" },
+        { AppResource.Complaints, "COMPLAINTS" }
+    };
+     
     private UserSessionService userSessionService;
     private AppControl appControl;
     private UserApiService userApiService;
@@ -37,6 +29,8 @@ public partial class SuggestionsPage : BasePage
         this.appControl = appControl;
         this.userApiService = userApiService;
         this.companyApiService = companyApiService;
+
+        pickType.ItemsSource = FeedbackTypes.Keys.ToList();
 
         BindingContext = this;
     }
@@ -61,7 +55,9 @@ public partial class SuggestionsPage : BasePage
 
     private async void OnSubmitClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(SelectedType) || string.IsNullOrWhiteSpace(messageEditor.Text))
+        string selectedType = pickType.SelectedItem as string;
+
+        if (string.IsNullOrWhiteSpace(selectedType) || string.IsNullOrWhiteSpace(messageEditor.Text))
         {
             await AlertService.ShowAlertAsync(AppResource.MissingInfo, AppResource.MessageMissingInfo, AppResource.Ok);
             return;
@@ -70,13 +66,14 @@ public partial class SuggestionsPage : BasePage
         try
         {
             loading.ShowLoading = true;
+
             if (userSessionService.Role == UserRole.User)
             {
                 UserFeedbackInfoRequest request = new UserFeedbackInfoRequest()
                 {
                     user_id = appControl.UserInfo.user_id,
                     feedback_text = messageEditor.Text,
-                    feedback_type = SelectedType.ToUpper(),
+                    feedback_type = FeedbackTypes[selectedType],
                 };
  
                 Response response = await userApiService.RegisterUserFeedBack(request);
@@ -97,7 +94,7 @@ public partial class SuggestionsPage : BasePage
                 {
                     company_id = appControl.CompanyInfo.company_id,
                     feedback_text = messageEditor.Text,
-                    feedback_type = SelectedType.ToUpper(),
+                    feedback_type = FeedbackTypes[selectedType],
                 };
  
                 Response response = await companyApiService.RegisterCompanyFeedBack(request);
