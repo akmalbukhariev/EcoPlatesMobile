@@ -5,7 +5,8 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-               x:Class="EcoPlatesMobile.Views.User.Pages.DetailProductPage">
+               x:Class="EcoPlatesMobile.Views.User.Pages.DetailProductPage"
+               BackgroundColor="White">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -59,6 +60,7 @@
                     <Label Text="{Binding OldPrice}"
                            TextDecorations="Strikethrough"
                            FontSize="16"
+                           TextColor="Gray"
                            Grid.Column="2"/>
                     <Label Text="{Binding NewPrice}"
                            FontSize="18" 

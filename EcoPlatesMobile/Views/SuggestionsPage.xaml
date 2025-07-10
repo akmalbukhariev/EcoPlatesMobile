@@ -4,7 +4,8 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-               x:Class="EcoPlatesMobile.Views.SuggestionsPage">
+               x:Class="EcoPlatesMobile.Views.SuggestionsPage"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *, Auto, 20"
           BackgroundColor="#FAF9FA">
@@ -22,6 +23,7 @@
                  <StackLayout>
                     <Label Text="{x:Static language:AppResource.SuggestionTitle1}"
                            FontSize="24"
+                           TextColor="Gray"
                            FontAttributes="Bold"
                            HorizontalTextAlignment="Center"/>
                 </StackLayout>
@@ -30,11 +32,12 @@
                        TextColor="Gray"
                        HorizontalTextAlignment="Center"/>
                 <Label Text="Type:" FontAttributes="Bold"/>
-                <Frame Padding="0" HasShadow="False" BorderColor="Gray" CornerRadius="6">
+                <Frame Padding="0" HasShadow="False" BorderColor="Gray" BackgroundColor="White" CornerRadius="6">
                     <Grid ColumnDefinitions="*, Auto">
                         <Picker x:Name="pickType"
                                 Title="{x:Static language:AppResource.SelectFeedbackType}"
-                                BackgroundColor="Transparent"
+                                TitleColor="Gray"
+                                BackgroundColor="Red"
                                 TextColor="Black"/>
                         <Image Source="down.png"
                                Aspect="AspectFit"
@@ -43,7 +46,7 @@
                     </Grid>
                  </Frame>
                 <Label Text="{x:Static language:AppResource.Message}" FontAttributes="Bold" />
-                <Frame Padding="0" HasShadow="False" BorderColor="Gray" CornerRadius="6">
+                <Frame Padding="0" HasShadow="False" BorderColor="Gray" BackgroundColor="White" CornerRadius="6">
                     <Editor x:Name="messageEditor"
                             Placeholder="{x:Static language:AppResource.WriteYourMessage}"
                             AutoSize="TextChanges"

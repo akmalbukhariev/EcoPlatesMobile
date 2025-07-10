@@ -101,6 +101,7 @@
                     <CheckBox x:Name="checkBox1" Color="Green" />
                     <Label Text="{x:Static language:AppResource.GreatValue}"
                            FontSize="17"
+                           TextColor="Gray"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnOption1Tapped"/>
@@ -112,6 +113,7 @@
                     <CheckBox x:Name="checkBox2" Color="Green"/>
                     <Label Text="{x:Static language:AppResource.DeliciousFood}"
                            FontSize="17"
+                           TextColor="Gray"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnOption2Tapped"/>
@@ -123,6 +125,7 @@
                     <CheckBox x:Name="checkBox3" Color="Green"/>
                     <Label Text="{x:Static language:AppResource.GreatService}"
                            FontSize="17"
+                           TextColor="Gray"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnOption3Tapped"/>
@@ -132,6 +135,7 @@
             </VerticalStackLayout>
             <Button Text="{x:Static language:AppResource.ReviewCompleted}"
                     FontSize="16"
+                    TextColor="White"
                     BackgroundColor="Green"
                     HeightRequest="50"
                     Margin="10,0,10,0"

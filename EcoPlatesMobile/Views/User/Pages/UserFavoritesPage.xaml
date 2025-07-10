@@ -6,7 +6,8 @@
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
-               xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages">
+               xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *, Auto">
         <Grid BackgroundColor="#007200"

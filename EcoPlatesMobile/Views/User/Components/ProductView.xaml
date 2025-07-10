@@ -7,6 +7,7 @@
            Padding="0" 
            CornerRadius="20" 
            HeightRequest="270"
+           BackgroundColor="White"
            HasShadow="True">
         <Frame.GestureRecognizers>
             <TapGestureRecognizer Tapped="Product_Tapped" 
@@ -57,6 +58,7 @@
                                  Grid.Row="1">
                 <Label x:Name="productName"
                        FontSize="18" 
+                       TextColor="Black"
                        LineBreakMode="TailTruncation"
                        FontAttributes="Bold"/>
                 <Label x:Name="productMakerName"
@@ -86,6 +88,7 @@
                            HeightRequest="16"/>
                     <Label x:Name="stars"
                            FontSize="14"
+                           TextColor="Black"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
                 <BoxView BackgroundColor="LightGray"
@@ -97,6 +100,7 @@
                            HeightRequest="16"/>
                     <Label x:Name="distance"
                            FontSize="14"
+                           TextColor="Black"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
             </HorizontalStackLayout>

@@ -4,7 +4,8 @@
                x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyEditProductPage"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
-               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="{x:Static language:AppResource.UpdateProduct}"
@@ -90,6 +91,7 @@
                                 <Entry x:Name="entryOldPrice"
                                        Keyboard="Numeric"
                                        Text="000"
+                                       TextColor="Black"
                                        FontSize="16"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbOldPrice"
@@ -112,6 +114,7 @@
                                        VerticalOptions="Center"/>
                                 <Entry x:Name="entryNewPrice"
                                        Text="000"
+                                       TextColor="Black"
                                        Keyboard="Numeric"
                                        FontSize="16"
                                        Grid.Column="1"/>
@@ -131,6 +134,7 @@
                             </Border.StrokeShape>
                             <Editor x:Name="editorDescription"
                                     Placeholder="{x:Static language:AppResource.ProductDescription}"
+                                    TextColor="Black"
                                     FontSize="16"/>
                     </Border>
                 </VerticalStackLayout>

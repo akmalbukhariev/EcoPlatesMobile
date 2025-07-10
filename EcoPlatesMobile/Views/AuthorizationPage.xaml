@@ -5,7 +5,8 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-               xmlns:pinview="clr-namespace:PINView.Maui;assembly=PINView.Maui">
+               xmlns:pinview="clr-namespace:PINView.Maui;assembly=PINView.Maui"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader x:Name="header" 
@@ -44,8 +45,8 @@
                                  BoxSize="50"
                                  Color="#442C2E" />
                     <Label Text="{x:Static language:AppResource.EnterPhoneCorrectly}"
-                       HorizontalTextAlignment="Center"
-                       Style="{StaticResource styleLabel}"/>
+                           HorizontalTextAlignment="Center"
+                           Style="{StaticResource styleLabel}"/>
             </StackLayout>
             <StackLayout x:Name="stackTime" 
                          Spacing="10"

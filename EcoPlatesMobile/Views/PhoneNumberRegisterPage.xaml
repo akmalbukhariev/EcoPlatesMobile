@@ -4,7 +4,8 @@
                x:Class="EcoPlatesMobile.Views.PhoneNumberRegisterPage"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:view="clr-namespace:EcoPlatesMobile.Views"
-               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, 30, *, 30">
         <component:CustomHeader x:Name="header" 
@@ -14,7 +15,8 @@
             <Grid RowDefinitions="*, 10, Auto">
                 <VerticalStackLayout Spacing="20"
                                      Margin="16,0,16,0">
-                    <Label Text="{x:Static language:AppResource.EnterPhoneNumber}"/>
+                    <Label Text="{x:Static language:AppResource.EnterPhoneNumber}"
+                           TextColor="Gray"/>
                     <component:CustomEntry x:Name="entryNumber"
                                            EntryIcon="phone.png"
                                            EntryShowPrefix="True"
@@ -23,10 +25,12 @@
                                            EntryBorderColor="#E9E9E9"
                                            EntryBackgroundColor="#F5F5F5"/>
                     <Grid>
-                        <Label Text="{x:Static language:AppResource.AuthorizationTitle1}"/>
+                        <Label Text="{x:Static language:AppResource.AuthorizationTitle1}"
+                               TextColor="Gray"/>
                     </Grid>
                     <Grid>
-                        <Label Text="{x:Static language:AppResource.AuthorizationTitle2}"/>
+                        <Label Text="{x:Static language:AppResource.AuthorizationTitle2}"
+                               TextColor="Gray"/>
                     </Grid>
                     <Grid Padding="0"
                           Background="#1415CA18"

@@ -2,7 +2,8 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
-               x:Class="EcoPlatesMobile.Views.AboutPage">
+               x:Class="EcoPlatesMobile.Views.AboutPage"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="80, *, Auto, 20">
         <Grid x:Name="headerGrid" 
@@ -36,6 +37,7 @@
                        HorizontalOptions="Center" />
                 <Label x:Name="roleTitle"
                        Text="For Clients"
+                       TextColor="Black"
                        FontAttributes="Bold"
                        FontSize="24"
                        HorizontalOptions="Center"/>
@@ -44,10 +46,10 @@
                        FontSize="18"
                        TextColor="Black"
                        HorizontalTextAlignment="Center"/>
-                <Label x:Name="point1" Text="• Browse a variety of discounted food offers" FontSize="16" />
-                <Label x:Name="point2" Text="• View available items on a map" FontSize="16" />
-                <Label x:Name="point3" Text="• Adjust the radius to find offers within your location" FontSize="16" />
-                <Label x:Name="point4" Text="• Receive notifications about new deals near you" FontSize="16" />
+                <Label x:Name="point1" Text="• Browse a variety of discounted food offers" FontSize="16" TextColor="Black" />
+                <Label x:Name="point2" Text="• View available items on a map" FontSize="16" TextColor="Black"/>
+                <Label x:Name="point3" Text="• Adjust the radius to find offers within your location" FontSize="16" TextColor="Black"/>
+                <Label x:Name="point4" Text="• Receive notifications about new deals near you" FontSize="16" TextColor="Black"/>
                 <Label x:Name="finalMessage"
                        Text="Save money, reduce waste, and support your local community."
                        FontAttributes="Italic"

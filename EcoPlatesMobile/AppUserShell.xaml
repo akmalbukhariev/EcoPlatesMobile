@@ -8,7 +8,8 @@
        Shell.FlyoutBehavior="Disabled"
        Shell.TabBarBackgroundColor="#F3F8F9"
        Shell.TabBarUnselectedColor="Gray"
-       Shell.TabBarForegroundColor="Green">
+       Shell.TabBarForegroundColor="Green"
+       Shell.TabBarTitleColor="Green">
 
     <TabBar>
         <Tab Icon="home1.png"

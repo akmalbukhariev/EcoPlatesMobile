@@ -4,7 +4,8 @@
                x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyAddProductPage"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
-               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="{x:Static language:AppResource.NewProduct}"
@@ -71,7 +72,7 @@
                         <component:CustomEntry x:Name="entryProductName" 
                                                EntryIcon="item_name.png"
                                                EntryPlaceHolder="{x:Static language:AppResource.ProductName}"
-                                               EntryPlaceHolderColor="LightGray"
+                                               EntryPlaceHolderColor="Gray"
                                                Grid.Row="1"/>
                         <component:CustomEntry x:Name="entryProductCount"
                                                EntryIcon="item_count.png"

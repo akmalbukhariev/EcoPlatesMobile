@@ -7,6 +7,7 @@
            Padding="0"
            CornerRadius="10"
            HeightRequest="115"
+           BackgroundColor="White"
            HasShadow="True">
         <Frame.GestureRecognizers>
             <TapGestureRecognizer Tapped="Product_Tapped" 
@@ -50,6 +51,7 @@
                                HeightRequest="16"/>
                         <Label x:Name="stars"
                                FontSize="11"
+                               TextColor="Black"
                                VerticalTextAlignment="Center"/>
                     </HorizontalStackLayout>
                     <BoxView BackgroundColor="LightGray"
@@ -62,6 +64,7 @@
                         <Label x:Name="distance" 
                                Text="{Binding Distance}" 
                                FontSize="11"
+                               TextColor="Black"
                                VerticalTextAlignment="Center"/>
                     </HorizontalStackLayout>
                 </HorizontalStackLayout>

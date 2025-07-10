@@ -4,7 +4,8 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
-               x:Class="EcoPlatesMobile.Views.User.Pages.UserProfilePage">
+               x:Class="EcoPlatesMobile.Views.User.Pages.UserProfilePage"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto, Auto">
         <component:CustomHeader Title="{x:Static language:AppResource.MyProfile}"
@@ -78,7 +79,7 @@
                                    Margin="0,0,10,0"
                                    VerticalOptions="Center"/>
                             <Label Text="{Binding SelectedLanguage}"
-                                   TextColor="#444444"
+                                   TextColor="Black"
                                    FontSize="15"
                                    VerticalTextAlignment="Center"
                                    Grid.Column="1"/>
@@ -96,21 +97,21 @@
                         <component:ListTileView TileIcon="share.png" 
                                                 TileText="{x:Static language:AppResource.Share}"
                                                 TileTextSize="15"
-                                                TileTextColor="#444444"
+                                                TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
                                                 Grid.Row="1"/>
                         <component:ListTileView TileIcon="info.png" 
                                                 TileText="{x:Static language:AppResource.AboutApp}"
                                                 TileType="AboutApp"
                                                 TileTextSize="15"
-                                                TileTextColor="#444444"
+                                                TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
                                                 Grid.Row="2"/>
                         <component:ListTileView TileIcon="offer.png" 
                                                 TileText="{x:Static language:AppResource.FeedbackComplaints}"
                                                 TileType="Suggestions"
                                                 TileTextSize="15"
-                                                TileTextColor="#444444"
+                                                TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
                                                 Grid.Row="3"/>
                     </Grid>

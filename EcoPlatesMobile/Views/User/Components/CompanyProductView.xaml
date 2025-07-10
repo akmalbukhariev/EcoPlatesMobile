@@ -5,6 +5,8 @@
 
     <Frame x:Name="mainFrame" 
            Padding="0"
+           BorderColor="Gray"
+           BackgroundColor="White"
            CornerRadius="10"
            HeightRequest="120"
            HasShadow="True">

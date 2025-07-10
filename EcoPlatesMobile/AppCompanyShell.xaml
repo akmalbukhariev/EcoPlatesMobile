@@ -7,9 +7,9 @@
        xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
        Shell.FlyoutBehavior="Disabled"
        Shell.TabBarBackgroundColor="#F3F8F9"
-       Shell.TitleColor="#8338EC"
        Shell.TabBarUnselectedColor="Gray"
-       Shell.TabBarForegroundColor="#8338EC">
+       Shell.TabBarForegroundColor="#8338EC"
+       Shell.TabBarTitleColor="#8338EC">
     
     <TabBar>
          <Tab Icon="home1.png" 

@@ -4,7 +4,8 @@
                x:Class="EcoPlatesMobile.Views.LoginPage"
                xmlns:view="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
-               xmlns:loading="clr-namespace:EcoPlatesMobile.Views.Components">
+               xmlns:loading="clr-namespace:EcoPlatesMobile.Views.Components"
+               BackgroundColor="White">
 
     <Grid>
         <Grid RowDefinitions="*,100, 20, 80, Auto, 10, Auto"
@@ -26,6 +27,7 @@
             </StackLayout>
             <Button x:Name="btnUser" 
                     Text="{x:Static language:AppResource.Buyer}"
+                    TextColor="White"
                     HeightRequest="50"
                     CornerRadius="0"
                     VerticalOptions="End"
@@ -40,6 +42,7 @@
             </Button>
             <Button x:Name="btnComapny"
                     Text="{x:Static language:AppResource.Seller}"
+                    TextColor="White"
                     HeightRequest="50"
                     CornerRadius="0"
                     VerticalOptions="End"
