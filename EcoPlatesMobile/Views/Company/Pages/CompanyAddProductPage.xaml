@@ -105,6 +105,7 @@
                                 <Entry x:Name="entryOldPrice"
                                        Keyboard="Numeric"
                                        FontSize="16"
+                                       TextColor="Black"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbOldPrice"
                                         Text="{x:Static language:AppResource.PreviousPrice}"
@@ -127,6 +128,7 @@
                                 <Entry x:Name="entryNewPrice"
                                        Keyboard="Numeric"
                                        FontSize="16"
+                                       TextColor="Black"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbNewPrice" 
                                        Text="{x:Static language:AppResource.CurrentPrice}"
@@ -145,6 +147,7 @@
                             </Border.StrokeShape>
                             <Editor x:Name="editorDescription"
                                     Placeholder="{x:Static language:AppResource.ProductDescription}"
+                                    TextColor="Black"
                                     Margin="5"
                                     FontSize="16"/>
                         </Border>

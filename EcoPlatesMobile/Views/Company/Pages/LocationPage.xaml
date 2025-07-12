@@ -22,7 +22,7 @@
                 </Image.GestureRecognizers>
             </Image>
             <Label x:Name="lbTitle"
-                   Text="{x:Static language:AppResource.SettingCurrentLocation}"
+                   Text="Ishlash joyingizni belgilang"
                    TextColor="White"
                    FontSize="18"
                    VerticalOptions="Center"

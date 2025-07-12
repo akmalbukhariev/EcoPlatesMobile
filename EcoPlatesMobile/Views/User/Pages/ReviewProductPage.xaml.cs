@@ -127,7 +127,7 @@ public partial class ReviewProductPage : BasePage
     {
         try
         {
-            if(selectedRating == 0)
+            if (selectedRating == 0)
             {
                 await Shell.Current.GoToAsync("..");
                 return;
@@ -143,13 +143,22 @@ public partial class ReviewProductPage : BasePage
                 feedback_type3 = checkBox3.IsChecked ? PosterFeedbackType.GREAT_SERVICE.GetValue() : PosterFeedbackType.NONE.GetValue(),
                 rating = selectedRating,
             };
-            
+
             Response response = await userApiService.RegisterPosterFeedBack(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.Rating, AppResource.ThankYou);
-                await Shell.Current.GoToAsync("..");
             }
+            else if(response.resultCode == ApiResult.POSTER_NOT_EXIST.GetCodeToString())
+            {
+                await AlertService.ShowAlertAsync(AppResource.Rating, "Item either not exit or deleted!");
+            }
+            else
+            {
+                await AlertService.ShowAlertAsync(AppResource.Rating, AppResource.Error);
+            }
+            
+            await Shell.Current.GoToAsync("..");
         }
         catch (Exception ex)
         {

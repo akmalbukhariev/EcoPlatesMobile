@@ -53,7 +53,7 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
- 
+
                 PosterGetFeedbackRequest request = new PosterGetFeedbackRequest()
                 {
                     promotion_id = (int)ProductModel.PromotionId,
@@ -93,6 +93,11 @@ namespace EcoPlatesMobile.ViewModels.User
                         TypeInfoList = info.typeInfo;
                         HighlightTitle = $"{AppResource.Top} {TypeInfoList.Count} {AppResource.Highlights}";
                     }
+                }
+                else //if (response.resultCode == ApiResult.POSTER_NOT_EXIST.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync("Info", "Poster is not exist or deleted by!");
+                    await AppNavigatorService.NavigateTo("..");
                 }
             }
             catch (Exception ex)

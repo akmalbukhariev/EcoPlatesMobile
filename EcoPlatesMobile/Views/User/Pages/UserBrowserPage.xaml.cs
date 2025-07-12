@@ -8,6 +8,9 @@ using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Helper;
 using EcoPlatesMobile.Resources.Languages;
+using Microsoft.Maui.Controls.Maps;
+using Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;
+using Application = Microsoft.Maui.Controls.Application;
 
 
 #if ANDROID
@@ -25,7 +28,7 @@ public partial class UserBrowserPage : BasePage
     private UserApiService userApiService;
     private AppControl appControl;
     private LocationService locationService;
-
+    private bool mapIsVisible = false;
     public UserBrowserPage(UserBrowserPageViewModel vm, UserApiService userApiService, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
@@ -37,7 +40,8 @@ public partial class UserBrowserPage : BasePage
 
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
-        btnLocation.EventClick += Click_Location;
+        btnRadiusLocation.EventClick += Click_RadiusLocation;
+        btnMyLocation.EventClick += Click_MyLocation;
 
         BindingContext = viewModel;
 	}
@@ -157,12 +161,51 @@ public partial class UserBrowserPage : BasePage
         });
     }
 
-    private async void Click_Location()
+    private async void Click_RadiusLocation()
     {
         //await CenterMapToCurrentLocation();
         await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }
 
+    private async void Click_MyLocation()
+    {
+        try
+        {
+            loading.ShowLoading = true;
+
+            var location = await locationService.GetCurrentLocationAsync();
+
+            if (location != null)
+            {
+                var center = new Location(location.Latitude, location.Longitude);
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromKilometers(5)));
+ 
+                map.Pins.Clear();
+ 
+                var pin = new Pin
+                {
+                    Label = AppResource.YouAreHere,
+                    Location = center,
+                    Type = PinType.Place,
+                };
+
+                map.Pins.Add(pin);
+            }
+            else
+            {
+                await DisplayAlert("Location Error", "Could not get your current location.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Unable to retrieve location: {ex.Message}", "OK");
+        }
+        finally
+        {
+            loading.ShowLoading = false;
+        }
+    }
+  
     private async void TabSwitcher_TabChanged(object? sender, string e)
     {
         const int animationDuration = 400;
@@ -172,6 +215,8 @@ public partial class UserBrowserPage : BasePage
 
         if (e == tabSwitcher.Tab1_Title)
         {
+            btnMyLocation.IsVisible = false;
+
             list.IsVisible = true;
             map.IsVisible = true;
 
@@ -179,9 +224,13 @@ public partial class UserBrowserPage : BasePage
                 list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
                 map.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut)
             );
+
+            mapIsVisible = false;
         }
-        else if (e == tabSwitcher.Tab2_Title)
+        else if (e == tabSwitcher.Tab2_Title && !mapIsVisible)
         {
+            btnMyLocation.IsVisible = true;
+
             list.IsVisible = true;
             map.IsVisible = true;
 
@@ -194,6 +243,8 @@ public partial class UserBrowserPage : BasePage
                 list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
                 map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
             );
+
+            mapIsVisible = true;
         }
     }
     

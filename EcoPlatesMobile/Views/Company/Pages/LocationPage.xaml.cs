@@ -3,6 +3,7 @@ using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
+using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
@@ -39,6 +40,17 @@ public partial class LocationPage : BasePage
 			var center = new Location(location.Latitude, location.Longitude);
 			map.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromKilometers(5)));
 		}
+
+		map.Pins.Clear();
+ 
+		var pin = new Pin
+		{
+			Label = "Ish joyingiz",
+			Location = new Location((double)appControl.CompanyInfo.location_latitude, (double)appControl.CompanyInfo.location_longitude),
+			Type = PinType.Place,
+		};
+  
+		map.Pins.Add(pin);
 	}
 
 	private async void Save_Tapped(object sender, TappedEventArgs e)
@@ -70,6 +82,9 @@ public partial class LocationPage : BasePage
 
 			if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
 			{
+				appControl.CompanyInfo.location_latitude = center.Latitude;
+				appControl.CompanyInfo.location_longitude = center.Longitude;
+				
 				await AlertService.ShowAlertAsync(AppResource.MessageUpdateLocation, AppResource.Success);
 				await AppNavigatorService.NavigateTo("..", true);
 			}

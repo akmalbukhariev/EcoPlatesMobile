@@ -112,16 +112,18 @@ public partial class LocationSettingPage : BasePage
                 return;
             }
 
+            /*
             var center = new Location(
                 visibleRegion.Center.Latitude,
                 visibleRegion.Center.Longitude
             );
+            */
 
             var additionalData = new Dictionary<string, string>
             {
                 { "user_id", appControl.UserInfo.user_id.ToString() },
-                { "location_latitude", center.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
-                { "location_longitude", center.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
+                { "location_latitude", currentCenter.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
+                { "location_longitude", currentCenter.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
                 { "radius_km", ((int)selectedDistance).ToString() }
             };
 
@@ -130,8 +132,8 @@ public partial class LocationSettingPage : BasePage
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             { 
-                appControl.UserInfo.location_latitude = center.Latitude;
-                appControl.UserInfo.location_longitude = center.Longitude;
+                appControl.UserInfo.location_latitude = currentCenter.Latitude;
+                appControl.UserInfo.location_longitude = currentCenter.Longitude;
                 appControl.UserInfo.radius_km = selectedDistance;
 
                 appControl.RefreshMainPage = true;
