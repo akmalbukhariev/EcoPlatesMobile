@@ -13,7 +13,12 @@
         <Grid RowDefinitions="180, Auto, *, Auto, 10">
             <Image x:Name="imCompany"
                    Aspect="AspectFill"
-                   Source="{Binding CompanyImage}"/>
+                   Source="{Binding CompanyImage}">
+                    <Image.GestureRecognizers>
+                          <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                Tapped="OnCompanyImage_Tapped"/>
+                       </Image.GestureRecognizers>
+            </Image>
             <Grid ColumnDefinitions="Auto, *, Auto" 
                   RowDefinitions="Auto, 10, Auto, 10, Auto"
                   Margin="20,10,20,10"
@@ -170,5 +175,19 @@
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"/>
+        <BoxView x:Name="boxFullImage"
+                 BackgroundColor="Black"
+                 IsVisible="False"
+                 Opacity="0.7"/>
+        <Image x:Name="fullImage"
+               Aspect="AspectFit"
+               IsVisible="False">
+            <Image.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Up"
+                                        Swiped="OnImage_Swiped"/>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="OnImage_Tapped"/>
+            </Image.GestureRecognizers>
+        </Image>
     </Grid>
 </page:BasePage>

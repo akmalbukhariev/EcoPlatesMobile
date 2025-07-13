@@ -5,19 +5,30 @@
 
     <Frame x:Name="mainFrame" 
            Padding="0"
-           BorderColor="Gray"
            BackgroundColor="White"
-           CornerRadius="10"
+           CornerRadius="20"
            HeightRequest="120"
+           IsClippedToBounds="True"
            HasShadow="True">
         <Frame.GestureRecognizers>
             <TapGestureRecognizer Tapped="Product_Tapped" 
                                   NumberOfTapsRequired="1"/>
         </Frame.GestureRecognizers>
-        <Grid ColumnDefinitions="Auto, *">
-            <Image x:Name="productImage"
-                   Aspect="AspectFill"
-                   WidthRequest="170"/>
+        <Grid ColumnDefinitions="160, *">
+            <Border StrokeThickness="0"
+                    HeightRequest="135"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Start"
+                    BackgroundColor="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20,0,0,0"/>
+                    </Border.StrokeShape>
+                    <Image x:Name="productImage"
+                           Aspect="AspectFill"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill"
+                           HeightRequest="135"/>
+                </Border>
             <Grid RowDefinitions="Auto, Auto, Auto, Auto"
                   RowSpacing="8"
                   Margin="10,0,0,0"
@@ -68,5 +79,6 @@
                 </StackLayout>
             </Grid>
         </Grid>
+    
     </Frame>
 </ContentView>

@@ -46,14 +46,20 @@
                   IsShowingUser="true"
                   Grid.Row="1"
                   Grid.RowSpan="3"/>
-        <Image Source="location.png"
-                WidthRequest="40"
-                HeightRequest="40"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Grid.Row="1"
-                Grid.RowSpan="2"
-                InputTransparent="True" />
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center" 
+                             Grid.Row="1"
+                             Grid.RowSpan="2">
+                 <Label Text="Hozirgi joylashuvingiz"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        TextColor="#8338EC"/>
+                 <Image Source="location1.png"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        InputTransparent="True"/>
+        </VerticalStackLayout>
+       
         <component:LoadingView x:Name="loading"
                                Grid.RowSpan="4"/>
     </Grid>

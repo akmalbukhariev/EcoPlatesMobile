@@ -1,4 +1,5 @@
- using EcoPlatesMobile.ViewModels.User;
+using EcoPlatesMobile.Resources.Languages;
+using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
 
@@ -40,6 +41,12 @@ public partial class UserBrowserSearchPage : BasePage
         viewModel.ShowCompanyResult = true;
         viewModel.ShowFilterSearchList = false;
         viewModel.ShowRecentSearchList = false;
+
+        if (string.IsNullOrEmpty(viewModel.SearchText) || string.IsNullOrWhiteSpace(viewModel.SearchText))
+        {
+            await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageFieldCannotBeEmty);
+            return;
+        }
 
         viewModel.ExecuteSearch();
         await viewModel.LoadInitialCompanyAsync();

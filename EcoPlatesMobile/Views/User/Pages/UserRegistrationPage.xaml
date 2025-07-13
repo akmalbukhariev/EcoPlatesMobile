@@ -4,7 +4,8 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserRegistrationPage"
-               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components">
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               BackgroundColor="White">
     
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="{x:Static language:AppResource.Registration}"/>

@@ -43,6 +43,8 @@ public partial class UserRegistrationPage : BasePage
                 return;
             }
 
+            loading.ShowLoading = true; 
+
             Location location = await locationService.GetCurrentLocationAsync();
             if (location == null) return;
             
@@ -53,8 +55,7 @@ public partial class UserRegistrationPage : BasePage
                 location_latitude = location.Latitude,
                 location_longitude = location.Longitude
             };
-
-            loading.ShowLoading = true; 
+            
             Response response = await userApiService.RegisterUser(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {

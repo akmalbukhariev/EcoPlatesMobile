@@ -5,7 +5,8 @@
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
-               x:Class="EcoPlatesMobile.Views.User.Pages.UserBrowserSearchPage">
+               x:Class="EcoPlatesMobile.Views.User.Pages.UserBrowserSearchPage"
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, 10, *">
         <Grid ColumnDefinitions="Auto, *, Auto"
@@ -13,7 +14,7 @@
               Margin="15,10,0,0">
             <Image Source="left.png"
                    Aspect="AspectFit"
-                   WidthRequest="10"
+                   WidthRequest="15"
                    Margin="0,0,10,0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1"

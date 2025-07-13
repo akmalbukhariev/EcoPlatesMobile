@@ -19,7 +19,12 @@
             <Grid RowDefinitions="180, Auto, 1, Auto, 1, *, 1, Auto, 1,10, Auto, 10">
                 <Image x:Name="imProduct"
                        Aspect="AspectFill"
-                       Source="{Binding ProductImage}"/>
+                       Source="{Binding ProductImage}">
+                       <Image.GestureRecognizers>
+                          <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                Tapped="OnProductImage_Tapped"/>
+                       </Image.GestureRecognizers>
+                </Image>
                 <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
                       ColumnDefinitions="Auto, *, Auto"
                       Margin="10,10"
@@ -252,5 +257,19 @@
         </BoxView>
         <component:ReviewView x:Name="reviewView"
                               IsVisible="False"/>
+        <BoxView x:Name="boxFullImage"
+                 BackgroundColor="Black"
+                 IsVisible="False"
+                 Opacity="0.7"/>
+        <Image x:Name="fullImage"
+               Aspect="AspectFit"
+               IsVisible="False">
+            <Image.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Up"
+                                        Swiped="OnImage_Swiped"/>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="OnImage_Tapped"/>
+            </Image.GestureRecognizers>
+        </Image>
     </Grid>
 </page:BasePage>

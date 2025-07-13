@@ -7,7 +7,7 @@ namespace EcoPlatesMobile.Views.User.Pages;
 
 public partial class UserCompanyPage : BasePage
 {
-	private UserCompanyPageViewModel viewModel;
+    private UserCompanyPageViewModel viewModel;
     private AppControl appControl;
 
     public UserCompanyPage(UserCompanyPageViewModel vm, AppControl appControl)
@@ -27,6 +27,8 @@ public partial class UserCompanyPage : BasePage
         base.OnAppearing();
 
         await viewModel.LoadDataAsync();
+        
+        fullImage.Source = viewModel.CompanyImage;
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
@@ -89,7 +91,7 @@ public partial class UserCompanyPage : BasePage
         if (sender is VisualElement element)
         {
             await AnimateElementScaleDown(element);
- 
+
             var userLocation = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
             var companyLocation = new Location(viewModel.Latitude, viewModel.Longitude);
 
@@ -111,4 +113,39 @@ public partial class UserCompanyPage : BasePage
             await AnimateElementScaleDown(element);
         }
     }
+
+    private async void OnCompanyImage_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(imCompany);
+
+        fullImage.TranslationY = -100;
+        fullImage.Opacity = 0;
+        fullImage.IsVisible = true;
+        boxFullImage.IsVisible = true;
+
+        await Task.WhenAll(
+            fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
+            fullImage.FadeTo(1, 250, Easing.SinIn)
+        );
+    }
+
+    private async void OnImage_Swiped(object sender, SwipedEventArgs e)
+    {
+        await Task.WhenAll(
+            fullImage.TranslateTo(0, -100, 250, Easing.SinOut),
+            fullImage.FadeTo(0, 250, Easing.SinOut)
+        );
+
+        boxFullImage.IsVisible = false;
+        fullImage.IsVisible = false;
+        fullImage.Opacity = 1;
+        fullImage.TranslationY = 0;
+    }
+
+    private void OnImage_Tapped(object sender, TappedEventArgs e)
+    {
+        boxFullImage.IsVisible = false;
+        fullImage.IsVisible = false;
+    }
+
 }

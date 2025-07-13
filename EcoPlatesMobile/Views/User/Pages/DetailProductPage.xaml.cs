@@ -35,6 +35,8 @@ public partial class DetailProductPage : BasePage
     {
         base.OnAppearing();
         await viewModel.LoadDataAsync();
+
+        fullImage.Source = viewModel.ProductImage;
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
@@ -112,6 +114,40 @@ public partial class DetailProductPage : BasePage
             ["ProductName"] = viewModel.ProductName,
             ["PromotionId"] = viewModel.ProductModel.PromotionId
         });
+    }
+
+    private async void OnProductImage_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(imProduct);
+
+        fullImage.TranslationY = -100;
+        fullImage.Opacity = 0;
+        fullImage.IsVisible = true;
+        boxFullImage.IsVisible = true;
+
+        await Task.WhenAll(
+            fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
+            fullImage.FadeTo(1, 250, Easing.SinIn)
+        );
+    }
+
+    private async void OnImage_Swiped(object sender, SwipedEventArgs e)
+    {
+        await Task.WhenAll(
+            fullImage.TranslateTo(0, -100, 250, Easing.SinOut),
+            fullImage.FadeTo(0, 250, Easing.SinOut)
+        );
+
+        boxFullImage.IsVisible = false;
+        fullImage.IsVisible = false;
+        fullImage.Opacity = 1;
+        fullImage.TranslationY = 0;
+    }
+
+    private void OnImage_Tapped(object sender, TappedEventArgs e)
+    {
+        boxFullImage.IsVisible = false;
+        fullImage.IsVisible = false;
     }
 
     private void Overlay_Tapped(object sender, EventArgs e)
