@@ -25,7 +25,7 @@
         <Tab Icon="favorites.png"
              Title="{x:Static language:AppResource.Favourites}">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserFavoritesPage}"
-                  Shell.NavBarIsVisible="False"/>
+                          Shell.NavBarIsVisible="False"/>
         </Tab>
          
         <Tab Icon="user.png"
