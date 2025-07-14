@@ -105,18 +105,20 @@ public partial class CustomEntry : ContentView
     public CustomEntry()
 	{
 		InitializeComponent();
-        BindingContext = this;
+
         IsPhoneNumber = false;
         
         _defaultBorderColor = EntryBorderColor;
         _defaultEntryBackgroundColor = EntryBackgroundColor;
         
-        borderContainer.Stroke = EntryBorderColor;
-        iconImage.Source = EntryIcon;
-        customEntry.BackgroundColor = EntryBackgroundColor;
-        customEntry.Placeholder = EntryPlaceHolder;
+        //borderContainer.Stroke = EntryBorderColor;
+        //iconImage.Source = EntryIcon;
+        //customEntry.BackgroundColor = EntryBackgroundColor;
+        //customEntry.Placeholder = EntryPlaceHolder;
 
         customEntry.TextChanged += CustomEntry_TextChanged;
+
+        BindingContext = this;
     }
 
     private void CustomEntry_TextChanged(object? sender, TextChangedEventArgs e)
@@ -146,8 +148,16 @@ public partial class CustomEntry : ContentView
             if (digitsOnly.Length > MaxPhoneLength)
                 digitsOnly = digitsOnly.Substring(0, MaxPhoneLength);
 
+            //if (customEntry.Text != digitsOnly)
+            //    customEntry.Text = digitsOnly;
+
             if (customEntry.Text != digitsOnly)
+            {
+                customEntry.TextChanged -= CustomEntry_TextChanged;
                 customEntry.Text = digitsOnly;
+                customEntry.CursorPosition = digitsOnly.Length;
+                customEntry.TextChanged += CustomEntry_TextChanged;
+            }
         }
     }
 

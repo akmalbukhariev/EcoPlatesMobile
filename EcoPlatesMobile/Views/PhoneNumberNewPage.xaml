@@ -51,6 +51,7 @@
                            PlaceholderColor="LightGray"
                            HorizontalOptions="Fill"
                            VerticalOptions="Center"
+                           TextChanged="PhoneEntry_TextChanged"
                            Grid.Column="1"/>
                 </Grid>
                 <Button x:Name="btnContinue" 

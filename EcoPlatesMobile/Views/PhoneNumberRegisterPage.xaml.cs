@@ -56,7 +56,7 @@ public partial class PhoneNumberRegisterPage : BasePage
          
         string phoneNumber = $"998{rawPhone}";
 
-        if (!IsValidUzbekistanPhoneNumber(phoneNumber))
+        if (!appControl.IsValidUzbekistanPhoneNumber(phoneNumber))
         {
             await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneNumberIsNotValid);
             return;
@@ -128,10 +128,5 @@ public partial class PhoneNumberRegisterPage : BasePage
         {
             loading.ShowLoading = false;
         }
-    }
-
-    public static bool IsValidUzbekistanPhoneNumber(string phoneNumber)
-    { 
-        return Regex.IsMatch(phoneNumber, Constants.PHONE_PATTERN);
     }
 }

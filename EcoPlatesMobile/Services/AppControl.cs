@@ -7,6 +7,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using System.Text.RegularExpressions;
 
 namespace EcoPlatesMobile.Services
 {
@@ -179,6 +180,11 @@ namespace EcoPlatesMobile.Services
             RefreshFavoriteProduct = true;
             RefreshFavoriteCompany = true;
             RefreshUserProfilePage = true;
+        }
+
+        public bool IsValidUzbekistanPhoneNumber(string phoneNumber)
+        {
+            return Regex.IsMatch(phoneNumber, Constants.PHONE_PATTERN);
         }
     }
 }

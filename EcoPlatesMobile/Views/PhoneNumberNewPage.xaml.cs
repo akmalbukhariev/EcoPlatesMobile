@@ -14,6 +14,8 @@ public partial class PhoneNumberNewPage : BasePage
     private UserApiService userApiService;
     private CompanyApiService companyApiService;
     private AppControl appControl;
+
+    private const int MaxPhoneLength = 9;
     public PhoneNumberNewPage(UserSessionService userSessionService, UserApiService userApiService, CompanyApiService companyApiService, AppControl appControl)
     {
         InitializeComponent();
@@ -36,8 +38,6 @@ public partial class PhoneNumberNewPage : BasePage
         {
             phoneEntry.Focus();
         };
-
-        phoneEntry.TextChanged += PhoneEntry_TextChanged;
     }
 
     private void PhoneEntry_TextChanged(object sender, TextChangedEventArgs e)
@@ -48,6 +48,20 @@ public partial class PhoneNumberNewPage : BasePage
         btnContinue.IsEnabled = isFilled;
         btnContinue.BackgroundColor = isFilled ? color : Color.FromArgb("#e0e0e0");
         btnContinue.TextColor = isFilled ? Colors.White : Colors.Gray;
+
+        string newText = e.NewTextValue ?? "";
+        string digitsOnly = new string(newText.Where(char.IsDigit).ToArray());
+
+        if (digitsOnly.Length > MaxPhoneLength)
+            digitsOnly = digitsOnly.Substring(0, MaxPhoneLength);
+ 
+        if (phoneEntry.Text != digitsOnly)
+        {
+            phoneEntry.TextChanged -= PhoneEntry_TextChanged;
+            phoneEntry.Text = digitsOnly;
+            phoneEntry.CursorPosition = digitsOnly.Length;
+            phoneEntry.TextChanged += PhoneEntry_TextChanged;
+        }
     }
 
     private static Color GetRoleColor(UserRole role) => role switch
@@ -66,7 +80,7 @@ public partial class PhoneNumberNewPage : BasePage
     private async void Continue_Clicked(object sender, EventArgs e)
     {
         var rawPhone = phoneEntry.Text?.Trim();
-        if (!IsValidUzbekistanPhoneNumber(rawPhone))
+        if (!appControl.IsValidUzbekistanPhoneNumber(rawPhone))
         {
             await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneNumberIsNotValid);
             return;
@@ -107,10 +121,5 @@ public partial class PhoneNumberNewPage : BasePage
         {
             loading.ShowLoading = false;
         }
-    }
-    
-    public static bool IsValidUzbekistanPhoneNumber(string phoneNumber)
-    { 
-        return Regex.IsMatch(phoneNumber, Constants.PHONE_PATTERN);
     }
 }

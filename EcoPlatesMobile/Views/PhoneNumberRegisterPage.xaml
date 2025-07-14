@@ -20,7 +20,7 @@
                     <component:CustomEntry x:Name="entryNumber"
                                            EntryIcon="phone.png"
                                            EntryShowPrefix="True"
-                                           IsPhoneNumber="False"
+                                           IsPhoneNumber="True"
                                            EntryKeyboard="Numeric"
                                            EntryBorderColor="#E9E9E9"
                                            EntryBackgroundColor="#F5F5F5"/>
