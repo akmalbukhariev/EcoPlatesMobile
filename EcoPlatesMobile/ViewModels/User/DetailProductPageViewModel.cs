@@ -24,7 +24,7 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private string workingTime;
         [ObservableProperty] private string oldPrice;
         [ObservableProperty] private string newPrice;
-        [ObservableProperty] private string userNeedToKnow = ". The store will provide packaging for your food, but we encourage you to bring your own bag to carry it home in.";
+        [ObservableProperty] private string userNeedToKnow = ".........";
         [ObservableProperty] private string averageRating;
         [ObservableProperty] private string totalRating;
         [ObservableProperty] private string feedbackType;
@@ -32,6 +32,8 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private int feedbackCount;
         [ObservableProperty] private List<PosterTypeInfo> typeInfoList;
         [ObservableProperty] private ImageSource likeImage;
+
+        bool likedProduct = false;
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private bool showLikedView;
         [ObservableProperty] private bool isLikedViewLiked;
@@ -72,7 +74,8 @@ namespace EcoPlatesMobile.ViewModels.User
                     ProductName = info.title;
                     Rating = info.rating?.ToString();
                     WorkingTime = info.working_hours;
-                    LikeImage = info.liked ? "liked.png" : "like.png";
+                    likedProduct = response.resultData.liked;
+                    LikeImage = likedProduct ? "liked.png" : "like.png";
                     OldPrice = info.old_price.ToString() + " so'm";
                     NewPrice = info.new_price.ToString() + " so'm";
                     UserNeedToKnow = info.description;
@@ -96,7 +99,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 }
                 else //if (response.resultCode == ApiResult.POSTER_NOT_EXIST.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync("Info", "Poster is not exist or deleted by!");
+                    await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageInfo);
                     await AppNavigatorService.NavigateTo("..");
                 }
             }
@@ -112,21 +115,23 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public async Task ProductLiked()
         {
-            ProductModel.Liked = !ProductModel.Liked;
+            likedProduct = !likedProduct;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
             {
                 user_id = appControl.UserInfo.user_id,
                 promotion_id = ProductModel.PromotionId,
-                deleted = ProductModel.Liked ? false : true,
+                deleted = likedProduct ? false : true,
             };
             
             Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                IsLikedViewLiked = ProductModel.Liked;
+                IsLikedViewLiked = likedProduct;
                 ShowLikedView = true;
-                LikeImage = ProductModel.Liked ? "liked.png" : "like.png";
+                LikeImage = likedProduct ? "liked.png" : "like.png";
+
+                appControl.RefreshAllPages();
             }
         }
     }

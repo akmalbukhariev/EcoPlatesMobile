@@ -15,6 +15,7 @@
                Margin="0,0,20,0"
                VerticalOptions="Center"/>
         <Label x:Name="label"
+               TextColor="Black"
                VerticalTextAlignment="Center"
                Grid.Column="1"/>
         <Border x:Name="borderTileTex1" 
@@ -24,6 +25,7 @@
                 StrokeShape="RoundRectangle 4"
                 Grid.Column="2">
             <Label x:Name="label1"
+                   TextColor="Black"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"/>
         </Border>

@@ -6,16 +6,17 @@
                xmlns:view="clr-namespace:EcoPlatesMobile.Views"
                BackgroundColor="#007200">
 
-    <Grid RowDefinitions="*, Auto, 50, Auto, *">
-    <Image x:Name="imLogo" 
+    <ScrollView>
+        <Grid RowDefinitions="*, Auto, 50, Auto, *">
+            <Image x:Name="imLogo" 
            Source="logo.png"
            WidthRequest="200"
            HeightRequest="200" 
            HorizontalOptions="Center"
            VerticalOptions="Center"
            Grid.Row="1"/>
-    
-    <Frame CornerRadius="30" 
+
+            <Frame CornerRadius="30" 
            Padding="5" 
            HasShadow="True"
            BorderColor="Gray" 
@@ -23,32 +24,32 @@
            WidthRequest="250"
            Grid.Row="3"
            HorizontalOptions="Center">
-        <Grid ColumnDefinitions="Auto, *, Auto" 
+                <Grid ColumnDefinitions="Auto, *, Auto" 
               VerticalOptions="Center" 
               Padding="5">
-            <Image Source="{Binding SelectedFlag}" 
+                    <Image Source="{Binding SelectedFlag}" 
                    WidthRequest="30" 
                    HeightRequest="20"
                    VerticalOptions="Center" 
                    Margin="5"/>
-            <Label Text="{Binding SelectedLanguage}" 
+                    <Label Text="{Binding SelectedLanguage}" 
                    FontSize="18" 
                    VerticalTextAlignment="Center" 
                    TextColor="Green"
                    Grid.Column="1"/>
-            <Image Source="down.png" 
+                    <Image Source="down.png" 
                    WidthRequest="20" 
                    HeightRequest="20"
                    Margin="0, 0, 10, 0" 
                    VerticalOptions="Center"
                    Grid.Column="2"/>
-        </Grid>
-        <Frame.GestureRecognizers>
-            <TapGestureRecognizer Tapped="OnFrameTapped"/>
-        </Frame.GestureRecognizers>
-    </Frame>
+                </Grid>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFrameTapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
 
-    <Frame x:Name="DropdownList" 
+            <Frame x:Name="DropdownList" 
            IsVisible="False"
            BackgroundColor="White" 
            CornerRadius="10"
@@ -60,35 +61,35 @@
            VerticalOptions="Start"
            TranslationY="50"
            Grid.Row="3">
-        <CollectionView ItemsSource="{Binding Languages}"
+                <CollectionView ItemsSource="{Binding Languages}"
                         SelectionMode="Single"
                         SelectionChanged="OnLanguageSelected">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10" 
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" 
                           ColumnDefinitions="Auto, *, Auto">
-                        <Image Source="{Binding Flag}" 
+                                <Image Source="{Binding Flag}" 
                                WidthRequest="30" 
                                HeightRequest="20"
                                VerticalOptions="Center"/>
-                        <Label Text="{Binding Name}" 
+                                <Label Text="{Binding Name}" 
                                Margin="5,0,0,0"
                                FontSize="18" 
                                VerticalTextAlignment="Center" 
                                TextColor="Black"
                                Grid.Column="1"/>
-                        <Image Source="checkmark.png"
+                                <Image Source="checkmark.png"
                                WidthRequest="20" 
                                HeightRequest="20" 
                                IsVisible="{Binding IsSelected}" 
                                Grid.Column="2"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Frame>
-    
-    <Button Text="{x:Static language:AppResource.Next}"
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+
+            <Button Text="{x:Static language:AppResource.Next}"
             TextColor="Green"
             FontSize="18"
             BorderWidth="2"
@@ -101,6 +102,7 @@
             Margin="0,0,0,30"
             Clicked="Next_Clicked"
             Grid.Row="4"/>
-</Grid>
+        </Grid>
+    </ScrollView>
 
 </view:BasePage>

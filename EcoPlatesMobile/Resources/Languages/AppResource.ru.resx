@@ -677,6 +677,14 @@
   <value>основные моменты</value>
   <comment>DetailProductPage</comment>
 </data>
+<data name="Info" xml:space="preserve">
+  <value>Информация</value>
+  <comment>DetailProductPage</comment>
+</data>
+	<data name="MessageInfo" xml:space="preserve">
+  <value>Продукт не существует или был удалён.</value>
+  <comment>DetailProductPage</comment>
+</data>
 <data name="SelectDistance" xml:space="preserve">
   <value>Выберите расстояние</value>
   <comment>LocationSettingPage</comment>

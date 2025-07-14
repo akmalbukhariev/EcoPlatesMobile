@@ -78,6 +78,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLikedViewLiked = likedCompany;
                 ShowLikedView = true;
                 LikeImage = likedCompany ? "liked.png" : "like.png";
+
+                appControl.RefreshAllPages();
             }
         }
 

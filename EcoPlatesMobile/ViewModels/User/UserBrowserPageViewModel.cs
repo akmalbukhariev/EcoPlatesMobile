@@ -58,6 +58,8 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLikedViewLiked = product.Liked;
                 ShowLikedView = true;
+
+                appControl.RefreshAllPages();
             }
         }
 

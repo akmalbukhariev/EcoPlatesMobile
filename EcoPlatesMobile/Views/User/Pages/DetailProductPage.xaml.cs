@@ -61,6 +61,8 @@ public partial class DetailProductPage : BasePage
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
     {
+        //if (!appControl.ShowLike) return;
+
         if (sender is VisualElement element)
         {
             await AnimateElementScaleDown(element);

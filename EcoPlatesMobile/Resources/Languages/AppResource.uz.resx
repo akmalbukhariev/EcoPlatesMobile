@@ -677,6 +677,14 @@
   <value>asosiy jihatlar</value>
   <comment>DetailProductPage</comment>
 </data>
+<data name="Info" xml:space="preserve">
+  <value>Maʼlumot</value>
+  <comment>DetailProductPage</comment>
+</data>
+<data name="MessageInfo" xml:space="preserve">
+  <value>Mahsulot mavjud emas yoki o‘chirib tashlangan.</value>
+  <comment>DetailProductPage</comment>
+</data>
 <data name="SelectDistance" xml:space="preserve">
   <value>Masofani tanlang</value>
   <comment>LocationSettingPage</comment>

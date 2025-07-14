@@ -145,7 +145,7 @@ public partial class LocationSettingPage : BasePage
             }
             else
             {
-                await AlertService.ShowAlertAsync("Error", response.resultMsg);
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
             }
         }
         catch (Exception ex)

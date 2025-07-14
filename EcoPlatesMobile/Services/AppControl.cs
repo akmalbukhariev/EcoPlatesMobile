@@ -19,6 +19,7 @@ namespace EcoPlatesMobile.Services
         public bool RefreshUserProfilePage { get; set; } = true;
         public bool RefreshCompanyProfilePage { get; set; } = true;
         public bool IsPhoneNumberRegisterPage {  get; set; } = true;
+        public bool ShowLike {  get; set; } = true;
         public CompanyInfo CompanyInfo { get; set; }
         public UserInfo UserInfo { get; set; }
         public Location LocationForRegister { get; set; } = null;
@@ -169,6 +170,15 @@ namespace EcoPlatesMobile.Services
             RefreshFavoriteProduct = true;
             RefreshUserProfilePage = true;
             Application.Current.MainPage = new AppUserShell();
+        }
+
+        public void RefreshAllPages()
+        {
+            RefreshMainPage = true;
+            RefreshBrowserPage = true;
+            RefreshFavoriteProduct = true;
+            RefreshFavoriteCompany = true;
+            RefreshUserProfilePage = true;
         }
     }
 }

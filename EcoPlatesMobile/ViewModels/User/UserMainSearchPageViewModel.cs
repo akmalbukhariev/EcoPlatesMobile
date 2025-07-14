@@ -70,6 +70,8 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ProductClicked(ProductModel product)
         {
+            appControl.ShowLike = true;
+
             await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product

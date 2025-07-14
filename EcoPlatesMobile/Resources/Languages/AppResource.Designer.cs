@@ -718,6 +718,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        internal static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language Changed.
         /// </summary>
         internal static string LanguageChanged {
@@ -840,6 +849,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string MessageFieldCannotBeEmty {
             get {
                 return ResourceManager.GetString("MessageFieldCannotBeEmty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Poster does not exist or has been deleted..
+        /// </summary>
+        internal static string MessageInfo {
+            get {
+                return ResourceManager.GetString("MessageInfo", resourceCulture);
             }
         }
         

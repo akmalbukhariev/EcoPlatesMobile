@@ -45,6 +45,8 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ProductClicked(ProductModel product)
         {
+            appControl.ShowLike = false;
+
             await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
@@ -204,6 +206,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     Products.Remove(product);
+
+                    appControl.RefreshAllPages();
                 }
             }
             catch (Exception ex)
@@ -233,6 +237,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     Companies.Remove(product);
+
+                    appControl.RefreshAllPages();
                 }
             }
             catch (Exception ex)

@@ -26,10 +26,10 @@ public partial class ListTileView : ContentView
        BindableProperty.Create(nameof(TileText1), typeof(string), typeof(ListTileView), default(string), propertyChanged: TileText1Changed);
 
     public static readonly BindableProperty TileTextColorProperty =
-        BindableProperty.Create(nameof(TileTextColor), typeof(Color), typeof(ListTileView), Color.FromArgb("#444444"), propertyChanged: TileTextColorChanged);
+        BindableProperty.Create(nameof(TileTextColor), typeof(Color), typeof(ListTileView), Colors.Black, propertyChanged: TileTextColorChanged);
 
     public static readonly BindableProperty TileText1ColorProperty =
-        BindableProperty.Create(nameof(TileText1Color), typeof(Color), typeof(ListTileView), Color.FromArgb("#444444"), propertyChanged: TileText1ColorChanged);
+        BindableProperty.Create(nameof(TileText1Color), typeof(Color), typeof(ListTileView), Colors.Black, propertyChanged: TileText1ColorChanged);
 
     public static readonly BindableProperty TileTextSizeProperty =
        BindableProperty.Create(nameof(TileTextSize), typeof(double), typeof(ListTileView), 18.0, propertyChanged: TileTextSizeChanged);

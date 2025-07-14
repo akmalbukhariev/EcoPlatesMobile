@@ -677,7 +677,15 @@
     <value>Highlights</value>
     <comment>DetailProductPage</comment>
   </data>
-  <data name="SelectDistance" xml:space="preserve">
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+    <comment>DetailProductPage</comment>
+  </data>
+  <data name="MessageInfo" xml:space="preserve">
+    <value>Poster does not exist or has been deleted.</value>
+    <comment>DetailProductPage</comment>
+  </data>
+ <data name="SelectDistance" xml:space="preserve">
     <value>Select a distance</value>
     <comment>LocationSettingPage</comment>
   </data>
