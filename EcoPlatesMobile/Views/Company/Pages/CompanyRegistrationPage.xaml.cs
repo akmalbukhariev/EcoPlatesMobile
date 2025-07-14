@@ -68,8 +68,8 @@ public partial class CompanyRegistrationPage : BasePage
 
         if (appControl.LocationForRegister != null)
         {
-            string lat = appControl.LocationForRegister.Latitude.ToString("F4", CultureInfo.InvariantCulture);
-            string lon = appControl.LocationForRegister.Longitude.ToString("F4", CultureInfo.InvariantCulture);
+            string lat = appControl.LocationForRegister.Latitude.ToString("F6", CultureInfo.InvariantCulture);
+            string lon = appControl.LocationForRegister.Longitude.ToString("F6", CultureInfo.InvariantCulture);
 
             lbLocation.Text = $"{AppResource.Location} {lat}, {lon}";
         }
@@ -221,6 +221,19 @@ public partial class CompanyRegistrationPage : BasePage
     private async void Location_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as Border);
+
+        loading.ShowLoading = true; 
+        var locationService = new LocationService();
+        var location = await locationService.GetCurrentLocationAsync();
+        
+        loading.ShowLoading = false; 
+
+        if (location == null)
+        {
+            await AlertService.ShowAlertAsync(AppResource.LocationPermissionRequired, AppResource.MessageLocationPermission, AppResource.Ok);
+            return;
+        }
+
         await AppNavigatorService.NavigateTo(nameof(LocationRegistrationPage));
     }
 }

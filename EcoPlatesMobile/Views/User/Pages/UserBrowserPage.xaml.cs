@@ -193,12 +193,12 @@ public partial class UserBrowserPage : BasePage
             }
             else
             {
-                await DisplayAlert("Location Error", "Could not get your current location.", "OK");
+                await DisplayAlert(AppResource.Error, AppResource.MessageLocationPermission, AppResource.Ok);
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Unable to retrieve location: {ex.Message}", "OK");
+            Console.WriteLine($"Unable to retrieve location: {ex.Message}");
         }
         finally
         {

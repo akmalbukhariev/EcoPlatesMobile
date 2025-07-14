@@ -186,6 +186,17 @@ public partial class CompanyProfilePage : BasePage
             case ListTileView.ListTileType.Share:
                 break;
             case ListTileView.ListTileType.Location:
+                loading.IsRunning = true;
+                var locationService = new LocationService();
+                var location = await locationService.GetCurrentLocationAsync();
+                
+                loading.IsRunning = false; 
+
+                if (location == null)
+                {
+                    await AlertService.ShowAlertAsync(AppResource.LocationPermissionRequired, AppResource.MessageLocationPermission, AppResource.Ok);
+                    return;
+                }
                 await AppNavigatorService.NavigateTo(nameof(LocationPage));
                 break;
             case ListTileView.ListTileType.Suggestions:
