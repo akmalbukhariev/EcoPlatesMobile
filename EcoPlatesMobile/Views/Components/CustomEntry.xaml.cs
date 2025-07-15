@@ -32,6 +32,9 @@ public partial class CustomEntry : ContentView
     public static readonly BindableProperty EntryShowPrefixProperty =
        BindableProperty.Create(nameof(EntryShowPrefix), typeof(bool), typeof(CustomEntry), false, propertyChanged: EntryShowPrefixChanged);
 
+    public static readonly BindableProperty EntrySendIconProperty =
+        BindableProperty.Create(nameof(EntrySendIcon), typeof(ImageSource), typeof(CustomEntry), default(ImageSource), propertyChanged: EntrySendIconChanged);
+
     public Color EntryBorderColor
     {
         get => (Color)GetValue(EntryBorderColorProperty);
@@ -42,6 +45,12 @@ public partial class CustomEntry : ContentView
     {
         get => (ImageSource)GetValue(EntryIconProperty);
         set => SetValue(EntryIconProperty, value);
+    }
+
+    public ImageSource EntrySendIcon
+    {
+        get => (ImageSource)GetValue(EntrySendIconProperty);
+        set => SetValue(EntrySendIconProperty, value);
     }
 
     public Color EntryBackgroundColor
@@ -97,16 +106,21 @@ public partial class CustomEntry : ContentView
     }
 
     public bool IsPhoneNumber{get; set;}
+    public bool ShowSendImage { get; set; }
+
     private const int MaxPhoneLength = 9;
 
     private Color _defaultBorderColor;
     private Color _defaultEntryBackgroundColor;
+
+    public event Action EventClickSend;
 
     public CustomEntry()
 	{
 		InitializeComponent();
 
         IsPhoneNumber = false;
+        ShowSendImage = false;
         
         _defaultBorderColor = EntryBorderColor;
         _defaultEntryBackgroundColor = EntryBackgroundColor;
@@ -129,14 +143,19 @@ public partial class CustomEntry : ContentView
         {
             EntryBorderColor = _defaultBorderColor;
             EntryBackgroundColor = _defaultEntryBackgroundColor;
-        }
-        else if (string.IsNullOrWhiteSpace(newText))
-        {
-            EntryBorderColor = Color.FromArgb("#DC0000");
-            EntryBackgroundColor = _defaultEntryBackgroundColor;
+
+            if (ShowSendImage)
+            {
+                sendImage.IsVisible = false;
+            }
         }
         else
         {
+            if (ShowSendImage)
+            {
+                sendImage.IsVisible = true;
+            }
+
             EntryBorderColor = Color.FromArgb("#00C300");
             EntryBackgroundColor = Colors.White;
         }
@@ -171,6 +190,12 @@ public partial class CustomEntry : ContentView
     {
         var control = (CustomEntry)bindable;
         control.iconImage.Source = (ImageSource)newValue;
+    }
+
+    private static void EntrySendIconChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CustomEntry)bindable;
+        control.sendImage.Source = (ImageSource)newValue;
     }
 
     private static void EntryBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
@@ -213,5 +238,13 @@ public partial class CustomEntry : ContentView
     {
         var control = (CustomEntry)bindable;
         control.prefixLabel.IsVisible = (bool)newValue;
+    }
+
+    private async void Send_Tapped(object sender, TappedEventArgs e)
+    {
+        await sendImage.ScaleTo(0.8, 100, Easing.CubicOut);
+        await sendImage.ScaleTo(1.0, 100, Easing.CubicIn);
+
+        EventClickSend?.Invoke();
     }
 }

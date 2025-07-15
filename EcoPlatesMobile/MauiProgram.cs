@@ -10,7 +10,7 @@ using Microsoft.Maui.Maps.Handlers;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Views;
- 
+
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;
 #endif
@@ -140,6 +140,9 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<PhoneNumberRegisterPage>();
             builder.Services.AddTransient<SuggestionsPage>(); 
             builder.Services.AddTransient<PhoneNumberNewPage>();
+            builder.Services.AddTransient<Views.Chat.ChattingPage>();
+
+            builder.Services.AddTransient<ViewModels.Chat.ChattingPageViewModel>();
             #endregion
         }
     }

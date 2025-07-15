@@ -14,7 +14,7 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="{Binding EntryCornerRadius}"/>
         </Border.StrokeShape>
-        <Grid ColumnDefinitions="Auto, Auto, *" 
+        <Grid ColumnDefinitions="Auto, Auto, *, Auto" 
               VerticalOptions="Center">
             <Image x:Name="iconImage"
                    Source="{Binding EntryIcon}"
@@ -38,6 +38,19 @@
                    BackgroundColor="Transparent"
                    TextColor="Black"
                    Grid.Column="2"/>
+            <Image x:Name="sendImage"
+                   Source="{Binding EntrySendIcon}"
+                   IsVisible="Collapse"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   VerticalOptions="Center"
+                   Margin="5,5,15,0"
+                   Grid.Column="3">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Send_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
     </Border>
 </ContentView>

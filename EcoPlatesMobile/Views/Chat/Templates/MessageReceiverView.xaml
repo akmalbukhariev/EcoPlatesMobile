@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoPlatesMobile.Views.Chat.Templates.MessageReceiverView">
+
+    <Grid x:Name="grMain" 
+          ColumnDefinitions="Auto,*"
+          RowDefinitions="Auto,*,20"
+          RowSpacing="0"
+          Margin="10,0,10,0">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                  Tapped="Message_Tapped"/>
+        </Grid.GestureRecognizers>
+        <StackLayout Orientation="Horizontal"
+                     Spacing="5">
+            <Label Text="{Binding Name}"
+                   FontSize="17"
+                   TextColor="Black"
+                   WidthRequest="60"
+                   LineBreakMode="TailTruncation"
+                   FontAttributes="Bold"/>
+            <Label Text="{Binding Time}"
+                   TextColor="#A7A7A7"
+                   HorizontalOptions="Start"
+                   VerticalTextAlignment="Center"/>
+        </StackLayout>
+        <BoxView BackgroundColor="{Binding BackColor}"
+                 CornerRadius="0,15,15,15"
+                 Grid.Row="1"/>
+        <Label Text="{Binding Text}"
+               TextColor="White"
+               Margin="10,7,7,7"
+               VerticalTextAlignment="Center"
+               Grid.Row="1"/>
+    </Grid>
+</ContentView>

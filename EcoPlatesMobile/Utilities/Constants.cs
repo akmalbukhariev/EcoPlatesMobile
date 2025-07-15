@@ -30,5 +30,8 @@ namespace EcoPlatesMobile.Utilities
         public const string LAN_ICON_UZBEK = "flag_uz.png";
         public const string LAN_ICON_ENGLISH = "flag_en.png";
         public const string LAN_ICON_RUSSIAN = "flag_ru.png";
+
+        public const string COLOR_USER = "#007100";
+        public const string COLOR_COMPANY = "#8338EC";
     }
 }

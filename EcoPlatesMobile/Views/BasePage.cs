@@ -37,7 +37,12 @@ namespace EcoPlatesMobile.Views
                 await element.ScaleTo(1.0, 100, Easing.CubicIn);
             });
         }
-        
+
+        protected async Task Back()
+        {
+            await AppNavigatorService.NavigateTo("..");
+        }
+
         /// <summary>
         /// Resolves the ViewModel through the DI container.
         /// </summary>

@@ -394,6 +394,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is this location really your workplace location?.
+        /// </summary>
+        internal static string ConfirmCompanyLocation {
+            get {
+                return ResourceManager.GetString("ConfirmCompanyLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to enter the verification code sent via SMS to your phone number..
         /// </summary>
         internal static string ConfirmTitle {

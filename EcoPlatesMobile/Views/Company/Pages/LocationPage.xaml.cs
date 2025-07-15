@@ -65,7 +65,10 @@ public partial class LocationPage : BasePage
 				return;
 			}
 
-			var center = new Location(
+            bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocation, AppResource.Yes, AppResource.No);
+            if (!yes) return;
+
+            var center = new Location(
 				visibleRegion.Center.Latitude,
 				visibleRegion.Center.Longitude
 			);

@@ -46,7 +46,7 @@ public partial class DetailProductPage : BasePage
             await AnimateElementScaleDown(element);
         }
 
-        await AppNavigatorService.NavigateTo("..");
+        await Back();
     }
 
     private async void Home_Tapped(object sender, TappedEventArgs e)

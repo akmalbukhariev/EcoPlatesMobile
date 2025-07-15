@@ -8,7 +8,8 @@
                BackgroundColor="#EFEEF2">
 
     <Grid RowDefinitions="Auto, *, Auto, 30, Auto, 20, Auto, *">
-        <component:CustomHeader Title="{x:Static language:AppResource.ChangeNumber}"
+        <component:CustomHeader x:Name="header" 
+                                Title="{x:Static language:AppResource.ChangeNumber}"
                                 HeaderBackground="#8338EC"/>
         <Image Source="phone1.png"
                Aspect="AspectFit"

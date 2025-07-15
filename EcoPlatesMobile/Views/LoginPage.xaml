@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<view:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="EcoPlatesMobile.Views.LoginPage"
-               xmlns:view="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:loading="clr-namespace:EcoPlatesMobile.Views.Components"
                BackgroundColor="White">
@@ -59,4 +59,4 @@
         <loading:LoadingView x:Name="loading" 
                              ShowLoading="False"/>
     </Grid>
-</view:BasePage>
+</page:BasePage>

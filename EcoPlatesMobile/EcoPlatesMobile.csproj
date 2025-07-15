@@ -147,6 +147,12 @@
 	  <MauiXaml Update="Views\Chat\ChattingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Chat\Templates\MessageReceiverView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Chat\Templates\MessageSenderView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Company\Components\PricePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

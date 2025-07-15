@@ -805,7 +805,6 @@
     <value>Profile</value>
     <comment>AppUserShell</comment>
   </data>
-
   <data name="LocationPermissionRequired" xml:space="preserve">
     <value>Location Permission Required</value>
     <comment>LocationService</comment>
@@ -816,6 +815,10 @@
   </data>
   <data name="OpenSettings" xml:space="preserve">
     <value>Open Settings</value>
+    <comment>LocationService</comment>
+  </data>
+  <data name="ConfirmCompanyLocation" xml:space="preserve">
+    <value>Is this location really your workplace location?</value>
     <comment>LocationService</comment>
   </data>
   <data name="MessageLocationEmpty" xml:space="preserve">

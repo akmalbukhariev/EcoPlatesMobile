@@ -1,12 +1,94 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcoPlatesMobile.Views.Chat.ChattingPage"
-             Title="ChattingPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-</ContentPage>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.Chat.ChattingPage"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:templates="clr-namespace:EcoPlatesMobile.Views.Chat.Templates"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="SenderMessage">
+                <templates:MessageSenderView/>
+            </DataTemplate>
+            <DataTemplate x:Key="ReceiverMessage">
+                <templates:MessageReceiverView/>
+            </DataTemplate>
+            <templates:MessageDataTemplateSelector x:Key="MessageBoxTemplate"
+                                                   SenderMessageTemplate="{StaticResource SenderMessage}"
+                                                   ReceiverMessageTemplate="{StaticResource ReceiverMessage}"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, 20, *">
+        <Grid ColumnDefinitions="Auto, *, Auto"
+              RowDefinitions="Auto, Auto"
+              Margin="10,10,10,0">
+            <Image Source="back.png"
+                   WidthRequest="30"
+                   VerticalOptions="Center">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Back_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Text="Company name"
+                   TextColor="White"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   Margin="10,0,0,0"
+                   Grid.Column="1"/>
+            <Label Text="+998998887766"
+                   TextColor="White"
+                   FontSize="16"
+                   VerticalOptions="Start"
+                   Margin="10,-5,0,0"
+                   Grid.Column="1"
+                   Grid.Row="1">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Number_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Border x:Name="borderCompany"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    Stroke="Gray"
+                    StrokeThickness="0.2"
+                    StrokeShape="RoundRectangle 100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="0,0,20,0"
+                    Grid.Column="2"
+                    Grid.RowSpan="2">
+                <Image x:Name="imCompany" 
+                       Source="copany_logo.png"
+                       Aspect="AspectFill"
+                       WidthRequest="64"
+                       HeightRequest="64"/>
+            </Border>
+        </Grid>
+        <Border BackgroundColor="White"
+                Grid.Row="2">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="40,40,0,0" />
+            </Border.StrokeShape>
+            <Grid RowDefinitions="*, Auto, 20">
+                <CollectionView ItemsSource="{Binding Messages}" 
+                                ItemTemplate="{StaticResource MessageBoxTemplate}"
+                                SelectedItem="{Binding SelectedMessage}"
+                                Margin="10,20,10,10"
+                                SelectionMode="Single"/>
+                <component:CustomEntry x:Name="entryMessage"
+                                       ShowSendImage="True"
+                                       EntrySendIcon="send_user.png"
+                                       EntryBorderColor="LightGray"
+                                       EntryBackgroundColor="#F5F5F5"
+                                       Margin="20,0,20,0"
+                                       Grid.Row="1"/>
+            </Grid>
+        </Border>
+    </Grid>
+    
+</page:BasePage>

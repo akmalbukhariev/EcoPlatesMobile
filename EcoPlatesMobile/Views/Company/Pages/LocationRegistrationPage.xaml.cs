@@ -42,7 +42,7 @@ public partial class LocationRegistrationPage : BasePage
 
     private async void Save_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Microsoft.Maui.Controls.Image);
+        await AnimateElementScaleDown(sender as Image);
 
         try
         {
@@ -51,6 +51,9 @@ public partial class LocationRegistrationPage : BasePage
             {
                 return;
             }
+
+            bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocation, AppResource.Yes, AppResource.No);
+            if (!yes) return;
 
             loading.ShowLoading = true;
             var center = new Location(

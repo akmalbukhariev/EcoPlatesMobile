@@ -1,5 +1,6 @@
 ﻿ 
 using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
 using System.Threading.Tasks;
 
 namespace EcoPlatesMobile.Views;
@@ -30,7 +31,7 @@ public partial class LoginPage : BasePage
         loading.ShowLoading = true;
         if (isLoggedIn)
         {
-            string strColor = "#8338EC";
+            string strColor = Constants.COLOR_COMPANY;
             if (role == UserRole.Company)
             {
                 userSessionService.SetUser(UserRole.Company);
@@ -38,7 +39,7 @@ public partial class LoginPage : BasePage
             }
             else if (role == UserRole.User)
             {
-                strColor = "#007100";
+                strColor = Constants.COLOR_USER;
                 userSessionService.SetUser(UserRole.User);
                 await appControl.LoginUser(phoneNumber);
             }
@@ -50,14 +51,14 @@ public partial class LoginPage : BasePage
      
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        string strColor = "#8338EC";
+        string strColor = Constants.COLOR_COMPANY;
         if (sender == btnComapny)
         {
             userSessionService.SetUser(UserRole.Company);
         }
         else if (sender == btnUser)
         {
-            strColor = "#007100";
+            strColor = Constants.COLOR_USER;
             userSessionService.SetUser(UserRole.User);
         }
 
