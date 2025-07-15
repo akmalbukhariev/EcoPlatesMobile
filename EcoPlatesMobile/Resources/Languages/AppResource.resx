@@ -561,7 +561,19 @@
     <value>Update location</value>
     <comment>LocationPage</comment>
   </data>
-  <data name="ActiveProductCount" xml:space="preserve">
+ <data name="YourWorkplace" xml:space="preserve">
+  <value>Your workplace</value>
+  <comment>LocationPage</comment>
+ </data>
+	<data name="SpecifyYourWorkLocation" xml:space="preserve">
+  <value>Specify your work location.</value>
+  <comment>LocationPage</comment>
+ </data>
+<data name="CurrentLocation" xml:space="preserve">
+  <value>Current location</value>
+  <comment>LocationPage</comment>
+</data>
+ <data name="ActiveProductCount" xml:space="preserve">
     <value>Currently active products:</value>
     <comment>ActiveProductPage</comment>
   </data>

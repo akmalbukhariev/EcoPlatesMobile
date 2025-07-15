@@ -11,7 +11,7 @@
           BackgroundColor="#FAF9FA">
         <component:CustomHeader x:Name="header" 
                                 Title="{x:Static language:AppResource.SuggestionTitle1}"
-                                HeaderBackground="Green"/>
+                                HeaderBackground="#007100"/>
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="20" 
                                  Spacing="20">

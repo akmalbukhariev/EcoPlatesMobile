@@ -163,7 +163,12 @@ public partial class UserBrowserPage : BasePage
 
     private async void Click_RadiusLocation()
     {
-        //await CenterMapToCurrentLocation();
+        var location = await locationService.GetCurrentLocationAsync();
+        if (location == null)
+        {
+            await DisplayAlert(AppResource.Error, AppResource.MessageLocationPermission, AppResource.Ok);
+            return;
+        }
         await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }
 

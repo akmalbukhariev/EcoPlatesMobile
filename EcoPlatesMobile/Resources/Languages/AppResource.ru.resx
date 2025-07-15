@@ -565,6 +565,18 @@
   <value>Обновить местоположение</value>
   <comment>LocationPage</comment>
 </data>
+<data name="YourWorkplace" xml:space="preserve">
+  <value>Ваше место работы</value>
+  <comment>LocationPage</comment>
+</data>
+<data name="SpecifyYourWorkLocation" xml:space="preserve">
+  <value>Укажите ваше место работы.</value>
+  <comment>LocationPage</comment>
+</data>
+<data name="CurrentLocation" xml:space="preserve">
+  <value>Текущее место</value>
+  <comment>LocationPage</comment>
+</data>
 <data name="ActiveProductCount" xml:space="preserve">
   <value>Текущие активные товары:</value>
   <comment>ActiveProductPage</comment>

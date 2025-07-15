@@ -8,7 +8,7 @@
     <Grid RowDefinitions="80, *, Auto, 20">
         <Grid x:Name="headerGrid" 
               ColumnDefinitions="*, Auto" 
-              BackgroundColor="Green">
+              BackgroundColor="#007100">
             <Label x:Name="lbTitle" 
                    Text="About the Application"
                    TextColor="White"

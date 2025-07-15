@@ -51,7 +51,7 @@ namespace EcoPlatesMobile.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Location error: {ex.Message}");
+                await AlertService.ShowAlertAsync(AppResource.LocationPermissionRequired, AppResource.MessageLocationPermission, AppResource.Ok);
                 return null;
             }
         }

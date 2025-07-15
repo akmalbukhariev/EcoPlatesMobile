@@ -22,7 +22,7 @@
                 </Image.GestureRecognizers>
             </Image>
             <Label x:Name="lbTitle"
-                   Text="Ishlash joyingizni belgilang"
+                   Text="{x:Static language:AppResource.SpecifyYourWorkLocation}"
                    TextColor="White"
                    FontSize="18"
                    VerticalOptions="Center"
@@ -50,7 +50,7 @@
                              VerticalOptions="Center" 
                              Grid.Row="1"
                              Grid.RowSpan="2">
-                 <Label Text="Hozirgi joylashuvingiz"
+                 <Label Text="{x:Static language:AppResource.CurrentLocation}"
                         FontSize="17"
                         FontAttributes="Bold"
                         TextColor="#8338EC"/>

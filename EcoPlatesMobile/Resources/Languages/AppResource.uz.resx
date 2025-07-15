@@ -565,6 +565,18 @@
   <value>Joylashuvni yangilash</value>
   <comment>LocationPage</comment>
 </data>
+<data name="YourWorkplace" xml:space="preserve">
+  <value>Ish joyingiz</value>
+  <comment>LocationPage</comment>
+</data>
+<data name="SpecifyYourWorkLocation" xml:space="preserve">
+  <value>Ish joyingizni ko‘rsating.</value>
+  <comment>LocationPage</comment>
+</data>
+<data name="CurrentLocation" xml:space="preserve">
+  <value>Hozirgi joylashuv</value>
+  <comment>LocationPage</comment>
+</data>
 <data name="ActiveProductCount" xml:space="preserve">
   <value>Hozirda faol mahsulotlar:</value>
   <comment>ActiveProductPage</comment>

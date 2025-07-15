@@ -421,6 +421,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current location.
+        /// </summary>
+        internal static string CurrentLocation {
+            get {
+                return ResourceManager.GetString("CurrentLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to so&apos;m Current price).
         /// </summary>
         internal static string CurrentPrice {
@@ -1420,6 +1429,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specify your work location..
+        /// </summary>
+        internal static string SpecifyYourWorkLocation {
+            get {
+                return ResourceManager.GetString("SpecifyYourWorkLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Work start time.
         /// </summary>
         internal static string StartWorkingTime {
@@ -1614,6 +1632,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string YouAreHere {
             get {
                 return ResourceManager.GetString("YouAreHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your workplace.
+        /// </summary>
+        internal static string YourWorkplace {
+            get {
+                return ResourceManager.GetString("YourWorkplace", resourceCulture);
             }
         }
     }

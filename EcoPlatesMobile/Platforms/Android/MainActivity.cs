@@ -23,6 +23,7 @@ namespace EcoPlatesMobile
             base.OnCreate(savedInstanceState);
 
             Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
+            Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#FFFFFF"));
 
             Instance = this;
         }

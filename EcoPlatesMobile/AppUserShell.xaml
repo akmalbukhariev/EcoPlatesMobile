@@ -6,6 +6,7 @@
        xmlns:userPages="clr-namespace:EcoPlatesMobile.Views.User.Pages"
        xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
        Shell.FlyoutBehavior="Disabled"
+       Shell.BackgroundColor="White"
        Shell.TabBarBackgroundColor="#F3F8F9"
        Shell.TabBarUnselectedColor="Gray"
        Shell.TabBarForegroundColor="Green"

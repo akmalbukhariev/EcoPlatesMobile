@@ -230,7 +230,6 @@ public partial class CompanyRegistrationPage : BasePage
 
         if (location == null)
         {
-            await AlertService.ShowAlertAsync(AppResource.LocationPermissionRequired, AppResource.MessageLocationPermission, AppResource.Ok);
             return;
         }
 

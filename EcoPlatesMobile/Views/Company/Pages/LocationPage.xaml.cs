@@ -45,7 +45,7 @@ public partial class LocationPage : BasePage
  
 		var pin = new Pin
 		{
-			Label = "Ish joyingiz",
+			Label = AppResource.YourWorkplace,
 			Location = new Location((double)appControl.CompanyInfo.location_latitude, (double)appControl.CompanyInfo.location_longitude),
 			Type = PinType.Place,
 		};

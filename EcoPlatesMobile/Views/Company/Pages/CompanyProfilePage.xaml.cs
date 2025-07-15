@@ -194,7 +194,6 @@ public partial class CompanyProfilePage : BasePage
 
                 if (location == null)
                 {
-                    await AlertService.ShowAlertAsync(AppResource.LocationPermissionRequired, AppResource.MessageLocationPermission, AppResource.Ok);
                     return;
                 }
                 await AppNavigatorService.NavigateTo(nameof(LocationPage));

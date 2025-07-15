@@ -77,6 +77,7 @@ namespace EcoPlatesMobile
                     ThrowOnAnyError = false,
                     Timeout = TimeSpan.FromSeconds(30)
                 }));
+            builder.Services.AddSingleton<IStatusBarService, StatusBarService>();
         }
 
         private static void RegisterTransient(MauiAppBuilder builder)
