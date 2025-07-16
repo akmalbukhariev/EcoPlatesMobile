@@ -65,6 +65,7 @@ namespace EcoPlatesMobile
             builder.Services.AddSingleton<AppStoreService>();
             builder.Services.AddSingleton<UserSessionService>();
             builder.Services.AddSingleton<LanguageService>();
+            builder.Services.AddSingleton<ChatWebSocketService>();
             builder.Services.AddSingleton(sp =>
                 new RestClient(new RestClientOptions(Constants.BASE_USER_URL)
                 {

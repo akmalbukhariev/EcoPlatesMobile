@@ -15,11 +15,16 @@ namespace EcoPlatesMobile.ViewModels.Chat
         [ObservableProperty] private ObservableRangeCollection<Message> messages;
         [ObservableProperty] private Message selectedMessage;
 
-        public ChattingPageViewModel()
+        private ChatWebSocketService webSocketService;
+        public ChattingPageViewModel(ChatWebSocketService webSocketService)
         {
+            this.webSocketService = webSocketService;
+            this.webSocketService.OnMessageReceived += ReceivedMessage;
+
             messages = new ObservableRangeCollection<Message>();
 
             #region For test
+            /*
             Message msgRec1 = new Message()
             {
                 MsgType = MessageType.Receiver,
@@ -63,7 +68,22 @@ namespace EcoPlatesMobile.ViewModels.Chat
             Messages.Add(msgSend2);
             Messages.Add(msgRec2);
             Messages.Add(msgSend3);
+            */
             #endregion
+        }
+
+        private void ReceivedMessage(string msg)
+        { 
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                Messages.Add(new Message
+                {
+                    Text = msg,
+                    Time = DateTime.Now.ToString("HH:mm"),
+                    MsgType = MessageType.Receiver,
+                    BackColor = Color.FromArgb(Constants.COLOR_COMPANY)
+                });
+            });
         }
     }
 }
