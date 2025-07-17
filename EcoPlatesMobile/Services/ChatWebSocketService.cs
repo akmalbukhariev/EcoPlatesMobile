@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 public class ChatWebSocketService
 {
    private ClientWebSocket _webSocket;
-    private readonly string _token;
+    private string _token;
     private readonly string _baseUri;
 
     public event Action<string> OnMessageReceived;
 
     public WebSocketState State => _webSocket?.State ?? WebSocketState.None;
-  
-    private string WebSocketUri = ""; 
-
+    
     public ChatWebSocketService()
     {
-        _token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTg4ODc3NjYiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzg0MTEzNTcxfQ.vkgecG0GX_IHgWswD6U0dAfy1m7i7xLs0tOHSFT8_SY";
-        _baseUri = "ws://192.168.219.132:8085/ecoplateschatting/api/v1/chat-ws";
+        _baseUri = "ws://10.0.2.2:8085/ecoplateschatting/api/v1/chat-ws";
+    }
+
+    public void SetToken(string token)
+    {
+        _token = token;
     }
 
     public async Task ConnectAsync()
@@ -31,7 +33,7 @@ public class ChatWebSocketService
         _webSocket = new ClientWebSocket();
 
         await _webSocket.ConnectAsync(uri, CancellationToken.None);
-        Console.WriteLine("✅ Connected to WebSocket");
+        Console.WriteLine("Connected to WebSocket");
 
         _ = ReceiveLoop(); // Run in background
     }

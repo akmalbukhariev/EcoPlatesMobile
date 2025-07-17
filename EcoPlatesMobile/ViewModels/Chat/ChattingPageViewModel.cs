@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using EcoPlatesMobile.Models.Chat;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Services.Api;
+using System.Net.WebSockets;
 
 namespace EcoPlatesMobile.ViewModels.Chat
 {
@@ -14,11 +17,22 @@ namespace EcoPlatesMobile.ViewModels.Chat
     {
         [ObservableProperty] private ObservableRangeCollection<Message> messages;
         [ObservableProperty] private Message selectedMessage;
+        [ObservableProperty] private bool isLoading;
 
         private ChatWebSocketService webSocketService;
-        public ChattingPageViewModel(ChatWebSocketService webSocketService)
+        private AppControl appControl;
+        private UserSessionService userSessionService;
+        private UserApiService userApiService;
+        private CompanyApiService companyApiService;
+
+        public ChattingPageViewModel(ChatWebSocketService webSocketService, AppControl appControl, UserSessionService userSessionService, UserApiService userApiService, CompanyApiService companyApiService)
         {
             this.webSocketService = webSocketService;
+            this.appControl = appControl;
+            this.userSessionService = userSessionService;
+            this.userApiService = userApiService;
+            this.companyApiService = companyApiService;
+            
             this.webSocketService.OnMessageReceived += ReceivedMessage;
 
             messages = new ObservableRangeCollection<Message>();
@@ -72,6 +86,74 @@ namespace EcoPlatesMobile.ViewModels.Chat
             #endregion
         }
 
+        public async Task Init()
+        {
+            IsLoading = true;
+
+            try
+            {
+                if (webSocketService.State != WebSocketState.Open)
+                {
+                    string? token = null;
+                    if (userSessionService.Role == UserRole.User)
+                    {
+                        token = await userApiService.GetTokenAsync();
+                    }
+                    else
+                    {
+                        token = await companyApiService.GetTokenAsync();
+                    }
+
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        webSocketService.SetToken(token);
+                        await webSocketService.ConnectAsync();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Token is missing. Cannot connect WebSocket.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"WebSocket connection is error: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        public async Task<bool> SendMessage(string msg)
+        {
+            try
+            {
+                if (webSocketService.State != WebSocketState.Open)
+                {
+                    await webSocketService.ConnectAsync();
+                }
+
+                await webSocketService.SendMessageAsync(msg);
+
+                Messages.Add(new Message
+                {
+                    Text = msg,
+                    Time = DateTime.Now.ToString("HH:mm"),
+                    MsgType = MessageType.Sender,
+                    BackColor = userSessionService.Role == UserRole.User ? Constants.COLOR_USER : Constants.COLOR_COMPANY
+                });
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Send failed: {ex.Message}");
+            }
+
+            return false;
+        }
+
         private void ReceivedMessage(string msg)
         { 
             MainThread.BeginInvokeOnMainThread(() =>
@@ -81,7 +163,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     Text = msg,
                     Time = DateTime.Now.ToString("HH:mm"),
                     MsgType = MessageType.Receiver,
-                    BackColor = Color.FromArgb(Constants.COLOR_COMPANY)
+                    BackColor = Constants.COLOR_COMPANY
                 });
             });
         }

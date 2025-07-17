@@ -21,8 +21,9 @@ namespace EcoPlatesMobile
         {
             AppService.Get<LanguageService>().Init();
 
-            //return new Window(new AppEntryShell());
-            return new Window(new Views.Chat.ChattingPage(new ViewModels.Chat.ChattingPageViewModel()));
+            return new Window(new AppEntryShell());
+            //ChatWebSocketService webSocketService = new ChatWebSocketService();
+            //return new Window(new Views.Chat.ChattingPage(new ViewModels.Chat.ChattingPageViewModel(webSocketService), webSocketService));
         }
 
         private void RegisterRoutes()

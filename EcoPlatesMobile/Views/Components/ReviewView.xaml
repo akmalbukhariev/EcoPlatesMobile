@@ -13,7 +13,7 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="0"/>
         </Border.StrokeShape>
-        <Grid BackgroundColor="Green"
+        <Grid BackgroundColor="{StaticResource User}"
               RowDefinitions="*, 50">
             <Grid RowDefinitions="Auto, Auto, Auto, Auto, *">
                 <Image Source="close_white.png"
@@ -63,7 +63,7 @@
                 <Label Text="{x:Static language:AppResource.WriteProductReview}"
                        FontAttributes="Bold"
                        FontSize="17"
-                       TextColor="Green"
+                       TextColor="{StaticResource User}"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center"/>
             </Border>

@@ -94,7 +94,7 @@ namespace EcoPlatesMobile.Services
                     Content = new ActivityIndicator
                     {
                         IsRunning = true,
-                        Color = Colors.Green,
+                        Color = Constants.COLOR_USER,
                         VerticalOptions = LayoutOptions.Center,
                         HorizontalOptions = LayoutOptions.Center
                     }
@@ -157,7 +157,7 @@ namespace EcoPlatesMobile.Services
                 Content = new ActivityIndicator
                 {
                     IsRunning = true,
-                    Color = Colors.Green,
+                    Color = Constants.COLOR_USER,
                     VerticalOptions = LayoutOptions.Center,
                     HorizontalOptions = LayoutOptions.Center
                 }

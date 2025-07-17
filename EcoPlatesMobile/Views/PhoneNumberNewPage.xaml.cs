@@ -27,11 +27,11 @@ public partial class PhoneNumberNewPage : BasePage
 
         if (userSessionService.Role == UserRole.User)
         {
-            loading.ChangeColor(Colors.Green);
+            loading.ChangeColor(Constants.COLOR_USER);
         }
         else
         {
-            loading.ChangeColor(Color.FromArgb("#8338EC"));
+            loading.ChangeColor(Constants.COLOR_COMPANY);
         }
 
         this.Loaded += (s, e) =>
@@ -66,8 +66,8 @@ public partial class PhoneNumberNewPage : BasePage
 
     private static Color GetRoleColor(UserRole role) => role switch
     {
-        UserRole.User => Colors.Green,
-        UserRole.Company => Color.FromArgb("#8338EC"),
+        UserRole.User => Constants.COLOR_USER,
+        UserRole.Company => Constants.COLOR_COMPANY,
         _ => Color.FromArgb("#0088cc")
     };
 

@@ -10,7 +10,7 @@
     <Grid RowDefinitions="Auto, Auto, 10, 1, *, Auto">
         <component:CustomHeader Title="{x:Static language:AppResource.MyProfile}"
                                 ShowBack="False"
-                                HeaderBackground="#8338EC"/>
+                                HeaderBackground="{StaticResource Company}"/>
         <Grid x:Name="grdUserInfo"
               ColumnDefinitions="Auto, *, Auto"
               Margin="20, 20, 20, 0"
@@ -94,7 +94,7 @@
                                                  TileIcon="active.png" 
                                                  TileText="{x:Static language:AppResource.ActiveProducts}"
                                                  TileTextSize="15"
-                                                 TileTextColor="#8338EC"
+                                                 TileTextColor="{StaticResource Company}"
                                                  TileText1Color="Black"
                                                  ShowTiletext1="True"
                                                  TileType="ActiveAds"
@@ -104,7 +104,7 @@
                                                  TileIcon="no_active.png" 
                                                  TileText="{x:Static language:AppResource.InactiveProducts}"
                                                  TileTextSize="15"
-                                                 TileTextColor="#8338EC"
+                                                 TileTextColor="{StaticResource Company}"
                                                  TileText1Color="Black"
                                                  ShowTiletext1="True"
                                                  TileType="PreviousAds"
@@ -231,7 +231,7 @@
             </CollectionView>
         </Frame>
         <ActivityIndicator x:Name="loading"
-                          Color="#8338EC"
+                          Color="{StaticResource Company}"
                           Scale="1.5"
                           VerticalOptions="Center"
                           HorizontalOptions="Center"

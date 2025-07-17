@@ -47,8 +47,8 @@
                               Padding="0"
                               Margin="0"
                               VerticalOptions="Center">
-                            <BoxView HeightRequest="2" Color="Green" VerticalOptions="Start"/>
-                            <BoxView HeightRequest="2" Color="Green" VerticalOptions="End"/>
+                            <BoxView HeightRequest="2" Color="{StaticResource User}" VerticalOptions="Start"/>
+                            <BoxView HeightRequest="2" Color="{StaticResource User}" VerticalOptions="End"/>
                         </Grid>
 
                         <!-- Date-Time Pickers -->

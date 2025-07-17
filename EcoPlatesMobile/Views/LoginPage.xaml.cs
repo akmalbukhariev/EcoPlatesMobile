@@ -31,7 +31,7 @@ public partial class LoginPage : BasePage
         loading.ShowLoading = true;
         if (isLoggedIn)
         {
-            string strColor = Constants.COLOR_COMPANY;
+            Color color = Constants.COLOR_COMPANY;
             if (role == UserRole.Company)
             {
                 userSessionService.SetUser(UserRole.Company);
@@ -39,30 +39,30 @@ public partial class LoginPage : BasePage
             }
             else if (role == UserRole.User)
             {
-                strColor = Constants.COLOR_USER;
+                color = Constants.COLOR_USER;
                 userSessionService.SetUser(UserRole.User);
                 await appControl.LoginUser(phoneNumber);
             }
 
-            AppService.Get<IStatusBarService>().SetStatusBarColor(strColor, false);
+            AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
         }
         loading.ShowLoading = false;
     }
      
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        string strColor = Constants.COLOR_COMPANY;
+        Color color = Constants.COLOR_COMPANY;
         if (sender == btnComapny)
         {
             userSessionService.SetUser(UserRole.Company);
         }
         else if (sender == btnUser)
         {
-            strColor = Constants.COLOR_USER;
+            color = Constants.COLOR_USER;
             userSessionService.SetUser(UserRole.User);
         }
 
-        AppService.Get<IStatusBarService>().SetStatusBarColor(strColor, false);
+        AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
         await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
     }
 }

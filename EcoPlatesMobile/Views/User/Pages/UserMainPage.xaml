@@ -92,7 +92,7 @@
                                    IsVisible="{Binding ShowLikedView}"
                                    Grid.Row="2"/>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
-                           Color="Green"
+                           Color="{StaticResource User}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"

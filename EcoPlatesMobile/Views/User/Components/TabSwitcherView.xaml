@@ -35,7 +35,7 @@
               IsVisible="False"
               HeightRequest="50">
             <Border x:Name="listTab"
-                    BackgroundColor="Green"
+                    BackgroundColor="{StaticResource User}"
                     Opacity="1"
                     StrokeThickness="0"
                     GestureRecognizers="{TapGestureRecognizer Tapped='OnListTapped'}"
@@ -63,7 +63,7 @@
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    FontAttributes="Bold"
-                   TextColor="Green"
+                   TextColor="{StaticResource User}"
                    Grid.Column="1"/>
         </Grid>
     </Grid>

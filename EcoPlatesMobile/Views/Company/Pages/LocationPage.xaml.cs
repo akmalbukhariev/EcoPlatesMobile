@@ -1,6 +1,7 @@
 using System.Globalization;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Resources.Languages;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using Microsoft.Maui.Controls.Maps;
@@ -22,7 +23,7 @@ public partial class LocationPage : BasePage
 		this.companyApiService = companyApiService;
 		this.locationService = locationService;
 
-		loading.ChangeColor(Color.FromArgb("#8338EC"));
+		loading.ChangeColor(Constants.COLOR_COMPANY);
 	}
 
 	protected override async void OnAppearing()

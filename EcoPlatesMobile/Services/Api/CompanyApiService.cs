@@ -7,7 +7,7 @@ using EcoPlatesMobile.Utilities;
 using Newtonsoft.Json;
 using RestSharp;
 
-namespace EcoPlatesMobile.Services
+namespace EcoPlatesMobile.Services.Api
 {
     public class CompanyApiService : ApiService
     {

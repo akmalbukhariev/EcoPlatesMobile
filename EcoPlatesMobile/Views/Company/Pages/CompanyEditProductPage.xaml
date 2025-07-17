@@ -9,7 +9,7 @@
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="{x:Static language:AppResource.UpdateProduct}"
-                                HeaderBackground="#8338EC"/>
+                                HeaderBackground="{StaticResource Company}"/>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *, Auto">
                 <Grid RowDefinitions="Auto, Auto">
@@ -23,7 +23,7 @@
                         </Image.GestureRecognizers>
                     </Image>
                     <Button Text="{x:Static language:AppResource.SetNewPhoto}"
-                            TextColor="#8338EC"
+                            TextColor="{StaticResource Company}"
                             FontSize="17"
                             FontAttributes="Bold"
                             BackgroundColor="Transparent"
@@ -140,7 +140,7 @@
                 </VerticalStackLayout>
                 <Button x:Name="btnUpdate"
                         Text="{x:Static language:AppResource.Update}"
-                        BackgroundColor="#8338EC"
+                        BackgroundColor="{StaticResource Company}"
                         CornerRadius="30"
                         TextColor="White"
                         HeightRequest="50"
@@ -150,7 +150,7 @@
             </Grid>
         </ScrollView>
         <ActivityIndicator x:Name="IsLoading"
-                           Color="#8338EC"
+                           Color="{StaticResource Company}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"

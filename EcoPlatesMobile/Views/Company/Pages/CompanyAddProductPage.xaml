@@ -9,7 +9,7 @@
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="{x:Static language:AppResource.NewProduct}"
-                                HeaderBackground="#8338EC"/>
+                                HeaderBackground="{StaticResource Company}"/>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *, Auto">
                 <Image x:Name="imSelectedProduct"
@@ -154,7 +154,7 @@
                 </VerticalStackLayout>
                 <Button x:Name="btnRegisterOrUpdate"
                         Text="{x:Static language:AppResource.Add}"
-                        BackgroundColor="#8338EC"
+                        BackgroundColor="{StaticResource Company}"
                         CornerRadius="30"
                         TextColor="White"
                         HeightRequest="50"
@@ -164,7 +164,7 @@
             </Grid>
         </ScrollView>
         <ActivityIndicator x:Name="IsLoading"
-                           Color="#8338EC"
+                           Color="{StaticResource Company}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"

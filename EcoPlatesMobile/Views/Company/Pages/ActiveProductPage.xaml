@@ -13,7 +13,7 @@
         <component:CustomHeader x:Name="header" 
                                 Title="{x:Static language:AppResource.ActiveProducts}"
                                 ShowBack="False"
-                                HeaderBackground="#8338EC"/>
+                                HeaderBackground="{StaticResource Company}"/>
         <Grid RowDefinitions="Auto, *"
               Margin="16,20,16,10"
               Grid.Row="1">
@@ -41,7 +41,7 @@
                                 <SwipeView.RightItems>
                                     <SwipeItems>
                                         <SwipeItem Text="{x:Static language:AppResource.Edit}"
-                                                   BackgroundColor="#8338EC"
+                                                   BackgroundColor="{StaticResource Company}"
                                                    Invoked="EditProduct_Invoked"/>
                                         <SwipeItem Text="{x:Static language:AppResource.Inactive}"
                                                    BackgroundColor="Red"
@@ -75,7 +75,7 @@
             </Image>
         </Grid>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
-                           Color="#8338EC"
+                           Color="{StaticResource Company}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"

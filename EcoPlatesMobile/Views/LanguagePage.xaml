@@ -35,7 +35,7 @@
                     <Label Text="{Binding SelectedLanguage}" 
                    FontSize="18" 
                    VerticalTextAlignment="Center" 
-                   TextColor="Green"
+                   TextColor="{StaticResource User}"
                    Grid.Column="1"/>
                     <Image Source="down.png" 
                    WidthRequest="20" 
@@ -90,7 +90,7 @@
             </Frame>
 
             <Button Text="{x:Static language:AppResource.Next}"
-            TextColor="Green"
+            TextColor="{StaticResource User}"
             FontSize="18"
             BorderWidth="2"
             BorderColor="Gray"

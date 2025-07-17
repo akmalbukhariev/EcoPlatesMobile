@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Resources.Languages;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Components;

@@ -18,12 +18,12 @@ public partial class PhoneNumberChangePage : BasePage
          
         if (userSessionService.Role == UserRole.User)
         {
-            header.HeaderBackground = Color.FromArgb(Constants.COLOR_USER);
+            header.HeaderBackground = Constants.COLOR_USER;
             lbPhone.Text = appControl.UserInfo.phone_number;
         }
         else if (userSessionService.Role == UserRole.Company)
         {
-            header.HeaderBackground = Color.FromArgb(Constants.COLOR_COMPANY);
+            header.HeaderBackground = Constants.COLOR_COMPANY;
             lbPhone.Text = appControl.CompanyInfo.phone_number;
         }
     }

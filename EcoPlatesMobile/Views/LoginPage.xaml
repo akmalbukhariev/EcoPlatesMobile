@@ -50,7 +50,7 @@
                     Grid.Row="6">
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#8338EC" Offset="0.0"/>
+                        <GradientStop Color="{StaticResource Company}" Offset="0.0"/>
                         <GradientStop Color="#B983FF" Offset="1.0"/>
                     </LinearGradientBrush>
                 </Button.Background>

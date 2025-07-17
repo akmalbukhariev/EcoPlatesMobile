@@ -10,7 +10,7 @@
     <Grid x:Name="grdMain" 
           RowDefinitions="Auto, *, Auto, 40">
         <Grid ColumnDefinitions="Auto, *, Auto"
-              BackgroundColor="#8338EC"
+              BackgroundColor="{StaticResource Company}"
               HeightRequest="60">
             <Image x:Name="imBack" 
                    Source="back.png"

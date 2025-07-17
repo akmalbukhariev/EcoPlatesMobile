@@ -41,15 +41,15 @@ public partial class SuggestionsPage : BasePage
 
         if (userSessionService.Role == UserRole.User)
         {
-            header.HeaderBackground = btnSubmit.BackgroundColor = Colors.Green;
+            header.HeaderBackground = btnSubmit.BackgroundColor = Constants.COLOR_USER;
             imFeedBack.Source = "user_feedback_icon.png";
-            loading.ChangeColor(Colors.Green);
+            loading.ChangeColor(Constants.COLOR_USER);
         }
         else
         {
-            header.HeaderBackground = btnSubmit.BackgroundColor = Color.FromArgb("#8338EC");
+            header.HeaderBackground = btnSubmit.BackgroundColor = Constants.COLOR_COMPANY;
             imFeedBack.Source = "company_feedback_icon.png";
-            loading.ChangeColor(Color.FromArgb("#8338EC"));
+            loading.ChangeColor(Constants.COLOR_COMPANY);
         }
     }
 

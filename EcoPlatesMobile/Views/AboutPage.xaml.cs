@@ -1,4 +1,5 @@
 ﻿using EcoPlatesMobile.Resources.Languages;
+using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Views;
  
@@ -23,8 +24,8 @@ public partial class AboutPage : BasePage
 
         if (userSessionService.Role == UserRole.User)
         {
-            headerGrid.BackgroundColor = Colors.Green;
-            btnClose.BackgroundColor = Colors.Green;
+            headerGrid.BackgroundColor = Constants.COLOR_USER;
+            btnClose.BackgroundColor = Constants.COLOR_USER;
 
             roleIcon.Source = "about_user.png";
             roleTitle.Text = AppResource.ForClient;
@@ -39,8 +40,8 @@ public partial class AboutPage : BasePage
         }
         else
         {
-            btnClose.BackgroundColor = Color.FromArgb("#8338EC");
-            headerGrid.BackgroundColor = Color.FromArgb("#8338EC");
+            btnClose.BackgroundColor = Constants.COLOR_COMPANY;
+            headerGrid.BackgroundColor = Constants.COLOR_COMPANY;
 
             roleIcon.Source = "about_company.png";
             roleTitle.Text = AppResource.ForSeller;

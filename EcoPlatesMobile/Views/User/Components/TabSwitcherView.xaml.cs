@@ -1,3 +1,5 @@
+using EcoPlatesMobile.Utilities;
+
 namespace EcoPlatesMobile.Views.User.Components;
 
 public enum TabSwitchType
@@ -126,12 +128,12 @@ public partial class TabSwitcherView : ContentView
 
     private void SetActiveTab(bool isListSelected)
     {
-        listTab.BackgroundColor = isListSelected ? Colors.Green : Colors.LightGray;
+        listTab.BackgroundColor = isListSelected ? Constants.COLOR_USER : Colors.LightGray;
         listTab.Opacity = isListSelected ? 1 : 0.7;
-        label1.TextColor = isListSelected ? Colors.White : Colors.Green;
+        label1.TextColor = isListSelected ? Colors.White : Constants.COLOR_USER;
 
-        mapTab.BackgroundColor = !isListSelected ? Colors.Green : Colors.LightGray;
+        mapTab.BackgroundColor = !isListSelected ? Constants.COLOR_USER : Colors.LightGray;
         mapTab.Opacity = !isListSelected ? 1 : 0.7;
-        label2.TextColor = !isListSelected ? Colors.White : Colors.Green;
+        label2.TextColor = !isListSelected ? Colors.White : Constants.COLOR_USER;
     }
 }

@@ -31,7 +31,7 @@ namespace EcoPlatesMobile.Utilities
         public const string LAN_ICON_ENGLISH = "flag_en.png";
         public const string LAN_ICON_RUSSIAN = "flag_ru.png";
 
-        public const string COLOR_USER = "#007100";
-        public const string COLOR_COMPANY = "#8338EC";
+        public static Color COLOR_USER = (Color)Application.Current.Resources["User"];
+        public static Color COLOR_COMPANY = (Color)Application.Current.Resources["Company"];
     }
 }

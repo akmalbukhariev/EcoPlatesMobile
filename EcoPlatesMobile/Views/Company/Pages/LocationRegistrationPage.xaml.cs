@@ -20,7 +20,7 @@ public partial class LocationRegistrationPage : BasePage
         this.appControl = appControl;
         this.locationService = locationService;
 
-        loading.ChangeColor(Microsoft.Maui.Graphics.Color.FromArgb("#8338EC"));
+        loading.ChangeColor(Constants.COLOR_COMPANY);
     }
 
     protected override async void OnAppearing()

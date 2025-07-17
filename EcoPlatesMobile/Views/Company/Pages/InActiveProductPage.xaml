@@ -13,7 +13,7 @@
         <component:CustomHeader x:Name="header" 
                                 Title="{x:Static language:AppResource.InactiveProducts}"
                                 ShowBack="False"
-                                HeaderBackground="#8338EC"/>
+                                HeaderBackground="{StaticResource Company}"/>
         <Grid RowDefinitions="Auto, *"
               Margin="16,20,16,10"
               Grid.Row="1">
@@ -44,7 +44,7 @@
                                                    BackgroundColor="Red"
                                                    Invoked="DeleteProduct_Invoked"/>
                                         <SwipeItem Text="{x:Static language:AppResource.Active}"
-                                                   BackgroundColor="Green"
+                                                   BackgroundColor="{StaticResource User}"
                                                    Invoked="ActiveProduct_Invoked"/>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
@@ -62,7 +62,7 @@
             </RefreshView>
         </Grid>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
-                           Color="#8338EC"
+                           Color="{StaticResource Company}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"

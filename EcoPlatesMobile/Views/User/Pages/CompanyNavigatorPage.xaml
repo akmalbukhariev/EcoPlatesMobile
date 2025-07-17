@@ -8,7 +8,7 @@
 
     <Grid RowDefinitions="Auto, *">
         <Grid ColumnDefinitions="Auto, *"
-              BackgroundColor="Green"
+              BackgroundColor="{StaticResource User}"
               HeightRequest="70">
             <Image x:Name="imBack" 
                    Source="back.png"

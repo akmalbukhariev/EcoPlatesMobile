@@ -9,8 +9,8 @@
        Shell.BackgroundColor="White"
        Shell.TabBarBackgroundColor="#F3F8F9"
        Shell.TabBarUnselectedColor="Gray"
-       Shell.TabBarForegroundColor="Green"
-       Shell.TabBarTitleColor="Green">
+       Shell.TabBarForegroundColor="{StaticResource User}"
+       Shell.TabBarTitleColor="{StaticResource User}">
 
     <TabBar>
         <Tab Icon="home1.png"

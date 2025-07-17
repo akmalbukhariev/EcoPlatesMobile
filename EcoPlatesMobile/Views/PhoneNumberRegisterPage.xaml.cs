@@ -30,12 +30,12 @@ public partial class PhoneNumberRegisterPage : BasePage
 
         if (userSessionService.Role == UserRole.User)
         {
-            header.HeaderBackground = btnNext.BackgroundColor = Colors.Green;
-            loading.ChangeColor(Colors.Green);
+            header.HeaderBackground = btnNext.BackgroundColor = Constants.COLOR_USER;
+            loading.ChangeColor(Constants.COLOR_USER);
         }
         else 
         {
-            loading.ChangeColor(Color.FromArgb("#8338EC"));
+            loading.ChangeColor(Constants.COLOR_COMPANY);
         }
     }
 

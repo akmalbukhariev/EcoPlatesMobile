@@ -1,36 +1,41 @@
 using System.Net.WebSockets;
 using EcoPlatesMobile.Models.Chat;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.ViewModels.Chat;
+using EcoPlatesMobile.Services.Api;
 
 namespace EcoPlatesMobile.Views.Chat;
 
 public partial class ChattingPage : BasePage
 {
     private ChattingPageViewModel viewModel;
-    private ChatWebSocketService webSocketService;
-    public ChattingPage(ChattingPageViewModel viewModel, ChatWebSocketService webSocketService)
+    
+    private AppControl appControl;
+    private UserSessionService userSessionService;
+    
+
+    public ChattingPage(ChattingPageViewModel viewModel, ChatWebSocketService webSocketService, AppControl appControl, UserSessionService userSessionService)
     {
         InitializeComponent();
 
-        this.viewModel = viewModel;
-        this.webSocketService = webSocketService;
-
-        BindingContext = viewModel;
+        this.viewModel = viewModel; 
+        this.appControl = appControl;
+        this.userSessionService = userSessionService;
 
         entryMessage.EventClickSend += EventClickSend;
+        BindingContext = viewModel;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        this.BackgroundColor = Color.FromArgb(Constants.COLOR_USER);
+        this.BackgroundColor = userSessionService.Role == UserRole.User
+        ? Constants.COLOR_USER
+        : Constants.COLOR_COMPANY;
 
-        if (webSocketService.State != WebSocketState.Open)
-        {
-            await webSocketService.ConnectAsync();
-        }
+        await viewModel.Init();
     }
 
     private async void EventClickSend()
@@ -38,27 +43,9 @@ public partial class ChattingPage : BasePage
         string message = entryMessage.GetEntryText();
         if (string.IsNullOrEmpty(message) || string.IsNullOrWhiteSpace(message)) return;
 
-        try
+        if (await viewModel.SendMessage(message))
         {
-            if (webSocketService.State != WebSocketState.Open)
-            {
-                await webSocketService.ConnectAsync();
-            }
-
-            await webSocketService.SendMessageAsync(message);
             entryMessage.SetEntryText("");
-
-            viewModel.Messages.Add(new Message
-            {
-                Text = message,
-                Time = DateTime.Now.ToString("HH:mm"),
-                MsgType = MessageType.Sender,
-                BackColor = Color.FromArgb(Constants.COLOR_USER)
-            });
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Send failed: {ex.Message}");
         }
     }
 
@@ -71,6 +58,5 @@ public partial class ChattingPage : BasePage
     {
         await AnimateElementScaleDown(sender as Image);
         //await Back();
-    }
-
+    } 
 }

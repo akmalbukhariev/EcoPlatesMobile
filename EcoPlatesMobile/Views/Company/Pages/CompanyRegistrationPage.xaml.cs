@@ -6,6 +6,7 @@ using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Resources.Languages;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 
@@ -54,7 +55,7 @@ public partial class CompanyRegistrationPage : BasePage
         startTimePicker.Time = new TimeSpan(9, 0, 0);
         endTimePicker.Time = new TimeSpan(18, 0, 0);
 
-        loading.ChangeColor(Color.FromArgb("#8338EC"));
+        loading.ChangeColor(Constants.COLOR_COMPANY);
         
         BindingContext = this;
     }

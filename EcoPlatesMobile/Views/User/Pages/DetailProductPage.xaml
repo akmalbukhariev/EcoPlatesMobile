@@ -69,10 +69,24 @@
                            Grid.Column="2"/>
                     <Label Text="{Binding NewPrice}"
                            FontSize="18" 
-                           TextColor="Green"
+                           TextColor="{StaticResource User}"
                            FontAttributes="Bold"
                            Grid.Row="2"
                            Grid.Column="2"/>
+                    <HorizontalStackLayout Spacing="5" 
+                                           Grid.Row="4"
+                                           Grid.Column="2">
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Tapped="Message_Tapped"/>
+                        </HorizontalStackLayout.GestureRecognizers>
+                        <Image Source="my_chat.png"
+                               Aspect="AspectFit"/>
+                        <Label Text="{x:Static language:AppResource.Message}"
+                               TextColor="Gray"
+                               FontSize="18"
+                               VerticalTextAlignment="Center"/>
+                    </HorizontalStackLayout>
                 </Grid>
                 <BoxView BackgroundColor="LightGray" 
                          Grid.Row="2"/>
@@ -92,7 +106,7 @@
                                          Margin="10,0,0,0" 
                                          Grid.Column="1">
                         <Label Text="{Binding CompanyName}"
-                               TextColor="Green"
+                               TextColor="{StaticResource User}"
                                FontSize="16"/>
                         <Label Text="{x:Static language:AppResource.MoreInfoAboutStore}"
                                TextColor="Gray"
@@ -136,7 +150,7 @@
                              Margin="40,0,40,0"
                              Grid.Row="1"/>
                     <Label Text="{Binding HighlightTitle}"
-                           TextColor="Green"
+                           TextColor="{StaticResource User}"
                            FontSize="15"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
@@ -192,7 +206,7 @@
                          Grid.Row="8"/>
                 <Button Text="{x:Static language:AppResource.Back}"
                         IsVisible="Collapse"
-                        BackgroundColor="Green"
+                        BackgroundColor="{StaticResource User}"
                         HeightRequest="50"
                         Margin="10,0,10,0"
                         CornerRadius="30"
@@ -241,7 +255,7 @@
                                    IsVisible="{Binding ShowLikedView}"/>
         <ActivityIndicator x:Name="loading" 
                            IsRunning="{Binding IsLoading}"
-                           Color="Green"
+                           Color="{StaticResource User}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"/>

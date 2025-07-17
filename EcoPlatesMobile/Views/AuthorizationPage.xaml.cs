@@ -47,7 +47,7 @@ public partial class AuthorizationPage : BasePage
 
         if (userSessionService.Role == UserRole.User)
         {
-            header.HeaderBackground = btnNext.BackgroundColor = Colors.Green;
+            header.HeaderBackground = btnNext.BackgroundColor = Constants.COLOR_USER;
         }
     }
 

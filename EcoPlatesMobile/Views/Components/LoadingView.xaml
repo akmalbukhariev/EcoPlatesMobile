@@ -12,7 +12,7 @@
                                   Tapped="TapGestureRecognizer_Tapped"/>
           </Grid.GestureRecognizers>
         <ActivityIndicator x:Name="loading"
-                           Color="Green"
+                           Color="{StaticResource User}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"/>

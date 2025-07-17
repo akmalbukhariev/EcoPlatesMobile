@@ -60,7 +60,7 @@
         </ScrollView>
         <Button x:Name="btnClose" 
                 Text="Close"
-                BackgroundColor="#8338EC"
+                BackgroundColor="{StaticResource Company}"
                 CornerRadius="30"
                 TextColor="White"
                 HeightRequest="50"

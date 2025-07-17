@@ -10,7 +10,7 @@
     <Grid RowDefinitions="Auto, 30, *, 30">
         <component:CustomHeader x:Name="header" 
                                 Title="{x:Static language:AppResource.Authorization}"
-                                HeaderBackground="#8338EC"/>
+                                HeaderBackground="{StaticResource Company}"/>
         <ScrollView Grid.Row="2">
             <Grid RowDefinitions="*, 10, Auto">
                 <VerticalStackLayout Spacing="20"
@@ -60,7 +60,7 @@
                 </VerticalStackLayout>
                 <Button x:Name="btnNext" 
                         Text="{x:Static language:AppResource.Next}"
-                        BackgroundColor="#8338EC"
+                        BackgroundColor="{StaticResource Company}"
                         CornerRadius="30"
                         TextColor="White"
                         HeightRequest="50"

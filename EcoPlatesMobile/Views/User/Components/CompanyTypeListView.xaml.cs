@@ -22,7 +22,7 @@ public partial class TypeItem : ObservableObject
 
     public void Click()
     {
-        TitleColor = Colors.Green;
+        TitleColor = Constants.COLOR_USER;
         TitleDecoration = TextDecorations.Underline;
     }
 

@@ -29,7 +29,7 @@
                                Aspect="AspectFill" />
                     </Border>
                     <Button Text="{x:Static language:AppResource.SetNewPhoto}"
-                            TextColor="Green"
+                            TextColor="{StaticResource User}"
                             FontSize="17"
                             FontAttributes="Bold"
                             BackgroundColor="Transparent"
@@ -87,13 +87,13 @@
             Margin="0, 10, 0, 0"
               VerticalOptions="Start">
             <Button Text="{x:Static language:AppResource.Cancel}"
-                    TextColor="Green"
+                    TextColor="{StaticResource User}"
                     FontSize="17"
                     FontAttributes="Bold"
                     BackgroundColor="Transparent"
                     Clicked="Cancel_Clicked"/>
             <Button Text="{x:Static language:AppResource.Done}"
-                    TextColor="Green"
+                    TextColor="{StaticResource User}"
                     FontSize="17"
                     FontAttributes="Bold"
                     BackgroundColor="Transparent"

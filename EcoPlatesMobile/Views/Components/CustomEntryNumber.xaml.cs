@@ -1,3 +1,5 @@
+using EcoPlatesMobile.Utilities;
+
 namespace EcoPlatesMobile.Views.Components;
 
 public partial class CustomEntryNumber : ContentView
@@ -98,7 +100,7 @@ public partial class CustomEntryNumber : ContentView
             HandleBackspace();
         }
 
-        BorderColor = !string.IsNullOrEmpty(customEntry.Text) ? Colors.Green : _defaultBorderColor;
+        BorderColor = !string.IsNullOrEmpty(customEntry.Text) ? Constants.COLOR_USER : _defaultBorderColor;
         EntryBackgroundColor = !string.IsNullOrEmpty(customEntry.Text) ? Colors.White : _defaultEntryBackgroundColor;
     }
  

@@ -98,7 +98,7 @@
                                  IsVisible="False"
                                  Grid.Row="5">
                 <HorizontalStackLayout>
-                    <CheckBox x:Name="checkBox1" Color="Green" />
+                    <CheckBox x:Name="checkBox1" Color="{StaticResource User}" />
                     <Label Text="{x:Static language:AppResource.GreatValue}"
                            FontSize="17"
                            TextColor="Gray"
@@ -110,7 +110,7 @@
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout>
-                    <CheckBox x:Name="checkBox2" Color="Green"/>
+                    <CheckBox x:Name="checkBox2" Color="{StaticResource User}"/>
                     <Label Text="{x:Static language:AppResource.DeliciousFood}"
                            FontSize="17"
                            TextColor="Gray"
@@ -122,7 +122,7 @@
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout>
-                    <CheckBox x:Name="checkBox3" Color="Green"/>
+                    <CheckBox x:Name="checkBox3" Color="{StaticResource User}"/>
                     <Label Text="{x:Static language:AppResource.GreatService}"
                            FontSize="17"
                            TextColor="Gray"
@@ -136,7 +136,7 @@
             <Button Text="{x:Static language:AppResource.ReviewCompleted}"
                     FontSize="16"
                     TextColor="White"
-                    BackgroundColor="Green"
+                    BackgroundColor="{StaticResource User}"
                     HeightRequest="50"
                     Margin="10,0,10,0"
                     CornerRadius="30"
@@ -145,7 +145,7 @@
                     Grid.Row="6"/>
         </Grid>
         <ActivityIndicator x:Name="loading"
-                           Color="Green"
+                           Color="{StaticResource User}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"

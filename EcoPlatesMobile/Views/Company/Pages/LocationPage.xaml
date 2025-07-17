@@ -9,7 +9,7 @@
 
     <Grid RowDefinitions="Auto, *, Auto, 40">
         <Grid ColumnDefinitions="Auto, *, Auto"
-              BackgroundColor="#8338EC"
+              BackgroundColor="{StaticResource Company}"
               HeightRequest="60">
             <Image x:Name="imBack" 
                    Source="back.png"
@@ -53,7 +53,7 @@
                  <Label Text="{x:Static language:AppResource.CurrentLocation}"
                         FontSize="17"
                         FontAttributes="Bold"
-                        TextColor="#8338EC"/>
+                        TextColor="{StaticResource Company}"/>
                  <Image Source="location1.png"
                         WidthRequest="40"
                         HeightRequest="40"

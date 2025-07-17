@@ -7,6 +7,7 @@ using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Resources.Languages;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Company.Pages;

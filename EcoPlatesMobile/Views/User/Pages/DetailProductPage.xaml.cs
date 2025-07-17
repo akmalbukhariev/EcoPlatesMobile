@@ -156,4 +156,9 @@ public partial class DetailProductPage : BasePage
     {
         ReviewView_EventCloseClick();
     }
+
+    private async void Message_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(sender as HorizontalStackLayout);
+    }
 }

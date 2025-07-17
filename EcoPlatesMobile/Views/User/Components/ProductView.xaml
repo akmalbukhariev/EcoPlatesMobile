@@ -77,7 +77,7 @@
                                  Grid.Row="2">
                 <Label x:Name="newPrice"
                        FontSize="18" 
-                       TextColor="Green"
+                       TextColor="{StaticResource User}"
                        FontAttributes="Bold"/>
                 <Label x:Name="oldPrice" 
                        Text="{Binding OldPrice}" 

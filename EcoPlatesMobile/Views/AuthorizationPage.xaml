@@ -11,7 +11,7 @@
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader x:Name="header" 
                                 Title="{x:Static language:AppResource.Authorization}"
-                                HeaderBackground="#8338EC"/>
+                                HeaderBackground="{StaticResource Company}"/>
         <ScrollView Grid.Row="1"> 
             <Grid RowDefinitions="70, Auto, *, Auto, 20, Auto, 30"
                 Margin="16,0, 16,0">
@@ -71,11 +71,11 @@
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"
-                        TextColor="Green"/>
+                        TextColor="{StaticResource User}"/>
             </StackLayout>
             <Button x:Name="btnNext" 
                     Text="{x:Static language:AppResource.Confirm}"
-                    BackgroundColor="#8338EC"
+                    BackgroundColor="{StaticResource Company}"
                     CornerRadius="30"
                     TextColor="White"
                     HeightRequest="50"

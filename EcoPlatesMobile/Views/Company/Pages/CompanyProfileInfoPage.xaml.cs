@@ -1,6 +1,7 @@
 ﻿using EcoPlatesMobile.Models.Company;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Resources.Languages;
+using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using Newtonsoft.Json;
@@ -25,7 +26,7 @@ public partial class CompanyProfileInfoPage : BasePage
 
         pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
 
-        loading.ChangeColor(Color.FromArgb("#8338EC"));
+        loading.ChangeColor(Constants.COLOR_COMPANY);
     }
 
     protected override void OnAppearing()

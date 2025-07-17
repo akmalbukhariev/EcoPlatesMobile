@@ -34,7 +34,7 @@
                   </VerticalStackLayout>
                   <VerticalStackLayout Grid.Row="2">
                         <Label x:Name="newPrice"
-                               TextColor="Green"
+                               TextColor="{StaticResource User}"
                                FontSize="14"
                                FontAttributes="Bold"/>
                         <Label x:Name="oldPrice"

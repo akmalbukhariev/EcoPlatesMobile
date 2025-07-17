@@ -89,6 +89,13 @@
                                        Grid.Row="1"/>
             </Grid>
         </Border>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           Color="{StaticResource User}"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.Row="1"
+                           Grid.RowSpan="2"/>
     </Grid>
     
 </page:BasePage>

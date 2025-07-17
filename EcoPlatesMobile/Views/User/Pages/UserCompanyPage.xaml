@@ -124,7 +124,7 @@
             </RefreshView>
             <Button Text="{x:Static language:AppResource.Back}"
                     IsVisible="Collapse"
-                    BackgroundColor="Green"
+                    BackgroundColor="{StaticResource User}"
                     HeightRequest="50"
                     Margin="10,0,10,0"
                     CornerRadius="30"
@@ -171,7 +171,7 @@
                                    ShowLiked="{Binding IsLikedViewLiked}"
                                    IsVisible="{Binding ShowLikedView}"/>
         <ActivityIndicator IsRunning="{Binding IsLoading}"
-                           Color="Green"
+                           Color="{StaticResource User}"
                            Scale="1.5"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"/>

@@ -9,7 +9,7 @@
 
     <Grid RowDefinitions="70, *, Auto">
         <Grid ColumnDefinitions="*, Auto" 
-              BackgroundColor="Green">
+              BackgroundColor="{StaticResource User}">
             <Grid>
                 <Label Text="{x:Static language:AppResource.ChooseLocationAvailable}"
                        TextColor="White"
@@ -56,8 +56,8 @@
                                 <Slider x:Name="distanceSlider"
                                         Minimum="1"
                                         Maximum="10"
-                                        ThumbColor="Green"
-                                        MinimumTrackColor="Green"
+                                        ThumbColor="{StaticResource User}"
+                                        MinimumTrackColor="{StaticResource User}"
                                         MaximumTrackColor="Black"
                                         Value="5"
                                         ValueChanged="DistanceSlider_ValueChanged"

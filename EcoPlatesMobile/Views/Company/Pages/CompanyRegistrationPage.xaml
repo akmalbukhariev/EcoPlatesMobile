@@ -9,7 +9,7 @@
 
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="{x:Static language:AppResource.CompanyRegistration}"
-                                HeaderBackground="#8338EC"/>
+                                HeaderBackground="{StaticResource Company}"/>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *">
                 <Image x:Name="imSelectedProduct"
@@ -225,7 +225,7 @@
                     </StackLayout>
                     <Button x:Name="btnRegister"
                             Text="{x:Static language:AppResource.Registration}"
-                            BackgroundColor="#8338EC"
+                            BackgroundColor="{StaticResource Company}"
                             CornerRadius="30"
                             TextColor="White"
                             HeightRequest="50"
