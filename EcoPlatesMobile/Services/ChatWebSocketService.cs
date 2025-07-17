@@ -1,3 +1,6 @@
+using EcoPlatesMobile.Models.Chat;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 using System;
 using System.Net.WebSockets;
 using System.Text;
@@ -38,12 +41,25 @@ public class ChatWebSocketService
         _ = ReceiveLoop(); // Run in background
     }
 
-    public async Task SendMessageAsync(string message)
+    public async Task SendMessageAsync(ChatMessage message)
     {
         if (_webSocket?.State != WebSocketState.Open)
-            throw new InvalidOperationException("WebSocket is not connected.");
+        {
+            Console.WriteLine("WebSocket is not connected. Skipping send.");
+            return;
+        }
 
-        var buffer = Encoding.UTF8.GetBytes(message);
+        var json = JsonConvert.SerializeObject(
+        message,
+        new JsonSerializerSettings
+        {
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new SnakeCaseNamingStrategy()
+            }
+        });
+        var buffer = Encoding.UTF8.GetBytes(json);
+
         await _webSocket.SendAsync(
             new ArraySegment<byte>(buffer),
             WebSocketMessageType.Text,

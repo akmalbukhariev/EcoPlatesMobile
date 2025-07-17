@@ -16,12 +16,10 @@ namespace EcoPlatesMobile.Models.Chat
         public long receiver_id;
         public string receiver_type;
         public long poster_id;
-        public String content;
+        public string content;
         public long reply_to_id;
-        [JsonProperty("created_at")]
-        [JsonConverter(typeof(FlexibleDateTimeConverter))]
-        public DateTime created_at { get; set; }
-        public bool is_deleted_by_sender;
-        public bool is_deleted_by_receiver;
+        public string created_at;
+        public bool deleted_by_sender;
+        public bool deleted_by_receiver;
     }
 }

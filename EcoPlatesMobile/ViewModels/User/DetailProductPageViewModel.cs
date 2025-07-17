@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
+using EcoPlatesMobile.Models.Chat;
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.User;
@@ -32,6 +33,8 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private int feedbackCount;
         [ObservableProperty] private List<PosterTypeInfo> typeInfoList;
         [ObservableProperty] private ImageSource likeImage;
+        private string CompanyPhone = "";
+        private string CompanyImageUrl = "";
 
         bool likedProduct = false;
         [ObservableProperty] private bool isLoading;
@@ -70,7 +73,9 @@ namespace EcoPlatesMobile.ViewModels.User
                     CompanyId = (int)info.company_id;
                     ProductImage = info.image_url;
                     CompanyImage = info.logo_url;
+                    CompanyImageUrl = info.logo_url;
                     CompanyName = info.company_name;
+                    CompanyPhone = info.phone_number;
                     ProductName = info.title;
                     Rating = info.rating?.ToString();
                     WorkingTime = info.working_hours;
@@ -133,6 +138,21 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 appControl.RefreshAllPages();
             }
+        }
+
+        public ChatPageModel GetChatPageModel()
+        {
+            return new ChatPageModel()
+            {
+                CompanyName = CompanyName,
+                CompanyPhone = CompanyPhone,
+                CompanyImage = CompanyImageUrl,
+                SenderId = appControl.UserInfo.user_id,
+                SenderType = UserRole.User.ToString().ToUpper(),
+                ReceiverId = CompanyId,
+                ReceiverType = UserRole.Company.ToString().ToUpper(),
+                PosterId = (int)ProductModel.PromotionId,
+            };
         }
     }
 }

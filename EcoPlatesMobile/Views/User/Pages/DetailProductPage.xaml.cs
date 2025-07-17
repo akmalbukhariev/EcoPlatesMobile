@@ -4,6 +4,7 @@ using System.ComponentModel;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.ViewModels.User;
+using EcoPlatesMobile.Views.Chat;
 using Microsoft.Maui.Controls; 
 
 public partial class DetailProductPage : BasePage
@@ -160,5 +161,10 @@ public partial class DetailProductPage : BasePage
     private async void Message_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as HorizontalStackLayout);
+        
+        await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
+        {
+            ["ChatPageModel"] = viewModel.GetChatPageModel()
+        });
     }
 }

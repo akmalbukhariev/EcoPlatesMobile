@@ -33,13 +33,13 @@
                                           Tapped="Back_Tapped"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Label Text="Company name"
+            <Label Text="{Binding CompanyName}"
                    TextColor="White"
                    FontSize="16"
                    FontAttributes="Bold"
                    Margin="10,0,0,0"
                    Grid.Column="1"/>
-            <Label Text="+998998887766"
+            <Label Text="{Binding CompanyNumber}"
                    TextColor="White"
                    FontSize="16"
                    VerticalOptions="Start"
@@ -63,7 +63,7 @@
                     Grid.Column="2"
                     Grid.RowSpan="2">
                 <Image x:Name="imCompany" 
-                       Source="copany_logo.png"
+                       Source="{Binding CompanyImage}"
                        Aspect="AspectFill"
                        WidthRequest="64"
                        HeightRequest="64"/>
@@ -83,7 +83,7 @@
                 <component:CustomEntry x:Name="entryMessage"
                                        ShowSendImage="True"
                                        EntrySendIcon="send_user.png"
-                                       EntryBorderColor="LightGray"
+                                       EntryBorderColor="Gray"
                                        EntryBackgroundColor="#F5F5F5"
                                        Margin="20,0,20,0"
                                        Grid.Row="1"/>

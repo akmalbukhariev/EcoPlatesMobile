@@ -10,13 +10,22 @@ using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using System.Net.WebSockets;
+using EcoPlatesMobile.Models.Requests.Chat;
+using EcoPlatesMobile.Models.Responses.Chat;
 
 namespace EcoPlatesMobile.ViewModels.Chat
 {
+    [QueryProperty(nameof(ChatPageModel), nameof(ChatPageModel))]
     public partial class ChattingPageViewModel : ObservableObject
     {
+        [ObservableProperty] private ChatPageModel chatPageModel;
+
         [ObservableProperty] private ObservableRangeCollection<Message> messages;
         [ObservableProperty] private Message selectedMessage;
+
+        [ObservableProperty] private string companyName;
+        [ObservableProperty] private string companyNumber;
+        [ObservableProperty] private string companyImage;
         [ObservableProperty] private bool isLoading;
 
         private ChatWebSocketService webSocketService;
@@ -90,6 +99,10 @@ namespace EcoPlatesMobile.ViewModels.Chat
         {
             IsLoading = true;
 
+            CompanyName = ChatPageModel.CompanyName;
+            CompanyNumber = ChatPageModel.CompanyPhone;
+            CompanyImage = ChatPageModel.CompanyImage;
+
             try
             {
                 if (webSocketService.State != WebSocketState.Open)
@@ -108,6 +121,8 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     {
                         webSocketService.SetToken(token);
                         await webSocketService.ConnectAsync();
+
+                        await LoadHistoryMessage();
                     }
                     else
                     {
@@ -125,6 +140,40 @@ namespace EcoPlatesMobile.ViewModels.Chat
             }
         }
 
+        private async Task LoadHistoryMessage()
+        {
+            ChatMessageRequest request = new ChatMessageRequest()
+            {
+                sender_id = ChatPageModel.SenderId,
+                sender_type = ChatPageModel.SenderType,
+                receiver_id = ChatPageModel.ReceiverId,
+                receiver_type = ChatPageModel.ReceiverType,
+            };
+
+            ChatMessageResponse response = await userApiService.GetHistoryMessage(request);
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                var items = response.resultData;
+
+                var historyMessages = items.Select(item =>
+                {
+                    bool isSender = item.sender_id == ChatPageModel.SenderId && item.sender_type == ChatPageModel.SenderType;
+
+                    return new Message
+                    {
+                        Text = item.content,
+                        Time = item.created_at,
+                        MsgType = isSender ? MessageType.Sender : MessageType.Receiver,
+                        BackColor = isSender
+                            ? (userSessionService.Role == UserRole.User ? Constants.COLOR_USER : Constants.COLOR_COMPANY)
+                            : Colors.LightGray
+                    };
+                }).ToList();
+
+                Messages.AddRange(historyMessages);
+            }
+        }
+
         public async Task<bool> SendMessage(string msg)
         {
             try
@@ -134,7 +183,18 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     await webSocketService.ConnectAsync();
                 }
 
-                await webSocketService.SendMessageAsync(msg);
+                ChatMessage message = new ChatMessage()
+                {
+                    sender_id = ChatPageModel.SenderId,
+                    sender_type = ChatPageModel.SenderType,
+                    receiver_id = ChatPageModel.ReceiverId,
+                    receiver_type = ChatPageModel.ReceiverType,
+                    poster_id = ChatPageModel.PosterId,
+                    reply_to_id = 0,
+                    content = msg
+                };
+
+                await webSocketService.SendMessageAsync(message);
 
                 Messages.Add(new Message
                 {
@@ -166,6 +226,11 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     BackColor = Constants.COLOR_COMPANY
                 });
             });
+        }
+
+        public async Task Disconnect()
+        {
+            await webSocketService.DisconnectAsync();
         }
     }
 }

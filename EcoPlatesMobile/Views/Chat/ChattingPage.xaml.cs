@@ -6,7 +6,7 @@ using EcoPlatesMobile.ViewModels.Chat;
 using EcoPlatesMobile.Services.Api;
 
 namespace EcoPlatesMobile.Views.Chat;
-
+ 
 public partial class ChattingPage : BasePage
 {
     private ChattingPageViewModel viewModel;
@@ -14,8 +14,7 @@ public partial class ChattingPage : BasePage
     private AppControl appControl;
     private UserSessionService userSessionService;
     
-
-    public ChattingPage(ChattingPageViewModel viewModel, ChatWebSocketService webSocketService, AppControl appControl, UserSessionService userSessionService)
+    public ChattingPage(ChattingPageViewModel viewModel, AppControl appControl, UserSessionService userSessionService)
     {
         InitializeComponent();
 
@@ -52,11 +51,16 @@ public partial class ChattingPage : BasePage
     private async void Number_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as Label);
+
+        if (PhoneDialer.Default.IsSupported)
+            PhoneDialer.Default.Open(viewModel.CompanyNumber);
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as Image);
-        //await Back();
+        await viewModel.Disconnect();
+
+        await Back();
     } 
 }

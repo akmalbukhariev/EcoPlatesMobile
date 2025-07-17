@@ -22,6 +22,7 @@ namespace EcoPlatesMobile.Services
         public bool IsPhoneNumberRegisterPage {  get; set; } = true;
         public CompanyInfo CompanyInfo { get; set; }
         public UserInfo UserInfo { get; set; }
+        
         public Location LocationForRegister { get; set; } = null;
 
         public Dictionary<string, string> BusinessTypeList = new Dictionary<string, string>
