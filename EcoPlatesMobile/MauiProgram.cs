@@ -139,11 +139,13 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<PhoneNumberChangePage>();
             builder.Services.AddTransient<PhoneNumberNewPage>();
             builder.Services.AddTransient<PhoneNumberRegisterPage>();
-            builder.Services.AddTransient<SuggestionsPage>(); 
+            builder.Services.AddTransient<SuggestionsPage>();
             builder.Services.AddTransient<PhoneNumberNewPage>();
             builder.Services.AddTransient<Views.Chat.ChattingPage>();
+            builder.Services.AddTransient<Views.Chat.ChatedUserPage>();
 
             builder.Services.AddTransient<ViewModels.Chat.ChattingPageViewModel>();
+            builder.Services.AddTransient<ViewModels.Chat.ChatedUserPageViewModel>();
             #endregion
         }
     }

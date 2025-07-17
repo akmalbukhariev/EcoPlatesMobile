@@ -13,7 +13,8 @@ namespace EcoPlatesMobile.Utilities
         //public const string BASE_COMPANY_URL = "http://192.168.219.132:8081";
         //public const string BASE_COMPANY_URL = "http://10.0.2.2:8081";
 
-        public const string BASE_CHAT_URL = "http://10.0.2.2:8085";
+        //public const string BASE_CHAT_URL = "http://10.0.2.2:8085";
+        public const string BASE_CHAT_URL = "http://192.168.219.122:8085";
 
         public static readonly string Version = AppInfo.Current.VersionString;     // e.g., "1.0"
         public static readonly string Build = AppInfo.Current.BuildString;         // e.g., "1.0.0"

@@ -1,9 +1,19 @@
+using EcoPlatesMobile.ViewModels.Chat;
+
 namespace EcoPlatesMobile.Views.Chat;
 
-public partial class ChatedUserPage : ContentPage
+public partial class ChatedUserPage : BasePage
 {
-	public ChatedUserPage()
+	private ChatedUserPageViewModel viewModel;
+	public ChatedUserPage(ChatedUserPageViewModel viewModel)
 	{
 		InitializeComponent();
+		
+		this.viewModel = viewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+    }
 }

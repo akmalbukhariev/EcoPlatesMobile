@@ -129,6 +129,10 @@ namespace EcoPlatesMobile.ViewModels.Chat
                         Console.WriteLine("Token is missing. Cannot connect WebSocket.");
                     }
                 }
+                else
+                { 
+                    await LoadHistoryMessage();
+                }
             }
             catch (Exception ex)
             {

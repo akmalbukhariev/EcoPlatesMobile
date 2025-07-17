@@ -16,10 +16,11 @@ public class ChatWebSocketService
     public event Action<string> OnMessageReceived;
 
     public WebSocketState State => _webSocket?.State ?? WebSocketState.None;
-    
+
     public ChatWebSocketService()
     {
-        _baseUri = "ws://10.0.2.2:8085/ecoplateschatting/api/v1/chat-ws";
+        //_baseUri = "ws://10.0.2.2:8085/ecoplateschatting/api/v1/chat-ws";
+        _baseUri = "ws://192.168.219.122:8085/ecoplateschatting/api/v1/chat-ws";
     }
 
     public void SetToken(string token)
