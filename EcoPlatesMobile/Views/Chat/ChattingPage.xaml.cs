@@ -23,6 +23,7 @@ public partial class ChattingPage : BasePage
         this.userSessionService = userSessionService;
 
         entryMessage.EventClickSend += EventClickSend;
+        this.viewModel.ScrollToBottomRequested += ScrollToBottomRequested;
         BindingContext = viewModel;
     }
 
@@ -53,7 +54,13 @@ public partial class ChattingPage : BasePage
         await AnimateElementScaleDown(sender as Label);
 
         if (PhoneDialer.Default.IsSupported)
-            PhoneDialer.Default.Open(viewModel.CompanyNumber);
+            PhoneDialer.Default.Open(viewModel.ReceiverNumber);
+    }
+
+    private void ScrollToBottomRequested(object? sender, EventArgs e)
+    {
+        var lastItem = viewModel.Messages[^1];
+        messageList.ScrollTo(item: lastItem, position: ScrollToPosition.End, animate: true);
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)

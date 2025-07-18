@@ -11,11 +11,11 @@
                                   Title="{x:Static language:AppResource.Message}"
                                   HeaderBackground="{StaticResource Company}"/>
            <RefreshView x:Name="listProduct"
-                         IsRefreshing="{Binding IsRefreshing}"
-                         Command="{Binding RefreshCommand}"
-                         Margin="10"
-                         Grid.Row="1">
-                <CollectionView ItemsSource="{Binding Products}"
+                        IsRefreshing="{Binding IsRefreshing}"
+                        Command="{Binding RefreshCommand}"
+                        Margin="10"
+                        Grid.Row="1">
+                <CollectionView ItemsSource="{Binding Users}"
                                 RemainingItemsThreshold="1"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                     <CollectionView.ItemsLayout>
@@ -38,7 +38,12 @@
                                 </SwipeView.RightItems>
                                  
                             </SwipeView>-->
-                            <Grid ColumnDefinitions="Auto, *, Auto">
+                            <Grid ColumnDefinitions="Auto, *, Auto"
+                                  Margin="10,5,10,0">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Tapped="User_Tapped"/>
+                            </Grid.GestureRecognizers>
                                 <Border WidthRequest="50"
                                         HeightRequest="50"
                                         Stroke="Gray"
@@ -46,9 +51,7 @@
                                         StrokeShape="RoundRectangle 100"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center"
-                                        Margin="0,0,20,0"
-                                        Grid.Column="2"
-                                        Grid.RowSpan="2">
+                                        Margin="0,0,20,0">
                                     <Image Source="{Binding UserImage}"
                                            Aspect="AspectFill"
                                            WidthRequest="64"
@@ -64,10 +67,16 @@
                                        Aspect="AspectFit"
                                        VerticalOptions="Center"
                                        Grid.Column="2"/>
-                            </Grid>
+                        </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           Color="{StaticResource User}"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="2"/>
     </Grid>
 </page:BasePage>

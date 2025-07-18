@@ -142,11 +142,10 @@
                                        VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Grid>
-                        <component:ListTileView TileIcon="my_chat.png" 
-                                                 IsVisible="Collapse"
+                        <component:ListTileView TileIcon="my_chat.png"
                                                  TileText="Yozishmalar"
                                                  TileTextSize="15"
-                                                 TileTextColor="#444444"
+                                                 TileTextColor="Black"
                                                  TileType="Message"
                                                  Margin="0,0,0,20"
                                                  EventClickTile="Tile_EventClick"

@@ -8,6 +8,7 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Components;
 using Newtonsoft.Json;
+using EcoPlatesMobile.Views.Chat;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -203,6 +204,7 @@ public partial class CompanyProfilePage : BasePage
                 await AppNavigatorService.NavigateTo(nameof(SuggestionsPage));
                 break;
             case ListTileView.ListTileType.Message:
+                await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
                 break;
             case ListTileView.ListTileType.AboutApp:
                 await AppNavigatorService.NavigateTo(nameof(AboutPage));

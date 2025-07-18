@@ -144,9 +144,9 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             return new ChatPageModel()
             {
-                CompanyName = CompanyName,
-                CompanyPhone = CompanyPhone,
-                CompanyImage = CompanyImageUrl,
+                ReceiverName = CompanyName,
+                ReceiverPhone = CompanyPhone,
+                ReceiverImage = CompanyImageUrl,
                 SenderId = appControl.UserInfo.user_id,
                 SenderType = UserRole.User.ToString().ToUpper(),
                 ReceiverId = CompanyId,

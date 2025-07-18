@@ -15,13 +15,14 @@ namespace EcoPlatesMobile.Services.Api
     public class UserApiService : ApiService
     {
         #region Url
-        private const string BASE_URL = "";
-        //private const string BASE_URL = "/ecoplatesuser/api/v1/";
+        //private const string BASE_URL = "";
+        private const string BASE_URL = "/ecoplatesuser/api/v1/";
         private const string LOGIN_USER = $"{BASE_URL}user/login";
         private const string CHECK_USER = $"{BASE_URL}user/checkUser/";
         private const string LOGOUT_USER = $"{BASE_URL}user/logout";
         private const string REGISTER_USER = $"{BASE_URL}user/register";
         private const string GET_USER_INFO = $"{BASE_URL}user/getUserInfo";
+        private const string GET_USER_LIST = $"{BASE_URL}user/getUserByIdList";
         private const string UPDATE_USER_INFO = $"{BASE_URL}user/updateUserInfo";
         private const string UPDATE_USER_PHONE_NUMBER = $"{BASE_URL}user/updateUserPhoneNumber";
         private const string REGISTER_BOOKMARK_PROMOTION = $"{BASE_URL}bookmark/registerBookmarkPromotion";
@@ -85,7 +86,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -118,7 +119,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -151,7 +152,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -184,7 +185,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -217,7 +218,40 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<GetUserInfoListResponse> GetUserInfoList(List<long> idList)
+        {
+            var response = new GetUserInfoListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_USER_LIST, idList);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<GetUserInfoListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -250,7 +284,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -316,7 +350,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -349,7 +383,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -382,7 +416,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -415,7 +449,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -448,7 +482,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -481,7 +515,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -514,7 +548,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -547,7 +581,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -580,7 +614,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -613,7 +647,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -646,7 +680,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -679,7 +713,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -712,7 +746,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -745,7 +779,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -779,7 +813,7 @@ namespace EcoPlatesMobile.Services.Api
             catch (Exception ex)
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"Login Error: {ex.Message}";
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;

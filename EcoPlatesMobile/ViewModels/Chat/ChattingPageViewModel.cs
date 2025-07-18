@@ -12,6 +12,7 @@ using EcoPlatesMobile.Services.Api;
 using System.Net.WebSockets;
 using EcoPlatesMobile.Models.Requests.Chat;
 using EcoPlatesMobile.Models.Responses.Chat;
+using Newtonsoft.Json;
 
 namespace EcoPlatesMobile.ViewModels.Chat
 {
@@ -23,9 +24,9 @@ namespace EcoPlatesMobile.ViewModels.Chat
         [ObservableProperty] private ObservableRangeCollection<Message> messages;
         [ObservableProperty] private Message selectedMessage;
 
-        [ObservableProperty] private string companyName;
-        [ObservableProperty] private string companyNumber;
-        [ObservableProperty] private string companyImage;
+        [ObservableProperty] private string receiverName;
+        [ObservableProperty] private string receiverNumber;
+        [ObservableProperty] private string receiverImage;
         [ObservableProperty] private bool isLoading;
 
         private ChatWebSocketService webSocketService;
@@ -33,6 +34,8 @@ namespace EcoPlatesMobile.ViewModels.Chat
         private UserSessionService userSessionService;
         private UserApiService userApiService;
         private CompanyApiService companyApiService;
+
+        public event EventHandler? ScrollToBottomRequested;
 
         public ChattingPageViewModel(ChatWebSocketService webSocketService, AppControl appControl, UserSessionService userSessionService, UserApiService userApiService, CompanyApiService companyApiService)
         {
@@ -99,9 +102,9 @@ namespace EcoPlatesMobile.ViewModels.Chat
         {
             IsLoading = true;
 
-            CompanyName = ChatPageModel.CompanyName;
-            CompanyNumber = ChatPageModel.CompanyPhone;
-            CompanyImage = ChatPageModel.CompanyImage;
+            ReceiverName = ChatPageModel.ReceiverName;
+            ReceiverNumber = ChatPageModel.ReceiverPhone;
+            ReceiverImage = ChatPageModel.ReceiverImage;
 
             try
             {
@@ -165,15 +168,16 @@ namespace EcoPlatesMobile.ViewModels.Chat
 
                     return new Message
                     {
+                        Time = DateTime.TryParse(item.created_at, out var dt)
+                            ? dt.ToString("HH:mm")
+                            : item.created_at,
                         Text = item.content,
-                        Time = item.created_at,
                         MsgType = isSender ? MessageType.Sender : MessageType.Receiver,
-                        BackColor = isSender
-                            ? (userSessionService.Role == UserRole.User ? Constants.COLOR_USER : Constants.COLOR_COMPANY)
-                            : Colors.LightGray
+                        BackColor = item.sender_type == UserRole.Company.ToString().ToUpper() ? Constants.COLOR_COMPANY : Constants.COLOR_USER,
                     };
                 }).ToList();
 
+                Messages.Clear();
                 Messages.AddRange(historyMessages);
             }
         }
@@ -187,12 +191,13 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     await webSocketService.ConnectAsync();
                 }
 
-                ChatMessage message = new ChatMessage()
+                RegisterMessage message = new RegisterMessage()
                 {
                     sender_id = ChatPageModel.SenderId,
                     sender_type = ChatPageModel.SenderType,
                     receiver_id = ChatPageModel.ReceiverId,
                     receiver_type = ChatPageModel.ReceiverType,
+                    receiver_phone = ChatPageModel.ReceiverPhone,
                     poster_id = ChatPageModel.PosterId,
                     reply_to_id = 0,
                     content = msg
@@ -208,6 +213,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     BackColor = userSessionService.Role == UserRole.User ? Constants.COLOR_USER : Constants.COLOR_COMPANY
                 });
 
+                ScrollToBottomRequested?.Invoke(this, EventArgs.Empty);
                 return true;
             }
             catch (Exception ex)
@@ -222,13 +228,17 @@ namespace EcoPlatesMobile.ViewModels.Chat
         { 
             MainThread.BeginInvokeOnMainThread(() =>
             {
+                RegisterMessage body = JsonConvert.DeserializeObject<RegisterMessage>(msg);
+
                 Messages.Add(new Message
                 {
-                    Text = msg,
+                    Text = body.content,
                     Time = DateTime.Now.ToString("HH:mm"),
                     MsgType = MessageType.Receiver,
-                    BackColor = Constants.COLOR_COMPANY
+                    BackColor = body.sender_type == UserRole.User.ToString().ToUpper() ? Constants.COLOR_USER : Constants.COLOR_COMPANY
                 });
+
+                ScrollToBottomRequested?.Invoke(this, EventArgs.Empty);
             });
         }
 

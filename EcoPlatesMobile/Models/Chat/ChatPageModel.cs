@@ -8,9 +8,9 @@ namespace EcoPlatesMobile.Models.Chat
 {
     public class ChatPageModel
     {
-        public string CompanyName;
-        public string CompanyPhone;
-        public string CompanyImage;
+        public string ReceiverName;
+        public string ReceiverPhone;
+        public string ReceiverImage;
         public long SenderId;
         public string SenderType;
         public long ReceiverId;

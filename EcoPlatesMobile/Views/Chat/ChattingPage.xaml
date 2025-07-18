@@ -33,13 +33,13 @@
                                           Tapped="Back_Tapped"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Label Text="{Binding CompanyName}"
+            <Label Text="{Binding ReceiverName}"
                    TextColor="White"
                    FontSize="16"
                    FontAttributes="Bold"
                    Margin="10,0,0,0"
                    Grid.Column="1"/>
-            <Label Text="{Binding CompanyNumber}"
+            <Label Text="{Binding ReceiverNumber}"
                    TextColor="White"
                    FontSize="16"
                    VerticalOptions="Start"
@@ -63,7 +63,7 @@
                     Grid.Column="2"
                     Grid.RowSpan="2">
                 <Image x:Name="imCompany" 
-                       Source="{Binding CompanyImage}"
+                       Source="{Binding ReceiverImage}"
                        Aspect="AspectFill"
                        WidthRequest="64"
                        HeightRequest="64"/>
@@ -75,7 +75,8 @@
                 <RoundRectangle CornerRadius="40,40,0,0" />
             </Border.StrokeShape>
             <Grid RowDefinitions="*, Auto, 20">
-                <CollectionView ItemsSource="{Binding Messages}" 
+                <CollectionView x:Name="messageList" 
+                                ItemsSource="{Binding Messages}" 
                                 ItemTemplate="{StaticResource MessageBoxTemplate}"
                                 SelectedItem="{Binding SelectedMessage}"
                                 Margin="10,20,10,10"

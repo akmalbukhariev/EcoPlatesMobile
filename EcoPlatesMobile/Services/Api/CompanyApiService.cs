@@ -2,6 +2,7 @@
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Models.Responses.Chat;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Utilities;
 using Newtonsoft.Json;
@@ -12,8 +13,8 @@ namespace EcoPlatesMobile.Services.Api
     public class CompanyApiService : ApiService
     {
         #region Url
-        private const string BASE_URL = "";
-        //private const string BASE_URL = "ecoplatescompany/api/v1/";
+        //private const string BASE_URL = "";
+        private const string BASE_URL = "ecoplatescompany/api/v1/";
         private const string LOGIN_COMPANY = $"{BASE_URL}company/login";
         private const string CHECK_COMPANY = $"{BASE_URL}company/checkUser/";
         private const string LOGOUT_COMPANY = $"{BASE_URL}company/logout";
@@ -515,9 +516,9 @@ namespace EcoPlatesMobile.Services.Api
    
    
         /////////////////////Chat////////////////////
-        public async Task<ChatMessageResponse> GetSenderIdList(long receiver_id)
+        public async Task<ChatSenderIdResponse> GetSenderIdList(long receiver_id)
         {
-            var response = new ChatMessageResponse();
+            var response = new ChatSenderIdResponse();
 
             try
             {
@@ -525,7 +526,7 @@ namespace EcoPlatesMobile.Services.Api
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
-                    var deserializedResponse = JsonConvert.DeserializeObject<ChatMessageResponse>(receivedData);
+                    var deserializedResponse = JsonConvert.DeserializeObject<ChatSenderIdResponse>(receivedData);
                     if (deserializedResponse != null)
                     {
                         return deserializedResponse;
@@ -548,6 +549,6 @@ namespace EcoPlatesMobile.Services.Api
             return response;
         }
    
-   
+        
     }
 }

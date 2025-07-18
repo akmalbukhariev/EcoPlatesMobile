@@ -20,7 +20,8 @@ public class ChatWebSocketService
     public ChatWebSocketService()
     {
         //_baseUri = "ws://10.0.2.2:8085/ecoplateschatting/api/v1/chat-ws";
-        _baseUri = "ws://192.168.219.122:8085/ecoplateschatting/api/v1/chat-ws";
+        //_baseUri = "ws://192.168.219.122:8085/ecoplateschatting/api/v1/chat-ws";
+        _baseUri = "ws://192.168.0.54:8085/ecoplateschatting/api/v1/chat-ws"; //company
     }
 
     public void SetToken(string token)
@@ -42,7 +43,7 @@ public class ChatWebSocketService
         _ = ReceiveLoop(); // Run in background
     }
 
-    public async Task SendMessageAsync(ChatMessage message)
+    public async Task SendMessageAsync(RegisterMessage message)
     {
         if (_webSocket?.State != WebSocketState.Open)
         {
