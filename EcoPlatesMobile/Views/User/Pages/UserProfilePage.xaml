@@ -67,7 +67,7 @@
             <Grid RowDefinitions="*, Auto"
                   HeightRequest="{OnPlatform Android=500, iOS=700}">
                 <ScrollView HorizontalScrollBarVisibility="Never">
-                    <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"
                           RowSpacing="20"
                           Margin="20">
                         <Grid ColumnDefinitions="Auto, *, Auto">
@@ -94,26 +94,34 @@
                                        VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Grid>
+                        <component:ListTileView TileIcon="my_chat.png"
+                                                TileText="Yozishmalar"
+                                                TileTextSize="15"
+                                                TileTextColor="Black"
+                                                TileType="Message"
+                                                Margin="0,0,0,0"
+                                                EventClickTile="Tile_EventClick"
+                                                Grid.Row="1"/>
                         <component:ListTileView TileIcon="share.png" 
                                                 TileText="{x:Static language:AppResource.Share}"
                                                 TileTextSize="15"
                                                 TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
-                                                Grid.Row="1"/>
+                                                Grid.Row="2"/>
                         <component:ListTileView TileIcon="info.png" 
                                                 TileText="{x:Static language:AppResource.AboutApp}"
                                                 TileType="AboutApp"
                                                 TileTextSize="15"
                                                 TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
-                                                Grid.Row="2"/>
+                                                Grid.Row="3"/>
                         <component:ListTileView TileIcon="offer.png" 
                                                 TileText="{x:Static language:AppResource.FeedbackComplaints}"
                                                 TileType="Suggestions"
                                                 TileTextSize="15"
                                                 TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
-                                                Grid.Row="3"/>
+                                                Grid.Row="4"/>
                     </Grid>
                 </ScrollView>
                 <VerticalStackLayout Grid.Row="1"

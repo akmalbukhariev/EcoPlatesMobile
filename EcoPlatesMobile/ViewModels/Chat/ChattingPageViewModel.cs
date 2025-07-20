@@ -48,54 +48,6 @@ namespace EcoPlatesMobile.ViewModels.Chat
             this.webSocketService.OnMessageReceived += ReceivedMessage;
 
             messages = new ObservableRangeCollection<Message>();
-
-            #region For test
-            /*
-            Message msgRec1 = new Message()
-            {
-                MsgType = MessageType.Receiver,
-                Name = "Acdcsddc",
-                Time = "18:35",
-                Text = "Hey there! What\'s up?",
-                BackColor = Color.FromArgb(Constants.COLOR_COMPANY)
-            };
-            Message msgSend1 = new Message()
-            {
-                MsgType = MessageType.Sender,
-                Time = "15:00",
-                Text = "Hello this is for the test version",
-                BackColor = Color.FromArgb(Constants.COLOR_USER)
-            };
-            Message msgSend2 = new Message()
-            {
-                MsgType = MessageType.Sender,
-                Time = "10:10",
-                Text = "Are you there?!",
-                BackColor = Color.FromArgb(Constants.COLOR_USER)
-            };
-            Message msgRec2 = new Message()
-            {
-                MsgType = MessageType.Receiver,
-                Name = "Mcnjdh",
-                Time = "00:08",
-                Text = "Yes I am here!",
-                BackColor = Color.FromArgb(Constants.COLOR_COMPANY)
-            };
-            Message msgSend3 = new Message()
-            {
-                MsgType = MessageType.Sender,
-                Time = "12:23",
-                Text = "Okay I thought you are not here?!",
-                BackColor = Color.FromArgb(Constants.COLOR_USER)
-            };
-
-            Messages.Add(msgRec1);
-            Messages.Add(msgSend1);
-            Messages.Add(msgSend2);
-            Messages.Add(msgRec2);
-            Messages.Add(msgSend3);
-            */
-            #endregion
         }
 
         public async Task Init()
@@ -179,6 +131,8 @@ namespace EcoPlatesMobile.ViewModels.Chat
 
                 Messages.Clear();
                 Messages.AddRange(historyMessages);
+
+                ScrollToBottomRequested?.Invoke(this, EventArgs.Empty);
             }
         }
 

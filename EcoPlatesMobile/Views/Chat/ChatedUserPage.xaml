@@ -4,7 +4,8 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
-               x:Class="EcoPlatesMobile.Views.Chat.ChatedUserPage">
+               x:Class="EcoPlatesMobile.Views.Chat.ChatedUserPage"
+               BackgroundColor="White">
     
     <Grid RowDefinitions="Auto, *">
           <component:CustomHeader x:Name="header"
@@ -63,8 +64,10 @@
                                        VerticalOptions="Center"
                                        HorizontalOptions="Start"
                                        Grid.Column="1"/>
-                                <Image Source="right.png"
+                                <Image Source="{Binding RightImage}"
                                        Aspect="AspectFit"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
                                        VerticalOptions="Center"
                                        Grid.Column="2"/>
                         </Grid>
@@ -72,7 +75,8 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
-        <ActivityIndicator IsRunning="{Binding IsLoading}"
+        <ActivityIndicator x:Name="loading" 
+                           IsRunning="{Binding IsLoading}"
                            Color="{StaticResource User}"
                            Scale="1.5"
                            VerticalOptions="Center"

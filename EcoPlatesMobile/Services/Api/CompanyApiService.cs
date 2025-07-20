@@ -20,6 +20,7 @@ namespace EcoPlatesMobile.Services.Api
         private const string LOGOUT_COMPANY = $"{BASE_URL}company/logout";
         private const string REGISTER_COMPANY = $"{BASE_URL}company/registerCompany";
         private const string GET_COMPANY = $"{BASE_URL}company/getComapnyInfo";
+        private const string GET_COMPANY_LIST = $"{BASE_URL}company/getCompaniesByOnlyIdList";
         private const string UPDATE_COMPANY_INFO = $"{BASE_URL}company/updateUserInfo";
         private const string UPDATE_COMPANY_PHONE_NUMBER = $"{BASE_URL}company/updateCompanyPhoneNumber/";
         private const string REGISTER_POSTER = $"{BASE_URL}poster/registerPoster";
@@ -31,7 +32,7 @@ namespace EcoPlatesMobile.Services.Api
         private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";
         private const string REGISTER_COMPANY_FEEDBACK = $"{BASE_URL}feedbacks_company/registerCompanyFeedback";
 
-        private const string GET_SENDER_ID_LIST = $"{Constants.BASE_CHAT_URL}/ecoplateschatting/api/v1/chat/getSenderIdList/";
+        private const string GET_SENDER_ID_LIST_WITH_UNREAD_INFO = $"{Constants.BASE_CHAT_URL}/ecoplateschatting/api/v1/chat/getSendersWithUnread";
         #endregion
 
         public CompanyApiService(RestClient client) : base(client)
@@ -210,6 +211,39 @@ namespace EcoPlatesMobile.Services.Api
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<CompanyListResponse> GetCompanyInfoList(List<long> idList)
+        {
+            var response = new CompanyListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_COMPANY_LIST, idList);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<CompanyListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;
@@ -516,13 +550,13 @@ namespace EcoPlatesMobile.Services.Api
    
    
         /////////////////////Chat////////////////////
-        public async Task<ChatSenderIdResponse> GetSenderIdList(long receiver_id)
+        public async Task<ChatSenderIdResponse> GetSendersWithUnread(UnreadMessagesRequest data)
         {
             var response = new ChatSenderIdResponse();
 
             try
             {
-                var receivedData = await GetAsync($"{GET_SENDER_ID_LIST}{receiver_id}");
+                var receivedData = await PostAsync(GET_SENDER_ID_LIST_WITH_UNREAD_INFO, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

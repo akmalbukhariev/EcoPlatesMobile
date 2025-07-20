@@ -5,6 +5,7 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:templates="clr-namespace:EcoPlatesMobile.Views.Chat.Templates"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                BackgroundColor="White">
 
     <ContentPage.Resources>
@@ -81,16 +82,36 @@
                                 SelectedItem="{Binding SelectedMessage}"
                                 Margin="10,20,10,10"
                                 SelectionMode="Single"/>
-                <component:CustomEntry x:Name="entryMessage"
-                                       ShowSendImage="True"
-                                       EntrySendIcon="send_user.png"
-                                       EntryBorderColor="Gray"
-                                       EntryBackgroundColor="#F5F5F5"
-                                       Margin="20,0,20,0"
-                                       Grid.Row="1"/>
+                <Frame x:Name="frameMessage"
+                       Padding="0" 
+                       HasShadow="True" 
+                       BorderColor="{StaticResource Company}" 
+                       BackgroundColor="White" 
+                       CornerRadius="20"
+                       Margin="20, 0, 20, 0"
+                       Grid.Row="1">
+                    <Grid ColumnDefinitions="*, Auto"
+                          Margin="10,0,10,0">
+                        <Editor x:Name="editorMessage"
+                                TextColor="Black"
+                                Placeholder="{x:Static language:AppResource.Message}"
+                                AutoSize="TextChanges"/>
+                        <Image x:Name="sendImage" 
+                               Source="send_company.png"
+                               Aspect="AspectFit"
+                               WidthRequest="35"
+                               Grid.Column="1">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Tapped="Send_Tapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                </Frame>
             </Grid>
         </Border>
-        <ActivityIndicator IsRunning="{Binding IsLoading}"
+        <ActivityIndicator x:Name="loading" 
+                           IsRunning="{Binding IsLoading}"
                            Color="{StaticResource User}"
                            Scale="1.5"
                            VerticalOptions="Center"

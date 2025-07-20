@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcoPlatesMobile.Models.Responses.User
 {
-    public class GetUserInfoListResponse : Response<List<UserInfo>>
+    public class UserInfoListResponse : Response<List<UserInfo>>
     {
     }
 }

@@ -16,7 +16,7 @@
                HorizontalOptions="Start"
                VerticalTextAlignment="Center"/>
         <BoxView BackgroundColor="{Binding BackColor}"
-                 CornerRadius="0,15,15,15"
+                 CornerRadius="0,20,20,20"
                  Grid.Row="1"/>
         <Label Text="{Binding Text}"
                TextColor="White"

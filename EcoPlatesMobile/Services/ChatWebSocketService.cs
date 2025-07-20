@@ -6,6 +6,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EcoPlatesMobile.Utilities;
 
 public class ChatWebSocketService
 {
@@ -20,8 +21,8 @@ public class ChatWebSocketService
     public ChatWebSocketService()
     {
         //_baseUri = "ws://10.0.2.2:8085/ecoplateschatting/api/v1/chat-ws";
-        //_baseUri = "ws://192.168.219.122:8085/ecoplateschatting/api/v1/chat-ws";
-        _baseUri = "ws://192.168.0.54:8085/ecoplateschatting/api/v1/chat-ws"; //company
+        _baseUri = $"ws://{Constants.IP}:8085/ecoplateschatting/api/v1/chat-ws"; //home
+        //_baseUri = "ws://192.168.0.54:8085/ecoplateschatting/api/v1/chat-ws"; //company
     }
 
     public void SetToken(string token)

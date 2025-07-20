@@ -22,7 +22,6 @@ public partial class ChattingPage : BasePage
         this.appControl = appControl;
         this.userSessionService = userSessionService;
 
-        entryMessage.EventClickSend += EventClickSend;
         this.viewModel.ScrollToBottomRequested += ScrollToBottomRequested;
         BindingContext = viewModel;
     }
@@ -34,19 +33,27 @@ public partial class ChattingPage : BasePage
         this.BackgroundColor = userSessionService.Role == UserRole.User
         ? Constants.COLOR_USER
         : Constants.COLOR_COMPANY;
-
+ 
+        if (userSessionService.Role == UserRole.User)
+        {
+            frameMessage.BorderColor = Constants.COLOR_USER;
+            sendImage.Source = "send_user.png";
+            loading.Color = Constants.COLOR_USER;
+        }
+        else if (userSessionService.Role == UserRole.Company)
+        {
+            frameMessage.BorderColor = Constants.COLOR_COMPANY;
+            sendImage.Source = "send_company.png";
+            loading.Color = Constants.COLOR_COMPANY;
+        }
+        
         await viewModel.Init();
     }
 
-    private async void EventClickSend()
+    protected override void OnDisappearing()
     {
-        string message = entryMessage.GetEntryText();
-        if (string.IsNullOrEmpty(message) || string.IsNullOrWhiteSpace(message)) return;
-
-        if (await viewModel.SendMessage(message))
-        {
-            entryMessage.SetEntryText("");
-        }
+        base.OnDisappearing();
+        _ = viewModel.Disconnect();
     }
 
     private async void Number_Tapped(object sender, TappedEventArgs e)
@@ -63,11 +70,24 @@ public partial class ChattingPage : BasePage
         messageList.ScrollTo(item: lastItem, position: ScrollToPosition.End, animate: true);
     }
 
+    private async void Send_Tapped(object sender, TappedEventArgs e)
+    {
+        await sendImage.ScaleTo(0.8, 100, Easing.CubicOut);
+        await sendImage.ScaleTo(1.0, 100, Easing.CubicIn);
+
+        string message = editorMessage.Text;
+        if (string.IsNullOrEmpty(message) || string.IsNullOrWhiteSpace(message)) return;
+
+        if (await viewModel.SendMessage(message))
+        {
+            editorMessage.Text = "";
+        }
+    }
+
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
-        await viewModel.Disconnect();
-
+        await AnimateElementScaleDown(sender as Image); 
+ 
         await Back();
     } 
 }

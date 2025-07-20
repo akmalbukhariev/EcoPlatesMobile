@@ -7,6 +7,7 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.ViewModels.User;
+using EcoPlatesMobile.Views.Chat;
 using EcoPlatesMobile.Views.Components;
 using Microsoft.Maui.Controls.Shapes;
 using System.Collections.ObjectModel;
@@ -178,12 +179,13 @@ public partial class UserProfilePage : BasePage
         ListTileView view = (ListTileView)obj;
         switch (view.TileType)
         {
+            case ListTileView.ListTileType.Message:
+            await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
+                break;
             case ListTileView.ListTileType.Share:
                 break;
             case ListTileView.ListTileType.Suggestions:
                 await AppNavigatorService.NavigateTo($"{nameof(SuggestionsPage)}?IsUser={true}");
-                break;
-            case ListTileView.ListTileType.Message:
                 break;
             case ListTileView.ListTileType.AboutApp:
                 await AppNavigatorService.NavigateTo($"{nameof(AboutPage)}?IsUser={true}");

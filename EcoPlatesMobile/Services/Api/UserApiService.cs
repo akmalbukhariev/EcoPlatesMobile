@@ -224,9 +224,9 @@ namespace EcoPlatesMobile.Services.Api
             return response;
         }
 
-        public async Task<GetUserInfoListResponse> GetUserInfoList(List<long> idList)
+        public async Task<UserInfoListResponse> GetUserInfoList(List<long> idList)
         {
-            var response = new GetUserInfoListResponse();
+            var response = new UserInfoListResponse();
 
             try
             {
@@ -234,7 +234,7 @@ namespace EcoPlatesMobile.Services.Api
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
-                    var deserializedResponse = JsonConvert.DeserializeObject<GetUserInfoListResponse>(receivedData);
+                    var deserializedResponse = JsonConvert.DeserializeObject<UserInfoListResponse>(receivedData);
                     if (deserializedResponse != null)
                     {
                         return deserializedResponse;
