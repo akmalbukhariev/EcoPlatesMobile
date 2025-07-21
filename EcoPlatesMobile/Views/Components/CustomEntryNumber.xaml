@@ -20,6 +20,7 @@
                PlaceholderColor="#444444"
                Keyboard="Numeric"
                FontSize="25"
+               FontFamily="Roboto"
                HorizontalTextAlignment="Center"
                VerticalOptions="Center"
                BackgroundColor="Transparent"

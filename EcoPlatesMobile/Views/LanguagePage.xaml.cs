@@ -43,6 +43,7 @@ public partial class LanguagePage : BasePage
 
         Init();
 
+        AppService.Get<IStatusBarService>().SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
         BindingContext = this;
     }
 

@@ -38,17 +38,19 @@
                   Grid.Column="1">
                 <Label x:Name="lbCompanyName" 
                        Text="-----------------------"
-                       FontSize="17"
-                       TextColor="Black"
-                       FontAttributes="Bold"/>
+                       FontSize="15"
+                       FontFamily="Roboto"
+                       TextColor="Black"/>
                 <Label x:Name="lbPhoneNumber"
                        Text="+998 00 000 00 00"
-                       FontSize="15"
+                       FontSize="13"
+                       FontFamily="Roboto"
                        TextColor="#999999"
                        FontAttributes="Bold"
                        Grid.Row="1"/>
                 <Label Text="{x:Static language:AppResource.RoleSeller}"
-                       FontSize="14"
+                       FontSize="12"
+                       FontFamily="Roboto"
                        TextColor="#999999"
                        Grid.Row="2"/>
             </Grid>
@@ -67,18 +69,20 @@
               Grid.Row="4">
             <Image Source="logo2.png"
                    Aspect="AspectFit"
-                   WidthRequest="110"
-                   HeightRequest="110"
+                   WidthRequest="90"
+                   HeightRequest="90"
                    VerticalOptions="Center"/>
             <Label Text="SaleTop application"
                    TextColor="LightGray"
-                   FontSize="14"
+                   FontSize="12"
+                   FontFamily="Roboto"
                    HorizontalTextAlignment="Center"
                    Grid.Row="1"/>
             <Label x:Name="lbVersion" 
                    Text="v. 1.1 (Android -2025)"
                    TextColor="LightGray"
-                   FontSize="14"
+                   FontSize="12"
+                   FontFamily="Roboto"
                    HorizontalTextAlignment="Center"
                    Grid.Row="2"/>
         </Grid>
@@ -125,6 +129,7 @@
                                    VerticalOptions="Center"/>
                             <Label Text="{Binding SelectedLanguage}"
                                    TextColor="Black"
+                                   FontFamily="Roboto"
                                    FontSize="15"
                                    VerticalTextAlignment="Center"
                                    Grid.Column="1"/>

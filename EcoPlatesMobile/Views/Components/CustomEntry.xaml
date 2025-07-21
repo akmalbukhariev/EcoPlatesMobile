@@ -27,6 +27,7 @@
                    IsVisible="{Binding EntryShowPrefix}"
                    TextColor="Gray"
                    FontSize="14"
+                   FontFamily="Roboto"
                    VerticalOptions="Center"
                    Grid.Column="1"/>
             <Entry x:Name="customEntry"
@@ -34,6 +35,7 @@
                    Placeholder="{Binding EntryPlaceHolder}"
                    PlaceholderColor="{Binding EntryPlaceHolderColor}"
                    FontSize="14"
+                   FontFamily="Roboto"
                    VerticalOptions="Center"
                    BackgroundColor="Transparent"
                    TextColor="Black"

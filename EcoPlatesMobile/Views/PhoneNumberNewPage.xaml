@@ -8,17 +8,22 @@
                BackgroundColor="White">
 
     <Grid RowDefinitions="60, *">
-        <Image x:Name="imBack" 
-               Source="back2.png"
-               WidthRequest="24"
-               HeightRequest="24"
-               HorizontalOptions="Start"
-               Margin="16, 10, 0, 0">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Tapped="Back_Tapped"
-                                      NumberOfTapsRequired="1"/>
-            </Image.GestureRecognizers>
-        </Image>
+       <Grid WidthRequest="40"
+                HeightRequest="40"
+                VerticalOptions="Center"  
+                HorizontalOptions="Start"
+                Margin="16, 4.44, 0, 0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Back_Tapped"/>
+                </Grid.GestureRecognizers>
+            <Image x:Name="imBack"
+                    Source="back2.png"
+                    VerticalOptions="Center"
+                    WidthRequest="30"
+                    HeightRequest="30"/>
+        </Grid>
+
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="24" 
                                  Spacing="20" 
@@ -28,11 +33,13 @@
                        HorizontalOptions="Center" />
                 <Label Text="{x:Static language:AppResource.NewNumber}"
                        FontSize="24"
+                       FontFamily="Roboto"
                        HorizontalOptions="Center"
                        FontAttributes="Bold"
                        TextColor="Black" />
                 <Label Text="{x:Static language:AppResource.NewNumberTitle}"
                        FontSize="14"
+                       FontFamily="Roboto"
                        HorizontalOptions="Center"
                        HorizontalTextAlignment="Center"
                        TextColor="Gray"
@@ -41,11 +48,13 @@
                       VerticalOptions="Center">
                     <Label Text="+998" 
                            FontSize="18"
+                           FontFamily="Roboto"
                            TextColor="Gray"
                            VerticalOptions="Center"/>
                     <Entry x:Name="phoneEntry"
                            Placeholder="00 000 00 00"
                            FontSize="18"
+                           FontFamily="Roboto"
                            TextColor="Gray"
                            Keyboard="Telephone"
                            PlaceholderColor="LightGray"
@@ -57,6 +66,7 @@
                 <Button x:Name="btnContinue" 
                         Text="{x:Static language:AppResource.Continue}"
                         FontSize="16"
+                        FontFamily="Roboto"
                         CornerRadius="8"
                         BackgroundColor="#e0e0e0"
                         TextColor="Gray"

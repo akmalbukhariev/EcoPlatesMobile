@@ -19,6 +19,7 @@
               Grid.Row="1">
             <Label Text="{Binding InActiveProductCount}"
                    TextColor="Black"
+                   FontFamily="Roboto"
                    FontAttributes="Bold"
                    Margin="0,0,0,20"
                    FontSize="15"/>
@@ -67,9 +68,9 @@
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
                            Grid.RowSpan="2"/>
-        <BoxView Grid.Row="2"
-                 HeightRequest="1"
+        <BoxView HeightRequest="1"
                  BackgroundColor="LightGray"
-                 HorizontalOptions="Fill" />
+                 HorizontalOptions="Fill"
+                 Grid.Row="2"/>
     </Grid>
 </page:BasePage>

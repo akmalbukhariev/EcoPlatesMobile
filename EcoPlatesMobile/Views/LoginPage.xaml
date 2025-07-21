@@ -21,13 +21,15 @@
                         HorizontalOptions="Center"
                         Grid.Row="2">
                 <Label Text="{x:Static language:AppResource.SelectRole}"
-                        TextColor="Gray"
-                        HorizontalTextAlignment="Center"
-                        LineBreakMode="WordWrap"/>
+                       FontFamily="Roboto"
+                       FontSize="15"
+                       TextColor="Gray"
+                       HorizontalTextAlignment="Center"
+                       LineBreakMode="WordWrap"/>
             </StackLayout>
             <Button x:Name="btnUser" 
                     Text="{x:Static language:AppResource.Buyer}"
-                    TextColor="White"
+                    Style="{StaticResource StyleBigButton}"
                     HeightRequest="50"
                     CornerRadius="0"
                     VerticalOptions="End"
@@ -42,7 +44,7 @@
             </Button>
             <Button x:Name="btnComapny"
                     Text="{x:Static language:AppResource.Seller}"
-                    TextColor="White"
+                    Style="{StaticResource StyleBigButton}"
                     HeightRequest="50"
                     CornerRadius="0"
                     VerticalOptions="End"

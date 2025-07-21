@@ -29,11 +29,13 @@ public partial class LoginPage : BasePage
         string phoneNumber = appStoreService.Get(AppKeys.PhoneNumber, "");
 
         loading.ShowLoading = true;
+        
+        Color color = Colors.White;
         if (isLoggedIn)
-        {
-            Color color = Constants.COLOR_COMPANY;
+        { 
             if (role == UserRole.Company)
             {
+                color = Constants.COLOR_COMPANY;
                 userSessionService.SetUser(UserRole.Company);
                 await appControl.LoginCompany(phoneNumber);
             }
@@ -43,9 +45,10 @@ public partial class LoginPage : BasePage
                 userSessionService.SetUser(UserRole.User);
                 await appControl.LoginUser(phoneNumber);
             }
-
-            AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
         }
+
+        AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
+
         loading.ShowLoading = false;
     }
      

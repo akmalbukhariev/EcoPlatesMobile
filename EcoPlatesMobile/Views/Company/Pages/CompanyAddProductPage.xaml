@@ -59,6 +59,7 @@
                                 <Label Text="{x:Static language:AppResource.ProductImages}"
                                        TextColor="#666666"
                                        FontSize="14"
+                                       FontFamily="Roboto"
                                        VerticalTextAlignment="Center"
                                        Margin="20, 0, 0, 0"/>   
                                 <Image x:Name="imProductIcon"
@@ -105,11 +106,13 @@
                                 <Entry x:Name="entryOldPrice"
                                        Keyboard="Numeric"
                                        FontSize="16"
+                                       FontFamily="Roboto"
                                        TextColor="Black"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbOldPrice"
                                         Text="{x:Static language:AppResource.PreviousPrice}"
                                         Style="{StaticResource styleLabel}"
+                                        FontFamily="Roboto"
                                         VerticalTextAlignment="Center"
                                         Margin="0,0,10,0"
                                         Grid.Column="3"/>
@@ -128,12 +131,14 @@
                                 <Entry x:Name="entryNewPrice"
                                        Keyboard="Numeric"
                                        FontSize="16"
+                                       FontFamily="Roboto"
                                        TextColor="Black"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbNewPrice" 
                                        Text="{x:Static language:AppResource.CurrentPrice}"
                                        Style="{StaticResource styleLabel}"
                                        FontAttributes="Bold"
+                                       FontFamily="Roboto"
                                        VerticalTextAlignment="Center"
                                        Margin="0,0,10,0"
                                        Grid.Column="2"/>
@@ -148,6 +153,7 @@
                             <Editor x:Name="editorDescription"
                                     Placeholder="{x:Static language:AppResource.ProductDescription}"
                                     TextColor="Black"
+                                    FontFamily="Roboto"
                                     Margin="5"
                                     FontSize="16"/>
                         </Border>
@@ -156,7 +162,7 @@
                         Text="{x:Static language:AppResource.Add}"
                         BackgroundColor="{StaticResource Company}"
                         CornerRadius="30"
-                        TextColor="White"
+                        Style="{StaticResource StyleBigButton}"
                         HeightRequest="50"
                         Margin="16,0,16,30"
                         Clicked="RegisterOrUpdate_Clicked"

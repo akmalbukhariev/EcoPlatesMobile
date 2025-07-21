@@ -29,6 +29,8 @@ namespace EcoPlatesMobile
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Roboto-Variable.ttf", "Roboto");
+                    fonts.AddFont("Roboto-Italic-Variable.ttf", "RobotoItalic");
  
                 }) 
                 .UseMauiMaps();
@@ -78,7 +80,10 @@ namespace EcoPlatesMobile
                     ThrowOnAnyError = false,
                     Timeout = TimeSpan.FromSeconds(30)
                 }));
+            
+            #if ANDROID
             builder.Services.AddSingleton<IStatusBarService, StatusBarService>();
+            #endif
         }
 
         private static void RegisterTransient(MauiAppBuilder builder)

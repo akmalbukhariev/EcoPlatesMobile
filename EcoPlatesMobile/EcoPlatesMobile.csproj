@@ -63,7 +63,7 @@
 		<MauiAsset Include="Resources/Raw/sale_top_logo.svg" />
 		<MauiAsset Include="Resources/Raw/sale_top_logo1.svg" />
 	</ItemGroup>
-
+ 
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />

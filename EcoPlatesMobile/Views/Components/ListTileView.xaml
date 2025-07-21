@@ -16,6 +16,8 @@
                VerticalOptions="Center"/>
         <Label x:Name="label"
                TextColor="Black"
+               FontFamily="Roboto"
+               FontSize="15"
                VerticalTextAlignment="Center"
                Grid.Column="1"/>
         <Border x:Name="borderTileTex1" 
@@ -26,6 +28,8 @@
                 Grid.Column="2">
             <Label x:Name="label1"
                    TextColor="Black"
+                   FontFamily="Roboto"
+                   FontSize="13"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"/>
         </Border>
