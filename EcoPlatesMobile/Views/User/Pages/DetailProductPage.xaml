@@ -212,7 +212,8 @@
                            FontAttributes="Bold"/>
                     <Label Text="{Binding UserNeedToKnow}"
                            TextColor="Black"
-                           FontSize="16"/>
+                           FontSize="16"
+                           FontFamily="Roboto"/>
                 </VerticalStackLayout>
                 <BoxView BackgroundColor="LightGray"
                          IsVisible="Collapse"

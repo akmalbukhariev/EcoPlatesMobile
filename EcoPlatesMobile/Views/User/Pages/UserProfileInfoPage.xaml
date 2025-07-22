@@ -51,7 +51,7 @@
                                    PlaceholderColor="LightGray"/>
                             <BoxView BackgroundColor="LightGray" Grid.Row="1"/>
                             <Grid x:Name="grdPhoneNumber" 
-                                  ColumnDefinitions="Auto, *, Auto" 
+                                  ColumnDefinitions="Auto, *, 30" 
                                   Grid.Row="2">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer NumberOfTapsRequired="1"
@@ -72,8 +72,9 @@
                                        VerticalTextAlignment="Center"
                                        Grid.Column="1"/>
                                 <Image Source="right.png"
-                                       Aspect="AspectFit"
-                                       Margin="15,0,10,0"
+                                       Aspect="AspectFill"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
                                        Grid.Column="2"/>
                             </Grid>
                         </Grid>

@@ -58,13 +58,15 @@
                                         FontFamily="Roboto"
                                         SelectedIndexChanged="BusinessType_SelectedIndexChanged"/>
                                 <Image Source="right.png"
-                                       Aspect="AspectFit"
+                                       Aspect="AspectFill"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
                                        HorizontalOptions="End"
-                                       Margin="0,0,10,0"/>
+                                       Margin="0,0,0,0"/>
                             </Grid>
                             <BoxView BackgroundColor="LightGray" Grid.Row="3"/>
                             <Grid x:Name="grdPhoneNumber" 
-                                  ColumnDefinitions="Auto, *, Auto" 
+                                  ColumnDefinitions="Auto, *, 30" 
                                   Grid.Row="4">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer NumberOfTapsRequired="1"
@@ -85,8 +87,9 @@
                                        VerticalTextAlignment="Center"
                                        Grid.Column="1"/>
                                 <Image Source="right.png"
-                                       Aspect="AspectFit"
-                                       Margin="15,0,10,0"
+                                       Aspect="AspectFill"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
                                        Grid.Column="2"/>
                             </Grid>
                         </Grid>

@@ -7,7 +7,7 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.User.Pages.LocationSettingPage">
 
-    <Grid RowDefinitions="70, *, Auto">
+    <Grid RowDefinitions="57, *, Auto">
         <Grid ColumnDefinitions="*, Auto" 
               BackgroundColor="{StaticResource User}">
             <Grid>
@@ -15,16 +15,17 @@
                        TextColor="White"
                        FontAttributes="Bold"
                        FontSize="15"
+                       FontFamily="Roboto"
                        HorizontalTextAlignment="Center"
                        VerticalOptions="Center"/>
             </Grid>
             <Image Source="close.png"
-                 Aspect="AspectFill"
-                 WidthRequest="30"
-                 HeightRequest="30"
-                 VerticalOptions="Center"
-                 Margin="0,0,5,0"
-                 Grid.Column="1">
+                   Aspect="AspectFill"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   VerticalOptions="Center"
+                   Margin="0,0,5,0"
+                   Grid.Column="1">
                  <Image.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1"
                                               Tapped="Close_Tapped"/>
@@ -33,21 +34,26 @@
         </Grid>
         <maps:Map x:Name="map"
                   MapType="Street"
-                  IsShowingUser="false"
+                  IsShowingUser="true"
                   Grid.Row="1"
                   Grid.RowSpan="3"/>
-        <Frame BackgroundColor="White"
-               CornerRadius="20"
+        <Border BackgroundColor="White"
                Padding="10"
-               HasShadow="True"
                VerticalOptions="End"
-               HeightRequest="250"
+               HeightRequest="170"
                Margin="0"
                TranslationY="10"
                Grid.Row="2">
+               <Border.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"/>
+               </Border.GestureRecognizers>
+               <Border.StrokeShape>
+                  <RoundRectangle CornerRadius="30,30,0,0" />
+                </Border.StrokeShape>
                 <VerticalStackLayout Spacing="15">
                         <Label Text="{x:Static language:AppResource.SelectDistance}"
                                FontSize="16"
+                               FontFamily="Roboto"
                                HorizontalOptions="Center" />
                         <Grid ColumnDefinitions="*, Auto"
                               Padding="0"
@@ -66,24 +72,26 @@
                                 <Label x:Name="distanceLabel"
                                         Text="5 km"
                                         FontSize="16"
+                                        FontFamily="Roboto"
                                         TextColor="Black"
                                         VerticalOptions="Center"
                                         HorizontalOptions="End"
                                         Margin="10,0,10,0"
                                         Grid.Column="1"/>
-                                </Grid>
+                        </Grid>
                         <Button Text="{x:Static language:AppResource.UseMyCurrentLocation}"
                                 BackgroundColor="Transparent"
                                 TextColor="Teal"
+                                IsVisible="Collapse"
                                 Clicked="UseCurrentLocation_Clicked" />
                         <Button Text="{x:Static language:AppResource.ShowResult}"
                                 BackgroundColor="#004d40"
-                                TextColor="White"
+                                Style="{StaticResource StyleBigButton}"
                                 CornerRadius="25"
                                 HeightRequest="45"
                                 Clicked="ShowResults_Clicked"/>
                 </VerticalStackLayout>
-         </Frame>
+         </Border>
         <component:LoadingView x:Name="loading"
                                Grid.RowSpan="4"/>
     </Grid>

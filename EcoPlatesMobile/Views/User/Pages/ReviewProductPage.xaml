@@ -20,7 +20,8 @@
                        HeightRequest="30"/>
                 <Label Text="{x:Static language:AppResource.EvaluateProduct}"
                        TextColor="Black"
-                       FontSize="17"/>
+                       FontSize="17"
+                       FontFamily="Roboto"/>
             </HorizontalStackLayout>
             <Grid ColumnDefinitions="Auto, *" 
                   ColumnSpacing="15"
@@ -34,6 +35,7 @@
                 <Label x:Name="lbProductTitle" 
                        Text="Product name"
                        FontSize="16"
+                       FontFamily="Roboto"
                        TextColor="Black"
                        FontAttributes="Bold"
                        VerticalTextAlignment="Start"
@@ -43,6 +45,7 @@
                    Text="{x:Static language:AppResource.HowSatisfiedTitle}"
                    TextColor="Gray"
                    FontSize="15"
+                   FontFamily="Roboto"
                    Margin="10,0,0,0"
                    Grid.Row="2"/>
             <StackLayout x:Name="starContainer" 
@@ -89,6 +92,7 @@
                    TextColor="Gray"
                    IsVisible="False"
                    FontSize="15"
+                   FontFamily="Roboto"
                    Margin="10,20,0,0"
                    Grid.Row="4"/>
             <VerticalStackLayout x:Name="stackOption" 
@@ -101,6 +105,7 @@
                     <CheckBox x:Name="checkBox1" Color="{StaticResource User}" />
                     <Label Text="{x:Static language:AppResource.GreatValue}"
                            FontSize="17"
+                           FontFamily="Roboto"
                            TextColor="Gray"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
@@ -113,6 +118,7 @@
                     <CheckBox x:Name="checkBox2" Color="{StaticResource User}"/>
                     <Label Text="{x:Static language:AppResource.DeliciousFood}"
                            FontSize="17"
+                           FontFamily="Roboto"
                            TextColor="Gray"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
@@ -125,6 +131,7 @@
                     <CheckBox x:Name="checkBox3" Color="{StaticResource User}"/>
                     <Label Text="{x:Static language:AppResource.GreatService}"
                            FontSize="17"
+                           FontFamily="Roboto"
                            TextColor="Gray"
                            VerticalOptions="Center">
                         <Label.GestureRecognizers>
@@ -134,8 +141,7 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
             <Button Text="{x:Static language:AppResource.ReviewCompleted}"
-                    FontSize="16"
-                    TextColor="White"
+                    Style="{StaticResource StyleBigButton}"
                     BackgroundColor="{StaticResource User}"
                     HeightRequest="50"
                     Margin="10,0,10,0"

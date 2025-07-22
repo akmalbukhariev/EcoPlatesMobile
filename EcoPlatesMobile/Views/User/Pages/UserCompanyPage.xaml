@@ -32,6 +32,7 @@
                         </Style>
                         <Style x:Key="lbStyle" TargetType="Label">
                             <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="FontFamily" Value="Roboto"/>
                             <Setter Property="TextColor" Value="Black"/>
                             <Setter Property="Margin" Value="10,0,0,0"/>
                         </Style>
@@ -42,7 +43,8 @@
                            Style="{StaticResource imStyle}"/>
                     <Label Text="{Binding CompanyName}"
                            TextColor="Black"
-                           FontSize="17"
+                           FontSize="15"
+                           FontFamily="Roboto"
                            FontAttributes="Bold"
                            Margin="10, 0, 0, 0"/>
                 </HorizontalStackLayout>
@@ -55,7 +57,8 @@
                            Style="{StaticResource imStyle}"/>
                     <Label Text="{Binding PhoneNumber}"
                            TextColor="Black"
-                           FontSize="17"
+                           FontSize="15"
+                           FontFamily="Roboto"
                            FontAttributes="Bold"
                            Margin="10, 0, 0, 0"
                            Grid.Row="1"/>
@@ -66,19 +69,23 @@
                     <Label Text="{Binding WorkingTime}"
                            Style="{StaticResource lbStyle}"/>
                 </HorizontalStackLayout>
-                <Label Text="{Binding CompanyType}"
-                       Style="{StaticResource lbStyle}"
-                       Grid.Row="2" Grid.Column="2"/>
+                <HorizontalStackLayout Grid.Row="2" Grid.Column="2">
+                     <Image Source="company_type.png"
+                           Style="{StaticResource imStyle}"/>
+                    <Label Text="{Binding CompanyType}"
+                           Style="{StaticResource lbStyle}"/>
+                </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.Row="4">
                     <HorizontalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1"
                                               Tapped="MakerLocation_Tapped"/>
                     </HorizontalStackLayout.GestureRecognizers>
-                    <Image Source="browser1.png"
+                    <Image Source="pin.png"
                            Style="{StaticResource imStyle}"/>
                     <Label Text="{x:Static language:AppResource.MakerLocation}"
                            TextColor="Black"
-                           FontSize="17"
+                           FontSize="15"
+                           FontFamily="Roboto"
                            FontAttributes="Bold"
                            Margin="10, 0, 0, 0"
                            Grid.Row="1"/>
@@ -102,7 +109,7 @@
             <RefreshView x:Name="listProduct" 
                          IsRefreshing="{Binding IsRefreshing}"
                          Command="{Binding RefreshProductCommand}"
-                         Margin="20"
+                         Margin="20,10,20,20"
                          Grid.Row="2">
                 <CollectionView ItemsSource="{Binding Products}"
                                 Margin="0,20,0,0">
@@ -136,8 +143,8 @@
               VerticalOptions="Start">
             <Image x:Name="imBack1"
                    Source="back1.png"
-                   WidthRequest="24"
-                   HeightRequest="24"
+                   WidthRequest="30"
+                   HeightRequest="30"
                    Margin="16, 15, 0, 0">   
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Back_Tapped"

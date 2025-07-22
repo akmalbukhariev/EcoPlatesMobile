@@ -18,28 +18,34 @@
                    Aspect="AspectFill"
                    WidthRequest="170"/>
             <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
-                  Margin="20,0,0,0"
+                  Margin="10,0,0,0"
                   VerticalOptions="Center" 
                   Grid.Column="1">
                 <VerticalStackLayout>
                     <Label x:Name="productName"
                            TextColor="Black"
                            FontSize="14"
+                           FontFamily="Roboto"
+                           LineBreakMode="TailTruncation"
                            FontAttributes="Bold"/>
                     <Label x:Name="productMakerName"
                            TextColor="Gray"
                            FontSize="12"
+                           FontFamily="Roboto"
+                           LineBreakMode="TailTruncation"
                            FontAttributes="Bold"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Row="2">
                     <Label x:Name="newPrice"
                            TextColor="{StaticResource User}"
                            FontSize="14"
+                           FontFamily="Roboto"
                            FontAttributes="Bold"/>
                     <Label x:Name="oldPrice"
                            TextColor="Gray"
                            TextDecorations="Strikethrough"
                            FontSize="12"
+                           FontFamily="Roboto"
                            FontAttributes="Bold"/>
                 </VerticalStackLayout>
                 <HorizontalStackLayout Margin="0,0,0,0"
@@ -51,6 +57,7 @@
                                HeightRequest="16"/>
                         <Label x:Name="stars"
                                FontSize="11"
+                               FontFamily="Roboto"
                                TextColor="Black"
                                VerticalTextAlignment="Center"/>
                     </HorizontalStackLayout>
@@ -64,6 +71,7 @@
                         <Label x:Name="distance" 
                                Text="{Binding Distance}" 
                                FontSize="11"
+                               FontFamily="Roboto"
                                TextColor="Black"
                                VerticalTextAlignment="Center"/>
                     </HorizontalStackLayout>
