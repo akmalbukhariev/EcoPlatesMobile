@@ -825,4 +825,12 @@
     <value>Местоположение обязательно.</value>
     <comment>CompanyRegistrationPage</comment>
   </data>
+<data name="Wifi" xml:space="preserve">
+  <value>Wifi</value>
+  <comment>AppControl</comment>
+</data>
+<data name="MessageWifi" xml:space="preserve">
+  <value>Iltimos, wifi ni tekshiring</value>
+  <comment>AppControl</comment>
+</data>
 </root>

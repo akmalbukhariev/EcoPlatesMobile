@@ -825,4 +825,12 @@
     <value>Location cannot be empty.</value>
     <comment>CompanyRegistrationPage</comment>
   </data>
+  <data name="Wifi" xml:space="preserve">
+    <value>Wifi</value>
+    <comment>AppControl</comment>
+  </data>
+	<data name="MessageWifi" xml:space="preserve">
+    <value>Please check the wifi</value>
+  <comment>AppControl</comment>
+</data>
 </root>

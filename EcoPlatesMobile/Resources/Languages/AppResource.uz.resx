@@ -825,4 +825,12 @@
     <value>Iltimos joylashuvni belgilang.</value>
     <comment>CompanyRegistrationPage</comment>
   </data>
+<data name="Wifi" xml:space="preserve">
+  <value>Wifi</value>
+  <comment>AppControl</comment>
+</data>
+<data name="MessageWifi" xml:space="preserve">
+  <value>Пожалуйста, проверьте Wi-Fi</value>
+  <comment>AppControl</comment>
+</data>
 </root>

@@ -1006,6 +1006,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please check the wifi.
+        /// </summary>
+        internal static string MessageWifi {
+            get {
+                return ResourceManager.GetString("MessageWifi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing Info.
         /// </summary>
         internal static string MissingInfo {
@@ -1605,6 +1614,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string WhatYouNeedToKnow {
             get {
                 return ResourceManager.GetString("WhatYouNeedToKnow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wifi.
+        /// </summary>
+        internal static string Wifi {
+            get {
+                return ResourceManager.GetString("Wifi", resourceCulture);
             }
         }
         

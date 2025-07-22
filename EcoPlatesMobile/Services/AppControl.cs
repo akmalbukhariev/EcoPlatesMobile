@@ -173,6 +173,22 @@ namespace EcoPlatesMobile.Services
             Application.Current.MainPage = new AppUserShell();
         }
 
+        public async Task<bool> CheckWifi()
+        {
+            if (!IsConnectedToWifi())
+            {
+                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageWifi, AppResource.Ok);
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool IsConnectedToWifi()
+        {
+            return Connectivity.NetworkAccess == NetworkAccess.Internet;
+        }
+
         public void RefreshAllPages()
         {
             RefreshMainPage = true;
