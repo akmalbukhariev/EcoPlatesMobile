@@ -225,7 +225,8 @@
                                    VerticalOptions="Center"/>
                             <Label Text="{Binding Name}" 
                                    Margin="5,0,0,0"
-                                   FontSize="18" 
+                                   FontSize="14" 
+                                   FontFamily="Roboto"
                                    VerticalTextAlignment="Center" 
                                    TextColor="Black"
                                    Grid.Column="1"/>

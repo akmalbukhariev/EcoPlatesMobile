@@ -8,20 +8,20 @@
                BackgroundColor="White">
 
     <Grid RowDefinitions="60, *">
-       <Grid WidthRequest="40"
-                HeightRequest="40"
-                VerticalOptions="Center"  
-                HorizontalOptions="Start"
-                Margin="16, 4.44, 0, 0">
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1"
-                                          Tapped="Back_Tapped"/>
-                </Grid.GestureRecognizers>
+       <Grid WidthRequest="35"
+             HeightRequest="35"
+             VerticalOptions="Center"  
+             HorizontalOptions="Start"
+             Margin="16, 4.44, 0, 0">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                        Tapped="Back_Tapped"/>
+            </Grid.GestureRecognizers>
             <Image x:Name="imBack"
                     Source="back2.png"
                     VerticalOptions="Center"
-                    WidthRequest="30"
-                    HeightRequest="30"/>
+                    WidthRequest="25"
+                    HeightRequest="25"/>
         </Grid>
 
         <ScrollView Grid.Row="1">

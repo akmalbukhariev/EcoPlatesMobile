@@ -16,5 +16,5 @@
         <Setter Property="TextColor" Value="White"/>
         <Setter Property="HorizontalOptions" Value="Center"/>
     </Style>
-
+  
 </ResourceDictionary>

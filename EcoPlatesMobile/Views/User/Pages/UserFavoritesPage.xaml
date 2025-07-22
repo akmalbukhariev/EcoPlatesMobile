@@ -11,7 +11,7 @@
 
     <Grid RowDefinitions="Auto, *, Auto">
         <Grid BackgroundColor="#007200"
-              HeightRequest="87"
+              HeightRequest="57"
               ColumnDefinitions="*,Auto">
             <Label x:Name="lbTitle"
                    Text="{x:Static language:AppResource.Favorites}"
@@ -19,11 +19,6 @@
                    FontSize="20"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
-            <Image Source="favorites1.png"
-                   WidthRequest="24"
-                   HeightRequest="24"
-                   Margin="0, 4.44, 15, 0"
-                   Grid.Column="1"/>
         </Grid>
 
         <Grid RowDefinitions="50, *"

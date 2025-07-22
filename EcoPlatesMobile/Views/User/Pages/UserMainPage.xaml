@@ -11,7 +11,7 @@
 
     <Grid RowDefinitions="Auto, Auto, *, Auto">
         <Grid BackgroundColor="#007200"
-              HeightRequest="70">
+              HeightRequest="57">
             <HorizontalStackLayout VerticalOptions="Center"
                                    HorizontalOptions="Center"
                                    Margin="10,0,0,0"
@@ -36,7 +36,6 @@
                                    EntryPlaceHolderColor="Gray"
                                    EntryPlaceHolder="{x:Static language:AppResource.Search}"
                                    IsEnabled="False"
-                                   Margin="0,0,0,0"
                                    Grid.Row="1"/>
             <BoxView BackgroundColor="Transparent" 
                      Grid.Row="1">

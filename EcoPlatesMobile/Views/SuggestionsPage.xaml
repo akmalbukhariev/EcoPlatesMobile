@@ -23,21 +23,24 @@
                  <StackLayout>
                     <Label Text="{x:Static language:AppResource.SuggestionTitle1}"
                            FontSize="24"
+                           FontFamily="Roboto"
                            TextColor="Gray"
-                           FontAttributes="Bold"
                            HorizontalTextAlignment="Center"/>
                 </StackLayout>
                 <Label Text="{x:Static language:AppResource.SuggestionTitle2}"
                        FontSize="16"
+                       FontFamily="Roboto"
                        TextColor="Gray"
                        HorizontalTextAlignment="Center"/>
-                <Label Text="Type:" FontAttributes="Bold"/>
+                <Label Text="{x:Static language:AppResource.Type}" 
+                       FontAttributes="Bold"
+                       FontFamily="Roboto"/>
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" BackgroundColor="White" CornerRadius="6">
                     <Grid ColumnDefinitions="*, Auto">
                         <Picker x:Name="pickType"
                                 Title="{x:Static language:AppResource.SelectFeedbackType}"
                                 TitleColor="Gray"
-                                BackgroundColor="Red"
+                                FontFamily="Roboto"
                                 TextColor="Black"/>
                         <Image Source="down.png"
                                Aspect="AspectFit"
@@ -45,21 +48,24 @@
                                Grid.Column="1"/>
                     </Grid>
                  </Frame>
-                <Label Text="{x:Static language:AppResource.Message}" FontAttributes="Bold" />
+                <Label Text="{x:Static language:AppResource.Message}" 
+                       FontAttributes="Bold"
+                       FontFamily="Roboto"/>
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" BackgroundColor="White" CornerRadius="6">
                     <Editor x:Name="messageEditor"
                             Placeholder="{x:Static language:AppResource.WriteYourMessage}"
                             AutoSize="TextChanges"
+                            FontFamily="Roboto"
                             HeightRequest="150"
                             BackgroundColor="Transparent"
                             TextColor="Black"
-                            Margin="5" />
+                            Margin="5"/>
                 </Frame>
             </VerticalStackLayout>
         </ScrollView>
         <Button x:Name="btnSubmit" 
                 Text="{x:Static language:AppResource.Submit}"
-                TextColor="White"
+                Style="{StaticResource StyleBigButton}"
                 HeightRequest="50"
                 Margin="20,0,20,0"
                 Clicked="OnSubmitClicked"

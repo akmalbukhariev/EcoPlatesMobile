@@ -6,7 +6,7 @@
     <Frame x:Name="mainFrame" 
            Padding="0" 
            CornerRadius="20" 
-           HeightRequest="270"
+           HeightRequest="240"
            BackgroundColor="White"
            HasShadow="True">
         <Frame.GestureRecognizers>
@@ -42,6 +42,7 @@
                     <Label x:Name="productCount"
                            TextColor="Black"
                            FontSize="16"
+                           FontFamily="Roboto"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
                            VerticalTextAlignment="Center"/>
@@ -64,26 +65,30 @@
                                  Spacing="0"
                                  Grid.Row="1">
                 <Label x:Name="productName"
-                       FontSize="18" 
+                       FontSize="14" 
+                       FontFamily="Roboto"
                        TextColor="Black"
                        LineBreakMode="TailTruncation"
                        FontAttributes="Bold"/>
                 <Label x:Name="productMakerName"
-                       FontSize="14" 
+                       FontSize="12" 
+                       FontFamily="Roboto"
                        TextColor="Black"/>
             </VerticalStackLayout>
             <VerticalStackLayout Margin="10,5,0,0"
                                  Spacing="0"
                                  Grid.Row="2">
                 <Label x:Name="newPrice"
-                       FontSize="18" 
+                       FontSize="14"
+                       FontFamily="Roboto"
                        TextColor="{StaticResource User}"
                        FontAttributes="Bold"/>
                 <Label x:Name="oldPrice" 
                        Text="{Binding OldPrice}" 
                        Margin="3,0,0,0"
                        TextDecorations="Strikethrough"
-                       FontSize="16" 
+                       FontSize="12" 
+                       FontFamily="Roboto"
                        TextColor="Gray"/>
             </VerticalStackLayout>
             <HorizontalStackLayout Margin="10,0,0,0"
@@ -94,7 +99,8 @@
                            WidthRequest="16" 
                            HeightRequest="16"/>
                     <Label x:Name="stars"
-                           FontSize="14"
+                           FontSize="11"
+                           FontFamily="Roboto"
                            TextColor="Black"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
@@ -106,7 +112,8 @@
                            WidthRequest="16" 
                            HeightRequest="16"/>
                     <Label x:Name="distance"
-                           FontSize="14"
+                           FontSize="11"
+                           FontFamily="Roboto"
                            TextColor="Black"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>

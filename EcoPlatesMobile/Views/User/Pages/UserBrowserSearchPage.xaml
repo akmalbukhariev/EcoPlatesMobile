@@ -12,15 +12,21 @@
         <Grid ColumnDefinitions="Auto, *, Auto"
               ColumnSpacing="10"
               Margin="15,10,0,0">
-            <Image Source="left.png"
-                   Aspect="AspectFit"
-                   WidthRequest="15"
-                   Margin="0,0,10,0">
-                <Image.GestureRecognizers>
+            <Grid WidthRequest="35"
+                  HeightRequest="35"
+                  VerticalOptions="Center"  
+                  HorizontalOptions="Start">
+                <Grid.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1"
                                           Tapped="Back_Tapped"/>
-                </Image.GestureRecognizers>
-            </Image>
+                </Grid.GestureRecognizers>
+                <Image x:Name="imBack"
+                       Source="back2.png"
+                       IsVisible="{Binding ShowBack}"
+                       VerticalOptions="Center"
+                       WidthRequest="25"
+                       HeightRequest="25"/>
+            </Grid>
             <Border Stroke="Gray"
                     StrokeThickness="1"
                     Grid.Column="1">
@@ -68,7 +74,7 @@
             <Label Text="{x:Static language:AppResource.RecentSearches}"
                    TextColor="Black"
                    FontSize="16"
-                   FontAttributes="Bold"/>
+                   FontFamily="Roboto"/>
             <CollectionView ItemsSource="{Binding HistoryList}"
                             HorizontalScrollBarVisibility="Always"
                             Grid.Row="1">
@@ -92,6 +98,7 @@
                             <Label Text="{Binding SearchedText}"
                                    TextColor="Black"
                                    FontSize="16"
+                                   FontFamily="Roboto"
                                    VerticalOptions="Center"/>
                         </Border>
                     </DataTemplate>
@@ -120,6 +127,8 @@
                                Margin="10,0,0,10"/>
                         <Label Text="{Binding SearchedText}"
                                TextColor="Black"
+                               FontSize="14"
+                               FontFamily="Roboto"
                                FontAttributes="Bold"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"

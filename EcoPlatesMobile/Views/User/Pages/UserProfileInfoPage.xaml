@@ -31,6 +31,7 @@
                     <Button Text="{x:Static language:AppResource.SetNewPhoto}"
                             TextColor="{StaticResource User}"
                             FontSize="17"
+                            FontFamily="Roboto"
                             FontAttributes="Bold"
                             BackgroundColor="Transparent"
                             HorizontalOptions="Center"
@@ -45,6 +46,7 @@
                             <Entry x:Name="entryUserName" 
                                    Placeholder="{x:Static language:AppResource.UserName}"
                                    FontSize="17"
+                                   FontFamily="Roboto"
                                    TextColor="Black"
                                    PlaceholderColor="LightGray"/>
                             <BoxView BackgroundColor="LightGray" Grid.Row="1"/>
@@ -58,12 +60,14 @@
                                 <Label Text="{x:Static language:AppResource.ChangeNumber}"
                                        TextColor="Black"
                                        FontSize="17"
+                                       FontFamily="Roboto"
                                        HorizontalTextAlignment="Start"
                                        VerticalTextAlignment="Center"/>
                                 <Label x:Name="lbPhoneNumber" 
                                        Text="+998 00 000 00 00"
                                        TextColor="Gray"
                                        FontSize="17"
+                                       FontFamily="Roboto"
                                        HorizontalTextAlignment="End"
                                        VerticalTextAlignment="Center"
                                        Grid.Column="1"/>
@@ -77,7 +81,7 @@
                 </VerticalStackLayout>
                 <Button Text="{x:Static language:AppResource.LogOut}" 
                         BackgroundColor="Red"
-                        TextColor="White"
+                        Style="{StaticResource StyleBigButton}"
                         Margin="10,0,10,0"
                         Clicked="ButtonLogOut_Clicked"
                         Grid.Row="2"/>

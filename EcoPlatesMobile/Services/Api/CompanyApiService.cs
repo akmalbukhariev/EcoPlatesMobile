@@ -37,7 +37,7 @@ namespace EcoPlatesMobile.Services.Api
 
         public CompanyApiService(RestClient client) : base(client)
         {
-            //token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTgxMjM0NTY3ODk4IiwiYXV0aCI6IlJPTEVfQ09NUEFOWSIsImV4cCI6MTc4MDQ4MzEzMH0.6PFhl1xAwm5wnlrtwDMYA4o2j0vOC9fdC5_uS3EWzCk";
+            
         }
 
         public async Task<LoginCompanyResponse> Login(LoginRequest data)

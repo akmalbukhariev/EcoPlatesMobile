@@ -5,15 +5,13 @@
                x:Class="EcoPlatesMobile.Views.AboutPage"
                BackgroundColor="White">
 
-    <Grid RowDefinitions="80, *, Auto, 20">
+    <Grid RowDefinitions="Auto, *, Auto, 20">
         <Grid x:Name="headerGrid" 
-              ColumnDefinitions="*, Auto" 
-              BackgroundColor="#007100">
+              BackgroundColor="#007100"
+              HeightRequest="57">
             <Label x:Name="lbTitle" 
                    Text="About the Application"
-                   TextColor="White"
-                   FontAttributes="Bold"
-                   FontSize="16"
+                   Style="{StaticResource StyleHeader}"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
             <Image Source="close.png"
@@ -21,6 +19,7 @@
                    WidthRequest="30"
                    HeightRequest="30"
                    VerticalOptions="Center"
+                   HorizontalOptions="End"
                    Margin="0,0,5,0"
                    Grid.Column="1">
                 <Image.GestureRecognizers>
@@ -38,21 +37,23 @@
                 <Label x:Name="roleTitle"
                        Text="For Clients"
                        TextColor="Black"
+                       FontFamily="Roboto"
                        FontAttributes="Bold"
                        FontSize="24"
                        HorizontalOptions="Center"/>
                 <Label x:Name="roleSubtitle"
+                       FontFamily="Roboto"
                        Text="Discover discounted food items nearby"
                        FontSize="18"
                        TextColor="Black"
                        HorizontalTextAlignment="Center"/>
-                <Label x:Name="point1" Text="• Browse a variety of discounted food offers" FontSize="16" TextColor="Black" />
-                <Label x:Name="point2" Text="• View available items on a map" FontSize="16" TextColor="Black"/>
-                <Label x:Name="point3" Text="• Adjust the radius to find offers within your location" FontSize="16" TextColor="Black"/>
-                <Label x:Name="point4" Text="• Receive notifications about new deals near you" FontSize="16" TextColor="Black"/>
+                <Label x:Name="point1" Text="• Browse a variety of discounted food offers" FontSize="16" TextColor="Black" FontFamily="Roboto"/>
+                <Label x:Name="point2" Text="• View available items on a map" FontSize="16" TextColor="Black" FontFamily="Roboto"/>
+                <Label x:Name="point3" Text="• Adjust the radius to find offers within your location" FontSize="16" TextColor="Black" FontFamily="Roboto"/>
+                <Label x:Name="point4" Text="• Receive notifications about new deals near you" FontSize="16" TextColor="Black" FontFamily="Roboto"/>
                 <Label x:Name="finalMessage"
                        Text="Save money, reduce waste, and support your local community."
-                       FontAttributes="Italic"
+                       FontFamily="RobotoItalic"
                        FontSize="16"
                        HorizontalTextAlignment="Center"
                        TextColor="DarkSlateGray"/>
@@ -62,7 +63,7 @@
                 Text="Close"
                 BackgroundColor="{StaticResource Company}"
                 CornerRadius="30"
-                TextColor="White"
+                Style="{StaticResource StyleBigButton}"
                 HeightRequest="50"
                 Margin="20,0,20,0"
                 Clicked="Close_Clicked"

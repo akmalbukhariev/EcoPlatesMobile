@@ -114,7 +114,7 @@ public partial class CompanyView : ContentView
     private static void StarsChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CompanyView)bindable;
-        control.stars.Text = (string)newValue;
+        //control.stars.Text = (string)newValue;
     }
 
     private static void DistanceChanged(BindableObject bindable, object oldValue, object newValue)

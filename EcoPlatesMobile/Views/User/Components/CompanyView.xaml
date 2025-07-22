@@ -8,13 +8,13 @@
            Padding="0"
            CornerRadius="15" 
            BackgroundColor="White"
-           HeightRequest="215"
+           HeightRequest="195"
            HasShadow="True">
         <Frame.GestureRecognizers>
             <TapGestureRecognizer Tapped="Company_Tapped" 
                                   NumberOfTapsRequired="1"/>
         </Frame.GestureRecognizers>
-        <Grid RowDefinitions="Auto, 50, 40">
+        <Grid RowDefinitions="Auto, Auto, 30">
             <Grid RowDefinitions="30, Auto">
                 <Image x:Name="companyImage"
                        HeightRequest="110" 
@@ -52,39 +52,26 @@
                                  Spacing="5"
                                  Grid.Row="1">
                 <Label x:Name="companyName"
-                       FontSize="18" 
+                       FontSize="14"
+                       FontFamily="Roboto"
                        TextColor="Black"
                        FontAttributes="Bold"/>
                 <Label x:Name="companyWorkingTime"
-                       FontSize="14" 
+                       FontSize="11"
+                       FontFamily="Roboto"
                        TextColor="Black"/>
             </VerticalStackLayout>
-            <HorizontalStackLayout Margin="10,15,0,0"
-                                   Spacing="10"
+            <HorizontalStackLayout Spacing="5"
+                                   Margin="10,0,0,0"
                                    Grid.Row="2">
-                <HorizontalStackLayout Spacing="5" 
-                                       IsVisible="Collapse">
-                    <Image Source="star.png" 
-                           WidthRequest="16" 
-                           HeightRequest="16"/>
-                    <Label x:Name="stars"
-                           FontSize="14"
-                           TextColor="Black"
-                           VerticalTextAlignment="Center"/>
-                </HorizontalStackLayout>
-                <BoxView BackgroundColor="LightGray"
-                         IsVisible="Collapse"
-                         WidthRequest="1"
-                         HeightRequest="15"/>
-                <HorizontalStackLayout Spacing="5">
-                    <Image Source="distance.png" 
-                           WidthRequest="16" 
-                           HeightRequest="16"/>
-                    <Label x:Name="distance" 
-                           FontSize="14"
-                           TextColor="Black"
-                           VerticalTextAlignment="Center"/>
-                </HorizontalStackLayout>
+                <Image Source="distance.png" 
+                       WidthRequest="16" 
+                       HeightRequest="16"/>
+                <Label x:Name="distance" 
+                       FontSize="11"
+                       FontFamily="Roboto"
+                       TextColor="Black"
+                       VerticalTextAlignment="Center"/>
             </HorizontalStackLayout>
         </Grid>
     </Frame>

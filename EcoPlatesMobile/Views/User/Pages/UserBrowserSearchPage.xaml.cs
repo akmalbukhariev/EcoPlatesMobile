@@ -17,7 +17,7 @@ public partial class UserBrowserSearchPage : BasePage
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
+        await AnimateElementScaleDown(imBack);
         await AppNavigatorService.NavigateTo("..");
     }
 
