@@ -11,7 +11,7 @@ namespace EcoPlatesMobile.Helper
     {
         public long CompanyId { get; set; }
         public string LogoUrl { get; set; }
-
         public string PinImage { get; set; }
+        public bool IsPin { get; set; } = false;
     }
 }

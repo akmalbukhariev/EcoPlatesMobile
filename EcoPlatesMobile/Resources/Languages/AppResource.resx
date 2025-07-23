@@ -713,6 +713,15 @@
     <value>You are here</value>
     <comment>LocationSettingPage</comment>
   </data>
+  <data name="SelectedDistanceIs" xml:space="preserve">
+    <value>Distance is</value>
+    <comment>LocationSettingPage</comment>
+  </data>
+  <data name="Km" xml:space="preserve">
+    <value>km</value>
+    <comment>LocationSettingPage</comment>
+  </data>
+
   <data name="LeaveReview" xml:space="preserve">
     <value>Leave a review</value>
     <comment>ReviewProductPage</comment>

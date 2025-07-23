@@ -37,6 +37,8 @@ namespace EcoPlatesMobile.Platforms.Android
             {
                 if (pin is CustomPin customPin)
                 {
+                    //if (customPin.IsPin) continue;
+
                     var location = new LatLng(customPin.Location.Latitude, customPin.Location.Longitude);
                     BitmapDescriptor icon = BitmapDescriptorFactory.DefaultMarker();
 

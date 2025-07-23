@@ -5,8 +5,8 @@ namespace EcoPlatesMobile.Utilities
 {
     internal class Constants
     {
-        public const string IP = "192.168.219.107";
-        //public const string IP = "10.0.2.2";
+        //public const string IP = "192.168.219.107";
+        public const string IP = "10.0.2.2";
 
         //public const string BASE_USER_URL = "http://www.ecoplates.uz:8080/user/";
         public const string BASE_USER_URL = $"http://{IP}:8083";

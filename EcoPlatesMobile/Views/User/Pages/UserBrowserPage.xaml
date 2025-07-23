@@ -17,13 +17,54 @@
         <maps:Map x:Name="map"
                   MapType="Street"
                   IsVisible="False"
-                  IsShowingUser="False"/>
+                  IsShowingUser="True"/>
+        <Border x:Name="borderBottom" 
+                Margin="10,0,10,20"
+                IsVisible="False"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                BackgroundColor="LightGray"
+                HeightRequest="40">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Bottom_Tapped"/>
+            </Border.GestureRecognizers>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="10">
+                <Image Source="browser1.png"
+                       Aspect="AspectFit"
+                       WidthRequest="20"
+                       HeightRequest="20"
+                       Margin="10,0,0,0"/>
+                <VerticalStackLayout HorizontalOptions="Start" 
+                                     Grid.Column="1">
+                    <Label Text="{x:Static language:AppResource.SelectDistance}"
+                           FontSize="14"
+                           FontFamily="Roboto"
+                           TextColor="Black"/>
+                    <Label x:Name="lbSelectedDistance" 
+                           Text="Selected distance is 2 km"
+                           FontSize="12"
+                           FontFamily="Roboto"
+                           TextColor="Gray"/>
+                </VerticalStackLayout>
+                <Image Source="up.png"
+                       Aspect="AspectFit"
+                       WidthRequest="20"
+                       HeightRequest="20"
+                       Margin="0,0,10,0"
+                       Grid.Column="2"/>
+            </Grid>
+        </Border>
         <Grid RowDefinitions="Auto, 10, Auto, *"
               Margin="16,10,16,0">
-            <Grid ColumnDefinitions="*, Auto, Auto">
+            <Grid ColumnDefinitions="*, Auto, 50">
                 <component:CustomEntry EntryIcon="search.png"
                                        IsEnabled="False"
-                                       EntryHeight="50"
+                                       EntryHeight="45"
                                        EntryBorderColor="Gray"
                                        EntryCornerRadius="7"
                                        EntryBackgroundColor="White"
@@ -43,7 +84,7 @@
                                             ButtonBackgroundColor="White"
                                             ButtonCornerRadius="5"
                                             Margin="5,0,5,0"
-                                            IsVisible="Collapse"
+                                            IsVisible="False"
                                             Grid.Column="1"/>
                 <component:CustomIconButton x:Name="btnRadiusLocation"
                                             ButtonIcon="pin3.png"
@@ -52,8 +93,9 @@
                                             ButtonBorderColor="Gray"
                                             ButtonBackgroundColor="White"
                                             ButtonCornerRadius="5"
+                                            IsVisible="False"
                                             Margin="5,0,0,0"
-                                            Grid.Column="2"/>
+                                            Grid.Column="1"/>
             </Grid>
             <user_component:TabSwitcherView x:Name="tabSwitcher"
                                            SwitchType="Modern"

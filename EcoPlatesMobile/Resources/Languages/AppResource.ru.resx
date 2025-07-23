@@ -712,8 +712,16 @@
 <data name="YouAreHere" xml:space="preserve">
     <value>Вы здесь</value>
     <comment>LocationSettingPage</comment>
-  </data>
-	<data name="LeaveReview" xml:space="preserve">
+</data>
+<data name="SelectedDistanceIs" xml:space="preserve">
+    <value>Расстояние</value>
+    <comment>LocationSettingPage</comment>
+ </data>
+<data name="Km" xml:space="preserve">
+    <value>км</value>
+    <comment>LocationSettingPage</comment>
+ </data>
+<data name="LeaveReview" xml:space="preserve">
   <value>Оставить отзыв</value>
   <comment>ReviewProductPage</comment>
 </data>

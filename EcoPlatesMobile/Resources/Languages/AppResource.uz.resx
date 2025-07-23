@@ -712,6 +712,14 @@
 <data name="YouAreHere" xml:space="preserve">
     <value>Siz shu yerdasiz</value>
     <comment>LocationSettingPage</comment>
+</data>
+<data name="SelectedDistanceIs" xml:space="preserve">
+    <value>Masofa</value>
+    <comment>LocationSettingPage</comment>
+ </data>
+ <data name="Km" xml:space="preserve">
+    <value>km</value>
+    <comment>LocationSettingPage</comment>
   </data>
 <data name="LeaveReview" xml:space="preserve">
   <value>Sharh qoldiring</value>

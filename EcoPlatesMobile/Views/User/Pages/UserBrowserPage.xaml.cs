@@ -11,6 +11,8 @@ using EcoPlatesMobile.Resources.Languages;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;
 using Application = Microsoft.Maui.Controls.Application;
+using The49.Maui.BottomSheet;
+
 
 
 #if ANDROID
@@ -41,7 +43,7 @@ public partial class UserBrowserPage : BasePage
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         btnRadiusLocation.EventClick += Click_RadiusLocation;
-        btnMyLocation.EventClick += Click_MyLocation;
+        //btnMyLocation.EventClick += Click_MyLocation;
 
         BindingContext = viewModel;
 	}
@@ -50,19 +52,20 @@ public partial class UserBrowserPage : BasePage
     {
         base.OnAppearing();
 
+        /*
         if (created)
         {
             tabSwitcher.Init();
         }
-
+        
         created = true;
+        */
 
         Shell.SetTabBarIsVisible(this, true);
 
         if (appControl.RefreshBrowserPage)
         {
             await viewModel.LoadInitialAsync();
-            await CenterMapToCurrentLocation();
             await GetAllCompaniesUsingMap();
 
             appControl.RefreshBrowserPage = false;
@@ -76,6 +79,7 @@ public partial class UserBrowserPage : BasePage
             viewModel.IsLoading = true; 
 
             var userInfo = appControl.UserInfo;
+
             CompanyLocationRequest request = new CompanyLocationRequest()
             {
                 radius_km = userInfo.radius_km,
@@ -97,14 +101,17 @@ public partial class UserBrowserPage : BasePage
                     (double)item.location_longitude),
                     LogoUrl = item.logo_url
                 }).ToList();
-
+                 
                 await MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     _customPins.Clear();
                     _customPins.AddRange(pins);
                     RefreshCustomPins();
+
                 });
             }
+
+            AddCurrentPin();
         }
         catch (Exception ex)
         {
@@ -114,6 +121,19 @@ public partial class UserBrowserPage : BasePage
         {
             viewModel.IsLoading = false;
         }
+    }
+
+    private void AddCurrentPin()
+    {
+        var position = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
+        map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(3000))); // zoom level
+
+        map.Pins.Add(new Pin
+        {
+            Label = AppResource.YouAreHere,
+            Location = position,
+            Type = PinType.Generic
+        });
     }
 
     private void RefreshCustomPins()
@@ -130,29 +150,7 @@ public partial class UserBrowserPage : BasePage
         }
 #endif
     }
-
-    private async Task CenterMapToCurrentLocation()
-    {
-        try
-        {
-            var location = await locationService.GetCurrentLocationAsync();
-
-            if (location != null)
-            {
-                var position = new Location(location.Latitude, location.Longitude);
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(300))); // zoom level
-            }
-            else
-            {
-                await DisplayAlert($"{AppResource.Location} {AppResource.Error}", AppResource.CouldNotGetCurrentLocation, AppResource.Ok);
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert(AppResource.Error, $"{AppResource.FailedGetLocation} {ex.Message}", AppResource.Ok);
-        }
-    }
-
+     
     private void PinCompanyClicked(CustomPin pin)
     {
         Application.Current.Dispatcher.Dispatch(async () =>
@@ -163,15 +161,19 @@ public partial class UserBrowserPage : BasePage
 
     private async void Click_RadiusLocation()
     {
-        var location = await locationService.GetCurrentLocationAsync();
-        if (location == null)
-        {
-            await DisplayAlert(AppResource.Error, AppResource.MessageLocationPermission, AppResource.Ok);
-            return;
-        }
+        //viewModel.IsLoading = true;
+        //var location = await locationService.GetCurrentLocationAsync();
+        //if (location == null)
+        //{
+        //    await DisplayAlert(AppResource.Error, AppResource.MessageLocationPermission, AppResource.Ok);
+        //    return;
+        //}
+        //viewModel.IsLoading = false;
+
         await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }
 
+    /*
     private async void Click_MyLocation()
     {
         try
@@ -210,6 +212,7 @@ public partial class UserBrowserPage : BasePage
             loading.ShowLoading = false;
         }
     }
+    */
   
     private async void TabSwitcher_TabChanged(object? sender, string e)
     {
@@ -219,25 +222,26 @@ public partial class UserBrowserPage : BasePage
         if (screenWidth <= 0) screenWidth = 400;
 
         if (e == tabSwitcher.Tab1_Title)
-        {
-            btnMyLocation.IsVisible = false;
-
+        { 
             list.IsVisible = true;
             map.IsVisible = true;
 
             await Task.WhenAll(
                 list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
-                map.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut)
+                map.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut),
+                borderBottom.TranslateTo(0, 100, 250, Easing.CubicIn)
             );
 
             mapIsVisible = false;
+            borderBottom.IsVisible = false;
         }
         else if (e == tabSwitcher.Tab2_Title && !mapIsVisible)
         {
-            btnMyLocation.IsVisible = true;
-
             list.IsVisible = true;
             map.IsVisible = true;
+
+            borderBottom.TranslationY = 100;
+            borderBottom.IsVisible = true;
 
             if (map.TranslationX != screenWidth)
             {
@@ -246,7 +250,8 @@ public partial class UserBrowserPage : BasePage
 
             await Task.WhenAll(
                 list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
-                map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
+                map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
+                borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut)
             );
 
             mapIsVisible = true;
@@ -260,6 +265,14 @@ public partial class UserBrowserPage : BasePage
             await likeView.DisplayAsAnimation();
             viewModel.ShowLikedView = false;
         }
+    }
+
+    private async void Bottom_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(borderBottom);
+        borderBottom.IsVisible = false;
+
+        await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }
 
     private async void Search_Tapped(object sender, TappedEventArgs e)

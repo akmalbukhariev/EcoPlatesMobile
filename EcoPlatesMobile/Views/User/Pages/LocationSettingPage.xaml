@@ -7,7 +7,7 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.User.Pages.LocationSettingPage">
 
-    <Grid RowDefinitions="57, *, Auto">
+    <Grid RowDefinitions="57, *">
         <Grid ColumnDefinitions="*, Auto" 
               BackgroundColor="{StaticResource User}">
             <Grid>
@@ -16,7 +16,7 @@
                        FontAttributes="Bold"
                        FontSize="15"
                        FontFamily="Roboto"
-                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
                        VerticalOptions="Center"/>
             </Grid>
             <Image Source="close.png"
@@ -35,63 +35,48 @@
         <maps:Map x:Name="map"
                   MapType="Street"
                   IsShowingUser="true"
-                  Grid.Row="1"
-                  Grid.RowSpan="3"/>
-        <Border BackgroundColor="White"
-               Padding="10"
-               VerticalOptions="End"
-               HeightRequest="170"
-               Margin="0"
-               TranslationY="10"
-               Grid.Row="2">
-               <Border.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1"/>
-               </Border.GestureRecognizers>
-               <Border.StrokeShape>
-                  <RoundRectangle CornerRadius="30,30,0,0" />
-                </Border.StrokeShape>
-                <VerticalStackLayout Spacing="15">
-                        <Label Text="{x:Static language:AppResource.SelectDistance}"
-                               FontSize="16"
-                               FontFamily="Roboto"
-                               HorizontalOptions="Center" />
-                        <Grid ColumnDefinitions="*, Auto"
-                              Padding="0"
-                              Margin="0"
-                              VerticalOptions="Center">
-                                <Slider x:Name="distanceSlider"
-                                        Minimum="1"
-                                        Maximum="10"
-                                        ThumbColor="{StaticResource User}"
-                                        MinimumTrackColor="{StaticResource User}"
-                                        MaximumTrackColor="Black"
-                                        Value="5"
-                                        ValueChanged="DistanceSlider_ValueChanged"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="FillAndExpand" />
-                                <Label x:Name="distanceLabel"
-                                        Text="5 km"
-                                        FontSize="16"
-                                        FontFamily="Roboto"
-                                        TextColor="Black"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="End"
-                                        Margin="10,0,10,0"
-                                        Grid.Column="1"/>
-                        </Grid>
-                        <Button Text="{x:Static language:AppResource.UseMyCurrentLocation}"
-                                BackgroundColor="Transparent"
-                                TextColor="Teal"
-                                IsVisible="Collapse"
-                                Clicked="UseCurrentLocation_Clicked" />
-                        <Button Text="{x:Static language:AppResource.ShowResult}"
-                                BackgroundColor="#004d40"
-                                Style="{StaticResource StyleBigButton}"
-                                CornerRadius="25"
-                                HeightRequest="45"
-                                Clicked="ShowResults_Clicked"/>
+                  Grid.Row="1"/>
+        <Border x:Name="borderBottom" 
+                Margin="10,0,10,20"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                BackgroundColor="LightGray"
+                HeightRequest="40"
+                Grid.Row="1">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Bottom_Tapped"/>
+            </Border.GestureRecognizers>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="10">
+                <Image Source="browser1.png"
+                       Aspect="AspectFit"
+                       WidthRequest="20"
+                       HeightRequest="20"
+                       Margin="10,0,0,0"/>
+                <VerticalStackLayout HorizontalOptions="Start" 
+                                     Grid.Column="1">
+                    <Label Text="{x:Static language:AppResource.SelectDistance}"
+                           FontSize="14"
+                           FontFamily="Roboto"
+                           TextColor="Black"/>
+                    <Label x:Name="lbSelectedDistance" 
+                           Text="Selected distance is 2 km"
+                           FontSize="12"
+                           FontFamily="Roboto"
+                           TextColor="Gray"/>
                 </VerticalStackLayout>
-         </Border>
+                <Image Source="up.png"
+                       Aspect="AspectFit"
+                       WidthRequest="20"
+                       HeightRequest="20"
+                       Margin="0,0,10,0"
+                       Grid.Column="2"/>
+            </Grid>
+        </Border>
         <component:LoadingView x:Name="loading"
                                Grid.RowSpan="4"/>
     </Grid>

@@ -745,6 +745,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to km.
+        /// </summary>
+        internal static string Km {
+            get {
+                return ResourceManager.GetString("Km", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language Changed.
         /// </summary>
         internal static string LanguageChanged {
@@ -1371,6 +1380,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string SelectDistance {
             get {
                 return ResourceManager.GetString("SelectDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance is.
+        /// </summary>
+        internal static string SelectedDistanceIs {
+            get {
+                return ResourceManager.GetString("SelectedDistanceIs", resourceCulture);
             }
         }
         

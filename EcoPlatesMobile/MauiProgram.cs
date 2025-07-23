@@ -10,6 +10,7 @@ using Microsoft.Maui.Maps.Handlers;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Views;
+using The49.Maui.BottomSheet;
 
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;
@@ -33,7 +34,8 @@ namespace EcoPlatesMobile
                     fonts.AddFont("Roboto-Italic-Variable.ttf", "RobotoItalic");
  
                 }) 
-                .UseMauiMaps();
+                .UseMauiMaps()
+                .UseBottomSheet();
 
 #if ANDROID
         //MapHandler.Mapper.AppendToMapping("DisableZoomControls", (handler, view) =>

@@ -19,10 +19,9 @@ public partial class LocationSettingPage : BasePage
     private LocationService locationService;
     private AppControl appControl;
     private UserApiService userApiService;
-
-    private const double OffsetRatio = 0.008;    // controls how much the circle moves up visually
-    private const double SpanPadding = 1.15;
-    private bool _skipCenterSync;
+     
+    int selectedDistance = 1;
+    private MapBottomSheet bottomSheet;
 
     public LocationSettingPage(LocationService locationService, AppControl appControl, UserApiService userApiService)
     {
@@ -30,37 +29,40 @@ public partial class LocationSettingPage : BasePage
 
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
 
+        bottomSheet = new MapBottomSheet();
+        bottomSheet.Dismissed += BottomSheet_Closed;
+        bottomSheet.EventValueDistanceChanged += DistanceSliderValueChanged;
+        bottomSheet.EventShowResultsClicked += ShowResultsClicked;
+
         this.locationService = locationService;
         this.appControl = appControl;
         this.userApiService = userApiService;
         map.PropertyChanged += Map_PropertyChanged;
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
+         
+        InitCircle();
 
-        await InitCircle();
+        borderBottom.TranslationY = 0;
+        borderBottom.IsVisible = true;
     }
 
-    private async Task InitCircle()
+    private void InitCircle()
     {
         loading.ShowLoading = true;
+         
+        currentCenter = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
+        selectedDistance = appControl.UserInfo.radius_km;
 
-        var location = await locationService.GetCurrentLocationAsync();
-        if (location == null) return;
-
-        currentCenter = new Location(location.Latitude, location.Longitude);
-
-        distanceSlider.Value = appControl.UserInfo.radius_km;
-        double radiusKm = distanceSlider.Value;
-
-        UpdateMapView(radiusKm);
-  
+        UpdateSelectedDistanceLabel();
+         
         distanceCircle = new Circle
         {
             Center = currentCenter,
-            Radius = Distance.FromKilometers(radiusKm), // km → meters
+            Radius = Distance.FromKilometers(selectedDistance), // km → meters
             StrokeColor = Color.FromArgb("#99000000"),
             FillColor = Color.FromArgb("#55000000"),
             StrokeWidth = 1
@@ -76,20 +78,22 @@ public partial class LocationSettingPage : BasePage
         };
         map.Pins.Add(currentLocationPin);
 
+        MoveMap();
         loading.ShowLoading = false;
     }
 
+    private async void BottomSheet_Closed(object? sender, The49.Maui.BottomSheet.DismissOrigin e)
+    {
+        borderBottom.TranslationY = 100;
+        borderBottom.IsVisible = true;
+        
+        await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
+    }
+     
     private void Map_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(map.VisibleRegion)) return;
-
-        if (_skipCenterSync)
-        {
-            _skipCenterSync = false;   // reset for next user pan
-            return;                    // ⬅️  ignore this programmatic zoom
-        }
-
-        // ----- user actually panned the map -----
+         
         var center = map.VisibleRegion?.Center;
         if (center == null) return;
 
@@ -120,59 +124,19 @@ public partial class LocationSettingPage : BasePage
         }
     }
 
-    private void DistanceSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+    private void DistanceSliderValueChanged(int km)
     {
-        /*
-        int km = (int)Math.Round(e.NewValue);
-        distanceLabel.Text = $"{km} km";
-
-        if (distanceCircle != null)
-        {
-            distanceCircle.Radius = new Distance(km * 1000);
-        }
-
-        map.MoveToRegion(MapSpan.FromCenterAndRadius(currentCenter, Distance.FromKilometers(km)));
-        */
-
-        int km = (int)Math.Round(e.NewValue);
-        distanceLabel.Text = $"{km} km";
-
+        selectedDistance = km;
+        UpdateSelectedDistanceLabel();
+         
         if (distanceCircle != null)
             distanceCircle.Radius = Distance.FromKilometers(km);
 
-        UpdateZoomOnly(km); 
+        MoveMap();
     }
-
-    void UpdateMapView(double km)
+     
+    private async void ShowResultsClicked()
     {
-        // push the circle a bit up the screen
-        double verticalOffset = OffsetRatio * km;
-        var adjustedCenter = new Location(
-            currentCenter.Latitude - verticalOffset,
-            currentCenter.Longitude);
-
-        // use a slightly larger span so the circle never touches the edges
-        map.MoveToRegion(
-            MapSpan.FromCenterAndRadius(
-                adjustedCenter,
-                Distance.FromKilometers(km * SpanPadding)));
-    }
-    
-    void UpdateZoomOnly(double km)
-    {
-        _skipCenterSync = true;
-
-        // 🛠️ Use exact currentCenter without applying offset
-        map.MoveToRegion(
-            MapSpan.FromCenterAndRadius(
-                currentCenter,
-                Distance.FromKilometers(km * SpanPadding)));
-    }
-    
-    private async void ShowResults_Clicked(object sender, EventArgs e)
-    {
-        int selectedDistance = (int)Math.Round(distanceSlider.Value);
-
         /*
         if (selectedDistance == appControl.UserInfo.radius_km)
         {
@@ -180,6 +144,8 @@ public partial class LocationSettingPage : BasePage
             return;
         }
         */
+
+        await bottomSheet.DismissAsync();
 
         try
         {
@@ -226,6 +192,24 @@ public partial class LocationSettingPage : BasePage
         {
             loading.ShowLoading = false;
         }
+    }
+
+    private void UpdateSelectedDistanceLabel()
+    {
+        lbSelectedDistance.Text = $"{AppResource.SelectedDistanceIs}: {selectedDistance} {AppResource.Km}";
+    }
+
+    private void MoveMap()
+    {
+        map.MoveToRegion(MapSpan.FromCenterAndRadius(currentCenter, Distance.FromKilometers(selectedDistance)));
+    }
+
+    private async void Bottom_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(borderBottom);
+        borderBottom.IsVisible = false;
+
+        bottomSheet.ShowAsync();
     }
 
     private async void Close_Tapped(object sender, TappedEventArgs e)
