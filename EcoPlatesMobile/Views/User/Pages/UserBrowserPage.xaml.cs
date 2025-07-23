@@ -42,9 +42,8 @@ public partial class UserBrowserPage : BasePage
 
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
-        btnRadiusLocation.EventClick += Click_RadiusLocation;
-        //btnMyLocation.EventClick += Click_MyLocation;
 
+        loading.ChangeColor(Constants.COLOR_USER);
         BindingContext = viewModel;
 	}
 
@@ -70,6 +69,8 @@ public partial class UserBrowserPage : BasePage
 
             appControl.RefreshBrowserPage = false;
         }
+
+        lbSelectedDistance.Text = $"{AppResource.SelectedDistanceIs}: {appControl.UserInfo.radius_km} {AppResource.Km}";
     }
 
     private async Task GetAllCompaniesUsingMap()
@@ -77,6 +78,7 @@ public partial class UserBrowserPage : BasePage
         try
         {
             viewModel.IsLoading = true; 
+            //loading.ShowLoading = true;
 
             var userInfo = appControl.UserInfo;
 
@@ -101,17 +103,16 @@ public partial class UserBrowserPage : BasePage
                     (double)item.location_longitude),
                     LogoUrl = item.logo_url
                 }).ToList();
-                 
-                await MainThread.InvokeOnMainThreadAsync(() =>
+
+                await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
                     _customPins.Clear();
                     _customPins.AddRange(pins);
-                    RefreshCustomPins();
-
+                    await RefreshCustomPins();
                 });
             }
 
-            AddCurrentPin();
+            MoveMap();
         }
         catch (Exception ex)
         {
@@ -120,23 +121,26 @@ public partial class UserBrowserPage : BasePage
         finally
         {
             viewModel.IsLoading = false;
+            //loading.ShowLoading = false;
         }
     }
 
-    private void AddCurrentPin()
+    private void MoveMap()
     {
         var position = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
         map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(3000))); // zoom level
 
+        /*
         map.Pins.Add(new Pin
         {
             Label = AppResource.YouAreHere,
             Location = position,
             Type = PinType.Generic
         });
+        */
     }
 
-    private void RefreshCustomPins()
+    private async Task RefreshCustomPins()
     {
         map.Pins.Clear();
         map.MapElements.Clear();
@@ -147,6 +151,8 @@ public partial class UserBrowserPage : BasePage
             PinIconRenderer render = new PinIconRenderer(_customPins);
             render.EventPinClick += PinCompanyClicked;
             nativeMapView.GetMapAsync(render);
+
+            await render.RenderingFinished;
         }
 #endif
     }
@@ -173,47 +179,6 @@ public partial class UserBrowserPage : BasePage
         await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }
 
-    /*
-    private async void Click_MyLocation()
-    {
-        try
-        {
-            loading.ShowLoading = true;
-
-            var location = await locationService.GetCurrentLocationAsync();
-
-            if (location != null)
-            {
-                var center = new Location(location.Latitude, location.Longitude);
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromKilometers(5)));
- 
-                map.Pins.Clear();
- 
-                var pin = new Pin
-                {
-                    Label = AppResource.YouAreHere,
-                    Location = center,
-                    Type = PinType.Place,
-                };
-
-                map.Pins.Add(pin);
-            }
-            else
-            {
-                await DisplayAlert(AppResource.Error, AppResource.MessageLocationPermission, AppResource.Ok);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Unable to retrieve location: {ex.Message}");
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
-    }
-    */
-  
     private async void TabSwitcher_TabChanged(object? sender, string e)
     {
         const int animationDuration = 400;
@@ -222,7 +187,7 @@ public partial class UserBrowserPage : BasePage
         if (screenWidth <= 0) screenWidth = 400;
 
         if (e == tabSwitcher.Tab1_Title)
-        { 
+        {
             list.IsVisible = true;
             map.IsVisible = true;
 
@@ -234,6 +199,8 @@ public partial class UserBrowserPage : BasePage
 
             mapIsVisible = false;
             borderBottom.IsVisible = false;
+
+            Grid.SetColumnSpan(entrySearch, 2);
         }
         else if (e == tabSwitcher.Tab2_Title && !mapIsVisible)
         {
@@ -255,6 +222,8 @@ public partial class UserBrowserPage : BasePage
             );
 
             mapIsVisible = true;
+            
+            Grid.SetColumnSpan(entrySearch, 1);
         }
     }
     
@@ -270,7 +239,6 @@ public partial class UserBrowserPage : BasePage
     private async void Bottom_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(borderBottom);
-        borderBottom.IsVisible = false;
 
         await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }

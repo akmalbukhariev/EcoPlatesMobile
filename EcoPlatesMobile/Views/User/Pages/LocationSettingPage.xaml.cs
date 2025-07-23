@@ -58,6 +58,7 @@ public partial class LocationSettingPage : BasePage
         selectedDistance = appControl.UserInfo.radius_km;
 
         UpdateSelectedDistanceLabel();
+        bottomSheet.SetValue(selectedDistance);
          
         distanceCircle = new Circle
         {

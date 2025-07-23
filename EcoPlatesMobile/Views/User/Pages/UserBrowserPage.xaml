@@ -11,9 +11,6 @@
                BackgroundColor="White">
 
     <Grid RowDefinitions="*, Auto">
-        <!--<BoxView x:Name="map"
-                 IsVisible="False"
-                 BackgroundColor="Aqua"/>-->
         <maps:Map x:Name="map"
                   MapType="Street"
                   IsVisible="False"
@@ -23,8 +20,8 @@
                 IsVisible="False"
                 VerticalOptions="End"
                 HorizontalOptions="Center"
-                BackgroundColor="LightGray"
-                HeightRequest="40">
+                BackgroundColor="#F3F8F9"
+                HeightRequest="45">
             <Border.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                       Tapped="Bottom_Tapped"/>
@@ -41,15 +38,15 @@
                        Margin="10,0,0,0"/>
                 <VerticalStackLayout HorizontalOptions="Start" 
                                      Grid.Column="1">
-                    <Label Text="{x:Static language:AppResource.SelectDistance}"
+                    <Label Text="Check distance"
                            FontSize="14"
                            FontFamily="Roboto"
-                           TextColor="Black"/>
+                           TextColor="{StaticResource User}"/>
                     <Label x:Name="lbSelectedDistance" 
                            Text="Selected distance is 2 km"
                            FontSize="12"
                            FontFamily="Roboto"
-                           TextColor="Gray"/>
+                           TextColor="{StaticResource User}"/>
                 </VerticalStackLayout>
                 <Image Source="up.png"
                        Aspect="AspectFit"
@@ -61,41 +58,25 @@
         </Border>
         <Grid RowDefinitions="Auto, 10, Auto, *"
               Margin="16,10,16,0">
-            <Grid ColumnDefinitions="*, Auto, 50">
-                <component:CustomEntry EntryIcon="search.png"
+            <Grid x:Name="grdSearch" 
+                  ColumnDefinitions="*, 50">
+                <component:CustomEntry x:Name="entrySearch" 
+                                       EntryIcon="search.png"
                                        IsEnabled="False"
                                        EntryHeight="45"
                                        EntryBorderColor="Gray"
                                        EntryCornerRadius="7"
                                        EntryBackgroundColor="White"
                                        EntryPlaceHolder="{x:Static language:AppResource.Search}"
-                                       EntryPlaceHolderColor="Gray"/>
-                <BoxView Background="Transparent">
+                                       EntryPlaceHolderColor="Gray"
+                                       Grid.ColumnSpan="3"/>
+                <BoxView x:Name="boxViewSearch" 
+                         Background="Transparent">
                     <BoxView.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1"
                                               Tapped="Search_Tapped"/>
                     </BoxView.GestureRecognizers>
                 </BoxView>
-                <component:CustomIconButton x:Name="btnMyLocation" 
-                                            ButtonIcon="my_location.png"
-                                            ButtonWidth="50"
-                                            ButtonHeight="50"
-                                            ButtonBorderColor="Gray"
-                                            ButtonBackgroundColor="White"
-                                            ButtonCornerRadius="5"
-                                            Margin="5,0,5,0"
-                                            IsVisible="False"
-                                            Grid.Column="1"/>
-                <component:CustomIconButton x:Name="btnRadiusLocation"
-                                            ButtonIcon="pin3.png"
-                                            ButtonWidth="50"
-                                            ButtonHeight="50"
-                                            ButtonBorderColor="Gray"
-                                            ButtonBackgroundColor="White"
-                                            ButtonCornerRadius="5"
-                                            IsVisible="False"
-                                            Margin="5,0,0,0"
-                                            Grid.Column="1"/>
             </Grid>
             <user_component:TabSwitcherView x:Name="tabSwitcher"
                                            SwitchType="Modern"

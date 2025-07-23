@@ -6,7 +6,7 @@
     <Frame x:Name="mainFrame" 
            Padding="0" 
            CornerRadius="20" 
-           HeightRequest="240"
+           HeightRequest="245"
            BackgroundColor="White"
            HasShadow="True">
         <Frame.GestureRecognizers>

@@ -19,7 +19,7 @@
                        HorizontalOptions="Center"
                        VerticalOptions="Center"/>
             </Grid>
-            <Image Source="close.png"
+            <Image Source="close_white.png"
                    Aspect="AspectFill"
                    WidthRequest="30"
                    HeightRequest="30"
@@ -40,15 +40,15 @@
                 Margin="10,0,10,20"
                 VerticalOptions="End"
                 HorizontalOptions="Center"
-                BackgroundColor="LightGray"
-                HeightRequest="40"
+                BackgroundColor="#F3F8F9"
+                HeightRequest="45"
                 Grid.Row="1">
             <Border.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                       Tapped="Bottom_Tapped"/>
             </Border.GestureRecognizers>
             <Border.StrokeShape>
-                <RoundRectangle CornerRadius="10" />
+                <RoundRectangle CornerRadius="10"/>
             </Border.StrokeShape>
             <Grid ColumnDefinitions="Auto, *, Auto"
                   ColumnSpacing="10">
@@ -62,12 +62,12 @@
                     <Label Text="{x:Static language:AppResource.SelectDistance}"
                            FontSize="14"
                            FontFamily="Roboto"
-                           TextColor="Black"/>
+                           TextColor="{StaticResource User}"/>
                     <Label x:Name="lbSelectedDistance" 
                            Text="Selected distance is 2 km"
                            FontSize="12"
                            FontFamily="Roboto"
-                           TextColor="Gray"/>
+                           TextColor="{StaticResource User}"/>
                 </VerticalStackLayout>
                 <Image Source="up.png"
                        Aspect="AspectFit"

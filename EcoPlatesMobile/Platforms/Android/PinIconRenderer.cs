@@ -23,6 +23,8 @@ namespace EcoPlatesMobile.Platforms.Android
     {
         public event Action<CustomPin> EventPinClick;
         readonly IList<CustomPin> _pins;
+        private TaskCompletionSource<bool> _renderingDone = new();
+        public Task RenderingFinished => _renderingDone.Task;
 
         public PinIconRenderer(IList<CustomPin> pins)
         {
@@ -31,79 +33,88 @@ namespace EcoPlatesMobile.Platforms.Android
 
         public async void OnMapReady(GoogleMap googleMap)
         {
-            googleMap.Clear();
-
-            foreach (var pin in _pins.ToList())
+            try
             {
-                if (pin is CustomPin customPin)
+                googleMap.Clear();
+
+                foreach (var pin in _pins.ToList())
                 {
-                    //if (customPin.IsPin) continue;
-
-                    var location = new LatLng(customPin.Location.Latitude, customPin.Location.Longitude);
-                    BitmapDescriptor icon = BitmapDescriptorFactory.DefaultMarker();
-
-                    try
+                    if (pin is CustomPin customPin)
                     {
-                        using var http = new HttpClient();
-                        var bytes = await http.GetByteArrayAsync(customPin.LogoUrl);
-                        if (bytes?.Length > 0)
+                        //if (customPin.IsPin) continue;
+
+                        var location = new LatLng(customPin.Location.Latitude, customPin.Location.Longitude);
+                        BitmapDescriptor icon = BitmapDescriptorFactory.DefaultMarker();
+
+                        try
                         {
-                            var logo = await global::Android.Graphics.BitmapFactory.DecodeByteArrayAsync(bytes, 0, bytes.Length);
-
-                            int size = 100;
-                            var outputBitmap = global::Android.Graphics.Bitmap.CreateBitmap(size, size, global::Android.Graphics.Bitmap.Config.Argb8888);
-                            var canvas = new global::Android.Graphics.Canvas(outputBitmap);
-
-                            // Draw white circular background
-                            var paintBg = new global::Android.Graphics.Paint
+                            using var http = new HttpClient();
+                            var bytes = await http.GetByteArrayAsync(customPin.LogoUrl);
+                            if (bytes?.Length > 0)
                             {
-                                AntiAlias = true,
-                                Color = global::Android.Graphics.Color.White
-                            };
-                            canvas.DrawCircle(size / 2, size / 2, size / 2, paintBg);
+                                var logo = await global::Android.Graphics.BitmapFactory.DecodeByteArrayAsync(bytes, 0, bytes.Length);
 
-                            // Draw logo clipped to a circular shader
-                            var shader = new global::Android.Graphics.BitmapShader(
-                                global::Android.Graphics.Bitmap.CreateScaledBitmap(logo, size, size, false),
-                                global::Android.Graphics.Shader.TileMode.Clamp,
-                                global::Android.Graphics.Shader.TileMode.Clamp
-                            );
+                                int size = 100;
+                                var outputBitmap = global::Android.Graphics.Bitmap.CreateBitmap(size, size, global::Android.Graphics.Bitmap.Config.Argb8888);
+                                var canvas = new global::Android.Graphics.Canvas(outputBitmap);
 
-                            var paintLogo = new global::Android.Graphics.Paint
-                            {
-                                AntiAlias = true
-                            };
-                            paintLogo.SetShader(shader);
+                                // Draw white circular background
+                                var paintBg = new global::Android.Graphics.Paint
+                                {
+                                    AntiAlias = true,
+                                    Color = global::Android.Graphics.Color.White
+                                };
+                                canvas.DrawCircle(size / 2, size / 2, size / 2, paintBg);
 
-                            canvas.DrawCircle(size / 2, size / 2, size / 2 - 4, paintLogo);
+                                // Draw logo clipped to a circular shader
+                                var shader = new global::Android.Graphics.BitmapShader(
+                                    global::Android.Graphics.Bitmap.CreateScaledBitmap(logo, size, size, false),
+                                    global::Android.Graphics.Shader.TileMode.Clamp,
+                                    global::Android.Graphics.Shader.TileMode.Clamp
+                                );
 
-                            // Convert to map icon
-                            icon = BitmapDescriptorFactory.FromBitmap(outputBitmap);
+                                var paintLogo = new global::Android.Graphics.Paint
+                                {
+                                    AntiAlias = true
+                                };
+                                paintLogo.SetShader(shader);
+
+                                canvas.DrawCircle(size / 2, size / 2, size / 2 - 4, paintLogo);
+
+                                // Convert to map icon
+                                icon = BitmapDescriptorFactory.FromBitmap(outputBitmap);
+                            }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"[PinIconRenderer] Failed to load logo: {ex.Message}");
-                    }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[PinIconRenderer] Failed to load logo: {ex.Message}");
+                        }
 
-                    var markerOptions = new MarkerOptions()
-                            .SetPosition(location)
-                            .SetIcon(icon);
+                        var markerOptions = new MarkerOptions()
+                                .SetPosition(location)
+                                .SetIcon(icon);
 
-                    var marker = googleMap.AddMarker(markerOptions);
-                    marker.Tag = new CustomPinWrapper(customPin);
-                } 
-            }
-            
-            googleMap.MarkerClick += (s, e) =>
-            {
-                if (e.Marker?.Tag is CustomPinWrapper wrapper)
-                {
-                    EventPinClick?.Invoke(wrapper.Pin);
+                        var marker = googleMap.AddMarker(markerOptions);
+                        marker.Tag = new CustomPinWrapper(customPin);
+                    }
                 }
 
-                e.Handled = true;
-            };
+                googleMap.MarkerClick += (s, e) =>
+                {
+                    if (e.Marker?.Tag is CustomPinWrapper wrapper)
+                    {
+                        EventPinClick?.Invoke(wrapper.Pin);
+                    }
+
+                    e.Handled = true;
+                };
+
+                _renderingDone.TrySetResult(true);
+            }
+            catch (Exception ex)
+            { 
+                _renderingDone.TrySetException(ex);
+            }
         }
     }
 }
