@@ -1,4 +1,5 @@
 using EcoPlatesMobile.Resources.Languages;
+using EcoPlatesMobile.Services;
 using EcoPlatesMobile.ViewModels.User;
 
 namespace EcoPlatesMobile.Views.User.Pages;
@@ -6,12 +7,14 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserMainSearchPage : BasePage
 {
     private UserMainSearchPageViewModel viewModel;
-	public UserMainSearchPage(UserMainSearchPageViewModel vm)
-	{
-		InitializeComponent();
+    private AppControl appControl;
+	public UserMainSearchPage(UserMainSearchPageViewModel vm, AppControl appControl)
+    {
+        InitializeComponent();
 
         this.viewModel = vm;
-        
+        this.appControl = appControl;
+
         BindingContext = viewModel;
     }
 
@@ -37,8 +40,12 @@ public partial class UserMainSearchPage : BasePage
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as Image);
-
+  
         entrySearch.Unfocus();
+
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         viewModel.ShowProductResult = true;
         viewModel.ShowFilterSearchList = false;
         viewModel.ShowRecentSearchList = false;

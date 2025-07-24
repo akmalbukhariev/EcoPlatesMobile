@@ -35,6 +35,10 @@ public partial class DetailProductPage : BasePage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         await viewModel.LoadDataAsync();
 
         fullImage.Source = viewModel.ProductImage;
@@ -62,12 +66,14 @@ public partial class DetailProductPage : BasePage
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
     {
-        //if (!appControl.ShowLike) return;
-
         if (sender is VisualElement element)
         {
             await AnimateElementScaleDown(element);
         }
+
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         await viewModel.ProductLiked();
     }
 

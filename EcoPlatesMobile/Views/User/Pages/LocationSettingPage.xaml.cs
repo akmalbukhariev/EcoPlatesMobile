@@ -148,6 +148,9 @@ public partial class LocationSettingPage : BasePage
 
         await bottomSheet.DismissAsync();
 
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         try
         {
             var visibleRegion = map.VisibleRegion;

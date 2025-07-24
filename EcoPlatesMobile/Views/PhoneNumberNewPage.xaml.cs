@@ -79,6 +79,9 @@ public partial class PhoneNumberNewPage : BasePage
 
     private async void Continue_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         var rawPhone = phoneEntry.Text?.Trim();
         if (!appControl.IsValidUzbekistanPhoneNumber(rawPhone))
         {

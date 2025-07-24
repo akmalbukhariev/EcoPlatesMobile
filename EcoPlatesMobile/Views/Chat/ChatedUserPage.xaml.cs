@@ -8,12 +8,14 @@ public partial class ChatedUserPage : BasePage
 {
 	private ChatedUserPageViewModel viewModel;
     private UserSessionService userSessionService;
-	public ChatedUserPage(ChatedUserPageViewModel viewModel, UserSessionService userSessionService)
+    private AppControl appControl;
+	public ChatedUserPage(ChatedUserPageViewModel viewModel, UserSessionService userSessionService, AppControl appControl)
     {
         InitializeComponent();
 
         this.viewModel = viewModel;
         this.userSessionService = userSessionService;
+        this.appControl = appControl;
 
         BindingContext = viewModel;
     }
@@ -27,6 +29,10 @@ public partial class ChatedUserPage : BasePage
         {
             header.HeaderBackground = color;
             listProduct.RefreshColor = color;
+
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             await viewModel.LoadCompaniesData();
 
         }
@@ -34,6 +40,10 @@ public partial class ChatedUserPage : BasePage
         {
             color = Constants.COLOR_COMPANY;
             listProduct.RefreshColor = color;
+
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             await viewModel.LoadUsersData();
         }
         
@@ -42,6 +52,9 @@ public partial class ChatedUserPage : BasePage
 
     private async void User_Tapped(object sender, TappedEventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         if (sender is Grid grid && grid.BindingContext is SenderIdInfo tappedItem)
         {
             await AnimateElementScaleDown(grid);

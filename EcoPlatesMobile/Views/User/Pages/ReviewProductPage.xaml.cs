@@ -125,6 +125,9 @@ public partial class ReviewProductPage : BasePage
 
     private async void Finished_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         try
         {
             if (selectedRating == 0)
@@ -149,7 +152,7 @@ public partial class ReviewProductPage : BasePage
             {
                 await AlertService.ShowAlertAsync(AppResource.Rating, AppResource.ThankYou);
             }
-            else if(response.resultCode == ApiResult.POSTER_NOT_EXIST.GetCodeToString())
+            else if (response.resultCode == ApiResult.POSTER_NOT_EXIST.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.Rating, "Item either not exit or deleted!");
             }
@@ -157,7 +160,7 @@ public partial class ReviewProductPage : BasePage
             {
                 await AlertService.ShowAlertAsync(AppResource.Rating, AppResource.Error);
             }
-            
+
             await Shell.Current.GoToAsync("..");
         }
         catch (Exception ex)

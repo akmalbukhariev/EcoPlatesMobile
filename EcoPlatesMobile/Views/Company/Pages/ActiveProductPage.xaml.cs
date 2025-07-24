@@ -56,6 +56,10 @@ public partial class ActiveProductPage : BasePage
         Shell.SetTabBarIsVisible(this, ShowTabBar);
 
         header.ShowBack = ShowBack;
+
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         await viewModel.LoadInitialAsync();
     }
      
@@ -76,6 +80,9 @@ public partial class ActiveProductPage : BasePage
 
     private async void NoActiveProduct_Invoked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         if (sender is SwipeItem swipeItem &&
             swipeItem.Parent is SwipeItems swipeItems &&
             swipeItems.Parent is SwipeView swipeView &&
@@ -97,7 +104,7 @@ public partial class ActiveProductPage : BasePage
                     poster_id = product.PromotionId,
                     deleted = true
                 };
- 
+
                 Response response = await companyApiService.ChangePosterDeletionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {

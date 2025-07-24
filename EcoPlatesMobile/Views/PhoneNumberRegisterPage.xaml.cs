@@ -47,6 +47,9 @@ public partial class PhoneNumberRegisterPage : BasePage
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)
     { 
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         string rawPhone = entryNumber.GetEntryText();
         if (string.IsNullOrWhiteSpace(rawPhone))
         {

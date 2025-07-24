@@ -98,6 +98,9 @@ public partial class CompanyProfilePage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         if (appControl.RefreshCompanyProfilePage)
         {
             await LoadData();
@@ -107,6 +110,9 @@ public partial class CompanyProfilePage : BasePage
 
     public IRelayCommand RefreshCommand => new RelayCommand(async () =>
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         IsRefreshing = true;
         await LoadData();
         IsRefreshing = false;

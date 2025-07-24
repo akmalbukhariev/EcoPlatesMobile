@@ -143,6 +143,9 @@ public partial class CompanyRegistrationPage : BasePage
 
     private async void BtnRegister_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         try
         {
             string companyName = entryCompanyName.GetEntryText();
@@ -183,11 +186,11 @@ public partial class CompanyRegistrationPage : BasePage
                 { "business_type", appControl.BusinessTypeList[selectedType] },
                 { "phone_number", phoneNumber},
                 { "location_latitude", appControl.LocationForRegister.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
-				{ "location_longitude", appControl.LocationForRegister.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
+                { "location_longitude", appControl.LocationForRegister.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
                 { "working_hours", formattedWorkingHours},
             };
 
-            loading.ShowLoading = true; 
+            loading.ShowLoading = true;
 
             Response response = await companyApiService.RegisterCompany(imageStream, additionalData);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())

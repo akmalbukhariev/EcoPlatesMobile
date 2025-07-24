@@ -25,12 +25,14 @@ public partial class CompanyEditProductPage : BasePage
     private bool isNewImageSelected = false;
      
     private CompanyApiService companyApiService;
+    private AppControl appControl;
 
-    public CompanyEditProductPage(CompanyApiService companyApiService)
-	{
-		InitializeComponent();
+    public CompanyEditProductPage(CompanyApiService companyApiService, AppControl appControl)
+    {
+        InitializeComponent();
 
         this.companyApiService = companyApiService;
+        this.appControl = appControl;
     }
 
     protected override void OnAppearing()
@@ -107,19 +109,22 @@ public partial class CompanyEditProductPage : BasePage
 
     private async void BtnUpdate_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         try
         {
             var title = entryProductName.GetEntryText()?.Trim();
             var oldPriceText = entryOldPrice.Text?.Trim();
             var newPriceText = entryNewPrice.Text?.Trim();
-  
+
             if (string.IsNullOrWhiteSpace(title))
             {
                 await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
                 return;
             }
- 
-            if (decimal.TryParse(oldPriceText, out decimal oldPrice) && 
+
+            if (decimal.TryParse(oldPriceText, out decimal oldPrice) &&
                 decimal.TryParse(newPriceText, out decimal newPrice))
             {
                 if (oldPrice == newPrice)
@@ -133,12 +138,12 @@ public partial class CompanyEditProductPage : BasePage
                 await DisplayAlert(AppResource.Error, AppResource.MessageValidPrice, AppResource.Ok);
                 return;
             }
-            
+
             IsLoading.IsVisible = true;
             IsLoading.IsRunning = true;
 
             Response response;
-              
+
             if (title.Trim().Equals(ProductModel.ProductName?.Trim() ?? string.Empty) &&
                 oldPriceText.Trim().Equals(ProductModel.OldPriceDigit?.ToString() ?? string.Empty) &&
                 newPriceText.Trim().Equals(ProductModel.NewPriceDigit?.ToString() ?? string.Empty) &&
@@ -159,7 +164,7 @@ public partial class CompanyEditProductPage : BasePage
             }
 
             string oldFileName = GetFileNameFromUrl(ProductModel.ProductImage);
-                            
+
             if (!isNewImageSelected)
             {
                 imageStream = null;
@@ -177,7 +182,7 @@ public partial class CompanyEditProductPage : BasePage
                 { "description", editorDescription.Text ?? string.Empty },
             };
             response = await companyApiService.UpdatePoster(imageStream, additionalData);
-              
+
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);

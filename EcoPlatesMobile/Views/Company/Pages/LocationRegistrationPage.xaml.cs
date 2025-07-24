@@ -44,6 +44,9 @@ public partial class LocationRegistrationPage : BasePage
     {
         await AnimateElementScaleDown(sender as Image);
 
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         try
         {
             var visibleRegion = map.VisibleRegion;

@@ -13,8 +13,6 @@ using Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;
 using Application = Microsoft.Maui.Controls.Application;
 using The49.Maui.BottomSheet;
 
-
-
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;
 #endif
@@ -61,6 +59,9 @@ public partial class UserBrowserPage : BasePage
         */
 
         Shell.SetTabBarIsVisible(this, true);
+
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
 
         if (appControl.RefreshBrowserPage)
         {
@@ -217,10 +218,11 @@ public partial class UserBrowserPage : BasePage
 
             await Task.WhenAll(
                 list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
-                map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
-                borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut)
+                map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
+                
             );
 
+            await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
             mapIsVisible = true;
             
             Grid.SetColumnSpan(entrySearch, 1);

@@ -30,6 +30,9 @@ public partial class UserMainPage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         if (typeItem == null)
         {
             viewModel.BusinessType = Utilities.BusinessType.RESTAURANT;
@@ -51,6 +54,9 @@ public partial class UserMainPage : BasePage
 
     private async void CompanyTypeList_EventTypeClick(Components.TypeItem item)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         typeItem = item;
         viewModel.BusinessType = item.Type;
         await viewModel.LoadInitialAsync();

@@ -1,10 +1,13 @@
 
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
 using Microsoft.Maui.Controls.Shapes;
 
 namespace EcoPlatesMobile.Views.Components;
 
 public partial class CustomEntry : ContentView
 {
+    #region Properties
     public static readonly BindableProperty EntryBorderColorProperty =
         BindableProperty.Create(nameof(EntryBorderColor), typeof(Color), typeof(CustomEntry), Color.FromArgb("#E9E9E9"), propertyChanged: EntryBorderColorChanged);
 
@@ -115,16 +118,21 @@ public partial class CustomEntry : ContentView
 
     public event Action EventClickSend;
 
+    #endregion
+
+    private UserSessionService userSessionService;
     public CustomEntry()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
+
+        this.userSessionService = AppService.Get<UserSessionService>();
 
         IsPhoneNumber = false;
         ShowSendImage = false;
-        
+
         _defaultBorderColor = EntryBorderColor;
         _defaultEntryBackgroundColor = EntryBackgroundColor;
-        
+
         //borderContainer.Stroke = EntryBorderColor;
         //iconImage.Source = EntryIcon;
         //customEntry.BackgroundColor = EntryBackgroundColor;
@@ -156,7 +164,7 @@ public partial class CustomEntry : ContentView
                 sendImage.IsVisible = true;
             }
 
-            EntryBorderColor = Color.FromArgb("#00C300");
+            EntryBorderColor = userSessionService.Role == UserRole.User ? Constants.COLOR_USER : Constants.COLOR_COMPANY; //Color.FromArgb("#00C300");
             EntryBackgroundColor = Colors.White;
         }
 

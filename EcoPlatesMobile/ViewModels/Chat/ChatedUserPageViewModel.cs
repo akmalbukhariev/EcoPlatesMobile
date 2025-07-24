@@ -165,6 +165,9 @@ namespace EcoPlatesMobile.ViewModels.Chat
 
         public IRelayCommand RefreshCommand => new RelayCommand(async () =>
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             if (userSessionService.Role == UserRole.User)
                 await LoadCompaniesData();
             else

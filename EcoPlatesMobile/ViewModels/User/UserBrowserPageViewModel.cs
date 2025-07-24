@@ -43,6 +43,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void CompanyLiked(CompanyModel product)
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             product.Liked = !product.Liked;
  
             SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
@@ -65,6 +68,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ComapnyClicked(CompanyModel company)
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             await Shell.Current.GoToAsync($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
         }
 
@@ -225,6 +231,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             if (IsLoading || IsRefreshing || !hasMoreItems)
                 return;
 
@@ -233,6 +242,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public IRelayCommand RefreshCommand => new RelayCommand(async () =>
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             await LoadCompaniesAsync(isRefresh: true);
         });
     }

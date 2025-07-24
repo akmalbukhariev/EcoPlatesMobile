@@ -58,6 +58,9 @@ public partial class LocationPage : BasePage
 	{
 		await AnimateElementScaleDown(sender as Image);
 
+		bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
 		try
 		{
 			var visibleRegion = map.VisibleRegion;
@@ -66,10 +69,10 @@ public partial class LocationPage : BasePage
 				return;
 			}
 
-            bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocation, AppResource.Yes, AppResource.No);
-            if (!yes) return;
+			bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocation, AppResource.Yes, AppResource.No);
+			if (!yes) return;
 
-            var center = new Location(
+			var center = new Location(
 				visibleRegion.Center.Latitude,
 				visibleRegion.Center.Longitude
 			);
@@ -88,7 +91,7 @@ public partial class LocationPage : BasePage
 			{
 				appControl.CompanyInfo.location_latitude = center.Latitude;
 				appControl.CompanyInfo.location_longitude = center.Longitude;
-				
+
 				await AlertService.ShowAlertAsync(AppResource.MessageUpdateLocation, AppResource.Success);
 				await AppNavigatorService.NavigateTo("..", true);
 			}

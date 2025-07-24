@@ -63,6 +63,9 @@ public partial class AuthorizationPage : BasePage
 
 	private async void ButtonNext_Clicked(object sender, EventArgs e)
 	{
+		bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         loading.ShowLoading = true;
 
         try

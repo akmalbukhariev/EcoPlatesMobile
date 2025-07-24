@@ -34,6 +34,9 @@ public partial class UserRegistrationPage : BasePage
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         try
         {
             string name = entryName.GetEntryText();
@@ -43,11 +46,11 @@ public partial class UserRegistrationPage : BasePage
                 return;
             }
 
-            loading.ShowLoading = true; 
+            loading.ShowLoading = true;
 
             Location location = await locationService.GetCurrentLocationAsync();
             if (location == null) return;
-            
+
             RegisterUserRequest request = new RegisterUserRequest()
             {
                 first_name = name,
@@ -55,7 +58,7 @@ public partial class UserRegistrationPage : BasePage
                 location_latitude = location.Latitude,
                 location_longitude = location.Longitude
             };
-            
+
             Response response = await userApiService.RegisterUser(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {

@@ -70,6 +70,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ProductClicked(ProductModel product)
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
@@ -155,6 +158,9 @@ namespace EcoPlatesMobile.ViewModels.User
         
         public IRelayCommand LoadProductMoreCommand => new RelayCommand( async () =>
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             if (IsLoading || !hasMoreItems)
                 return;
 
@@ -183,7 +189,10 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ClickHistoryItem(HistoryDataInfo item)
         {
-             SearchText = item.SearchedText;
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
+            SearchText = item.SearchedText;
 
             ShowProductResult = true;
             ShowFilterSearchList = false;

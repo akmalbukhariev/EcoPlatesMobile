@@ -120,6 +120,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public async Task ProductLiked()
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             likedProduct = !likedProduct;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
             {

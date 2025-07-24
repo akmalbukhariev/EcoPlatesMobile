@@ -48,6 +48,9 @@ namespace EcoPlatesMobile.ViewModels.User
         
         private async void ProductLiked(ProductModel product)
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             product.Liked = !product.Liked;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
             {
@@ -69,6 +72,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ProductClicked(ProductModel product)
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
             {
                 ["ProductModel"] = product
@@ -229,6 +235,9 @@ namespace EcoPlatesMobile.ViewModels.User
         
         public IRelayCommand LoadMoreCommand => new RelayCommand( async () =>
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             if (IsLoading || IsRefreshing || !hasMoreItems)
                 return;
 
@@ -237,6 +246,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public IRelayCommand RefreshCommand => new RelayCommand( async () =>
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             await LoadPromotionAsync(isRefresh: true);
         });
     } 

@@ -141,6 +141,9 @@ public partial class CompanyProfileInfoPage : BasePage
 
     private async void Done_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         try
         {
             string enteredName = entryCompanyName.Text?.Trim();
@@ -170,7 +173,7 @@ public partial class CompanyProfileInfoPage : BasePage
             selectedEndTime == endTimeFromServer.Value;
 
             if (!isSame || isNewImageSelected)
-            { 
+            {
                 string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
                 var additionalData = new Dictionary<string, string>
                 {
@@ -186,7 +189,7 @@ public partial class CompanyProfileInfoPage : BasePage
                 }
 
                 loading.ShowLoading = true;
-                 
+
                 Response response = await companyApiService.UpdateCompanyProfileInfo(imageStream, additionalData);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -251,6 +254,9 @@ public partial class CompanyProfileInfoPage : BasePage
 
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,

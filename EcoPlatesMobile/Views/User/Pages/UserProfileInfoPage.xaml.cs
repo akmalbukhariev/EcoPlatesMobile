@@ -99,12 +99,15 @@ public partial class UserProfileInfoPage : BasePage
 
     private async void Done_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         try
         {
             string enteredName = entryUserName.Text?.Trim();
             if (string.IsNullOrEmpty(enteredName))
             {
-                await AlertService.ShowAlertAsync(AppResource.UpdateProfile,AppResource.EnterName);
+                await AlertService.ShowAlertAsync(AppResource.UpdateProfile, AppResource.EnterName);
                 return;
             }
 
@@ -125,14 +128,14 @@ public partial class UserProfileInfoPage : BasePage
                     imageStream = null;
                 }
 
-                loading.ShowLoading = true; 
+                loading.ShowLoading = true;
                 Response response = await userApiService.UpdateUserProfileInfo(imageStream, additionalData);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     appControl.RefreshUserProfilePage = true;
 
-                    await AlertService.ShowAlertAsync(AppResource.UpdateProfile,AppResource.Success);
+                    await AlertService.ShowAlertAsync(AppResource.UpdateProfile, AppResource.Success);
                     await Shell.Current.GoToAsync("..", true);
                 }
                 else
@@ -182,6 +185,9 @@ public partial class UserProfileInfoPage : BasePage
 
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,

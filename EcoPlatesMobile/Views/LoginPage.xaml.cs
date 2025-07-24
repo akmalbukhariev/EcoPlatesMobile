@@ -28,6 +28,9 @@ public partial class LoginPage : BasePage
         bool isLoggedIn = appStoreService.Get(AppKeys.IsLoggedIn, false);
         string phoneNumber = appStoreService.Get(AppKeys.PhoneNumber, "");
 
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         loading.ShowLoading = true;
         
         Color color = Colors.White;

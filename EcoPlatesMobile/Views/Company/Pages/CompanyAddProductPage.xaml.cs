@@ -91,19 +91,22 @@ public partial class CompanyAddProductPage : BasePage
 
     private async void RegisterOrUpdate_Clicked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         try
         {
             var title = entryProductName.GetEntryText()?.Trim();
             var oldPriceText = entryOldPrice.Text?.Trim();
             var newPriceText = entryNewPrice.Text?.Trim();
-  
+
             if (string.IsNullOrWhiteSpace(title))
             {
                 await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
                 return;
             }
- 
-            if (decimal.TryParse(oldPriceText, out decimal oldPrice) && 
+
+            if (decimal.TryParse(oldPriceText, out decimal oldPrice) &&
                 decimal.TryParse(newPriceText, out decimal newPrice))
             {
                 if (oldPrice == newPrice)
@@ -117,10 +120,10 @@ public partial class CompanyAddProductPage : BasePage
                 await DisplayAlert(AppResource.Error, AppResource.MessageValidPrice, AppResource.Ok);
                 return;
             }
-            
+
             IsLoading.IsVisible = true;
             IsLoading.IsRunning = true;
-  
+
             if (imageStream == null)
             {
                 await DisplayAlert(AppResource.Error, AppResource.MessageSelectImage, AppResource.Ok);
@@ -137,7 +140,7 @@ public partial class CompanyAddProductPage : BasePage
             };
 
             Response response = await companyApiService.RegisterPoster(imageStream, additionalData);
-             
+
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);

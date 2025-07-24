@@ -42,6 +42,9 @@ namespace EcoPlatesMobile.ViewModels.Company
 
         private async void ProductClicked(ProductModel product)
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             product.CompanyId = appControl.CompanyInfo.company_id;
             await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
@@ -217,6 +220,9 @@ namespace EcoPlatesMobile.ViewModels.Company
 
         public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             if (IsLoading || IsRefreshing || !hasMoreItems)
                 return;
 
@@ -225,6 +231,9 @@ namespace EcoPlatesMobile.ViewModels.Company
 
         public IRelayCommand RefreshCommand => new RelayCommand(async () =>
         {
+            bool isWifiOn = await appControl.CheckWifi();
+		    if (!isWifiOn) return;
+
             await LoadPromotionAsync(isRefresh: true);
         });
     }

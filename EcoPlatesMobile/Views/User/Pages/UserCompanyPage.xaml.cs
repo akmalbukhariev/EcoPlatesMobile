@@ -26,6 +26,9 @@ public partial class UserCompanyPage : BasePage
     {
         base.OnAppearing();
 
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         await viewModel.LoadDataAsync();
         
         fullImage.Source = viewModel.CompanyImage;
@@ -58,6 +61,9 @@ public partial class UserCompanyPage : BasePage
             await AnimateElementScaleDown(element);
         }
 
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         await viewModel.CompanyLiked();
     }
 

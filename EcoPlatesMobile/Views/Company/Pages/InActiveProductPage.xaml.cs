@@ -55,11 +55,18 @@ public partial class InActiveProductPage : BasePage
         Shell.SetTabBarIsVisible(this, ShowTabBar);
         
         header.ShowBack = ShowBack;
+
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+        
         await viewModel.LoadInitialAsync();
     }
 
     private async void DeleteProduct_Invoked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         if (sender is SwipeItem swipeItem &&
             swipeItem.Parent is SwipeItems swipeItems &&
             swipeItems.Parent is SwipeView swipeView &&
@@ -68,13 +75,13 @@ public partial class InActiveProductPage : BasePage
             bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
-                                AppResource.Yes,AppResource.No);
+                                AppResource.Yes, AppResource.No);
             if (!answer) return;
 
             product.CompanyId = (long)appControl.CompanyInfo.company_id;
             try
             {
-                viewModel.IsLoading = true; 
+                viewModel.IsLoading = true;
                 Response response = await companyApiService.DeletePoster(product.PromotionId);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -103,6 +110,9 @@ public partial class InActiveProductPage : BasePage
 
     private async void ActiveProduct_Invoked(object sender, EventArgs e)
     {
+        bool isWifiOn = await appControl.CheckWifi();
+		if (!isWifiOn) return;
+
         if (sender is SwipeItem swipeItem &&
             swipeItem.Parent is SwipeItems swipeItems &&
             swipeItems.Parent is SwipeView swipeView &&
@@ -111,7 +121,7 @@ public partial class InActiveProductPage : BasePage
             bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
-                                AppResource.Yes,AppResource.No);
+                                AppResource.Yes, AppResource.No);
 
             if (!answer) return;
 
@@ -123,7 +133,7 @@ public partial class InActiveProductPage : BasePage
                     poster_id = product.PromotionId,
                     deleted = false
                 };
- 
+
                 Response response = await companyApiService.ChangePosterDeletionStatus(request);
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
