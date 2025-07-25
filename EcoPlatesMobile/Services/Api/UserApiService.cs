@@ -15,8 +15,8 @@ namespace EcoPlatesMobile.Services.Api
     public class UserApiService : ApiService
     {
         #region Url
-        //private const string BASE_URL = "";
-        private const string BASE_URL = "/ecoplatesuser/api/v1/";
+        private const string BASE_URL = "";
+        //private const string BASE_URL = "/ecoplatesuser/api/v1/";
         private const string LOGIN_USER = $"{BASE_URL}user/login";
         private const string CHECK_USER = $"{BASE_URL}user/checkUser/";
         private const string LOGOUT_USER = $"{BASE_URL}user/logout";
@@ -39,8 +39,6 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_COMPANY_WITH_POSTERS = $"{BASE_URL}company/getCompanyWithPosters/";
         private const string REGISTER_POSTER_FEEDBACK = $"{BASE_URL}feedbacks/registerPosterFeedback";
         private const string REGISTER_USER_FEEDBACK = $"{BASE_URL}feedbacks_user/registerUserFeedback";
-
-        private const string GET_MESSAGE_HISTORY = $"{Constants.BASE_CHAT_URL}/ecoplateschatting/api/v1/chat/getChatHistory";
         #endregion
 
         public UserApiService(RestClient client) : base(client)
@@ -763,40 +761,6 @@ namespace EcoPlatesMobile.Services.Api
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {
                     var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
-                    if (deserializedResponse != null)
-                    {
-                        return deserializedResponse;
-                    }
-                }
-
-                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
-            }
-            catch (JsonException jsonEx)
-            {
-                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
-                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
-            }
-            catch (Exception ex)
-            {
-                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
-                response.resultMsg = $"API: {ex.Message}";
-            }
-
-            return response;
-        }
-
-        ///////////////////Chat//////////////////////
-        public async Task<ChatMessageResponse> GetHistoryMessage(ChatMessageRequest data)
-        {
-            var response = new ChatMessageResponse();
-
-            try
-            {
-                var receivedData = await PostAsync(GET_MESSAGE_HISTORY, data);
-
-                if (!string.IsNullOrWhiteSpace(receivedData))
-                {
-                    var deserializedResponse = JsonConvert.DeserializeObject<ChatMessageResponse>(receivedData);
                     if (deserializedResponse != null)
                     {
                         return deserializedResponse;

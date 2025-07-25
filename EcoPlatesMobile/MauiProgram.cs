@@ -82,8 +82,14 @@ namespace EcoPlatesMobile
                     ThrowOnAnyError = false,
                     Timeout = TimeSpan.FromSeconds(30)
                 }));
-            
-            #if ANDROID
+            builder.Services.AddSingleton(sp =>
+                new RestClient(new RestClientOptions(Constants.BASE_CHAT_URL)
+                {
+                    ThrowOnAnyError = false,
+                    Timeout = TimeSpan.FromSeconds(30)
+                }));
+
+#if ANDROID
             builder.Services.AddSingleton<IStatusBarService, StatusBarService>();
             #endif
         }
@@ -97,6 +103,10 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient(sp =>
                 new CompanyApiService(
                     sp.GetServices<RestClient>().First(rc => rc.Options.BaseUrl == new Uri(Constants.BASE_COMPANY_URL))
+                ));
+            builder.Services.AddTransient(sp =>
+                new ChatApiService(
+                    sp.GetServices<RestClient>().First(rc => rc.Options.BaseUrl == new Uri(Constants.BASE_CHAT_URL))
                 ));
 
             #region Company

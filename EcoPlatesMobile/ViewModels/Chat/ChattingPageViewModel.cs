@@ -34,16 +34,18 @@ namespace EcoPlatesMobile.ViewModels.Chat
         private UserSessionService userSessionService;
         private UserApiService userApiService;
         private CompanyApiService companyApiService;
+        private ChatApiService chatApiService;
 
         public event EventHandler? ScrollToBottomRequested;
 
-        public ChattingPageViewModel(ChatWebSocketService webSocketService, AppControl appControl, UserSessionService userSessionService, UserApiService userApiService, CompanyApiService companyApiService)
+        public ChattingPageViewModel(ChatWebSocketService webSocketService, AppControl appControl, UserSessionService userSessionService, UserApiService userApiService, CompanyApiService companyApiService, ChatApiService chatApiService)
         {
             this.webSocketService = webSocketService;
             this.appControl = appControl;
             this.userSessionService = userSessionService;
             this.userApiService = userApiService;
             this.companyApiService = companyApiService;
+            this.chatApiService = chatApiService;
             
             this.webSocketService.OnMessageReceived += ReceivedMessage;
 
@@ -75,7 +77,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     if (!string.IsNullOrEmpty(token))
                     {
                         webSocketService.SetToken(token);
-                        await webSocketService.ConnectAsync();
+                        //await webSocketService.ConnectAsync();
 
                         await LoadHistoryMessage();
                     }
@@ -109,7 +111,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                 receiver_type = ChatPageModel.ReceiverType,
             };
 
-            ChatMessageResponse response = await userApiService.GetHistoryMessage(request);
+            ChatMessageResponse response = await chatApiService.GetHistoryMessage(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 var items = response.resultData;

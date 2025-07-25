@@ -23,12 +23,14 @@ namespace EcoPlatesMobile.ViewModels.Chat
 
         private CompanyApiService companyApiService;
         private UserApiService userApiService;
+        private ChatApiService chatApiService;
         private AppControl appControl;
         private UserSessionService userSessionService;
-        public ChatedUserPageViewModel(CompanyApiService companyApiService, UserApiService userApiService, AppControl appControl, UserSessionService userSessionService)
+        public ChatedUserPageViewModel(CompanyApiService companyApiService, UserApiService userApiService, ChatApiService chatApiService, AppControl appControl, UserSessionService userSessionService)
         {
             this.companyApiService = companyApiService;
             this.userApiService = userApiService;
+            this.chatApiService = chatApiService;
             this.appControl = appControl;
             this.userSessionService = userSessionService;
 
@@ -48,7 +50,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     receiver_type = UserRole.Company.ToString().ToUpper()
                 };
 
-                ChatSenderIdResponse response = await companyApiService.GetSendersWithUnread(request);
+                ChatSenderIdResponse response = await chatApiService.GetSendersWithUnread(request);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -112,7 +114,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     receiver_type = UserRole.User.ToString().ToUpper()
                 };
 
-                ChatSenderIdResponse response = await companyApiService.GetSendersWithUnread(request);
+                ChatSenderIdResponse response = await chatApiService.GetSendersWithUnread(request);
                 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
