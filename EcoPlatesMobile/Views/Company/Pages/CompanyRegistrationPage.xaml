@@ -85,8 +85,8 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="35"/>
                             </Border.StrokeShape>
-                            <Grid ColumnDefinitions="Auto, *, Auto"
-                                HeightRequest="100"
+                            <Grid ColumnDefinitions="Auto, *"
+                                  HeightRequest="100"
                                   VerticalOptions="Center">
                                 <Image Source="company_type.png"
                                        WidthRequest="25"
@@ -113,7 +113,7 @@
                                        VerticalOptions="Center"
                                        HorizontalOptions="End"
                                        Margin="8,0"
-                                       Grid.Column="2"/>
+                                       Grid.Column="1"/>
                             </Grid>
                         </Border>
                         

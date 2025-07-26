@@ -4,6 +4,7 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.ViewModels.Chat;
 using EcoPlatesMobile.Services.Api;
+using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.Views.Chat;
  
@@ -90,10 +91,19 @@ public partial class ChattingPage : BasePage
         }
     }
 
+    private async void Receiver_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(borderReceiver);
+        
+        if (userSessionService.Role == UserRole.Company) return;
+
+        await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={viewModel.ChatPageModel.ReceiverId}");
+    } 
+
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(imBack); 
- 
+        await AnimateElementScaleDown(imBack);
+
         await Back();
-    } 
+    }
 }

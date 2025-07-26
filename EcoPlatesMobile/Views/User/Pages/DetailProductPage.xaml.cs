@@ -5,18 +5,18 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.ViewModels.User;
 using EcoPlatesMobile.Views.Chat;
-using Microsoft.Maui.Controls; 
+using Microsoft.Maui.Controls;
 
 public partial class DetailProductPage : BasePage
 {
     private DetailProductPageViewModel viewModel;
     private AppControl appControl;
     public DetailProductPage(DetailProductPageViewModel vm, AppControl appControl)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         this.viewModel = vm;
-        this.appControl = appControl; 
+        this.appControl = appControl;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         reviewView.EventReviewClick += ReviewView_EventReviewClick;
@@ -37,27 +37,54 @@ public partial class DetailProductPage : BasePage
         base.OnAppearing();
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
+        if (!isWifiOn) return;
 
         await viewModel.LoadDataAsync();
 
         fullImage.Source = viewModel.ProductImage;
+        UpdateStars();
     }
 
-    private async void Back_Tapped(object sender, TappedEventArgs e)
+    private void UpdateStars()
     {
-        if (sender is VisualElement element)
+        starContainer.Children.Clear();
+
+        for (int i = 1; i <= 5; i++)
         {
-            await AnimateElementScaleDown(element);
+            var image = new Image
+            {
+                HeightRequest = 20,
+                WidthRequest = 20,
+                Margin = new Thickness(1)
+            };
+
+            if (i <= Math.Floor(viewModel.AvgRating))
+            {
+                image.Source = "star1.png";
+            }
+            else
+            {
+                image.Source = "star_gray.png";
+            }
+
+            starContainer.Children.Add(image);
         }
 
-        await Back();
+        var label = new Label
+        {
+            Text = viewModel.Stars,
+            TextColor = Colors.Black,
+            FontFamily = "Roboto",
+            Margin = new Thickness(5, 0, 0, 0),
+            VerticalOptions = LayoutOptions.Center
+        };
+        starContainer.Children.Add(label);
     }
 
     private async void Home_Tapped(object sender, TappedEventArgs e)
     {
         if (sender is VisualElement element)
-        { 
+        {
             await AnimateElementScaleDown(element);
         }
 
@@ -72,8 +99,8 @@ public partial class DetailProductPage : BasePage
         }
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         await viewModel.ProductLiked();
     }
 
@@ -167,10 +194,20 @@ public partial class DetailProductPage : BasePage
     private async void Message_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as HorizontalStackLayout);
-        
+
         await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
         {
             ["ChatPageModel"] = viewModel.GetChatPageModel()
         });
+    }
+
+    private async void Back_Tapped(object sender, TappedEventArgs e)
+    {
+        if (sender is VisualElement element)
+        {
+            await AnimateElementScaleDown(element);
+        }
+
+        await Back();
     }
 }

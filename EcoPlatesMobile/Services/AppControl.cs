@@ -19,10 +19,10 @@ namespace EcoPlatesMobile.Services
         public bool RefreshBrowserPage { get; set; } = true;
         public bool RefreshUserProfilePage { get; set; } = true;
         public bool RefreshCompanyProfilePage { get; set; } = true;
-        public bool IsPhoneNumberRegisterPage {  get; set; } = true;
+        public bool IsPhoneNumberRegisterPage { get; set; } = true;
         public CompanyInfo CompanyInfo { get; set; }
         public UserInfo UserInfo { get; set; }
-        
+
         public Location LocationForRegister { get; set; } = null;
 
         public Dictionary<string, string> BusinessTypeList = new Dictionary<string, string>
@@ -202,6 +202,20 @@ namespace EcoPlatesMobile.Services
         {
             string PHONE_PATTERN = @"^(\+998|998)?(90|91|93|94|95|97|98|99|33|88|20)\d{7}$";
             return Regex.IsMatch(phoneNumber, PHONE_PATTERN);
+        }
+
+        public string GetImageUrlOrFallback(string? imageUrl, string fallback = "no_image.png")
+        {
+            if (string.IsNullOrWhiteSpace(imageUrl))
+                return fallback;
+ 
+            if (!Uri.TryCreate(imageUrl, UriKind.Absolute, out var uriResult) ||
+                !(uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+            {
+                return fallback;
+            }
+
+            return imageUrl;
         }
     }
 }

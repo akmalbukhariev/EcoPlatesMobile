@@ -127,7 +127,7 @@ public partial class UserProfilePage : BasePage
         response = await userApiService.GetUserInfo();
         if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
         {
-            imUser.Source = response.resultData.profile_picture_url;
+            imUser.Source = appControl.GetImageUrlOrFallback(response.resultData.profile_picture_url);
             lbUserName.Text = response.resultData.first_name;
             lbPhoneNumber.Text = response.resultData.phone_number;
 

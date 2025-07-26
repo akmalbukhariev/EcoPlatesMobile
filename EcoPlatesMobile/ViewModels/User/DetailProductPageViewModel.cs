@@ -41,6 +41,7 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private bool showLikedView;
         [ObservableProperty] private bool isLikedViewLiked;
         public int CompanyId { get; set; } = 0;
+        public double AvgRating = 0;
 
         private UserApiService userApiService;
         private AppControl appControl;
@@ -89,6 +90,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     {
                         Stars = $"{info.ratingInfo.avg_rating} ({info.ratingInfo.total_reviews})";
                         Rating = $"{info.ratingInfo.avg_rating} / 5.0";
+                        AvgRating = info.ratingInfo.avg_rating;
                     }
                     else
                     {

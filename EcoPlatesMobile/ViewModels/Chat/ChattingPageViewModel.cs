@@ -58,7 +58,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
 
             ReceiverName = ChatPageModel.ReceiverName;
             ReceiverNumber = ChatPageModel.ReceiverPhone;
-            ReceiverImage = ChatPageModel.ReceiverImage;
+            ReceiverImage = appControl.GetImageUrlOrFallback(ChatPageModel.ReceiverImage);
 
             try
             {
@@ -77,7 +77,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     if (!string.IsNullOrEmpty(token))
                     {
                         webSocketService.SetToken(token);
-                        //await webSocketService.ConnectAsync();
+                        await webSocketService.ConnectAsync();
 
                         await LoadHistoryMessage();
                     }

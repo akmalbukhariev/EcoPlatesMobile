@@ -27,6 +27,7 @@
                 </Image>
                 <Grid RowDefinitions="Auto, 5, Auto, 5, Auto"
                       ColumnDefinitions="Auto, *, Auto, 10"
+                      RowSpacing="3"
                       Margin="10,10"
                       Grid.Row="1">
                     <Grid.Resources>
@@ -56,14 +57,16 @@
                            Style="{StaticResource lbStyle}"
                            Grid.Row="2"
                            Grid.Column="1"/>
-                    <Image Source="star.png"
-                           Style="{StaticResource imStyle}"
-                           Grid.Row="4"/>
-                    <Label Text="{Binding Stars}"
-                           Style="{StaticResource lbStyle}"
-                           Grid.Row="4"
-                           Grid.Column="1"/>
-                   
+                    <HorizontalStackLayout x:Name="starContainer"
+                                           Spacing="2"
+                                           Grid.Row="4"
+                                           Grid.ColumnSpan="2">
+                            <HorizontalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Tapped="Star_Tapped"/>
+                            </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>             
+                     
                     <Label Text="{Binding OldPrice}"
                            TextDecorations="Strikethrough"
                            FontSize="15"
@@ -145,10 +148,10 @@
                                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                                       Tapped="Star_Tapped"/>
                             </HorizontalStackLayout.GestureRecognizers>
-                            <Image Source="star.png"
+                            <Image Source="star1.png"
                                    Aspect="Fill"
-                                   WidthRequest="20"
-                                   HeightRequest="20"/>
+                                   WidthRequest="24"
+                                   HeightRequest="24"/>
                             <Label Text="{Binding Rating}"
                                    TextColor="Black"
                                    FontSize="20"

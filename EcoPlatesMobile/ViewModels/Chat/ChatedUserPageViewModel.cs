@@ -72,7 +72,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                             {
                                 ReceiverName = item.first_name,
                                 ReceiverPhone = item.phone_number,
-                                ReceiverImage = item.profile_picture_url,
+                                ReceiverImage = appControl.GetImageUrlOrFallback(item.profile_picture_url),
 
                                 SenderId = appControl.CompanyInfo.company_id,
                                 SenderType = UserRole.Company.ToString().ToUpper(),

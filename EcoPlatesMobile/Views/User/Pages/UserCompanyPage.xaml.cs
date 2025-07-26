@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Globalization;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.ViewModels.User;
 
@@ -9,13 +10,15 @@ public partial class UserCompanyPage : BasePage
 {
     private UserCompanyPageViewModel viewModel;
     private AppControl appControl;
+    private LocationService locationService;
 
-    public UserCompanyPage(UserCompanyPageViewModel vm, AppControl appControl)
+    public UserCompanyPage(UserCompanyPageViewModel vm, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
 
         this.viewModel = vm;
         this.appControl = appControl;
+        this.locationService = locationService;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
 
@@ -98,7 +101,16 @@ public partial class UserCompanyPage : BasePage
         {
             await AnimateElementScaleDown(element);
 
-            var userLocation = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
+            viewModel.IsLoading = true;
+            var userLocation = await locationService.GetCurrentLocationAsync();
+            if (userLocation == null)
+            {
+                await DisplayAlert(AppResource.Error, AppResource.MessageLocationPermission, AppResource.Ok);
+                return;
+            }
+            viewModel.IsLoading = false;
+
+            //var userLocation = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
             var companyLocation = new Location(viewModel.Latitude, viewModel.Longitude);
 
             string uri = $"https://www.google.com/maps/dir/?api=1" +
