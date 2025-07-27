@@ -10,6 +10,7 @@ using static AndroidX.ConstraintLayout.Widget.ConstraintSet.Constraint;
 
 using Plugin.Firebase.CloudMessaging;
 using Android.Content;
+using System.Threading.Tasks;
 
 namespace EcoPlatesMobile
 {
@@ -33,6 +34,7 @@ namespace EcoPlatesMobile
         {
             base.OnCreate(savedInstanceState);
             HandleIntent(Intent);
+
             CreateNotificationChannel();
              
             Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
@@ -46,20 +48,21 @@ namespace EcoPlatesMobile
         protected override void OnNewIntent(Intent intent)
         {
             base.OnNewIntent(intent);
-            HandleIntent(intent);
+            HandleIntent(intent, true);
         }
          
-        private static void HandleIntent(Intent intent)
+        private static async Task HandleIntent(Intent intent, bool appRunning = false)
         {
             if (intent == null) return;
 
-            if (intent.HasExtra("notification_title") && intent.HasExtra("notification_message"))
+            if (intent.HasExtra(Utilities.Constants.NOTIFICATION_TITLE) && intent.HasExtra(Utilities.Constants.NOTIFICATION_BODY))
             {
-                var title = intent.GetStringExtra("notification_title");
-                var message = intent.GetStringExtra("notification_message");
+                var title = intent.GetStringExtra(Utilities.Constants.NOTIFICATION_TITLE);
+                var body = intent.GetStringExtra(Utilities.Constants.NOTIFICATION_BODY);
 
-                System.Diagnostics.Debug.WriteLine($"Notification Tapped! Title: {title}, Message: {message}");
-                
+                if (!appRunning)
+                    await AlertService.ShowAlertAsync(title, "test");
+                    
                 // MessagingCenter.Send<object, string>(Application.Current, "NotificationTapped", message);
             }
 

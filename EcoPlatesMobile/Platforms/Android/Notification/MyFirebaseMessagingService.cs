@@ -24,14 +24,11 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
 
             var title = message.Data["title"];
             var bodyJson = message.Data["body"];
+            
+            //var parsed = Newtonsoft.Json.JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(bodyJson);
+            //var newPosterName = parsed.new_poster_name;
 
-            // parse JSON
-            var parsed = Newtonsoft.Json.JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(bodyJson);
-            var newPosterName = parsed.new_poster_name;
-
-            new NotificationService().SendNotification(title, newPosterName);
+            new NotificationService().SendNotification(title, bodyJson);
         }
-
-        
     }
 }

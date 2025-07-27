@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content;
 using AndroidX.Core.App;
+using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Platforms.Android.Notification;
 using EcoPlatesMobile.Services;
 
@@ -9,13 +10,15 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
 {
     public class NotificationService : INotificationService
     {
-        public void SendNotification(string title, string message)
+        public void SendNotification(string title, string bodyJson)
         {
             var context = global::Android.App.Application.Context;
 
+            var parsedObj = Newtonsoft.Json.JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(bodyJson); 
+
             var intent = new Intent(context, typeof(MainActivity));
-            intent.PutExtra("notification_title", title);
-            intent.PutExtra("notification_message", message);
+            intent.PutExtra(Utilities.Constants.NOTIFICATION_TITLE, title);
+            intent.PutExtra(Utilities.Constants.NOTIFICATION_BODY, bodyJson);
             intent.AddFlags(ActivityFlags.NewTask | ActivityFlags.ClearTop | ActivityFlags.SingleTop);
 
             var pendingIntent = PendingIntent.GetActivity(
@@ -27,7 +30,7 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
             var builder = new NotificationCompat.Builder(context, MainActivity.Channel_ID)
                 .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentTitle(title)
-                .SetContentText(message)
+                .SetContentText(parsedObj.new_poster_name)
                 .SetAutoCancel(true)
                 .SetContentIntent(pendingIntent)
                 .SetPriority((int)NotificationPriority.High);
