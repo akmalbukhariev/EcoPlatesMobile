@@ -8,23 +8,31 @@ using Android.Widget;
 using Google.Android.Material.BottomNavigation;
 using static AndroidX.ConstraintLayout.Widget.ConstraintSet.Constraint;
 
+using Plugin.Firebase.CloudMessaging;
+using Android.Content;
+
 namespace EcoPlatesMobile
 {
-    [Activity(Theme = "@style/Maui.SplashTheme", 
-              MainLauncher = true, 
-              LaunchMode = LaunchMode.SingleTop, 
+    [Activity(Theme = "@style/Maui.SplashTheme",
+              MainLauncher = true,
+              LaunchMode = LaunchMode.SingleTop,
               ConfigurationChanges = ConfigChanges.ScreenSize
-              | ConfigChanges.Orientation 
-              | ConfigChanges.UiMode 
-              | ConfigChanges.ScreenLayout 
-              | ConfigChanges.SmallestScreenSize 
+              | ConfigChanges.Orientation
+              | ConfigChanges.UiMode
+              | ConfigChanges.ScreenLayout
+              | ConfigChanges.SmallestScreenSize
               | ConfigChanges.Density,
               ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : MauiAppCompatActivity
     {
+        public const int NotificationID = 1001;
+        public const string Channel_ID = "Plugin.LocalNotification.GENERAL";
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            HandleIntent(Intent);
+            CreateNotificationChannel();
 
             Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
             Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#FFFFFF"));
@@ -32,6 +40,26 @@ namespace EcoPlatesMobile
             Instance = this;
 
             TryFixTabsWithRetry();
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            HandleIntent(intent);
+        }
+
+        private static void HandleIntent(Intent intent)
+        {
+            FirebaseCloudMessagingImplementation.OnNewIntent(intent);
+        }
+
+        private void CreateNotificationChannel()
+        {
+            var channelId = $"{PackageName}.general";
+            var notificationManager = (NotificationManager)GetSystemService(NotificationService);
+            var channel = new NotificationChannel(channelId, "General", NotificationImportance.Default);
+            notificationManager.CreateNotificationChannel(channel);
+            FirebaseCloudMessagingImplementation.ChannelId = channelId;
         }
 
         public static Activity Instance { get; private set; }

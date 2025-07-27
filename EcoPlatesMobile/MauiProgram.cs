@@ -11,9 +11,16 @@ using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Views;
 using The49.Maui.BottomSheet;
+using Microsoft.Maui.LifecycleEvents;
+using Plugin.Firebase.CloudMessaging; 
 
+
+//using Plugin.LocalNotification;
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;
+using Plugin.Firebase.Core.Platforms.Android;
+#elif IOS
+using Plugin.Firebase.Core.Platforms.iOS;
 #endif
 
 namespace EcoPlatesMobile
@@ -26,41 +33,46 @@ namespace EcoPlatesMobile
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .RegisterFirebaseServices()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Roboto-Variable.ttf", "Roboto");
                     fonts.AddFont("Roboto-Italic-Variable.ttf", "RobotoItalic");
- 
-                }) 
+
+                })
                 .UseMauiMaps()
-                .UseBottomSheet();
-
-#if ANDROID
-        //MapHandler.Mapper.AppendToMapping("DisableZoomControls", (handler, view) =>
-        //{
-        //    handler.PlatformView?.GetMapAsync(new ZoomControlDisabler());
-        //});
-
-        //MapHandler.Mapper.AppendToMapping("CustomPinIcons", (handler, view) =>
-        //{
-        //    handler.PlatformView?.GetMapAsync(new PinIconRenderer(((Microsoft.Maui.Controls.Maps.Map)view)?.Pins));
-        //});
-#endif
-
+                .UseBottomSheet();   
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
             RegisterSingleton(builder);
             RegisterTransient(builder);
-            
+
             var mauiApp = builder.Build();
             AppService.Init(mauiApp.Services);
 
             return mauiApp;
         }
+ 
+        private static MauiAppBuilder RegisterFirebaseServices(this MauiAppBuilder builder)
+        {
+            builder.ConfigureLifecycleEvents(events => {
+        #if IOS
+                events.AddiOS(iOS => iOS.WillFinishLaunching((_, __) => {
+                    CrossFirebase.Initialize();
+                    FirebaseCloudMessagingImplementation.Initialize();
+                    return false;
+                }));
+        #elif ANDROID
+                events.AddAndroid(android => android.OnCreate((activity, _) =>
+                CrossFirebase.Initialize(activity)));
+        #endif
+            });
 
+            return builder;
+        }
         private static void RegisterSingleton(MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<LanguageService>();
@@ -70,6 +82,7 @@ namespace EcoPlatesMobile
             builder.Services.AddSingleton<UserSessionService>();
             builder.Services.AddSingleton<LanguageService>();
             builder.Services.AddSingleton<ChatWebSocketService>();
+            builder.Services.AddSingleton<INotificationService, NotificationService>();
             builder.Services.AddSingleton(sp =>
                 new RestClient(new RestClientOptions(Constants.BASE_USER_URL)
                 {
@@ -91,7 +104,7 @@ namespace EcoPlatesMobile
 
 #if ANDROID
             builder.Services.AddSingleton<IStatusBarService, StatusBarService>();
-            #endif
+#endif
         }
 
         private static void RegisterTransient(MauiAppBuilder builder)

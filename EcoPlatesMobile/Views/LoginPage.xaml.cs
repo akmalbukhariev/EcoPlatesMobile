@@ -2,6 +2,7 @@
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using System.Threading.Tasks;
+using Plugin.Firebase.CloudMessaging;
 
 namespace EcoPlatesMobile.Views;
 
@@ -10,7 +11,7 @@ public partial class LoginPage : BasePage
     private AppStoreService appStoreService;
     private AppControl appControl;
     private UserSessionService userSessionService;
-
+  
     public LoginPage(AppStoreService appStoreService, AppControl appControl, UserSessionService userSessionService)
 	{
 		InitializeComponent();
@@ -24,6 +25,9 @@ public partial class LoginPage : BasePage
     {
         base.OnAppearing();
 
+        await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
+        var token = await CrossFirebaseCloudMessaging.Current.GetTokenAsync();
+          
         UserRole role = appStoreService.Get(AppKeys.UserRole, UserRole.None);
         bool isLoggedIn = appStoreService.Get(AppKeys.IsLoggedIn, false);
         string phoneNumber = appStoreService.Get(AppKeys.PhoneNumber, "");

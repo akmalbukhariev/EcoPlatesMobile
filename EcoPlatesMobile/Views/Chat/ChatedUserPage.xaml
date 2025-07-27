@@ -61,8 +61,10 @@
                                 <Label Text="{Binding UserName}"
                                        TextColor="Black"
                                        FontSize="16"
+                                       FontFamily="Roboto"
                                        VerticalOptions="Center"
                                        HorizontalOptions="Start"
+                                       LineBreakMode="WordWrap"
                                        Grid.Column="1"/>
                                 <Image Source="{Binding RightImage}"
                                        Aspect="AspectFit"

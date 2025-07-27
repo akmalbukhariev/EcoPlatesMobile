@@ -139,11 +139,13 @@
                     <Label Text="SaleTop application"
                            TextColor="LightGray"
                            FontSize="17"
+                           FontFamily="Roboto"
                            HorizontalTextAlignment="Center"/>
                     <Label x:Name="lbVersion" 
                            Text="v. 1.1.0 (Android -13)"
                            TextColor="LightGray"
                            FontSize="15"
+                           FontFamily="Roboto"
                            HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
             </Grid>
@@ -182,7 +184,8 @@
                                    VerticalOptions="Center"/>
                             <Label Text="{Binding Name}" 
                                    Margin="5,0,0,0"
-                                   FontSize="18" 
+                                   FontSize="14" 
+                                   FontFamily="Roboto"
                                    VerticalTextAlignment="Center" 
                                    TextColor="Black"
                                    Grid.Column="1"/>

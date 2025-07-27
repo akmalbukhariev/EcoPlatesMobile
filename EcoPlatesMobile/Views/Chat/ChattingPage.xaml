@@ -108,7 +108,8 @@
                         <Editor x:Name="editorMessage"
                                 TextColor="Black"
                                 Placeholder="{x:Static language:AppResource.Message}"
-                                AutoSize="TextChanges"/>
+                                AutoSize="TextChanges"
+                                TextChanged="EditorMessage_TextChanged"/>
                         <Image x:Name="sendImage" 
                                Source="send_company.png"
                                Aspect="AspectFit"

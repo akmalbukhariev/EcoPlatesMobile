@@ -62,6 +62,9 @@ public partial class UserBrowserPage : BasePage
 
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
+        
+        bool enable = await locationService.IsLocationEnabledAsync();
+        if (!enable) return;
 
         if (appControl.RefreshBrowserPage)
         {
@@ -165,21 +168,7 @@ public partial class UserBrowserPage : BasePage
             await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={pin.CompanyId}");
         });
     }
-
-    private async void Click_RadiusLocation()
-    {
-        //viewModel.IsLoading = true;
-        //var location = await locationService.GetCurrentLocationAsync();
-        //if (location == null)
-        //{
-        //    await DisplayAlert(AppResource.Error, AppResource.MessageLocationPermission, AppResource.Ok);
-        //    return;
-        //}
-        //viewModel.IsLoading = false;
-
-        await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
-    }
-
+    
     private async void TabSwitcher_TabChanged(object? sender, string e)
     {
         const int animationDuration = 400;
@@ -241,6 +230,9 @@ public partial class UserBrowserPage : BasePage
     private async void Bottom_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(borderBottom);
+
+        bool enable = await locationService.IsLocationEnabledAsync();
+        if (!enable) return;
 
         await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }

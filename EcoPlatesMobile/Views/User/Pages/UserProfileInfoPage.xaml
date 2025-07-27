@@ -89,17 +89,19 @@
             </Grid>
         </ScrollView>
         <Grid ColumnDefinitions="Auto, *, Auto"
-            Margin="0, 10, 0, 0"
+              Margin="0, 10, 0, 0"
               VerticalOptions="Start">
             <Button Text="{x:Static language:AppResource.Cancel}"
                     TextColor="{StaticResource User}"
                     FontSize="17"
+                    FontFamily="Roboto"
                     FontAttributes="Bold"
                     BackgroundColor="Transparent"
                     Clicked="Cancel_Clicked"/>
             <Button Text="{x:Static language:AppResource.Done}"
                     TextColor="{StaticResource User}"
                     FontSize="17"
+                    FontFamily="Roboto"
                     FontAttributes="Bold"
                     BackgroundColor="Transparent"
                     Clicked="Done_Clicked"

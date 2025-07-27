@@ -100,6 +100,15 @@ public partial class ChattingPage : BasePage
         await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={viewModel.ChatPageModel.ReceiverId}");
     } 
 
+    private const int MaxMessageLength = 300;
+    private void EditorMessage_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (e.NewTextValue.Length > MaxMessageLength)
+        {
+            editorMessage.Text = e.NewTextValue.Substring(0, MaxMessageLength);
+        }
+    }
+
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(imBack);

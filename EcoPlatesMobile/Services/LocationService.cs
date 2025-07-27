@@ -5,11 +5,59 @@ using System.Text;
 using System.Threading.Tasks;
 using EcoPlatesMobile.Resources.Languages;
 
+#if ANDROID
+using Android.Content;
+using Android.Locations;
+#endif
+
+#if IOS
+using CoreLocation;
+#endif
+
 namespace EcoPlatesMobile.Services
 {
     public class LocationService
     {
-        public async Task<Location?> GetCurrentLocationAsync()
+        public async Task<bool> IsLocationEnabledAsync()
+        {
+            var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            if (status != PermissionStatus.Granted)
+                return false;
+
+            bool enable = IsLocationEnabled();
+
+            if (!enable)
+            {
+                bool openSettings = await AlertService.ShowConfirmationAsync(
+                            AppResource.LocationPermissionRequired,
+                            AppResource.MessageLocationPermission,
+                            AppResource.OpenSettings,
+                            AppResource.Cancel);
+
+                if (openSettings)
+                {
+                    AppInfo.ShowSettingsUI();
+                }
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsLocationEnabled()
+        {
+#if ANDROID
+            var locationManager = (LocationManager)Android.App.Application.Context.GetSystemService(Context.LocationService);
+            return locationManager?.IsProviderEnabled(LocationManager.GpsProvider) == true ||
+                   locationManager?.IsProviderEnabled(LocationManager.NetworkProvider) == true;
+#elif IOS
+            return CLLocationManager.LocationServicesEnabled;
+#else
+            return true;
+#endif
+        }
+
+        public async Task<Microsoft.Maui.Devices.Sensors.Location?> GetCurrentLocationAsync()
         {
             try
             {

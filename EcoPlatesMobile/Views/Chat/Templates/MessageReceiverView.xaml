@@ -15,13 +15,24 @@
                TextColor="#A7A7A7"
                HorizontalOptions="Start"
                VerticalTextAlignment="Center"/>
-        <BoxView BackgroundColor="{Binding BackColor}"
-                 CornerRadius="0,20,20,20"
-                 Grid.Row="1"/>
-        <Label Text="{Binding Text}"
-               TextColor="White"
-               Margin="10,7,7,7"
-               VerticalTextAlignment="Center"
-               Grid.Row="1"/>
+       <Border Grid.Row="1"
+                Grid.Column="0"
+                StrokeThickness="0"
+                BackgroundColor="{Binding BackColor}"
+                HorizontalOptions="Start"
+                MaximumWidthRequest="280"
+                Padding="10">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,20,20,20"/>
+            </Border.StrokeShape>
+
+            <Label Text="{Binding Text}"
+                   TextColor="White"
+                   FontFamily="Roboto"
+                   LineBreakMode="WordWrap"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontSize="14"/>
+        </Border>
     </Grid>
 </ContentView>

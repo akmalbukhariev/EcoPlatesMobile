@@ -208,7 +208,7 @@ namespace EcoPlatesMobile.Services
         {
             if (string.IsNullOrWhiteSpace(imageUrl))
                 return fallback;
- 
+
             if (!Uri.TryCreate(imageUrl, UriKind.Absolute, out var uriResult) ||
                 !(uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
             {

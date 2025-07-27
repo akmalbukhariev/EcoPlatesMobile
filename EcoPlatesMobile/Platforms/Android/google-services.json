@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1063846666307",
+    "project_id": "ecoplates-ec11e",
+    "storage_bucket": "ecoplates-ec11e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063846666307:android:30d3e095d3b6d02f7bb4f6",
+        "android_client_info": {
+          "package_name": "com.saletop.saletop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXuOyOrYY92qSSz-2VMPsAd81ANWih9-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

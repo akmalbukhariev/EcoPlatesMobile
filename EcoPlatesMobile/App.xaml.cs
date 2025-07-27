@@ -4,24 +4,41 @@ using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
+using Plugin.Firebase.CloudMessaging;
+using Plugin.Firebase.CloudMessaging.EventArgs;
 
 namespace EcoPlatesMobile
 {
     public partial class App : Application
     {
-        public App()
+        private readonly INotificationService notificationService;
+        public App(INotificationService notificationService)
         {
             InitializeComponent();
+            this.notificationService = notificationService;
 
             RegisterRoutes();
             Setting();
+
+            CrossFirebaseCloudMessaging.Current.NotificationReceived += NotificationReceived;
+            //LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
             AppService.Get<LanguageService>().Init();
-
+            
             return new Window(new AppEntryShell());
+        }
+
+        private void NotificationReceived(object sender, FCMNotificationReceivedEventArgs args)
+        {
+            string title = args.Notification.Title;
+            string body = args.Notification.Body; 
+
+#if ANDROID
+    notificationService.SendNotification(title, body);
+#endif
         }
 
         private void RegisterRoutes()
@@ -104,7 +121,7 @@ namespace EcoPlatesMobile
 
             //Microsoft.Maui.Handlers.TimePickerHandler.Mapper.AppendToMapping("Force24Hour", (handler, view) =>
             //{ 
-                //handler.PlatformView?.SetOnClickListener(new My24HourTimePickerClickListener(handler));
+            //handler.PlatformView?.SetOnClickListener(new My24HourTimePickerClickListener(handler));
             //});
 #endif
         }
@@ -113,5 +130,19 @@ namespace EcoPlatesMobile
         {
             MainPage = new AppEntryShell();
         }
+        
+        /*
+        private void Current_NotificationActionTapped(Plugin.LocalNotification.EventArgs.NotificationActionEventArgs e)
+        {
+            if (e.IsDismissed)
+            {
+
+            }
+            else if (e.IsTapped)
+            {
+
+            }
+        }
+        */
     }
 }
