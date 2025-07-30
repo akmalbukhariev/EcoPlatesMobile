@@ -6,16 +6,10 @@ namespace EcoPlatesMobile.Models.User
 {
     public class UserInfo
     {
+        public int user_id { get; set; }
         public double location_latitude { get; set; }
         public string profile_picture_url { get; set; } = string.Empty;
-        public string last_name { get; set; } = string.Empty;
-
-        //[JsonProperty("created_at")]
-        //private long _created_at { get; set; }
-
-        //[JsonIgnore]
-        //public DateTime created_at => DateTimeOffset.FromUnixTimeMilliseconds(_created_at).UtcDateTime;
-
+        public string last_name { get; set; } = string.Empty; 
         public string token_mb { get; set; } = string.Empty;
         public string full_name { get; set; } = string.Empty;
 
@@ -24,14 +18,7 @@ namespace EcoPlatesMobile.Models.User
 
         [JsonIgnore]
         public bool deleted => _deleted.Equals("true", StringComparison.OrdinalIgnoreCase);
-
-        //[JsonProperty("updated_at")]
-        //private long _updated_at { get; set; }
-
-        //[JsonIgnore]
-        //public DateTime updated_at => DateTimeOffset.FromUnixTimeMilliseconds(_updated_at).UtcDateTime;
-
-        public int user_id { get; set; }
+        public string token_frb { get; set; }
         public string phone_number { get; set; } = string.Empty;
         public string first_name { get; set; } = string.Empty;
         public double location_longitude { get; set; }

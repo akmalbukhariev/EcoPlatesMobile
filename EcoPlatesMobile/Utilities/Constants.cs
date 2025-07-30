@@ -5,14 +5,14 @@ namespace EcoPlatesMobile.Utilities
 {
     internal class Constants
     {
-        //public const string IP = "192.168.219.108";
+        public const string IP = "192.168.219.199";
         //public const string IP = "10.0.2.2";
 
-        public const string BASE_USER_URL = "http://www.ecoplates.uz:8080/user/";
-        //public const string BASE_USER_URL = $"http://{IP}:8083";
+        //public const string BASE_USER_URL = "http://www.ecoplates.uz:8080/user/";
+        public const string BASE_USER_URL = $"http://{IP}:8083";
 
-        public const string BASE_COMPANY_URL = "http://www.ecoplates.uz:8080/company/";
-        //public const string BASE_COMPANY_URL = $"http://{IP}:8081";
+        //public const string BASE_COMPANY_URL = "http://www.ecoplates.uz:8080/company/";
+        public const string BASE_COMPANY_URL = $"http://{IP}:8081";
 
         public const string BASE_CHAT_URL = "http://www.ecoplates.uz:8080/chatting/";
         //public const string BASE_CHAT_URL = $"http://{IP}:8085";
@@ -26,6 +26,9 @@ namespace EcoPlatesMobile.Utilities
         public const string UZ = "uz";
         public const string EN = "en";
         public const string RU = "ru";
+
+        public const string ROLE_USER = "ROLE_USER";
+        public const string ROLE_COMPANY = "ROLE_COMPANY";
 
         public const string LAN_UZBEK = "O'zbekcha";
         public const string LAN_ENGLISH = "English";

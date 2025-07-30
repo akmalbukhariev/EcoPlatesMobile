@@ -1,21 +1,27 @@
-﻿using EcoPlatesMobile.Services;
+﻿using EcoPlatesMobile.Models.Responses.User;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
+using Newtonsoft.Json;
 using Plugin.Firebase.CloudMessaging;
 using Plugin.Firebase.CloudMessaging.EventArgs;
+using System.Text;
 
 namespace EcoPlatesMobile
 {
     public partial class App : Application
     {
         private readonly INotificationService notificationService;
-        public App(INotificationService notificationService)
+        private readonly UserSessionService userSessionService;
+        public App(INotificationService notificationService, UserSessionService userSessionService)
         {
             InitializeComponent();
             this.notificationService = notificationService;
+            this.userSessionService = userSessionService;
 
             RegisterRoutes();
             Setting();
@@ -31,16 +37,53 @@ namespace EcoPlatesMobile
             return new Window(new AppEntryShell());
         }
 
+        protected override void OnAppLinkRequestReceived(Uri uri)
+        {
+            base.OnAppLinkRequestReceived(uri);
+
+            if (uri.Host != "notification")
+                return;
+
+            var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+            string title = Uri.UnescapeDataString(query.Get("title") ?? "");
+            string encodedBody = query.Get("body") ?? "";
+
+            try
+            {
+                string body = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(encodedBody));
+                var response = JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(body);
+ 
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await Shell.Current.GoToAsync($"notificationdetail?poster={response.new_poster_name}");
+                });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[NotificationTap] Failed to decode: {ex.Message}");
+            }
+        }
+
         private void NotificationReceived(object sender, FCMNotificationReceivedEventArgs args)
         {
             string title = args.Notification.Title;
-            string body = args.Notification.Body; 
+            string body = args.Notification.Body;
+
+            if (title == Constants.ROLE_USER /*&& userSessionService.Role == UserRole.User*/)
+            {
+                NewPosterPushNotificationResponse response = JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(body);
 
 #if ANDROID
-    notificationService.SendNotification(title, body);
+                notificationService.SendNotification(title, response.new_poster_name);
 #endif
-        }
+            }
+            else if (title == Constants.ROLE_COMPANY && userSessionService.Role == UserRole.Company)
+            {
 
+            }
+        }
+        
         private void RegisterRoutes()
         {
             #region Entry pages

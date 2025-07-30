@@ -22,7 +22,8 @@ namespace EcoPlatesMobile
               | ConfigChanges.ScreenLayout
               | ConfigChanges.SmallestScreenSize
               | ConfigChanges.Density,
-              ScreenOrientation = ScreenOrientation.Portrait)]
+              ScreenOrientation = ScreenOrientation.Portrait,
+              Exported = true)]
     public class MainActivity : MauiAppCompatActivity
     {
         public const int NotificationID = 1001;
@@ -33,6 +34,12 @@ namespace EcoPlatesMobile
             base.OnCreate(savedInstanceState);
             HandleIntent(Intent);
             CreateNotificationChannel();
+  
+            var uri = GetTapUri(Intent);
+            if (uri != null)
+            {
+                Microsoft.Maui.Controls.Application.Current?.SendOnAppLinkRequestReceived(uri);
+            }
 
             Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
             Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#FFFFFF"));
@@ -46,6 +53,25 @@ namespace EcoPlatesMobile
         {
             base.OnNewIntent(intent);
             HandleIntent(intent);
+            
+            var uri = GetTapUri(Intent);
+            if (uri != null)
+            {
+                Microsoft.Maui.Controls.Application.Current?.SendOnAppLinkRequestReceived(uri);
+            }
+        }
+
+        private Uri? GetTapUri(Intent? intent)
+        {
+            if (intent?.Extras != null && intent.HasExtra("notification_tapped"))
+            {
+                var title = intent.GetStringExtra("title") ?? "";
+                var encodedBody = intent.GetStringExtra("body") ?? "";
+
+                return new Uri($"myapp://notification?tapped=true&title={Uri.EscapeDataString(title)}&body={Uri.EscapeDataString(encodedBody)}");
+            }
+
+            return null;
         }
 
         private static void HandleIntent(Intent intent)

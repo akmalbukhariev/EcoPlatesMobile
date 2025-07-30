@@ -16,11 +16,17 @@ namespace EcoPlatesMobile.Platforms.Android
             var intent = new Intent(context, Java.Lang.Class.FromType(typeof(MainActivity)));
             intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
 
+            string encodedBody = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(body));
+
+            intent.PutExtra("notification_tapped", true);
+            intent.PutExtra("title", title);
+            intent.PutExtra("body", encodedBody);
+
             var pendingIntent = PendingIntent.GetActivity(
                 context,
                 MainActivity.NotificationID,
                 intent,
-                PendingIntentFlags.OneShot | PendingIntentFlags.Immutable);
+                PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
             var builder = new NotificationCompat.Builder(context, MainActivity.Channel_ID)
                 .SetSmallIcon(Resource.Mipmap.appicon)

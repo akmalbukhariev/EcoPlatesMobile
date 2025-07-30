@@ -20,6 +20,7 @@ namespace EcoPlatesMobile.Models.Company
         public string telegram_link { get; set; } = string.Empty;                    
         public string social_profile_link { get; set; } = string.Empty;
         public string token_mb { get; set; } = string.Empty;
+        public string token_frb { get; set; } = string.Empty;
         public long active_products { get; set; }
         public long non_active_products { get; set; }
         public UserOrCompanyStatus status { get; set; } = UserOrCompanyStatus.INACTIVE;

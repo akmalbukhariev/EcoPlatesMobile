@@ -7,6 +7,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using Plugin.Firebase.CloudMessaging;
 using System.Text.RegularExpressions;
 
 namespace EcoPlatesMobile.Services
@@ -53,6 +54,20 @@ namespace EcoPlatesMobile.Services
                 store.Set(AppKeys.IsLoggedIn, true);
                 store.Set(AppKeys.PhoneNumber, phoneNumber);
 
+                #region Check the Firebase token and save it to the server
+                string frbToken = await GetFirebaseToken();
+                if (frbToken != response.resultData.token_frb)
+                {
+                    var additionalData = new Dictionary<string, string>
+                    {
+                        { "company_id", response.resultData.company_id.ToString() },
+                        { "token_frb", frbToken },
+                    };
+
+                    await apiService.UpdateCompanyProfileInfo(null, additionalData);
+                }
+                #endregion
+
                 Application.Current.MainPage = new ContentPage
                 {
                     BackgroundColor = Colors.White,
@@ -88,6 +103,20 @@ namespace EcoPlatesMobile.Services
                 store.Set(AppKeys.UserRole, UserRole.User);
                 store.Set(AppKeys.IsLoggedIn, true);
                 store.Set(AppKeys.PhoneNumber, phoneNumber);
+                
+                #region Check the Firebase token and save it to the server
+                string frbToken = await GetFirebaseToken();
+                if (frbToken != response.resultData.token_frb)
+                {
+                    var additionalData = new Dictionary<string, string>
+                    {
+                        { "user_id", response.resultData.user_id.ToString() },
+                        { "token_frb", frbToken },
+                    };
+
+                    await apiService.UpdateUserProfileInfo(null, additionalData);
+                }
+                #endregion
 
                 Application.Current.MainPage = new ContentPage
                 {
@@ -202,6 +231,14 @@ namespace EcoPlatesMobile.Services
         {
             string PHONE_PATTERN = @"^(\+998|998)?(90|91|93|94|95|97|98|99|33|88|20)\d{7}$";
             return Regex.IsMatch(phoneNumber, PHONE_PATTERN);
+        }
+
+        public async Task<string> GetFirebaseToken()
+        {
+            await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
+            var token = await CrossFirebaseCloudMessaging.Current.GetTokenAsync();
+
+            return token;
         }
 
         public string GetImageUrlOrFallback(string? imageUrl, string fallback = "no_image.png")

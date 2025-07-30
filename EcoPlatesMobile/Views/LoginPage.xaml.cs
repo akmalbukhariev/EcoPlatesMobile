@@ -24,10 +24,7 @@ public partial class LoginPage : BasePage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
-        var token = await CrossFirebaseCloudMessaging.Current.GetTokenAsync();
-          
+        
         UserRole role = appStoreService.Get(AppKeys.UserRole, UserRole.None);
         bool isLoggedIn = appStoreService.Get(AppKeys.IsLoggedIn, false);
         string phoneNumber = appStoreService.Get(AppKeys.PhoneNumber, "");
