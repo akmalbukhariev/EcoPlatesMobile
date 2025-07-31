@@ -34,13 +34,7 @@ namespace EcoPlatesMobile
             base.OnCreate(savedInstanceState);
             HandleIntent(Intent);
             CreateNotificationChannel();
-  
-            var uri = GetTapUri(Intent);
-            if (uri != null)
-            {
-                Microsoft.Maui.Controls.Application.Current?.SendOnAppLinkRequestReceived(uri);
-            }
-
+             
             Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
             Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#FFFFFF"));
 
@@ -53,39 +47,32 @@ namespace EcoPlatesMobile
         {
             base.OnNewIntent(intent);
             HandleIntent(intent);
-            
-            var uri = GetTapUri(Intent);
-            if (uri != null)
-            {
-                Microsoft.Maui.Controls.Application.Current?.SendOnAppLinkRequestReceived(uri);
-            }
         }
-
-        private Uri? GetTapUri(Intent? intent)
-        {
-            if (intent?.Extras != null && intent.HasExtra("notification_tapped"))
-            {
-                var title = intent.GetStringExtra("title") ?? "";
-                var encodedBody = intent.GetStringExtra("body") ?? "";
-
-                return new Uri($"myapp://notification?tapped=true&title={Uri.EscapeDataString(title)}&body={Uri.EscapeDataString(encodedBody)}");
-            }
-
-            return null;
-        }
-
+         
         private static void HandleIntent(Intent intent)
         {
+            if (intent == null) return;
+
+            if (intent.HasExtra("notification_title") && intent.HasExtra("notification_message"))
+            {
+                var title = intent.GetStringExtra("notification_title");
+                var message = intent.GetStringExtra("notification_message");
+
+                System.Diagnostics.Debug.WriteLine($"Notification Tapped! Title: {title}, Message: {message}");
+                
+                // MessagingCenter.Send<object, string>(Application.Current, "NotificationTapped", message);
+            }
+
             FirebaseCloudMessagingImplementation.OnNewIntent(intent);
         }
 
         private void CreateNotificationChannel()
         {
-            var channelId = $"{PackageName}.general";
+            //var channelId = $"{PackageName}.general";
             var notificationManager = (NotificationManager)GetSystemService(NotificationService);
-            var channel = new NotificationChannel(channelId, "General", NotificationImportance.Default);
+            var channel = new NotificationChannel(Channel_ID, "General", NotificationImportance.Default);
             notificationManager.CreateNotificationChannel(channel);
-            FirebaseCloudMessagingImplementation.ChannelId = channelId;
+            FirebaseCloudMessagingImplementation.ChannelId = Channel_ID;//channelId;
         }
 
         public static Activity Instance { get; private set; }

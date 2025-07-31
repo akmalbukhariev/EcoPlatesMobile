@@ -26,8 +26,14 @@ namespace EcoPlatesMobile
             RegisterRoutes();
             Setting();
 
-            CrossFirebaseCloudMessaging.Current.NotificationReceived += NotificationReceived;
-            //LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
+            //CrossFirebaseCloudMessaging.Current.NotificationReceived += NotificationReceived;
+            //CrossFirebaseCloudMessaging.Current.NotificationTapped += Current_NotificationTapped;
+        }
+
+        private void Current_NotificationTapped(object? sender, FCMNotificationTappedEventArgs e)
+        {
+            string sBody = e.Notification.Body;
+            int g = 0;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
@@ -36,35 +42,7 @@ namespace EcoPlatesMobile
             
             return new Window(new AppEntryShell());
         }
-
-        protected override void OnAppLinkRequestReceived(Uri uri)
-        {
-            base.OnAppLinkRequestReceived(uri);
-
-            if (uri.Host != "notification")
-                return;
-
-            var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
-
-            string title = Uri.UnescapeDataString(query.Get("title") ?? "");
-            string encodedBody = query.Get("body") ?? "";
-
-            try
-            {
-                string body = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(encodedBody));
-                var response = JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(body);
- 
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    await Shell.Current.GoToAsync($"notificationdetail?poster={response.new_poster_name}");
-                });
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"[NotificationTap] Failed to decode: {ex.Message}");
-            }
-        }
-
+         
         private void NotificationReceived(object sender, FCMNotificationReceivedEventArgs args)
         {
             string title = args.Notification.Title;

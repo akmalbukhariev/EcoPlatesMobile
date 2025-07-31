@@ -12,7 +12,9 @@ using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Views;
 using The49.Maui.BottomSheet;
 using Microsoft.Maui.LifecycleEvents;
-using Plugin.Firebase.CloudMessaging; 
+using Plugin.Firebase.CloudMessaging;
+using EcoPlatesMobile.Platforms.Android.Notification;
+
 
 
 //using Plugin.LocalNotification;
@@ -82,7 +84,6 @@ namespace EcoPlatesMobile
             builder.Services.AddSingleton<UserSessionService>();
             builder.Services.AddSingleton<LanguageService>();
             builder.Services.AddSingleton<ChatWebSocketService>();
-            builder.Services.AddSingleton<INotificationService, NotificationService>();
             builder.Services.AddSingleton(sp =>
                 new RestClient(new RestClientOptions(Constants.BASE_USER_URL)
                 {
@@ -104,6 +105,7 @@ namespace EcoPlatesMobile
 
 #if ANDROID
             builder.Services.AddSingleton<IStatusBarService, StatusBarService>();
+            builder.Services.AddSingleton<INotificationService, NotificationService>();
 #endif
         }
 

@@ -55,7 +55,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash_padded_centered.svg" Color="#007211" />
+		<MauiSplashScreen Include="Resources\Splash\splash_padded_centered.svg" Color="#007210" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -91,7 +91,9 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
     	<GoogleServicesJson Include="Platforms/Android/google-services.json" />
 	</ItemGroup>
-	 
+	<Target Name="CopyGoogleServicesJson" AfterTargets="Build">
+		<Copy SourceFiles="Platforms/Android/google-services.json" DestinationFolder="$(IntermediateOutputPath)assets" SkipUnchangedFiles="true" />
+	</Target>
 	<ItemGroup>
 	  <Compile Update="AppUserShell.xaml.cs">
 	    <DependentUpon>AppUserShell.xaml</DependentUpon>
