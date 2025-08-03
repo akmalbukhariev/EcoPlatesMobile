@@ -11,6 +11,10 @@ using static AndroidX.ConstraintLayout.Widget.ConstraintSet.Constraint;
 using Plugin.Firebase.CloudMessaging;
 using Android.Content;
 using System.Threading.Tasks;
+using AndroidX.Annotations;
+using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Models.Responses.Notification;
 
 namespace EcoPlatesMobile
 {
@@ -60,10 +64,21 @@ namespace EcoPlatesMobile
                 var title = intent.GetStringExtra(Utilities.Constants.NOTIFICATION_TITLE);
                 var body = intent.GetStringExtra(Utilities.Constants.NOTIFICATION_BODY);
 
+                var notificationData = new NotificationData()
+                {
+                    title = title,
+                    body = body
+                };
+
                 if (!appRunning)
-                    await AlertService.ShowAlertAsync(title, "test");
-                    
-                // MessagingCenter.Send<object, string>(Application.Current, "NotificationTapped", message);
+                {
+                    AppService.Get<AppControl>().NotificationData = notificationData;
+                } 
+
+                if (Instance is MainActivity mainActivity)
+                {
+                    MessagingCenter.Send<MainActivity, NotificationData>(mainActivity, Constants.NOTIFICATION_BODY, notificationData);
+                }        
             }
 
             FirebaseCloudMessagingImplementation.OnNewIntent(intent);

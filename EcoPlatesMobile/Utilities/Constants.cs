@@ -6,7 +6,7 @@ namespace EcoPlatesMobile.Utilities
     internal class Constants
     {
         //public const string IP = "192.168.0.54";
-        public const string IP = "192.168.219.147";
+        public const string IP = "192.168.219.116";
         //public const string IP = "10.0.2.2";
 
         //public const string BASE_USER_URL = "http://www.ecoplates.uz:8080/user/";
@@ -33,6 +33,8 @@ namespace EcoPlatesMobile.Utilities
 
         public const string NOTIFICATION_TITLE = "notification_title";
         public const string NOTIFICATION_BODY = "notification_body";
+        public const string SEARCH_NOTIFICATION_FOR_USER = "SearchNotificationForUser";
+        public const string SEARCH_NOTIFICATION_FOR_COMPANY = "SearchNotificationForCompany";
 
         public const string LAN_UZBEK = "O'zbekcha";
         public const string LAN_ENGLISH = "English";

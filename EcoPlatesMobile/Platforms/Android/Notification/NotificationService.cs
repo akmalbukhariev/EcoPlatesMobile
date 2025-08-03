@@ -1,9 +1,10 @@
 using Android.App;
 using Android.Content;
 using AndroidX.Core.App;
-using EcoPlatesMobile.Models.Responses.User;
+using EcoPlatesMobile.Models.Responses.Notification;
 using EcoPlatesMobile.Platforms.Android.Notification;
 using EcoPlatesMobile.Services;
+using Newtonsoft.Json.Linq;
 
 [assembly: Dependency(typeof(NotificationService))]
 namespace EcoPlatesMobile.Platforms.Android.Notification
@@ -14,7 +15,32 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
         {
             var context = global::Android.App.Application.Context;
 
-            var parsedObj = Newtonsoft.Json.JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(bodyJson); 
+            var jObject = JObject.Parse(bodyJson);
+            var notificationTypeValue = jObject["notificationType"]?.ToString();
+
+            if (!Enum.TryParse(notificationTypeValue, out NotificationType notificationType))
+            {
+                Console.WriteLine("Unknown notification type.");
+                return;
+            }
+
+            string strContent = string.Empty;
+            switch (notificationType)
+            {
+                case NotificationType.NEW_POSTER:
+                    var posterData = jObject.ToObject<NewPosterPushNotificationResponse>();
+                    strContent = posterData.new_poster_name;
+                    break;
+
+                case NotificationType.NEW_MESSAGE:
+                    var messageData = jObject.ToObject<NewMessagePushNotificationResponse>();
+                    strContent = messageData.message;
+                    break;
+
+                default:
+                    Console.WriteLine("Unhandled notification type.");
+                    break;
+            }
 
             var intent = new Intent(context, typeof(MainActivity));
             intent.PutExtra(Utilities.Constants.NOTIFICATION_TITLE, title);
@@ -30,7 +56,7 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
             var builder = new NotificationCompat.Builder(context, MainActivity.Channel_ID)
                 .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentTitle(title)
-                .SetContentText(parsedObj.new_poster_name)
+                .SetContentText(strContent)
                 .SetAutoCancel(true)
                 .SetContentIntent(pendingIntent)
                 .SetPriority((int)NotificationPriority.High);

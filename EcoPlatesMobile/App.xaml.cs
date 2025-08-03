@@ -1,4 +1,5 @@
-﻿using EcoPlatesMobile.Models.Responses.User;
+﻿using EcoPlatesMobile.Models.Responses.Notification;
+using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views;
@@ -42,13 +43,14 @@ namespace EcoPlatesMobile
             
             return new Window(new AppEntryShell());
         }
-         
+        
+        /*
         private void NotificationReceived(object sender, FCMNotificationReceivedEventArgs args)
         {
             string title = args.Notification.Title;
             string body = args.Notification.Body;
 
-            if (title == Constants.ROLE_USER /*&& userSessionService.Role == UserRole.User*/)
+            if (title == Constants.ROLE_USER && userSessionService.Role == UserRole.User)
             {
                 NewPosterPushNotificationResponse response = JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(body);
 
@@ -61,7 +63,8 @@ namespace EcoPlatesMobile
 
             }
         }
-        
+        */
+
         private void RegisterRoutes()
         {
             #region Entry pages

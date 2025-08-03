@@ -35,6 +35,7 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private ImageSource likeImage;
         private string CompanyPhone = "";
         private string CompanyImageUrl = "";
+        private string token_frb = "";
 
         bool likedProduct = false;
         [ObservableProperty] private bool isLoading;
@@ -85,6 +86,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     OldPrice = info.old_price.ToString() + " so'm";
                     NewPrice = info.new_price.ToString() + " so'm";
                     UserNeedToKnow = info.description;
+                    token_frb = info.token_frb;
 
                     if (info.ratingInfo != null)
                     {
@@ -152,7 +154,11 @@ namespace EcoPlatesMobile.ViewModels.User
                 ReceiverName = CompanyName,
                 ReceiverPhone = CompanyPhone,
                 ReceiverImage = CompanyImageUrl,
+                ReceiverFrbToken = token_frb,
                 SenderId = appControl.UserInfo.user_id,
+                SenderName = appControl.UserInfo.first_name,
+                SenderImage = appControl.UserInfo.profile_picture_url,
+                SenderPhone = appControl.UserInfo.phone_number,
                 SenderType = UserRole.User.ToString().ToUpper(),
                 ReceiverId = CompanyId,
                 ReceiverType = UserRole.Company.ToString().ToUpper(),

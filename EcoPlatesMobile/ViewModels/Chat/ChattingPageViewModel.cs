@@ -150,10 +150,15 @@ namespace EcoPlatesMobile.ViewModels.Chat
                 RegisterMessage message = new RegisterMessage()
                 {
                     sender_id = ChatPageModel.SenderId,
+                    sender_name = ChatPageModel.SenderName,
+                    sender_image = ChatPageModel.SenderImage,
                     sender_type = ChatPageModel.SenderType,
+                    sender_phone = ChatPageModel.SenderPhone,
+
                     receiver_id = ChatPageModel.ReceiverId,
                     receiver_type = ChatPageModel.ReceiverType,
                     receiver_phone = ChatPageModel.ReceiverPhone,
+                    receiver_token_frb = ChatPageModel.ReceiverFrbToken,
                     poster_id = ChatPageModel.PosterId,
                     reply_to_id = 0,
                     content = msg

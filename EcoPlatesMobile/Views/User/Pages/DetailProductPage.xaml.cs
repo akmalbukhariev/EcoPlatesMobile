@@ -43,6 +43,7 @@ public partial class DetailProductPage : BasePage
 
         fullImage.Source = viewModel.ProductImage;
         UpdateStars();
+        appControl.NotificationData = null;
     }
 
     private void UpdateStars()

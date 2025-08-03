@@ -18,6 +18,7 @@ namespace EcoPlatesMobile.Models.Responses.User
         public string telegram_link { get; set; }
         public string social_profile_link { get; set; }
         public string about { get; set; }
+        public string token_frb { get; set; }
 
         public long poster_id { get; set; }
         public string title { get; set; }

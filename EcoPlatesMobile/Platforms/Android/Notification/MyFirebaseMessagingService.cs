@@ -10,6 +10,7 @@ using AndroidX.Core.App;
 using Android.App;
 using Android.Content;
 using EcoPlatesMobile.Models.Responses.User;
+using EcoPlatesMobile.Services;
 
 
 namespace EcoPlatesMobile.Platforms.Android.Notification
@@ -21,13 +22,13 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
         public override void OnMessageReceived(RemoteMessage message)
         {
             base.OnMessageReceived(message);
+ 
+            bool isLoggedIn = AppService.Get<AppStoreService>().Get(AppKeys.IsLoggedIn, false);
+            if (!isLoggedIn) return;
 
             var title = message.Data["title"];
             var bodyJson = message.Data["body"];
-            
-            //var parsed = Newtonsoft.Json.JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(bodyJson);
-            //var newPosterName = parsed.new_poster_name;
-
+             
             new NotificationService().SendNotification(title, bodyJson);
         }
     }

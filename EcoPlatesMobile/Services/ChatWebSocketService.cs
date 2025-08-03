@@ -21,8 +21,8 @@ public class ChatWebSocketService
     public ChatWebSocketService()
     {
         //_baseUri = "ws://10.0.2.2:8085/ecoplateschatting/api/v1/chat-ws";
-        //_baseUri = $"ws://{Constants.IP}:8085/ecoplateschatting/api/v1/chat-ws"; //local pc
-        _baseUri = "ws://www.ecoplates.uz:8080/chatting/chat-ws";
+        _baseUri = $"ws://{Constants.IP}:8085/ecoplateschatting/api/v1/chat-ws"; //local pc
+        //_baseUri = "ws://www.ecoplates.uz:8080/chatting/chat-ws";
     }
 
     public void SetToken(string token)

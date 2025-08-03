@@ -1,4 +1,4 @@
-namespace EcoPlatesMobile.Models.Responses.User
+namespace EcoPlatesMobile.Models.Responses.Notification
 {
     public class NewPosterPushNotificationResponse
     {

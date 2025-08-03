@@ -10,9 +10,13 @@ namespace EcoPlatesMobile.Models.Chat
     {
         public long sender_id;
         public string sender_type;
+        public string sender_name;
+        public string sender_image;
+        public string sender_phone;
         public long receiver_id;
         public string receiver_type;
         public string receiver_phone;
+        public string receiver_token_frb;
         public long poster_id;
         public string content;
         public long reply_to_id;

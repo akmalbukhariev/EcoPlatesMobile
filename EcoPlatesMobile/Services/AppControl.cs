@@ -2,6 +2,7 @@
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
+using EcoPlatesMobile.Models.Responses.Notification;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Resources.Languages;
@@ -21,11 +22,13 @@ namespace EcoPlatesMobile.Services
         public bool RefreshUserProfilePage { get; set; } = true;
         public bool RefreshCompanyProfilePage { get; set; } = true;
         public bool IsPhoneNumberRegisterPage { get; set; } = true;
+        public bool IsNotificationHandled { get; set; } = false;
+        public NotificationData NotificationData { get; set; }
         public CompanyInfo CompanyInfo { get; set; }
         public UserInfo UserInfo { get; set; }
 
         public Location LocationForRegister { get; set; } = null;
-
+         public object NotificationSubscriber { get; set; }
         public Dictionary<string, string> BusinessTypeList = new Dictionary<string, string>
         {
             { AppResource.Restaurant, "RESTAURANT" },
@@ -131,7 +134,7 @@ namespace EcoPlatesMobile.Services
                 };
 
                 await Task.Delay(100);
-
+                
                 RefreshMainPage = true;
                 RefreshBrowserPage = true;
                 RefreshFavoriteCompany = true;
@@ -157,6 +160,14 @@ namespace EcoPlatesMobile.Services
 
             await companyApi.ClearTokenAsync();
 
+            if (NotificationSubscriber != null)
+            {
+                MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
+                    NotificationSubscriber,
+                    Constants.NOTIFICATION_BODY);
+                    NotificationSubscriber = null;
+            }
+
             Application.Current.MainPage = new AppEntryShell();
         }
 
@@ -175,6 +186,14 @@ namespace EcoPlatesMobile.Services
             store.Remove(AppKeys.PhoneNumber);
 
             await userApi.ClearTokenAsync();
+
+            if (NotificationSubscriber != null)
+            {
+                MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
+                    NotificationSubscriber,
+                    Constants.NOTIFICATION_BODY);
+                    NotificationSubscriber = null;
+            }
 
             Application.Current.MainPage = new AppEntryShell();
         }

@@ -31,10 +31,10 @@ public partial class ChattingPage : BasePage
     {
         base.OnAppearing();
 
-        this.BackgroundColor = userSessionService.Role == UserRole.User
-        ? Constants.COLOR_USER
-        : Constants.COLOR_COMPANY;
- 
+         this.BackgroundColor = userSessionService.Role == UserRole.User
+         ? Constants.COLOR_USER
+         : Constants.COLOR_COMPANY;
+
         if (userSessionService.Role == UserRole.User)
         {
             frameMessage.BorderColor = Constants.COLOR_USER;

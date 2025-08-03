@@ -38,8 +38,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
         }
 
         public async Task LoadUsersData()
-        {
-            //IsLoading = true;
+        {   
             IsRefreshing = true;
 
             try
@@ -72,10 +71,14 @@ namespace EcoPlatesMobile.ViewModels.Chat
                             {
                                 ReceiverName = item.first_name,
                                 ReceiverPhone = item.phone_number,
+                                ReceiverFrbToken = item.token_frb,
                                 ReceiverImage = appControl.GetImageUrlOrFallback(item.profile_picture_url),
 
                                 SenderId = appControl.CompanyInfo.company_id,
+                                SenderName = appControl.CompanyInfo.company_name,
+                                SenderImage = appControl.CompanyInfo.logo_url,
                                 SenderType = UserRole.Company.ToString().ToUpper(),
+                                SenderPhone = appControl.CompanyInfo.phone_number,
                                 ReceiverId = item.user_id,
                                 ReceiverType = UserRole.User.ToString().ToUpper(),
                             }
@@ -102,8 +105,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
         }
 
         public async Task LoadCompaniesData()
-        {
-            //IsLoading = true;
+        { 
             IsRefreshing = true;
 
             try
@@ -136,9 +138,13 @@ namespace EcoPlatesMobile.ViewModels.Chat
                             {
                                 ReceiverName = item.company_name,
                                 ReceiverPhone = item.phone_number,
-                                ReceiverImage = item.logo_url,
+                                ReceiverFrbToken = item.token_frb,
+                                ReceiverImage = appControl.GetImageUrlOrFallback(item.logo_url),
 
                                 SenderId = appControl.UserInfo.user_id,
+                                SenderName = appControl.UserInfo.first_name,
+                                SenderImage = appControl.UserInfo.profile_picture_url,
+                                SenderPhone = appControl.UserInfo.phone_number,
                                 SenderType = UserRole.User.ToString().ToUpper(),
                                 ReceiverId = item.company_id,
                                 ReceiverType = UserRole.Company.ToString().ToUpper(),

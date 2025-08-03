@@ -6,6 +6,10 @@ using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.ViewModels.Company;
+using EcoPlatesMobile.Models.Responses.Notification;
+using Newtonsoft.Json.Linq;
+using EcoPlatesMobile.Models.Chat;
+using EcoPlatesMobile.Views.Chat;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -46,23 +50,84 @@ public partial class ActiveProductPage : BasePage
         this.companyApiService = companyApiService;
         this.appControl = appControl;
 
+        appControl.NotificationSubscriber = this;
+        
+#if ANDROID
+        MessagingCenter.Subscribe<MainActivity, NotificationData>(appControl.NotificationSubscriber, Constants.NOTIFICATION_BODY, OnNotificationReceived);
+#endif
+
         this.BindingContext = viewModel;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-    
+
         Shell.SetTabBarIsVisible(this, ShowTabBar);
 
         header.ShowBack = ShowBack;
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
-        await viewModel.LoadInitialAsync();
+        if (!isWifiOn) return;
+
+        if (appControl.NotificationData != null && appControl.NotificationData.body != string.Empty)
+        {
+            await MoveToPageUsingNotification(appControl.NotificationData);
+        }
+        else
+        {
+            await viewModel.LoadInitialAsync();
+        }
     }
-     
+
+#if ANDROID
+    private async void OnNotificationReceived(MainActivity sender, NotificationData notificationData)
+    {
+        await MoveToPageUsingNotification(notificationData);
+    }
+#endif
+
+    private async Task MoveToPageUsingNotification(NotificationData notificationData)
+    {
+        var jObject = JObject.Parse(notificationData.body);
+        var notificationTypeValue = jObject["notificationType"]?.ToString();
+
+        appControl.NotificationData = null;
+        if (!Enum.TryParse(notificationTypeValue, out NotificationType notificationType))
+        {
+            Console.WriteLine("Unknown notification type.");
+            return;
+        }
+
+        switch (notificationType)
+        {
+            case NotificationType.NEW_MESSAGE:
+                var messageData = jObject.ToObject<NewMessagePushNotificationResponse>();
+                ChatPageModel chatPageModel = new ChatPageModel()
+                {
+                    ReceiverName = messageData.sender_name,
+                    ReceiverPhone = messageData.sender_phone,
+                    ReceiverImage = messageData.sender_image,
+
+                    SenderId = messageData.receiver_id,
+                    SenderType = messageData.receiver_type,
+                    ReceiverId = messageData.sender_id,
+                    ReceiverType = messageData.sender_type,
+                };
+
+                await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
+                {
+                    ["ChatPageModel"] = chatPageModel
+                });
+
+                break;
+
+            default:
+                Console.WriteLine("Unhandled notification type.");
+                break;
+        }
+    }
+
     private async void EditProduct_Invoked(object sender, EventArgs e)
     {
         if (sender is SwipeItem swipeItem &&
