@@ -57,7 +57,8 @@
                                  IsVisible="False"/>
                 </Grid>
             </Border>
-            <Image Source="search.png"
+            <Image x:Name="imSearch" 
+                   Source="search.png"
                    Aspect="AspectFit"
                    WidthRequest="20"
                    Margin="0,0,10,0"

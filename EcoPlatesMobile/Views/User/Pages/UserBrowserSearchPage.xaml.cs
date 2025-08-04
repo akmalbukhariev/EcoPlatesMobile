@@ -8,14 +8,18 @@ public partial class UserBrowserSearchPage : BasePage
 {
     private UserBrowserSearchPageViewModel viewModel;
     private AppControl appControl;
-	public UserBrowserSearchPage(UserBrowserSearchPageViewModel vm, AppControl appControl)
+    private IKeyboardHelper keyboardHelper;
+    public UserBrowserSearchPage(UserBrowserSearchPageViewModel vm, AppControl appControl, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
         this.viewModel = vm;
         this.appControl = appControl;
+        this.keyboardHelper = keyboardHelper;
 
         BindingContext = viewModel;
+        
+        entrySearch.Completed += Entry_Completed;
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
@@ -37,12 +41,19 @@ public partial class UserBrowserSearchPage : BasePage
         viewModel.ShowRecentSearchList = true;
     }
 
+    private void Entry_Completed(object sender, EventArgs e)
+    {
+        Search_Tapped(imSearch, null); 
+    }
+
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
+        keyboardHelper.HideKeyboard();
+
         await AnimateElementScaleDown(sender as Image);
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
+        if (!isWifiOn) return;
 
         viewModel.ShowCompanyResult = true;
         viewModel.ShowFilterSearchList = false;

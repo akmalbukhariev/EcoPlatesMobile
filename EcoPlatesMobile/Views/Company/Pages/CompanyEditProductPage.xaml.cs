@@ -26,13 +26,15 @@ public partial class CompanyEditProductPage : BasePage
      
     private CompanyApiService companyApiService;
     private AppControl appControl;
+    private IKeyboardHelper keyboardHelper;
 
-    public CompanyEditProductPage(CompanyApiService companyApiService, AppControl appControl)
+    public CompanyEditProductPage(CompanyApiService companyApiService, AppControl appControl, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
         this.companyApiService = companyApiService;
         this.appControl = appControl;
+        this.keyboardHelper = keyboardHelper;
     }
 
     protected override void OnAppearing()
@@ -109,6 +111,8 @@ public partial class CompanyEditProductPage : BasePage
 
     private async void BtnUpdate_Clicked(object sender, EventArgs e)
     {
+        keyboardHelper.HideKeyboard();
+        
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
 

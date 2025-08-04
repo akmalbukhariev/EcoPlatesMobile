@@ -22,18 +22,22 @@ public partial class UserRegistrationPage : BasePage
     private UserApiService userApiService;
     private AppControl appControl;
     private LocationService locationService;
+    private IKeyboardHelper keyboardHelper;
 
-    public UserRegistrationPage(UserApiService userApiService, AppControl appControl, LocationService locationService)
+    public UserRegistrationPage(UserApiService userApiService, AppControl appControl, LocationService locationService, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
         this.userApiService = userApiService;
         this.appControl = appControl;
         this.locationService = locationService;
+        this.keyboardHelper = keyboardHelper;
     }
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)
     {
+        keyboardHelper.HideKeyboard();
+        
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
         

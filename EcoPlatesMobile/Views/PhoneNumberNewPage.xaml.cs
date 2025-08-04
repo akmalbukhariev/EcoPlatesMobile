@@ -14,9 +14,14 @@ public partial class PhoneNumberNewPage : BasePage
     private UserApiService userApiService;
     private CompanyApiService companyApiService;
     private AppControl appControl;
+    private IKeyboardHelper keyboardHelper;
 
     private const int MaxPhoneLength = 9;
-    public PhoneNumberNewPage(UserSessionService userSessionService, UserApiService userApiService, CompanyApiService companyApiService, AppControl appControl)
+    public PhoneNumberNewPage(UserSessionService userSessionService,
+                              UserApiService userApiService,
+                              CompanyApiService companyApiService,
+                              AppControl appControl,
+                              IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
@@ -24,6 +29,7 @@ public partial class PhoneNumberNewPage : BasePage
         this.userApiService = userApiService;
         this.companyApiService = companyApiService;
         this.appControl = appControl;
+        this.keyboardHelper = keyboardHelper;
 
         if (userSessionService.Role == UserRole.User)
         {
@@ -79,6 +85,8 @@ public partial class PhoneNumberNewPage : BasePage
 
     private async void Continue_Clicked(object sender, EventArgs e)
     {
+        keyboardHelper.HideKeyboard();
+        
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
         

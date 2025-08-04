@@ -26,8 +26,13 @@ public partial class AuthorizationPage : BasePage
     private UserApiService userApiService;
     private UserSessionService userSessionService;
 	private AppControl appControl;
+	private IKeyboardHelper keyboardHelper;
 
-	public AuthorizationPage(UserSessionService userSessionService, CompanyApiService companyApiService, UserApiService userApiService, AppControl appControl)
+	public AuthorizationPage(UserSessionService userSessionService,
+							 CompanyApiService companyApiService,
+							 UserApiService userApiService,
+							 AppControl appControl,
+							 IKeyboardHelper keyboardHelper)
 	{
 		InitializeComponent();
 
@@ -35,27 +40,33 @@ public partial class AuthorizationPage : BasePage
 		this.companyApiService = companyApiService;
 		this.userApiService = userApiService;
 		this.appControl = appControl;
+		this.keyboardHelper = keyboardHelper;
 
-        #region 
-        // number1.NextEntry = number2;
-        // number2.PreviousEntry = number1;
-        // number2.NextEntry = number3;
-        // number3.PreviousEntry = number2;
-        // number3.NextEntry = number4;
-        // number4.PreviousEntry = number3;
-        #endregion
+		#region 
+		// number1.NextEntry = number2;
+		// number2.PreviousEntry = number1;
+		// number2.NextEntry = number3;
+		// number3.PreviousEntry = number2;
+		// number3.NextEntry = number4;
+		// number4.PreviousEntry = number3;
+		#endregion
 
-        if (userSessionService.Role == UserRole.User)
-        {
-            header.HeaderBackground = btnNext.BackgroundColor = Constants.COLOR_USER;
-        }
-    }
+		if (userSessionService.Role == UserRole.User)
+		{
+			header.HeaderBackground = btnNext.BackgroundColor = Constants.COLOR_USER;
+		}
+		else
+		{
+			loading.ChangeColor(Constants.COLOR_COMPANY);
+		}
+	}
 
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
 		lbTitle.Text = $"{AppResource.Please}, {_phoneNumber} {AppResource.ConfirmTitle}";
 
+		 
 		/*
 		 * Use phone verification API
 		 */
@@ -63,6 +74,8 @@ public partial class AuthorizationPage : BasePage
 
 	private async void ButtonNext_Clicked(object sender, EventArgs e)
 	{
+		keyboardHelper.HideKeyboard();
+		
 		bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
 

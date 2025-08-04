@@ -16,7 +16,7 @@ public partial class TypeItem : ObservableObject
 
     public TypeItem()
     {
-        Type = BusinessType.RESTAURANT;
+        Type = BusinessType.SUPERMARKET;
         Unclick();
     }
 
@@ -44,11 +44,11 @@ public partial class CompanyTypeListView : ContentView
         
         Items = new ObservableCollection<TypeItem>
         {
+            new TypeItem { Name = AppResource.Supermarket, Image = "market.png", Type = BusinessType.SUPERMARKET },
             new TypeItem { Name = AppResource.Restaurant, Image = "restaurant.png", Type = BusinessType.RESTAURANT },
             new TypeItem { Name = AppResource.Bakery, Image = "bakery.png", Type = BusinessType.BAKERY },
             new TypeItem { Name = AppResource.FastFood, Image = "fast_food.png", Type = BusinessType.FAST_FOOD },
             new TypeItem { Name = AppResource.Cafe, Image = "cafe.png", Type = BusinessType.CAFE },
-            new TypeItem { Name = AppResource.Supermarket, Image = "market.png", Type = BusinessType.SUPERMARKET }
         };
         Items[0].Click();
 

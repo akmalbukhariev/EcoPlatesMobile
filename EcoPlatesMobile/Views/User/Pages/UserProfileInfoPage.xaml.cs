@@ -15,13 +15,15 @@ public partial class UserProfileInfoPage : BasePage
 
     private AppControl appControl;
     private UserApiService userApiService;
-    public UserProfileInfoPage(AppControl appControl, UserApiService userApiService)
-	{
-		InitializeComponent();
+    private IKeyboardHelper keyboardHelper;
+    public UserProfileInfoPage(AppControl appControl, UserApiService userApiService, IKeyboardHelper keyboardHelper)
+    {
+        InitializeComponent();
 
         this.appControl = appControl;
         this.userApiService = userApiService;
-	}
+        this.keyboardHelper = keyboardHelper;
+    }
 
     protected override void OnAppearing()
     {
@@ -99,6 +101,8 @@ public partial class UserProfileInfoPage : BasePage
 
     private async void Done_Clicked(object sender, EventArgs e)
     {
+        keyboardHelper.HideKeyboard();
+        
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
 

@@ -143,6 +143,12 @@ public partial class CustomEntry : ContentView
         BindingContext = this;
     }
 
+    public async Task UnFocus()
+    {
+        await Task.Delay(100);
+        customEntry.Unfocus();
+    }
+    
     private void CustomEntry_TextChanged(object? sender, TextChangedEventArgs e)
     {
         string newText = e.NewTextValue ?? "";
@@ -168,7 +174,7 @@ public partial class CustomEntry : ContentView
             EntryBackgroundColor = Colors.White;
         }
 
-        if(IsPhoneNumber)
+        if (IsPhoneNumber)
         {
             string digitsOnly = new string(newText.Where(char.IsDigit).ToArray());
 

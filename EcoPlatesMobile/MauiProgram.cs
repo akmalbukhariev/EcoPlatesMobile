@@ -106,6 +106,7 @@ namespace EcoPlatesMobile
 #if ANDROID
             builder.Services.AddSingleton<IStatusBarService, StatusBarService>();
             builder.Services.AddSingleton<INotificationService, NotificationService>();
+            builder.Services.AddSingleton<IKeyboardHelper, KeyboardHelper>();
 #endif
         }
 

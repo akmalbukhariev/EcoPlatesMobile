@@ -47,7 +47,7 @@ public partial class UserMainPage : BasePage
         
         if (typeItem == null)
         {
-            viewModel.BusinessType = Utilities.BusinessType.RESTAURANT;
+            viewModel.BusinessType = Utilities.BusinessType.SUPERMARKET;
         }
         else
         {

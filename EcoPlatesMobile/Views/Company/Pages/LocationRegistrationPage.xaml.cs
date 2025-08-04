@@ -12,7 +12,7 @@ public partial class LocationRegistrationPage : BasePage
 {
     private AppControl appControl;
     private LocationService locationService;
-
+     
     public LocationRegistrationPage(AppControl appControl, LocationService locationService)
     {
         InitializeComponent();

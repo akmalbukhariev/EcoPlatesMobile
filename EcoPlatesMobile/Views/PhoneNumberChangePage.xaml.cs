@@ -8,14 +8,16 @@ public partial class PhoneNumberChangePage : BasePage
 {
     private AppControl appControl;
     UserSessionService userSessionService;
+    private IKeyboardHelper keyboardHelper;
 
-    public PhoneNumberChangePage(UserSessionService userSessionService, AppControl appControl)
-	{
-		InitializeComponent();
+    public PhoneNumberChangePage(UserSessionService userSessionService, AppControl appControl, IKeyboardHelper keyboardHelper)
+    {
+        InitializeComponent();
 
         this.userSessionService = userSessionService;
         this.appControl = appControl;
-         
+        this.keyboardHelper = keyboardHelper;
+
         if (userSessionService.Role == UserRole.User)
         {
             header.HeaderBackground = Constants.COLOR_USER;
@@ -30,6 +32,7 @@ public partial class PhoneNumberChangePage : BasePage
 
     private async void Next_Clicked(object sender, EventArgs e)
     {
+        //keyboardHelper.HideKeyboard();
         await AppNavigatorService.NavigateTo(nameof(PhoneNumberNewPage));
     }
 }

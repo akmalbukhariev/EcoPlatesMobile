@@ -33,11 +33,17 @@ public partial class CompanyRegistrationPage : BasePage
     private CompanyApiService companyApiService;
     private AppControl appControl;
     private LocationService locationService;
-
-    public CompanyRegistrationPage(CompanyApiService companyApiService, AppControl appControl, LocationService locationService)
+    private IKeyboardHelper keyboardHelper;
+    
+    public CompanyRegistrationPage(CompanyApiService companyApiService, AppControl appControl, LocationService locationService, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
-
+ 
+        this.appControl = appControl;
+        this.companyApiService = companyApiService;
+        this.locationService = locationService;
+        this.keyboardHelper = keyboardHelper;
+ 
         CompanyTypeList = new ObservableCollection<CompanyTypeModel>(
             appControl.BusinessTypeList.Select(kvp => new CompanyTypeModel
             {
@@ -47,16 +53,12 @@ public partial class CompanyRegistrationPage : BasePage
         );
 
         pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
-
-        this.appControl = appControl;
-        this.companyApiService = companyApiService;
-        this.locationService = locationService;
-
+ 
         startTimePicker.Time = new TimeSpan(9, 0, 0);
         endTimePicker.Time = new TimeSpan(18, 0, 0);
 
         loading.ChangeColor(Constants.COLOR_COMPANY);
-        
+
         BindingContext = this;
     }
 
@@ -143,6 +145,8 @@ public partial class CompanyRegistrationPage : BasePage
 
     private async void BtnRegister_Clicked(object sender, EventArgs e)
     {
+        keyboardHelper.HideKeyboard();
+        
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
         

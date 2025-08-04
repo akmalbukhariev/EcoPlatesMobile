@@ -16,13 +16,15 @@ public partial class CompanyProfileInfoPage : BasePage
 
     private AppControl appControl;
     private CompanyApiService companyApiService;
+    private IKeyboardHelper keyboardHelper;
 
-    public CompanyProfileInfoPage(CompanyApiService companyApiService, AppControl appControl)
+    public CompanyProfileInfoPage(CompanyApiService companyApiService, AppControl appControl, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
         this.companyApiService = companyApiService;
         this.appControl = appControl;
+        this.keyboardHelper = keyboardHelper;
 
         pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
 
@@ -141,6 +143,8 @@ public partial class CompanyProfileInfoPage : BasePage
 
     private async void Done_Clicked(object sender, EventArgs e)
     {
+        keyboardHelper.HideKeyboard();
+        
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
         

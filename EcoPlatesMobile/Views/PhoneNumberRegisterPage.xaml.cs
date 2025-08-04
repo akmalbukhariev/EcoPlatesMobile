@@ -18,8 +18,13 @@ public partial class PhoneNumberRegisterPage : BasePage
     private CompanyApiService companyApiService;
     private UserApiService userApiService;
     private AppControl appControl;
-
-    public PhoneNumberRegisterPage(UserSessionService userSessionService, CompanyApiService companyApiService, UserApiService userApiService, AppControl appControl)
+    private IKeyboardHelper keyboardHelper;
+    
+    public PhoneNumberRegisterPage(UserSessionService userSessionService,
+                                    CompanyApiService companyApiService,
+                                    UserApiService userApiService,
+                                    AppControl appControl,
+                                    IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
@@ -27,13 +32,14 @@ public partial class PhoneNumberRegisterPage : BasePage
         this.companyApiService = companyApiService;
         this.userApiService = userApiService;
         this.appControl = appControl;
+        this.keyboardHelper = keyboardHelper;
 
         if (userSessionService.Role == UserRole.User)
         {
             header.HeaderBackground = btnNext.BackgroundColor = Constants.COLOR_USER;
             loading.ChangeColor(Constants.COLOR_USER);
         }
-        else 
+        else
         {
             loading.ChangeColor(Constants.COLOR_COMPANY);
         }
@@ -46,7 +52,10 @@ public partial class PhoneNumberRegisterPage : BasePage
     }
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)
-    { 
+    {
+        //await entryNumber.UnFocus();
+        keyboardHelper.HideKeyboard();
+        
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
         
