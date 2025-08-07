@@ -8,11 +8,12 @@ using Newtonsoft.Json;
 using System.Linq;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
- 
+
 public partial class CompanyProfileInfoPage : BasePage
 {
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
+    private bool isPageLoaded = false;
 
     private AppControl appControl;
     private CompanyApiService companyApiService;
@@ -39,6 +40,7 @@ public partial class CompanyProfileInfoPage : BasePage
         fullImage.Source = appControl.CompanyInfo.logo_url;
         entryCompanyName.Text = appControl.CompanyInfo.company_name;
         lbPhoneNUmber.Text = appControl.CompanyInfo.phone_number;
+        notification.IsToggled = appControl.CompanyInfo.notification_enabled;
 
         string[] times = appControl.CompanyInfo.working_hours.Split(" - ");
         if (times.Length == 2)
@@ -54,13 +56,15 @@ public partial class CompanyProfileInfoPage : BasePage
                 Console.WriteLine("Invalid time format received from server.");
             }
         }
-        
+
         var selectedItem = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(kvp => kvp.Value == appControl.CompanyInfo.business_type).Key;
 
         if (selectedItem != null)
         {
             pickType.SelectedItem = selectedItem;
         }
+
+        isPageLoaded = true;
     }
 
     private async void BorderImage_Tapped(object sender, TappedEventArgs e)
@@ -81,7 +85,7 @@ public partial class CompanyProfileInfoPage : BasePage
     private async void ChangeImage_Clicked(object sender, EventArgs e)
     {
         string action = await DisplayActionSheet(AppResource.ChooseOption,
-                                                 AppResource.Cancel, null, 
+                                                 AppResource.Cancel, null,
                                                  AppResource.SelectGallery,
                                                  AppResource.TakePhoto);
 
@@ -129,7 +133,7 @@ public partial class CompanyProfileInfoPage : BasePage
 
             imCompany.Source = ImageSource.FromFile(localFilePath);
             fullImage.Source = imCompany.Source;
- 
+
             imageStream = File.OpenRead(localFilePath);
 
             isNewImageSelected = true;
@@ -144,10 +148,10 @@ public partial class CompanyProfileInfoPage : BasePage
     private async void Done_Clicked(object sender, EventArgs e)
     {
         keyboardHelper.HideKeyboard();
-        
+
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         try
         {
             string enteredName = entryCompanyName.Text?.Trim();
@@ -185,6 +189,7 @@ public partial class CompanyProfileInfoPage : BasePage
                     { "company_name", enteredName },
                     { "business_type", appControl.BusinessTypeList[selectedType] },
                     { "working_hours",  formattedWorkingHours},
+                    { "notification_enabled", notification.IsToggled.ToString() }
                 };
 
                 if (!isNewImageSelected)
@@ -252,19 +257,59 @@ public partial class CompanyProfileInfoPage : BasePage
         string selectedDisplay = pickType.SelectedItem as string;
         if (selectedDisplay != null && appControl.BusinessTypeList.TryGetValue(selectedDisplay, out var backendValue))
         {
-             
+
+        }
+    }
+
+    private async void Notitifation_Toggled(object sender, ToggledEventArgs e)
+    {
+        if (!isPageLoaded) return;
+
+        keyboardHelper.HideKeyboard();
+
+        bool isWifiOn = await appControl.CheckWifi();
+        if (!isWifiOn) return;
+
+        try
+        {
+            var additionalData = new Dictionary<string, string>
+            {
+                { "company_id", appControl.CompanyInfo.company_id.ToString() },
+                { "notification_enabled", notification.IsToggled.ToString() }
+            };
+
+            loading.ShowLoading = true;
+
+            Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
+
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                appControl.RefreshCompanyProfilePage = true;
+            }
+            else
+            {
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            loading.ShowLoading = false;
         }
     }
 
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
-                                AppResource.Yes,AppResource.No
+                                AppResource.Yes, AppResource.No
                             );
         if (!answer) return;
 

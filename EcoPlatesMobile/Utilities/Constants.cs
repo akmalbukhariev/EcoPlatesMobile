@@ -15,8 +15,8 @@ namespace EcoPlatesMobile.Utilities
         //public const string BASE_COMPANY_URL = "http://www.ecoplates.uz:8080/company/";
         public const string BASE_COMPANY_URL = $"http://{IP}:8081";
 
-        public const string BASE_CHAT_URL = "http://www.ecoplates.uz:8080/chatting/";
-        //public const string BASE_CHAT_URL = $"http://{IP}:8085";
+        //public const string BASE_CHAT_URL = "http://www.ecoplates.uz:8080/chatting/";
+        public const string BASE_CHAT_URL = $"http://{IP}:8085";
 
         public static readonly string Version = AppInfo.Current.VersionString;     // e.g., "1.0"
         public static readonly string Build = AppInfo.Current.BuildString;         // e.g., "1.0.0"

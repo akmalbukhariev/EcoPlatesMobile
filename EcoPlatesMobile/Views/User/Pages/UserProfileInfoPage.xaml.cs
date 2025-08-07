@@ -16,6 +16,8 @@ public partial class UserProfileInfoPage : BasePage
     private AppControl appControl;
     private UserApiService userApiService;
     private IKeyboardHelper keyboardHelper;
+    private bool isPageLoaded = false;
+
     public UserProfileInfoPage(AppControl appControl, UserApiService userApiService, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
@@ -28,11 +30,14 @@ public partial class UserProfileInfoPage : BasePage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        
+
         imUser.Source = appControl.UserInfo.profile_picture_url;
         fullImage.Source = appControl.UserInfo.profile_picture_url;
         entryUserName.Text = appControl.UserInfo.first_name;
         lbPhoneNumber.Text = appControl.UserInfo.phone_number;
+        notification.IsToggled = appControl.UserInfo.notification_enabled;
+        
+        isPageLoaded = true;
     }
 
     private async void BorderImage_Tapped(object sender, TappedEventArgs e)
@@ -187,11 +192,51 @@ public partial class UserProfileInfoPage : BasePage
         fullImage.IsVisible = false;
     }
 
+    private async void Notitifation_Toggled(object sender, ToggledEventArgs e)
+    {
+        if (!isPageLoaded) return;
+
+        keyboardHelper.HideKeyboard();
+
+        bool isWifiOn = await appControl.CheckWifi();
+        if (!isWifiOn) return;
+
+        try
+        {
+            var additionalData = new Dictionary<string, string>
+            {
+                { "user_id", appControl.UserInfo.user_id.ToString() },
+                { "notification_enabled", notification.IsToggled.ToString() }
+            };
+
+            loading.ShowLoading = true;
+
+            Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
+
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                appControl.RefreshUserProfilePage = true;
+            }
+            else
+            {
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            loading.ShowLoading = false;
+        }
+    }
+
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,

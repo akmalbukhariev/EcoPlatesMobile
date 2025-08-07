@@ -218,6 +218,7 @@ public partial class LocationSettingPage : BasePage
 
     private async void Close_Tapped(object sender, TappedEventArgs e)
     {
+        await bottomSheet.DismissAsync();
         await AppNavigatorService.NavigateTo("..");
     }
 }

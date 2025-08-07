@@ -26,17 +26,8 @@ namespace EcoPlatesMobile
 
             RegisterRoutes();
             Setting();
-
-            //CrossFirebaseCloudMessaging.Current.NotificationReceived += NotificationReceived;
-            //CrossFirebaseCloudMessaging.Current.NotificationTapped += Current_NotificationTapped;
         }
-
-        private void Current_NotificationTapped(object? sender, FCMNotificationTappedEventArgs e)
-        {
-            string sBody = e.Notification.Body;
-            int g = 0;
-        }
-
+  
         protected override Window CreateWindow(IActivationState? activationState)
         {
             AppService.Get<LanguageService>().Init();

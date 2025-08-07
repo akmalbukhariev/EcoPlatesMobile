@@ -25,6 +25,7 @@ namespace EcoPlatesMobile.Models.User
         public int radius_km{ get; set; }
         public string email { get; set; } = string.Empty;
         public string status { get; set; } = string.Empty;
+        public bool notification_enabled { get; set; }
 
         [JsonProperty("created_at")]
         [JsonConverter(typeof(FlexibleDateTimeConverter))]

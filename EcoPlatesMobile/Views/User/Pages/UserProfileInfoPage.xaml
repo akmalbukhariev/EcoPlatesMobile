@@ -40,8 +40,7 @@
                             StrokeThickness="0.2"
                             BackgroundColor="White"
                             Margin="10,0,10,0">
-                        <Grid RowDefinitions="Auto, 1, Auto, 10"
-                              RowSpacing="10"
+                        <Grid RowDefinitions="60, 1, 60, 1, 60, 1"
                               Margin="10">
                             <Entry x:Name="entryUserName" 
                                    Placeholder="{x:Static language:AppResource.UserName}"
@@ -76,6 +75,40 @@
                                        WidthRequest="20"
                                        HeightRequest="20"
                                        Grid.Column="2"/>
+                            </Grid>
+                            <BoxView BackgroundColor="LightGray" Grid.Row="3"/>
+                            <Grid ColumnDefinitions="Auto, *, 20"
+                                  Grid.Row="4">
+                                <Label Text="In-app Notifications"
+                                       TextColor="Black"
+                                       FontSize="17"
+                                       FontFamily="Roboto"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center"/>
+                                <Switch x:Name="notification"
+                                        OnColor="#FF9FCD9F"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center"
+                                        Scale="1.5"
+                                        Toggled="Notitifation_Toggled"
+                                        Grid.Column="1">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroupList>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="On">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="ThumbColor" Value="{StaticResource User}"/>
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                                <VisualState x:Name="Off">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="ThumbColor" Value="{StaticResource User}"/>
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateGroupList>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Switch>
                             </Grid>
                         </Grid>
                     </Border>

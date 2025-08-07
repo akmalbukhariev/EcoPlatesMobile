@@ -6,12 +6,21 @@
                    xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
                    BackgroundColor="Transparent">
 
-    <Border BackgroundColor="White" HeightRequest="135">
+    <Border BackgroundColor="White" HeightRequest="150">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="20,20,0,0" />
+            <RoundRectangle CornerRadius="25,25,0,0" />
         </Border.StrokeShape>
-        <VerticalStackLayout Spacing="10"
+        <VerticalStackLayout Spacing="5"
                              Margin="20,0,20,0">
+            <Border BackgroundColor="LightGray"
+                    Margin="0,5,0,0"
+                    HeightRequest="4"
+                    WidthRequest="60"
+                    HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+            </Border>
             <Label Text="{x:Static language:AppResource.SelectDistance}"
                    FontSize="16"
                    FontFamily="Roboto"
@@ -44,6 +53,7 @@
             <Button Text="{x:Static language:AppResource.ShowResult}"
                     BackgroundColor="#004d40"
                     Style="{StaticResource StyleBigButton}"
+                    Margin="0,5,0,0"
                     CornerRadius="25"
                     HeightRequest="45"
                     Clicked="ShowResults_Clicked"/>

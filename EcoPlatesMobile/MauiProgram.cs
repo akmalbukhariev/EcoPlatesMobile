@@ -16,7 +16,6 @@ using Plugin.Firebase.CloudMessaging;
 using EcoPlatesMobile.Platforms.Android.Notification;
 
 
-
 //using Plugin.LocalNotification;
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;
