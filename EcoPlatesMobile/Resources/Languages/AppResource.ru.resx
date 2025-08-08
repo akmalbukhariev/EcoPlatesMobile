@@ -769,7 +769,11 @@
   <value>Введите имя</value>
   <comment>UserProfileInfoPage</comment>
 </data>
-	<data name="Register" xml:space="preserve">
+<data name="InAppNotification" xml:space="preserve">
+  <value>Уведомление</value>
+  <comment>UserProfileInfoPage</comment>
+</data>
+<data name="Register" xml:space="preserve">
   <value>Регистрация</value>
   <comment>UserRegistrationPage</comment>
 </data>

@@ -770,6 +770,11 @@
     <value>Enter name</value>
     <comment>UserProfileInfoPage</comment>
   </data>
+  <data name="InAppNotification" xml:space="preserve">
+    <value>In-app Notifications</value>
+    <comment>UserProfileInfoPage</comment>
+  </data>
+
   <data name="Register" xml:space="preserve">
     <value>Register</value>
     <comment>UserRegistrationPage</comment>

@@ -765,11 +765,15 @@
   <value>Foydalanuvchi ismi</value>
   <comment>UserProfileInfoPage</comment>
 </data>
-	<data name="EnterName" xml:space="preserve">
+<data name="EnterName" xml:space="preserve">
   <value>Ismingizni kiriting</value>
   <comment>UserProfileInfoPage</comment>
 </data>
-	<data name="Register" xml:space="preserve">
+<data name="InAppNotification" xml:space="preserve">
+  <value>Bildirishnoma</value>
+  <comment>UserProfileInfoPage</comment>
+</data>
+<data name="Register" xml:space="preserve">
   <value>Ro‘yxatdan o‘tish</value>
   <comment>UserRegistrationPage</comment>
 </data>

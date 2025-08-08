@@ -79,7 +79,7 @@
                             <BoxView BackgroundColor="LightGray" Grid.Row="3"/>
                             <Grid ColumnDefinitions="Auto, *, 20"
                                   Grid.Row="4">
-                                <Label Text="In-app Notifications"
+                                <Label Text="{x:Static language:AppResource.InAppNotification}"
                                        TextColor="Black"
                                        FontSize="17"
                                        FontFamily="Roboto"

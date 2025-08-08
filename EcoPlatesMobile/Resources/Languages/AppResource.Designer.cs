@@ -736,6 +736,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In-app Notifications.
+        /// </summary>
+        internal static string InAppNotification {
+            get {
+                return ResourceManager.GetString("InAppNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Info.
         /// </summary>
         internal static string Info {
