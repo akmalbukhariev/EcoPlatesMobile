@@ -13,8 +13,8 @@ namespace EcoPlatesMobile.Services.Api
 {
     public class ChatApiService : ApiService
     {
-        //private const string BASE_URL = "";
-        private const string BASE_URL = "ecoplateschatting/api/v1/";
+        private const string BASE_URL = "";
+        //private const string BASE_URL = "ecoplateschatting/api/v1/";
         private const string GET_MESSAGE_HISTORY = $"{BASE_URL}chat/getChatHistory";
         private const string GET_SENDER_ID_LIST_WITH_UNREAD_INFO = $"{BASE_URL}chat/getSendersWithUnread";
 

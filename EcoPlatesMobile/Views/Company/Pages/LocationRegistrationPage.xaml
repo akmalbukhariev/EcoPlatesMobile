@@ -12,25 +12,31 @@
         <Grid ColumnDefinitions="Auto, *, Auto"
               BackgroundColor="{StaticResource Company}"
               HeightRequest="60">
-            <Image x:Name="imBack" 
-                   Source="back.png"
-                   WidthRequest="24"
-                   HeightRequest="24"
-                   Margin="16, 4.44, 0, 0">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Back_Tapped"
-                                          NumberOfTapsRequired="1"/>
-                </Image.GestureRecognizers>
-            </Image>
+            <Grid WidthRequest="35"
+                  HeightRequest="35"
+                  VerticalOptions="Center"  
+                  HorizontalOptions="Start"
+                  Margin="16, 4.44, 0, 0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Back_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Image x:Name="imBack"
+                       Source="back.png"
+                       VerticalOptions="Center"
+                       WidthRequest="16"
+                       HeightRequest="16"/>
+            </Grid> 
             <Label x:Name="lbTitle"
-                   Text="{x:Static language:AppResource.SettingCurrentLocation}"
+                   Text="{x:Static language:AppResource.SpecifyYourWorkLocation}"
                    TextColor="White"
                    FontSize="18"
+                   FontFamily="Roboto"
                    VerticalOptions="Center"
-                   HorizontalOptions="Start"
+                   HorizontalOptions="Center"
                    Margin="15,0,0,0"
                    Grid.Column="1"/>
-            <Image x:Name="imSave" 
+            <Image x:Name="imSave"
                    Source="save_location.png"
                    WidthRequest="30"
                    HeightRequest="30"

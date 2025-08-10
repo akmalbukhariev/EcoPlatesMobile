@@ -16,6 +16,7 @@
                        FontAttributes="Bold"
                        FontSize="15"
                        FontFamily="Roboto"
+                       HorizontalTextAlignment="Center"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"/>
             </Grid>

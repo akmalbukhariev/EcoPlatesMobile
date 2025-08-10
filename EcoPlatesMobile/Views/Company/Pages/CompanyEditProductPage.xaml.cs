@@ -6,6 +6,7 @@ using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
+using System.Globalization;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -35,6 +36,11 @@ public partial class CompanyEditProductPage : BasePage
         this.companyApiService = companyApiService;
         this.appControl = appControl;
         this.keyboardHelper = keyboardHelper;
+
+        entryProductName.SetMaxLength(30);
+        entryOldPrice.MaxLength = 8;
+        entryNewPrice.MaxLength = 8;
+        editorDescription.MaxLength = 150;
     }
 
     protected override void OnAppearing()
@@ -48,8 +54,8 @@ public partial class CompanyEditProductPage : BasePage
             imSelectedProduct.Source = ProductModel.ProductImage;
             fullImage.Source = ProductModel.ProductImage;
             entryProductName.SetEntryText(ProductModel.ProductName);
-            entryNewPrice.Text = ProductModel.NewPriceDigit.ToString();
-            entryOldPrice.Text = ProductModel.OldPriceDigit.ToString();
+            entryNewPrice.Text = (ProductModel.NewPriceDigit ?? 0m).ToString("0.######", CultureInfo.InvariantCulture).Replace(".", "");
+            entryOldPrice.Text = (ProductModel.OldPriceDigit ?? 0m).ToString("0.######", CultureInfo.InvariantCulture).Replace(".", "");
             editorDescription.Text = ProductModel.description;
         }
     }

@@ -11,6 +11,12 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
 {
     public class NotificationService : INotificationService
     {
+        private UserSessionService userSessionService;
+        public NotificationService()
+        {
+            this.userSessionService = AppService.Get<UserSessionService>();
+        }
+
         public void SendNotification(string title, string bodyJson)
         {
             var context = global::Android.App.Application.Context;
@@ -28,6 +34,8 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
             switch (notificationType)
             {
                 case NotificationType.NEW_POSTER:
+                    if (userSessionService.Role == UserRole.Company) return;
+
                     var posterData = jObject.ToObject<NewPosterPushNotificationResponse>();
                     strContent = posterData.new_poster_name;
                     break;

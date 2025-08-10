@@ -80,74 +80,11 @@ public partial class LocationRegistrationPage : BasePage
             loading.ShowLoading = false;
         }
     }
-
-    /*
-    public async Task<ImageSource?> CaptureAndCropCenterOfMap()
-    {
-        var screenshot = await grdMain.CaptureAsync();
-        if (screenshot == null)
-            return null;
-
-        using var stream = await screenshot.OpenReadAsync();
-
-        // Load as Rgba32 explicitly
-        using Image<Rgba32> image = await SixLabors.ImageSharp.Image.LoadAsync<Rgba32>(stream);
-
-        int cropHeight = 150;
-        int x = 0;
-        int y = (image.Height / 2) - (cropHeight / 2);
-        int width = image.Width;
-
-        // Safety bounds check
-        if (y < 0) y = 0;
-        if (y + cropHeight > image.Height) cropHeight = image.Height - y;
-
-        // Perform crop using explicit type in lambda
-        Image<Rgba32> cropped = image.Clone((SixLabors.ImageSharp.Processing.IImageProcessingContext ctx) =>
-            ctx.Crop(new Rectangle(x, y, width, cropHeight)));
-
-        var outputStream = new MemoryStream();
-        await cropped.SaveAsPngAsync(outputStream);
-        outputStream.Position = 0;
-
-        return ImageSource.FromStream(() => outputStream);
-    }
-    */
-
-    /*
-    public async Task<ImageSource?> CaptureMapOnly()
-    {
-        // Capture only the Map-only grid
-        var screenshot = await MapOnlyContainer.CaptureAsync();
-        if (screenshot == null)
-            return null;
-
-        using var stream = await screenshot.OpenReadAsync();
-        using Image<Rgba32> image = await SixLabors.ImageSharp.Image.LoadAsync<Rgba32>(stream);
-
-        int cropHeight = 150;
-        int x = 0;
-        int y = (image.Height / 2) - (cropHeight / 2);
-        int width = image.Width;
-
-        if (y < 0) y = 0;
-        if (y + cropHeight > image.Height) cropHeight = image.Height - y;
-
-        Image<Rgba32> cropped = image.Clone(ctx => ctx.Crop(new Rectangle(x, y, width, cropHeight)));
-
-        var outputStream = new MemoryStream();
-        await cropped.SaveAsPngAsync(outputStream);
-        outputStream.Position = 0;
-
-        var imageBytes = outputStream.ToArray();
-        return ImageSource.FromStream(() => new MemoryStream(imageBytes));
-    }
-    */
-
+    
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
         appControl.LocationForRegister = null;
-        await AnimateElementScaleDown(sender as Microsoft.Maui.Controls.Image);
+        await AnimateElementScaleDown(imBack);
         await AppNavigatorService.NavigateTo("..");
     }
 }

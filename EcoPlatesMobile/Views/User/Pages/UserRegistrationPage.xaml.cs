@@ -32,6 +32,8 @@ public partial class UserRegistrationPage : BasePage
         this.appControl = appControl;
         this.locationService = locationService;
         this.keyboardHelper = keyboardHelper;
+
+        entryName.SetMaxLength(20);
     }
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)

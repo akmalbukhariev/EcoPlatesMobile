@@ -518,7 +518,7 @@
   <comment>CompanyProfilePage</comment>
 </data>
 	<data name="CompanyRegistration" xml:space="preserve">
-  <value>Kompaniyani ro‘yxatdan o‘tkazish</value>
+  <value>Ro‘yxatdan o‘tish</value>
   <comment>CompanyRegistrationPage</comment>
 </data>
 	<data name="CompanyLogo" xml:space="preserve">
@@ -570,7 +570,7 @@
   <comment>LocationPage</comment>
 </data>
 <data name="SpecifyYourWorkLocation" xml:space="preserve">
-  <value>Ish joyingizni ko‘rsating.</value>
+  <value>Ish joyingizni ko‘rsating</value>
   <comment>LocationPage</comment>
 </data>
 <data name="CurrentLocation" xml:space="preserve">
@@ -822,7 +822,7 @@
     <comment>LocationService</comment>
 </data>
 <data name="MessageLocationPermission" xml:space="preserve">
-    <value>Iltimos, qurilmangiz sozlamalaridan joylashuvga ruxsat bering, chunki joylashuv ma'lumotlari ilova uchun muhimdir.</value>
+    <value>Ushbu ilova to‘g‘ri ishlashi uchun joylashuvga ruxsat kerak. Xarita va joylashuvga asoslangan funksiyalardan foydalanish uchun ilova ruxsatini bering va qurilmangizda joylashuvni yoqing.</value>
     <comment>LocationService</comment>
 </data>
 <data name="OpenSettings" xml:space="preserve">

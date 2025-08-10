@@ -566,7 +566,7 @@
   <comment>LocationPage</comment>
  </data>
 	<data name="SpecifyYourWorkLocation" xml:space="preserve">
-  <value>Specify your work location.</value>
+  <value>Specify your work location</value>
   <comment>LocationPage</comment>
  </data>
 <data name="CurrentLocation" xml:space="preserve">
@@ -824,7 +824,7 @@
     <comment>LocationService</comment>
   </data>
   <data name="MessageLocationPermission" xml:space="preserve">
-    <value>Please enable location access in your device settings because your location is important for the app.</value>
+    <value>Location access is required for this app. Please allow location permission</value>
     <comment>LocationService</comment>
   </data>
   <data name="OpenSettings" xml:space="preserve">

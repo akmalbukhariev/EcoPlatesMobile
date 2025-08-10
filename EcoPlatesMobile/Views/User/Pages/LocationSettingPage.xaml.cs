@@ -50,16 +50,23 @@ public partial class LocationSettingPage : BasePage
         borderBottom.IsVisible = true;
     }
 
+    protected override async void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        await bottomSheet.DismissAsync();
+    }
+
     private void InitCircle()
     {
         loading.ShowLoading = true;
-         
+
         currentCenter = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
         selectedDistance = appControl.UserInfo.radius_km;
 
         UpdateSelectedDistanceLabel();
         bottomSheet.SetValue(selectedDistance);
-         
+
         distanceCircle = new Circle
         {
             Center = currentCenter,
@@ -218,7 +225,6 @@ public partial class LocationSettingPage : BasePage
 
     private async void Close_Tapped(object sender, TappedEventArgs e)
     {
-        await bottomSheet.DismissAsync();
         await AppNavigatorService.NavigateTo("..");
     }
 }

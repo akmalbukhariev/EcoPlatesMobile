@@ -28,7 +28,7 @@ namespace EcoPlatesMobile.Services
         public UserInfo UserInfo { get; set; }
 
         public Location LocationForRegister { get; set; } = null;
-         public object NotificationSubscriber { get; set; }
+        public object NotificationSubscriber { get; set; }
         public Dictionary<string, string> BusinessTypeList = new Dictionary<string, string>
         {
             { AppResource.Restaurant, "RESTAURANT" },
@@ -106,7 +106,7 @@ namespace EcoPlatesMobile.Services
                 store.Set(AppKeys.UserRole, UserRole.User);
                 store.Set(AppKeys.IsLoggedIn, true);
                 store.Set(AppKeys.PhoneNumber, phoneNumber);
-                
+
                 #region Check the Firebase token and save it to the server
                 string frbToken = await GetFirebaseToken();
                 if (frbToken != response.resultData.token_frb)
@@ -134,7 +134,7 @@ namespace EcoPlatesMobile.Services
                 };
 
                 await Task.Delay(100);
-                
+
                 RefreshMainPage = true;
                 RefreshBrowserPage = true;
                 RefreshFavoriteCompany = true;
@@ -165,7 +165,7 @@ namespace EcoPlatesMobile.Services
                 MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
                     NotificationSubscriber,
                     Constants.NOTIFICATION_BODY);
-                    NotificationSubscriber = null;
+                NotificationSubscriber = null;
             }
 
             Application.Current.MainPage = new AppEntryShell();
@@ -192,7 +192,7 @@ namespace EcoPlatesMobile.Services
                 MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
                     NotificationSubscriber,
                     Constants.NOTIFICATION_BODY);
-                    NotificationSubscriber = null;
+                NotificationSubscriber = null;
             }
 
             Application.Current.MainPage = new AppEntryShell();
@@ -273,5 +273,59 @@ namespace EcoPlatesMobile.Services
 
             return imageUrl;
         }
+
+#region Photo
+        public async Task<FileResult?> TryPickPhotoAsync()
+        {
+            try
+            {
+                return await MediaPicker.PickPhotoAsync();
+            }
+            catch (OperationCanceledException) { return null; }
+            catch (PermissionException) { return null; }
+        }
+
+        public async Task<FileResult?> TryCapturePhotoAsync()
+        {
+            try
+            {
+                if (!MediaPicker.Default.IsCaptureSupported)
+                    return null;
+
+                return await MediaPicker.CapturePhotoAsync();
+            }
+            catch (OperationCanceledException) { return null; }
+            catch (PermissionException) { return null; }
+        }
+
+        public async Task<bool> EnsureGalleryPermissionAsync()
+        {
+#if ANDROID
+            var status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
+            if (status != PermissionStatus.Granted)
+                status = await Permissions.RequestAsync<Permissions.StorageRead>();
+            return status == PermissionStatus.Granted;
+#elif IOS
+            var status = await Permissions.CheckStatusAsync<Permissions.Photos>();
+            if (status != PermissionStatus.Granted)
+                status = await Permissions.RequestAsync<Permissions.Photos>();
+            return status == PermissionStatus.Granted;
+#else
+            return true;
+#endif
+        }
+
+        public async Task<bool> EnsureCameraPermissionAsync()
+        {
+        #if ANDROID || IOS
+            var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
+            if (status != PermissionStatus.Granted)
+                status = await Permissions.RequestAsync<Permissions.Camera>();
+            return status == PermissionStatus.Granted;
+        #else
+            return true;
+        #endif
+        }
+#endregion
     }
 }

@@ -119,7 +119,7 @@
                                                 <VisualState x:Name="Off">
                                                     <VisualState.Setters>
                                                         <Setter Property="ThumbColor"
-                                                                Value="{StaticResource Company}" />
+                                                                Value="Gray" />
                                                     </VisualState.Setters>
                                                 </VisualState>
                                             </VisualStateGroup>

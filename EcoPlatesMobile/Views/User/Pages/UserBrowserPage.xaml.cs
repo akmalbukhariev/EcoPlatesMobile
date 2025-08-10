@@ -44,20 +44,11 @@ public partial class UserBrowserPage : BasePage
         loading.ChangeColor(Constants.COLOR_USER);
         BindingContext = viewModel;
 	}
-
+    
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        /*
-        if (created)
-        {
-            tabSwitcher.Init();
-        }
         
-        created = true;
-        */
-
         Shell.SetTabBarIsVisible(this, true);
 
         bool isWifiOn = await appControl.CheckWifi();

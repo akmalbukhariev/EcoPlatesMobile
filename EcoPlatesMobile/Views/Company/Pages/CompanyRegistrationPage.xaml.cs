@@ -59,6 +59,7 @@ public partial class CompanyRegistrationPage : BasePage
 
         loading.ChangeColor(Constants.COLOR_COMPANY);
 
+        entryCompanyName.SetMaxLength(20);
         BindingContext = this;
     }
 

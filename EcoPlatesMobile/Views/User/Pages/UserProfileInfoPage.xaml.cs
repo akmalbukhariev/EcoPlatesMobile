@@ -25,6 +25,8 @@ public partial class UserProfileInfoPage : BasePage
         this.appControl = appControl;
         this.userApiService = userApiService;
         this.keyboardHelper = keyboardHelper;
+
+        entryUserName.MaxLength = 20;
     }
 
     protected override void OnAppearing()
@@ -67,17 +69,17 @@ public partial class UserProfileInfoPage : BasePage
 
         if (action == AppResource.SelectGallery)
         {
-            if (MediaPicker.Default.IsCaptureSupported)
-            {
-                result = await MediaPicker.PickPhotoAsync();
-            }
+            if (!await appControl.EnsureGalleryPermissionAsync())
+                return;
+
+            result = await appControl.TryPickPhotoAsync();
         }
         else if (action == AppResource.TakePhoto)
         {
-            if (MediaPicker.Default.IsCaptureSupported)
-            {
-                result = await MediaPicker.CapturePhotoAsync();
-            }
+            if (!await appControl.EnsureCameraPermissionAsync())
+                return;
+            
+            result = await appControl.TryCapturePhotoAsync();
         }
 
         if (result != null)

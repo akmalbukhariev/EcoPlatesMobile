@@ -125,7 +125,7 @@ public partial class CustomEntry : ContentView
     {
         InitializeComponent();
 
-        this.userSessionService = AppService.Get<UserSessionService>();
+        userSessionService = AppService.Get<UserSessionService>();
 
         IsPhoneNumber = false;
         ShowSendImage = false;
@@ -148,7 +148,12 @@ public partial class CustomEntry : ContentView
         await Task.Delay(100);
         customEntry.Unfocus();
     }
-    
+
+    public void SetMaxLength(int maxLength)
+    {
+        customEntry.MaxLength = maxLength;
+    }
+
     private void CustomEntry_TextChanged(object? sender, TextChangedEventArgs e)
     {
         string newText = e.NewTextValue ?? "";
@@ -170,7 +175,7 @@ public partial class CustomEntry : ContentView
                 sendImage.IsVisible = true;
             }
 
-            EntryBorderColor = userSessionService.Role == UserRole.User ? Constants.COLOR_USER : Constants.COLOR_COMPANY; //Color.FromArgb("#00C300");
+            EntryBorderColor = userSessionService.Role == UserRole.User ? Constants.COLOR_USER : Constants.COLOR_COMPANY;
             EntryBackgroundColor = Colors.White;
         }
 
