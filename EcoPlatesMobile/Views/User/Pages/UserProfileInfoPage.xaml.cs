@@ -16,6 +16,7 @@ public partial class UserProfileInfoPage : BasePage
     private AppControl appControl;
     private UserApiService userApiService;
     private IKeyboardHelper keyboardHelper;
+
     private bool isPageLoaded = false;
 
     public UserProfileInfoPage(AppControl appControl, UserApiService userApiService, IKeyboardHelper keyboardHelper)
@@ -199,6 +200,13 @@ public partial class UserProfileInfoPage : BasePage
         if (!isPageLoaded) return;
 
         keyboardHelper.HideKeyboard();
+
+        bool enabled = await NotificationPermissionHelper.EnsureEnabledAsync(this);
+        if (!enabled)
+        {
+            notification.IsToggled = false;
+            return;
+        }
 
         bool isWifiOn = await appControl.CheckWifi();
         if (!isWifiOn) return;

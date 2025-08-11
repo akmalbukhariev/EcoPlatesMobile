@@ -10,7 +10,7 @@
                BackgroundColor="#F7F9FB">
    
    <Grid RowDefinitions="Auto, *, Auto">
-        <component:CustomHeader x:Name="header" 
+        <component:CustomHeader x:Name="header"
                                 Title="{x:Static language:AppResource.ActiveProducts}"
                                 ShowBack="False"
                                 HeaderBackground="{StaticResource Company}"/>

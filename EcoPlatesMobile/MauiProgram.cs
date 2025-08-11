@@ -74,6 +74,7 @@ namespace EcoPlatesMobile
 
             return builder;
         }
+
         private static void RegisterSingleton(MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<LanguageService>();

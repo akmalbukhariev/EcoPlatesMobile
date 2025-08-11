@@ -27,13 +27,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion> 
 		<Configurations>Debug;Release;Debug_Local</Configurations>
-
-		<!-- shorten obj path so Android's deep tree doesn't exceed 260 chars -->
-		<BaseIntermediateOutputPath>obj\i\</BaseIntermediateOutputPath>
-		<IntermediateOutputPath>obj\i\</IntermediateOutputPath>
-
-		<!-- (optional) also shorten where NuGet puts restored packages for this project -->
-		<RestorePackagesPath>E:\.n</RestorePackagesPath>
+ 
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
@@ -56,7 +50,12 @@
 		<MauiAsset Include="Resources/Raw/sale_top_logo.svg" />
 		<MauiAsset Include="Resources/Raw/sale_top_logo1.svg" />
 	</ItemGroup>
- 
+	
+	<ItemGroup>
+		<MauiFont Include="Resources/Fonts/Roboto-Variable.ttf" Alias="Roboto" />
+		<MauiFont Include="Resources/Fonts/Roboto-Italic-Variable.ttf" Alias="RobotoItalic" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
