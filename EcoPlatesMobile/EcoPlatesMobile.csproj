@@ -27,6 +27,13 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion> 
 		<Configurations>Debug;Release;Debug_Local</Configurations>
+
+		<!-- shorten obj path so Android's deep tree doesn't exceed 260 chars -->
+		<BaseIntermediateOutputPath>obj\i\</BaseIntermediateOutputPath>
+		<IntermediateOutputPath>obj\i\</IntermediateOutputPath>
+
+		<!-- (optional) also shorten where NuGet puts restored packages for this project -->
+		<RestorePackagesPath>E:\.n</RestorePackagesPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(OS)' == 'Windows_NT'">

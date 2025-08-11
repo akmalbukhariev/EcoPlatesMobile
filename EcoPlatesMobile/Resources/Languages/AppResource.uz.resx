@@ -817,14 +817,20 @@
   <value>Profil</value>
   <comment>AppUserShell</comment>
 </data>
-<data name="LocationPermissionRequired" xml:space="preserve">
-    <value>Joylashuv ruxsati talab qilinadi</value>
-    <comment>LocationService</comment>
+
+<data name="LocationServicesOffTitle" xml:space="preserve">
+    <value>Joylashuv xizmati o‘chirilgan</value>
 </data>
-<data name="MessageLocationPermission" xml:space="preserve">
-    <value>Ushbu ilova to‘g‘ri ishlashi uchun joylashuvga ruxsat kerak. Xarita va joylashuvga asoslangan funksiyalardan foydalanish uchun ilova ruxsatini bering va qurilmangizda joylashuvni yoqing.</value>
-    <comment>LocationService</comment>
+	<data name="MessageLocationServicesOff" xml:space="preserve">
+    <value>Xarita va joylashuvga asoslangan funksiyalarni ishlatish uchun sozlamalarda joylashuv xizmatini yoqing.</value>
 </data>
+	<data name="LocationPermissionRequired" xml:space="preserve">
+    <value>Joylashuvga ruxsat kerak</value>
+</data>
+	<data name="MessageLocationPermission" xml:space="preserve">
+    <value>Ilova to‘g‘ri ishlashi uchun joylashuvga ruxsat berilishi kerak. Iltimos, ilova sozlamalarida ruxsat bering.</value>
+</data>
+
 <data name="OpenSettings" xml:space="preserve">
     <value>Sozlamalarni ochish</value>
     <comment>LocationService</comment>

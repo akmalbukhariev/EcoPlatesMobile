@@ -808,6 +808,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location Services Off.
+        /// </summary>
+        internal static string LocationServicesOffTitle {
+            get {
+                return ResourceManager.GetString("LocationServicesOffTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log Out.
         /// </summary>
         internal static string LogOut {
@@ -916,11 +925,20 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enable location access in your device settings because your location is important for the app..
+        ///   Looks up a localized string similar to Location access is required for this app. Please allow location permission..
         /// </summary>
         internal static string MessageLocationPermission {
             get {
                 return ResourceManager.GetString("MessageLocationPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on Location Services in Settings to use the map..
+        /// </summary>
+        internal static string MessageLocationServicesOff {
+            get {
+                return ResourceManager.GetString("MessageLocationServicesOff", resourceCulture);
             }
         }
         
@@ -1474,7 +1492,7 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify your work location..
+        ///   Looks up a localized string similar to Specify your work location.
         /// </summary>
         internal static string SpecifyYourWorkLocation {
             get {

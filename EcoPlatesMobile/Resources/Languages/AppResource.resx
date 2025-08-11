@@ -819,14 +819,25 @@
     <value>Profile</value>
     <comment>AppUserShell</comment>
   </data>
-  <data name="LocationPermissionRequired" xml:space="preserve">
-    <value>Location Permission Required</value>
-    <comment>LocationService</comment>
-  </data>
-  <data name="MessageLocationPermission" xml:space="preserve">
-    <value>Location access is required for this app. Please allow location permission</value>
-    <comment>LocationService</comment>
-  </data>
+
+	<data name="LocationServicesOffTitle" xml:space="preserve">
+      <value>Location Services Off</value>
+      <comment>LocationService</comment>
+    </data>
+	    <data name="MessageLocationServicesOff" xml:space="preserve">
+      <value>Turn on Location Services in Settings to use the map.</value>
+      <comment>LocationService</comment>
+    </data>
+	    <data name="LocationPermissionRequired" xml:space="preserve">
+      <value>Location Permission Required</value>
+      <comment>LocationService</comment>
+    </data>
+	    <data name="MessageLocationPermission" xml:space="preserve">
+      <value>Location access is required for this app. Please allow location permission.</value>
+      <comment>LocationService</comment>
+    </data>
+
+
   <data name="OpenSettings" xml:space="preserve">
     <value>Open Settings</value>
     <comment>LocationService</comment>

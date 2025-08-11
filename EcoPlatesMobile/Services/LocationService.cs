@@ -62,7 +62,7 @@ namespace EcoPlatesMobile.Services
             try
             {
                 // 1) Check if device location services (GPS) are ON  → show "A" message if OFF
-        #if ANDROID
+#if ANDROID
                 var lm = (Android.Locations.LocationManager)Android.App.Application.Context
                     .GetSystemService(Android.Content.Context.LocationService);
 
@@ -73,9 +73,9 @@ namespace EcoPlatesMobile.Services
                 {
                     // A message (GPS/location services OFF)
                     bool openLocationSettings = await AlertService.ShowConfirmationAsync(
-                        "Location Services Off",//AppResource.LocationServicesOffTitle
-                        "Turn on Location Services in Settings to use the map.",//AppResource.MessageLocationServicesOff
-                        AppResource.OpenSettings,                       
+                        AppResource.LocationServicesOffTitle,
+                        AppResource.MessageLocationServicesOff,
+                        AppResource.OpenSettings,
                         AppResource.Cancel);
 
                     if (openLocationSettings)
@@ -87,7 +87,7 @@ namespace EcoPlatesMobile.Services
                     }
                     return null;
                 }
-        #endif
+#endif
 
                 // 2) Check permission  → show "B" message if NOT granted
                 var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -101,8 +101,8 @@ namespace EcoPlatesMobile.Services
                 {
                     // B message (permission missing)
                     bool openAppSettings = await AlertService.ShowConfirmationAsync(
-                        "Location Permission Required",//AppResource.LocationPermissionRequiredTitle
-                        AppResource.MessageLocationPermission,         // e.g., "Allow location in App Settings to use map features."
+                        AppResource.LocationPermissionRequired,
+                        AppResource.MessageLocationPermission,
                         AppResource.OpenSettings,
                         AppResource.Cancel);
 
@@ -121,16 +121,14 @@ namespace EcoPlatesMobile.Services
             }
             catch (FeatureNotEnabledException)
             {
-                // Extra safety: if we reach here, GPS is off — show "A" message
                 await AlertService.ShowAlertAsync(
-                    //AppResource.LocationServicesOffTitle,
-                    //AppResource.MessageLocationServicesOff,
+                    AppResource.LocationServicesOffTitle,
+                    AppResource.MessageLocationServicesOff,
                     AppResource.Ok);
                 return null;
             }
             catch (PermissionException)
             {
-                // Extra safety: permission issue — show "B" message
                 await AlertService.ShowAlertAsync(
                     AppResource.LocationPermissionRequired,
                     AppResource.MessageLocationPermission,
@@ -146,9 +144,8 @@ namespace EcoPlatesMobile.Services
                 return null;
             }
         }
-
-        /*
-        public async Task<Microsoft.Maui.Devices.Sensors.Location?> GetCurrentLocationAsync()
+         
+        /*public async Task<Microsoft.Maui.Devices.Sensors.Location?> GetCurrentLocationAsync()
         {
             try
             {
@@ -194,6 +191,6 @@ namespace EcoPlatesMobile.Services
                 return null;
             }
         }
-        /*
+       */
     }
 }

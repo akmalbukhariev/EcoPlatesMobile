@@ -817,14 +817,20 @@
   <value>Профиль</value>
   <comment>AppUserShell</comment>
 </data>
-<data name="LocationPermissionRequired" xml:space="preserve">
-    <value>Требуется разрешение на доступ к геолокации</value>
-    <comment>LocationService</comment>
+
+<data name="LocationServicesOffTitle" xml:space="preserve">
+  <value>Службы геолокации отключены</value>
 </data>
-<data name="MessageLocationPermission" xml:space="preserve">
-    <value>Разрешите доступ к геолокации и включите её в настройках, чтобы использовать карту и функции, зависящие от местоположения.</value>
-    <comment>LocationService</comment>
+	<data name="MessageLocationServicesOff" xml:space="preserve">
+  <value>Включите службы геолокации в настройках устройства, чтобы использовать карту.</value>
 </data>
+	<data name="LocationPermissionRequired" xml:space="preserve">
+  <value>Требуется разрешение на геолокацию</value>
+</data>
+	<data name="MessageLocationPermission" xml:space="preserve">
+  <value>Для работы приложения требуется доступ к геолокации. Разрешите его в настройках приложения.</value>
+</data>
+
 <data name="OpenSettings" xml:space="preserve">
     <value>Открыть настройки</value>
     <comment>LocationService</comment>
