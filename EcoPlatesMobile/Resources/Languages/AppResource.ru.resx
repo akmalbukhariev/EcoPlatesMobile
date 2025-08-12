@@ -854,6 +854,14 @@
 </data>
 <data name="MessageWifi" xml:space="preserve">
   <value>Iltimos, wifi ni tekshiring</value>
-  <comment>AppControl</comment>
+  <comment>AppControl</comment> 
+</data>
+<data name="NotificationOff" xml:space="preserve">
+  <value>Уведомления выключены</value>
+  <comment>NotificationPermissionHelper</comment>
+</data>
+<data name="MessageTurnOnNotification" xml:space="preserve">
+  <value>Включите уведомления для этого приложения в настройках.</value>
+  <comment>NotificationPermissionHelper</comment>
 </data>
 </root>

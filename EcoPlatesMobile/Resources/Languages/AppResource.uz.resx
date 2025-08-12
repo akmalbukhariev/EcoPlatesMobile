@@ -856,4 +856,12 @@
   <value>Пожалуйста, проверьте Wi-Fi</value>
   <comment>AppControl</comment>
 </data>
+<data name="NotificationOff" xml:space="preserve">
+  <value>Bildirishnomalar o‘chirilgan</value>
+  <comment>NotificationPermissionHelper</comment>
+</data>
+<data name="MessageTurnOnNotification" xml:space="preserve">
+  <value>Ilova uchun bildirishnomalarni sozlamalarda yoqing.</value>
+  <comment>NotificationPermissionHelper</comment>
+</data>
 </root>

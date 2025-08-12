@@ -268,6 +268,13 @@ public partial class CompanyProfileInfoPage : BasePage
 
         keyboardHelper.HideKeyboard();
 
+        bool enabled = await NotificationPermissionHelper.EnsureEnabledAsync(this);
+        if (!enabled)
+        {
+            notification.IsToggled = false;
+            return;
+        }
+
         bool isWifiOn = await appControl.CheckWifi();
         if (!isWifiOn) return;
 

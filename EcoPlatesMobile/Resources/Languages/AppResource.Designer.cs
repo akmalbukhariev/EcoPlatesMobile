@@ -1024,6 +1024,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Turn on notifications for this app in Settings..
+        /// </summary>
+        internal static string MessageTurnOnNotification {
+            get {
+                return ResourceManager.GetString("MessageTurnOnNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update location.
         /// </summary>
         internal static string MessageUpdateLocation {
@@ -1128,6 +1137,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications are off.
+        /// </summary>
+        internal static string NotificationOff {
+            get {
+                return ResourceManager.GetString("NotificationOff", resourceCulture);
             }
         }
         

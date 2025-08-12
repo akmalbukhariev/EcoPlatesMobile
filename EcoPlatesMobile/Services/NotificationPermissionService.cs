@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
+using EcoPlatesMobile.Resources.Languages;
 using Microsoft.Maui.ApplicationModel;
 #endif
 
@@ -30,10 +31,10 @@ public static class NotificationPermissionHelper
         if (enabled) return true;
 
         bool open = await hostPage.DisplayAlert(
-            "Notifications are off",
-            "Turn on notifications for this app in Settings.",
-            "Open Settings",
-            "Cancel");
+            AppResource.NotificationOff,
+            AppResource.MessageTurnOnNotification,
+             AppResource.OpenSettings,
+            AppResource.Cancel);
 
         if (open) OpenAndroidNotificationSettings();
         return false;
