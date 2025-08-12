@@ -38,7 +38,7 @@
                            Text="{Binding SearchText}"
                            FontSize="14"
                            FontFamily="Roboto"
-                           Placeholder="{x:Static language:AppResource.Search}"
+                           Placeholder="{x:Static language:AppResource.SearchProduct}"
                            PlaceholderColor="LightGray"
                            VerticalOptions="Center"
                            BackgroundColor="Transparent"

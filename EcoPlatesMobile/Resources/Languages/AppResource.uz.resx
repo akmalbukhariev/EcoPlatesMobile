@@ -585,10 +585,15 @@
   <value>Nofaol mahsulotlar:</value>
   <comment>ActiveProductPage</comment>
 </data>
-<data name="Search" xml:space="preserve">
-  <value>Qidirish</value>
+<data name="SearchProduct" xml:space="preserve">
+  <value>Mahsulot qidirish</value>
   <comment>UserMainPage</comment>
 </data>
+<data name="SearchStore" xml:space="preserve">
+  <value>Do‘kon qidirish</value>
+  <comment>UserMainPage</comment>
+</data>
+
 <data name="NearbyWithin" xml:space="preserve">
   <value>Yaqin atrof —</value>
   <comment>UserMainPage</comment>

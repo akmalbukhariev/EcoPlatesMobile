@@ -1393,11 +1393,20 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search.
+        ///   Looks up a localized string similar to Search product.
         /// </summary>
-        internal static string Search {
+        internal static string SearchProduct {
             get {
-                return ResourceManager.GetString("Search", resourceCulture);
+                return ResourceManager.GetString("SearchProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search store.
+        /// </summary>
+        internal static string SearchStore {
+            get {
+                return ResourceManager.GetString("SearchStore", resourceCulture);
             }
         }
         

@@ -34,7 +34,7 @@
                                    EntryBorderColor="LightGray"
                                    EntryBackgroundColor="White"
                                    EntryPlaceHolderColor="Gray"
-                                   EntryPlaceHolder="{x:Static language:AppResource.Search}"
+                                   EntryPlaceHolder="{x:Static language:AppResource.SearchProduct}"
                                    IsEnabled="False"
                                    Grid.Row="1"/>
             <BoxView BackgroundColor="Transparent" 

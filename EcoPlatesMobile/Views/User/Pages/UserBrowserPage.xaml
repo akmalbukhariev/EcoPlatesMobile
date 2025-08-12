@@ -67,7 +67,7 @@
                                        EntryBorderColor="Gray"
                                        EntryCornerRadius="7"
                                        EntryBackgroundColor="White"
-                                       EntryPlaceHolder="{x:Static language:AppResource.Search}"
+                                       EntryPlaceHolder="{x:Static language:AppResource.SearchStore}"
                                        EntryPlaceHolderColor="Gray"
                                        Grid.ColumnSpan="3"/>
                 <BoxView x:Name="boxViewSearch" 

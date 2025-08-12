@@ -585,10 +585,15 @@
   <value>Неактивные товары:</value>
   <comment>ActiveProductPage</comment>
 </data>
-<data name="Search" xml:space="preserve">
-  <value>Поиск</value>
+<data name="SearchProduct" xml:space="preserve">
+  <value>Поиск товара</value>
   <comment>UserMainPage</comment>
 </data>
+<data name="SearchStore" xml:space="preserve">
+  <value>Поиск магазина</value>
+  <comment>UserMainPage</comment>
+</data>
+
 <data name="NearbyWithin" xml:space="preserve">
   <value>Рядом — в пределах</value>
   <comment>UserMainPage</comment>

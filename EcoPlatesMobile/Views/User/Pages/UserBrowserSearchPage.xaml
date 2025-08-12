@@ -36,7 +36,7 @@
                 <Grid>
                     <Entry x:Name="entrySearch"
                            Text="{Binding SearchText}"
-                           Placeholder="{x:Static language:AppResource.Search}"
+                           Placeholder="{x:Static language:AppResource.SearchStore}"
                            PlaceholderColor="LightGray"
                            VerticalOptions="Center"
                            BackgroundColor="Transparent"
