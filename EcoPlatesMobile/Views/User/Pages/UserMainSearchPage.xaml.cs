@@ -20,6 +20,11 @@ public partial class UserMainSearchPage : BasePage
         BindingContext = viewModel;
 
         entrySearch.Completed += Entry_Completed;
+
+        this.Loaded += (s, e) =>
+        {
+            entrySearch.Focus();
+        };
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)

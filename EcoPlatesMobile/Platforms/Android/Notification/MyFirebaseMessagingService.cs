@@ -23,13 +23,16 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
         {
             base.OnMessageReceived(message);
  
-            bool isLoggedIn = AppService.Get<AppStoreService>().Get(AppKeys.IsLoggedIn, false);
-            if (!isLoggedIn) return;
+            if (!AppService.Get<AppStoreService>().Get(AppKeys.IsLoggedIn, false)) return;
 
-            var title = message.Data["title"];
-            var bodyJson = message.Data["body"];
+            var title = message.Data.TryGetValue("title_text", out var t) ? t
+              : message.Data.TryGetValue("title", out var t2) ? t2  // fallback just in case
+              : "SaleTop";
+
+            var payloadJson = message.Data.TryGetValue("payload", out var p) ? p
+                    : message.Data.TryGetValue("body", out var b) ? b : null;
              
-            new NotificationService().SendNotification(title, bodyJson);
+            new NotificationService().SendNotification(title, payloadJson);
         }
     }
 }

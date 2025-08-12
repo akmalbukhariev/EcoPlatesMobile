@@ -1,5 +1,6 @@
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using AndroidX.Core.App;
 using EcoPlatesMobile.Models.Responses.Notification;
 using EcoPlatesMobile.Platforms.Android.Notification;
@@ -17,6 +18,51 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
             this.userSessionService = AppService.Get<UserSessionService>();
         }
 
+        public void SendNotification(string title, string bodyJson)
+        {
+            var context = global::Android.App.Application.Context;
+
+            string content = null;
+            try
+            {
+                if (!string.IsNullOrEmpty(bodyJson))
+                {
+                    var jObject = JObject.Parse(bodyJson);
+                    var type = jObject["notificationType"]?.ToString();
+
+                    if (type == nameof(NotificationType.NEW_MESSAGE))
+                        content = jObject["message"]?.ToString();
+                    else if (type == nameof(NotificationType.NEW_POSTER))
+                        content = jObject["new_poster_name"]?.ToString();
+                }
+            }
+            catch { /* keep content null; we'll show a generic text */ }
+
+            if (string.IsNullOrEmpty(content)) content = "You have a new notification";
+
+            var intent = new Intent(context, typeof(MainActivity))
+                .AddFlags(ActivityFlags.NewTask | ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+            intent.PutExtra(Utilities.Constants.NOTIFICATION_TITLE, title);
+            intent.PutExtra(Utilities.Constants.NOTIFICATION_BODY, bodyJson ?? "");
+
+            var pendingIntent = PendingIntent.GetActivity(
+                context, MainActivity.NotificationID, intent,
+                PendingIntentFlags.Immutable | PendingIntentFlags.OneShot);
+
+            var builder = new NotificationCompat.Builder(context, MainActivity.Channel_ID)
+                .SetSmallIcon(Resource.Mipmap.appicon)
+                .SetLargeIcon(BitmapFactory.DecodeResource(context.Resources, Resource.Mipmap.appicon))
+                .SetContentTitle(title)
+                .SetContentText(content)
+                .SetStyle(new NotificationCompat.BigTextStyle().BigText(content))
+                .SetAutoCancel(true)
+                .SetContentIntent(pendingIntent)
+                .SetPriority((int)NotificationPriority.High);
+
+            NotificationManagerCompat.From(context).Notify(MainActivity.NotificationID, builder.Build());
+        }
+
+        /*
         public void SendNotification(string title, string bodyJson)
         {
             var context = global::Android.App.Application.Context;
@@ -71,5 +117,6 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
 
             NotificationManagerCompat.From(context).Notify(MainActivity.NotificationID, builder.Build());
         }
+        */
     }
 }
