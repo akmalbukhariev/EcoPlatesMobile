@@ -517,7 +517,12 @@
   <value>Rol: Sotuvchi</value>
   <comment>CompanyProfilePage</comment>
 </data>
-	<data name="CompanyRegistration" xml:space="preserve">
+<data name="Messages" xml:space="preserve">
+    <value>Yozishmalar</value>
+    <comment>CompanyProfilePage</comment>
+</data>
+
+<data name="CompanyRegistration" xml:space="preserve">
   <value>Ro‘yxatdan o‘tish</value>
   <comment>CompanyRegistrationPage</comment>
 </data>

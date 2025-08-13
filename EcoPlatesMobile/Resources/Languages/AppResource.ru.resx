@@ -517,7 +517,12 @@
   <value>Роль: Продавец</value>
   <comment>CompanyProfilePage</comment>
 </data>
-	<data name="CompanyRegistration" xml:space="preserve">
+<data name="Messages" xml:space="preserve">
+    <value>Сообщение</value>
+    <comment>CompanyProfilePage</comment>
+</data>
+
+<data name="CompanyRegistration" xml:space="preserve">
   <value>Регистрация компании</value>
   <comment>CompanyRegistrationPage</comment>
 </data>

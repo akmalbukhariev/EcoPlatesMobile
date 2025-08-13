@@ -513,6 +513,15 @@
     <value>Role: Seller</value>
     <comment>CompanyProfilePage</comment>
   </data>
+  <data name="RoleSeller" xml:space="preserve">
+    <value>Role: Seller</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Messages</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+
   <data name="CompanyRegistration" xml:space="preserve">
     <value>Company registration</value>
     <comment>CompanyRegistrationPage</comment>

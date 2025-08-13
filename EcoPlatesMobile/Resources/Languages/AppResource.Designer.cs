@@ -997,6 +997,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Messages.
+        /// </summary>
+        internal static string Messages {
+            get {
+                return ResourceManager.GetString("Messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select or take picture of the organization..
         /// </summary>
         internal static string MessageSelectCompanyLogo {

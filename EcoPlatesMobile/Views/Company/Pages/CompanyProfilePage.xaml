@@ -148,7 +148,7 @@
                             </HorizontalStackLayout>
                         </Grid>
                         <component:ListTileView TileIcon="my_chat.png"
-                                                 TileText="Yozishmalar"
+                                                 TileText="{x:Static language:AppResource.Messages}"
                                                  TileTextSize="15"
                                                  TileTextColor="Black"
                                                  TileType="Message"
