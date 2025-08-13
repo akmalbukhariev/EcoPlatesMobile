@@ -54,17 +54,19 @@ public partial class CompanyProfilePage : BasePage
     private CompanyApiService companyApiService;
     private LanguageService languageService;
     private AppControl appControl;
+    private LocationService locationService;
 
-    public CompanyProfilePage(CompanyApiService companyApiService, LanguageService languageService, AppControl appControl)
+    public CompanyProfilePage(CompanyApiService companyApiService, LanguageService languageService, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
 
         this.companyApiService = companyApiService;
         this.languageService = languageService;
         this.appControl = appControl;
+        this.locationService = locationService;
 
         Init();
-        
+
         BindingContext = this;
     }
 
@@ -195,9 +197,7 @@ public partial class CompanyProfilePage : BasePage
                 break;
             case ListTileView.ListTileType.Location:
                 loading.IsRunning = true;
-                var locationService = new LocationService();
                 var location = await locationService.GetCurrentLocationAsync();
-                
                 loading.IsRunning = false; 
 
                 if (location == null)

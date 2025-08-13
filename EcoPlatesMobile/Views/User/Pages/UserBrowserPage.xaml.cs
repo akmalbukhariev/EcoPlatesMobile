@@ -54,8 +54,8 @@ public partial class UserBrowserPage : BasePage
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
         
-        bool enable = await locationService.IsLocationEnabledAsync();
-        if (!enable) return;
+        var location = await locationService.GetCurrentLocationAsync();
+        if (location == null) return;
 
         if (appControl.RefreshBrowserPage)
         {
@@ -222,8 +222,11 @@ public partial class UserBrowserPage : BasePage
     {
         await AnimateElementScaleDown(borderBottom);
 
-        bool enable = await locationService.IsLocationEnabledAsync();
-        if (!enable) return;
+        viewModel.IsLoading = true;
+        var location = await locationService.GetCurrentLocationAsync();
+        viewModel.IsLoading = false;
+
+        if (location == null) return;
 
         await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }
