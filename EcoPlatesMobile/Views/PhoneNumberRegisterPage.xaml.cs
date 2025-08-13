@@ -19,7 +19,7 @@ public partial class PhoneNumberRegisterPage : BasePage
     private UserApiService userApiService;
     private AppControl appControl;
     private IKeyboardHelper keyboardHelper;
-    
+
     public PhoneNumberRegisterPage(UserSessionService userSessionService,
                                     CompanyApiService companyApiService,
                                     UserApiService userApiService,
@@ -43,8 +43,13 @@ public partial class PhoneNumberRegisterPage : BasePage
         {
             loading.ChangeColor(Constants.COLOR_COMPANY);
         }
+        
+        this.Loaded += (s, e) =>
+        {
+            entryNumber.Focus();
+        };
     }
-
+    
     private void OnOfferTapped(object sender, EventArgs e)
     {
         //string url = "https://your-link.com"; // Replace with your actual link

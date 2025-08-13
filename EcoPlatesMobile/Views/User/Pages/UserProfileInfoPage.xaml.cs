@@ -34,8 +34,8 @@ public partial class UserProfileInfoPage : BasePage
     {
         base.OnAppearing();
 
-        imUser.Source = appControl.UserInfo.profile_picture_url;
-        fullImage.Source = appControl.UserInfo.profile_picture_url;
+        imUser.Source = appControl.GetImageUrlOrFallback(appControl.UserInfo.profile_picture_url);
+        fullImage.Source = imUser.Source;
         entryUserName.Text = appControl.UserInfo.first_name;
         lbPhoneNumber.Text = appControl.UserInfo.phone_number;
         notification.IsToggled = appControl.UserInfo.notification_enabled;

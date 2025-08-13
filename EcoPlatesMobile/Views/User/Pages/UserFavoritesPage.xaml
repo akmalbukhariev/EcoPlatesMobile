@@ -20,7 +20,7 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
         </Grid>
-
+        
         <Grid RowDefinitions="50, *"
               Margin="16, 30, 16, 0"
               Grid.Row="1">
@@ -28,7 +28,7 @@
                                             SwitchType="Classic"
                                             Tab1_Title="{x:Static language:AppResource.Products}"
                                             Tab2_Title="{x:Static language:AppResource.Seller}"/>
-            <RefreshView x:Name="listProduct" 
+            <RefreshView x:Name="listProduct"
                          IsRefreshing="{Binding IsRefreshingProduct}"
                          Command="{Binding RefreshProductCommand}"
                          Margin="10"
@@ -65,7 +65,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
-            <RefreshView x:Name="listCompany" 
+            <RefreshView x:Name="listCompany"
                          IsRefreshing="{Binding IsRefreshingCompany}"
                          Command="{Binding RefreshCompanyCommand}"
                          IsVisible="False"

@@ -125,7 +125,7 @@ public partial class CompanyProfilePage : BasePage
         response = await companyApiService.GetCompanyInfo();
         if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
         {
-            imCompany.Source = response.resultData.logo_url;
+            imCompany.Source = appControl.GetImageUrlOrFallback(response.resultData.logo_url);
             lbCompanyName.Text = response.resultData.company_name;
             lbPhoneNumber.Text = response.resultData.phone_number;
             tileActive.TileText1 = response.resultData.active_products.ToString();

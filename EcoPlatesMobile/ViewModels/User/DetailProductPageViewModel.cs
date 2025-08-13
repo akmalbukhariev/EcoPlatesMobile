@@ -80,7 +80,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     CompanyPhone = info.phone_number;
                     ProductName = info.title;
                     Rating = info.rating?.ToString();
-                    WorkingTime = info.working_hours;
+                    WorkingTime = appControl.FormatWorkingHours(info.working_hours);
                     likedProduct = response.resultData.liked;
                     LikeImage = likedProduct ? "liked.png" : "like.png";
                     OldPrice = info.old_price.ToString() + " so'm";
@@ -125,7 +125,7 @@ namespace EcoPlatesMobile.ViewModels.User
         public async Task ProductLiked()
         {
             bool isWifiOn = await appControl.CheckWifi();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             likedProduct = !likedProduct;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
@@ -134,7 +134,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 promotion_id = ProductModel.PromotionId,
                 deleted = likedProduct ? false : true,
             };
-            
+
             Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())

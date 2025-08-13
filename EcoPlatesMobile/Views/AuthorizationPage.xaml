@@ -36,7 +36,8 @@
                     <component:CustomEntryNumber x:Name="number3" Grid.Column="2"/>
                     <component:CustomEntryNumber x:Name="number4" Grid.Column="3"/>
                 </Grid> -->
-                <pinview:PINView BoxShape="Square"
+                <pinview:PINView x:Name="pinView" 
+                                 BoxShape="Square"
                                  PINLength="4"
                                  HorizontalOptions="Center"
                                  BoxFocusColor="#007200"

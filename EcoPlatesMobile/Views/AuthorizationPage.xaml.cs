@@ -59,6 +59,11 @@ public partial class AuthorizationPage : BasePage
 		{
 			loading.ChangeColor(Constants.COLOR_COMPANY);
 		}
+
+		this.Loaded += (s, e) =>
+        {
+            pinView.Focus();
+        };
 	}
 
 	protected override void OnAppearing()

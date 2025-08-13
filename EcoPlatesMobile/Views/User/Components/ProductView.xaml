@@ -6,7 +6,7 @@
     <Frame x:Name="mainFrame" 
            Padding="0" 
            CornerRadius="20" 
-           HeightRequest="245"
+           HeightRequest="250"
            BackgroundColor="White"
            HasShadow="True">
         <Frame.GestureRecognizers>
@@ -61,7 +61,7 @@
                        </Image.GestureRecognizers>
                 </Image>
             </Grid>
-            <VerticalStackLayout Margin="10,0,0,0"
+            <VerticalStackLayout Margin="10,5,0,0"
                                  Spacing="0"
                                  Grid.Row="1">
                 <Label x:Name="productName"

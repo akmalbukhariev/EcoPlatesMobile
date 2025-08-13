@@ -2,7 +2,9 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using AndroidX.Core.App;
+using EcoPlatesMobile.Models.Company;
 using EcoPlatesMobile.Models.Responses.Notification;
+using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Platforms.Android.Notification;
 using EcoPlatesMobile.Services;
 using Newtonsoft.Json.Linq;
@@ -13,9 +15,11 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
     public class NotificationService : INotificationService
     {
         private UserSessionService userSessionService;
+        private AppControl appControl;
         public NotificationService()
         {
-            this.userSessionService = AppService.Get<UserSessionService>();
+            userSessionService = AppService.Get<UserSessionService>();
+            appControl = AppService.Get<AppControl>();
         }
 
         public void SendNotification(string title, string bodyJson)
@@ -25,15 +29,29 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
             string content = null;
             try
             {
+                UserInfo userInfo = appControl.UserInfo;
+                CompanyInfo companyInfo = appControl.CompanyInfo;
+
                 if (!string.IsNullOrEmpty(bodyJson))
                 {
                     var jObject = JObject.Parse(bodyJson);
                     var type = jObject["notificationType"]?.ToString();
 
                     if (type == nameof(NotificationType.NEW_MESSAGE))
+                    {
+                        var messageData = jObject.ToObject<NewMessagePushNotificationResponse>();
+
+                        if (userInfo != null && userInfo.user_id == messageData.sender_id) return;
+                        if (companyInfo != null && companyInfo.company_id == messageData.sender_id) return;
+
                         content = jObject["message"]?.ToString();
+                    }
                     else if (type == nameof(NotificationType.NEW_POSTER))
+                    {
+                        if (userSessionService.Role == UserRole.Company) return;
+
                         content = jObject["new_poster_name"]?.ToString();
+                    }
                 }
             }
             catch { /* keep content null; we'll show a generic text */ }

@@ -143,9 +143,13 @@ public partial class CustomEntry : ContentView
         BindingContext = this;
     }
 
-    public async Task UnFocus()
+    public void Focus()
     {
-        await Task.Delay(100);
+        customEntry.Focus();
+    }
+
+    public void UnFocus()
+    {
         customEntry.Unfocus();
     }
 

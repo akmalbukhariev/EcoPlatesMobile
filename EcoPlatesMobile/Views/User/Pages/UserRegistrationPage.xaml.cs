@@ -34,6 +34,11 @@ public partial class UserRegistrationPage : BasePage
         this.keyboardHelper = keyboardHelper;
 
         entryName.SetMaxLength(20);
+
+        this.Loaded += (s, e) =>
+        {
+            entryName.Focus();
+        };
     }
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)

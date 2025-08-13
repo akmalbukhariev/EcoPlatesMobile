@@ -64,6 +64,7 @@ namespace EcoPlatesMobile.Services
                     var additionalData = new Dictionary<string, string>
                     {
                         { "company_id", response.resultData.company_id.ToString() },
+                        { "notification_enabled", response.resultData.notification_enabled.ToString() },
                         { "token_frb", frbToken },
                     };
 
@@ -114,6 +115,7 @@ namespace EcoPlatesMobile.Services
                     var additionalData = new Dictionary<string, string>
                     {
                         { "user_id", response.resultData.user_id.ToString() },
+                        { "notification_enabled", response.resultData.notification_enabled.ToString() },
                         { "token_frb", frbToken },
                     };
 
@@ -159,7 +161,8 @@ namespace EcoPlatesMobile.Services
             store.Remove(AppKeys.PhoneNumber);
 
             await companyApi.ClearTokenAsync();
-
+            CompanyInfo = null;
+            
             if (NotificationSubscriber != null)
             {
                 MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
@@ -186,6 +189,7 @@ namespace EcoPlatesMobile.Services
             store.Remove(AppKeys.PhoneNumber);
 
             await userApi.ClearTokenAsync();
+            UserInfo = null;
 
             if (NotificationSubscriber != null)
             {
@@ -260,19 +264,73 @@ namespace EcoPlatesMobile.Services
             return token;
         }
 
+        public string FormatWorkingHours(string? raw)
+        {
+            if (string.IsNullOrWhiteSpace(raw))
+                return string.Empty;
+
+            // Split by space, dash, or tilde to isolate time-like parts
+            var tokens = raw.Split(new[] { ' ', '-', '~' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Try to find exactly two times in the tokens
+            var timeParts = tokens
+                .Select(t => t.Trim())
+                .Where(t => DateTime.TryParse(t, out _))
+                .ToList();
+
+            if (timeParts.Count == 2 &&
+                DateTime.TryParse(timeParts[0], out var start) &&
+                DateTime.TryParse(timeParts[1], out var end))
+            {
+                // Format in 24-hour style with tilde
+                return $"{start:HH\\:mm} ~ {end:HH\\:mm}";
+            }
+
+            // If parsing fails, just return original
+            return raw;
+        }
+
+#region Check url image
+        private readonly string[] AllowedBases =
+        {
+            "http://95.182.117.246:8080/uploads-user/profile-pictures/",
+            "http://95.182.117.246:8080/uploads-company/profile-pictures/",
+            "http://95.182.117.246:8080/uploads-company/poster-pictures/" // trailing slash OK/handled
+        };
+
         public string GetImageUrlOrFallback(string? imageUrl, string fallback = "no_image.png")
         {
             if (string.IsNullOrWhiteSpace(imageUrl))
                 return fallback;
 
-            if (!Uri.TryCreate(imageUrl, UriKind.Absolute, out var uriResult) ||
-                !(uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+            // Must be a valid absolute http/https URL
+            if (!Uri.TryCreate(imageUrl, UriKind.Absolute, out var uri) ||
+                (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps))
             {
                 return fallback;
             }
 
+            // Normalize for comparison (ignore trailing '/')
+            string normUrl = TrimEndSlash(uri.ToString());
+            var normBases = AllowedBases.Select(TrimEndSlash).ToArray();
+
+            // Case 1: exactly the base path (no filename) -> fallback
+            if (normBases.Any(b => string.Equals(normUrl, b, StringComparison.OrdinalIgnoreCase)))
+                return fallback;
+
+            // Case 2: must start with one of the bases AND have something after it (a file part)
+            bool hasAllowedPrefixWithFile = normBases.Any(b =>
+                normUrl.StartsWith(b, StringComparison.OrdinalIgnoreCase) &&
+                normUrl.Length > b.Length); // ensures there's more than the base
+
+            if (!hasAllowedPrefixWithFile)
+                return fallback;
+
             return imageUrl;
         }
+
+        private string TrimEndSlash(string s) => s.TrimEnd('/');
+#endregion
 
 #region Photo
         public async Task<FileResult?> TryPickPhotoAsync()

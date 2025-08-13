@@ -105,7 +105,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     LikeImage = likedCompany ? "liked.png" : "like.png";
                     CompanyName = response.resultData.company_name;
                     PhoneNumber = response.resultData.phone_number;
-                    WorkingTime = response.resultData.working_hours;
+                    WorkingTime = appControl.FormatWorkingHours(response.resultData.working_hours);
                     CompanyType = appControl.BusinessTypeList.FirstOrDefault(item => item.Value == response.resultData.business_type).Key;
                      
                     var items = response.resultData;
