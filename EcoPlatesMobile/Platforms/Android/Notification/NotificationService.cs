@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.OS;
 using AndroidX.Core.App;
 using EcoPlatesMobile.Models.Company;
 using EcoPlatesMobile.Models.Responses.Notification;
@@ -22,63 +23,101 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
             appControl = AppService.Get<AppControl>();
         }
 
-        public void SendNotification(string title, string bodyJson)
+        public void SendNotification(string title, string bodyRaw)
         {
             var context = global::Android.App.Application.Context;
+
+            EnsureChannel(context, MainActivity.Channel_ID, "SaleTop Messages");
 
             string content = null;
             try
             {
-                UserInfo userInfo = appControl.UserInfo;
-                CompanyInfo companyInfo = appControl.CompanyInfo;
-
-                if (!string.IsNullOrEmpty(bodyJson))
+                if (!string.IsNullOrWhiteSpace(bodyRaw))
                 {
-                    var jObject = JObject.Parse(bodyJson);
-                    var type = jObject["notificationType"]?.ToString();
-
-                    if (type == nameof(NotificationType.NEW_MESSAGE))
+                    // If it's JSON, parse it; else use as-is
+                    var looksJson = bodyRaw.TrimStart().StartsWith("{");
+                    if (looksJson)
                     {
-                        var messageData = jObject.ToObject<NewMessagePushNotificationResponse>();
+                        var o = JObject.Parse(bodyRaw);
+                        var type = (o["notificationType"]?.ToString() ?? "").ToUpperInvariant();
 
-                        if (userInfo != null && userInfo.user_id == messageData.sender_id) return;
-                        if (companyInfo != null && companyInfo.company_id == messageData.sender_id) return;
+                        if (type == "NEW_MESSAGE")
+                        {
+                            int? senderId = o["sender_id"]?.Type == JTokenType.Integer
+                                ? o.Value<int?>("sender_id")
+                                : TryParseInt(o["sender_id"]?.ToString());
 
-                        content = jObject["message"]?.ToString();
+                            var userInfo = appControl.UserInfo;
+                            var companyInfo = appControl.CompanyInfo;
+                            if (senderId.HasValue)
+                            {
+                                if (userInfo != null && userInfo.user_id == senderId.Value) return;
+                                if (companyInfo != null && companyInfo.company_id == senderId.Value) return;
+                            }
+
+                            content = o["message"]?.ToString();
+                        }
+                        else if (type == "NEW_POSTER")
+                        {
+                            if (userSessionService.Role == UserRole.Company) return;
+                            content = o["new_poster_name"]?.ToString();
+                        }
                     }
-                    else if (type == nameof(NotificationType.NEW_POSTER))
+                    else
                     {
-                        if (userSessionService.Role == UserRole.Company) return;
-
-                        content = jObject["new_poster_name"]?.ToString();
+                        // Plain text (e.g., from notification.body)
+                        content = bodyRaw;
                     }
                 }
             }
-            catch { /* keep content null; we'll show a generic text */ }
+            catch { /* ignore and fall back */ }
 
-            if (string.IsNullOrEmpty(content)) content = "You have a new notification";
+            if (string.IsNullOrWhiteSpace(content))
+                content = "New message"; // guaranteed non-empty, renders on all skins
 
             var intent = new Intent(context, typeof(MainActivity))
                 .AddFlags(ActivityFlags.NewTask | ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            intent.PutExtra(Utilities.Constants.NOTIFICATION_TITLE, title);
-            intent.PutExtra(Utilities.Constants.NOTIFICATION_BODY, bodyJson ?? "");
+            intent.PutExtra(Utilities.Constants.NOTIFICATION_TITLE, string.IsNullOrWhiteSpace(title) ? "SaleTop" : title);
+            intent.PutExtra(Utilities.Constants.NOTIFICATION_BODY, bodyRaw ?? "");
 
             var pendingIntent = PendingIntent.GetActivity(
                 context, MainActivity.NotificationID, intent,
                 PendingIntentFlags.Immutable | PendingIntentFlags.OneShot);
 
             var builder = new NotificationCompat.Builder(context, MainActivity.Channel_ID)
-                .SetSmallIcon(Resource.Mipmap.appicon)
+                .SetSmallIcon(Resource.Drawable.notification_icon) // white-only drawable
                 .SetLargeIcon(BitmapFactory.DecodeResource(context.Resources, Resource.Mipmap.appicon))
-                .SetContentTitle(title)
+                .SetContentTitle(string.IsNullOrWhiteSpace(title) ? "SaleTop" : title)
                 .SetContentText(content)
                 .SetStyle(new NotificationCompat.BigTextStyle().BigText(content))
+                .SetVisibility(NotificationCompat.VisibilityPublic)
+                .SetCategory(NotificationCompat.CategoryMessage)
+                .SetPriority(NotificationCompat.PriorityHigh)
                 .SetAutoCancel(true)
-                .SetContentIntent(pendingIntent)
-                .SetPriority((int)NotificationPriority.High);
+                .SetContentIntent(pendingIntent);
 
             NotificationManagerCompat.From(context).Notify(MainActivity.NotificationID, builder.Build());
         }
+        static void EnsureChannel(Context ctx, string channelId, string channelName)
+        {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                var nm = (NotificationManager)ctx.GetSystemService(Context.NotificationService);
+                if (nm.GetNotificationChannel(channelId) == null)
+                {
+                    var ch = new NotificationChannel(channelId, channelName, NotificationImportance.High)
+                    {
+                        LockscreenVisibility = NotificationVisibility.Public
+                    };
+                    ch.EnableVibration(true);
+                    ch.EnableLights(true);
+                    nm.CreateNotificationChannel(ch);
+                }
+            }
+        }
+
+        static int? TryParseInt(string s)
+            => int.TryParse(s, out var v) ? v : (int?)null;
 
         /*
         public void SendNotification(string title, string bodyJson)

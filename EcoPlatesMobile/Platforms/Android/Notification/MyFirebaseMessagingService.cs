@@ -15,7 +15,7 @@ using EcoPlatesMobile.Services;
 
 namespace EcoPlatesMobile.Platforms.Android.Notification
 {
-    [Service(Exported = false)]
+    [Service(Exported = true)]
     [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     internal class MyFirebaseMessagingService : FirebaseMessagingService
     {
@@ -25,14 +25,17 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
  
             if (!AppService.Get<AppStoreService>().Get(AppKeys.IsLoggedIn, false)) return;
 
-            var title = message.Data.TryGetValue("title_text", out var t) ? t
-              : message.Data.TryGetValue("title", out var t2) ? t2  // fallback just in case
-              : "SaleTop";
+            var notif = message.GetNotification();
 
-            var payloadJson = message.Data.TryGetValue("payload", out var p) ? p
-                    : message.Data.TryGetValue("body", out var b) ? b : null;
+            var title = message.Data.TryGetValue("title_text", out var t) ? t
+                     : message.Data.TryGetValue("title", out var t2) ? t2
+                     : "SaleTop";
+
+            var bodyRaw = message.Data.TryGetValue("payload", out var p) ? p
+                   :  message.Data.TryGetValue("body", out var b) ? b
+                   :  notif?.Body; 
              
-            new NotificationService().SendNotification(title, payloadJson);
+            new NotificationService().SendNotification(title, bodyRaw);
         }
     }
 }
