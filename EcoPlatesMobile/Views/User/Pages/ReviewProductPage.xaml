@@ -102,7 +102,7 @@
                                  IsVisible="False"
                                  Grid.Row="5">
                 <HorizontalStackLayout>
-                    <CheckBox x:Name="checkBox1" Color="{StaticResource User}" />
+                    <CheckBox x:Name="checkBox1" Color="{StaticResource User}"/>
                     <Label Text="{x:Static language:AppResource.GreatValue}"
                            FontSize="17"
                            FontFamily="Roboto"

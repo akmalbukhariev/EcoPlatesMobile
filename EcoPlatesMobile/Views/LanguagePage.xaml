@@ -34,7 +34,7 @@
                             Margin="5"/>
                     <Label Text="{Binding SelectedLanguage}" 
                             FontSize="14"
-                            FontFamily="Roboto"
+                            FontFamily="RobotoVar"
                             VerticalTextAlignment="Center" 
                             TextColor="{StaticResource User}"
                             Grid.Column="1"/>
@@ -74,7 +74,7 @@
                                         HeightRequest="20"
                                         VerticalOptions="Center"/>
                                 <Label Text="{Binding Name}" 
-                                       FontFamily="Roboto"
+                                       FontFamily="RobotoVar"
                                        Margin="5,0,0,0"
                                        FontSize="14" 
                                        VerticalTextAlignment="Center" 
@@ -93,7 +93,7 @@
 
             <Button Text="{x:Static language:AppResource.Next}"
                     TextColor="{StaticResource User}"
-                    FontFamily="Roboto"
+                    FontFamily="RobotoVar"
                     FontSize="18"
                     BorderWidth="2"
                     BorderColor="Gray"

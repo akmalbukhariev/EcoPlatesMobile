@@ -51,17 +51,17 @@
 		<MauiAsset Include="Resources/Raw/sale_top_logo1.svg" />
 	</ItemGroup>
 	
-	<ItemGroup>
+	<!--<ItemGroup>
 		<MauiFont Include="Resources/Fonts/Roboto-Variable.ttf" Alias="Roboto" />
 		<MauiFont Include="Resources/Fonts/Roboto-Italic-Variable.ttf" Alias="RobotoItalic" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash_padded_centered.svg" Color="#007210" />
+		<MauiSplashScreen Include="Resources\Splash\splash_padded_centered.svg" Color="#007211" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />

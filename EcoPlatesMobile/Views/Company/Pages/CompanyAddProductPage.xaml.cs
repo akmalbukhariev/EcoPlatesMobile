@@ -18,13 +18,15 @@ public partial class CompanyAddProductPage : BasePage
 
     private AppControl appControl;
     private CompanyApiService companyApiService;
+    private IKeyboardHelper keyboardHelper;
 
-    public CompanyAddProductPage(CompanyApiService companyApiService, AppControl appControl)
-	{
-		InitializeComponent();
+    public CompanyAddProductPage(CompanyApiService companyApiService, AppControl appControl, IKeyboardHelper keyboardHelper)
+    {
+        InitializeComponent();
 
         this.companyApiService = companyApiService;
         this.appControl = appControl;
+        this.keyboardHelper = keyboardHelper;
 
         entryProductName.SetMaxLength(30);
         entryOldPrice.MaxLength = 8;
@@ -95,6 +97,8 @@ public partial class CompanyAddProductPage : BasePage
 
     private async void RegisterOrUpdate_Clicked(object sender, EventArgs e)
     {
+        keyboardHelper.HideKeyboard();
+
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
         

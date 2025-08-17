@@ -26,6 +26,12 @@ public partial class ProductView : ContentView
     public static readonly BindableProperty IsNonActiveProductProperty =
        BindableProperty.Create(nameof(IsNonActiveProduct), typeof(bool), typeof(ProductView), true, propertyChanged: IsNonActiveProductChanged);
 
+    public static readonly BindableProperty ShowCheckProductProperty =
+       BindableProperty.Create(nameof(ShowCheckProduct), typeof(bool), typeof(ProductView), true, propertyChanged: ShowCheckProductPropertyChanged);
+
+    public static readonly BindableProperty IsCheckedProductProperty =
+       BindableProperty.Create(nameof(IsCheckedProduct), typeof(bool), typeof(ProductView), true, propertyChanged: IsCheckedProductChanged);
+
     public static readonly BindableProperty ClickCommandProperty =
         BindableProperty.Create(nameof(ClickCommand), typeof(ICommand), typeof(ProductView));
 
@@ -65,6 +71,18 @@ public partial class ProductView : ContentView
         set => SetValue(StarsProperty, value);
     }
 
+    public bool ShowCheckProduct
+    {
+        get => (bool)GetValue(ShowCheckProductProperty);
+        set => SetValue(ShowCheckProductProperty, value);
+    }
+
+    public bool IsCheckedProduct
+    {
+        get => (bool)GetValue(IsCheckedProductProperty);
+        set => SetValue(IsCheckedProductProperty, value);
+    }
+
     public ICommand ClickCommand
     {
         get => (ICommand)GetValue(ClickCommandProperty);
@@ -77,10 +95,10 @@ public partial class ProductView : ContentView
         set => SetValue(IsNonActiveProductProperty, value);
     }
 
-	public ProductView()
-	{
-		InitializeComponent();
-	}
+    public ProductView()
+    {
+        InitializeComponent();
+    }
 
     private static void ProductImageChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -133,5 +151,33 @@ public partial class ProductView : ContentView
     {
         var control = (ProductView)bindable;
         control.boxViewBack.IsVisible = (bool)newValue;
+    }
+
+    private static void ShowCheckProductPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (ProductView)bindable;
+        control.checkProduct.IsVisible = (bool)newValue;
+    }
+    
+    private static void IsCheckedProductChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (ProductView)bindable;
+        try
+        {
+            control.suppressCheckEvent = true;
+            control.checkProduct.IsChecked = (bool)newValue;
+        }
+        finally
+        {
+            control.suppressCheckEvent = false;
+        }
+    }
+
+    bool suppressCheckEvent; 
+    private void CheckProduct_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (suppressCheckEvent) return;     
+
+        Product_Tapped(null, null);
     }
 }

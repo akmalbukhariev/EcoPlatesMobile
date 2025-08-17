@@ -10,6 +10,17 @@
     <Grid RowDefinitions="Auto, *">
         <component:CustomHeader Title="{x:Static language:AppResource.UpdateProduct}"
                                 HeaderBackground="{StaticResource Company}"/>
+        <Image Source="done.png"
+               WidthRequest="30"
+               HeightRequest="30"
+               Margin="0,0,15,0"
+               VerticalOptions="Center"
+               HorizontalOptions="End">
+               <Image.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Done_Tapped"/>
+               </Image.GestureRecognizers>
+        </Image>
         <ScrollView Grid.Row="1">
             <Grid RowDefinitions="Auto, *, Auto">
                 <Grid RowDefinitions="Auto, Auto">
@@ -135,7 +146,7 @@
                         </StackLayout>
                     </Border>
                     <Border Style="{StaticResource styleBorder}"
-                            HeightRequest="200">
+                            HeightRequest="150">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
@@ -146,14 +157,39 @@
                                     FontSize="16"/>
                     </Border>
                 </VerticalStackLayout>
-                <Button x:Name="btnUpdate"
-                        Text="{x:Static language:AppResource.Update}"
-                        BackgroundColor="{StaticResource Company}"
-                        CornerRadius="30"
+                <Grid x:Name="grdBottom" 
+                      ColumnDefinitions="*, *"
+                      Margin="16,0,16,30"
+                      HeightRequest="50"
+                      ColumnSpacing="10"
+                      Grid.Row="2">
+                    <Button x:Name="btnActive"
+                            Text="{x:Static language:AppResource.Active}"
+                            Style="{StaticResource StyleBigButton}"
+                            TextColor="White"
+                            BackgroundColor="{StaticResource User}"
+                            CornerRadius="4"
+                            Clicked="BtnActive_Clicked"/>  
+                    <Button x:Name="btnDelete"
+                            Text="{x:Static language:AppResource.Delete}"
+                            Style="{StaticResource StyleBigButton}"
+                            TextColor="White"
+                            BackgroundColor="Red"
+                            CornerRadius="4"
+                            Clicked="BtnDelete_Clicked"
+                            Grid.Column="1"/>
+                </Grid>
+                <Button x:Name="btnInactive"
                         Style="{StaticResource StyleBigButton}"
-                        HeightRequest="50"
+                        Text="{x:Static language:AppResource.Inactive}"
+                        TextColor="Red"
+                        BackgroundColor="#FFF0F0"
+                        BorderColor="Red"
                         Margin="16,0,16,30"
-                        Clicked="BtnUpdate_Clicked"
+                        BorderWidth="1"
+                        HeightRequest="50"
+                        CornerRadius="4"
+                        Clicked="BtnInActive_Clicked"
                         Grid.Row="2"/>  
             </Grid>
         </ScrollView>

@@ -104,8 +104,8 @@
                                                  TileType="ActiveAds"
                                                  Margin="0,0,0,20"
                                                  EventClickTile="Tile_EventClick"/>
-                        <component:ListTileView x:Name="tileNoActive"
-                                                 TileIcon="no_active.png" 
+                        <component:ListTileView x:Name="tileInactive"
+                                                 TileIcon="inactive.png" 
                                                  TileText="{x:Static language:AppResource.InactiveProducts}"
                                                  TileTextSize="15"
                                                  TileTextColor="{StaticResource Company}"

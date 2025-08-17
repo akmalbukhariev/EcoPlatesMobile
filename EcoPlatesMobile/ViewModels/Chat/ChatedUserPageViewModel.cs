@@ -26,6 +26,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
         private ChatApiService chatApiService;
         private AppControl appControl;
         private UserSessionService userSessionService;
+        public bool IsPageLoaded = false;
         public ChatedUserPageViewModel(CompanyApiService companyApiService, UserApiService userApiService, ChatApiService chatApiService, AppControl appControl, UserSessionService userSessionService)
         {
             this.companyApiService = companyApiService;
@@ -40,6 +41,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
         public async Task LoadUsersData()
         {   
             IsRefreshing = true;
+            IsPageLoaded = false;
 
             try
             {
@@ -65,7 +67,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                             UserImage = item.profile_picture_url,
                             UserName = item.first_name,
                             RightImage = response.resultData.Any(sender => sender.sender_id == (long)item.user_id && sender.has_unread)
-                                        ?  "unread_company_msg.png" : "right.png",
+                                        ? "unread_company_msg.png" : "right.png",
 
                             chatPageModel = new Models.Chat.ChatPageModel()
                             {
@@ -101,6 +103,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
             {
                 //IsLoading = false;
                 IsRefreshing = false;
+                IsPageLoaded = true;
             }
         }
 
@@ -175,6 +178,8 @@ namespace EcoPlatesMobile.ViewModels.Chat
         {
             bool isWifiOn = await appControl.CheckWifi();
 		    if (!isWifiOn) return;
+
+            if (!IsPageLoaded) return;
 
             if (userSessionService.Role == UserRole.User)
                 await LoadCompaniesData();

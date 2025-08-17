@@ -22,10 +22,18 @@ namespace EcoPlatesMobile.ViewModels.Company
         [ObservableProperty] private bool isRefreshing;
         [ObservableProperty] private bool showAddButton;
         [ObservableProperty] private string activeProductCount;
+        [ObservableProperty] private bool stackBottomEnabled = false;
+        [ObservableProperty] private bool isCheckedProduct = false;
+        [ObservableProperty] private bool isCheckedAllProduct = false;
+        [ObservableProperty] private bool isShowChekProduct;
+        [ObservableProperty] private bool isShowChekAllProducts;
+        [ObservableProperty] private bool allowSwipe = true;
+        [ObservableProperty] private string inActiveImage = "inactive_gray.png";
 
         private int offset = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
+        public bool checkAllCheckedAlready = false;
 
         private CompanyApiService companyApiService;
         private AppControl appControl;
@@ -45,6 +53,31 @@ namespace EcoPlatesMobile.ViewModels.Company
             bool isWifiOn = await appControl.CheckWifi();
 		    if (!isWifiOn) return;
 
+            if (IsCheckedProduct)
+            {
+                product.IsCheckedProduct = !product.IsCheckedProduct;
+                product.IsNonActiveProduct = !product.IsNonActiveProduct;
+
+                StackBottomEnabled = Products.Any(item => item.IsCheckedProduct);
+                InActiveImage = StackBottomEnabled ? "inactive.png" : "inactive_gray.png";
+
+                if (IsShowChekAllProducts)
+                {
+                    checkAllCheckedAlready = true;
+                    if (Products.Any(item => !item.IsCheckedProduct))
+                    {
+                        IsCheckedAllProduct = false;
+                    }
+                    else
+                    {
+                        IsCheckedAllProduct = true;
+                    }
+                    checkAllCheckedAlready = false;
+                }
+                return;
+            }
+
+            product.IsThisActivePage = true;
             product.CompanyId = appControl.CompanyInfo.company_id;
             await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
@@ -63,12 +96,14 @@ namespace EcoPlatesMobile.ViewModels.Company
             try
             {
                 IsLoading = true;
- 
+                IsShowChekProduct = false;
+                IsCheckedProduct = false;
+
                 PaginationWithDeletedParam request = new PaginationWithDeletedParam
                 {
                     deleted = false,
                     offset = offset,
-                    pageSize = PageSize  
+                    pageSize = PageSize
                 };
 
                 PosterListResponse response = await companyApiService.GetCompanyPoster(request);
@@ -101,7 +136,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
                     Products.AddRange(productModels);
- 
+
                     UpdateTitle();
 
                     offset += PageSize;
@@ -123,6 +158,8 @@ namespace EcoPlatesMobile.ViewModels.Company
             {
                 IsLoading = false;
                 ShowAddButton = true;
+                
+                IsShowChekProduct = Products.Count > 0;
             }
         }
 
@@ -146,12 +183,14 @@ namespace EcoPlatesMobile.ViewModels.Company
                 {
                     IsLoading = true;
                 }
- 
+                IsShowChekProduct = false;
+                IsCheckedProduct = false;
+
                 PaginationWithDeletedParam request = new PaginationWithDeletedParam
                 {
                     deleted = false,
                     offset = offset,
-                    pageSize = PageSize  
+                    pageSize = PageSize
                 };
 
                 PosterListResponse response = await companyApiService.GetCompanyPoster(request);
@@ -208,12 +247,39 @@ namespace EcoPlatesMobile.ViewModels.Company
                 IsRefreshing = false;
                 IsLoading = false;
                 ShowAddButton = true;
+
+                IsShowChekProduct = Products.Count > 0;
             }
         }
 
         public void UpdateTitle()
         {
+            if (Products.Count == 0)
+            {
+                IsCheckedProduct = false;
+            }
+            IsShowChekProduct = Products.Count > 0;
             ActiveProductCount = AppResource.ActiveProductCount + " " + Products.Count;
+        }
+
+        public void ShowCheckProduct(bool show)
+        {
+            foreach (ProductModel product in Products)
+            {
+                product.ShowCheckProduct = show;
+                if (!show)
+                {
+                    product.IsCheckedProduct = false;
+                    product.IsNonActiveProduct = false;
+                }
+            }
+
+            AllowSwipe = !show;
+            
+            if (!show)
+            {
+                InActiveImage = "inactive_gray.png";
+            }
         }
 
         public ICommand ClickProductCommand { get; }
@@ -233,6 +299,12 @@ namespace EcoPlatesMobile.ViewModels.Company
         {
             bool isWifiOn = await appControl.CheckWifi();
 		    if (!isWifiOn) return;
+
+            if (IsCheckedProduct)
+            {
+                IsRefreshing = false;
+                return;
+            }
 
             await LoadPromotionAsync(isRefresh: true);
         });

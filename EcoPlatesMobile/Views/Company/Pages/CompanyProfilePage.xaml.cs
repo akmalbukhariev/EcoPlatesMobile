@@ -131,7 +131,7 @@ public partial class CompanyProfilePage : BasePage
             lbCompanyName.Text = response.resultData.company_name;
             lbPhoneNumber.Text = response.resultData.phone_number;
             tileActive.TileText1 = response.resultData.active_products.ToString();
-            tileNoActive.TileText1 = response.resultData.non_active_products.ToString();
+            tileInactive.TileText1 = response.resultData.non_active_products.ToString();
 
             appControl.CompanyInfo = response.resultData;
         }

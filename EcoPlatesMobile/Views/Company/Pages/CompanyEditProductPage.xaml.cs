@@ -22,6 +22,7 @@ public partial class CompanyEditProductPage : BasePage
             productModel = value;
         }
     }
+    
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
      
@@ -57,9 +58,20 @@ public partial class CompanyEditProductPage : BasePage
             entryNewPrice.Text = (ProductModel.NewPriceDigit ?? 0m).ToString("0.######", CultureInfo.InvariantCulture).Replace(".", "");
             entryOldPrice.Text = (ProductModel.OldPriceDigit ?? 0m).ToString("0.######", CultureInfo.InvariantCulture).Replace(".", "");
             editorDescription.Text = ProductModel.description;
+
+            if (ProductModel.IsThisActivePage)
+            {
+                grdBottom.IsVisible = false;
+                btnInactive.IsVisible = true;
+            }
+            else
+            {
+                grdBottom.IsVisible = true;
+                btnInactive.IsVisible = false;
+            }
         }
     }
-
+    
     private async void ProductImage_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(imSelectedProduct);
@@ -115,8 +127,10 @@ public partial class CompanyEditProductPage : BasePage
         }
     }
 
-    private async void BtnUpdate_Clicked(object sender, EventArgs e)
+    private async void Done_Tapped(object sender, TappedEventArgs e)
     {
+        await AnimateElementScaleDown(sender as Image);
+
         keyboardHelper.HideKeyboard();
         
         bool isWifiOn = await appControl.CheckWifi();
@@ -154,11 +168,13 @@ public partial class CompanyEditProductPage : BasePage
 
             Response response;
 
-            if (title.Trim().Equals(ProductModel.ProductName?.Trim() ?? string.Empty) &&
-                oldPriceText.Trim().Equals(ProductModel.OldPriceDigit?.ToString() ?? string.Empty) &&
-                newPriceText.Trim().Equals(ProductModel.NewPriceDigit?.ToString() ?? string.Empty) &&
-                editorDescription.Text.Equals(ProductModel.description) &&
-                !isNewImageSelected)
+            var culture = CultureInfo.CurrentCulture;
+
+            if (string.Equals(title?.Trim(), ProductModel.ProductName?.Trim(), StringComparison.Ordinal)
+                && EqualMoney(ProductModel.OldPriceDigit, oldPriceText?.Trim(), culture)
+                && EqualMoney(ProductModel.NewPriceDigit, newPriceText?.Trim(), culture)
+                && string.Equals(editorDescription?.Text?.Trim() ?? "", ProductModel.description?.Trim() ?? "", StringComparison.Ordinal)
+                && !isNewImageSelected)
             {
                 IsLoading.IsVisible = false;
                 IsLoading.IsRunning = false;
@@ -195,7 +211,7 @@ public partial class CompanyEditProductPage : BasePage
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);
+                await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
                 await Shell.Current.GoToAsync("..");
             }
             else
@@ -212,6 +228,148 @@ public partial class CompanyEditProductPage : BasePage
             IsLoading.IsVisible = false;
             IsLoading.IsRunning = false;
         }
+    }
+
+    bool EqualMoney(decimal? modelValue, string text, CultureInfo culture, int scale = 2)
+    {
+        if (modelValue is null)
+            return string.IsNullOrWhiteSpace(text);
+
+        if (!decimal.TryParse(text, NumberStyles.Number, culture, out var parsed))
+            return false;
+        
+        return decimal.Round(parsed, scale) == decimal.Round(modelValue.Value, scale);
+    }
+
+    private async void BtnActive_Clicked(object sender, EventArgs e)
+    { 
+        bool answer = await AlertService.ShowConfirmationAsync(
+                                AppResource.Confirm,
+                                AppResource.MessageConfirm,
+                                AppResource.Yes, AppResource.No);
+
+        if (!answer) return;
+
+        try
+        {
+            ShowLoading(true);
+
+            ChangePosterDeletionRequest request = new ChangePosterDeletionRequest()
+            {
+                poster_id = ProductModel.PromotionId,
+                deleted = false
+            };
+
+            Response response = await companyApiService.ChangePosterDeletionStatus(request);
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                appControl.RefreshCompanyProfilePage = true;
+                await Shell.Current.GoToAsync("..");
+                return;
+            }
+            else
+            {
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+            }
+        }
+        catch (Exception ex)
+        {
+            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
+        }
+        finally
+        {
+            ShowLoading(false);
+        }
+    }
+
+    private async void BtnDelete_Clicked(object sender, EventArgs e)
+    {
+        bool isWifiOn = await appControl.CheckWifi();
+        if (!isWifiOn) return;
+
+        bool answer = await AlertService.ShowConfirmationAsync(
+                                AppResource.Confirm,
+                                AppResource.MessageConfirm,
+                                AppResource.Yes, AppResource.No);
+
+        if (!answer) return;
+        
+        ProductModel.CompanyId = (long)appControl.CompanyInfo.company_id;
+        try
+        {
+            ShowLoading(true);
+
+            Response response = await companyApiService.DeletePoster(ProductModel.PromotionId);
+
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                appControl.RefreshCompanyProfilePage = true;
+                await Shell.Current.GoToAsync("..");
+                return;
+            }
+            else
+            {
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+            }
+        }
+        catch (Exception ex)
+        {
+            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
+        }
+        finally
+        {
+            ShowLoading(true);
+        }
+    }
+
+    private async void BtnInActive_Clicked(object sender, EventArgs e)
+    {
+        bool isWifiOn = await appControl.CheckWifi();
+        if (!isWifiOn) return;
+
+        bool answer = await AlertService.ShowConfirmationAsync(
+                                AppResource.Confirm,
+                                AppResource.MessageConfirm,
+                                AppResource.Yes, AppResource.No);
+
+        if (!answer) return;
+
+        try
+        {
+            ShowLoading(true);
+
+            ChangePosterDeletionRequest request = new ChangePosterDeletionRequest()
+            {
+                poster_id = ProductModel.PromotionId,
+                deleted = true
+            };
+
+            Response response = await companyApiService.ChangePosterDeletionStatus(request);
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                appControl.RefreshCompanyProfilePage = true;
+                await Shell.Current.GoToAsync("..");
+                return;
+            }
+            else
+            {
+                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+            }
+        }
+        catch (Exception ex)
+        {
+            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
+        }
+        finally
+        {
+            ShowLoading(false);
+        }
+    }
+
+    private void ShowLoading(bool show)
+    { 
+        IsLoading.IsVisible = show;
+        IsLoading.IsRunning = show;
     }
 
     private async void OnImage_Swiped(object sender, SwipedEventArgs e)

@@ -16,6 +16,7 @@ namespace EcoPlatesMobile.Models.User
         public decimal? NewPriceDigit;
         public decimal? OldPriceDigit;
         public string description;
+        public bool IsThisActivePage;
         [ObservableProperty] private string productImage;
         [ObservableProperty] private string count;
         [ObservableProperty] private string productName;
@@ -25,5 +26,8 @@ namespace EcoPlatesMobile.Models.User
         [ObservableProperty] private string stars;
         [ObservableProperty] private bool liked;
         [ObservableProperty] private string distance;
+        [ObservableProperty] private bool showCheckProduct;
+        [ObservableProperty] private bool isNonActiveProduct;
+        [ObservableProperty] private bool isCheckedProduct;
     }
 }

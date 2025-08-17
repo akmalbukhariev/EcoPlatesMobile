@@ -23,10 +23,11 @@ public partial class ChatedUserPage : BasePage
 
         //Loaded += Page_Loaded;
     }
-    
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
         Color color = Constants.COLOR_USER;
         if (userSessionService.Role == UserRole.User)
         {

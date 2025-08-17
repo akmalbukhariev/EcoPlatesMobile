@@ -27,7 +27,9 @@ namespace EcoPlatesMobile.Services.Api
         private const string UPDATE_POSTER = $"{BASE_URL}poster/updatePoster";
         private const string GET_POSTER = $"{BASE_URL}poster/getCompanyPoster";
         private const string DELETE_POSTER = $"{BASE_URL}poster/deletePoster/";
+        private const string DELETE_POSTER_LIST = $"{BASE_URL}poster/deletePosterList";
         private const string CHANGE_POSTER_DELETION_STATUS = $"{BASE_URL}poster/changePosterDeletionStatus";
+        private const string CHANGE_POSTER_DELETION_STATUS_LIST = $"{BASE_URL}poster/changePosterDeletionStatusList";
         private const string GET_COMPANY_PROFILE_INFO = $"{BASE_URL}company/getCompanyProfileInfo/";
         private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";
         private const string REGISTER_COMPANY_FEEDBACK = $"{BASE_URL}feedbacks_company/registerCompanyFeedback";
@@ -35,7 +37,7 @@ namespace EcoPlatesMobile.Services.Api
 
         public CompanyApiService(RestClient client) : base(client)
         {
-            
+
         }
 
         public async Task<LoginCompanyResponse> Login(LoginRequest data)
@@ -513,6 +515,40 @@ namespace EcoPlatesMobile.Services.Api
             return response;
         }
 
+        public async Task<Response> ChangePosterDeletionStatusList(ChangePosterDeletionListRequest data)
+        {
+            var response = new Response();
+
+            try
+            {
+
+                var receivedData = await PostAsync(CHANGE_POSTER_DELETION_STATUS_LIST, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"ChangePosterDeletionStatus Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
         public async Task<Response> DeletePoster(long poster_id)
         {
             var response = new Response();
@@ -520,6 +556,39 @@ namespace EcoPlatesMobile.Services.Api
             try
             {
                 var receivedData = await DeleteAsync($"{DELETE_POSTER}{poster_id}");
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> DeletePosterList(ChangePosterDeletionListRequest data)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostAsync(DELETE_POSTER_LIST, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

@@ -10,6 +10,7 @@ using EcoPlatesMobile.Models.Responses.Notification;
 using Newtonsoft.Json.Linq;
 using EcoPlatesMobile.Models.Chat;
 using EcoPlatesMobile.Views.Chat;
+using ViewExt = Microsoft.Maui.Controls.ViewExtensions;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -51,7 +52,7 @@ public partial class ActiveProductPage : BasePage
         this.appControl = appControl;
 
         appControl.NotificationSubscriber = this;
-        
+
 #if ANDROID
         MessagingCenter.Subscribe<MainActivity, NotificationData>(appControl.NotificationSubscriber, Constants.NOTIFICATION_BODY, OnNotificationReceived);
 #endif
@@ -135,6 +136,7 @@ public partial class ActiveProductPage : BasePage
             swipeItems.Parent is SwipeView swipeView &&
             swipeView.BindingContext is ProductModel product)
         {
+            product.IsThisActivePage = true;
             product.CompanyId = (long)appControl.CompanyInfo.company_id;
             await AppNavigatorService.NavigateTo(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
@@ -143,11 +145,11 @@ public partial class ActiveProductPage : BasePage
         }
     }
 
-    private async void NoActiveProduct_Invoked(object sender, EventArgs e)
+    private async void InActiveProduct_Invoked(object sender, EventArgs e)
     {
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         if (sender is SwipeItem swipeItem &&
             swipeItem.Parent is SwipeItems swipeItems &&
             swipeItems.Parent is SwipeView swipeView &&
@@ -193,9 +195,190 @@ public partial class ActiveProductPage : BasePage
         }
     }
 
+    private async void InActiveAll_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(sender as Image);
+
+        bool answer = await AlertService.ShowConfirmationAsync(
+                                AppResource.Confirm,
+                                AppResource.MessageConfirm,
+                                AppResource.Yes, AppResource.No);
+
+        if (!answer) return;
+
+        try
+        {
+            viewModel.IsLoading = true;
+
+            var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
+
+            var request = new ChangePosterDeletionListRequest
+            {
+                dataList = selected.Select(p => new ChangePosterDeletionRequest
+                {
+                    poster_id = p.PromotionId,
+                    deleted = true
+                }).ToList()
+            };
+
+            Response response = await companyApiService.ChangePosterDeletionStatusList(request);
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    foreach (var item in selected)
+                        viewModel.Products.Remove(item);
+                });
+
+                appControl.RefreshCompanyProfilePage = true;
+                StCheckProductTapped(null, null);
+
+                if (viewModel.Products.Count == 0)
+                    viewModel.IsShowChekProduct = false;
+                
+                //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
+            }
+        }
+        catch (Exception ex)
+        {
+            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
+        }
+        finally
+        {
+            viewModel.IsLoading = false;
+        }
+    }
+
     private async void Add_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as Image);
         await AppNavigatorService.NavigateTo(nameof(CompanyAddProductPage));
+    }
+
+    private async void StCheckProductTapped(object sender, TappedEventArgs e)
+    {
+        checkProduct.IsChecked = !checkProduct.IsChecked;
+        viewModel.ShowCheckProduct(checkProduct.IsChecked);
+
+        viewModel.checkAllCheckedAlready = true;
+        viewModel.IsCheckedAllProduct = false;
+        viewModel.checkAllCheckedAlready = false;
+
+        await AnimateSelectAllBarAsync(selectAllBar, checkProduct.IsChecked);
+    }
+    
+    private void StSelectAllProductTapped(object sender, TappedEventArgs e)
+    {
+        viewModel.checkAllCheckedAlready = true;
+        checkAllProducts.IsChecked = !checkAllProducts.IsChecked;
+        CheckAllProducts(checkAllProducts.IsChecked);
+        viewModel.checkAllCheckedAlready = false;
+    }
+    
+    private async void CheckProduct_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        viewModel.StackBottomEnabled = false;
+        viewModel.ShowCheckProduct(checkProduct.IsChecked);
+        if (checkProduct.IsChecked && currentlyOpenSwipeView != null)
+        {
+            currentlyOpenSwipeView.Close();
+        }
+
+        await AnimateSwapAsync(showAdd: !e.Value);
+        viewModel.IsShowChekAllProducts = e.Value;
+
+        viewModel.checkAllCheckedAlready = true;
+        viewModel.IsCheckedAllProduct = false;
+        viewModel.checkAllCheckedAlready = false; 
+        
+        await AnimateSelectAllBarAsync(selectAllBar, checkProduct.IsChecked);
+    }
+    
+    private void CheckAllProduct_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (viewModel.checkAllCheckedAlready) return;
+
+        CheckAllProducts(checkAllProducts.IsChecked);
+    }
+
+    private void CheckAllProducts(bool check)
+    {
+        if (viewModel?.Products == null) return;
+
+        bool anyChecked = false;
+
+        foreach (var product in viewModel.Products)
+        {
+            product.IsCheckedProduct = check;
+            product.IsNonActiveProduct = check;
+
+            if (product.IsCheckedProduct) anyChecked = true;
+        }
+
+        viewModel.StackBottomEnabled = anyChecked;
+        viewModel.InActiveImage = anyChecked ? "inactive.png" : "inactive_gray.png";
+    } 
+    
+    bool isAnimating;
+    async Task AnimateSwapAsync(bool showAdd)
+    {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const uint duration = 220;
+        var easing = Easing.SinOut;
+
+        if (showAdd)
+        {
+            imAdd.IsVisible = true;
+
+            imAdd.TranslationX = 60;
+            imAdd.Opacity = 0;
+
+            var fadeInAdd = imAdd.FadeTo(1, duration, easing);
+            var slideInAdd = imAdd.TranslateTo(0, 0, duration, easing);
+
+            var fadeOutInactive = imInactive.FadeTo(0, duration, easing);
+            var slideOutInactive = imInactive.TranslateTo(60, 0, duration, easing);
+
+            await Task.WhenAll(fadeInAdd, slideInAdd, fadeOutInactive, slideOutInactive);
+
+            imInactive.IsVisible = false;
+        }
+        else
+        {
+            imInactive.IsVisible = true;
+
+            imInactive.TranslationX = 60;
+            imInactive.Opacity = 0;
+
+            var fadeInInactive = imInactive.FadeTo(1, duration, easing);
+            var slideInInactive = imInactive.TranslateTo(0, 0, duration, easing);
+
+            var fadeOutAdd = imAdd.FadeTo(0, duration, easing);
+            var slideOutAdd = imAdd.TranslateTo(60, 0, duration, easing);
+
+            await Task.WhenAll(fadeInInactive, slideInInactive, fadeOutAdd, slideOutAdd);
+
+            imAdd.IsVisible = false;
+        }
+
+        isAnimating = false;
+    }
+    
+    private SwipeView currentlyOpenSwipeView;
+    void OnRowSwipe(object sender, EventArgs e)
+    {
+        var swipeView = (SwipeView)sender;
+
+        if (currentlyOpenSwipeView != null && currentlyOpenSwipeView != swipeView)
+        {
+            currentlyOpenSwipeView.Close();
+        }
+
+        if (!viewModel.AllowSwipe)
+            ((SwipeView)sender).Close();
+
+        currentlyOpenSwipeView = swipeView;
     }
 }

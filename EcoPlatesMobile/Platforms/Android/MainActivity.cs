@@ -32,7 +32,7 @@ namespace EcoPlatesMobile
     public class MainActivity : MauiAppCompatActivity
     {
         public const int NotificationID = 1001;
-        public const string Channel_ID = "Plugin.LocalNotification.GENERAL";
+        public const string Channel_ID = "saletop_messages";
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -86,13 +86,18 @@ namespace EcoPlatesMobile
 
         private void CreateNotificationChannel()
         {
-            //var channelId = $"{PackageName}.general";
-            var notificationManager = (NotificationManager)GetSystemService(NotificationService);
-            var channel = new NotificationChannel(Channel_ID, "General", NotificationImportance.Default);
-            notificationManager.CreateNotificationChannel(channel);
-            FirebaseCloudMessagingImplementation.ChannelId = Channel_ID;//channelId;
-        }
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return;
 
+            var nm = (NotificationManager)GetSystemService(NotificationService);
+            var ch = new NotificationChannel(Channel_ID, "SaleTop Messages", NotificationImportance.High);
+            ch.LockscreenVisibility = NotificationVisibility.Public;
+            ch.EnableVibration(true);
+            ch.EnableLights(true);
+            nm.CreateNotificationChannel(ch);
+
+            FirebaseCloudMessagingImplementation.ChannelId = Channel_ID;
+        }
+        
         public static Activity Instance { get; private set; }
 
         void TryFixTabsWithRetry(int attemptsLeft = 10)

@@ -75,7 +75,13 @@
             <BoxView x:Name="boxViewBack"
                      BackgroundColor="Black"
                      Opacity="0.095"
-                     Grid.ColumnSpan="2"/> 
+                     Grid.ColumnSpan="2"/>
+            <CheckBox x:Name="checkProduct"
+                      IsVisible="False"
+                      HorizontalOptions="End"
+                      Color="{StaticResource Company}"
+                      CheckedChanged="CheckProduct_CheckedChanged"
+                      Grid.ColumnSpan="2"/>
         </Grid>
     </Frame>
 </ContentView>

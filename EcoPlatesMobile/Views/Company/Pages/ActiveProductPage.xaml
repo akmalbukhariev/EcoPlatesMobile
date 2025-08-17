@@ -8,7 +8,7 @@
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
                BackgroundColor="#F7F9FB">
-   
+      
    <Grid RowDefinitions="Auto, *, Auto">
         <component:CustomHeader x:Name="header"
                                 Title="{x:Static language:AppResource.ActiveProducts}"
@@ -17,13 +17,50 @@
         <Grid RowDefinitions="Auto, *"
               Margin="16,20,16,10"
               Grid.Row="1">
-            <Label Text="{Binding ActiveProductCount}"
-                   TextColor="Black"
-                   FontFamily="Roboto"
-                   FontAttributes="None"
-                   Margin="0,0,0,20"
-                   FontSize="15"/>
-            <RefreshView x:Name="listProduct" 
+            <Grid ColumnDefinitions="*, Auto"
+                  Margin="10,0,0,0">
+                <Label Text="{Binding ActiveProductCount}" IsVisible="False"
+                       TextColor="Black"
+                       FontFamily="Roboto"
+                       VerticalTextAlignment="Center"
+                       FontSize="15"/>
+                <HorizontalStackLayout x:Name="selectAllBar"
+                                       VerticalOptions="Center"
+                                       IsVisible="{Binding IsShowChekAllProducts}"
+                                       HorizontalOptions="Start">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="StSelectAllProductTapped"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Label Text="Select all"
+                           FontSize="15"
+                           FontFamily="Roboto"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <CheckBox x:Name="checkAllProducts"
+                              IsChecked="{Binding IsCheckedAllProduct}"
+                              Color="{StaticResource Company}"
+                              CheckedChanged="CheckAllProduct_CheckedChanged"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout VerticalOptions="Center"
+                                       IsVisible="{Binding IsShowChekProduct}"
+                                       Grid.Column="1">
+                     <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="StCheckProductTapped"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Label Text="Select"
+                           FontSize="15"
+                           FontFamily="Roboto"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <CheckBox x:Name="checkProduct"
+                              IsChecked="{Binding IsCheckedProduct}"
+                              Color="{StaticResource Company}"
+                              CheckedChanged="CheckProduct_CheckedChanged"/>
+                </HorizontalStackLayout>
+            </Grid>
+            <RefreshView x:Name="listProduct"
                          IsRefreshing="{Binding IsRefreshing}"
                          Command="{Binding RefreshCommand}"
                          Margin="10"
@@ -38,7 +75,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <SwipeView>
+                            <SwipeView SwipeStarted="OnRowSwipe">
                                 <SwipeView.RightItems>
                                     <SwipeItems>
                                         <SwipeItem Text="{x:Static language:AppResource.Edit}"
@@ -46,7 +83,7 @@
                                                    Invoked="EditProduct_Invoked"/>
                                         <SwipeItem Text="{x:Static language:AppResource.Inactive}"
                                                    BackgroundColor="Red"
-                                                   Invoked="NoActiveProduct_Invoked"/>
+                                                   Invoked="InActiveProduct_Invoked"/>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <com_component:ProductView ProductImage="{Binding ProductImage}"
@@ -55,23 +92,43 @@
                                                            OldPrice="{Binding OldPrice}"
                                                            Stars="{Binding Stars}"
                                                            ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:ActiveProductPage}}, Path=BindingContext.ClickProductCommand}"
-                                                           IsNonActiveProduct="False"/>
+                                                           IsNonActiveProduct="{Binding IsNonActiveProduct}"
+                                                           ShowCheckProduct="{Binding ShowCheckProduct}"
+                                                           IsCheckedProduct="{Binding IsCheckedProduct}"/>
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
-            <Image Source="add.png"
-                   IsVisible="{Binding ShowAddButton}"
+            <Image x:Name="imAdd"
+                   Source="add.png"
                    WidthRequest="60"
                    HeightRequest="60"
-                   Margin="0,0,0,30"
                    VerticalOptions="End"
                    HorizontalOptions="End"
+                   Margin="0,0,0,30"
+                   Opacity="1"
+                   IsVisible="True"
+                   TranslationX="0"
                    Grid.RowSpan="2">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1"
-                                          Tapped="Add_Tapped"/>
+                    <TapGestureRecognizer Tapped="Add_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image x:Name="imInactive"
+                    Source="{Binding InActiveImage}"
+                    IsEnabled="{Binding StackBottomEnabled}"
+                    WidthRequest="55"
+                    HeightRequest="60"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    Margin="0,0,0,30"
+                    Opacity="0"
+                    IsVisible="False"
+                    TranslationX="60"
+                    Grid.RowSpan="2">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="InActiveAll_Tapped"/>
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
