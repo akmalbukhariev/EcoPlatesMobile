@@ -39,19 +39,19 @@
                 <Label x:Name="lbUserName" 
                        Text="-----------------------"
                        FontSize="15"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Black"
                        FontAttributes="Bold"/>
                 <Label x:Name="lbPhoneNumber"
                        Text="+998 00 000 00 00"
                        FontSize="13"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="#999999"
                        FontAttributes="Bold"
                        Grid.Row="1"/>
                 <Label Text="{x:Static language:AppResource.RoleBuyer}"
                        FontSize="12"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="#999999"
                        Grid.Row="2"/>
             </Grid>
@@ -84,7 +84,7 @@
                                    VerticalOptions="Center"/>
                             <Label Text="{Binding SelectedLanguage}"
                                    TextColor="Black"
-                                   FontFamily="Roboto"
+                                   FontFamily="RobotoVar"
                                    FontSize="15"
                                    VerticalTextAlignment="Center"
                                    Grid.Column="1"/>
@@ -139,13 +139,13 @@
                     <Label Text="SaleTop application"
                            TextColor="LightGray"
                            FontSize="17"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            HorizontalTextAlignment="Center"/>
                     <Label x:Name="lbVersion" 
                            Text="v. 1.1.0 (Android -13)"
                            TextColor="LightGray"
                            FontSize="15"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
             </Grid>
@@ -185,7 +185,7 @@
                             <Label Text="{Binding Name}" 
                                    Margin="5,0,0,0"
                                    FontSize="14" 
-                                   FontFamily="Roboto"
+                                   FontFamily="RobotoVar"
                                    VerticalTextAlignment="Center" 
                                    TextColor="Black"
                                    Grid.Column="1"/>

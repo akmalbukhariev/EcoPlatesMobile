@@ -75,7 +75,7 @@
             <Label Text="{x:Static language:AppResource.RecentSearches}"
                    TextColor="Black"
                    FontSize="16"
-                   FontFamily="Roboto"/>
+                   FontFamily="RobotoVar"/>
             <CollectionView ItemsSource="{Binding HistoryList}"
                             HorizontalScrollBarVisibility="Always"
                             Grid.Row="1">
@@ -99,7 +99,7 @@
                             <Label Text="{Binding SearchedText}"
                                    TextColor="Black"
                                    FontSize="16"
-                                   FontFamily="Roboto"
+                                   FontFamily="RobotoVar"
                                    VerticalOptions="Center"/>
                         </Border>
                     </DataTemplate>
@@ -129,7 +129,7 @@
                         <Label Text="{Binding SearchedText}"
                                TextColor="Black"
                                FontSize="14"
-                               FontFamily="Roboto"
+                               FontFamily="RobotoVar"
                                FontAttributes="Bold"
                                HorizontalOptions="Start"
                                VerticalOptions="Center"

@@ -28,7 +28,7 @@
                            TextDecorations="{Binding TitleDecoration}"
                            HorizontalTextAlignment="Center"
                            FontSize="14"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            Grid.Row="1"/>
                 </Grid>
             </DataTemplate>

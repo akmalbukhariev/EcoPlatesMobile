@@ -12,7 +12,7 @@
                      Grid.ColumnSpan="2"/>
             <Button x:Name="button1"
                     FontSize="13"
-                    FontFamily="Roboto"
+                    FontFamily="RobotoVar"
                     BackgroundColor="White"
                     TextColor="Black"
                     BorderWidth="0"
@@ -22,7 +22,7 @@
                     Clicked="OnTabClicked"/>
             <Button x:Name="button2"
                     FontSize="13"
-                    FontFamily="Roboto"
+                    FontFamily="RobotoVar"
                     BackgroundColor="Transparent"
                     TextColor="Gray"
                     BorderWidth="0"
@@ -50,7 +50,7 @@
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    FontAttributes="Bold"
-                   FontFamily="Roboto"
+                   FontFamily="RobotoVar"
                    TextColor="White"/>
             <Border x:Name="mapTab"
                     BackgroundColor="LightGray"
@@ -66,7 +66,7 @@
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    FontAttributes="Bold"
-                   FontFamily="Roboto"
+                   FontFamily="RobotoVar"
                    TextColor="{StaticResource User}"
                    Grid.Column="1"/>
         </Grid>

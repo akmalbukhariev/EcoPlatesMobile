@@ -23,7 +23,7 @@
             </Border>
             <Label Text="{x:Static language:AppResource.SelectDistance}"
                    FontSize="16"
-                   FontFamily="Roboto"
+                   FontFamily="RobotoVar"
                    HorizontalOptions="Center"
                    Margin="0,5,0,0"/>
             <Grid ColumnDefinitions="*, Auto"
@@ -43,7 +43,7 @@
                 <Label x:Name="distanceLabel"
                        Text="5 km"
                        FontSize="16"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Black"
                        VerticalOptions="Center"
                        HorizontalOptions="End"

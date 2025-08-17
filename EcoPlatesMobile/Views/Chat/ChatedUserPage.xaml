@@ -61,7 +61,7 @@
                                 <Label Text="{Binding UserName}"
                                        TextColor="Black"
                                        FontSize="16"
-                                       FontFamily="Roboto"
+                                       FontFamily="RobotoVar"
                                        VerticalOptions="Center"
                                        HorizontalOptions="Start"
                                        LineBreakMode="WordWrap"

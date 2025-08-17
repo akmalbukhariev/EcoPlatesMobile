@@ -21,7 +21,7 @@
                   Margin="10,0,0,0">
                 <Label Text="{Binding ActiveProductCount}" IsVisible="False"
                        TextColor="Black"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        VerticalTextAlignment="Center"
                        FontSize="15"/>
                 <HorizontalStackLayout x:Name="selectAllBar"
@@ -33,7 +33,7 @@
                     </HorizontalStackLayout.GestureRecognizers>
                     <Label Text="Select all"
                            FontSize="15"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            TextColor="Black"
                            FontAttributes="Bold"
                            VerticalOptions="Center"/>
@@ -50,7 +50,7 @@
                     </HorizontalStackLayout.GestureRecognizers>
                     <Label Text="Select"
                            FontSize="15"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            TextColor="Black"
                            FontAttributes="Bold"
                            VerticalOptions="Center"/>

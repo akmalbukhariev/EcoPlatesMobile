@@ -21,7 +21,7 @@
                         HorizontalOptions="Center"
                         Grid.Row="2">
                 <Label Text="{x:Static language:AppResource.SelectRole}"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        FontSize="15"
                        TextColor="Gray"
                        HorizontalTextAlignment="Center"

@@ -25,7 +25,7 @@
                          Grid.Row="1">
                 <Label x:Name="lbTitle" 
                        Text="Iltimos, 998 90 999 00 99 telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        FontSize="14"
                        HorizontalTextAlignment="Center"
                        Style="{StaticResource styleLabel}"/>
@@ -48,7 +48,7 @@
                                  BoxSize="50"
                                  Color="#442C2E" />
                     <Label Text="{x:Static language:AppResource.EnterPhoneCorrectly}"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            FontSize="14"
                            HorizontalTextAlignment="Center"
                            Style="{StaticResource styleLabel}"/>
@@ -59,10 +59,10 @@
                          Grid.Row="3">
                 <Label Text="{x:Static language:AppResource.ConfirmationCodeTime}"
                         HorizontalOptions="Center"
-                        FontFamily="Roboto"
+                        FontFamily="RobotoVar"
                         Style="{StaticResource styleLabel}"/>
                 <Label Text="0:46"
-                        FontFamily="Roboto"
+                        FontFamily="RobotoVar"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"/>
@@ -74,9 +74,9 @@
                 <Label Text="Sizga kod kelmadimi"
                         HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"
-                        FontFamily="Roboto"/>
+                        FontFamily="RobotoVar"/>
                 <Label Text="Qayta yuborish"
-                        FontFamily="Roboto"
+                        FontFamily="RobotoVar"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"

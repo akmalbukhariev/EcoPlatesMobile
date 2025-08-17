@@ -16,7 +16,7 @@
                 <VerticalStackLayout Spacing="20"
                                      Margin="16,0,16,0">
                     <Label Text="{x:Static language:AppResource.EnterPhoneNumber}"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            TextColor="Gray"/>
                     <component:CustomEntry x:Name="entryNumber"
                                            EntryIcon="phone.png"
@@ -27,12 +27,12 @@
                                            EntryBackgroundColor="#F5F5F5"/>
                     <Grid>
                         <Label Text="{x:Static language:AppResource.AuthorizationTitle1}"
-                               FontFamily="Roboto"
+                               FontFamily="RobotoVar"
                                TextColor="Gray"/>
                     </Grid>
                     <Grid>
                         <Label Text="{x:Static language:AppResource.AuthorizationTitle2}"
-                            FontFamily="Roboto"
+                            FontFamily="RobotoVar"
                                TextColor="Gray"/>
                     </Grid>
                     <Grid Padding="0"

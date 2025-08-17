@@ -15,7 +15,7 @@
                        TextColor="White"
                        FontAttributes="Bold"
                        FontSize="15"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        HorizontalTextAlignment="Center"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"/>
@@ -62,12 +62,12 @@
                                      Grid.Column="1">
                     <Label Text="{x:Static language:AppResource.SelectDistance}"
                            FontSize="14"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            TextColor="{StaticResource User}"/>
                     <Label x:Name="lbSelectedDistance" 
                            Text="Selected distance is 2 km"
                            FontSize="12"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            TextColor="{StaticResource User}"/>
                 </VerticalStackLayout>
                 <Image Source="up.png"

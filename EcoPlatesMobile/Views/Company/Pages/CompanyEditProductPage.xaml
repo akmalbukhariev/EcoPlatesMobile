@@ -36,7 +36,7 @@
                     <Button Text="{x:Static language:AppResource.SetNewPhoto}"
                             TextColor="{StaticResource Company}"
                             FontSize="17"
-                            FontFamily="Roboto"
+                            FontFamily="RobotoVar"
                             FontAttributes="Bold"
                             BackgroundColor="Transparent"
                             HorizontalOptions="Center"
@@ -64,7 +64,7 @@
                                 <Setter Property="BackgroundColor" Value="White"/>
                                 <Setter Property="TextColor" Value="Black"/>
                                 <Setter Property="FontSize" Value="16"/>
-                                <Setter Property="FontFamily" Value="Roboto"/>
+                                <Setter Property="FontFamily" Value="RobotoVar"/>
                                 <Setter Property="Margin" Value="10,5"/>
                             </Style>
                         </VerticalStackLayout.Resources> 
@@ -106,12 +106,12 @@
                                        Text="000"
                                        TextColor="Black"
                                        FontSize="16"
-                                       FontFamily="Roboto"
+                                       FontFamily="RobotoVar"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbOldPrice"
                                        Text="{x:Static language:AppResource.PreviousPrice}"
                                        Style="{StaticResource styleLabel}"
-                                       FontFamily="Roboto"
+                                       FontFamily="RobotoVar"
                                        VerticalTextAlignment="Center"
                                        Margin="0,0,10,0"
                                        Grid.Column="3"/>
@@ -132,12 +132,12 @@
                                        TextColor="Black"
                                        Keyboard="Numeric"
                                        FontSize="16"
-                                       FontFamily="Roboto"
+                                       FontFamily="RobotoVar"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbNewPrice" 
                                        Text="{x:Static language:AppResource.CurrentPrice}"
                                        Style="{StaticResource styleLabel}"
-                                       FontFamily="Roboto"
+                                       FontFamily="RobotoVar"
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
                                        Margin="0,0,10,0"
@@ -153,7 +153,7 @@
                             <Editor x:Name="editorDescription"
                                     Placeholder="{x:Static language:AppResource.ProductDescription}"
                                     TextColor="Black"
-                                    FontFamily="Roboto"
+                                    FontFamily="RobotoVar"
                                     FontSize="16"/>
                     </Border>
                 </VerticalStackLayout>

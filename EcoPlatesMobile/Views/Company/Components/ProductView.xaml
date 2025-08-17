@@ -25,7 +25,7 @@
                         <Label x:Name="productName"
                                TextColor="Black"
                                FontSize="14"
-                               FontFamily="Roboto"
+                               FontFamily="RobotoVar"
                                FontAttributes="Bold"/>
                         <Label x:Name="productCount" 
                                IsVisible="Collapse"
@@ -36,14 +36,14 @@
                   <VerticalStackLayout Grid.Row="2">
                         <Label x:Name="newPrice"
                                TextColor="{StaticResource User}"
-                               FontFamily="Roboto"
+                               FontFamily="RobotoVar"
                                FontSize="14"
                                FontAttributes="Bold"/>
                         <Label x:Name="oldPrice"
                                TextColor="Gray"
                                TextDecorations="Strikethrough"
                                FontSize="12"
-                               FontFamily="Roboto"
+                               FontFamily="RobotoVar"
                                FontAttributes="Bold"/>
                   </VerticalStackLayout>
                   <HorizontalStackLayout Margin="0,0,0,0"
@@ -55,7 +55,7 @@
                                    HeightRequest="16"/>
                             <Label x:Name="stars"
                                    FontSize="11"
-                                   FontFamily="Roboto"
+                                   FontFamily="RobotoVar"
                                    VerticalTextAlignment="Center"/>
                         </HorizontalStackLayout>
                         <BoxView BackgroundColor="LightGray"
@@ -67,7 +67,7 @@
                                    HeightRequest="16"/>
                             <Label Text="579 m" 
                                    FontSize="11"
-                                   FontFamily="Roboto"
+                                   FontFamily="RobotoVar"
                                    VerticalTextAlignment="Center"/>
                     </HorizontalStackLayout>
                 </HorizontalStackLayout>

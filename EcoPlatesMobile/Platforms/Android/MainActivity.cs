@@ -184,7 +184,7 @@ namespace EcoPlatesMobile
 
             if (view is TextView tv)
             {
-                var typeface = Typeface.Create("Roboto", TypefaceStyle.Normal); // Use registered alias from MAUI
+                var typeface = Typeface.Create("RobotoVar", TypefaceStyle.Normal); // Use registered alias from MAUI
                 tv.Typeface = typeface;
 #if DEBUG
                 Android.Util.Log.Info("TabFix", $"{indent}✅ Font applied to: {tv.Text}");

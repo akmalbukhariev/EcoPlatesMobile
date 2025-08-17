@@ -23,24 +23,24 @@
                  <StackLayout>
                     <Label Text="{x:Static language:AppResource.SuggestionTitle1}"
                            FontSize="24"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            TextColor="Gray"
                            HorizontalTextAlignment="Center"/>
                 </StackLayout>
                 <Label Text="{x:Static language:AppResource.SuggestionTitle2}"
                        FontSize="16"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Gray"
                        HorizontalTextAlignment="Center"/>
                 <Label Text="{x:Static language:AppResource.Type}" 
                        FontAttributes="Bold"
-                       FontFamily="Roboto"/>
+                       FontFamily="RobotoVar"/>
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" BackgroundColor="White" CornerRadius="6">
                     <Grid>
                         <Picker x:Name="pickType"
                                 Title="{x:Static language:AppResource.SelectFeedbackType}"
                                 TitleColor="Gray"
-                                FontFamily="Roboto"
+                                FontFamily="RobotoVar"
                                 TextColor="Black"/>
                         <Image Source="down.png"
                                Aspect="AspectFill"
@@ -52,12 +52,12 @@
                  </Frame>
                 <Label Text="{x:Static language:AppResource.Message}" 
                        FontAttributes="Bold"
-                       FontFamily="Roboto"/>
+                       FontFamily="RobotoVar"/>
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" BackgroundColor="White" CornerRadius="6">
                     <Editor x:Name="messageEditor"
                             Placeholder="{x:Static language:AppResource.WriteYourMessage}"
                             AutoSize="TextChanges"
-                            FontFamily="Roboto"
+                            FontFamily="RobotoVar"
                             HeightRequest="150"
                             BackgroundColor="Transparent"
                             TextColor="Black"

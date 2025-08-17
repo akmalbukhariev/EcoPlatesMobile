@@ -25,19 +25,19 @@
                    Text="000 00 000 00 00"
                    TextColor="Gray"
                    FontSize="17"
-                   FontFamily="Roboto"
+                   FontFamily="RobotoVar"
                    HorizontalTextAlignment="Center"
                    FontAttributes="Bold"/>
             <Label x:Name="lbTitle"
                    Text="{x:Static language:AppResource.ChangeNumberTitle}"
                    TextColor="Gray"
-                   FontFamily="Roboto"
+                   FontFamily="RobotoVar"
                    HorizontalTextAlignment="Center"
                    FontSize="17"/>
         </VerticalStackLayout>
         <Button Text="{x:Static language:AppResource.ChangeNumber}"
                 FontSize="17"
-                FontFamily="Roboto"
+                FontFamily="RobotoVar"
                 FontAttributes="Bold"
                 TextColor="#3080DD"
                 BackgroundColor="White"

@@ -37,23 +37,23 @@
                 <Label x:Name="roleTitle"
                        Text="For Clients"
                        TextColor="Black"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        FontAttributes="Bold"
                        FontSize="24"
                        HorizontalOptions="Center"/>
                 <Label x:Name="roleSubtitle"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        Text="Discover discounted food items nearby"
                        FontSize="18"
                        TextColor="Black"
                        HorizontalTextAlignment="Center"/>
-                <Label x:Name="point1" Text="• Browse a variety of discounted food offers" FontSize="16" TextColor="Black" FontFamily="Roboto"/>
-                <Label x:Name="point2" Text="• View available items on a map" FontSize="16" TextColor="Black" FontFamily="Roboto"/>
-                <Label x:Name="point3" Text="• Adjust the radius to find offers within your location" FontSize="16" TextColor="Black" FontFamily="Roboto"/>
-                <Label x:Name="point4" Text="• Receive notifications about new deals near you" FontSize="16" TextColor="Black" FontFamily="Roboto"/>
+                <Label x:Name="point1" Text="• Browse a variety of discounted food offers" FontSize="16" TextColor="Black" FontFamily="RobotoVar"/>
+                <Label x:Name="point2" Text="• View available items on a map" FontSize="16" TextColor="Black" FontFamily="RobotoVar"/>
+                <Label x:Name="point3" Text="• Adjust the radius to find offers within your location" FontSize="16" TextColor="Black" FontFamily="RobotoVar"/>
+                <Label x:Name="point4" Text="• Receive notifications about new deals near you" FontSize="16" TextColor="Black" FontFamily="RobotoVar"/>
                 <Label x:Name="finalMessage"
                        Text="Save money, reduce waste, and support your local community."
-                       FontFamily="RobotoItalic"
+                       FontFamily="RobotoVarItalic"
                        FontSize="16"
                        HorizontalTextAlignment="Center"
                        TextColor="DarkSlateGray"/>

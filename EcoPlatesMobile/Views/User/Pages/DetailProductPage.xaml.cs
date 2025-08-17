@@ -75,7 +75,7 @@ public partial class DetailProductPage : BasePage
         {
             Text = viewModel.Stars,
             TextColor = Colors.Black,
-            FontFamily = "Roboto",
+            FontFamily = "RobotoVar",
             Margin = new Thickness(5, 0, 0, 0),
             VerticalOptions = LayoutOptions.Center
         };

@@ -42,7 +42,7 @@
                     <Label x:Name="productCount"
                            TextColor="Black"
                            FontSize="16"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
                            VerticalTextAlignment="Center"/>
@@ -66,13 +66,13 @@
                                  Grid.Row="1">
                 <Label x:Name="productName"
                        FontSize="14" 
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Black"
                        LineBreakMode="TailTruncation"
                        FontAttributes="Bold"/>
                 <Label x:Name="productMakerName"
                        FontSize="12" 
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Black"/>
             </VerticalStackLayout>
             <VerticalStackLayout Margin="10,5,0,0"
@@ -80,7 +80,7 @@
                                  Grid.Row="2">
                 <Label x:Name="newPrice"
                        FontSize="14"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="{StaticResource User}"
                        FontAttributes="Bold"/>
                 <Label x:Name="oldPrice" 
@@ -88,7 +88,7 @@
                        Margin="3,0,0,0"
                        TextDecorations="Strikethrough"
                        FontSize="12" 
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Gray"/>
             </VerticalStackLayout>
             <HorizontalStackLayout Margin="10,0,0,0"
@@ -100,7 +100,7 @@
                            HeightRequest="16"/>
                     <Label x:Name="stars"
                            FontSize="11"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            TextColor="Black"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
@@ -113,7 +113,7 @@
                            HeightRequest="16"/>
                     <Label x:Name="distance"
                            FontSize="11"
-                           FontFamily="Roboto"
+                           FontFamily="RobotoVar"
                            TextColor="Black"
                            VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>

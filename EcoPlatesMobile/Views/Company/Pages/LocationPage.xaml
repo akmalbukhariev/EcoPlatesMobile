@@ -29,7 +29,7 @@
                    Text="{x:Static language:AppResource.SpecifyYourWorkLocation}"
                    TextColor="White"
                    FontSize="18"
-                   FontFamily="Roboto"
+                   FontFamily="RobotoVar"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"
                    Margin="15,0,0,0"/>

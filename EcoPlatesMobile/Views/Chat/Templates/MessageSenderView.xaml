@@ -28,7 +28,7 @@
 
             <Label Text="{Binding Text}"
                    TextColor="White"
-                   FontFamily="Roboto"
+                   FontFamily="RobotoVar"
                    LineBreakMode="WordWrap"
                    HorizontalOptions="Start"
                    VerticalOptions="Center"

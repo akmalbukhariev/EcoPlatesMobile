@@ -53,12 +53,12 @@
                                  Grid.Row="1">
                 <Label x:Name="companyName"
                        FontSize="14"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Black"
                        FontAttributes="Bold"/>
                 <Label x:Name="companyWorkingTime"
                        FontSize="11"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Black"/>
             </VerticalStackLayout>
             <HorizontalStackLayout Spacing="5"
@@ -69,7 +69,7 @@
                        HeightRequest="16"/>
                 <Label x:Name="distance" 
                        FontSize="11"
-                       FontFamily="Roboto"
+                       FontFamily="RobotoVar"
                        TextColor="Black"
                        VerticalTextAlignment="Center"/>
             </HorizontalStackLayout>
