@@ -104,6 +104,8 @@ public partial class UserMainPage : BasePage
 
             case NotificationType.NEW_MESSAGE:
                 var messageData = jObject.ToObject<NewMessagePushNotificationResponse>();
+                if (messageData.sender_type == UserRole.User.ToString().ToUpper()) return;
+
                 ChatPageModel chatPageModel = new ChatPageModel()
                 {
                     ReceiverName = messageData.sender_name,

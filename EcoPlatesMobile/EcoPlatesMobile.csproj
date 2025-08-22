@@ -45,7 +45,7 @@
 		<AndroidSigningKeyAlias>androiddebugkey</AndroidSigningKeyAlias>
 		<AndroidSigningKeyPass>android</AndroidSigningKeyPass>
 	</PropertyGroup>
-
+   
 	<ItemGroup>
 		<MauiAsset Include="Resources/Raw/sale_top_logo.svg" />
 		<MauiAsset Include="Resources/Raw/sale_top_logo1.svg" />
@@ -279,7 +279,7 @@
 
 	<PropertyGroup>
 	  <ApplicationVersion>1</ApplicationVersion>
-	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.1.0</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 </Project>

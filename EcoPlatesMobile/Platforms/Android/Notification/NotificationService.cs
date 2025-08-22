@@ -2,6 +2,7 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
+using Android.Runtime;
 using AndroidX.Core.App;
 using EcoPlatesMobile.Models.Company;
 using EcoPlatesMobile.Models.Responses.Notification;
@@ -13,6 +14,7 @@ using Newtonsoft.Json.Linq;
 [assembly: Dependency(typeof(NotificationService))]
 namespace EcoPlatesMobile.Platforms.Android.Notification
 {
+    [Preserve(AllMembers = true)]
     public class NotificationService : INotificationService
     {
         private UserSessionService userSessionService;
@@ -26,7 +28,6 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
         public void SendNotification(string title, string bodyRaw)
         {
             var context = global::Android.App.Application.Context;
-
             EnsureChannel(context, MainActivity.Channel_ID, "SaleTop Messages");
 
             string content = null;
@@ -34,9 +35,8 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
             {
                 if (!string.IsNullOrWhiteSpace(bodyRaw))
                 {
-                    // If it's JSON, parse it; else use as-is
-                    var looksJson = bodyRaw.TrimStart().StartsWith("{");
-                    if (looksJson)
+                    var trimmed = bodyRaw.TrimStart();
+                    if (trimmed.StartsWith("{"))                  // JSON path
                     {
                         var o = JObject.Parse(bodyRaw);
                         var type = (o["notificationType"]?.ToString() ?? "").ToUpperInvariant();
@@ -63,21 +63,20 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
                             content = o["new_poster_name"]?.ToString();
                         }
                     }
-                    else
+                    else                                           
                     {
-                        // Plain text (e.g., from notification.body)
                         content = bodyRaw;
                     }
                 }
             }
-            catch { /* ignore and fall back */ }
+            catch { }
 
             if (string.IsNullOrWhiteSpace(content))
-                content = "New message"; // guaranteed non-empty, renders on all skins
+                content = "New message";
 
             var intent = new Intent(context, typeof(MainActivity))
                 .AddFlags(ActivityFlags.NewTask | ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            intent.PutExtra(Utilities.Constants.NOTIFICATION_TITLE, string.IsNullOrWhiteSpace(title) ? "SaleTop" : title);
+            intent.PutExtra(Utilities.Constants.NOTIFICATION_TITLE, string.IsNullOrWhiteSpace(title) ? "SaleTop ex" : title);
             intent.PutExtra(Utilities.Constants.NOTIFICATION_BODY, bodyRaw ?? "");
 
             var pendingIntent = PendingIntent.GetActivity(
@@ -85,9 +84,9 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
                 PendingIntentFlags.Immutable | PendingIntentFlags.OneShot);
 
             var builder = new NotificationCompat.Builder(context, MainActivity.Channel_ID)
-                .SetSmallIcon(Resource.Drawable.notification_icon) // white-only drawable
+                .SetSmallIcon(Resource.Drawable.notification_icon) // drawable/white
                 .SetLargeIcon(BitmapFactory.DecodeResource(context.Resources, Resource.Mipmap.appicon))
-                .SetContentTitle(string.IsNullOrWhiteSpace(title) ? "SaleTop" : title)
+                .SetContentTitle(string.IsNullOrWhiteSpace(title) ? "SaleTop test" : title)
                 .SetContentText(content)
                 .SetStyle(new NotificationCompat.BigTextStyle().BigText(content))
                 .SetVisibility(NotificationCompat.VisibilityPublic)
@@ -98,6 +97,7 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
 
             NotificationManagerCompat.From(context).Notify(MainActivity.NotificationID, builder.Build());
         }
+
         static void EnsureChannel(Context ctx, string channelId, string channelName)
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
@@ -124,34 +124,7 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
         {
             var context = global::Android.App.Application.Context;
 
-            var jObject = JObject.Parse(bodyJson);
-            var notificationTypeValue = jObject["notificationType"]?.ToString();
-
-            if (!Enum.TryParse(notificationTypeValue, out NotificationType notificationType))
-            {
-                Console.WriteLine("Unknown notification type.");
-                return;
-            }
-
-            string strContent = string.Empty;
-            switch (notificationType)
-            {
-                case NotificationType.NEW_POSTER:
-                    if (userSessionService.Role == UserRole.Company) return;
-
-                    var posterData = jObject.ToObject<NewPosterPushNotificationResponse>();
-                    strContent = posterData.new_poster_name;
-                    break;
-
-                case NotificationType.NEW_MESSAGE:
-                    var messageData = jObject.ToObject<NewMessagePushNotificationResponse>();
-                    strContent = messageData.message;
-                    break;
-
-                default:
-                    Console.WriteLine("Unhandled notification type.");
-                    break;
-            }
+            EnsureChannel(context, MainActivity.Channel_ID, "SaleTop Messages");
 
             var intent = new Intent(context, typeof(MainActivity));
             intent.PutExtra(Utilities.Constants.NOTIFICATION_TITLE, title);
@@ -165,9 +138,11 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
                 PendingIntentFlags.Immutable | PendingIntentFlags.OneShot);
 
             var builder = new NotificationCompat.Builder(context, MainActivity.Channel_ID)
-                .SetSmallIcon(Resource.Mipmap.appicon)
+                //.SetSmallIcon(Resource.Mipmap.appicon)
+                .SetSmallIcon(Resource.Drawable.notification_icon)
                 .SetContentTitle(title)
-                .SetContentText(strContent)
+                //.SetContentText(strContent)
+                .SetContentText("test content")
                 .SetAutoCancel(true)
                 .SetContentIntent(pendingIntent)
                 .SetPriority((int)NotificationPriority.High);

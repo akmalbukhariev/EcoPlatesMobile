@@ -254,7 +254,7 @@
   <comment>PhoneNumberRegisterPage</comment>
 </data>
 	<data name="MessageEnterPhoneNumberNotRegistered" xml:space="preserve">
-  <value>Bu telefon raqami tizimimizda ro‘yxatdan o‘tmagan. Siz ro‘yxatdan o‘tish sahifasiga yo‘naltirilasiz.</value>
+  <value>Ushbu telefon raqami bizning tizimimizda ro‘yxatdan o‘tmagan. Ro‘yxatdan o‘tmoqchimisiz?</value>
   <comment>PhoneNumberRegisterPage</comment>
 </data>
 	<data name="Error" xml:space="preserve">

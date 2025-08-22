@@ -11,8 +11,10 @@ using Android.App;
 using Android.Content;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Services;
+using Android.Runtime;
+using Android.OS;
 
-
+/*
 namespace EcoPlatesMobile.Platforms.Android.Notification
 {
     [Service(Exported = true)]
@@ -22,20 +24,10 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
         public override void OnMessageReceived(RemoteMessage message)
         {
             base.OnMessageReceived(message);
- 
-            if (!AppService.Get<AppStoreService>().Get(AppKeys.IsLoggedIn, false)) return;
 
-            var notif = message.GetNotification();
 
-            var title = message.Data.TryGetValue("title_text", out var t) ? t
-                     : message.Data.TryGetValue("title", out var t2) ? t2
-                     : "SaleTop";
-
-            var bodyRaw = message.Data.TryGetValue("payload", out var p) ? p
-                   :  message.Data.TryGetValue("body", out var b) ? b
-                   :  notif?.Body; 
-             
-            new NotificationService().SendNotification(title, bodyRaw);
+            new NotificationService().SendNotification("ZZZ TEST TITLE", "ZZZ TEST BODY");
         }
     }
 }
+*/

@@ -30,7 +30,7 @@ public partial class UserProfileInfoPage : BasePage
         entryUserName.MaxLength = 20;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
@@ -39,7 +39,7 @@ public partial class UserProfileInfoPage : BasePage
         entryUserName.Text = appControl.UserInfo.first_name;
         lbPhoneNumber.Text = appControl.UserInfo.phone_number;
         notification.IsToggled = appControl.UserInfo.notification_enabled;
-        
+          
         isPageLoaded = true;
     }
 
@@ -195,17 +195,23 @@ public partial class UserProfileInfoPage : BasePage
         fullImage.IsVisible = false;
     }
 
+    private bool _suppressToggle;
     private async void Notitifation_Toggled(object sender, ToggledEventArgs e)
     {
-        if (!isPageLoaded) return;
+        if (_suppressToggle || !isPageLoaded) return;
 
         keyboardHelper.HideKeyboard();
 
-        bool enabled = await NotificationPermissionHelper.EnsureEnabledAsync(this);
-        if (!enabled)
+        if (e.Value)
         {
-            notification.IsToggled = false;
-            return;
+            bool allowed = await NotificationPermissionHelper.EnsureEnabledAsync(this);
+            if (!allowed)
+            {
+                _suppressToggle = true;
+                notification.IsToggled = false;
+                _suppressToggle = false;
+                return;
+            }
         }
 
         bool isWifiOn = await appControl.CheckWifi();

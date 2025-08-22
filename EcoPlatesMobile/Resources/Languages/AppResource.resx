@@ -254,7 +254,7 @@
     <comment>PhoneNumberRegisterPage</comment>
   </data>
   <data name="MessageEnterPhoneNumberNotRegistered" xml:space="preserve">
-    <value>This phone number is not registered in our system. You will be redirected to the registration page.</value>
+    <value>This phone number is not registered in our system. Do you want to register?</value>
     <comment>PhoneNumberRegisterPage</comment>
   </data>
   <data name="Error" xml:space="preserve">
