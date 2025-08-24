@@ -365,6 +365,18 @@
     <value>No</value>
     <comment>ActiveProductPage</comment>
   </data>
+  <data name="MessageDeactiveAllProducts" xml:space="preserve">
+    <value>Do you want to deactivate all selected products?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="MessageDeleteAllProducts" xml:space="preserve">
+    <value>Do you want to delete all selected products?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="MessageActiveAllProducts" xml:space="preserve">
+    <value>Do you want to activate all selected products?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
   <data name="InactiveProducts" xml:space="preserve">
     <value>Inactive products</value>
     <comment>NonActiveProductPage</comment>

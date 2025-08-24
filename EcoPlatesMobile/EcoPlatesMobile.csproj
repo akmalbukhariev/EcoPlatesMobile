@@ -27,6 +27,8 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion> 
 		<Configurations>Debug;Release;Debug_Local</Configurations>
+
+		<GenerateResxDesignerFiles>true</GenerateResxDesignerFiles>
  
 	</PropertyGroup>
 
@@ -51,6 +53,23 @@
 		<MauiAsset Include="Resources/Raw/sale_top_logo1.svg" />
 	</ItemGroup>
 	
+	<ItemGroup>
+	<!-- Point MSBuild to generate the public strongly-typed class -->
+	<EmbeddedResource Update="Resources/Strings/AppResource.resx">
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>AppResource.Designer.cs</LastGenOutput>
+		<!-- Optional but recommended: set the namespace you want -->
+		<CustomToolNamespace>YourApp.Resources.Strings</CustomToolNamespace>
+	</EmbeddedResource>
+
+	<!-- Mark the generated file as auto-generated & dependent -->
+	<Compile Update="Resources/Strings/AppResource.Designer.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>AppResource.resx</DependentUpon>
+	</Compile>
+	</ItemGroup>
+
 	<!--<ItemGroup>
 		<MauiFont Include="Resources/Fonts/Roboto-Variable.ttf" Alias="Roboto" />
 		<MauiFont Include="Resources/Fonts/Roboto-Italic-Variable.ttf" Alias="RobotoItalic" />

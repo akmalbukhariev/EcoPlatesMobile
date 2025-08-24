@@ -369,6 +369,18 @@
   <value>Yo‘q</value>
   <comment>ActiveProductPage</comment>
 </data>
+<data name="MessageDeactiveAllProducts" xml:space="preserve">
+    <value>Tanlangan barcha mahsulotlarni faolsizlantirmoqchimisiz?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="MessageDeleteAllProducts" xml:space="preserve">
+    <value>Tanlangan barcha mahsulotlarni o‘chirib tashlamoqchimisiz?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="MessageActiveAllProducts" xml:space="preserve">
+    <value>Tanlangan barcha mahsulotlarni faollashtirmoqchimisiz?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
 <data name="InactiveProducts" xml:space="preserve">
   <value>Nofaol mahsulotlar</value>
   <comment>NonActiveProductPage</comment>

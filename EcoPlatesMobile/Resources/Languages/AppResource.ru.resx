@@ -369,6 +369,18 @@
   <value>Нет</value>
   <comment>ActiveProductPage</comment>
 </data>
+<data name="MessageDeactiveAllProducts" xml:space="preserve">
+    <value>Вы хотите деактивировать все выбранные товары?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="MessageDeleteAllProducts" xml:space="preserve">
+    <value>Вы хотите удалить все выбранные товары?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="MessageActiveAllProducts" xml:space="preserve">
+    <value>Вы хотите активировать все выбранные товары?</value>
+    <comment>ActiveProductPage</comment>
+  </data>
 	<data name="InactiveProducts" xml:space="preserve">
   <value>Неактивные товары</value>
   <comment>NonActiveProductPage</comment>

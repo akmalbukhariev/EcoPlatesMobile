@@ -24,7 +24,7 @@ public partial class InActiveProductPage : BasePage
                 ShowBack = result;
         }
     }
-
+    
     public string ShowTabBarQuery
     {
         set
@@ -165,6 +165,7 @@ public partial class InActiveProductPage : BasePage
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
+                                //AppResource.MessageActiveProducts,
                                 AppResource.Yes, AppResource.No);
 
         if (!answer) return;
@@ -218,6 +219,7 @@ public partial class InActiveProductPage : BasePage
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
+                                //AppResource.MessageDeleteProducts,
                                 AppResource.Yes, AppResource.No);
 
         if (!answer) return;

@@ -22,7 +22,6 @@
                 </Grid.GestureRecognizers>
                 <Image x:Name="imBack"
                        Source="back2.png"
-                       IsVisible="{Binding ShowBack}"
                        VerticalOptions="Center"
                        WidthRequest="25"
                        HeightRequest="25"/>

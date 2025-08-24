@@ -157,10 +157,10 @@ public partial class ActiveProductPage : BasePage
             swipeItems.Parent is SwipeView swipeView &&
             swipeView.BindingContext is ProductModel product)
         {
-
             bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
                                 AppResource.MessageConfirm,
+                                //AppResource.MessageDeactiveProducts,
                                 AppResource.Yes, AppResource.No);
 
             if (!answer) return;

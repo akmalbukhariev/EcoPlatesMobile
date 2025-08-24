@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  xmlns:tools="http://schemas.android.com/tools"
 		  package="com.saletop.saletop">
-	<application android:allowBackup="true" 
+	<application android:allowBackup="false" 
 				 android:label="SaleTop"
 				 android:icon="@mipmap/appicon" 
 				 android:roundIcon="@mipmap/appicon_round" 
