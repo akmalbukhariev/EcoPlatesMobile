@@ -164,8 +164,7 @@ public partial class InActiveProductPage : BasePage
 
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
-                                AppResource.MessageConfirm,
-                                //AppResource.MessageActiveProducts,
+                                AppResource.MessageActiveAllProducts,
                                 AppResource.Yes, AppResource.No);
 
         if (!answer) return;
@@ -218,8 +217,7 @@ public partial class InActiveProductPage : BasePage
 
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
-                                AppResource.MessageConfirm,
-                                //AppResource.MessageDeleteProducts,
+                                AppResource.MessageDeactiveAllProducts,
                                 AppResource.Yes, AppResource.No);
 
         if (!answer) return;

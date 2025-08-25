@@ -853,11 +853,38 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to activate all selected products?.
+        /// </summary>
+        internal static string MessageActiveAllProducts {
+            get {
+                return ResourceManager.GetString("MessageActiveAllProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to proceed?.
         /// </summary>
         internal static string MessageConfirm {
             get {
                 return ResourceManager.GetString("MessageConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to deactivate all selected products?.
+        /// </summary>
+        internal static string MessageDeactiveAllProducts {
+            get {
+                return ResourceManager.GetString("MessageDeactiveAllProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete all selected products?.
+        /// </summary>
+        internal static string MessageDeleteAllProducts {
+            get {
+                return ResourceManager.GetString("MessageDeleteAllProducts", resourceCulture);
             }
         }
         
@@ -871,7 +898,7 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This phone number is not registered in our system. You will be redirected to the registration page..
+        ///   Looks up a localized string similar to This phone number is not registered in our system. Do you want to register?.
         /// </summary>
         internal static string MessageEnterPhoneNumberNotRegistered {
             get {
