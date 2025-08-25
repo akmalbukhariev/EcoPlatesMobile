@@ -377,6 +377,15 @@
     <value>Do you want to activate all selected products?</value>
     <comment>ActiveProductPage</comment>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+
   <data name="InactiveProducts" xml:space="preserve">
     <value>Inactive products</value>
     <comment>NonActiveProductPage</comment>

@@ -381,6 +381,15 @@
     <value>Вы хотите активировать все выбранные товары?</value>
     <comment>ActiveProductPage</comment>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+      <value>Выбрать все</value>
+      <comment>ActiveProductPage (Russian)</comment>
+  </data>
+  <data name="Select" xml:space="preserve">
+      <value>Выбрать</value>
+      <comment>ActiveProductPage (Russian)</comment>
+  </data>
+
 	<data name="InactiveProducts" xml:space="preserve">
   <value>Неактивные товары</value>
   <comment>NonActiveProductPage</comment>

@@ -105,7 +105,7 @@ public partial class UserCompanyPage : BasePage
             var userLocation = await locationService.GetCurrentLocationAsync();
             if (userLocation == null)
             {
-                await DisplayAlert(AppResource.Error, AppResource.MessageLocationPermission, AppResource.Ok);
+                viewModel.IsLoading = false;
                 return;
             }
             viewModel.IsLoading = false;
@@ -119,8 +119,6 @@ public partial class UserCompanyPage : BasePage
              $"&travelmode=driving";
 
             await Launcher.Default.OpenAsync(uri);
-
-            //await AppNavigatorService.NavigateTo($"{nameof(CompanyNavigatorPage)}?Latitude={viewModel.Latitude}&Longitude={viewModel.Longitude}");
         }
     }
 
@@ -165,5 +163,4 @@ public partial class UserCompanyPage : BasePage
         boxFullImage.IsVisible = false;
         fullImage.IsVisible = false;
     }
-
 }

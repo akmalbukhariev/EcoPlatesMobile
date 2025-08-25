@@ -381,6 +381,15 @@
     <value>Tanlangan barcha mahsulotlarni faollashtirmoqchimisiz?</value>
     <comment>ActiveProductPage</comment>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Hammasini tanlash</value>
+    <comment>ActiveProductPage (Uzbek)</comment>
+</data>
+<data name="Select" xml:space="preserve">
+    <value>Tanlash</value>
+    <comment>ActiveProductPage (Uzbek)</comment>
+</data>
+
 <data name="InactiveProducts" xml:space="preserve">
   <value>Nofaol mahsulotlar</value>
   <comment>NonActiveProductPage</comment>
