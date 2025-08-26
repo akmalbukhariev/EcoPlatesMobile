@@ -48,7 +48,7 @@ namespace EcoPlatesMobile.ViewModels.User
             CompanyName = "Maker name";
             PhoneNumber = "1234567890";
             WorkingTime = "00 ~ 00";
-
+            appControl.RebuildBusinessTypeList();
             ClickProductCommand = new Command<ProductModel>(ProductClicked);
         }
 

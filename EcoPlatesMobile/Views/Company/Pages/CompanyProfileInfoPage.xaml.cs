@@ -27,6 +27,7 @@ public partial class CompanyProfileInfoPage : BasePage
         this.appControl = appControl;
         this.keyboardHelper = keyboardHelper;
 
+        appControl.RebuildBusinessTypeList();
         pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
 
         entryCompanyName.MaxLength = 20;
@@ -58,7 +59,8 @@ public partial class CompanyProfileInfoPage : BasePage
             }
         }
 
-        var selectedItem = AppService.Get<AppControl>().BusinessTypeList.FirstOrDefault(kvp => kvp.Value == appControl.CompanyInfo.business_type).Key;
+        appControl.RebuildBusinessTypeList();
+        var selectedItem = appControl.BusinessTypeList.FirstOrDefault(kvp => kvp.Value == appControl.CompanyInfo.business_type).Key;
 
         if (selectedItem != null)
         {
@@ -174,7 +176,7 @@ public partial class CompanyProfileInfoPage : BasePage
                     endTimeFromServer = endTime.TimeOfDay;
                 }
             }
-
+            
             bool isSame = enteredName == appControl.CompanyInfo.company_name?.Trim() &&
             appControl.BusinessTypeList[selectedType].ToUpper() == appControl.CompanyInfo.business_type.ToUpper() &&
             startTimeFromServer.HasValue && endTimeFromServer.HasValue &&

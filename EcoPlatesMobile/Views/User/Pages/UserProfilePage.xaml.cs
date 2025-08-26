@@ -189,6 +189,11 @@ public partial class UserProfilePage : BasePage
             await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
                 break;
             case ListTileView.ListTileType.Share:
+                await Share.Default.RequestAsync(new ShareTextRequest
+                {
+                    Uri = "https://your-app-url-here.com",
+                    Title = "Check out my app"
+                });
                 break;
             case ListTileView.ListTileType.Suggestions:
                 await AppNavigatorService.NavigateTo($"{nameof(SuggestionsPage)}?IsUser={true}");

@@ -38,7 +38,7 @@
                        Margin="10,0,0,0"/>
                 <VerticalStackLayout HorizontalOptions="Start" 
                                      Grid.Column="1">
-                    <Label Text="Check distance"
+                    <Label Text="{x:Static language:AppResource.SelectDistance}"
                            FontSize="14"
                            FontFamily="RobotoVar"
                            TextColor="{StaticResource User}"/>

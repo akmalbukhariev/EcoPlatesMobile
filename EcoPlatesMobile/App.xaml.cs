@@ -145,19 +145,5 @@ namespace EcoPlatesMobile
         {
             MainPage = new AppEntryShell();
         }
-        
-        /*
-        private void Current_NotificationActionTapped(Plugin.LocalNotification.EventArgs.NotificationActionEventArgs e)
-        {
-            if (e.IsDismissed)
-            {
-
-            }
-            else if (e.IsTapped)
-            {
-
-            }
-        }
-        */
     }
 }

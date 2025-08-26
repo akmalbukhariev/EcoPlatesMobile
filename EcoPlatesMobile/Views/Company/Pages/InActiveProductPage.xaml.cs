@@ -217,7 +217,7 @@ public partial class InActiveProductPage : BasePage
 
         bool answer = await AlertService.ShowConfirmationAsync(
                                 AppResource.Confirm,
-                                AppResource.MessageDeactiveAllProducts,
+                                AppResource.MessageDeleteAllProducts,
                                 AppResource.Yes, AppResource.No);
 
         if (!answer) return;

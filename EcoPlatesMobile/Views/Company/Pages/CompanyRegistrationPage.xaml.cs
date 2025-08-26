@@ -43,7 +43,8 @@ public partial class CompanyRegistrationPage : BasePage
         this.companyApiService = companyApiService;
         this.locationService = locationService;
         this.keyboardHelper = keyboardHelper;
- 
+
+        appControl.RebuildBusinessTypeList();
         CompanyTypeList = new ObservableCollection<CompanyTypeModel>(
             appControl.BusinessTypeList.Select(kvp => new CompanyTypeModel
             {

@@ -29,15 +29,37 @@ namespace EcoPlatesMobile.Services
 
         public Location LocationForRegister { get; set; } = null;
         public object NotificationSubscriber { get; set; }
-        public Dictionary<string, string> BusinessTypeList = new Dictionary<string, string>
+  
+        public Dictionary<string, string> BusinessTypeList;
+        /* => new()
         {
-            { AppResource.Restaurant, "RESTAURANT" },
-            { AppResource.Bakery, "BAKERY" },
-            { AppResource.FastFood, "FAST_FOOD" },
-            { AppResource.Cafe, "CAFE" },
-            { AppResource.Supermarket, "SUPERMARKET" },
-            //{ "Other", "OTHER" }
+            { lang.GetString(nameof(AppResource.Restaurant)),  "RESTAURANT" },
+            { lang.GetString(nameof(AppResource.Bakery)),      "BAKERY" },
+            { lang.GetString(nameof(AppResource.FastFood)),    "FAST_FOOD" },
+            { lang.GetString(nameof(AppResource.Cafe)),        "CAFE" },
+            { lang.GetString(nameof(AppResource.Supermarket)), "SUPERMARKET" },
         };
+        */
+
+        private readonly LanguageService lang;
+
+        public AppControl(LanguageService lang)
+        {
+            this.lang = lang;
+            RebuildBusinessTypeList();
+        }
+
+        public void RebuildBusinessTypeList()
+        {
+            BusinessTypeList = new Dictionary<string, string>
+            {
+                { AppResource.Restaurant,  "RESTAURANT" },
+                { AppResource.Bakery,      "BAKERY" },
+                { AppResource.FastFood,    "FAST_FOOD" },
+                { AppResource.Cafe,        "CAFE" },
+                { AppResource.Supermarket, "SUPERMARKET" }
+            };
+        }
 
         public async Task LoginCompany(string phoneNumber)
         {

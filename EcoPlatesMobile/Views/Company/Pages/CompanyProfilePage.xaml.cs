@@ -194,7 +194,12 @@ public partial class CompanyProfilePage : BasePage
                 await AppNavigatorService.NavigateTo($"{nameof(InActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.Share:
-                break;
+            await Share.Default.RequestAsync(new ShareTextRequest
+            {
+                 Uri = "https://your-app-url-here.com",
+                 Title = "Check out my app"
+            });
+            break;
             case ListTileView.ListTileType.Location:
                 loading.IsRunning = true;
                 var location = await locationService.GetCurrentLocationAsync();
