@@ -595,7 +595,12 @@
   <value>Your workplace</value>
   <comment>LocationPage</comment>
  </data>
-	<data name="SpecifyYourWorkLocation" xml:space="preserve">
+<data name="NewWorkplace" xml:space="preserve">
+  <value>New workplace</value>
+  <comment>LocationPage</comment>
+ </data>
+
+<data name="SpecifyYourWorkLocation" xml:space="preserve">
   <value>Specify your work location</value>
   <comment>LocationPage</comment>
  </data>

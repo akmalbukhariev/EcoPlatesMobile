@@ -31,7 +31,7 @@
                     <HorizontalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="StSelectAllProductTapped"/>
                     </HorizontalStackLayout.GestureRecognizers>
-                    <Label Text="Select all"
+                    <Label Text="{x:Static language:AppResource.SelectAll}"
                            FontSize="15"
                            FontFamily="RobotoVar"
                            TextColor="Black"
@@ -48,7 +48,7 @@
                      <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="StCheckProductTapped"/>
                     </HorizontalStackLayout.GestureRecognizers>
-                    <Label Text="Select"
+                    <Label Text="{x:Static language:AppResource.Select}"
                            FontSize="15"
                            FontFamily="RobotoVar"
                            TextColor="Black"

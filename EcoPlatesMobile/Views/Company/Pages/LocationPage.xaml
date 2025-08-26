@@ -33,17 +33,21 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"
                    Margin="15,0,0,0"/>
-            <Image x:Name="imSave" 
-                   Source="save_location.png"
-                   WidthRequest="30"
-                   HeightRequest="30"
-                   Margin="0, 4.44, 20, 0"
-                   HorizontalOptions="End">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Save_Tapped"
-                                          NumberOfTapsRequired="1"/>
-                </Image.GestureRecognizers>
-            </Image>
+            <Grid WidthRequest="55"
+                  HeightRequest="40"
+                  VerticalOptions="Center"  
+                  HorizontalOptions="End"
+                  Margin="0, 4.44, 5, 0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Save_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Image x:Name="imSave" 
+                       Source="save_location.png"
+                       WidthRequest="30"
+                       HeightRequest="30"/>
+            </Grid>
+            
         </Grid>
         <maps:Map x:Name="map" 
                   MapType="Street"
@@ -54,14 +58,18 @@
                              VerticalOptions="Center" 
                              Grid.Row="1"
                              Grid.RowSpan="2">
-                 <Label Text="{x:Static language:AppResource.CurrentLocation}"
-                        FontSize="17"
+            <Border BackgroundColor="White">
+                 <Label Text="{x:Static language:AppResource.NewWorkplace}"
+                        FontSize="15"
+                        Margin="5,3,5,3"
+                        FontFamily="RobotoVar"
                         FontAttributes="Bold"
                         TextColor="{StaticResource Company}"/>
-                 <Image Source="location1.png"
-                        WidthRequest="40"
-                        HeightRequest="40"
-                        InputTransparent="True"/>
+            </Border>
+            <Image Source="location1.png"
+                   WidthRequest="40"
+                   HeightRequest="40"
+                   InputTransparent="True"/>
         </VerticalStackLayout>
        
         <component:LoadingView x:Name="loading"

@@ -595,6 +595,11 @@
   <value>Ваше место работы</value>
   <comment>LocationPage</comment>
 </data>
+<data name="NewWorkplace" xml:space="preserve">
+  <value>Новое место работы</value>
+  <comment>LocationPage</comment>
+ </data>
+
 <data name="SpecifyYourWorkLocation" xml:space="preserve">
   <value>Укажите ваше место работы</value>
   <comment>LocationPage</comment>

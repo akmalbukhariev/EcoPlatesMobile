@@ -56,7 +56,7 @@ public partial class LocationPage : BasePage
 
 	private async void Save_Tapped(object sender, TappedEventArgs e)
 	{
-		await AnimateElementScaleDown(sender as Image);
+		await AnimateElementScaleDown(imSave);
 
 		bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;

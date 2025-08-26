@@ -1159,6 +1159,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New workplace.
+        /// </summary>
+        internal static string NewWorkplace {
+            get {
+                return ResourceManager.GetString("NewWorkplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
         internal static string Next {
@@ -1461,6 +1470,24 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string SearchStore {
             get {
                 return ResourceManager.GetString("SearchStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        internal static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
             }
         }
         
