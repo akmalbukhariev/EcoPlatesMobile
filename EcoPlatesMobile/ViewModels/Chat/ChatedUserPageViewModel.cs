@@ -45,6 +45,15 @@ namespace EcoPlatesMobile.ViewModels.Chat
 
             try
             {
+                GetCompanyInfoResponse infoCompany = await companyApiService.GetCompanyInfo();
+                if (infoCompany.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString())
+                {
+                    IsRefreshing = false;
+                    IsPageLoaded = true;
+                    Users.Clear();
+                    return;
+                }
+
                 UnreadMessagesRequest request = new UnreadMessagesRequest()
                 {
                     receiver_id = appControl.CompanyInfo.company_id,
@@ -110,9 +119,19 @@ namespace EcoPlatesMobile.ViewModels.Chat
         public async Task LoadCompaniesData()
         { 
             IsRefreshing = true;
+            IsPageLoaded = false;
 
             try
             {
+                GetUserInfoResponse infoUser = await userApiService.GetUserInfo();
+                if (infoUser.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
+                {
+                    IsRefreshing = false;
+                    IsPageLoaded = true;
+                    Users.Clear();
+                    return;
+                }
+
                 UnreadMessagesRequest request = new UnreadMessagesRequest()
                 {
                     receiver_id = appControl.UserInfo.user_id,
@@ -120,7 +139,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                 };
 
                 ChatSenderIdResponse response = await chatApiService.GetSendersWithUnread(request);
-                
+
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     if (response.resultData != null && response.resultData.Count != 0)
@@ -135,7 +154,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                             UserImage = item.logo_url,
                             UserName = item.company_name,
                             RightImage = response.resultData.Any(sender => sender.sender_id == (long)item.company_id && sender.has_unread)
-                                        ?  "unread_user_msg.png" : "right.png",
+                                        ? "unread_user_msg.png" : "right.png",
 
                             chatPageModel = new Models.Chat.ChatPageModel()
                             {
@@ -169,8 +188,8 @@ namespace EcoPlatesMobile.ViewModels.Chat
             }
             finally
             {
-                //IsLoading = false;
                 IsRefreshing = false;
+                IsPageLoaded = true;
             }
         }
 

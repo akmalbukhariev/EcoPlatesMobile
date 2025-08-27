@@ -41,12 +41,14 @@ namespace EcoPlatesMobile.ViewModels.User
         private UserApiService userApiService;
         private AppControl appControl;
         private AppStoreService appStoreService;
+        private IKeyboardHelper keyboardHelper;
 
-        public UserBrowserSearchPageViewModel(UserApiService userApiService, AppControl appControl, AppStoreService appStoreService)
+        public UserBrowserSearchPageViewModel(UserApiService userApiService, AppControl appControl, AppStoreService appStoreService, IKeyboardHelper keyboardHelper)
         {
             this.userApiService = userApiService;
             this.appControl = appControl;
             this.appStoreService = appStoreService;
+            this.keyboardHelper = keyboardHelper;
 
             companies = new ObservableRangeCollection<CompanyModel>();
             historyList = new ObservableRangeCollection<HistoryDataInfo>();
@@ -54,7 +56,7 @@ namespace EcoPlatesMobile.ViewModels.User
             ClickCompanyCommand = new Command<CompanyModel>(ComapnyClicked);
             ClickHistoryCommand = new Command<HistoryDataInfo>(ClickHistoryItem);
             RemoveHistoryCommand = new Command<HistoryDataInfo>(RemoveHistoryItem);
-             
+
             ShowCompanyResult = false;
             ShowFilterSearchList = false;
             ShowRecentSearchList = true;
@@ -184,6 +186,8 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ClickHistoryItem(HistoryDataInfo item)
         {
+            keyboardHelper.HideKeyboard();
+            
             bool isWifiOn = await appControl.CheckWifi();
 		    if (!isWifiOn) return;
 

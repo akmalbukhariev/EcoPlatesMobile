@@ -55,7 +55,7 @@ public partial class UserMainPage : BasePage
             companyTypeList.InitType(typeItem);
         }
 
-        lbHeader.Text = $"{AppResource.NearbyWithin} {appControl.UserInfo.radius_km} km {AppResource.Around}.";
+        lbHeader.Text = $"{AppResource.NearbyWithin} {appControl.UserInfo.radius_km} {AppResource.Km} {AppResource.Around}.";
 
         if (appControl.NotificationData != null && appControl.NotificationData.body != string.Empty)
         {

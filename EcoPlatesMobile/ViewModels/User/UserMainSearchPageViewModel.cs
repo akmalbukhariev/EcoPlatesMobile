@@ -40,12 +40,13 @@ namespace EcoPlatesMobile.ViewModels.User
         private UserApiService userApiService;
         private AppControl appControl;
         private AppStoreService appStoreService;
-
-        public UserMainSearchPageViewModel(UserApiService userApiService, AppControl appControl, AppStoreService appStoreService)
+        private IKeyboardHelper keyboardHelper;
+        public UserMainSearchPageViewModel(UserApiService userApiService, AppControl appControl, AppStoreService appStoreService, IKeyboardHelper keyboardHelper)
         {
             this.userApiService = userApiService;
             this.appControl = appControl;
             this.appStoreService = appStoreService;
+            this.keyboardHelper = keyboardHelper;
 
             products = new ObservableRangeCollection<ProductModel>();
             historyList = new ObservableRangeCollection<HistoryDataInfo>();
@@ -189,6 +190,8 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ClickHistoryItem(HistoryDataInfo item)
         {
+            keyboardHelper.HideKeyboard();
+            
             bool isWifiOn = await appControl.CheckWifi();
 		    if (!isWifiOn) return;
 

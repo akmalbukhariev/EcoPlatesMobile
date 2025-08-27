@@ -108,7 +108,7 @@ public partial class ChattingPage : BasePage
             editorMessage.Text = e.NewTextValue.Substring(0, MaxMessageLength);
         }
     }
-
+    
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(imBack);

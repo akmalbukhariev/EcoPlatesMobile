@@ -109,6 +109,7 @@
                                                 Grid.Row="1"/>
                         <component:ListTileView TileIcon="share.png" 
                                                 TileText="{x:Static language:AppResource.Share}"
+                                                TileType="Share"
                                                 TileTextSize="15"
                                                 TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
