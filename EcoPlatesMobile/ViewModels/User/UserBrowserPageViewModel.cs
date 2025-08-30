@@ -78,11 +78,12 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             offset = 0;
             hasMoreItems = true;
+            Companies.Clear();
             
             try
             {
                 IsLoading = true;
- 
+
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
                     radius_km = appControl.UserInfo.radius_km,
@@ -91,7 +92,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     offset = offset,
                     pageSize = PageSize,
                 };
- 
+
                 CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocation(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
@@ -143,6 +144,8 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public async Task LoadCompaniesAsync(bool isRefresh = false)
         {
+            Companies.Clear();
+            
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;
 

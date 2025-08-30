@@ -315,9 +315,9 @@ namespace EcoPlatesMobile.Services
 #region Check url image
         private readonly string[] AllowedBases =
         {
-            "http://95.182.117.246:8080/uploads-user/profile-pictures/",
-            "http://95.182.117.246:8080/uploads-company/profile-pictures/",
-            "http://95.182.117.246:8080/uploads-company/poster-pictures/" // trailing slash OK/handled
+            "http://95.182.118.233/uploads-user/profile-pictures/",
+            "http://95.182.118.233/uploads-company/profile-pictures/",
+            "http://95.182.118.233/uploads-company/poster-pictures/" // trailing slash OK/handled
         };
 
         public string GetImageUrlOrFallback(string? imageUrl, string fallback = "no_image.png")

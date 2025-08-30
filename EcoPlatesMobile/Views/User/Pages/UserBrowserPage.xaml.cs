@@ -72,8 +72,9 @@ public partial class UserBrowserPage : BasePage
     {
         try
         {
-            viewModel.IsLoading = true; 
-            //loading.ShowLoading = true;
+            viewModel.IsLoading = true;
+
+            MoveMap();
 
             var userInfo = appControl.UserInfo;
 
@@ -89,25 +90,28 @@ public partial class UserBrowserPage : BasePage
 
             if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
             {
-                var pins = response.resultData.Select(item => new CustomPin
-                {
-                    CompanyId = (long)item.company_id,
-                    Label = item.company_name,
-                    Location = new Location(
-                    (double)item.location_latitude,
-                    (double)item.location_longitude),
-                    LogoUrl = item.logo_url
-                }).ToList();
+                var pins = response.resultData?
+                    .Select(item => new CustomPin
+                    {
+                        CompanyId = (long)item.company_id,
+                        Label = item.company_name,
+                        Location = new Location(
+                            (double)item.location_latitude,
+                            (double)item.location_longitude),
+                        LogoUrl = item.logo_url
+                    })
+                    .ToList();
 
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
                     _customPins.Clear();
-                    _customPins.AddRange(pins);
+                    if (pins != null && pins.Count > 0)
+                    {
+                        _customPins.AddRange(pins);
+                    }
                     await RefreshCustomPins();
                 });
             }
-
-            MoveMap();
         }
         catch (Exception ex)
         {
@@ -116,7 +120,6 @@ public partial class UserBrowserPage : BasePage
         finally
         {
             viewModel.IsLoading = false;
-            //loading.ShowLoading = false;
         }
     }
 
