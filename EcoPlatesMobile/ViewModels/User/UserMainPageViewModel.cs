@@ -93,7 +93,7 @@ namespace EcoPlatesMobile.ViewModels.User
  
                 PosterLocationRequest request = new PosterLocationRequest
                 {
-                    business_type = BusinessType.GetValue(),
+                    business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = appControl.UserInfo.radius_km,
@@ -171,7 +171,7 @@ namespace EcoPlatesMobile.ViewModels.User
  
                 PosterLocationRequest request = new PosterLocationRequest
                 {
-                    business_type = BusinessType.GetValue(),
+                    business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = appControl.UserInfo.radius_km,

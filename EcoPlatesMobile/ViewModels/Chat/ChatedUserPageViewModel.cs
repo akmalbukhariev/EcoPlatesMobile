@@ -42,6 +42,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
         {   
             IsRefreshing = true;
             IsPageLoaded = false;
+            Users.Clear();
 
             try
             {
@@ -50,7 +51,6 @@ namespace EcoPlatesMobile.ViewModels.Chat
                 {
                     IsRefreshing = false;
                     IsPageLoaded = true;
-                    Users.Clear();
                     return;
                 }
 
@@ -120,7 +120,8 @@ namespace EcoPlatesMobile.ViewModels.Chat
         { 
             IsRefreshing = true;
             IsPageLoaded = false;
-
+            Users.Clear();
+            
             try
             {
                 GetUserInfoResponse infoUser = await userApiService.GetUserInfo();
@@ -128,7 +129,6 @@ namespace EcoPlatesMobile.ViewModels.Chat
                 {
                     IsRefreshing = false;
                     IsPageLoaded = true;
-                    Users.Clear();
                     return;
                 }
 

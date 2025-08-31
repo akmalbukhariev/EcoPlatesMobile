@@ -59,8 +59,11 @@ public partial class UserBrowserPage : BasePage
 
         if (appControl.RefreshBrowserPage)
         {
-            await viewModel.LoadInitialAsync();
-            await GetAllCompaniesUsingMap();
+            await Task.WhenAll
+            (
+                viewModel.LoadInitialAsync(),
+                GetAllCompaniesUsingMap()
+            );
 
             appControl.RefreshBrowserPage = false;
         }

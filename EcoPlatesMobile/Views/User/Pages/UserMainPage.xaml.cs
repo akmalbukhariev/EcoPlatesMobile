@@ -19,12 +19,12 @@ public partial class UserMainPage : BasePage
     private UserMainPageViewModel viewModel;
     private AppControl appControl;
 
-    public UserMainPage(UserMainPageViewModel vm, AppControl appControl)
-	{
-		InitializeComponent();
+    public UserMainPage(UserMainPageViewModel vm, AppControl appControl, IUpdateService updateService)
+    {
+        InitializeComponent();
         this.viewModel = vm;
         this.appControl = appControl;
-        
+
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         companyTypeList.EventTypeClick += CompanyTypeList_EventTypeClick;
 
@@ -44,10 +44,10 @@ public partial class UserMainPage : BasePage
  
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
-        
+ 
         if (typeItem == null)
         {
-            viewModel.BusinessType = BusinessType.SUPERMARKET;
+            viewModel.BusinessType = BusinessType.OTHER;
         }
         else
         {

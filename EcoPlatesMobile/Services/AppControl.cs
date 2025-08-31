@@ -23,6 +23,7 @@ namespace EcoPlatesMobile.Services
         public bool RefreshCompanyProfilePage { get; set; } = true;
         public bool IsPhoneNumberRegisterPage { get; set; } = true;
         public bool IsNotificationHandled { get; set; } = false;
+        public bool UpdatePending = false;
         public NotificationData NotificationData { get; set; }
         public CompanyInfo CompanyInfo { get; set; }
         public UserInfo UserInfo { get; set; }

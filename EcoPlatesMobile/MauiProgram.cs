@@ -77,6 +77,7 @@ namespace EcoPlatesMobile
 
         private static void RegisterSingleton(MauiAppBuilder builder)
         {
+            builder.Services.AddSingleton<IUpdateService, UpdateService>();
             builder.Services.AddSingleton<LanguageService>();
             builder.Services.AddSingleton<LocationService>();
             builder.Services.AddSingleton<AppControl>();

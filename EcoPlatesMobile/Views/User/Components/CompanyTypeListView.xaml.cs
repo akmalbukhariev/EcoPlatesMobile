@@ -44,6 +44,7 @@ public partial class CompanyTypeListView : ContentView
         
         Items = new ObservableCollection<TypeItem>
         {
+            new TypeItem { Name = "All", Image = "all.png", Type = BusinessType.OTHER },
             new TypeItem { Name = AppResource.Supermarket, Image = "market.png", Type = BusinessType.SUPERMARKET },
             new TypeItem { Name = AppResource.Restaurant, Image = "restaurant.png", Type = BusinessType.RESTAURANT },
             new TypeItem { Name = AppResource.Bakery, Image = "bakery.png", Type = BusinessType.BAKERY },

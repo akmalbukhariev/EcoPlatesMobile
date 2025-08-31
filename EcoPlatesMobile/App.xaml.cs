@@ -18,11 +18,15 @@ namespace EcoPlatesMobile
     {
         private readonly INotificationService notificationService;
         private readonly UserSessionService userSessionService;
-        public App(INotificationService notificationService, UserSessionService userSessionService)
+        private IUpdateService updateService;
+        private AppControl appControl;
+        public App(INotificationService notificationService, UserSessionService userSessionService, IUpdateService updateService, AppControl appControl)
         {
             InitializeComponent();
             this.notificationService = notificationService;
             this.userSessionService = userSessionService;
+            this.updateService = updateService;
+            this.appControl = appControl;
 
             RegisterRoutes();
             Setting();
@@ -35,26 +39,22 @@ namespace EcoPlatesMobile
             return new Window(new AppEntryShell());
         }
         
-        /*
-        private void NotificationReceived(object sender, FCMNotificationReceivedEventArgs args)
+        protected override async void OnStart()
         {
-            string title = args.Notification.Title;
-            string body = args.Notification.Body;
+            base.OnStart();
 
-            if (title == Constants.ROLE_USER && userSessionService.Role == UserRole.User)
+            await updateService.CheckAndPromptAsync();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            if (appControl.UpdatePending)
             {
-                NewPosterPushNotificationResponse response = JsonConvert.DeserializeObject<NewPosterPushNotificationResponse>(body);
-
-#if ANDROID
-                notificationService.SendNotification(title, response.new_poster_name);
-#endif
-            }
-            else if (title == Constants.ROLE_COMPANY && userSessionService.Role == UserRole.Company)
-            {
-
+                updateService.CheckAndPromptAsync();
             }
         }
-        */
 
         private void RegisterRoutes()
         {
