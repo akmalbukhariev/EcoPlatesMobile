@@ -27,7 +27,7 @@
             <user_component:TabSwitcherView x:Name="tabSwitcher"
                                             SwitchType="Classic"
                                             Tab1_Title="{x:Static language:AppResource.Products}"
-                                            Tab2_Title="{x:Static language:AppResource.Seller}"/>
+                                            Tab2_Title="{x:Static language:AppResource.Sellers}"/>
             <RefreshView x:Name="listProduct"
                          IsRefreshing="{Binding IsRefreshingProduct}"
                          Command="{Binding RefreshProductCommand}"

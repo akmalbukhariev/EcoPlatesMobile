@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 
@@ -46,9 +47,9 @@ public class UpdateService : IUpdateService
             {
                 appControl.UpdatePending = true;
 
-                await AlertService.ShowAlertAsync("Update Required",
-                    "To continue using the app, please install the latest update.",
-                    "Update");
+                await AlertService.ShowAlertAsync(AppResource.UpdateRequiredTitle,
+                    AppResource.MessageForceUpdate,
+                    AppResource.Update);
 
                 await Launcher.OpenAsync(new Uri(storeUrl));
             }
@@ -56,9 +57,9 @@ public class UpdateService : IUpdateService
             {
                 appControl.UpdatePending = false;
 
-                var go = await AlertService.ShowConfirmationAsync("Update Available",
-                    "A new update is available. Would you like to update the app now?",
-                    "Update", "Later");
+                var go = await AlertService.ShowConfirmationAsync(AppResource.UpdateAvailableTitle,
+                    AppResource.MessageOptionUpdate,
+                    AppResource.Update, AppResource.Later);
 
                 if (go)
                     await Launcher.OpenAsync(new Uri(storeUrl));

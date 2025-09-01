@@ -137,6 +137,10 @@
     <value>Sotuvchi</value>
     <comment>LoginPage</comment>
   </data>
+  <data name="Sellers" xml:space="preserve">
+    <value>Sotuvchilar</value>
+    <comment>FavoritePage</comment>
+  </data>
   <data name="AboutApp" xml:space="preserve">
     <value>Dastur haqida</value>
     <comment>AboutPage</comment>
@@ -893,5 +897,26 @@
 <data name="MessageTurnOnNotification" xml:space="preserve">
   <value>Ilova uchun bildirishnomalarni sozlamalarda yoqing.</value>
   <comment>NotificationPermissionHelper</comment>
+</data>
+
+<data name="Later" xml:space="preserve">
+  <value>Keyinroq</value>
+  <comment>UpdateService</comment>
+</data>
+	<data name="UpdateRequiredTitle" xml:space="preserve">
+  <value>Yangilash majburiy</value>
+  <comment>UpdateService</comment>
+</data>
+	<data name="UpdateAvailableTitle" xml:space="preserve">
+  <value>Yangilash mavjud</value>
+  <comment>UpdateService</comment>
+</data>
+	<data name="MessageForceUpdate" xml:space="preserve">
+  <value>Dasturdan foydalanishda davom etish uchun so‘nggi yangilanishni o‘rnating.</value>
+  <comment>UpdateService</comment>
+</data>
+	<data name="MessageOptionUpdate" xml:space="preserve">
+  <value>Yangi yangilanish mavjud. Dasturni hozir yangilashni xohlaysizmi?</value>
+  <comment>UpdateService</comment>
 </data>
 </root>

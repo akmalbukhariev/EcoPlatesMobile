@@ -137,6 +137,10 @@
     <value>Продавец</value>
     <comment>LoginPage</comment>
   </data>
+  <data name="Sellers" xml:space="preserve">
+    <value>Продавцы</value>
+    <comment>FavoritePage</comment>
+  </data>
   <data name="AboutApp" xml:space="preserve">
     <value>О приложении</value>
     <comment>AboutPage</comment>
@@ -894,5 +898,26 @@
 <data name="MessageTurnOnNotification" xml:space="preserve">
   <value>Включите уведомления для этого приложения в настройках.</value>
   <comment>NotificationPermissionHelper</comment>
+</data>
+
+<data name="Later" xml:space="preserve">
+  <value>Позже</value>
+  <comment>UpdateService</comment>
+</data>
+	<data name="UpdateRequiredTitle" xml:space="preserve">
+  <value>Требуется обновление</value>
+  <comment>UpdateService</comment>
+</data>
+	<data name="UpdateAvailableTitle" xml:space="preserve">
+  <value>Доступно обновление</value>
+  <comment>UpdateService</comment>
+</data>
+	<data name="MessageForceUpdate" xml:space="preserve">
+  <value>Чтобы продолжить использование приложения, установите последнюю версию обновления.</value>
+  <comment>UpdateService</comment>
+</data>
+	<data name="MessageOptionUpdate" xml:space="preserve">
+  <value>Доступно новое обновление. Хотите обновить приложение сейчас?</value>
+  <comment>UpdateService</comment>
 </data>
 </root>

@@ -137,6 +137,10 @@
     <value>Seller</value>
     <comment>LoginPage</comment>
   </data>
+  <data name="Sellers" xml:space="preserve">
+    <value>Sellers</value>
+    <comment>FavoritePage</comment>
+  </data>
   <data name="AboutApp" xml:space="preserve">
     <value>About the Application</value>
     <comment>AboutPage</comment>
@@ -896,7 +900,6 @@
     <value>Please check the wifi</value>
     <comment>AppControl</comment>
   </data>
-
   <data name="NotificationOff" xml:space="preserve">
     <value>Notifications are off</value>
     <comment>NotificationPermissionHelper</comment>
@@ -905,4 +908,26 @@
     <value>Turn on notifications for this app in Settings.</value>
     <comment>NotificationPermissionHelper</comment>
   </data>
+
+  <data name="Later" xml:space="preserve">
+    <value>Later</value>
+    <comment>UpdateService</comment>
+  </data>
+  <data name="UpdateRequiredTitle" xml:space="preserve">
+    <value>Update Required</value>
+    <comment>UpdateService</comment>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>Update Available</value>
+    <comment>UpdateService</comment>
+  </data>
+  <data name="MessageForceUpdate" xml:space="preserve">
+    <value>To continue using the app, please install the latest update.</value>
+    <comment>UpdateService</comment>
+  </data>
+  <data name="MessageOptionUpdate" xml:space="preserve">
+    <value>A new update is available. Would you like to update the app now?</value>
+    <comment>UpdateService</comment>
+  </data>
+
 </root>

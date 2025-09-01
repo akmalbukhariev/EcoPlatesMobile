@@ -772,6 +772,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Later.
+        /// </summary>
+        internal static string Later {
+            get {
+                return ResourceManager.GetString("Later", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leave a review.
         /// </summary>
         internal static string LeaveReview {
@@ -925,6 +934,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To continue using the app, please install the latest update..
+        /// </summary>
+        internal static string MessageForceUpdate {
+            get {
+                return ResourceManager.GetString("MessageForceUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Poster does not exist or has been deleted..
         /// </summary>
         internal static string MessageInfo {
@@ -993,6 +1011,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string MessageOldAndNewPrice {
             get {
                 return ResourceManager.GetString("MessageOldAndNewPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new update is available. Would you like to update the app now?.
+        /// </summary>
+        internal static string MessageOptionUpdate {
+            get {
+                return ResourceManager.GetString("MessageOptionUpdate", resourceCulture);
             }
         }
         
@@ -1546,6 +1573,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sellers.
+        /// </summary>
+        internal static string Sellers {
+            get {
+                return ResourceManager.GetString("Sellers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set New Photo.
         /// </summary>
         internal static string SetNewPhoto {
@@ -1699,6 +1735,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        internal static string UpdateAvailableTitle {
+            get {
+                return ResourceManager.GetString("UpdateAvailableTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update product.
         /// </summary>
         internal static string UpdateProduct {
@@ -1713,6 +1758,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string UpdateProfile {
             get {
                 return ResourceManager.GetString("UpdateProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Required.
+        /// </summary>
+        internal static string UpdateRequiredTitle {
+            get {
+                return ResourceManager.GetString("UpdateRequiredTitle", resourceCulture);
             }
         }
         
