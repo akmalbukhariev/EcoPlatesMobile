@@ -14,6 +14,8 @@ using The49.Maui.BottomSheet;
 using Microsoft.Maui.LifecycleEvents;
 using Plugin.Firebase.CloudMessaging;
 using EcoPlatesMobile.Platforms.Android.Notification;
+using EcoPlatesMobile.Models.Responses;
+
 
 
 //using Plugin.LocalNotification;
@@ -103,6 +105,12 @@ namespace EcoPlatesMobile
                     ThrowOnAnyError = false,
                     Timeout = TimeSpan.FromSeconds(30)
                 }));
+            builder.Services.AddSingleton(sp =>
+                new RestClient(new RestClientOptions(Constants.BASE_PHONE_VERIFY_URL)
+                {
+                    ThrowOnAnyError = false,
+                    Timeout = TimeSpan.FromSeconds(30)
+                }));
 
 #if ANDROID
             builder.Services.AddSingleton<IStatusBarService, StatusBarService>();
@@ -124,6 +132,10 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient(sp =>
                 new ChatApiService(
                     sp.GetServices<RestClient>().First(rc => rc.Options.BaseUrl == new Uri(Constants.BASE_CHAT_URL))
+                ));
+            builder.Services.AddTransient(sp =>
+                new MessageApiService(
+                    sp.GetServices<RestClient>().First(rc => rc.Options.BaseUrl == new Uri(Constants.BASE_PHONE_VERIFY_URL))
                 ));
 
             #region Company

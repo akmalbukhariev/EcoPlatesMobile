@@ -122,7 +122,6 @@ public partial class ActiveProductPage : BasePage
                 {
                     ["ChatPageModel"] = chatPageModel
                 });
-
                 break;
 
             default:

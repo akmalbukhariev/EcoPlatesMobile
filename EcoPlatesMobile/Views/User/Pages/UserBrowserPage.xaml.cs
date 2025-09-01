@@ -59,11 +59,14 @@ public partial class UserBrowserPage : BasePage
 
         if (appControl.RefreshBrowserPage)
         {
-            await Task.WhenAll
+            /*await Task.WhenAll
             (
                 viewModel.LoadInitialAsync(),
                 GetAllCompaniesUsingMap()
-            );
+            );*/
+
+            await viewModel.LoadInitialAsync();
+            await GetAllCompaniesUsingMap();
 
             appControl.RefreshBrowserPage = false;
         }
@@ -75,7 +78,7 @@ public partial class UserBrowserPage : BasePage
     {
         try
         {
-            viewModel.IsLoading = true;
+            //viewModel.IsLoading = true;
 
             MoveMap();
 
@@ -122,7 +125,7 @@ public partial class UserBrowserPage : BasePage
         }
         finally
         {
-            viewModel.IsLoading = false;
+            //viewModel.IsLoading = false;
         }
     }
 

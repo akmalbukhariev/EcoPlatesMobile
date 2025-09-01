@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using EcoPlatesMobile.Models.Chat;
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
@@ -22,17 +24,23 @@ public partial class AuthorizationPage : BasePage
 		}
 	}
 
-    private CompanyApiService companyApiService;
-    private UserApiService userApiService;
-    private UserSessionService userSessionService;
+	private string verificationCode = "";
+	private CompanyApiService companyApiService;
+	private UserApiService userApiService;
+	private UserSessionService userSessionService;
 	private AppControl appControl;
 	private IKeyboardHelper keyboardHelper;
+	private MessageApiService messageApiService;
 
-	public AuthorizationPage(UserSessionService userSessionService,
-							 CompanyApiService companyApiService,
-							 UserApiService userApiService,
-							 AppControl appControl,
-							 IKeyboardHelper keyboardHelper)
+	private IDispatcherTimer timer;
+	private TimeSpan elapsed;
+	private VerifyPhoneNumberResponse response;
+
+	private bool _initialSent = false;                       // send once per page instance	
+	private DateTimeOffset? _sentAt = null;                  // when last SMS was sent
+	private static readonly TimeSpan Cooldown = TimeSpan.FromSeconds(59);
+
+	public AuthorizationPage(UserSessionService userSessionService, CompanyApiService companyApiService, UserApiService userApiService, AppControl appControl, IKeyboardHelper keyboardHelper, MessageApiService messageApiService)
 	{
 		InitializeComponent();
 
@@ -41,6 +49,7 @@ public partial class AuthorizationPage : BasePage
 		this.userApiService = userApiService;
 		this.appControl = appControl;
 		this.keyboardHelper = keyboardHelper;
+		this.messageApiService = messageApiService;
 
 		#region 
 		// number1.NextEntry = number2;
@@ -61,33 +70,124 @@ public partial class AuthorizationPage : BasePage
 		}
 
 		this.Loaded += (s, e) =>
-        {
-            pinView.Focus();
-        };
+		{
+			pinView.Focus();
+		};
+
+		timer = Application.Current.Dispatcher.CreateTimer();
+		timer.Interval = TimeSpan.FromSeconds(1);
+		timer.Tick += OnTick;
 	}
 
-	protected override void OnAppearing()
+	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
 		lbTitle.Text = $"{AppResource.Please}, {_phoneNumber} {AppResource.ConfirmTitle}";
 
-		 
-		/*
-		 * Use phone verification API
-		 */
+		if (!_initialSent)
+		{
+			await SendVerificationCode();
+			_initialSent = true;
+			_sentAt = DateTimeOffset.UtcNow;
+			ShowTimeAndStart();                 // start fresh countdown once
+		}
+		else
+		{
+			RestoreCooldownUI();                // just restore UI; don't resend
+		}
+	}
+
+	protected override void OnDisappearing()
+	{
+		base.OnDisappearing();
+		StopTimer();
+	}
+
+	private async void LabelSend_Tapped(object sender, TappedEventArgs e)
+	{
+		await AnimateElementScaleDown(lbSend);
+		
+		_sentAt = DateTimeOffset.UtcNow;        // mark the new send time
+		ShowTimeAndStart();                     // show timer first for snappy UX
+		await SendVerificationCode();           // then actually send
+	}
+
+	private async Task SendVerificationCode()
+	{
+		try
+		{
+			VerifyPhoneNumberRequest data = new VerifyPhoneNumberRequest()
+			{
+				phone_number = _phoneNumber
+			};
+
+			loading.ShowLoading = true;
+			response = await messageApiService.VerifyNumber(data);
+			if (response?.resultCode == ApiResult.SUCCESS.GetCodeToString())
+			{
+				verificationCode = response.resultData.code;
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+		finally
+		{
+			loading.ShowLoading = false;
+		}
+	}
+
+	private void ShowTimeAndStart()
+	{
+		// start from 00:01 immediately
+		elapsed = TimeSpan.FromSeconds(1);
+		lblTimer.Text = elapsed.ToString(@"mm\:ss");
+
+		stackTime.IsVisible = true;
+		stackSend.IsVisible = false;
+
+		if (!timer.IsRunning)
+			timer.Start();
+	}
+
+	private void StopTimer()
+	{
+		if (timer.IsRunning)
+			timer.Stop();
+	}
+
+	private void OnTick(object? sender, EventArgs e)
+	{
+		elapsed = elapsed.Add(TimeSpan.FromSeconds(1));
+		lblTimer.Text = elapsed.ToString(@"mm\:ss");
+
+		// When 00:59 reached -> hide timer, show resend
+		if (elapsed >= TimeSpan.FromSeconds(59))
+		{
+			StopTimer();
+			stackTime.IsVisible = false;
+			stackSend.IsVisible = true;
+		}
 	}
 
 	private async void ButtonNext_Clicked(object sender, EventArgs e)
 	{
 		keyboardHelper.HideKeyboard();
-		
+
 		bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
+ 
+		if (!CheckVerificationCode())
+		{
+			await AlertService.ShowAlertAsync("Verification number", "Verification code is wrong!");
+			return;
+		}
 
-        loading.ShowLoading = true;
+		loading.ShowLoading = true;
 
-        try
-        {
+		try
+		{
 			if (appControl.IsPhoneNumberRegisterPage)
 			{
 				if (userSessionService.Role == UserRole.Company)
@@ -157,5 +257,60 @@ public partial class AuthorizationPage : BasePage
 		{
 			loading.ShowLoading = false;
 		}
+	}
+
+	private void RestoreCooldownUI()
+	{
+		if (_sentAt is null)
+		{
+			// Never sent on this instance → show resend
+			stackTime.IsVisible = false;
+			stackSend.IsVisible = true;
+			return;
+		}
+
+		var elapsedSinceSend = DateTimeOffset.UtcNow - _sentAt.Value;
+
+		if (elapsedSinceSend >= Cooldown)
+		{
+			// Cooldown finished → show resend
+			stackTime.IsVisible = false;
+			stackSend.IsVisible = true;
+			StopTimer();
+		}
+		else
+		{
+			// Continue the existing countdown
+			ShowTimeAndStart(elapsedSinceSend);
+		}
+	}
+
+	private void ShowTimeAndStart(TimeSpan? alreadyElapsed = null)
+	{
+		// if resuming, use the passed elapsed; otherwise start from 00:01
+		elapsed = alreadyElapsed.HasValue
+			? alreadyElapsed.Value
+			: TimeSpan.FromSeconds(1);
+
+		if (elapsed < TimeSpan.FromSeconds(1))
+			elapsed = TimeSpan.FromSeconds(1);
+
+		if (elapsed > Cooldown)
+			elapsed = Cooldown;
+
+		lblTimer.Text = elapsed.ToString(@"mm\:ss");
+
+		stackTime.IsVisible = true;
+		stackSend.IsVisible = false;
+
+		if (!timer.IsRunning)
+			timer.Start();
+	}
+    
+	private bool CheckVerificationCode()
+	{
+		if (string.IsNullOrEmpty(pinView.PINValue)) return false;
+
+		return string.Equals(pinView.PINValue, verificationCode);
 	}
 }

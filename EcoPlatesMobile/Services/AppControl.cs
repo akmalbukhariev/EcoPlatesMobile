@@ -275,7 +275,7 @@ namespace EcoPlatesMobile.Services
 
         public bool IsValidUzbekistanPhoneNumber(string phoneNumber)
         {
-            string PHONE_PATTERN = @"^(\+998|998)?(90|91|93|94|95|97|98|99|33|88|20)\d{7}$";
+            string PHONE_PATTERN = @"^(\+998|998)?(90|91|93|94|50|77|95|99|87|88|97|98|33|20)\d{7}$";
             return Regex.IsMatch(phoneNumber, PHONE_PATTERN);
         }
 

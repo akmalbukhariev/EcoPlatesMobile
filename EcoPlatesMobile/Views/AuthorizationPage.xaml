@@ -23,7 +23,7 @@
             </Grid.Resources>
             <StackLayout Spacing="40"
                          Grid.Row="1">
-                <Label x:Name="lbTitle" 
+                <Label x:Name="lbTitle"
                        Text="Iltimos, 998 90 999 00 99 telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting"
                        FontFamily="RobotoVar"
                        FontSize="14"
@@ -36,7 +36,7 @@
                     <component:CustomEntryNumber x:Name="number3" Grid.Column="2"/>
                     <component:CustomEntryNumber x:Name="number4" Grid.Column="3"/>
                 </Grid> -->
-                <pinview:PINView x:Name="pinView" 
+                <pinview:PINView x:Name="pinView"
                                  BoxShape="Square"
                                  PINLength="4"
                                  HorizontalOptions="Center"
@@ -55,13 +55,14 @@
             </StackLayout>
             <StackLayout x:Name="stackTime" 
                          Spacing="10"
-                         IsVisible="Visible" 
+                         IsVisible="Collapse" 
                          Grid.Row="3">
                 <Label Text="{x:Static language:AppResource.ConfirmationCodeTime}"
                         HorizontalOptions="Center"
                         FontFamily="RobotoVar"
                         Style="{StaticResource styleLabel}"/>
-                <Label Text="0:46"
+                <Label x:Name="lblTimer"
+                        Text="0:46"
                         FontFamily="RobotoVar"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
@@ -69,18 +70,24 @@
             </StackLayout>
             <StackLayout x:Name="stackSend" 
                          Spacing="10" 
-                         IsVisible="Collapse"
+                         IsVisible="Visible"
                          Grid.Row="3">
-                <Label Text="Sizga kod kelmadimi"
+                <Label Text="Sizga kod kelmadimi?"
                         HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"
                         FontFamily="RobotoVar"/>
-                <Label Text="Qayta yuborish"
+                <Label x:Name="lbSend" 
+                        Text="Qayta yuborish"
                         FontFamily="RobotoVar"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"
-                        TextColor="{StaticResource User}"/>
+                        TextColor="{StaticResource User}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Tapped="LabelSend_Tapped"/>
+                        </Label.GestureRecognizers>
+                </Label>
             </StackLayout>
             <Button x:Name="btnNext" 
                     Text="{x:Static language:AppResource.Confirm}"
