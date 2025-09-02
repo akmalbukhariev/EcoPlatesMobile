@@ -47,11 +47,11 @@
                                  BoxFocusAnimation="ZoomInOut"
                                  BoxSize="50"
                                  Color="#442C2E" />
-                    <Label Text="{x:Static language:AppResource.EnterPhoneCorrectly}"
-                           FontFamily="RobotoVar"
-                           FontSize="14"
-                           HorizontalTextAlignment="Center"
-                           Style="{StaticResource styleLabel}"/>
+                <Label Text="{x:Static language:AppResource.EnterPhoneCorrectly}"
+                        FontFamily="RobotoVar"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource styleLabel}"/>
             </StackLayout>
             <StackLayout x:Name="stackTime" 
                          Spacing="10"
