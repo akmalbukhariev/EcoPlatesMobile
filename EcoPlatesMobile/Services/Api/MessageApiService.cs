@@ -10,8 +10,8 @@ namespace EcoPlatesMobile.Services.Api
 {
     public class MessageApiService : ApiService
     {
-        //private const string BASE_URL = "";
-        private const string BASE_URL = "ecoplatesmessage/api/v1/message/";
+        private const string BASE_URL = "";
+        //private const string BASE_URL = "ecoplatesmessage/api/v1/message/";
 
         private const string VERIFY_NUMBER = $"{BASE_URL}verifyPhoneNumber";
 
