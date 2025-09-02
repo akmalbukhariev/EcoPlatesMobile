@@ -12,6 +12,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.User.Components;
 using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.ViewModels.User
@@ -79,6 +80,7 @@ namespace EcoPlatesMobile.ViewModels.User
             offset = 0;
             hasMoreItems = true;
             Companies.Clear();
+            CompanyView.BeginNewAnimationCycle();
             
             try
             {
@@ -145,6 +147,7 @@ namespace EcoPlatesMobile.ViewModels.User
         public async Task LoadCompaniesAsync(bool isRefresh = false)
         {
             Companies.Clear();
+            CompanyView.BeginNewAnimationCycle();
             
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;

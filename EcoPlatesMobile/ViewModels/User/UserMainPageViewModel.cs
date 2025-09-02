@@ -11,6 +11,7 @@ using System.Windows.Input;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Views.User.Components;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
@@ -86,11 +87,12 @@ namespace EcoPlatesMobile.ViewModels.User
             offset = 0;
             hasMoreItems = true;
             Products.Clear();
-
+            ProductView.BeginNewAnimationCycle(); 
+            
             try
             {
                 IsLoading = true;
- 
+
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
@@ -155,6 +157,7 @@ namespace EcoPlatesMobile.ViewModels.User
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;
 
+            ProductView.BeginNewAnimationCycle(); 
             try
             {
                 if (isRefresh)

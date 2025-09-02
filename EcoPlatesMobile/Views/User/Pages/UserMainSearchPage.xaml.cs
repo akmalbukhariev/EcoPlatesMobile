@@ -26,13 +26,7 @@ public partial class UserMainSearchPage : BasePage
             entrySearch.Focus();
         };
     }
-
-    private async void Back_Tapped(object sender, TappedEventArgs e)
-    {
-        await AnimateElementScaleDown(imBack);
-        await AppNavigatorService.NavigateTo("..");
-    }
-
+    
     private void OnEntryTextChanged(object sender, TextChangedEventArgs e)
     {
         clearButton.IsVisible = !string.IsNullOrWhiteSpace(entrySearch.Text);
@@ -48,9 +42,9 @@ public partial class UserMainSearchPage : BasePage
 
     private void Entry_Completed(object sender, EventArgs e)
     {
-        Search_Tapped(imSearch, null); 
+        Search_Tapped(imSearch, null);
     }
-        
+
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
         keyboardHelper.HideKeyboard();
@@ -73,5 +67,11 @@ public partial class UserMainSearchPage : BasePage
 
         viewModel.ExecuteSearch();
         await viewModel.LoadInitialProductAsync();
+    }
+
+    private async void Back_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(imBack);
+        await AppNavigatorService.NavigateTo("..");
     }
 }

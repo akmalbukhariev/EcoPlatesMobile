@@ -5,6 +5,7 @@ namespace EcoPlatesMobile.Views.User.Components;
 
 public partial class FavoriteProductView : ContentView
 {
+    #region Properties
     public static readonly BindableProperty ProductImageProperty =
         BindableProperty.Create(nameof(ProductImage), typeof(ImageSource), typeof(FavoriteProductView), default(ImageSource), propertyChanged: ProductImageChanged);
 
@@ -85,11 +86,96 @@ public partial class FavoriteProductView : ContentView
         get => (ICommand)GetValue(ClickCommandProperty);
         set => SetValue(ClickCommandProperty, value);
     }
+    #endregion
+
+    #region Animation
+    private static int _animCycle = 0;                         
+    private static HashSet<long> _animatedThisCycle = new();     
+    private static readonly Random _rand = new Random();       
+    private bool _didAnimateThisInstance = false;    
+    private const double StartTranslate = -40;
+    private const double StartScale = 0.96;
+    private const uint DurationMs = 520;
+    private const int StaggerBuckets = 4;
+    private const int StaggerStepMs = 80;
+    #endregion
 
     public FavoriteProductView()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+
+        Loaded += OnLoadedAnimateOnce;
+        BindingContextChanged += OnBindingContextChangedAnimate;
+    }
+
+    #region Animation
+    public static void BeginNewAnimationCycle()
+    {
+        _animCycle++;                 
+        _animatedThisCycle.Clear();    
+    }
+
+    private void OnLoadedAnimateOnce(object? sender, EventArgs e)
+    {
+        TryAnimateIn();
+    }
+
+    private void OnBindingContextChangedAnimate(object? sender, EventArgs e)
+    {
+        _didAnimateThisInstance = false;
+        TryAnimateIn();
+    }
+
+    private async void TryAnimateIn()
+    {
+        if (BindingContext is not ProductModel m)
+            return;
+ 
+        if (m.PromotionId > 0)
+        {
+            if (!_animatedThisCycle.Add(m.PromotionId))
+                return; 
+        }
+        else
+        {
+            if (_didAnimateThisInstance) return;
+            _didAnimateThisInstance = true;
+        }
+
+        int delayMs = (m.PromotionId > 0)
+            ? (int)(m.PromotionId % StaggerBuckets) * StaggerStepMs
+            : _rand.Next(0, StaggerBuckets) * StaggerStepMs;
+
+        if (mainFrame != null)
+        {
+            mainFrame.TranslationY = StartTranslate;
+            mainFrame.Opacity = 0;
+            mainFrame.Scale = StartScale;
+
+            await Task.Delay(delayMs);
+
+            await Task.WhenAll(
+                mainFrame.TranslateTo(0, 0, DurationMs, Easing.CubicOut),
+                mainFrame.FadeTo(1, DurationMs, Easing.CubicOut),
+                mainFrame.ScaleTo(1.0, DurationMs, Easing.CubicOut)
+            );
+        }
+        else
+        {
+            this.TranslationY = StartTranslate;
+            this.Opacity = 0;
+            this.Scale = StartScale;
+
+            await Task.Delay(delayMs);
+
+            await Task.WhenAll(
+                this.TranslateTo(0, 0, DurationMs, Easing.CubicOut),
+                this.FadeTo(1, DurationMs, Easing.CubicOut),
+                this.ScaleTo(1.0, DurationMs, Easing.CubicOut)
+            );
+        }
+    }
+    #endregion
 
     private static void ProductImageChanged(BindableObject bindable, object oldValue, object newValue)
     {

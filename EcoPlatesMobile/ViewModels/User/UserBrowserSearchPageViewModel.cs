@@ -8,6 +8,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.User.Components;
 using EcoPlatesMobile.Views.User.Pages; 
 using System.Diagnostics; 
 using System.Windows.Input;
@@ -93,10 +94,12 @@ namespace EcoPlatesMobile.ViewModels.User
                 hasMoreItems = true;
             }
 
+            CompanyView.BeginNewAnimationCycle();
+            
             try
             {
                 IsLoading = true;
- 
+
                 CompanyLocationAndNameRequest request = new CompanyLocationAndNameRequest()
                 {
                     radius_km = appControl.UserInfo.radius_km,
@@ -106,7 +109,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     pageSize = PageSize,
                     company_name = SearchText
                 };
- 
+
                 CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocationAndName(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())

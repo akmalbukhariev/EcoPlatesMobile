@@ -11,6 +11,7 @@ using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Company.Pages;
+using EcoPlatesMobile.Views.Company.Components;
 
 namespace EcoPlatesMobile.ViewModels.Company
 { 
@@ -92,7 +93,8 @@ namespace EcoPlatesMobile.ViewModels.Company
             offset = 0;
             hasMoreItems = true;
             Products.Clear();
-
+            ProductView.BeginNewAnimationCycle();
+                
             try
             {
                 IsLoading = true;
@@ -158,7 +160,7 @@ namespace EcoPlatesMobile.ViewModels.Company
             {
                 IsLoading = false;
                 ShowAddButton = true;
-                
+
                 IsShowChekProduct = Products.Count > 0;
             }
         }
@@ -169,7 +171,8 @@ namespace EcoPlatesMobile.ViewModels.Company
                 return;
 
             ShowAddButton = false;
-
+            ProductView.BeginNewAnimationCycle();
+            
             try
             {
                 if (isRefresh)

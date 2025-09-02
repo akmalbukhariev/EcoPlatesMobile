@@ -9,6 +9,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.User.Components;
 using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.ViewModels.User
@@ -45,7 +46,7 @@ namespace EcoPlatesMobile.ViewModels.User
             Products = new ObservableRangeCollection<ProductModel>();
 
             CompanyImage = "no_image.png";
-            CompanyName = "Maker name";
+            CompanyName = "--------";
             PhoneNumber = "1234567890";
             WorkingTime = "00 ~ 00";
             appControl.RebuildBusinessTypeList();
@@ -89,11 +90,12 @@ namespace EcoPlatesMobile.ViewModels.User
         public async Task LoadDataAsync()
         {
             Products.Clear();
-
+            CompanyProductView.BeginNewAnimationCycle();
+            
             try
             {
-                IsLoading = true;
- 
+                //IsLoading = true;
+
                 CompanyWithPosterListResponse response = await userApiService.GetCompanyWithPosters(CompanyId);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
@@ -107,7 +109,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     PhoneNumber = response.resultData.phone_number;
                     WorkingTime = appControl.FormatWorkingHours(response.resultData.working_hours);
                     CompanyType = appControl.BusinessTypeList.FirstOrDefault(item => item.Value == response.resultData.business_type).Key;
-                     
+
                     var items = response.resultData;
 
                     if (items == null || items.posterList.Count == 0)

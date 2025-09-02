@@ -32,6 +32,7 @@ public partial class UserCompanyPage : BasePage
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
 
+        viewModel.IsLoading = true;    
         await viewModel.LoadDataAsync();
         
         fullImage.Source = viewModel.CompanyImage;

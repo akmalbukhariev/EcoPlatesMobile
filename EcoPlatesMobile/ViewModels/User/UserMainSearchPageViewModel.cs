@@ -7,6 +7,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.User.Components;
 using EcoPlatesMobile.Views.User.Pages; 
 using System.Diagnostics; 
 using System.Windows.Input;
@@ -94,6 +95,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 hasMoreItems = true;
             }
 
+            FavoriteProductView.BeginNewAnimationCycle();
+            
             try
             {
                 IsLoading = true;
@@ -107,7 +110,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     radius_km = appControl.UserInfo.radius_km,
                     title = SearchText
                 };
- 
+
                 PosterListResponse response = await userApiService.GetPostersByCurrentLocationAndName(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())

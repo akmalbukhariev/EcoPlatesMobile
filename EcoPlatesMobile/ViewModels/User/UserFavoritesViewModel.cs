@@ -7,6 +7,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views.User.Components;
 using EcoPlatesMobile.Views.User.Pages; 
 using System.Diagnostics; 
 using System.Windows.Input;
@@ -67,6 +68,7 @@ namespace EcoPlatesMobile.ViewModels.User
             offsetProduct = 0;
             Products.Clear();
             hasMoreProductItems = true;
+            FavoriteProductView.BeginNewAnimationCycle();
 
             try
             {
@@ -134,11 +136,12 @@ namespace EcoPlatesMobile.ViewModels.User
             offsetCompany = 0;
             Companies.Clear();
             hasMoreCompanyItems = true;
-
+            CompanyView.BeginNewAnimationCycle();
+            
             try
             {
                 IsLoading = true;
- 
+
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
                     user_lat = appControl.UserInfo.location_latitude,
@@ -260,6 +263,8 @@ namespace EcoPlatesMobile.ViewModels.User
             if (IsLoading || (!hasMoreProductItems && !isRefresh))
                 return;
 
+            FavoriteProductView.BeginNewAnimationCycle();
+
             try
             {
                 if (isRefresh)
@@ -272,14 +277,14 @@ namespace EcoPlatesMobile.ViewModels.User
                 else
                 {
                     IsLoading = true;
-                } 
+                }
 
                 PaginationWithLocationRequest request = new PaginationWithLocationRequest()
                 {
-                     user_lat = appControl.UserInfo.location_latitude,
-                     user_lon = appControl.UserInfo.location_longitude,
-                     offset = offsetProduct,
-                     pageSize = PageSize
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude,
+                    offset = offsetProduct,
+                    pageSize = PageSize
                 };
 
                 BookmarkPromotionListResponse response = await userApiService.GetUserBookmarkPromotion(request);
@@ -338,6 +343,8 @@ namespace EcoPlatesMobile.ViewModels.User
             if (IsLoading || (!hasMoreCompanyItems && !isRefresh))
                 return;
 
+            CompanyView.BeginNewAnimationCycle();
+            
             try
             {
                 if (isRefresh)
@@ -359,7 +366,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     offset = offsetCompany,
                     pageSize = PageSize
                 };
-                
+
                 BookmarkCompanyListResponse response = await userApiService.GetUserBookmarkCompany(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
