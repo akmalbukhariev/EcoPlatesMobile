@@ -121,6 +121,18 @@
     <value>Покупатель</value>
     <comment>LoginPage</comment>
   </data>
+  <data name="SelectRole" xml:space="preserve">
+    <value>Выберите свою роль как пользователь</value>
+    <comment>LoginPage</comment>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Продавец</value>
+    <comment>LoginPage</comment>
+  </data>
+  <data name="PleaseLoginFirst" xml:space="preserve">
+    <value>Пожалуйста, сначала войдите в систему</value>
+    <comment>LoginPage</comment>
+  </data>
   <data name="EnterPhoneCorrectly" xml:space="preserve">
     <value>С помощью этого номера телефона вы сможете эффективно пользоваться платформой. Очень важно ввести свой номер телефона правильно.</value>
     <comment>AuthorizationPage</comment>
@@ -129,13 +141,13 @@
     <value>Пожалуйста, введите свой номер телефона</value>
     <comment>AuthorizationPage</comment>
   </data>
-  <data name="SelectRole" xml:space="preserve">
-    <value>Выберите свою роль как пользователь</value>
-    <comment>LoginPage</comment>
+  <data name="Resend" xml:space="preserve">
+    <value>Отправить снова</value>
+    <comment>AuthorizationPage</comment>
   </data>
-  <data name="Seller" xml:space="preserve">
-    <value>Продавец</value>
-    <comment>LoginPage</comment>
+  <data name="TitleNotReceivedCode" xml:space="preserve">
+    <value>Вы не получили код?</value>
+    <comment>AuthorizationPage</comment>
   </data>
   <data name="Sellers" xml:space="preserve">
     <value>Продавцы</value>

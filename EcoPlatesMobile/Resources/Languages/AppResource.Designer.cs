@@ -1285,6 +1285,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please log in first.
+        /// </summary>
+        internal static string PleaseLoginFirst {
+            get {
+                return ResourceManager.GetString("PleaseLoginFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please rate this product in detail..
         /// </summary>
         internal static string PleaseRateTitle {
@@ -1416,6 +1425,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string RegistrationCompleted {
             get {
                 return ResourceManager.GetString("RegistrationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resend.
+        /// </summary>
+        internal static string Resend {
+            get {
+                return ResourceManager.GetString("Resend", resourceCulture);
             }
         }
         
@@ -1704,6 +1722,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string ThankYou {
             get {
                 return ResourceManager.GetString("ThankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Didn&apos;t you receive a code?.
+        /// </summary>
+        internal static string TitleNotReceivedCode {
+            get {
+                return ResourceManager.GetString("TitleNotReceivedCode", resourceCulture);
             }
         }
         

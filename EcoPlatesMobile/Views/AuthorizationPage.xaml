@@ -24,7 +24,6 @@
             <StackLayout Spacing="40"
                          Grid.Row="1">
                 <Label x:Name="lbTitle"
-                       Text="Iltimos, 998 90 999 00 99 telefon raqamiga SMS orqali yuborilgan tasdiqlash kodini kiriting"
                        FontFamily="RobotoVar"
                        FontSize="14"
                        HorizontalTextAlignment="Center"
@@ -72,12 +71,11 @@
                          Spacing="10" 
                          IsVisible="Visible"
                          Grid.Row="3">
-                <Label Text="Sizga kod kelmadimi?"
+                <Label Text="{x:Static language:AppResource.TitleNotReceivedCode}"
                         HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"
                         FontFamily="RobotoVar"/>
                 <Label x:Name="lbSend" 
-                        Text="Qayta yuborish"
                         FontFamily="RobotoVar"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"

@@ -121,7 +121,19 @@
     <value>Buyer</value>
     <comment>LoginPage</comment>
   </data>
-  <data name="EnterPhoneCorrectly" xml:space="preserve">
+  <data name="SelectRole" xml:space="preserve">
+    <value>Select your role as a user</value>
+    <comment>LoginPage</comment>
+  </data>
+	<data name="Seller" xml:space="preserve">
+    <value>Seller</value>
+    <comment>LoginPage</comment>
+  </data>
+  <data name="PleaseLoginFirst" xml:space="preserve">
+    <value>Please log in first</value>
+    <comment>LoginPage</comment>
+  </data>
+	<data name="EnterPhoneCorrectly" xml:space="preserve">
     <value>You can use the platform efficiently through this phone number. It is very important that you enter your phone number correctly.</value>
     <comment>AuthorizationPage</comment>
   </data>
@@ -129,13 +141,13 @@
     <value>Please enter your phone number</value>
     <comment>AuthorizationPage</comment>
   </data>
-  <data name="SelectRole" xml:space="preserve">
-    <value>Select your role as a user</value>
-    <comment>LoginPage</comment>
+  <data name="Resend" xml:space="preserve">
+    <value>Resend</value>
+    <comment>AuthorizationPage</comment>
   </data>
-  <data name="Seller" xml:space="preserve">
-    <value>Seller</value>
-    <comment>LoginPage</comment>
+  <data name="TitleNotReceivedCode" xml:space="preserve">
+    <value>Didn't you receive a code?</value>
+    <comment>AuthorizationPage</comment>
   </data>
   <data name="Sellers" xml:space="preserve">
     <value>Sellers</value>

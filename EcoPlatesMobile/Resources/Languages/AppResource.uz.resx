@@ -121,6 +121,18 @@
     <value>Xaridor</value>
     <comment>LoginPage</comment>
   </data>
+  <data name="SelectRole" xml:space="preserve">
+    <value>Foydalanuvchi sifatida o’zingizni rolingizni tanlang</value>
+    <comment>LoginPage</comment>
+  </data>
+	<data name="Seller" xml:space="preserve">
+    <value>Sotuvchi</value>
+    <comment>LoginPage</comment>
+  </data>
+  <data name="PleaseLoginFirst" xml:space="preserve">
+    <value>Iltimos, birinchi tizimga kiring.</value>
+    <comment>LoginPage</comment>
+  </data>
   <data name="EnterPhoneCorrectly" xml:space="preserve">
     <value>Ushbu telefon raqam orqali siz platformadan unumli foydalanishingiz mumkin. Telefon raqamingizni to'g'ri kiritishingiz juda ham muhim.</value>
     <comment>AuthorizationPage</comment>
@@ -129,14 +141,14 @@
     <value>Iltimos, telefon raqamingizni kiriting</value>
     <comment>AuthorizationPage</comment>
   </data>
-  <data name="SelectRole" xml:space="preserve">
-    <value>Foydalanuvchi sifatida o’zingizni rolingizni tanlang</value>
-    <comment>LoginPage</comment>
+  <data name="Resend" xml:space="preserve">
+    <value>Qayta yuborish</value>
+    <comment>AuthorizationPage</comment>
   </data>
-  <data name="Seller" xml:space="preserve">
-    <value>Sotuvchi</value>
-    <comment>LoginPage</comment>
-  </data>
+  	<data name="TitleNotReceivedCode" xml:space="preserve">
+    <value>Kodni olmadingizmi?</value>
+    <comment>AuthorizationPage</comment>
+  </data> 
   <data name="Sellers" xml:space="preserve">
     <value>Sotuvchilar</value>
     <comment>FavoritePage</comment>
