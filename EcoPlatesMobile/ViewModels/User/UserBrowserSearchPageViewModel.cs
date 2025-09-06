@@ -102,7 +102,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 CompanyLocationAndNameRequest request = new CompanyLocationAndNameRequest()
                 {
-                    radius_km = appControl.UserInfo.radius_km,
+                    radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
                     user_lat = appControl.UserInfo.location_latitude,
                     user_lon = appControl.UserInfo.location_longitude,
                     offset = offsetCompany,
@@ -110,7 +110,8 @@ namespace EcoPlatesMobile.ViewModels.User
                     company_name = SearchText
                 };
 
-                CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocationAndName(request);
+                CompanyListResponse response = appControl.IsLoggedIn ? await userApiService.GetCompaniesByCurrentLocationAndName(request) :
+                                                                       await userApiService.GetCompaniesByCurrentLocationAndNameWithoutLogin(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {

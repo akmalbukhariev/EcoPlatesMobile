@@ -43,17 +43,17 @@ public partial class UserBrowserPage : BasePage
 
         loading.ChangeColor(Constants.COLOR_USER);
         BindingContext = viewModel;
-	}
-    
+    }
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        
+
         Shell.SetTabBarIsVisible(this, true);
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         var location = await locationService.GetCurrentLocationAsync();
         if (location == null) return;
 
@@ -81,6 +81,18 @@ public partial class UserBrowserPage : BasePage
             //viewModel.IsLoading = true;
 
             MoveMap();
+
+            if (appControl.IsLoggedIn)
+            {
+                map.IsZoomEnabled = true;
+                map.IsScrollEnabled = true;
+            }
+            else
+            {
+                map.IsZoomEnabled = false;
+                map.IsScrollEnabled = false;
+                return;
+            }
 
             var userInfo = appControl.UserInfo;
 
@@ -160,7 +172,7 @@ public partial class UserBrowserPage : BasePage
         }
 #endif
     }
-     
+
     private void PinCompanyClicked(CustomPin pin)
     {
         Application.Current.Dispatcher.Dispatch(async () =>
@@ -168,7 +180,7 @@ public partial class UserBrowserPage : BasePage
             await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={pin.CompanyId}");
         });
     }
-    
+
     private async void TabSwitcher_TabChanged(object? sender, string e)
     {
         const int animationDuration = 400;
@@ -180,6 +192,7 @@ public partial class UserBrowserPage : BasePage
         {
             list.IsVisible = true;
             map.IsVisible = true;
+            borderBlock.IsVisible = false;
 
             await Task.WhenAll(
                 list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
@@ -189,6 +202,7 @@ public partial class UserBrowserPage : BasePage
 
             mapIsVisible = false;
             borderBottom.IsVisible = false;
+            borderBackground.IsVisible = false;
 
             Grid.SetColumnSpan(entrySearch, 2);
         }
@@ -197,8 +211,15 @@ public partial class UserBrowserPage : BasePage
             list.IsVisible = true;
             map.IsVisible = true;
 
-            borderBottom.TranslationY = 100;
-            borderBottom.IsVisible = true;
+            if (appControl.IsLoggedIn)
+            {
+                borderBottom.TranslationY = 100;
+                borderBottom.IsVisible = true;
+            }
+            else
+            {
+                borderBlock.IsVisible = true;
+            }
 
             if (map.TranslationX != screenWidth)
             {
@@ -208,16 +229,23 @@ public partial class UserBrowserPage : BasePage
             await Task.WhenAll(
                 list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
                 map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
-                
+
             );
 
-            await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
+            if (appControl.IsLoggedIn)
+            {
+                await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
+            }
+            else
+            {
+                borderBackground.IsVisible = true;
+            }
             mapIsVisible = true;
-            
+
             Grid.SetColumnSpan(entrySearch, 1);
         }
     }
-    
+
     private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(viewModel.ShowLikedView) && viewModel.ShowLikedView)
@@ -243,5 +271,10 @@ public partial class UserBrowserPage : BasePage
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
         await AppNavigatorService.NavigateTo(nameof(UserBrowserSearchPage));
+    }
+
+    private async void BtnLogin_Clicked(object sender, EventArgs e)
+    {
+        await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
     }
 }

@@ -11,7 +11,7 @@ public partial class UserCompanyPage : BasePage
     private UserCompanyPageViewModel viewModel;
     private AppControl appControl;
     private LocationService locationService;
-
+    
     public UserCompanyPage(UserCompanyPageViewModel vm, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
@@ -92,6 +92,12 @@ public partial class UserCompanyPage : BasePage
             await AnimateElementScaleDown(element);
         }
 
+        if (!appControl.IsLoggedIn)
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
+            return;
+        }
+
         if (PhoneDialer.Default.IsSupported)
             PhoneDialer.Default.Open(viewModel.PhoneNumber);
     }
@@ -101,6 +107,12 @@ public partial class UserCompanyPage : BasePage
         if (sender is VisualElement element)
         {
             await AnimateElementScaleDown(element);
+
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
+                return;
+            }
 
             viewModel.IsLoading = true;
             var userLocation = await locationService.GetCurrentLocationAsync();
@@ -128,6 +140,12 @@ public partial class UserCompanyPage : BasePage
         if (sender is VisualElement element)
         {
             await AnimateElementScaleDown(element);
+        }
+
+        if (!appControl.IsLoggedIn)
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
+            return;
         }
     }
 

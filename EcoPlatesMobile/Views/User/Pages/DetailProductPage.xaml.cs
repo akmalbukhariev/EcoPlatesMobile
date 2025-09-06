@@ -102,6 +102,12 @@ public partial class DetailProductPage : BasePage
         bool isWifiOn = await appControl.CheckWifi();
         if (!isWifiOn) return;
 
+        if (!appControl.IsLoggedIn)
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
+            return;
+        }
+
         await viewModel.ProductLiked();
     }
 
@@ -129,6 +135,12 @@ public partial class DetailProductPage : BasePage
 
     private async void Star_Tapped(object sender, TappedEventArgs e)
     {
+        if (!appControl.IsLoggedIn)
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
+            return;
+        }
+
         blockingOverlay.IsVisible = true;
 
         reviewView.Scale = 0.5;
@@ -145,6 +157,7 @@ public partial class DetailProductPage : BasePage
     {
         blockingOverlay.IsVisible = false;
         reviewView.IsVisible = false;
+        
         await Shell.Current.GoToAsync(nameof(ReviewProductPage), true, new Dictionary<string, object>
         {
             ["ProductImage"] = viewModel.ProductImage.ToString().Trim(),
@@ -195,6 +208,12 @@ public partial class DetailProductPage : BasePage
     private async void Message_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(sender as HorizontalStackLayout);
+
+        if (!appControl.IsLoggedIn)
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
+            return;
+        }
 
         await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
         {

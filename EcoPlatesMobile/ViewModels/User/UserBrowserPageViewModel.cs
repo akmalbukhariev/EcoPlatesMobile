@@ -12,6 +12,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views;
 using EcoPlatesMobile.Views.User.Components;
 using EcoPlatesMobile.Views.User.Pages;
 
@@ -46,6 +47,12 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             bool isWifiOn = await appControl.CheckWifi();
 		    if (!isWifiOn) return;
+
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                return;
+            }
 
             product.Liked = !product.Liked;
  
@@ -88,14 +95,15 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
-                    radius_km = appControl.UserInfo.radius_km,
-                    user_lat = appControl.UserInfo.location_latitude,//37.518313,
-                    user_lon = appControl.UserInfo.location_longitude,//126.724187,
+                    radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
+                    user_lat = appControl.UserInfo.location_latitude,
+                    user_lon = appControl.UserInfo.location_longitude,
                     offset = offset,
                     pageSize = PageSize,
                 };
 
-                CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocation(request);
+                CompanyListResponse response = appControl.IsLoggedIn ? await userApiService.GetCompaniesByCurrentLocation(request) :
+                                                                       await userApiService.GetCompaniesByCurrentLocationWithoutLogin(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
@@ -167,14 +175,15 @@ namespace EcoPlatesMobile.ViewModels.User
                      
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
-                    radius_km = appControl.UserInfo.radius_km,
+                    radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
                     user_lat = appControl.UserInfo.location_latitude,
                     user_lon = appControl.UserInfo.location_longitude,
                     offset = offset,
                     pageSize = PageSize,
                 };
  
-                CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocation(request);
+                CompanyListResponse response = appControl.IsLoggedIn ? await userApiService.GetCompaniesByCurrentLocation(request) :
+                                                                       await userApiService.GetCompaniesByCurrentLocationWithoutLogin(request);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {

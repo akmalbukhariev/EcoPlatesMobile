@@ -22,6 +22,8 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private bool isRefreshingProduct;
         [ObservableProperty] private bool isRefreshingCompany;
+        [ObservableProperty] private bool showProductEmptyBanner;
+        [ObservableProperty] private bool showCompanyEmptyBanner;
 
         private int offsetProduct = 0;
         private int offsetCompany = 0;
@@ -128,6 +130,8 @@ namespace EcoPlatesMobile.ViewModels.User
             finally
             {
                 IsLoading = false;
+
+                ShowProductEmptyBanner = Products.Count == 0 ? true : false;
             }
         }
 
@@ -137,7 +141,7 @@ namespace EcoPlatesMobile.ViewModels.User
             Companies.Clear();
             hasMoreCompanyItems = true;
             CompanyView.BeginNewAnimationCycle();
-            
+
             try
             {
                 IsLoading = true;
@@ -193,6 +197,8 @@ namespace EcoPlatesMobile.ViewModels.User
             finally
             {
                 IsLoading = false;
+                
+                ShowCompanyEmptyBanner = Companies.Count == 0 ? true : false;
             }
         }
 
@@ -335,6 +341,8 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsRefreshingProduct = false;
                 IsLoading = false;
+
+                ShowProductEmptyBanner = Products.Count == 0 ? true : false;
             }
         }
 
@@ -344,7 +352,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 return;
 
             CompanyView.BeginNewAnimationCycle();
-            
+
             try
             {
                 if (isRefresh)
@@ -411,6 +419,8 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsRefreshingCompany = false;
                 IsLoading = false;
+                
+                ShowCompanyEmptyBanner = Companies.Count == 0 ? true : false;
             }
         }
 

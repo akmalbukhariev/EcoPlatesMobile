@@ -107,11 +107,12 @@ namespace EcoPlatesMobile.ViewModels.User
                     pageSize = PageSize,
                     user_lat = appControl.UserInfo.location_latitude,
                     user_lon = appControl.UserInfo.location_longitude,
-                    radius_km = appControl.UserInfo.radius_km,
+                    radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
                     title = SearchText
                 };
 
-                PosterListResponse response = await userApiService.GetPostersByCurrentLocationAndName(request);
+                PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocationAndName(request) :
+                                                                      await userApiService.GetPostersByCurrentLocationAndNameWithoutLogin(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {

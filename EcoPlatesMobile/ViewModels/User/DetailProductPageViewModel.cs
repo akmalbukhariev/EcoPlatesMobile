@@ -67,7 +67,8 @@ namespace EcoPlatesMobile.ViewModels.User
                     user_id = appControl.UserInfo.user_id
                 };
 
-                SpecificPromotionWithCompanyInfoResponse response = await userApiService.GetSpecificPromotionWithCompanyInfo(request);
+                SpecificPromotionWithCompanyInfoResponse response = appControl.IsLoggedIn ? await userApiService.GetSpecificPromotionWithCompanyInfo(request) :
+                                                                                             await userApiService.GetSpecificPromotionWithCompanyInfoWithoutLogin(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {

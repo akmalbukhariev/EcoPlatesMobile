@@ -7,6 +7,7 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
+               xmlns:view="clr-namespace:EcoPlatesMobile.Views.User.Components"
                BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *, Auto">
@@ -28,75 +29,89 @@
                                             SwitchType="Classic"
                                             Tab1_Title="{x:Static language:AppResource.Products}"
                                             Tab2_Title="{x:Static language:AppResource.Sellers}"/>
-            <RefreshView x:Name="listProduct"
-                         IsRefreshing="{Binding IsRefreshingProduct}"
-                         Command="{Binding RefreshProductCommand}"
-                         Margin="10"
-                         Grid.Row="2">
-                <CollectionView ItemsSource="{Binding Products}"
-                                RemainingItemsThreshold="1"
-                                RemainingItemsThresholdReachedCommand="{Binding LoadProductMoreCommand}"
-                                Margin="0,20,0,0">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" 
-                                         VerticalItemSpacing="10"
-                                         HorizontalItemSpacing="10"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItem Text="{x:Static language:AppResource.Delete}"
-                                                   BackgroundColor="Red"
-                                                   Invoked="DeleteProduct_Invoked"/>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-                                <user_component:FavoriteProductView ProductImage="{Binding ProductImage}"
-                                                                    ProductName="{Binding ProductName}"
-                                                                    ProductMakerName="{Binding ProductMakerName}"
-                                                                    NewPrice="{Binding NewPrice}"
-                                                                    OldPrice="{Binding OldPrice}"
-                                                                    Stars="{Binding Stars}"
-                                                                    Distance="{Binding Distance}"
-                                                                    ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserFavoritesPage}}, Path=BindingContext.ClickProductCommand}"/>
-                            </SwipeView>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </RefreshView>
-            <RefreshView x:Name="listCompany"
-                         IsRefreshing="{Binding IsRefreshingCompany}"
-                         Command="{Binding RefreshCompanyCommand}"
-                         IsVisible="False"
-                         Margin="10"
-                         Grid.Row="1">
-                <CollectionView ItemsSource="{Binding Companies}"
-                                RemainingItemsThreshold="1"
-                                RemainingItemsThresholdReachedCommand="{Binding LoadCompanyMoreCommand}"
-                                Margin="0,20,0,0">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItem Text="{x:Static language:AppResource.Delete}"
-                                                   BackgroundColor="Red"
-                                                   Invoked="DeleteCompany_Invoked"/>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-                                <user_component:CompanyView CompanyImage="{Binding CompanyImage}"
-                                                            CompanyName="{Binding CompanyName}"
-                                                            WorkingTime="{Binding WorkingTime}"
-                                                            Stars="{Binding Stars}"
-                                                            Distance="{Binding Distance}"
-                                                            ShowLiked="False"
-                                                            ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserFavoritesPage}}, Path=BindingContext.ClickCompanyCommand}"/>        
-                            </SwipeView>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </RefreshView>
+            <Grid x:Name="listProduct"
+                 Grid.Row="1">
+                <RefreshView IsRefreshing="{Binding IsRefreshingProduct}"
+                            Command="{Binding RefreshProductCommand}"
+                            Margin="10">
+                    <CollectionView ItemsSource="{Binding Products}"
+                                    RemainingItemsThreshold="1"
+                                    RemainingItemsThresholdReachedCommand="{Binding LoadProductMoreCommand}"
+                                    Margin="0,20,0,0">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" 
+                                            VerticalItemSpacing="10"
+                                            HorizontalItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="{x:Static language:AppResource.Delete}"
+                                                    BackgroundColor="Red"
+                                                    Invoked="DeleteProduct_Invoked"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <user_component:FavoriteProductView ProductImage="{Binding ProductImage}"
+                                                                        ProductName="{Binding ProductName}"
+                                                                        ProductMakerName="{Binding ProductMakerName}"
+                                                                        NewPrice="{Binding NewPrice}"
+                                                                        OldPrice="{Binding OldPrice}"
+                                                                        Stars="{Binding Stars}"
+                                                                        Distance="{Binding Distance}"
+                                                                        ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserFavoritesPage}}, Path=BindingContext.ClickProductCommand}"/>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+                <view:NotificationBanner x:Name="productBanner"
+                                         IsVisible="{Binding ShowProductEmptyBanner}"
+                                         Image="liked.png"                          
+                                         Title1="No favorites yet."
+                                         Title2="Tap the heart to save products."
+                                         VerticalOptions="Center"/>
+            </Grid>
+            <Grid x:Name="listCompany"
+                  IsVisible="False"
+                  Grid.Row="1">
+                <RefreshView IsRefreshing="{Binding IsRefreshingCompany}"
+                            Command="{Binding RefreshCompanyCommand}"
+                            Margin="10">
+                    <CollectionView ItemsSource="{Binding Companies}"
+                                    RemainingItemsThreshold="1"
+                                    RemainingItemsThresholdReachedCommand="{Binding LoadCompanyMoreCommand}"
+                                    Margin="0,20,0,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="{x:Static language:AppResource.Delete}"
+                                                    BackgroundColor="Red"
+                                                    Invoked="DeleteCompany_Invoked"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <user_component:CompanyView CompanyImage="{Binding CompanyImage}"
+                                                                CompanyName="{Binding CompanyName}"
+                                                                WorkingTime="{Binding WorkingTime}"
+                                                                Stars="{Binding Stars}"
+                                                                Distance="{Binding Distance}"
+                                                                ShowLiked="False"
+                                                                ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserFavoritesPage}}, Path=BindingContext.ClickCompanyCommand}"/>        
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+                <view:NotificationBanner x:Name="companyBanner"
+                                         IsVisible="{Binding ShowCompanyEmptyBanner}"
+                                         Image="liked.png"                          
+                                         Title1="No favorites yet."
+                                         Title2="Tap the heart to save sellers."
+                                         VerticalOptions="Center"/>
+            </Grid>
             <ActivityIndicator IsRunning="{Binding IsLoading}"
                                Color="{StaticResource User}"
                                Scale="1.5"
@@ -104,6 +119,37 @@
                                HorizontalOptions="Center"
                                Grid.Row="1"/>
         </Grid>
+        <Border x:Name="borderBackground"
+                BackgroundColor="Green"
+                IsVisible="Collapse" 
+                Opacity="0.05"
+                Grid.Row="1">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Background_Tapped"/>
+                </Border.GestureRecognizers>
+        </Border>
+        <Border x:Name="borderBlock"
+                Stroke="Gray" 
+                IsVisible="Collapse"
+                BackgroundColor="White"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                StrokeShape="RoundRectangle 10"
+                Padding="12" 
+                Margin="10"
+                Grid.Row="1">
+            <VerticalStackLayout>
+                <Label Text="Log in to save favorites"
+                       FontFamily="RobotoVar"
+                       FontSize="16" 
+                       HorizontalOptions="Center" />
+                <Button Text="Login / Sign Up"
+                        BackgroundColor="{StaticResource User}"
+                        Clicked="BtnLogin_Clicked"
+                        Margin="0,5,0,0"/>
+            </VerticalStackLayout>
+        </Border>
         <BoxView HeightRequest="1"
                  BackgroundColor="LightGray"
                  HorizontalOptions="Fill"

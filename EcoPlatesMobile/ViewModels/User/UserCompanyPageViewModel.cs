@@ -9,6 +9,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views;
 using EcoPlatesMobile.Views.User.Components;
 using EcoPlatesMobile.Views.User.Pages;
 
@@ -66,6 +67,12 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public async Task CompanyLiked()
         { 
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                return;
+            }
+            
             likedCompany = !likedCompany;
 
             SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
@@ -96,7 +103,8 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 //IsLoading = true;
 
-                CompanyWithPosterListResponse response = await userApiService.GetCompanyWithPosters(CompanyId);
+                CompanyWithPosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetCompanyWithPosters(CompanyId) :
+                                                                                 await userApiService.GetCompanyWithPostersWithoutLogin(CompanyId);
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {

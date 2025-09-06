@@ -80,21 +80,23 @@ namespace EcoPlatesMobile.Services
             return response.Content ?? string.Empty;
         }
 
-        public async Task<string> GetAsync(string endpoint, bool includeToken = true)
+        public async Task<string> GetAsync(string endpoint, bool useToken = true)
         { 
             var request = new RestRequest(endpoint, Method.Get);
-            await SetToken(request);
+            if (useToken)
+                await SetToken(request);
 
             return await ExecuteRequestAsync(request);
         }
 
-        public async Task<string> PostAsync(string endpoint, object? data = null, bool addHeader = true)
+        public async Task<string> PostAsync(string endpoint, object? data = null, bool addHeader = true, bool useToken = true)
         {         
             var request = new RestRequest(endpoint, Method.Post);
             if (addHeader)
                 request.AddHeader("Content-Type", "application/json");
 
-            await SetToken(request);
+            if (useToken)
+                await SetToken(request);
 
             if (data != null)
             {

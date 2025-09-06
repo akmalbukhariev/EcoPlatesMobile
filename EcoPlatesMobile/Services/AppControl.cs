@@ -23,10 +23,11 @@ namespace EcoPlatesMobile.Services
         public bool RefreshCompanyProfilePage { get; set; } = true;
         public bool IsPhoneNumberRegisterPage { get; set; } = true;
         public bool IsNotificationHandled { get; set; } = false;
+        public bool IsLoggedIn { get; set; } = false;
         public bool UpdatePending = false;
         public NotificationData NotificationData { get; set; }
-        public CompanyInfo CompanyInfo { get; set; }
-        public UserInfo UserInfo { get; set; }
+        public CompanyInfo CompanyInfo { get; set; } = new CompanyInfo();
+        public UserInfo UserInfo { get; set; } = new UserInfo();
 
         public Location LocationForRegister { get; set; } = null;
         public object NotificationSubscriber { get; set; }
@@ -165,6 +166,7 @@ namespace EcoPlatesMobile.Services
                 RefreshFavoriteCompany = true;
                 RefreshFavoriteProduct = true;
                 RefreshUserProfilePage = true;
+                IsLoggedIn = true;
                 Application.Current.MainPage = new AppUserShell();
             }
         }
@@ -212,7 +214,7 @@ namespace EcoPlatesMobile.Services
             store.Remove(AppKeys.PhoneNumber);
 
             await userApi.ClearTokenAsync();
-            UserInfo = null;
+            UserInfo = new UserInfo();
 
             if (NotificationSubscriber != null)
             {
@@ -222,6 +224,9 @@ namespace EcoPlatesMobile.Services
                 NotificationSubscriber = null;
             }
 
+            RefreshMainPage = true;
+            RefreshBrowserPage = true;
+            IsLoggedIn = false;
             Application.Current.MainPage = new AppEntryShell();
         }
 

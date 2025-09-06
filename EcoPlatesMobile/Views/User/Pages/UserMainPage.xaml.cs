@@ -18,12 +18,14 @@ public partial class UserMainPage : BasePage
 
     private UserMainPageViewModel viewModel;
     private AppControl appControl;
+    private LocationService locationService;
 
-    public UserMainPage(UserMainPageViewModel vm, AppControl appControl, IUpdateService updateService)
+    public UserMainPage(UserMainPageViewModel vm, AppControl appControl, IUpdateService updateService, LocationService locationService)
     {
         InitializeComponent();
-        this.viewModel = vm;
+        viewModel = vm;
         this.appControl = appControl;
+        this.locationService = locationService;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         companyTypeList.EventTypeClick += CompanyTypeList_EventTypeClick;
@@ -44,7 +46,16 @@ public partial class UserMainPage : BasePage
  
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
+
+        viewModel.IsLoading = true;
+        var location = await locationService.GetCurrentLocationAsync();
+        viewModel.IsLoading = false;
+        
+        if (location == null) return;
  
+        appControl.UserInfo.location_latitude = location.Latitude;
+        appControl.UserInfo.location_longitude = location.Longitude;
+
         if (typeItem == null)
         {
             viewModel.BusinessType = BusinessType.OTHER;
@@ -55,7 +66,8 @@ public partial class UserMainPage : BasePage
             companyTypeList.InitType(typeItem);
         }
 
-        lbHeader.Text = $"{AppResource.NearbyWithin} {appControl.UserInfo.radius_km} {AppResource.Km} {AppResource.Around}.";
+        int km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius;
+        lbHeader.Text = $"{AppResource.NearbyWithin} {km} {AppResource.Km} {AppResource.Around}.";
 
         if (appControl.NotificationData != null && appControl.NotificationData.body != string.Empty)
         {

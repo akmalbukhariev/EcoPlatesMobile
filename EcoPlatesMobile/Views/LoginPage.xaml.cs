@@ -26,7 +26,7 @@ public partial class LoginPage : BasePage
         base.OnAppearing();
         
         UserRole role = appStoreService.Get(AppKeys.UserRole, UserRole.None);
-        bool isLoggedIn = appStoreService.Get(AppKeys.IsLoggedIn, false);
+        appControl.IsLoggedIn = appStoreService.Get(AppKeys.IsLoggedIn, false);
         string phoneNumber = appStoreService.Get(AppKeys.PhoneNumber, "");
 
         bool isWifiOn = await appControl.CheckWifi();
@@ -35,7 +35,7 @@ public partial class LoginPage : BasePage
         loading.ShowLoading = true;
         
         Color color = Colors.White;
-        if (isLoggedIn)
+        if (appControl.IsLoggedIn)
         { 
             if (role == UserRole.Company)
             {
@@ -59,9 +59,11 @@ public partial class LoginPage : BasePage
     private async void Button_Clicked(object sender, EventArgs e)
     {
         Color color = Constants.COLOR_COMPANY;
+        UserRole userRole = UserRole.User;
         if (sender == btnComapny)
         {
             userSessionService.SetUser(UserRole.Company);
+            userRole = UserRole.Company;
         }
         else if (sender == btnUser)
         {
@@ -70,6 +72,14 @@ public partial class LoginPage : BasePage
         }
 
         AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
-        await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+
+        if (!appControl.IsLoggedIn && userRole == UserRole.User)
+        {
+            Application.Current.MainPage = new AppUserShell();
+        }
+        else
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+        }
     }
 }

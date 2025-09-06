@@ -12,6 +12,7 @@ using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Views.User.Components;
+using EcoPlatesMobile.Views;
 
 namespace EcoPlatesMobile.ViewModels.User
 {
@@ -51,6 +52,12 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             bool isWifiOn = await appControl.CheckWifi();
 		    if (!isWifiOn) return;
+
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
+                return;
+            }
 
             product.Liked = !product.Liked;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
@@ -92,18 +99,19 @@ namespace EcoPlatesMobile.ViewModels.User
             try
             {
                 IsLoading = true;
-
+                
                 PosterLocationRequest request = new PosterLocationRequest
                 {
                     business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
-                    radius_km = appControl.UserInfo.radius_km,
+                    radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
                     user_lat = appControl.UserInfo.location_latitude,
                     user_lon = appControl.UserInfo.location_longitude
                 };
 
-                PosterListResponse response = await userApiService.GetPostersByCurrentLocation(request);
+                PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocation(request) :
+                                                                       await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -177,12 +185,13 @@ namespace EcoPlatesMobile.ViewModels.User
                     business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
-                    radius_km = appControl.UserInfo.radius_km,
+                    radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
                     user_lat = appControl.UserInfo.location_latitude,
                     user_lon = appControl.UserInfo.location_longitude
                 };
 
-                PosterListResponse response = await userApiService.GetPostersByCurrentLocation(request);
+                PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocation(request) :
+                                                                       await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {

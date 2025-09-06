@@ -30,11 +30,12 @@
                     Margin="0,0,20,0">
                 <Image x:Name="imUser" 
                        Source="add_item.png"
-                       Aspect="AspectFill"
+                       Aspect="AspectFit"
                        WidthRequest="64"
                        HeightRequest="64"/>
             </Border>
-            <Grid RowDefinitions="Auto,Auto,Auto"
+            <Grid x:Name="grdInnerUserInfo" 
+                  RowDefinitions="Auto,Auto,Auto"
                   Grid.Column="1">
                 <Label x:Name="lbUserName" 
                        Text="-----------------------"
@@ -55,6 +56,15 @@
                        TextColor="#999999"
                        Grid.Row="2"/>
             </Grid>
+            <Label x:Name="lbLogInOrSignUp" 
+                   Text="Log in or register to continue."
+                   IsVisible="Collapse"
+                   FontSize="15"
+                   FontFamily="RobotoVar"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   VerticalTextAlignment="Center"
+                   Grid.Column="1"/>
             <Image Source="edit.png"
                    WidthRequest="20"
                    HeightRequest="20"

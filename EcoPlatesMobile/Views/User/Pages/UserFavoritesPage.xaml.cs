@@ -8,7 +8,6 @@ public partial class UserFavoritesPage : BasePage
 {
 	private UserFavoritesViewModel viewModel;
     private AppControl appControl;
-
     public UserFavoritesPage(UserFavoritesViewModel vm, AppControl appControl)
 	{
 		InitializeComponent();
@@ -25,11 +24,18 @@ public partial class UserFavoritesPage : BasePage
     {
         base.OnAppearing();
 
-        Shell.SetTabBarIsVisible(this, true); 
+        Shell.SetTabBarIsVisible(this, true);
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
+        if (!appControl.IsLoggedIn)
+        {
+            borderBackground.IsVisible = true;
+            borderBlock.IsVisible = true;
+            return;
+        }
+
         if (appControl.RefreshFavoriteProduct)
         {
             await viewModel.LoadInitialProductAsync();
@@ -40,7 +46,7 @@ public partial class UserFavoritesPage : BasePage
         {
             await viewModel.LoadInitialCompanyAsync();
             appControl.RefreshFavoriteCompany = false;
-        }
+        } 
     }
 
     private async void TabSwitcher_TabChanged(object? sender, string e)
@@ -54,7 +60,7 @@ public partial class UserFavoritesPage : BasePage
         {
             listProduct.IsVisible = true;
             listCompany.IsVisible = true;
-             
+
             await Task.WhenAll(
                 listProduct.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
                 listCompany.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut)
@@ -64,7 +70,7 @@ public partial class UserFavoritesPage : BasePage
         {
             listProduct.IsVisible = true;
             listCompany.IsVisible = true;
-             
+
             if (listCompany.TranslationX != screenWidth)
             {
                 listCompany.TranslationX = screenWidth;
@@ -91,5 +97,14 @@ public partial class UserFavoritesPage : BasePage
         {
             await viewModel.DeleteCompany(company);
         }
+    }
+
+    private void Background_Tapped(object sender, TappedEventArgs e)
+    {
+    }
+
+    private async void BtnLogin_Clicked(object sender, EventArgs e)
+    {
+        await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
     }
 }

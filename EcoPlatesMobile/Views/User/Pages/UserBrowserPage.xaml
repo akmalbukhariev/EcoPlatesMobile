@@ -15,7 +15,7 @@
                   MapType="Street"
                   IsVisible="False"
                   IsShowingUser="True"/>
-        <Border x:Name="borderBottom" 
+        <Border x:Name="borderBottom"
                 Margin="10,0,10,20"
                 IsVisible="False"
                 VerticalOptions="End"
@@ -56,6 +56,31 @@
                        Grid.Column="2"/>
             </Grid>
         </Border>
+        <Border x:Name="borderBackground"
+                BackgroundColor="Green"
+                IsVisible="Collapse" 
+                Opacity="0.05"/>
+        <Border x:Name="borderBlock"
+                Stroke="Gray" 
+                IsVisible="Collapse"
+                BackgroundColor="White"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                StrokeShape="RoundRectangle 10"
+                Padding="12" 
+                Margin="10">
+            <VerticalStackLayout>
+                <Label Text="Log in to see buyers near you"
+                       FontFamily="RobotoVar"
+                       FontSize="16" 
+                       HorizontalOptions="Center" />
+                <Button Text="Login / Sign Up"
+                        BackgroundColor="{StaticResource User}"
+                        Clicked="BtnLogin_Clicked"
+                        Margin="0,5,0,0"/>
+            </VerticalStackLayout>
+        </Border>
+        
         <Grid RowDefinitions="Auto, 10, Auto, *"
               Margin="16,10,16,0">
             <Grid x:Name="grdSearch" 

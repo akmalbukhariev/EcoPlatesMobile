@@ -1,5 +1,6 @@
 using System.Windows.Input;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Services;
 
 namespace EcoPlatesMobile.Views.User.Components;
 
@@ -117,8 +118,7 @@ public partial class ProductView : ContentView
     private const int StaggerBuckets = 4;
     private const int StaggerStepMs = 80;
     #endregion
-
-    public ProductView()
+      public ProductView()
     {
         InitializeComponent();
 
@@ -258,7 +258,7 @@ public partial class ProductView : ContentView
             await element.ScaleTo(1.3, 100, Easing.CubicOut);
             await element.ScaleTo(1.0, 100, Easing.CubicIn);
         }
-
+  
         if (BindingContext is ProductModel product && LikeCommand?.CanExecute(product) == true)
         {
             LikeCommand.Execute(product);

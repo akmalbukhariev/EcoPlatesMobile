@@ -103,11 +103,18 @@ public partial class UserProfilePage : BasePage
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
 
-        if (appControl.RefreshUserProfilePage)
+        if (!appControl.IsLoggedIn)
         {
-            await LoadData();
-            appControl.RefreshUserProfilePage = false;
+            grdInnerUserInfo.IsVisible = false;
+            lbLogInOrSignUp.IsVisible = true;
+            return;
         }
+
+        if (appControl.RefreshUserProfilePage)
+            {
+                await LoadData();
+                appControl.RefreshUserProfilePage = false;
+            }
     }
 
     public IRelayCommand RefreshCommand => new RelayCommand(async () =>
@@ -141,6 +148,12 @@ public partial class UserProfilePage : BasePage
     {
         await AnimateElementScaleDown(grdUserInfo);
 
+        if (!appControl.IsLoggedIn)
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+            return;
+        }
+
         await AppNavigatorService.NavigateTo(nameof(UserProfileInfoPage));
     }
 
@@ -170,6 +183,8 @@ public partial class UserProfilePage : BasePage
 
             languageService.SetCulture(selectedLang.Code);
 
+            appControl.RefreshMainPage = true;
+            appControl.RefreshBrowserPage = true;
             ((App)Application.Current).ReloadAppShell();
         }
     }
@@ -186,6 +201,11 @@ public partial class UserProfilePage : BasePage
         switch (view.TileType)
         {
             case ListTileView.ListTileType.Message:
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                return;
+            }
             await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
                 break;
             case ListTileView.ListTileType.Share:
@@ -196,6 +216,11 @@ public partial class UserProfilePage : BasePage
                 });
                 break;
             case ListTileView.ListTileType.Suggestions:
+                if (!appControl.IsLoggedIn)
+                {
+                    await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                    return;
+                }
                 await AppNavigatorService.NavigateTo($"{nameof(SuggestionsPage)}?IsUser={true}");
                 break;
             case ListTileView.ListTileType.AboutApp:
