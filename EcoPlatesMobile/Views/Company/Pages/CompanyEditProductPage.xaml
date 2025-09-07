@@ -107,6 +107,7 @@
                                        TextColor="Black"
                                        FontSize="16"
                                        FontFamily="RobotoVar"
+                                       TextChanged="PriceTextChanged"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbOldPrice"
                                        Text="{x:Static language:AppResource.PreviousPrice}"
@@ -133,6 +134,7 @@
                                        Keyboard="Numeric"
                                        FontSize="16"
                                        FontFamily="RobotoVar"
+                                       TextChanged="PriceTextChanged"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbNewPrice" 
                                        Text="{x:Static language:AppResource.CurrentPrice}"

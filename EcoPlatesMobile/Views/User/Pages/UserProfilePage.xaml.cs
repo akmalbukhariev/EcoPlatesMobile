@@ -150,7 +150,11 @@ public partial class UserProfilePage : BasePage
 
         if (!appControl.IsLoggedIn)
         {
-            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+            //await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+            appControl.RefreshMainPage = true;
+            appControl.RefreshBrowserPage = true;
+            appControl.IsLoggedIn = false;
+            Application.Current.MainPage = new AppEntryShell();
             return;
         }
 

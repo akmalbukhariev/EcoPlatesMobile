@@ -5,7 +5,7 @@
 
     <CollectionView ItemsSource="{Binding Items}" 
                     ItemsLayout="HorizontalList"
-                    HeightRequest="90"
+                    HeightRequest="75"
                     VerticalOptions="Center"
                     HorizontalScrollBarVisibility="Never">
         <CollectionView.ItemTemplate>
@@ -19,8 +19,8 @@
                                               CommandParameter="{Binding .}"/>
                     </Grid.GestureRecognizers>
                     <Image Source="{Binding Image}"
-                           WidthRequest="50"
-                           HeightRequest="50"
+                           WidthRequest="44"
+                           HeightRequest="44"
                            Aspect="AspectFill"
                            HorizontalOptions="Center"/>
                     <Label Text="{Binding Name}"

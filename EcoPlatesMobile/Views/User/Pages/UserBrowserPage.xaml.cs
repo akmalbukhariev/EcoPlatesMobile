@@ -204,7 +204,7 @@ public partial class UserBrowserPage : BasePage
             borderBottom.IsVisible = false;
             borderBackground.IsVisible = false;
 
-            Grid.SetColumnSpan(entrySearch, 2);
+            Grid.SetColumnSpan(borderSearch, 2);
         }
         else if (e == tabSwitcher.Tab2_Title && !mapIsVisible)
         {
@@ -242,7 +242,7 @@ public partial class UserBrowserPage : BasePage
             }
             mapIsVisible = true;
 
-            Grid.SetColumnSpan(entrySearch, 1);
+            Grid.SetColumnSpan(borderSearch, 1);
         }
     }
 
@@ -270,6 +270,8 @@ public partial class UserBrowserPage : BasePage
 
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
+        await AnimateElementScaleDown(borderSearch);
+
         await AppNavigatorService.NavigateTo(nameof(UserBrowserSearchPage));
     }
 

@@ -713,7 +713,7 @@
   <comment>UserProfilePage</comment>
 </data>
 <data name="WhatOtherPeopleSaying" xml:space="preserve">
-  <value>BOSHQA ODAMLAR NIMA DEYMOQDA</value>
+  <value>BOSHQA ODAMLAR NIMA FIKRDA</value>
   <comment>DetailProductPage</comment>
 </data>
 	<data name="WhatYouNeedToKnow" xml:space="preserve">
@@ -729,7 +729,7 @@
   <comment>DetailProductPage</comment>
 </data>
   <data name="ChooseLocationAvailable" xml:space="preserve">
-  <value>Mavjud mahsulotlarni ko‘rish uchun joylashuvni tanlang</value>
+  <value>Mahsulotlarni ko‘rish uchun joy tanlang</value>
   <comment>DetailProductPage</comment>
 </data>
 <data name="Top" xml:space="preserve">

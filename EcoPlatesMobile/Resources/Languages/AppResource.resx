@@ -734,7 +734,7 @@
     <comment>DetailProductPage</comment>
   </data>
   <data name="ChooseLocationAvailable" xml:space="preserve">
-    <value>Choose a location to see what's available</value>
+    <value>Select location to view products</value>
     <comment>DetailProductPage</comment>
   </data>
   <data name="Top" xml:space="preserve">

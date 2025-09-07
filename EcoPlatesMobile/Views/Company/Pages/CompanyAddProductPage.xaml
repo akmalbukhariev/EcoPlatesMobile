@@ -5,6 +5,7 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:behaviors="clr-namespace:EcoPlatesMobile.Helper"
                BackgroundColor="White">
 
     <Grid RowDefinitions="Auto, *">
@@ -108,7 +109,9 @@
                                        FontSize="16"
                                        FontFamily="RobotoVar"
                                        TextColor="Black"
-                                       Grid.Column="1"/>
+                                       TextChanged="PriceTextChanged"
+                                       Grid.Column="1">
+                                </Entry>
                                 <Label x:Name="lbOldPrice"
                                         Text="{x:Static language:AppResource.PreviousPrice}"
                                         Style="{StaticResource styleLabel}"
@@ -133,6 +136,7 @@
                                        FontSize="16"
                                        FontFamily="RobotoVar"
                                        TextColor="Black"
+                                       TextChanged="PriceTextChanged"
                                        Grid.Column="1"/>
                                 <Label x:Name="lbNewPrice" 
                                        Text="{x:Static language:AppResource.CurrentPrice}"

@@ -131,7 +131,7 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsLoading = false;
 
-                ShowProductEmptyBanner = Products.Count == 0 ? true : false;
+                CheckProductEmptyBanner();
             }
         }
 
@@ -197,8 +197,8 @@ namespace EcoPlatesMobile.ViewModels.User
             finally
             {
                 IsLoading = false;
-                
-                ShowCompanyEmptyBanner = Companies.Count == 0 ? true : false;
+
+                CheckCompanyEmptyBanner();
             }
         }
 
@@ -230,6 +230,8 @@ namespace EcoPlatesMobile.ViewModels.User
             finally
             {
                 IsLoading = false;
+
+                CheckProductEmptyBanner();
             }
         }
 
@@ -261,6 +263,8 @@ namespace EcoPlatesMobile.ViewModels.User
             finally
             {
                 IsLoading = false;
+
+                CheckCompanyEmptyBanner();
             }
         }
 
@@ -342,7 +346,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsRefreshingProduct = false;
                 IsLoading = false;
 
-                ShowProductEmptyBanner = Products.Count == 0 ? true : false;
+                CheckProductEmptyBanner();
             }
         }
 
@@ -419,9 +423,19 @@ namespace EcoPlatesMobile.ViewModels.User
             {
                 IsRefreshingCompany = false;
                 IsLoading = false;
-                
-                ShowCompanyEmptyBanner = Companies.Count == 0 ? true : false;
+
+                CheckCompanyEmptyBanner();
             }
+        }
+
+        public void CheckProductEmptyBanner()
+        { 
+            ShowProductEmptyBanner = Products.Count == 0 ? true : false;
+        }
+
+        public void CheckCompanyEmptyBanner()
+        { 
+            ShowCompanyEmptyBanner = Companies.Count == 0 ? true : false;
         }
 
         public ICommand ClickProductCommand { get; }

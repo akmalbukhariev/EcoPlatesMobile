@@ -7,6 +7,7 @@ using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -39,8 +40,8 @@ public partial class CompanyEditProductPage : BasePage
         this.keyboardHelper = keyboardHelper;
 
         entryProductName.SetMaxLength(30);
-        entryOldPrice.MaxLength = 8;
-        entryNewPrice.MaxLength = 8;
+        entryOldPrice.MaxLength = 13;
+        entryNewPrice.MaxLength = 13;
         editorDescription.MaxLength = 150;
     }
 
@@ -139,8 +140,11 @@ public partial class CompanyEditProductPage : BasePage
         try
         {
             var title = entryProductName.GetEntryText()?.Trim();
-            var oldPriceText = entryOldPrice.Text?.Trim();
-            var newPriceText = entryNewPrice.Text?.Trim();
+            //var oldPriceText = entryOldPrice.Text?.Trim();
+            //var newPriceText = entryNewPrice.Text?.Trim();
+
+            var oldPrice = GetRawNumber(entryOldPrice);
+            var newPrice = GetRawNumber(entryNewPrice);
 
             if (string.IsNullOrWhiteSpace(title))
             {
@@ -148,18 +152,17 @@ public partial class CompanyEditProductPage : BasePage
                 return;
             }
 
-            if (decimal.TryParse(oldPriceText, out decimal oldPrice) &&
-                decimal.TryParse(newPriceText, out decimal newPrice))
+             
+            if (oldPrice == newPrice)
             {
-                if (oldPrice == newPrice)
-                {
-                    await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
-                    return;
-                }
+                await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
+                return;
             }
-            else
+            
+            if (oldPrice is null || newPrice is null)
             {
-                await DisplayAlert(AppResource.Error, AppResource.MessageValidPrice, AppResource.Ok);
+                //await DisplayAlert(AppResource.Error, AppResource.PleaseEnterBothPrices, AppResource.Ok);
+                await DisplayAlert(AppResource.Error, "Please Enter Both Prices", AppResource.Ok);
                 return;
             }
 
@@ -168,11 +171,12 @@ public partial class CompanyEditProductPage : BasePage
 
             Response response;
 
+            /*
             var culture = CultureInfo.CurrentCulture;
 
             if (string.Equals(title?.Trim(), ProductModel.ProductName?.Trim(), StringComparison.Ordinal)
-                && EqualMoney(ProductModel.OldPriceDigit, oldPriceText?.Trim(), culture)
-                && EqualMoney(ProductModel.NewPriceDigit, newPriceText?.Trim(), culture)
+                && EqualMoney(ProductModel.OldPriceDigit, oldPriceText, culture)
+                && EqualMoney(ProductModel.NewPriceDigit, newPriceText, culture)
                 && string.Equals(editorDescription?.Text?.Trim() ?? "", ProductModel.description?.Trim() ?? "", StringComparison.Ordinal)
                 && !isNewImageSelected)
             {
@@ -181,11 +185,26 @@ public partial class CompanyEditProductPage : BasePage
 
                 await Shell.Current.GoToAsync("..");
                 return;
-            }
+            }*/
 
-            if (oldPriceText.Trim().Equals(newPriceText.Trim()))
+            long? modelOld = ProductModel?.OldPriceDigit is null ? null
+                          : Convert.ToInt64(ProductModel.OldPriceDigit);
+            long? modelNew = ProductModel?.NewPriceDigit is null ? null
+                            : Convert.ToInt64(ProductModel.NewPriceDigit);
+
+            bool titleSame = string.Equals(title?.Trim(), ProductModel?.ProductName?.Trim(), StringComparison.Ordinal);
+            bool oldSame   = modelOld == oldPrice;
+            bool newSame   = modelNew == newPrice;
+            bool descSame  = string.Equals(editorDescription?.Text?.Trim() ?? string.Empty,
+                                        ProductModel?.description?.Trim() ?? string.Empty,
+                                        StringComparison.Ordinal);
+            bool noNewImage = !isNewImageSelected;
+
+            if (titleSame && oldSame && newSame && descSame && noNewImage)
             {
-                await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
+                IsLoading.IsVisible = false;
+                IsLoading.IsRunning = false;
+                await Shell.Current.GoToAsync("..");
                 return;
             }
 
@@ -228,6 +247,64 @@ public partial class CompanyEditProductPage : BasePage
             IsLoading.IsVisible = false;
             IsLoading.IsRunning = false;
         }
+    }
+
+    readonly HashSet<Entry> formatting = new();
+
+    void PriceTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var entry = (Entry)sender;
+
+        // prevent re-entrancy per Entry
+        if (formatting.Contains(entry)) return;
+
+        var oldText = e.OldTextValue ?? "";
+        var newText = e.NewTextValue ?? "";
+
+        // keep only digits that the user typed (keyboard can be Numeric)
+        var digits = Regex.Replace(newText, "[^0-9]", "");
+        if (digits.Length == 0)
+        {
+            formatting.Add(entry);
+            entry.Text = "";
+            entry.CursorPosition = 0;
+            formatting.Remove(entry);
+            return;
+        }
+
+        // guard against values too large for long
+        if (!long.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out var value))
+        {
+            formatting.Add(entry);
+            entry.Text = oldText; // revert
+            formatting.Remove(entry);
+            return;
+        }
+
+        // remember caret distance from the end
+        var oldLen = oldText.Length;
+        var oldCursor = entry.CursorPosition >= 0 ? entry.CursorPosition : oldLen;
+        var cursorFromEnd = oldLen - oldCursor;
+
+        // format with commas always
+        var formatted = value.ToString("#,0", CultureInfo.InvariantCulture);
+
+        formatting.Add(entry);
+        entry.Text = formatted;
+
+        // restore caret relative to the end
+        var newLen = formatted.Length;
+        var newPos = Math.Max(0, newLen - Math.Max(0, cursorFromEnd));
+        entry.CursorPosition = Math.Min(newPos, newLen);
+
+        formatting.Remove(entry);
+    }
+
+    long? GetRawNumber(Entry e)
+    {
+        var digits = Regex.Replace(e.Text ?? "", "[^0-9]", "");
+        if (string.IsNullOrEmpty(digits)) return null;
+        return long.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out var v) ? v : null;
     }
 
     bool EqualMoney(decimal? modelValue, string text, CultureInfo culture, int scale = 2)

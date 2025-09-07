@@ -730,7 +730,7 @@
   <comment>DetailProductPage</comment>
 </data>
 	<data name="ChooseLocationAvailable" xml:space="preserve">
-  <value>Выберите локацию, чтобы увидеть доступные товары</value>
+  <value>Локация для товаров</value>
   <comment>DetailProductPage</comment>
 </data>
 <data name="Top" xml:space="preserve">

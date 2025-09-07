@@ -6,13 +6,15 @@ using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
- 
+
 public partial class CompanyAddProductPage : BasePage
 {
     private ProductModel productModel;
-     
+
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
 
@@ -29,8 +31,8 @@ public partial class CompanyAddProductPage : BasePage
         this.keyboardHelper = keyboardHelper;
 
         entryProductName.SetMaxLength(30);
-        entryOldPrice.MaxLength = 8;
-        entryNewPrice.MaxLength = 8;
+        entryOldPrice.MaxLength = 13;
+        entryNewPrice.MaxLength = 13;
         editorDescription.MaxLength = 150;
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
     }
@@ -38,7 +40,7 @@ public partial class CompanyAddProductPage : BasePage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        
+
         isNewImageSelected = false;
     }
 
@@ -52,11 +54,11 @@ public partial class CompanyAddProductPage : BasePage
         {
             await AnimateElementScaleDown(imSelectedProduct);
         }
-        
-        string action = await DisplayActionSheet(AppResource.ChooseOption, 
-                                                 AppResource.Cancel, 
-                                                 null, 
-                                                 AppResource.SelectGallery, 
+
+        string action = await DisplayActionSheet(AppResource.ChooseOption,
+                                                 AppResource.Cancel,
+                                                 null,
+                                                 AppResource.SelectGallery,
                                                  AppResource.TakePhoto);
 
         FileResult result = null;
@@ -72,7 +74,7 @@ public partial class CompanyAddProductPage : BasePage
         {
             if (!await appControl.EnsureCameraPermissionAsync())
                 return;
-            
+
             result = await appControl.TryCapturePhotoAsync();
         }
 
@@ -100,34 +102,28 @@ public partial class CompanyAddProductPage : BasePage
         keyboardHelper.HideKeyboard();
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         try
         {
             var title = entryProductName.GetEntryText()?.Trim();
-            var oldPriceText = entryOldPrice.Text?.Trim();
-            var newPriceText = entryNewPrice.Text?.Trim();
+            //var oldPriceText = entryOldPrice.Text?.Trim();
+            //var newPriceText = entryNewPrice.Text?.Trim();
+
+            var oldPrice = GetRawNumber(entryOldPrice);
+            var newPrice = GetRawNumber(entryNewPrice);
 
             if (string.IsNullOrWhiteSpace(title))
             {
                 await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
                 return;
             }
-
-            if (decimal.TryParse(oldPriceText, out decimal oldPrice) &&
-                decimal.TryParse(newPriceText, out decimal newPrice))
+ 
+            if (oldPrice == newPrice)
             {
-                if (oldPrice == newPrice)
-                {
-                    await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
-                    return;
-                }
-            }
-            else
-            {
-                await DisplayAlert(AppResource.Error, AppResource.MessageValidPrice, AppResource.Ok);
+                await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
                 return;
-            }
+            } 
 
             IsLoading.IsVisible = true;
             IsLoading.IsRunning = true;
@@ -168,5 +164,63 @@ public partial class CompanyAddProductPage : BasePage
             IsLoading.IsVisible = false;
             IsLoading.IsRunning = false;
         }
+    }
+    
+    readonly HashSet<Entry> formatting = new();
+
+    void PriceTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var entry = (Entry)sender;
+
+        // prevent re-entrancy per Entry
+        if (formatting.Contains(entry)) return;
+
+        var oldText = e.OldTextValue ?? "";
+        var newText = e.NewTextValue ?? "";
+
+        // keep only digits that the user typed (keyboard can be Numeric)
+        var digits = Regex.Replace(newText, "[^0-9]", "");
+        if (digits.Length == 0)
+        {
+            formatting.Add(entry);
+            entry.Text = "";
+            entry.CursorPosition = 0;
+            formatting.Remove(entry);
+            return;
+        }
+
+        // guard against values too large for long
+        if (!long.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out var value))
+        {
+            formatting.Add(entry);
+            entry.Text = oldText; // revert
+            formatting.Remove(entry);
+            return;
+        }
+
+        // remember caret distance from the end
+        var oldLen = oldText.Length;
+        var oldCursor = entry.CursorPosition >= 0 ? entry.CursorPosition : oldLen;
+        var cursorFromEnd = oldLen - oldCursor;
+
+        // format with commas always
+        var formatted = value.ToString("#,0", CultureInfo.InvariantCulture);
+
+        formatting.Add(entry);
+        entry.Text = formatted;
+
+        // restore caret relative to the end
+        var newLen = formatted.Length;
+        var newPos = Math.Max(0, newLen - Math.Max(0, cursorFromEnd));
+        entry.CursorPosition = Math.Min(newPos, newLen);
+
+        formatting.Remove(entry);
+    }
+
+    long? GetRawNumber(Entry e)
+    {
+        var digits = Regex.Replace(e.Text ?? "", "[^0-9]", "");
+        if (string.IsNullOrEmpty(digits)) return null;
+        return long.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out var v) ? v : null;
     }
 }

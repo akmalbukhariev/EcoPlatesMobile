@@ -154,12 +154,10 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public async Task LoadCompaniesAsync(bool isRefresh = false)
         {
-            Companies.Clear();
-            CompanyView.BeginNewAnimationCycle();
-            
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;
 
+            CompanyView.BeginNewAnimationCycle();
             try
             {
                 if (isRefresh)
@@ -167,12 +165,13 @@ namespace EcoPlatesMobile.ViewModels.User
                     IsRefreshing = true;
                     offset = 0;
                     hasMoreItems = true;
+                    Companies.Clear();
                 }
                 else
                 {
                     IsLoading = true;
                 }
-                     
+
                 CompanyLocationRequest request = new CompanyLocationRequest()
                 {
                     radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
@@ -181,7 +180,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     offset = offset,
                     pageSize = PageSize,
                 };
- 
+
                 CompanyListResponse response = appControl.IsLoggedIn ? await userApiService.GetCompaniesByCurrentLocation(request) :
                                                                        await userApiService.GetCompaniesByCurrentLocationWithoutLogin(request);
 
@@ -206,18 +205,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
-                    await MainThread.InvokeOnMainThreadAsync(() =>
-                    {
-                        if (isRefresh)
-                        {
-                            Companies.ReplaceRange(companyModels);
-                        }
-                        else
-                        {
-                            Companies.AddRange(companyModels);
-                        }
-                    });
-
+                    Companies.AddRange(companyModels);
+ 
                     offset += PageSize;
                     if (companyModels.Count < PageSize)
                     {

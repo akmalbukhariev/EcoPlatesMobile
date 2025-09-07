@@ -20,6 +20,7 @@ namespace EcoPlatesMobile.Services
         /// </summary>
         public async Task SetTokenAsync(string token)
         {
+            this.token = token;
             await SecureStorage.SetAsync("auth_token", token);
         }
 
@@ -28,6 +29,9 @@ namespace EcoPlatesMobile.Services
         /// </summary>
         public async Task<string?> GetTokenAsync()
         {
+            if (!string.IsNullOrEmpty(token))
+                return token;
+
             return await SecureStorage.GetAsync("auth_token");
         }
 
