@@ -142,6 +142,7 @@
             <VerticalStackLayout>
                 <Label Text="{x:Static language:AppResource.LogInToSaveFavorites}"
                        FontFamily="RobotoVar"
+                       IsVisible="Collapse"
                        FontSize="16" 
                        HorizontalOptions="Center" />
                 <Button Text="{x:Static language:AppResource.LoginSignUp}"

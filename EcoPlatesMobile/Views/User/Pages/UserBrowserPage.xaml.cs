@@ -22,7 +22,7 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserBrowserPage : BasePage
 {
     private bool created = false;
-    private List<CustomPin> _customPins = new();
+    private List<CustomPin> customPins = new();
 
     private UserBrowserPageViewModel viewModel;
     private UserApiService userApiService;
@@ -49,6 +49,8 @@ public partial class UserBrowserPage : BasePage
     {
         base.OnAppearing();
 
+        WireMapReady();
+
         Shell.SetTabBarIsVisible(this, true);
 
         bool isWifiOn = await appControl.CheckWifi();
@@ -74,13 +76,15 @@ public partial class UserBrowserPage : BasePage
         lbSelectedDistance.Text = $"{AppResource.SelectedDistanceIs}: {appControl.UserInfo.radius_km} {AppResource.Km}";
     }
 
+    private CancellationTokenSource refreshCts;
     private async Task GetAllCompaniesUsingMap()
     {
         try
         {
-            //viewModel.IsLoading = true;
+            viewModel.IsLoading = true;
 
-            MoveMap();
+            await EnsureMapReadyAsync();
+            await MoveMap();
 
             if (appControl.IsLoggedIn)
             {
@@ -91,8 +95,13 @@ public partial class UserBrowserPage : BasePage
             {
                 map.IsZoomEnabled = false;
                 map.IsScrollEnabled = false;
+                viewModel.IsLoading = false;
                 return;
             }
+
+            refreshCts?.Cancel();
+            refreshCts = new CancellationTokenSource();
+            var ct = refreshCts.Token;
 
             var userInfo = appControl.UserInfo;
 
@@ -104,7 +113,9 @@ public partial class UserBrowserPage : BasePage
                 business_type = BusinessType.OTHER.GetValue()
             };
 
-            CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocationWithoutLimit(request);
+            CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocationWithoutLimit(request).ConfigureAwait(false);
+
+            if (ct.IsCancellationRequested) return;
 
             if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
             {
@@ -122,12 +133,15 @@ public partial class UserBrowserPage : BasePage
 
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
-                    _customPins.Clear();
-                    if (pins != null && pins.Count > 0)
+                    await _renderLock.WaitAsync(ct);
+                    try
                     {
-                        _customPins.AddRange(pins);
+                        await ApplyPinsDiffAsync(pins, ct);
                     }
-                    await RefreshCustomPins();
+                    finally
+                    {
+                        _renderLock.Release();
+                    }
                 });
             }
         }
@@ -137,14 +151,62 @@ public partial class UserBrowserPage : BasePage
         }
         finally
         {
-            //viewModel.IsLoading = false;
+            viewModel.IsLoading = false;
         }
     }
 
-    private void MoveMap()
+    private async Task ApplyPinsDiffAsync(List<CustomPin> newPins, CancellationToken ct)
     {
+        // Simple approach: replace only if something actually changed
+        // (You can build a hash from CompanyId + Lat/Lon to compare)
+        var changed = NeedRefresh(customPins, newPins);
+        if (!changed) return;
+
+        customPins.Clear();
+        customPins.AddRange(newPins);
+
+        map.Pins.Clear();
+        map.MapElements.Clear();
+
+    #if ANDROID
+        if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView nativeMapView)
+        {
+            var renderer = new PinIconRenderer(customPins);
+            renderer.EventPinClick += PinCompanyClicked;
+
+            var tcs = new TaskCompletionSource();
+            renderer.RenderingFinished.ContinueWith(_ => tcs.TrySetResult(), ct);
+
+            nativeMapView.GetMapAsync(renderer);
+            await tcs.Task; // wait render finish w/o blocking UI input forever
+        }
+    #else
+        foreach (var p in _customPins)
+        {
+            map.Pins.Add(new Pin { Label = p.Label, Location = p.Location, Type = PinType.Place });
+        }
+    #endif
+    }
+
+    private bool NeedRefresh(List<CustomPin> oldPins, List<CustomPin> newPins)
+    {
+        if (oldPins.Count != newPins.Count) return true;
+        // cheap compare by CompanyId + rounded coords
+        var a = oldPins.Select(x => (x.CompanyId, lat: Math.Round(x.Location.Latitude, 6), lon: Math.Round(x.Location.Longitude, 6))).OrderBy(t => t.CompanyId);
+        var b = newPins.Select(x => (x.CompanyId, lat: Math.Round(x.Location.Latitude, 6), lon: Math.Round(x.Location.Longitude, 6))).OrderBy(t => t.CompanyId);
+        return !a.SequenceEqual(b);
+    }
+
+
+    private async Task MoveMap()
+    {
+        await EnsureMapReadyAsync();
+
         var position = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
-        map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(3000))); // zoom level
+        await MainThread.InvokeOnMainThreadAsync(() =>
+        {
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(3000))); // zoom level
+        });
 
         /*
         map.Pins.Add(new Pin
@@ -164,7 +226,7 @@ public partial class UserBrowserPage : BasePage
 #if ANDROID
         if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView nativeMapView)
         {
-            PinIconRenderer render = new PinIconRenderer(_customPins);
+            PinIconRenderer render = new PinIconRenderer(customPins);
             render.EventPinClick += PinCompanyClicked;
             nativeMapView.GetMapAsync(render);
 
@@ -204,7 +266,8 @@ public partial class UserBrowserPage : BasePage
             borderBottom.IsVisible = false;
             borderBackground.IsVisible = false;
 
-            Grid.SetColumnSpan(borderSearch, 2);
+            boxTemp.IsVisible = false;
+            //Grid.SetColumnSpan(borderSearch, 2);
         }
         else if (e == tabSwitcher.Tab2_Title && !mapIsVisible)
         {
@@ -242,7 +305,8 @@ public partial class UserBrowserPage : BasePage
             }
             mapIsVisible = true;
 
-            Grid.SetColumnSpan(borderSearch, 1);
+            boxTemp.IsVisible = true;
+            //Grid.SetColumnSpan(borderSearch, 1);
         }
     }
 
@@ -255,15 +319,46 @@ public partial class UserBrowserPage : BasePage
         }
     }
 
+
+
+    // fields
+    private readonly SemaphoreSlim _renderLock = new(1,1);
+    private TaskCompletionSource<bool> _mapReadyTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+    // call this once (e.g., in OnAppearing or after InitializeComponent)
+    private void WireMapReady()
+    {
+    #if ANDROID
+        map.HandlerChanged += (_, __) =>
+        {
+            if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView native)
+            {
+                native.GetMapAsync(new MapReadyCallback(g =>
+                {
+                    _mapReadyTcs.TrySetResult(true);
+                }));
+            }
+        };
+    #else
+        // iOS: map is usually ready when Handler is set; still complete TCS.
+        _mapReadyTcs.TrySetResult(true);
+    #endif
+    }
+
+    private Task EnsureMapReadyAsync() => _mapReadyTcs.Task;
+
+
+
+
     private async void Bottom_Tapped(object sender, TappedEventArgs e)
     {
         await AnimateElementScaleDown(borderBottom);
 
-        viewModel.IsLoading = true;
+        /*viewModel.IsLoading = true;
         var location = await locationService.GetCurrentLocationAsync();
         viewModel.IsLoading = false;
 
-        if (location == null) return;
+        if (location == null) return;*/
 
         await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
     }

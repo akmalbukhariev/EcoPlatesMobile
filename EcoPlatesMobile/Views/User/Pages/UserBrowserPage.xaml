@@ -73,7 +73,7 @@
                 <Label Text="{x:Static language:AppResource.LogInToSeeBuyersNearYou}"
                        FontFamily="RobotoVar"
                        FontSize="16" 
-                       HorizontalOptions="Center" />
+                       HorizontalTextAlignment="Center"/>
                 <Button Text="{x:Static language:AppResource.LoginSignUp}"
                         BackgroundColor="{StaticResource User}"
                         Clicked="BtnLogin_Clicked"
@@ -83,36 +83,39 @@
         
         <Grid RowDefinitions="Auto, 10, Auto, *"
               Margin="16,10,16,0">
-            <Border x:Name="borderSearch"
-                    StrokeThickness="1"
-                    Stroke="Gray"
-                    BackgroundColor="White"
-                    Margin="10, 0, 10, 0"
-                    HeightRequest="40">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="5"/>
-                </Border.StrokeShape>
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1"
-                                          Tapped="Search_Tapped"/>
-                </Border.GestureRecognizers>
-                <Grid ColumnDefinitions="Auto, *" 
-                      VerticalOptions="Center">
-                      <Image x:Name="iconImage"
-                             Source="search.png"
-                             WidthRequest="18"
-                             HeightRequest="18"
-                             VerticalOptions="Center"
-                             Margin="12,0"/>
-                      <Label Text="{x:Static language:AppResource.SearchStore}"
-                             FontSize="14"
-                             TextColor="LightGray"
-                             FontFamily="RobotoVar"
-                             VerticalOptions="Center"
-                             HorizontalTextAlignment="Start"
-                             Grid.Column="1"/>
-                </Grid>
-            </Border>
+              <Grid ColumnDefinitions="*, Auto">
+                <Border x:Name="borderSearch"
+                        StrokeThickness="1"
+                        Stroke="Gray"
+                        BackgroundColor="White"
+                        Margin="10, 0, 10, 0"
+                        HeightRequest="40">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                            Tapped="Search_Tapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto, *"
+                          VerticalOptions="Center">
+                        <Image x:Name="iconImage"
+                                Source="search.png"
+                                WidthRequest="18"
+                                HeightRequest="18"
+                                VerticalOptions="Center"
+                                Margin="12,0"/>
+                        <Label Text="{x:Static language:AppResource.SearchStore}"
+                                FontSize="14"
+                                TextColor="LightGray"
+                                FontFamily="RobotoVar"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start"
+                                Grid.Column="1"/>
+                    </Grid>
+                </Border>
+                <BoxView x:Name="boxTemp" BackgroundColor="Transparent" WidthRequest="40" IsVisible="Collapse" Grid.Column="1"/>
+            </Grid>
             <user_component:TabSwitcherView x:Name="tabSwitcher"
                                            SwitchType="Modern"
                                            Tab1_Title="{x:Static language:AppResource.List}"

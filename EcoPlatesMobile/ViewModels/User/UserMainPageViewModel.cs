@@ -94,7 +94,6 @@ namespace EcoPlatesMobile.ViewModels.User
             offset = 0;
             hasMoreItems = true;
             Products.Clear();
-            ProductView.BeginNewAnimationCycle(); 
             
             try
             {
@@ -137,6 +136,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
+
+                    ProductView.BeginNewAnimationCycle();
                     Products.AddRange(productModels);
 
                     offset += PageSize;
@@ -164,8 +165,7 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;
-
-            ProductView.BeginNewAnimationCycle(); 
+ 
             try
             {
                 if (isRefresh)
@@ -218,6 +218,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
+                    ProductView.BeginNewAnimationCycle();
                     Products.AddRange(productModels);
 
                     offset += PageSize;

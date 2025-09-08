@@ -19,10 +19,12 @@ public partial class LocationSettingPage : BasePage
     private LocationService locationService;
     private AppControl appControl;
     private UserApiService userApiService;
-     
+
     int selectedDistance = 1;
     private MapBottomSheet bottomSheet;
-
+    private double initialLat;
+    private double initialLon;
+    private int initialRadius;
     public LocationSettingPage(LocationService locationService, AppControl appControl, UserApiService userApiService)
     {
         InitializeComponent();
@@ -43,7 +45,7 @@ public partial class LocationSettingPage : BasePage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-         
+
         InitCircle();
 
         borderBottom.TranslationY = 0;
@@ -60,6 +62,10 @@ public partial class LocationSettingPage : BasePage
     private void InitCircle()
     {
         loading.ShowLoading = true;
+
+        initialLat = appControl.UserInfo.location_latitude;
+        initialLon = appControl.UserInfo.location_longitude;
+        initialRadius = appControl.UserInfo.radius_km;
 
         currentCenter = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
         selectedDistance = appControl.UserInfo.radius_km;
@@ -94,14 +100,14 @@ public partial class LocationSettingPage : BasePage
     {
         borderBottom.TranslationY = 100;
         borderBottom.IsVisible = true;
-        
+
         await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
     }
-     
+
     private void Map_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(map.VisibleRegion)) return;
-         
+
         var center = map.VisibleRegion?.Center;
         if (center == null) return;
 
@@ -136,14 +142,27 @@ public partial class LocationSettingPage : BasePage
     {
         selectedDistance = km;
         UpdateSelectedDistanceLabel();
-         
+
         if (distanceCircle != null)
             distanceCircle.Radius = Distance.FromKilometers(km);
 
         MoveMap();
     }
-     
+
     private async void ShowResultsClicked()
+    {
+        /*
+        if (selectedDistance == appControl.UserInfo.radius_km)
+        {
+            await AppNavigatorService.NavigateTo("..");
+            return;
+        }
+        */
+
+        await ShowResultsAsync();
+    }
+
+    private async Task ShowResultsAsync()
     {
         /*
         if (selectedDistance == appControl.UserInfo.radius_km)
@@ -156,7 +175,7 @@ public partial class LocationSettingPage : BasePage
         await bottomSheet.DismissAsync();
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
+        if (!isWifiOn) return;
 
         try
         {
@@ -225,6 +244,30 @@ public partial class LocationSettingPage : BasePage
 
     private async void Close_Tapped(object sender, TappedEventArgs e)
     {
+        /*
+        bool latChanged = !AreClose(currentCenter.Latitude, initialLat);
+        bool lonChanged = !AreClose(currentCenter.Longitude, initialLon);
+        bool radiusChanged = selectedDistance != initialRadius;
+
+        if (latChanged || lonChanged || radiusChanged)
+        {
+            bool save = await DisplayAlert(
+                AppResource.Confirm,
+                "Do you want to save changes?",//AppResource.DoYouWantToSaveChanges,  // "Do you want to save changes?"
+                "Save",
+                "Discard"
+            );
+
+            if (save)
+            {
+                await ShowResultsAsync();
+            }
+        }
+        */
+
         await AppNavigatorService.NavigateTo("..");
     }
+
+    private static bool AreClose(double a, double b, double eps = 1e-5)
+    => Math.Abs(a - b) <= eps;
 }

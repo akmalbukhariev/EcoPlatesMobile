@@ -4,9 +4,9 @@
              x:Class="EcoPlatesMobile.Views.User.Components.ProductView">
 
     <Frame x:Name="mainFrame" 
-           Padding="0" 
+           Padding="0"
            CornerRadius="20" 
-           HeightRequest="250"
+           HeightRequest="220"
            BackgroundColor="White"
            HasShadow="True">
         <Frame.GestureRecognizers>
@@ -16,7 +16,7 @@
         <Grid RowDefinitions="Auto, Auto, Auto, Auto">
             <Grid ColumnDefinitions="*,*">
                 <Border StrokeThickness="0"
-                        HeightRequest="135"
+                        HeightRequest="100"
                         BackgroundColor="Transparent"
                         Grid.ColumnSpan="2">
                      <Border.StrokeShape>
@@ -24,12 +24,12 @@
                      </Border.StrokeShape>
                      <Image x:Name="productImage"
                             Aspect="AspectFill"
-                            HeightRequest="135"/>
-                     </Border>
+                            HeightRequest="100"/>
+                </Border>
                 <Grid HeightRequest="35"
                       WidthRequest="75"
                       Margin="0,5,0,0"
-                      IsVisible="False"
+                      IsVisible="Collapse"
                       VerticalOptions="Start">
                     <Border BackgroundColor="Gray"
                             Opacity="0.35"
@@ -47,7 +47,7 @@
                            HorizontalOptions="Center"
                            VerticalTextAlignment="Center"/>
                 </Grid>
-                <Image x:Name="imLiked" 
+                <Image x:Name="imLiked"
                        Source="like.png"
                        WidthRequest="30"
                        HeightRequest="30"
@@ -95,7 +95,7 @@
                                    Spacing="10"
                                    Grid.Row="3">        
                 <HorizontalStackLayout Spacing="5">
-                    <Image Source="star.png" 
+                    <Image Source="star.png"
                            WidthRequest="16" 
                            HeightRequest="16"/>
                     <Label x:Name="stars"
