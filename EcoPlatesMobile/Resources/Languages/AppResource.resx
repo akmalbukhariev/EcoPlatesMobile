@@ -749,8 +749,8 @@
     <value>The app will reload to apply the selected language.</value>
     <comment>UserProfilePage</comment>
   </data>
-  <data name="LogInOrRegisterToContinue" xml:space="preserve">
-    <value>Log in or register to continue.</value>
+  <data name="GoToLoginPage" xml:space="preserve">
+    <value>Go to the login page</value>
     <comment>UserProfilePage</comment>
   </data>
 

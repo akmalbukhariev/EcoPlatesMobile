@@ -664,6 +664,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go to the login page.
+        /// </summary>
+        internal static string GoToLoginPage {
+            get {
+                return ResourceManager.GetString("GoToLoginPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Great Service.
         /// </summary>
         internal static string GreatService {
@@ -831,15 +840,6 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string LocationServicesOffTitle {
             get {
                 return ResourceManager.GetString("LocationServicesOffTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in or register to continue..
-        /// </summary>
-        internal static string LogInOrRegisterToContinue {
-            get {
-                return ResourceManager.GetString("LogInOrRegisterToContinue", resourceCulture);
             }
         }
         

@@ -57,7 +57,7 @@
                        Grid.Row="2"/>
             </Grid>
             <Label x:Name="lbLogInOrSignUp" 
-                   Text="{x:Static language:AppResource.LogInOrRegisterToContinue}"
+                   Text="{x:Static language:AppResource.GoToLoginPage}"
                    IsVisible="Collapse"
                    FontSize="15"
                    FontFamily="RobotoVar"
@@ -65,7 +65,8 @@
                    FontAttributes="Bold"
                    VerticalTextAlignment="Center"
                    Grid.Column="1"/>
-            <Image Source="edit.png"
+            <Image x:Name="imUserInfo" 
+                   Source="edit.png"
                    WidthRequest="20"
                    HeightRequest="20"
                    Aspect="AspectFill"

@@ -745,8 +745,8 @@
   <value>Приложение перезапустится для применения выбранного языка.</value>
   <comment>UserProfilePage</comment>
 </data>
-<data name="LogInOrRegisterToContinue" xml:space="preserve">
-    <value>Войдите или зарегистрируйтесь, чтобы продолжить</value>
+<data name="GoToLoginPage" xml:space="preserve">
+    <value>Перейти на страницу входа</value>
     <comment>UserProfilePage</comment>
 </data>
 

@@ -744,8 +744,8 @@
   <value>Tanlangan tilni qo‘llash uchun ilova qayta yuklanadi.</value>
   <comment>UserProfilePage</comment>
 </data>
-<data name="LogInOrRegisterToContinue" xml:space="preserve">
-    <value>Kirish yoki ro‘yxatdan o‘tish orqali davom eting</value>
+<data name="GoToLoginPage" xml:space="preserve">
+    <value>Login saxifasiga o'tish</value>
     <comment>UserProfilePage</comment>
 </data>
 

@@ -107,6 +107,7 @@ public partial class UserProfilePage : BasePage
         {
             grdInnerUserInfo.IsVisible = false;
             lbLogInOrSignUp.IsVisible = true;
+            imUserInfo.Source = "right.png";
             return;
         }
 
