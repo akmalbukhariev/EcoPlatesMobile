@@ -668,6 +668,11 @@
   <value>Supermarket</value>
   <comment>UserMainPage</comment>
 </data>
+<data name="All" xml:space="preserve">
+   <value>Barchasi</value>
+   <comment>UserMainPage</comment>
+ </data>
+
 <data name="RecentSearches" xml:space="preserve">
   <value>So‘nggi qidiruvlar</value>
   <comment>UserMainSearchPage</comment>
@@ -688,6 +693,15 @@
   <value>Xarita</value>
   <comment>UserBrowserPage</comment>
 </data>
+ <data name="LogInToSeeBuyersNearYou" xml:space="preserve">
+    <value>Atrofingizdagi xaridorlarni ko‘rish uchun tizimga kiring</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+  <data name="LoginSignUp" xml:space="preserve">
+    <value>Kirish / Ro‘yxatdan o‘tish</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+
 <data name="Type" xml:space="preserve">
   <value>Tur</value>
   <comment>UserBrowserSearchPage</comment>
@@ -700,6 +714,24 @@
   <value>Mahsulotlar</value>
   <comment>UserFavoritesPage</comment>
 </data>
+<data name="NoFavorites" xml:space="preserve">
+  <value>Sevimlilar yo‘q</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="TapTheHeartProduct" xml:space="preserve">
+  <value>Mahsulotni saqlash uchun ♥ bosing</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="TapTheHeartSaller" xml:space="preserve">
+  <value>Sotuvchini saqlash uchun ♥ bosing</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="LogInToSaveFavorites" xml:space="preserve">
+  <value>Sevimlilarni saqlash uchun kiring</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+
+
  <data name="RoleBuyer" xml:space="preserve">
   <value>Rol: Xaridor</value>
   <comment>UserProfilePage</comment>
@@ -712,6 +744,11 @@
   <value>Tanlangan tilni qo‘llash uchun ilova qayta yuklanadi.</value>
   <comment>UserProfilePage</comment>
 </data>
+<data name="LogInOrRegisterToContinue" xml:space="preserve">
+    <value>Kirish yoki ro‘yxatdan o‘tish orqali davom eting</value>
+    <comment>UserProfilePage</comment>
+</data>
+
 <data name="WhatOtherPeopleSaying" xml:space="preserve">
   <value>BOSHQA ODAMLAR NIMA FIKRDA</value>
   <comment>DetailProductPage</comment>

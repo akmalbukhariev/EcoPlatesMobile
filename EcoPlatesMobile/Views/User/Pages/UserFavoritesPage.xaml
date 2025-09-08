@@ -69,8 +69,8 @@
                 <view:NotificationBanner x:Name="productBanner"
                                          IsVisible="{Binding ShowProductEmptyBanner}"
                                          Image="liked.png"                          
-                                         Title1="No favorites yet."
-                                         Title2="Tap the heart to save products."
+                                         Title1="{x:Static language:AppResource.NoFavorites}"
+                                         Title2="{x:Static language:AppResource.TapTheHeartProduct}"
                                          VerticalOptions="Center"/>
             </Grid>
             <Grid x:Name="listCompany"
@@ -108,8 +108,8 @@
                 <view:NotificationBanner x:Name="companyBanner"
                                          IsVisible="{Binding ShowCompanyEmptyBanner}"
                                          Image="liked.png"                          
-                                         Title1="No favorites yet."
-                                         Title2="Tap the heart to save sellers."
+                                         Title1="{x:Static language:AppResource.NoFavorites}"
+                                         Title2="{x:Static language:AppResource.TapTheHeartSaller}"
                                          VerticalOptions="Center"/>
             </Grid>
             <ActivityIndicator IsRunning="{Binding IsLoading}"
@@ -140,11 +140,11 @@
                 Margin="10"
                 Grid.Row="1">
             <VerticalStackLayout>
-                <Label Text="Log in to save favorites"
+                <Label Text="{x:Static language:AppResource.LogInToSaveFavorites}"
                        FontFamily="RobotoVar"
                        FontSize="16" 
                        HorizontalOptions="Center" />
-                <Button Text="Login / Sign Up"
+                <Button Text="{x:Static language:AppResource.LoginSignUp}"
                         BackgroundColor="{StaticResource User}"
                         Clicked="BtnLogin_Clicked"
                         Margin="0,5,0,0"/>

@@ -216,7 +216,7 @@ public partial class UserProfilePage : BasePage
                 await Share.Default.RequestAsync(new ShareTextRequest
                 {
                     Uri = "https://your-app-url-here.com",
-                    Title = "Check out my app"
+                    Title = "SaleTop Application"
                 });
                 break;
             case ListTileView.ListTileType.Suggestions:

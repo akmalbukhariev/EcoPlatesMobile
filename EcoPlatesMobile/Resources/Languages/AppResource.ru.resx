@@ -669,6 +669,11 @@
   <value>Супермаркет</value>
   <comment>UserMainPage</comment>
 </data>
+<data name="All" xml:space="preserve">
+   <value>Все</value>
+   <comment>UserMainPage</comment>
+ </data>
+
 <data name="RecentSearches" xml:space="preserve">
   <value>Последние поиски</value>
   <comment>UserMainSearchPage</comment>
@@ -689,6 +694,15 @@
   <value>Карта</value>
   <comment>UserBrowserPage</comment>
 </data>
+ <data name="LogInToSeeBuyersNearYou" xml:space="preserve">
+    <value>Войдите, чтобы увидеть покупателей рядом с вами</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+  <data name="LoginSignUp" xml:space="preserve">
+    <value>Вход / Регистрация</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+
 <data name="Type" xml:space="preserve">
   <value>Тип</value>
   <comment>UserBrowserSearchPage</comment>
@@ -701,7 +715,25 @@
   <value>Товары</value>
   <comment>UserFavoritesPage</comment>
 </data>
-  <data name="RoleBuyer" xml:space="preserve">
+<data name="NoFavorites" xml:space="preserve">
+  <value>Нет избранного</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="TapTheHeartProduct" xml:space="preserve">
+  <value>Нажмите ♥ чтобы сохранить товар</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="TapTheHeartSaller" xml:space="preserve">
+  <value>Нажмите ♥ чтобы сохранить продавца</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+<data name="LogInToSaveFavorites" xml:space="preserve">
+  <value>Войдите, чтобы сохранить избранное</value>
+  <comment>UserFavoritesPage</comment>
+</data>
+
+
+<data name="RoleBuyer" xml:space="preserve">
   <value>Роль: Покупатель</value>
   <comment>UserProfilePage</comment>
 </data>
@@ -713,6 +745,11 @@
   <value>Приложение перезапустится для применения выбранного языка.</value>
   <comment>UserProfilePage</comment>
 </data>
+<data name="LogInOrRegisterToContinue" xml:space="preserve">
+    <value>Войдите или зарегистрируйтесь, чтобы продолжить</value>
+    <comment>UserProfilePage</comment>
+</data>
+
 <data name="WhatOtherPeopleSaying" xml:space="preserve">
   <value>ЧТО ГОВОРЯТ ДРУГИЕ</value>
   <comment>DetailProductPage</comment>

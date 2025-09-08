@@ -673,6 +673,11 @@
     <value>Supermarket</value>
     <comment>UserMainPage</comment>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+    <comment>UserMainPage</comment>
+  </data>
+
   <data name="RecentSearches" xml:space="preserve">
     <value>Recent searches</value>
     <comment>UserMainSearchPage</comment>
@@ -693,6 +698,15 @@
     <value>Map</value>
     <comment>UserBrowserPage</comment>
   </data>
+  <data name="LogInToSeeBuyersNearYou" xml:space="preserve">
+    <value>Log in to see buyers near you</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+  <data name="LoginSignUp" xml:space="preserve">
+    <value>Login / Sign Up</value>
+    <comment>UserBrowserPage</comment>
+  </data>
+
   <data name="Type" xml:space="preserve">
     <value>Type</value>
     <comment>UserBrowserSearchPage</comment>
@@ -705,6 +719,24 @@
     <value>Products</value>
     <comment>UserFavoritesPage</comment>
   </data>
+
+  <data name="NoFavorites" xml:space="preserve">
+    <value>No favorites yet.</value>
+    <comment>UserFavoritesPage</comment>
+  </data>
+  <data name="TapTheHeartProduct" xml:space="preserve">
+    <value>Tap the heart to save products.</value>
+    <comment>UserFavoritesPage</comment>
+  </data>
+  <data name="TapTheHeartSaller" xml:space="preserve">
+    <value>Tap the heart to save sellers.</value>
+    <comment>UserFavoritesPage</comment>
+  </data>
+  <data name="LogInToSaveFavorites" xml:space="preserve">
+    <value>Log in to save favorites.</value>
+    <comment>UserFavoritesPage</comment>
+  </data>
+
   <data name="RoleBuyer" xml:space="preserve">
     <value>Role: Buyer</value>
     <comment>UserProfilePage</comment>
@@ -717,6 +749,11 @@
     <value>The app will reload to apply the selected language.</value>
     <comment>UserProfilePage</comment>
   </data>
+  <data name="LogInOrRegisterToContinue" xml:space="preserve">
+    <value>Log in or register to continue.</value>
+    <comment>UserProfilePage</comment>
+  </data>
+
   <data name="WhatOtherPeopleSaying" xml:space="preserve">
     <value>WHAT OTHER PEOPLE ARE SAYING</value>
     <comment>DetailProductPage</comment>

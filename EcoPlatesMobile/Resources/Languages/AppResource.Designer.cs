@@ -187,6 +187,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to around.
         /// </summary>
         internal static string Around {
@@ -295,7 +304,7 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a location to see what&apos;s available.
+        ///   Looks up a localized string similar to Select location to view products.
         /// </summary>
         internal static string ChooseLocationAvailable {
             get {
@@ -826,6 +835,42 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log in or register to continue..
+        /// </summary>
+        internal static string LogInOrRegisterToContinue {
+            get {
+                return ResourceManager.GetString("LogInOrRegisterToContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login / Sign Up.
+        /// </summary>
+        internal static string LoginSignUp {
+            get {
+                return ResourceManager.GetString("LoginSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to save favorites..
+        /// </summary>
+        internal static string LogInToSaveFavorites {
+            get {
+                return ResourceManager.GetString("LogInToSaveFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to see buyers near you.
+        /// </summary>
+        internal static string LogInToSeeBuyersNearYou {
+            get {
+                return ResourceManager.GetString("LogInToSeeBuyersNearYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log Out.
         /// </summary>
         internal static string LogOut {
@@ -1209,6 +1254,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No favorites yet..
+        /// </summary>
+        internal static string NoFavorites {
+            get {
+                return ResourceManager.GetString("NoFavorites", resourceCulture);
             }
         }
         
@@ -1713,6 +1767,24 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string TakePhoto {
             get {
                 return ResourceManager.GetString("TakePhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tap the heart to save products..
+        /// </summary>
+        internal static string TapTheHeartProduct {
+            get {
+                return ResourceManager.GetString("TapTheHeartProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tap the heart to save sellers..
+        /// </summary>
+        internal static string TapTheHeartSaller {
+            get {
+                return ResourceManager.GetString("TapTheHeartSaller", resourceCulture);
             }
         }
         

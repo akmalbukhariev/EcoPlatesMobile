@@ -70,11 +70,11 @@
                 Padding="12" 
                 Margin="10">
             <VerticalStackLayout>
-                <Label Text="Log in to see buyers near you"
+                <Label Text="{x:Static language:AppResource.LogInToSeeBuyersNearYou}"
                        FontFamily="RobotoVar"
                        FontSize="16" 
                        HorizontalOptions="Center" />
-                <Button Text="Login / Sign Up"
+                <Button Text="{x:Static language:AppResource.LoginSignUp}"
                         BackgroundColor="{StaticResource User}"
                         Clicked="BtnLogin_Clicked"
                         Margin="0,5,0,0"/>
