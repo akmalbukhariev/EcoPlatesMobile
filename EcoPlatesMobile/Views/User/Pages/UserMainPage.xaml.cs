@@ -80,6 +80,17 @@ public partial class UserMainPage : BasePage
         }
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        viewModel.PropertyChanged -= ViewModel_PropertyChanged;
+        companyTypeList.EventTypeClick -= CompanyTypeList_EventTypeClick;
+
+#if ANDROID
+        MessagingCenter.Unsubscribe<MainActivity, NotificationData>(appControl.NotificationSubscriber, Constants.NOTIFICATION_BODY);
+#endif
+    }
+
 #if ANDROID
     private async void OnNotificationReceived(MainActivity sender, NotificationData notificationData)
     {

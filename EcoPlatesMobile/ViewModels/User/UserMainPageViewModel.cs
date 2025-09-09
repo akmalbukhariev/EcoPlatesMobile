@@ -46,6 +46,9 @@ namespace EcoPlatesMobile.ViewModels.User
 
             LikeProductCommand = new Command<ProductModel>(ProductLiked);
             ClickProductCommand = new Command<ProductModel>(ProductClicked);
+
+            LoadMoreCommand = new AsyncRelayCommand(LoadMoreAsync);
+            RefreshCommand = new AsyncRelayCommand(RefreshAsync);
         } 
         
         private async void ProductLiked(ProductModel product)
@@ -245,7 +248,24 @@ namespace EcoPlatesMobile.ViewModels.User
          
         public ICommand LikeProductCommand { get; }
         public ICommand ClickProductCommand { get; }
-        
+
+        public IAsyncRelayCommand LoadMoreCommand { get; }
+        public IAsyncRelayCommand RefreshCommand { get; }
+
+        private async Task LoadMoreAsync()
+        {
+            if (IsLoading || IsRefreshing || !hasMoreItems) return;
+            bool online = await appControl.CheckWifi(); if (!online) return;
+            await LoadPromotionAsync();
+        }
+
+        private async Task RefreshAsync()
+        {
+            bool online = await appControl.CheckWifi(); if (!online) return;
+            await LoadPromotionAsync(isRefresh: true);
+        }
+
+        /*
         public IRelayCommand LoadMoreCommand => new RelayCommand( async () =>
         {
             bool isWifiOn = await appControl.CheckWifi();
@@ -264,5 +284,6 @@ namespace EcoPlatesMobile.ViewModels.User
 
             await LoadPromotionAsync(isRefresh: true);
         });
+        */
     } 
 }
