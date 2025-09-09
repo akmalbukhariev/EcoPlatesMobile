@@ -72,10 +72,12 @@
             <VerticalStackLayout>
                 <Label Text="{x:Static language:AppResource.LogInToSeeBuyersNearYou}"
                        FontFamily="RobotoVar"
+                       TextColor="Black"
                        FontSize="16" 
                        HorizontalTextAlignment="Center"/>
                 <Button Text="{x:Static language:AppResource.LoginSignUp}"
                         BackgroundColor="{StaticResource User}"
+                        TextColor="White"
                         Clicked="BtnLogin_Clicked"
                         Margin="0,5,0,0"/>
             </VerticalStackLayout>
@@ -127,7 +129,9 @@
                          Margin="10"
                          Grid.Row="3">
                 <CollectionView ItemsSource="{Binding Companies}"
-                                RemainingItemsThreshold="1"
+                                ItemsUpdatingScrollMode="KeepScrollOffset"
+                                SelectionMode="None"
+                                RemainingItemsThreshold="4"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

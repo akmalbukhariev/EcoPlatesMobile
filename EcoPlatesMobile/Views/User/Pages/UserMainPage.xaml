@@ -74,8 +74,9 @@
                      Grid.Row="2">
             <CollectionView x:Name="productList" 
                             ItemsSource="{Binding Products}"
-                            SelectionMode="Single"
-                            RemainingItemsThreshold="1"
+                            ItemsUpdatingScrollMode="KeepScrollOffset"
+                            SelectionMode="None"
+                            RemainingItemsThreshold="4"
                             RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" 

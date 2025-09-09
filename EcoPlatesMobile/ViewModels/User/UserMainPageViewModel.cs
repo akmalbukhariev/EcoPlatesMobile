@@ -62,7 +62,8 @@ namespace EcoPlatesMobile.ViewModels.User
                 return;
             }
 
-            product.Liked = !product.Liked;
+            var original = product.Liked;
+            product.Liked = !original;
             SaveOrUpdateBookmarksPromotionRequest request = new SaveOrUpdateBookmarksPromotionRequest()
             {
                 user_id = appControl.UserInfo.user_id,
@@ -124,7 +125,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         hasMoreItems = false;
                         return;
                     }
-
+                    
                     var productModels = items.Select(item => new ProductModel
                     {
                         PromotionId = item.poster_id ?? 0,
@@ -132,8 +133,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
-                        NewPrice = $"{item.new_price:N0} so'm",
-                        OldPrice = $"{item.old_price:N0} so'm",
+                        NewPrice = appControl.GetUzbCurrency(item.new_price),
+                        OldPrice = appControl.GetUzbCurrency(item.old_price),
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
@@ -213,8 +214,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
-                        NewPrice = $"{item.new_price:N0} so'm",
-                        OldPrice = $"{item.old_price:N0} so'm",
+                        NewPrice = appControl.GetUzbCurrency(item.new_price),
+                        OldPrice = appControl.GetUzbCurrency(item.old_price),
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,

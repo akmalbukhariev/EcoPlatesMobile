@@ -30,7 +30,7 @@
                     Margin="0,0,20,0">
                 <Image x:Name="imUser" 
                        Source="add_item.png"
-                       Aspect="AspectFit"
+                       Aspect="AspectFill"
                        WidthRequest="64"
                        HeightRequest="64"/>
             </Border>

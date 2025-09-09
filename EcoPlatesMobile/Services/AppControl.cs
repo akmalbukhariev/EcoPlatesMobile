@@ -9,6 +9,7 @@ using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 using Plugin.Firebase.CloudMessaging;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace EcoPlatesMobile.Services
@@ -318,7 +319,13 @@ namespace EcoPlatesMobile.Services
             return raw;
         }
 
-#region Check url image
+        public string GetUzbCurrency(decimal? price)
+        {
+            var uz = new CultureInfo("uz-UZ");
+            return string.Format(uz, "{0:N0} so'm", price);
+        }
+
+        #region Check url image
         private readonly string[] AllowedBases =
         {
             "http://95.182.118.233/uploads-user/profile-pictures/",

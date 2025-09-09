@@ -32,10 +32,12 @@
             <Grid x:Name="listProduct"
                  Grid.Row="1">
                 <RefreshView IsRefreshing="{Binding IsRefreshingProduct}"
-                            Command="{Binding RefreshProductCommand}"
-                            Margin="10">
+                             Command="{Binding RefreshProductCommand}"
+                             Margin="10">
                     <CollectionView ItemsSource="{Binding Products}"
-                                    RemainingItemsThreshold="1"
+                                    ItemsUpdatingScrollMode="KeepScrollOffset"
+                                    SelectionMode="None"
+                                    RemainingItemsThreshold="4"
                                     RemainingItemsThresholdReachedCommand="{Binding LoadProductMoreCommand}"
                                     Margin="0,20,0,0">
                         <CollectionView.ItemsLayout>
@@ -147,6 +149,7 @@
                        HorizontalOptions="Center" />
                 <Button Text="{x:Static language:AppResource.LoginSignUp}"
                         BackgroundColor="{StaticResource User}"
+                        TextColor="White"
                         Clicked="BtnLogin_Clicked"
                         Margin="0,5,0,0"/>
             </VerticalStackLayout>

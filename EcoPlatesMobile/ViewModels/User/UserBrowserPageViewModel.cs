@@ -39,14 +39,18 @@ namespace EcoPlatesMobile.ViewModels.User
             this.appControl = appControl;
 
             Companies = new ObservableRangeCollection<CompanyModel>();
+
             LikeCompanyCommand = new Command<CompanyModel>(CompanyLiked);
             ClickCompanyCommand = new Command<CompanyModel>(ComapnyClicked);
+
+            LoadMoreCommand = new AsyncRelayCommand(LoadMoreAsync);
+            RefreshCommand = new AsyncRelayCommand(RefreshAsync);
         }
 
         private async void CompanyLiked(CompanyModel product)
         {
             bool isWifiOn = await appControl.CheckWifi();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             if (!appControl.IsLoggedIn)
             {
@@ -55,14 +59,14 @@ namespace EcoPlatesMobile.ViewModels.User
             }
 
             product.Liked = !product.Liked;
- 
+
             SaveOrUpdateBookmarksCompanyRequest request = new SaveOrUpdateBookmarksCompanyRequest()
             {
                 user_id = appControl.UserInfo.user_id,
                 company_id = product.CompanyId,
                 deleted = product.Liked ? false : true,
             };
- 
+
             Response response = await userApiService.UpdateUserBookmarkCompanyStatus(request);
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -77,7 +81,7 @@ namespace EcoPlatesMobile.ViewModels.User
         private async void ComapnyClicked(CompanyModel company)
         {
             bool isWifiOn = await appControl.CheckWifi();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             await Shell.Current.GoToAsync($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
         }
@@ -87,8 +91,7 @@ namespace EcoPlatesMobile.ViewModels.User
             offset = 0;
             hasMoreItems = true;
             Companies.Clear();
-            CompanyView.BeginNewAnimationCycle();
-            
+             
             try
             {
                 IsLoading = true;
@@ -126,10 +129,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
-                    await MainThread.InvokeOnMainThreadAsync(() =>
-                    {
-                        Companies.ReplaceRange(companyModels);
-                    });
+                    CompanyView.BeginNewAnimationCycle();
+                    Companies.AddRange(companyModels); 
 
                     offset += PageSize;
                     if (companyModels.Count < PageSize)
@@ -157,7 +158,6 @@ namespace EcoPlatesMobile.ViewModels.User
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;
 
-            CompanyView.BeginNewAnimationCycle();
             try
             {
                 if (isRefresh)
@@ -205,8 +205,9 @@ namespace EcoPlatesMobile.ViewModels.User
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
+                    CompanyView.BeginNewAnimationCycle();
                     Companies.AddRange(companyModels);
- 
+
                     offset += PageSize;
                     if (companyModels.Count < PageSize)
                     {
@@ -228,15 +229,29 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
-        
+
         public ICommand LikeCompanyCommand { get; }
-
+        
         public ICommand ClickCompanyCommand { get; }
-
+        
+        public IAsyncRelayCommand LoadMoreCommand { get; }
+        public IAsyncRelayCommand RefreshCommand { get; }
+        
+        private async Task LoadMoreAsync()
+        {
+            await LoadCompaniesAsync();
+        }
+        
+        private async Task RefreshAsync()
+        {
+            await LoadCompaniesAsync();
+        }
+        
+        /*
         public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
         {
             bool isWifiOn = await appControl.CheckWifi();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             if (IsLoading || IsRefreshing || !hasMoreItems)
                 return;
@@ -247,9 +262,10 @@ namespace EcoPlatesMobile.ViewModels.User
         public IRelayCommand RefreshCommand => new RelayCommand(async () =>
         {
             bool isWifiOn = await appControl.CheckWifi();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             await LoadCompaniesAsync(isRefresh: true);
         });
-    }
+        */
+    }   
 }

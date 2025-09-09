@@ -14,7 +14,7 @@ using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.Company.Components;
 
 namespace EcoPlatesMobile.ViewModels.Company
-{ 
+{
     public partial class ActiveProductPageViewModel : ObservableObject
     {
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
@@ -47,12 +47,14 @@ namespace EcoPlatesMobile.ViewModels.Company
             products = new ObservableRangeCollection<ProductModel>();
 
             ClickProductCommand = new Command<ProductModel>(ProductClicked);
+            LoadMoreCommand = new AsyncRelayCommand(LoadMoreAsync);
+            RefreshCommand = new AsyncRelayCommand(RefreshAsync);
         }
 
         private async void ProductClicked(ProductModel product)
         {
             bool isWifiOn = await appControl.CheckWifi();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             if (IsCheckedProduct)
             {
@@ -93,8 +95,7 @@ namespace EcoPlatesMobile.ViewModels.Company
             offset = 0;
             hasMoreItems = true;
             Products.Clear();
-            ProductView.BeginNewAnimationCycle();
-                
+             
             try
             {
                 IsLoading = true;
@@ -127,8 +128,8 @@ namespace EcoPlatesMobile.ViewModels.Company
                         //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
-                        NewPrice = $"{item.new_price:N0} so'm",
-                        OldPrice = $"{item.old_price:N0} so'm",
+                        NewPrice = appControl.GetUzbCurrency(item.new_price),
+                        OldPrice = appControl.GetUzbCurrency(item.old_price),
                         NewPriceDigit = item.new_price ?? 0,
                         OldPriceDigit = item.old_price ?? 0,
                         description = item.description,
@@ -137,6 +138,8 @@ namespace EcoPlatesMobile.ViewModels.Company
                         BookmarkId = item.bookmark_id ?? 0,
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
+
+                    ProductView.BeginNewAnimationCycle();
                     Products.AddRange(productModels);
 
                     UpdateTitle();
@@ -171,8 +174,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                 return;
 
             ShowAddButton = false;
-            ProductView.BeginNewAnimationCycle();
-            
+             
             try
             {
                 if (isRefresh)
@@ -215,8 +217,8 @@ namespace EcoPlatesMobile.ViewModels.Company
                         //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
-                        NewPrice = $"{item.new_price:N0} so'm",
-                        OldPrice = $"{item.old_price:N0} so'm",
+                        NewPrice = appControl.GetUzbCurrency(item.new_price),
+                        OldPrice = appControl.GetUzbCurrency(item.old_price),
                         NewPriceDigit = item.new_price ?? 0,
                         OldPriceDigit = item.old_price ?? 0,
                         description = item.description,
@@ -226,6 +228,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                         Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
+                    ProductView.BeginNewAnimationCycle();
                     Products.AddRange(productModels);
 
                     UpdateTitle();
@@ -278,7 +281,7 @@ namespace EcoPlatesMobile.ViewModels.Company
             }
 
             AllowSwipe = !show;
-            
+
             if (!show)
             {
                 InActiveImage = "inactive_gray.png";
@@ -287,10 +290,39 @@ namespace EcoPlatesMobile.ViewModels.Company
 
         public ICommand ClickProductCommand { get; }
 
+        public IAsyncRelayCommand LoadMoreCommand { get; }
+        public IAsyncRelayCommand RefreshCommand { get; }
+
+        private async Task LoadMoreAsync()
+        {
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
+
+            if (IsLoading || IsRefreshing || !hasMoreItems)
+                return;
+
+            await LoadPromotionAsync();
+        }
+        
+        private async Task RefreshAsync()
+        {
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
+
+            if (IsCheckedProduct)
+            {
+                IsRefreshing = false;
+                return;
+            }
+
+            await LoadPromotionAsync(isRefresh: true);
+        }
+
+        /*
         public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
         {
             bool isWifiOn = await appControl.CheckWifi();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             if (IsLoading || IsRefreshing || !hasMoreItems)
                 return;
@@ -301,7 +333,7 @@ namespace EcoPlatesMobile.ViewModels.Company
         public IRelayCommand RefreshCommand => new RelayCommand(async () =>
         {
             bool isWifiOn = await appControl.CheckWifi();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             if (IsCheckedProduct)
             {
@@ -311,5 +343,6 @@ namespace EcoPlatesMobile.ViewModels.Company
 
             await LoadPromotionAsync(isRefresh: true);
         });
+        */
     }
 }
