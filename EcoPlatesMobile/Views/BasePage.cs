@@ -8,7 +8,7 @@ namespace EcoPlatesMobile.Views
     public abstract class BasePage : ContentPage
     {
         protected IViewModel viewModel;
- 
+        protected CancellationTokenSource? cts;
         protected BasePage()
         {
             Shell.SetNavBarIsVisible(this, false);

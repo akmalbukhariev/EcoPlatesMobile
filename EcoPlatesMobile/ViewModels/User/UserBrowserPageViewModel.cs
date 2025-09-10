@@ -239,33 +239,15 @@ namespace EcoPlatesMobile.ViewModels.User
         
         private async Task LoadMoreAsync()
         {
+            if (IsLoading || IsRefreshing || !hasMoreItems) return;
+            bool online = await appControl.CheckWifi(); if (!online) return;
             await LoadCompaniesAsync();
         }
         
         private async Task RefreshAsync()
         {
-            await LoadCompaniesAsync();
-        }
-        
-        /*
-        public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
-        {
-            bool isWifiOn = await appControl.CheckWifi();
-            if (!isWifiOn) return;
-
-            if (IsLoading || IsRefreshing || !hasMoreItems)
-                return;
-
-            await LoadCompaniesAsync();
-        });
-
-        public IRelayCommand RefreshCommand => new RelayCommand(async () =>
-        {
-            bool isWifiOn = await appControl.CheckWifi();
-            if (!isWifiOn) return;
-
+            bool online = await appControl.CheckWifi(); if (!online) return;
             await LoadCompaniesAsync(isRefresh: true);
-        });
-        */
+        } 
     }   
 }

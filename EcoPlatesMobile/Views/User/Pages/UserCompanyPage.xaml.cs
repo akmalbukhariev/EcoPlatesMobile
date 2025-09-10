@@ -38,6 +38,14 @@ public partial class UserCompanyPage : BasePage
         fullImage.Source = viewModel.CompanyImage;
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+    
+        cts?.Cancel();
+        cts = null;
+    } 	
+    
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
         if (sender is VisualElement element)
@@ -114,8 +122,9 @@ public partial class UserCompanyPage : BasePage
                 return;
             }
 
+            cts = new CancellationTokenSource();
             viewModel.IsLoading = true;
-            var userLocation = await locationService.GetCurrentLocationAsync();
+            var userLocation = await locationService.GetCurrentLocationAsync(cts.Token);
             if (userLocation == null)
             {
                 viewModel.IsLoading = false;

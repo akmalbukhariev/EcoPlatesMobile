@@ -30,9 +30,18 @@ public partial class LocationRegistrationPage : BasePage
         await MoveToCurrentLocation();
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+    
+        cts?.Cancel();
+        cts = null;
+    } 	
+    
     private async Task MoveToCurrentLocation()
     {
-        var location = await locationService.GetCurrentLocationAsync();
+        cts = new CancellationTokenSource();
+        var location = await locationService.GetCurrentLocationAsync(cts.Token);
         if (location != null)
         {
             var center = new Location(location.Latitude, location.Longitude);

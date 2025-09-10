@@ -19,7 +19,7 @@ public partial class UserMainPage : BasePage
     private UserMainPageViewModel viewModel;
     private AppControl appControl;
     private LocationService locationService;
-
+  
     public UserMainPage(UserMainPageViewModel vm, AppControl appControl, IUpdateService updateService, LocationService locationService)
     {
         InitializeComponent();
@@ -47,9 +47,13 @@ public partial class UserMainPage : BasePage
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
 
+        cts = new CancellationTokenSource();
         viewModel.IsLoading = true;
-        var location = await locationService.GetCurrentLocationAsync();
+        var location = await locationService.GetCurrentLocationAsync(cts.Token);
         viewModel.IsLoading = false;
+
+        if (viewModel.IsRefreshing)
+            viewModel.IsRefreshing = false;
         
         if (location == null) return;
  
@@ -80,18 +84,13 @@ public partial class UserMainPage : BasePage
         }
     }
 
-    /*
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        viewModel.PropertyChanged -= ViewModel_PropertyChanged;
-        companyTypeList.EventTypeClick -= CompanyTypeList_EventTypeClick;
-
-#if ANDROID
-        MessagingCenter.Unsubscribe<MainActivity, NotificationData>(appControl.NotificationSubscriber, Constants.NOTIFICATION_BODY);
-#endif
+    
+        cts?.Cancel();
+        cts = null;
     }
-    */
     
 #if ANDROID
     private async void OnNotificationReceived(MainActivity sender, NotificationData notificationData)

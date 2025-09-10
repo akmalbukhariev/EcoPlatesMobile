@@ -57,7 +57,7 @@ namespace EcoPlatesMobile.Services
 #endif
         }
 
-        public async Task<Microsoft.Maui.Devices.Sensors.Location?> GetCurrentLocationAsync()
+        public async Task<Microsoft.Maui.Devices.Sensors.Location?> GetCurrentLocationAsync(CancellationToken token)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace EcoPlatesMobile.Services
 
                 // 3) Try to get location
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
-                var location = await Geolocation.GetLocationAsync(request);
+                var location = await Geolocation.GetLocationAsync(request, token);
 
                 return location ?? await Geolocation.GetLastKnownLocationAsync();
             }

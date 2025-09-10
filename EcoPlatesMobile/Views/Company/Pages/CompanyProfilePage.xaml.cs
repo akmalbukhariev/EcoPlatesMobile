@@ -110,10 +110,18 @@ public partial class CompanyProfilePage : BasePage
         }
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+    
+        cts?.Cancel();
+        cts = null;
+    }
+
     public IRelayCommand RefreshCommand => new RelayCommand(async () =>
     {
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
+        if (!isWifiOn) return;
 
         IsRefreshing = true;
         await LoadData();
@@ -201,8 +209,9 @@ public partial class CompanyProfilePage : BasePage
             });
             break;
             case ListTileView.ListTileType.Location:
+                cts = new CancellationTokenSource();
                 loading.IsRunning = true;
-                var location = await locationService.GetCurrentLocationAsync();
+                var location = await locationService.GetCurrentLocationAsync(cts.Token);
                 loading.IsRunning = false; 
 
                 if (location == null)

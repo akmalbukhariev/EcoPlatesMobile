@@ -33,9 +33,18 @@ public partial class LocationPage : BasePage
 		await MoveToCurrentLocation();
 	}
 
+	protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+    
+        cts?.Cancel();
+        cts = null;
+    } 	
+
 	private async Task MoveToCurrentLocation()
 	{
-		var location = await locationService.GetCurrentLocationAsync();
+		cts = new CancellationTokenSource();
+		var location = await locationService.GetCurrentLocationAsync(cts.Token);
 		if (location != null)
 		{
 			var center = new Location(location.Latitude, location.Longitude);
@@ -43,14 +52,14 @@ public partial class LocationPage : BasePage
 		}
 
 		map.Pins.Clear();
- 
+
 		var pin = new Pin
 		{
 			Label = AppResource.YourWorkplace,
 			Location = new Location((double)appControl.CompanyInfo.location_latitude, (double)appControl.CompanyInfo.location_longitude),
 			Type = PinType.Place,
 		};
-  
+
 		map.Pins.Add(pin);
 	}
 

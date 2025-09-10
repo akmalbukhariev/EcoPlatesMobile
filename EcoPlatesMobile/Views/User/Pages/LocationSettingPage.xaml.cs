@@ -57,6 +57,8 @@ public partial class LocationSettingPage : BasePage
         base.OnDisappearing();
 
         await bottomSheet.DismissAsync();
+        cts?.Cancel();
+        cts = null;
     }
 
     private void InitCircle()
@@ -130,7 +132,8 @@ public partial class LocationSettingPage : BasePage
 
     private async void UseCurrentLocation_Clicked(object sender, EventArgs e)
     {
-        var location = await locationService.GetCurrentLocationAsync();
+        cts = new CancellationTokenSource();
+        var location = await locationService.GetCurrentLocationAsync(cts.Token);
         if (location != null)
         {
             var center = new Location(location.Latitude, location.Longitude);

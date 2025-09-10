@@ -41,13 +41,21 @@ public partial class UserRegistrationPage : BasePage
         };
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+    
+        cts?.Cancel();
+        cts = null;
+    } 	    
+
     private async void ButtonNext_Clicked(object sender, EventArgs e)
     {
         keyboardHelper.HideKeyboard();
-        
+
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         try
         {
             string name = entryName.GetEntryText();
@@ -57,9 +65,9 @@ public partial class UserRegistrationPage : BasePage
                 return;
             }
 
+            cts = new CancellationTokenSource();
             loading.ShowLoading = true;
-
-            Location location = await locationService.GetCurrentLocationAsync();
+            Location location = await locationService.GetCurrentLocationAsync(cts.Token);
             if (location == null) return;
 
             RegisterUserRequest request = new RegisterUserRequest()

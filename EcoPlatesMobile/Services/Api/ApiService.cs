@@ -169,6 +169,79 @@ namespace EcoPlatesMobile.Services
 
         public static byte[] ResizeImage(Stream imageStream, int maxWidth = 1024, int maxHeight = 1024, int quality = 80)
         {
+            try
+            {
+                // Copy stream to byte array
+                using var msOriginal = new MemoryStream();
+                imageStream.CopyTo(msOriginal);
+                var imageBytes = msOriginal.ToArray();
+
+                // Decode bitmap
+                using var original = SKBitmap.Decode(imageBytes);
+                if (original == null)
+                {
+                    // Return original bytes if decode fails
+                    return imageBytes;
+                }
+
+                // Try to read EXIF orientation
+                SKEncodedOrigin origin = SKEncodedOrigin.TopLeft;
+                try
+                {
+                    using var skStream = new SKMemoryStream(imageBytes);
+                    using var codec = SKCodec.Create(skStream);
+                    if (codec != null)
+                        origin = codec.EncodedOrigin;
+                }
+                catch
+                {
+                    // Ignore codec errors, just use default orientation
+                }
+
+                using var orientedBitmap = ApplyExifOrientation(original, origin);
+
+                int ow = orientedBitmap.Width, oh = orientedBitmap.Height;
+
+                // If already small, just return JPEG directly
+                if (ow <= maxWidth && oh <= maxHeight)
+                {
+                    using var ms = new MemoryStream();
+                    using var img = SKImage.FromBitmap(orientedBitmap);
+                    using var data = img.Encode(SKEncodedImageFormat.Jpeg, quality);
+                    data?.SaveTo(ms);
+                    return ms.ToArray();
+                }
+
+                // Resize
+                float ratio = Math.Min((float)maxWidth / ow, (float)maxHeight / oh);
+                int nw = Math.Max(1, (int)(ow * ratio));
+                int nh = Math.Max(1, (int)(oh * ratio));
+
+                var sampling = new SKSamplingOptions(SKFilterMode.Linear);
+                using var resized = orientedBitmap.Resize(new SKImageInfo(nw, nh), sampling);
+                if (resized == null)
+                {
+                    // Fallback: return original bytes
+                    return imageBytes;
+                }
+
+                using var image = SKImage.FromBitmap(resized);
+                using var msFinal = new MemoryStream();
+                using var dataFinal = image.Encode(SKEncodedImageFormat.Jpeg, quality);
+                dataFinal?.SaveTo(msFinal);
+
+                return msFinal.ToArray();
+            }
+            catch
+            {
+                // Last fallback: return empty or original
+                return Array.Empty<byte>();
+            }
+        }
+
+        /*
+        public static byte[] ResizeImage(Stream imageStream, int maxWidth = 1024, int maxHeight = 1024, int quality = 80)
+        {
             // Read stream into byte array to allow re-use
             using var msOriginal = new MemoryStream();
             imageStream.CopyTo(msOriginal);
@@ -177,7 +250,9 @@ namespace EcoPlatesMobile.Services
             // Decode image and apply orientation
             using var original = SKBitmap.Decode(imageBytes);
             if (original == null)
-                throw new Exception("Could not decode image.");
+            {
+                return imageBytes;
+            }
 
             // Check EXIF orientation and correct it
             using var codec = SKCodec.Create(new SKMemoryStream(imageBytes));
@@ -206,7 +281,7 @@ namespace EcoPlatesMobile.Services
             var sampling = new SKSamplingOptions(SKFilterMode.Linear);
             using var resized = orientedBitmap.Resize(new SKImageInfo(newWidth, newHeight), sampling);
             if (resized == null)
-                throw new Exception("Image resize failed.");
+                return imageBytes;
 
             using var image = SKImage.FromBitmap(resized);
             using var msFinal = new MemoryStream();
@@ -214,6 +289,7 @@ namespace EcoPlatesMobile.Services
 
             return msFinal.ToArray();
         }
+        */
 
         private static SKBitmap ApplyExifOrientation(SKBitmap bitmap, SKEncodedOrigin origin)
         {

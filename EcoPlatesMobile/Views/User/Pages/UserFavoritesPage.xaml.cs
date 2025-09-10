@@ -29,6 +29,12 @@ public partial class UserFavoritesPage : BasePage
         bool isWifiOn = await appControl.CheckWifi();
         if (!isWifiOn) return;
 
+        if (viewModel.IsRefreshingProduct)
+            viewModel.IsRefreshingProduct = false;
+
+        if (viewModel.IsRefreshingCompany)
+            viewModel.IsRefreshingCompany = false;
+
         if (!appControl.IsLoggedIn)
         {
             borderBackground.IsVisible = true;

@@ -80,6 +80,14 @@ public partial class CompanyRegistrationPage : BasePage
         }
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+    
+        cts?.Cancel();
+        cts = null;
+    }    
+
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)
     {
         if (borderProductIcon.IsVisible)
@@ -92,7 +100,7 @@ public partial class CompanyRegistrationPage : BasePage
         }
 
         string action = await DisplayActionSheet(AppResource.ChooseOption,
-                                                 AppResource.Cancel, 
+                                                 AppResource.Cancel,
                                                  null,
                                                  AppResource.SelectGallery,
                                                  AppResource.TakePhoto);
@@ -232,9 +240,10 @@ public partial class CompanyRegistrationPage : BasePage
     {
         await AnimateElementScaleDown(sender as Border);
 
+        cts = new CancellationTokenSource();
         loading.ShowLoading = true; 
         var locationService = new LocationService();
-        var location = await locationService.GetCurrentLocationAsync();
+        var location = await locationService.GetCurrentLocationAsync(cts.Token);
         
         loading.ShowLoading = false; 
 

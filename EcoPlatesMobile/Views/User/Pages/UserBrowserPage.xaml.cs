@@ -28,7 +28,10 @@ public partial class UserBrowserPage : BasePage
     private UserApiService userApiService;
     private AppControl appControl;
     private LocationService locationService;
+    private CancellationTokenSource? cts;
     private bool mapIsVisible = false;
+    private Task? _mapWarmupTask;
+    private bool _mapBootstrapped;
     public UserBrowserPage(UserBrowserPageViewModel vm, UserApiService userApiService, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
@@ -56,25 +59,52 @@ public partial class UserBrowserPage : BasePage
         bool isWifiOn = await appControl.CheckWifi();
         if (!isWifiOn) return;
 
-        var location = await locationService.GetCurrentLocationAsync();
+        cts = new CancellationTokenSource();
+        var location = await locationService.GetCurrentLocationAsync(cts.Token);
         if (location == null) return;
+
+        if (viewModel.IsRefreshing)
+            viewModel.IsRefreshing = false;
 
         if (appControl.RefreshBrowserPage)
         {
-            /*await Task.WhenAll
-            (
-                viewModel.LoadInitialAsync(),
-                GetAllCompaniesUsingMap()
-            );*/
+            if (!_mapBootstrapped)
+            {
+                _mapBootstrapped = true;
+                _mapWarmupTask = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await GetAllCompaniesUsingMap().ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException) { }
+                    finally
+                    {
+                        Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
+                            viewModel.IsLoading = false);
+                    }
+                });
+            }
 
             await viewModel.LoadInitialAsync();
-            await GetAllCompaniesUsingMap();
 
             appControl.RefreshBrowserPage = false;
+        }
+        else
+        {
+            viewModel.IsLoading = false;
         }
 
         lbSelectedDistance.Text = $"{AppResource.SelectedDistanceIs}: {appControl.UserInfo.radius_km} {AppResource.Km}";
     }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+    
+        cts?.Cancel();
+        cts = null;
+    } 
 
     private CancellationTokenSource refreshCts;
     private async Task GetAllCompaniesUsingMap()
@@ -84,7 +114,7 @@ public partial class UserBrowserPage : BasePage
             viewModel.IsLoading = true;
 
             await EnsureMapReadyAsync();
-            await MoveMap();
+            _ = MoveMap();
 
             if (appControl.IsLoggedIn)
             {
@@ -207,15 +237,6 @@ public partial class UserBrowserPage : BasePage
         {
             map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(3000))); // zoom level
         });
-
-        /*
-        map.Pins.Add(new Pin
-        {
-            Label = AppResource.YouAreHere,
-            Location = position,
-            Type = PinType.Generic
-        });
-        */
     }
 
     private async Task RefreshCustomPins()
