@@ -31,7 +31,7 @@ public partial class UserBrowserPage : BasePage
     private CancellationTokenSource? cts;
     private bool mapIsVisible = false;
     private Task? _mapWarmupTask;
-    private bool _mapBootstrapped;
+    //private bool _mapBootstrapped;
     public UserBrowserPage(UserBrowserPageViewModel vm, UserApiService userApiService, AppControl appControl, LocationService locationService)
     {
         InitializeComponent();
@@ -68,24 +68,20 @@ public partial class UserBrowserPage : BasePage
 
         if (appControl.RefreshBrowserPage)
         {
-            if (!_mapBootstrapped)
+            _mapWarmupTask = Task.Run(async () =>
             {
-                _mapBootstrapped = true;
-                _mapWarmupTask = Task.Run(async () =>
+                try
                 {
-                    try
-                    {
-                        await GetAllCompaniesUsingMap().ConfigureAwait(false);
-                    }
-                    catch (OperationCanceledException) { }
-                    finally
-                    {
-                        Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
-                            viewModel.IsLoading = false);
-                    }
-                });
-            }
-
+                    await GetAllCompaniesUsingMap().ConfigureAwait(false);
+                }
+                catch (OperationCanceledException) { }
+                finally
+                {
+                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
+                        viewModel.IsLoading = false);
+                }
+            });
+              
             await viewModel.LoadInitialAsync();
 
             appControl.RefreshBrowserPage = false;
@@ -189,8 +185,8 @@ public partial class UserBrowserPage : BasePage
     {
         // Simple approach: replace only if something actually changed
         // (You can build a hash from CompanyId + Lat/Lon to compare)
-        var changed = NeedRefresh(customPins, newPins);
-        if (!changed) return;
+        //var changed = NeedRefresh(customPins, newPins);
+        //if (!changed) return;
 
         customPins.Clear();
         customPins.AddRange(newPins);
@@ -226,7 +222,6 @@ public partial class UserBrowserPage : BasePage
         var b = newPins.Select(x => (x.CompanyId, lat: Math.Round(x.Location.Latitude, 6), lon: Math.Round(x.Location.Longitude, 6))).OrderBy(t => t.CompanyId);
         return !a.SequenceEqual(b);
     }
-
 
     private async Task MoveMap()
     {

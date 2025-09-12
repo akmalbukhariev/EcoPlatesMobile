@@ -7,154 +7,156 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                BackgroundColor="White">
 
-    <Grid RowDefinitions="Auto, *">
-        <component:CustomHeader ShowBack="True"
-                                Title="{x:Static language:AppResource.LeaveReview}"/>
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, 20" 
-              Grid.Row="1">
-            <HorizontalStackLayout Spacing="15"
-                                   Margin="10,10,0,0">
-                <Image Source="product.png"
-                       Aspect="AspectFill"
-                       WidthRequest="30"
-                       HeightRequest="30"/>
-                <Label Text="{x:Static language:AppResource.EvaluateProduct}"
-                       TextColor="Black"
-                       FontSize="17"
-                       FontFamily="RobotoVar"/>
-            </HorizontalStackLayout>
-            <Grid ColumnDefinitions="Auto, *" 
-                  ColumnSpacing="15"
-                  Margin="20,20,0,10"
-                  Grid.Row="1">
-                <Image x:Name="imProduct" 
-                       Source="no_image.png"
-                       Aspect="AspectFill"
-                       WidthRequest="120"
-                       HeightRequest="120"/>
-                <Label x:Name="lbProductTitle" 
-                       Text="Product name"
-                       FontSize="16"
-                       FontFamily="RobotoVar"
-                       TextColor="Black"
-                       FontAttributes="Bold"
-                       VerticalTextAlignment="Start"
-                       Grid.Column="1"/>
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *">
+            <component:CustomHeader ShowBack="True"
+                                    Title="{x:Static language:AppResource.LeaveReview}"/>
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, 20" 
+                Grid.Row="1">
+                <HorizontalStackLayout Spacing="15"
+                                    Margin="10,10,0,0">
+                    <Image Source="product.png"
+                        Aspect="AspectFill"
+                        WidthRequest="30"
+                        HeightRequest="30"/>
+                    <Label Text="{x:Static language:AppResource.EvaluateProduct}"
+                        TextColor="Black"
+                        FontSize="17"
+                        FontFamily="RobotoVar"/>
+                </HorizontalStackLayout>
+                <Grid ColumnDefinitions="Auto, *"
+                    ColumnSpacing="15"
+                    Margin="20,20,0,10"
+                    Grid.Row="1">
+                    <Image x:Name="imProduct" 
+                        Source="no_image.png"
+                        Aspect="AspectFill"
+                        WidthRequest="120"
+                        HeightRequest="120"/>
+                    <Label x:Name="lbProductTitle" 
+                        Text="Product name"
+                        FontSize="16"
+                        FontFamily="RobotoVar"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        VerticalTextAlignment="Start"
+                        Grid.Column="1"/>
+                </Grid>
+                <Label x:Name="lbReviewTitle1"
+                    Text="{x:Static language:AppResource.HowSatisfiedTitle}"
+                    TextColor="Gray"
+                    FontSize="15"
+                    FontFamily="RobotoVar"
+                    Margin="10,0,0,0"
+                    Grid.Row="2"/>
+                <StackLayout x:Name="starContainer" 
+                            Orientation="Horizontal"  
+                            Spacing="5" 
+                            Margin="10,20,0,0"
+                            Grid.Row="3">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style x:Key="imStyle" TargetType="Image">
+                                <Setter Property="WidthRequest" Value="50"/>
+                                <Setter Property="HeightRequest" Value="50"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <Image x:Name="Star1" Source="star_gray.png" Style="{StaticResource imStyle}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image x:Name="Star2" Source="star_gray.png" Style="{StaticResource imStyle}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="2"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image x:Name="Star3" Source="star_gray.png" Style="{StaticResource imStyle}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="3"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image x:Name="Star4" Source="star_gray.png" Style="{StaticResource imStyle}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="4"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image x:Name="Star5" Source="star_gray.png" Style="{StaticResource imStyle}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="5"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+                <Label x:Name="lbReviewTitle2"
+                    Text="{x:Static language:AppResource.PleaseRateTitle}"
+                    TextColor="Gray"
+                    IsVisible="False"
+                    FontSize="15"
+                    FontFamily="RobotoVar"
+                    Margin="10,20,0,0"
+                    Grid.Row="4"/>
+                <VerticalStackLayout x:Name="stackOption" 
+                                    Padding="20" 
+                                    Spacing="15"
+                                    Opacity="0"
+                                    IsVisible="False"
+                                    Grid.Row="5">
+                    <HorizontalStackLayout>
+                        <CheckBox x:Name="checkBox1" Color="{StaticResource User}"/>
+                        <Label Text="{x:Static language:AppResource.GreatValue}"
+                            FontSize="17"
+                            FontFamily="RobotoVar"
+                            TextColor="Gray"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnOption1Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <CheckBox x:Name="checkBox2" Color="{StaticResource User}"/>
+                        <Label Text="{x:Static language:AppResource.DeliciousFood}"
+                            FontSize="17"
+                            FontFamily="RobotoVar"
+                            TextColor="Gray"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnOption2Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <CheckBox x:Name="checkBox3" Color="{StaticResource User}"/>
+                        <Label Text="{x:Static language:AppResource.GreatService}"
+                            FontSize="17"
+                            FontFamily="RobotoVar"
+                            TextColor="Gray"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnOption3Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <Button Text="{x:Static language:AppResource.ReviewCompleted}"
+                        Style="{StaticResource StyleBigButton}"
+                        BackgroundColor="{StaticResource User}"
+                        HeightRequest="50"
+                        Margin="10,0,10,0"
+                        CornerRadius="30"
+                        Clicked="Finished_Clicked"
+                        VerticalOptions="End"
+                        Grid.Row="6"/>
             </Grid>
-            <Label x:Name="lbReviewTitle1"
-                   Text="{x:Static language:AppResource.HowSatisfiedTitle}"
-                   TextColor="Gray"
-                   FontSize="15"
-                   FontFamily="RobotoVar"
-                   Margin="10,0,0,0"
-                   Grid.Row="2"/>
-            <StackLayout x:Name="starContainer" 
-                         Orientation="Horizontal"  
-                         Spacing="5" 
-                         Margin="10,20,0,0"
-                         Grid.Row="3">
-                <StackLayout.Resources>
-                    <ResourceDictionary>
-                        <Style x:Key="imStyle" TargetType="Image">
-                            <Setter Property="WidthRequest" Value="50"/>
-                            <Setter Property="HeightRequest" Value="50"/>
-                        </Style>
-                    </ResourceDictionary>
-                </StackLayout.Resources>
-                <Image x:Name="Star1" Source="star_gray.png" Style="{StaticResource imStyle}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="1"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image x:Name="Star2" Source="star_gray.png" Style="{StaticResource imStyle}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="2"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image x:Name="Star3" Source="star_gray.png" Style="{StaticResource imStyle}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="3"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image x:Name="Star4" Source="star_gray.png" Style="{StaticResource imStyle}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="4"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image x:Name="Star5" Source="star_gray.png" Style="{StaticResource imStyle}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnStarTapped" CommandParameter="5"/>
-                    </Image.GestureRecognizers>
-                </Image>
-            </StackLayout>
-            <Label x:Name="lbReviewTitle2"
-                   Text="{x:Static language:AppResource.PleaseRateTitle}"
-                   TextColor="Gray"
-                   IsVisible="False"
-                   FontSize="15"
-                   FontFamily="RobotoVar"
-                   Margin="10,20,0,0"
-                   Grid.Row="4"/>
-            <VerticalStackLayout x:Name="stackOption" 
-                                 Padding="20" 
-                                 Spacing="15"
-                                 Opacity="0"
-                                 IsVisible="False"
-                                 Grid.Row="5">
-                <HorizontalStackLayout>
-                    <CheckBox x:Name="checkBox1" Color="{StaticResource User}"/>
-                    <Label Text="{x:Static language:AppResource.GreatValue}"
-                           FontSize="17"
-                           FontFamily="RobotoVar"
-                           TextColor="Gray"
-                           VerticalOptions="Center">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnOption1Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-                </HorizontalStackLayout>
-
-                <HorizontalStackLayout>
-                    <CheckBox x:Name="checkBox2" Color="{StaticResource User}"/>
-                    <Label Text="{x:Static language:AppResource.DeliciousFood}"
-                           FontSize="17"
-                           FontFamily="RobotoVar"
-                           TextColor="Gray"
-                           VerticalOptions="Center">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnOption2Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-                </HorizontalStackLayout>
-
-                <HorizontalStackLayout>
-                    <CheckBox x:Name="checkBox3" Color="{StaticResource User}"/>
-                    <Label Text="{x:Static language:AppResource.GreatService}"
-                           FontSize="17"
-                           FontFamily="RobotoVar"
-                           TextColor="Gray"
-                           VerticalOptions="Center">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnOption3Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-            <Button Text="{x:Static language:AppResource.ReviewCompleted}"
-                    Style="{StaticResource StyleBigButton}"
-                    BackgroundColor="{StaticResource User}"
-                    HeightRequest="50"
-                    Margin="10,0,10,0"
-                    CornerRadius="30"
-                    Clicked="Finished_Clicked"
-                    VerticalOptions="End"
-                    Grid.Row="6"/>
+            <ActivityIndicator x:Name="loading"
+                            Color="{StaticResource User}"
+                            Scale="1.5"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Grid.RowSpan="2"/>
         </Grid>
-        <ActivityIndicator x:Name="loading"
-                           Color="{StaticResource User}"
-                           Scale="1.5"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           Grid.RowSpan="2"/>
-    </Grid>
+    </ScrollView>
 </page:BasePage>

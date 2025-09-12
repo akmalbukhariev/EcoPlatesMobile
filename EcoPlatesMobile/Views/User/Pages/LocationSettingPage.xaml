@@ -8,30 +8,29 @@
                x:Class="EcoPlatesMobile.Views.User.Pages.LocationSettingPage">
 
     <Grid RowDefinitions="57, *">
-        <Grid ColumnDefinitions="*, Auto" 
-              BackgroundColor="{StaticResource User}">
-            <Grid>
-                <Label Text="{x:Static language:AppResource.ChooseLocationAvailable}"
-                       TextColor="White"
-                       FontAttributes="Bold"
-                       FontSize="15"
-                       FontFamily="RobotoVar"
-                       HorizontalTextAlignment="Center"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"/>
+        <Grid BackgroundColor="{StaticResource User}">
+            <Label Text="{x:Static language:AppResource.ChooseLocationAvailable}"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   FontSize="15"
+                   FontFamily="RobotoVar"
+                   HorizontalTextAlignment="Center"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Grid WidthRequest="35"
+                 HeightRequest="35"
+                 VerticalOptions="Center"  
+                 HorizontalOptions="End"
+                 Margin="16, 4.44, 10, 0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="Close_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Image Source="close_white.png"
+                       VerticalOptions="Center"
+                       WidthRequest="20"
+                       HeightRequest="20"/>
             </Grid>
-            <Image Source="close_white.png"
-                   Aspect="AspectFill"
-                   WidthRequest="30"
-                   HeightRequest="30"
-                   VerticalOptions="Center"
-                   Margin="0,0,5,0"
-                   Grid.Column="1">
-                 <Image.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1"
-                                              Tapped="Close_Tapped"/>
-                 </Image.GestureRecognizers>
-          </Image>
         </Grid>
         <maps:Map x:Name="map"
                   MapType="Street"

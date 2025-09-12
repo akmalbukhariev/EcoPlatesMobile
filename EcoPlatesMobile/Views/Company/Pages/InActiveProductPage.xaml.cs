@@ -160,108 +160,114 @@ public partial class InActiveProductPage : BasePage
 
     private async void ActiveAll_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
-
-        bool answer = await AlertService.ShowConfirmationAsync(
-                                AppResource.Confirm,
-                                AppResource.MessageActiveAllProducts,
-                                AppResource.Yes, AppResource.No);
-
-        if (!answer) return;
-
-        try
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            viewModel.IsLoading = true;
+            await AnimateElementScaleDown(sender as Image);
 
-            var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
+            bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageActiveAllProducts,
+                                    AppResource.Yes, AppResource.No);
 
-            var request = new ChangePosterDeletionListRequest
+            if (!answer) return;
+
+            try
             {
-                dataList = selected.Select(p => new ChangePosterDeletionRequest
-                {
-                    poster_id = p.PromotionId,
-                    deleted = false
-                }).ToList()
-            };
+                viewModel.IsLoading = true;
 
-            Response response = await companyApiService.ChangePosterDeletionStatusList(request);
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    foreach (var item in selected)
-                        viewModel.Products.Remove(item);
-                });
+                var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
 
-                appControl.RefreshCompanyProfilePage = true;
-                StCheckProductTapped(null, null);
-                if (viewModel.Products.Count == 0)
-                    viewModel.IsShowChekProduct = false;
-                
-                //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
+                var request = new ChangePosterDeletionListRequest
+                {
+                    dataList = selected.Select(p => new ChangePosterDeletionRequest
+                    {
+                        poster_id = p.PromotionId,
+                        deleted = false
+                    }).ToList()
+                };
+
+                Response response = await companyApiService.ChangePosterDeletionStatusList(request);
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        foreach (var item in selected)
+                            viewModel.Products.Remove(item);
+                    });
+
+                    appControl.RefreshCompanyProfilePage = true;
+                    StCheckProductTapped(null, null);
+                    if (viewModel.Products.Count == 0)
+                        viewModel.IsShowChekProduct = false;
+
+                    //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
+                }
             }
-        }
-        catch (Exception ex)
-        {
-            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
-        }
-        finally
-        {
-            viewModel.IsLoading = false;
-        }
+            catch (Exception ex)
+            {
+                await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
+            }
+            finally
+            {
+                viewModel.IsLoading = false;
+            }
+        });
     }
 
     private async void DeleteAll_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
-
-        bool answer = await AlertService.ShowConfirmationAsync(
-                                AppResource.Confirm,
-                                AppResource.MessageDeleteAllProducts,
-                                AppResource.Yes, AppResource.No);
-
-        if (!answer) return;
-
-        try
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            viewModel.IsLoading = true;
+            await AnimateElementScaleDown(sender as Image);
 
-            var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
+            bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageDeleteAllProducts,
+                                    AppResource.Yes, AppResource.No);
 
-            var request = new ChangePosterDeletionListRequest
+            if (!answer) return;
+
+            try
             {
-                dataList = selected.Select(p => new ChangePosterDeletionRequest
-                {
-                    poster_id = p.PromotionId,
-                    deleted = false
-                }).ToList()
-            };
+                viewModel.IsLoading = true;
 
-            Response response = await companyApiService.DeletePosterList(request);
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    foreach (var item in selected)
-                        viewModel.Products.Remove(item);
-                });
+                var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
 
-                appControl.RefreshCompanyProfilePage = true;
-                StCheckProductTapped(null, null);
-                if (viewModel.Products.Count == 0)
-                    viewModel.IsShowChekProduct = false;
-                
-                //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
+                var request = new ChangePosterDeletionListRequest
+                {
+                    dataList = selected.Select(p => new ChangePosterDeletionRequest
+                    {
+                        poster_id = p.PromotionId,
+                        deleted = false
+                    }).ToList()
+                };
+
+                Response response = await companyApiService.DeletePosterList(request);
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        foreach (var item in selected)
+                            viewModel.Products.Remove(item);
+                    });
+
+                    appControl.RefreshCompanyProfilePage = true;
+                    StCheckProductTapped(null, null);
+                    if (viewModel.Products.Count == 0)
+                        viewModel.IsShowChekProduct = false;
+
+                    //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
+                }
             }
-        }
-        catch (Exception ex)
-        {
-            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
-        }
-        finally
-        {
-            viewModel.IsLoading = false;
-        }
+            catch (Exception ex)
+            {
+                await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
+            }
+            finally
+            {
+                viewModel.IsLoading = false;
+            }
+        });
     }
 
     private async void StCheckProductTapped(object sender, TappedEventArgs e)

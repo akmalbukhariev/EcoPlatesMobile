@@ -30,12 +30,17 @@ public partial class UserCompanyPage : BasePage
         base.OnAppearing();
 
         bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
+        if (!isWifiOn) return;
 
-        viewModel.IsLoading = true;    
+        viewModel.IsLoading = true;
         await viewModel.LoadDataAsync();
-        
+
         fullImage.Source = viewModel.CompanyImage;
+
+        if (!appControl.IsLoggedIn)
+        {
+            viewModel.PhoneNumber = "************";
+        }
     }
 
     protected override void OnDisappearing()

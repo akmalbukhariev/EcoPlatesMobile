@@ -48,17 +48,21 @@ public partial class UserMainPage : BasePage
 		if (!isWifiOn) return;
 
         cts = new CancellationTokenSource();
-        viewModel.IsLoading = true;
-        var location = await locationService.GetCurrentLocationAsync(cts.Token);
-        viewModel.IsLoading = false;
 
+        if (!appControl.IsLoggedIn)
+        {
+            viewModel.IsLoading = true;
+            var location = await locationService.GetCurrentLocationAsync(cts.Token);
+            viewModel.IsLoading = false;
+
+            if (location == null) return;
+
+            appControl.UserInfo.location_latitude = location.Latitude;
+            appControl.UserInfo.location_longitude = location.Longitude;
+        }
+        
         if (viewModel.IsRefreshing)
             viewModel.IsRefreshing = false;
-        
-        if (location == null) return;
- 
-        appControl.UserInfo.location_latitude = location.Latitude;
-        appControl.UserInfo.location_longitude = location.Longitude;
 
         if (typeItem == null)
         {

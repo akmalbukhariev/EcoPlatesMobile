@@ -169,13 +169,13 @@ namespace EcoPlatesMobile.Services
 
         public static byte[] ResizeImage(Stream imageStream, int maxWidth = 1024, int maxHeight = 1024, int quality = 80)
         {
+            // Copy stream to byte array
+            using var msOriginal = new MemoryStream();
+            imageStream.CopyTo(msOriginal);
+            var imageBytes = msOriginal.ToArray();
+
             try
             {
-                // Copy stream to byte array
-                using var msOriginal = new MemoryStream();
-                imageStream.CopyTo(msOriginal);
-                var imageBytes = msOriginal.ToArray();
-
                 // Decode bitmap
                 using var original = SKBitmap.Decode(imageBytes);
                 if (original == null)
@@ -234,10 +234,66 @@ namespace EcoPlatesMobile.Services
             }
             catch
             {
-                // Last fallback: return empty or original
-                return Array.Empty<byte>();
+                // Skia failed → Android native fallback
+                return ConvertToJpegAndroid(imageBytes, maxWidth, maxHeight, quality);
             }
         }
+
+        private static byte[] ConvertToJpegAndroid(byte[] bytes, int maxW, int maxH, int quality)
+        {
+            try
+            {
+                // Probe image bounds without loading full bitmap
+                var opts = new Android.Graphics.BitmapFactory.Options { InJustDecodeBounds = true };
+                Android.Graphics.BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length, opts);
+
+                if (opts.OutWidth <= 0 || opts.OutHeight <= 0)
+                    return bytes;
+
+                // Compute sampling to roughly fit within target
+                opts.InSampleSize = ComputeInSampleSize(opts.OutWidth, opts.OutHeight, maxW, maxH);
+                opts.InJustDecodeBounds = false;
+                opts.InPreferredConfig = Android.Graphics.Bitmap.Config.Argb8888;
+
+                using var bmp = Android.Graphics.BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length, opts);
+                if (bmp == null) return bytes;
+
+                // Scale again if still larger
+                int w = bmp.Width, h = bmp.Height;
+                float ratio = Math.Min((float)maxW / w, (float)maxH / h);
+
+                using var finalBmp = (ratio < 1f)
+                    ? Android.Graphics.Bitmap.CreateScaledBitmap(bmp,
+                            Math.Max(1, (int)(w * ratio)),
+                            Math.Max(1, (int)(h * ratio)),
+                            true)
+                    : bmp;
+
+                using var ms = new MemoryStream();
+                finalBmp.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, ClampQuality(quality), ms);
+                return ms.ToArray();
+            }
+            catch
+            {
+                // Last resort: return original
+                return bytes;
+            }
+        }
+
+        private static int ComputeInSampleSize(int width, int height, int reqW, int reqH)
+        {
+            int inSample = 1;
+            if (height > reqH || width > reqW)
+            {
+                int halfH = height / 2;
+                int halfW = width / 2;
+                while ((halfH / inSample) >= reqH && (halfW / inSample) >= reqW)
+                    inSample *= 2;
+            }
+            return Math.Max(1, inSample);
+        }
+
+        private static int ClampQuality(int q) => Math.Min(100, Math.Max(1, q));
 
         /*
         public static byte[] ResizeImage(Stream imageStream, int maxWidth = 1024, int maxHeight = 1024, int quality = 80)

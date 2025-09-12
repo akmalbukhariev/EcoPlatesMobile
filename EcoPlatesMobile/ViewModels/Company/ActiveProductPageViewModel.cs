@@ -29,7 +29,7 @@ namespace EcoPlatesMobile.ViewModels.Company
         [ObservableProperty] private bool isShowChekProduct;
         [ObservableProperty] private bool isShowChekAllProducts;
         [ObservableProperty] private bool allowSwipe = true;
-        [ObservableProperty] private string inActiveImage = "inactive_gray.png";
+        [ObservableProperty] private string inActiveImage = "inactive_gray1.png";
 
         private int offset = 0;
         private const int PageSize = 4;
@@ -62,7 +62,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                 product.IsNonActiveProduct = !product.IsNonActiveProduct;
 
                 StackBottomEnabled = Products.Any(item => item.IsCheckedProduct);
-                InActiveImage = StackBottomEnabled ? "inactive.png" : "inactive_gray.png";
+                InActiveImage = StackBottomEnabled ? "inactive1.png" : "inactive_gray1.png";
 
                 if (IsShowChekAllProducts)
                 {
@@ -284,7 +284,7 @@ namespace EcoPlatesMobile.ViewModels.Company
 
             if (!show)
             {
-                InActiveImage = "inactive_gray.png";
+                InActiveImage = "inactive_gray1.png";
             }
         }
 

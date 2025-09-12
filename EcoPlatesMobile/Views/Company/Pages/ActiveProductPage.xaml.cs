@@ -197,62 +197,68 @@ public partial class ActiveProductPage : BasePage
 
     private async void InActiveAll_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
-
-        bool answer = await AlertService.ShowConfirmationAsync(
-                                AppResource.Confirm,
-                                AppResource.MessageDeactiveAllProducts,
-                                AppResource.Yes, AppResource.No);
-
-        if (!answer) return;
-
-        try
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            viewModel.IsLoading = true;
+            await AnimateElementScaleDown(sender as Image);
 
-            var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
+            bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageDeactiveAllProducts,
+                                    AppResource.Yes, AppResource.No);
 
-            var request = new ChangePosterDeletionListRequest
+            if (!answer) return;
+
+            try
             {
-                dataList = selected.Select(p => new ChangePosterDeletionRequest
+                viewModel.IsLoading = true;
+
+                var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
+
+                var request = new ChangePosterDeletionListRequest
                 {
-                    poster_id = p.PromotionId,
-                    deleted = true
-                }).ToList()
-            };
+                    dataList = selected.Select(p => new ChangePosterDeletionRequest
+                    {
+                        poster_id = p.PromotionId,
+                        deleted = true
+                    }).ToList()
+                };
 
-            Response response = await companyApiService.ChangePosterDeletionStatusList(request);
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
+                Response response = await companyApiService.ChangePosterDeletionStatusList(request);
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    foreach (var item in selected)
-                        viewModel.Products.Remove(item);
-                });
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        foreach (var item in selected)
+                            viewModel.Products.Remove(item);
+                    });
 
-                appControl.RefreshCompanyProfilePage = true;
-                StCheckProductTapped(null, null);
+                    appControl.RefreshCompanyProfilePage = true;
+                    StCheckProductTapped(null, null);
 
-                if (viewModel.Products.Count == 0)
-                    viewModel.IsShowChekProduct = false;
-                
-                //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
+                    if (viewModel.Products.Count == 0)
+                        viewModel.IsShowChekProduct = false;
+
+                    //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
+                }
             }
-        }
-        catch (Exception ex)
-        {
-            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
-        }
-        finally
-        {
-            viewModel.IsLoading = false;
-        }
+            catch (Exception ex)
+            {
+                await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
+            }
+            finally
+            {
+                viewModel.IsLoading = false;
+            }
+        });
     }
 
     private async void Add_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
-        await AppNavigatorService.NavigateTo(nameof(CompanyAddProductPage));
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(sender as Image);
+            await AppNavigatorService.NavigateTo(nameof(CompanyAddProductPage));
+        });
     }
 
     private async void StCheckProductTapped(object sender, TappedEventArgs e)
@@ -316,7 +322,7 @@ public partial class ActiveProductPage : BasePage
         }
 
         viewModel.StackBottomEnabled = anyChecked;
-        viewModel.InActiveImage = anyChecked ? "inactive.png" : "inactive_gray.png";
+        viewModel.InActiveImage = anyChecked ? "inactive1.png" : "inactive_gray1.png";
     } 
     
     bool isAnimating;
