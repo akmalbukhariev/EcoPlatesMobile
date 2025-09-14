@@ -7,6 +7,7 @@
                xmlns:com_component="clr-namespace:EcoPlatesMobile.Views.Company.Components"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
+               xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
                BackgroundColor="#F7F9FB">
    
     <Grid RowDefinitions="Auto, *, Auto">
@@ -70,6 +71,9 @@
                                 SelectionMode="None"
                                 RemainingItemsThreshold="4"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                    <CollectionView.EmptyView>
+                        <view:EmptyViewText/>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 
                                          VerticalItemSpacing="10"

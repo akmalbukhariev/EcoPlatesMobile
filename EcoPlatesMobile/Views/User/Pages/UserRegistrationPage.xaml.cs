@@ -47,55 +47,58 @@ public partial class UserRegistrationPage : BasePage
     
         cts?.Cancel();
         cts = null;
-    } 	    
+    }
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)
     {
-        keyboardHelper.HideKeyboard();
-
-        bool isWifiOn = await appControl.CheckWifi();
-        if (!isWifiOn) return;
-
-        try
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            string name = entryName.GetEntryText();
-            if (string.IsNullOrEmpty(name))
-            {
-                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.PleaseEnterName);
-                return;
-            }
+            keyboardHelper.HideKeyboard();
 
-            cts = new CancellationTokenSource();
-            loading.ShowLoading = true;
-            Location location = await locationService.GetCurrentLocationAsync(cts.Token);
-            if (location == null) return;
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-            RegisterUserRequest request = new RegisterUserRequest()
+            try
             {
-                first_name = name,
-                phone_number = _phoneNumber,
-                location_latitude = location.Latitude,
-                location_longitude = location.Longitude
-            };
+                string name = entryName.GetEntryText();
+                if (string.IsNullOrEmpty(name))
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.PleaseEnterName);
+                    return;
+                }
 
-            Response response = await userApiService.RegisterUser(request);
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                await AlertService.ShowAlertAsync(AppResource.Success, AppResource.RegistrationCompleted);
-                await appControl.LoginUser(_phoneNumber);
+                cts = new CancellationTokenSource();
+                loading.ShowLoading = true;
+                Location location = await locationService.GetCurrentLocationAsync(cts.Token);
+                if (location == null) return;
+
+                RegisterUserRequest request = new RegisterUserRequest()
+                {
+                    first_name = name,
+                    phone_number = _phoneNumber,
+                    location_latitude = location.Latitude,
+                    location_longitude = location.Longitude
+                };
+
+                Response response = await userApiService.RegisterUser(request);
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Success, AppResource.RegistrationCompleted);
+                    await appControl.LoginUser(_phoneNumber);
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                Console.WriteLine(ex.Message);
             }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
     }
 }

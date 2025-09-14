@@ -132,13 +132,16 @@ public partial class LocationSettingPage : BasePage
 
     private async void UseCurrentLocation_Clicked(object sender, EventArgs e)
     {
-        cts = new CancellationTokenSource();
-        var location = await locationService.GetCurrentLocationAsync(cts.Token);
-        if (location != null)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            var center = new Location(location.Latitude, location.Longitude);
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromKilometers(5)));
-        }
+            cts = new CancellationTokenSource();
+            var location = await locationService.GetCurrentLocationAsync(cts.Token);
+            if (location != null)
+            {
+                var center = new Location(location.Latitude, location.Longitude);
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromKilometers(5)));
+            }
+        });
     }
 
     private void DistanceSliderValueChanged(int km)
@@ -239,10 +242,13 @@ public partial class LocationSettingPage : BasePage
 
     private async void Bottom_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(borderBottom);
-        borderBottom.IsVisible = false;
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(borderBottom);
+            borderBottom.IsVisible = false;
 
-        bottomSheet.ShowAsync();
+            bottomSheet.ShowAsync();
+        });
     }
 
     private async void Close_Tapped(object sender, TappedEventArgs e)
@@ -268,7 +274,10 @@ public partial class LocationSettingPage : BasePage
         }
         */
 
-        await AppNavigatorService.NavigateTo("..");
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await AppNavigatorService.NavigateTo("..");
+        });
     }
 
     private static bool AreClose(double a, double b, double eps = 1e-5)

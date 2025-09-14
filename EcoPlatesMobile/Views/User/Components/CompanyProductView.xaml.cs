@@ -197,12 +197,15 @@ public partial class CompanyProductView : ContentView
 
     private async void Product_Tapped(object sender, TappedEventArgs e)
     {
-        await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
-        await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
-
-        if (BindingContext is ProductModel product && ClickCommand?.CanExecute(product) == true)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            ClickCommand.Execute(product);
-        }
+            await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
+            await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
+
+            if (BindingContext is ProductModel product && ClickCommand?.CanExecute(product) == true)
+            {
+                ClickCommand.Execute(product);
+            }
+        });
     }
 }

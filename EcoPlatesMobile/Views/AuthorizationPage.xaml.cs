@@ -214,23 +214,25 @@ public partial class AuthorizationPage : BasePage
 			loading.ShowLoading = false;
 		}
 	}
-   
+
 	private async void ButtonNext_Clicked(object sender, EventArgs e)
 	{
-		keyboardHelper.HideKeyboard();
+		await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+			keyboardHelper.HideKeyboard();
 
-		bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
- 
-		/*if (!CheckVerificationCode())
-		{
-			await AlertService.ShowAlertAsync("Verification number", "Verification code is wrong!");
-			return;
-		}*/
-		  
-		loading.ShowLoading = true;
+			bool isWifiOn = await appControl.CheckWifi();
+			if (!isWifiOn) return;
 
-		try
+			/*if (!CheckVerificationCode())
+			{
+				await AlertService.ShowAlertAsync("Verification number", "Verification code is wrong!");
+				return;
+			}*/
+
+			loading.ShowLoading = true;
+
+			try
 		{
 			if (appControl.IsPhoneNumberRegisterPage)
 			{
@@ -301,6 +303,7 @@ public partial class AuthorizationPage : BasePage
 		{
 			loading.ShowLoading = false;
 		}
+		});
 	}
     
 	private bool CheckVerificationCode()

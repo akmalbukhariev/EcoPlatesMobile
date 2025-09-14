@@ -12,7 +12,6 @@ using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;
 using Application = Microsoft.Maui.Controls.Application;
 using The49.Maui.BottomSheet;
-
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;
 #endif
@@ -107,10 +106,11 @@ public partial class UserBrowserPage : BasePage
     {
         try
         {
-            viewModel.IsLoading = true;
+            await MainThread.InvokeOnMainThreadAsync(() => viewModel.IsLoading = true);
+            await Task.Yield(); 
 
             await EnsureMapReadyAsync();
-            _ = MoveMap();
+            MoveMap();
 
             if (appControl.IsLoggedIn)
             {
@@ -162,7 +162,7 @@ public partial class UserBrowserPage : BasePage
                     await _renderLock.WaitAsync(ct);
                     try
                     {
-                        await ApplyPinsDiffAsync(pins, ct);
+                        await ApplyPinsDiffAsync(pins ?? new List<CustomPin>(), ct);
                     }
                     finally
                     {
@@ -183,18 +183,22 @@ public partial class UserBrowserPage : BasePage
 
     private async Task ApplyPinsDiffAsync(List<CustomPin> newPins, CancellationToken ct)
     {
-        // Simple approach: replace only if something actually changed
-        // (You can build a hash from CompanyId + Lat/Lon to compare)
-        //var changed = NeedRefresh(customPins, newPins);
-        //if (!changed) return;
-
+        
         customPins.Clear();
+        map.Pins.Clear();
+        map.MapElements?.Clear();
+
+        if (newPins == null || newPins.Count == 0)
+        {
+        #if ANDROID
+            await ClearNativeMapAsync(ct); // native GoogleMap.Clear()
+        #endif
+            return;
+        }
+
         customPins.AddRange(newPins);
 
-        map.Pins.Clear();
-        map.MapElements.Clear();
-
-    #if ANDROID
+#if ANDROID
         if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView nativeMapView)
         {
             var renderer = new PinIconRenderer(customPins);
@@ -206,51 +210,37 @@ public partial class UserBrowserPage : BasePage
             nativeMapView.GetMapAsync(renderer);
             await tcs.Task; // wait render finish w/o blocking UI input forever
         }
-    #else
-        foreach (var p in _customPins)
-        {
-            map.Pins.Add(new Pin { Label = p.Label, Location = p.Location, Type = PinType.Place });
-        }
-    #endif
+#endif
+         
     }
-
-    private bool NeedRefresh(List<CustomPin> oldPins, List<CustomPin> newPins)
+     
+    private void MoveMap()
     {
-        if (oldPins.Count != newPins.Count) return true;
-        // cheap compare by CompanyId + rounded coords
-        var a = oldPins.Select(x => (x.CompanyId, lat: Math.Round(x.Location.Latitude, 6), lon: Math.Round(x.Location.Longitude, 6))).OrderBy(t => t.CompanyId);
-        var b = newPins.Select(x => (x.CompanyId, lat: Math.Round(x.Location.Latitude, 6), lon: Math.Round(x.Location.Longitude, 6))).OrderBy(t => t.CompanyId);
-        return !a.SequenceEqual(b);
-    }
-
-    private async Task MoveMap()
-    {
-        await EnsureMapReadyAsync();
-
         var position = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
-        await MainThread.InvokeOnMainThreadAsync(() =>
+        MainThread.InvokeOnMainThreadAsync(() =>
         {
             map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(3000))); // zoom level
         });
     }
 
-    private async Task RefreshCustomPins()
-    {
-        map.Pins.Clear();
-        map.MapElements.Clear();
-
 #if ANDROID
-        if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView nativeMapView)
+    private Task ClearNativeMapAsync(CancellationToken ct)
+    {
+        if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView native)
         {
-            PinIconRenderer render = new PinIconRenderer(customPins);
-            render.EventPinClick += PinCompanyClicked;
-            nativeMapView.GetMapAsync(render);
-
-            await render.RenderingFinished;
+            var tcs = new TaskCompletionSource();
+            native.GetMapAsync(new MapReadyCallback(g =>
+            {
+                if (ct.IsCancellationRequested) { tcs.TrySetCanceled(ct); return; }
+                g.Clear(); // <- clears markers added by PinIconRenderer
+                tcs.TrySetResult();
+            }));
+            return tcs.Task;
         }
-#endif
+        return Task.CompletedTask;
     }
-
+#endif
+    
     private void PinCompanyClicked(CustomPin pin)
     {
         Application.Current.Dispatcher.Dispatch(async () =>
@@ -261,70 +251,73 @@ public partial class UserBrowserPage : BasePage
 
     private async void TabSwitcher_TabChanged(object? sender, string e)
     {
-        const int animationDuration = 400;
-        double screenWidth = this.Width;
-
-        if (screenWidth <= 0) screenWidth = 400;
-
-        if (e == tabSwitcher.Tab1_Title)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            list.IsVisible = true;
-            map.IsVisible = true;
-            borderBlock.IsVisible = false;
+            const int animationDuration = 400;
+            double screenWidth = this.Width;
 
-            await Task.WhenAll(
-                list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
-                map.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut),
-                borderBottom.TranslateTo(0, 100, 250, Easing.CubicIn)
-            );
+            if (screenWidth <= 0) screenWidth = 400;
 
-            mapIsVisible = false;
-            borderBottom.IsVisible = false;
-            borderBackground.IsVisible = false;
-
-            boxTemp.IsVisible = false;
-            //Grid.SetColumnSpan(borderSearch, 2);
-        }
-        else if (e == tabSwitcher.Tab2_Title && !mapIsVisible)
-        {
-            list.IsVisible = true;
-            map.IsVisible = true;
-
-            if (appControl.IsLoggedIn)
+            if (e == tabSwitcher.Tab1_Title)
             {
-                borderBottom.TranslationY = 100;
-                borderBottom.IsVisible = true;
+                list.IsVisible = true;
+                map.IsVisible = true;
+                borderBlock.IsVisible = false;
+
+                await Task.WhenAll(
+                    list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
+                    map.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut),
+                    borderBottom.TranslateTo(0, 100, 250, Easing.CubicIn)
+                );
+
+                mapIsVisible = false;
+                borderBottom.IsVisible = false;
+                borderBackground.IsVisible = false;
+
+                boxTemp.IsVisible = false;
+                //Grid.SetColumnSpan(borderSearch, 2);
             }
-            else
+            else if (e == tabSwitcher.Tab2_Title && !mapIsVisible)
             {
-                borderBlock.IsVisible = true;
+                list.IsVisible = true;
+                map.IsVisible = true;
+
+                if (appControl.IsLoggedIn)
+                {
+                    borderBottom.TranslationY = 100;
+                    borderBottom.IsVisible = true;
+                }
+                else
+                {
+                    borderBlock.IsVisible = true;
+                }
+
+                if (map.TranslationX != screenWidth)
+                {
+                    map.TranslationX = screenWidth;
+                }
+
+                await Task.WhenAll(
+                    list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
+                    map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
+
+                );
+
+                if (appControl.IsLoggedIn)
+                {
+                    await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
+                }
+                else
+                {
+                    borderBackground.IsVisible = true;
+                }
+                mapIsVisible = true;
+
+                boxTemp.IsVisible = true;
+                //Grid.SetColumnSpan(borderSearch, 1);
             }
-
-            if (map.TranslationX != screenWidth)
-            {
-                map.TranslationX = screenWidth;
-            }
-
-            await Task.WhenAll(
-                list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
-                map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
-
-            );
-
-            if (appControl.IsLoggedIn)
-            {
-                await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
-            }
-            else
-            {
-                borderBackground.IsVisible = true;
-            }
-            mapIsVisible = true;
-
-            boxTemp.IsVisible = true;
-            //Grid.SetColumnSpan(borderSearch, 1);
-        }
-    }
+        });
+    }   
 
     private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
@@ -334,14 +327,11 @@ public partial class UserBrowserPage : BasePage
             viewModel.ShowLikedView = false;
         }
     }
-
-
-
+ 
     // fields
     private readonly SemaphoreSlim _renderLock = new(1,1);
     private TaskCompletionSource<bool> _mapReadyTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
-
-    // call this once (e.g., in OnAppearing or after InitializeComponent)
+ 
     private void WireMapReady()
     {
     #if ANDROID
@@ -362,32 +352,38 @@ public partial class UserBrowserPage : BasePage
     }
 
     private Task EnsureMapReadyAsync() => _mapReadyTcs.Task;
-
-
-
-
+ 
     private async void Bottom_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(borderBottom);
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(borderBottom);
 
-        /*viewModel.IsLoading = true;
-        var location = await locationService.GetCurrentLocationAsync();
-        viewModel.IsLoading = false;
+            /*viewModel.IsLoading = true;
+            var location = await locationService.GetCurrentLocationAsync();
+            viewModel.IsLoading = false;
 
-        if (location == null) return;*/
+            if (location == null) return;*/
 
-        await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
+            await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
+        });
     }
 
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(borderSearch);
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(borderSearch);
 
-        await AppNavigatorService.NavigateTo(nameof(UserBrowserSearchPage));
+            await AppNavigatorService.NavigateTo(nameof(UserBrowserSearchPage));
+        });
     }
 
     private async void BtnLogin_Clicked(object sender, EventArgs e)
     {
-        await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+        });
     }
 }

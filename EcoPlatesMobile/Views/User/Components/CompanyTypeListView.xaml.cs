@@ -68,21 +68,24 @@ public partial class CompanyTypeListView : ContentView
 
     private async void Item_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await element.ScaleTo(0.8, 100, Easing.CubicOut);
-            await element.ScaleTo(1.0, 100, Easing.CubicIn);
-        }
+            if (sender is VisualElement element)
+            {
+                await element.ScaleTo(0.8, 100, Easing.CubicOut);
+                await element.ScaleTo(1.0, 100, Easing.CubicIn);
+            }
 
-        foreach (TypeItem tItem in Items)
-        {
-            tItem.Unclick();
-        }
+            foreach (TypeItem tItem in Items)
+            {
+                tItem.Unclick();
+            }
 
-        if (e.Parameter is TypeItem item)
-        {
-            item.Click();
-            EventTypeClick?.Invoke(item);
-        }
+            if (e.Parameter is TypeItem item)
+            {
+                item.Click();
+                EventTypeClick?.Invoke(item);
+            }
+        });
     }
 }

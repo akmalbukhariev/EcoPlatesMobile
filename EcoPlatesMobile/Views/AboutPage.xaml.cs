@@ -58,11 +58,17 @@ public partial class AboutPage : BasePage
 
     private async void Close_Tapped(object sender, TappedEventArgs e)
     {
-        await AppNavigatorService.NavigateTo("..");
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AppNavigatorService.NavigateTo("..");
+        });
     }
 
     private async void Close_Clicked(object sender, EventArgs e)
     {
-        await AppNavigatorService.NavigateTo("..");
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AppNavigatorService.NavigateTo("..");
+        });
     }
 }

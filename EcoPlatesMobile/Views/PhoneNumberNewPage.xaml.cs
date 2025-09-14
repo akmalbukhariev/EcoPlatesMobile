@@ -45,7 +45,7 @@ public partial class PhoneNumberNewPage : BasePage
             phoneEntry.Focus();
         };
     }
-
+    
     private void PhoneEntry_TextChanged(object sender, TextChangedEventArgs e)
     { 
         var color = GetRoleColor(userSessionService.Role);
@@ -79,58 +79,64 @@ public partial class PhoneNumberNewPage : BasePage
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(imBack);
-        await AppNavigatorService.NavigateTo("..");
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(imBack);
+            await AppNavigatorService.NavigateTo("..");
+        });
     }
 
     private async void Continue_Clicked(object sender, EventArgs e)
     {
-        keyboardHelper.HideKeyboard();
-        
-        bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
-        var rawPhone = phoneEntry.Text?.Trim();
-        if (!appControl.IsValidUzbekistanPhoneNumber(rawPhone))
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneNumberIsNotValid);
-            return;
-        }
+            keyboardHelper.HideKeyboard();
 
-        string phoneNumber = $"998{rawPhone}";
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-        Response response = null;
-
-        loading.ShowLoading = true;
-
-        try
-        {
-            #region Check phone number
-            if (userSessionService.Role == UserRole.User)
-                response = await userApiService.CheckUser(phoneNumber);
-            else if (userSessionService.Role == UserRole.Company)
-                response = await companyApiService.CheckUser(phoneNumber);
-
-            if (response != null &&
-                (response.resultCode == ApiResult.USER_EXIST.GetCodeToString() ||
-                 response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString()))
+            var rawPhone = phoneEntry.Text?.Trim();
+            if (!appControl.IsValidUzbekistanPhoneNumber(rawPhone))
             {
-                loading.ShowLoading = false;
-                await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneExist);
+                await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneNumberIsNotValid);
                 return;
             }
-            #endregion
 
-            appControl.IsPhoneNumberRegisterPage = false;
-            await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
+            string phoneNumber = $"998{rawPhone}";
+
+            Response response = null;
+
+            loading.ShowLoading = true;
+
+            try
+            {
+                #region Check phone number
+                if (userSessionService.Role == UserRole.User)
+                    response = await userApiService.CheckUser(phoneNumber);
+                else if (userSessionService.Role == UserRole.Company)
+                    response = await companyApiService.CheckUser(phoneNumber);
+
+                if (response != null &&
+                    (response.resultCode == ApiResult.USER_EXIST.GetCodeToString() ||
+                     response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString()))
+                {
+                    loading.ShowLoading = false;
+                    await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneExist);
+                    return;
+                }
+                #endregion
+
+                appControl.IsPhoneNumberRegisterPage = false;
+                await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
     }
 }

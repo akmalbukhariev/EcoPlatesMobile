@@ -75,147 +75,155 @@ public partial class CompanyEditProductPage : BasePage
     
     private async void ProductImage_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(imSelectedProduct);
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(imSelectedProduct);
 
-        fullImage.TranslationY = -100;
-        fullImage.Opacity = 0;
-        fullImage.IsVisible = true;
-        boxFullImage.IsVisible = true;
+            fullImage.TranslationY = -100;
+            fullImage.Opacity = 0;
+            fullImage.IsVisible = true;
+            boxFullImage.IsVisible = true;
 
-        await Task.WhenAll(
-            fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
-            fullImage.FadeTo(1, 250, Easing.SinIn)
-        );
+            await Task.WhenAll(
+                fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
+                fullImage.FadeTo(1, 250, Easing.SinIn)
+            );
+        });
     }
 
     private async void ChangeImage_Clicked(object sender, EventArgs e)
     {
-        string action = await DisplayActionSheet(AppResource.ChooseOption,
-                                                AppResource.Cancel, 
-                                                null, AppResource.SelectGallery,
-                                                AppResource.TakePhoto);
-
-        FileResult result = null;
-
-        if (action == AppResource.SelectGallery)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            if (MediaPicker.Default.IsCaptureSupported)
+            string action = await DisplayActionSheet(AppResource.ChooseOption,
+                                                    AppResource.Cancel,
+                                                    null, AppResource.SelectGallery,
+                                                    AppResource.TakePhoto);
+
+            FileResult result = null;
+
+            if (action == AppResource.SelectGallery)
             {
-                result = await MediaPicker.PickPhotoAsync();
+                if (MediaPicker.Default.IsCaptureSupported)
+                {
+                    result = await MediaPicker.PickPhotoAsync();
+                }
             }
-        }
-        else if (action == AppResource.TakePhoto)
-        {
-            if (MediaPicker.Default.IsCaptureSupported)
+            else if (action == AppResource.TakePhoto)
             {
-                result = await MediaPicker.CapturePhotoAsync();
-            }
-        }
-
-        if (result != null)
-        {
-            string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
-
-            using (Stream sourceStream = await result.OpenReadAsync())
-            using (FileStream localFileStream = File.Create(localFilePath))
-            {
-                await sourceStream.CopyToAsync(localFileStream);
+                if (MediaPicker.Default.IsCaptureSupported)
+                {
+                    result = await MediaPicker.CapturePhotoAsync();
+                }
             }
 
-            imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
-            imageStream = await result.OpenReadAsync();
-            isNewImageSelected = true;
-        }
+            if (result != null)
+            {
+                string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
+
+                using (Stream sourceStream = await result.OpenReadAsync())
+                using (FileStream localFileStream = File.Create(localFilePath))
+                {
+                    await sourceStream.CopyToAsync(localFileStream);
+                }
+
+                imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
+                imageStream = await result.OpenReadAsync();
+                isNewImageSelected = true;
+            }
+        });
     }
 
     private async void Done_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
-
-        keyboardHelper.HideKeyboard();
-        
-        bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-
-        try
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            var title = entryProductName.GetEntryText()?.Trim();
-            //var oldPriceText = entryOldPrice.Text?.Trim();
-            //var newPriceText = entryNewPrice.Text?.Trim();
+            await AnimateElementScaleDown(sender as Image);
 
-            var oldPrice = GetRawNumber(entryOldPrice);
-            var newPrice = GetRawNumber(entryNewPrice);
+            keyboardHelper.HideKeyboard();
 
-            if (string.IsNullOrWhiteSpace(title))
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
+
+            try
             {
-                await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
-                return;
-            }
+                var title = entryProductName.GetEntryText()?.Trim();
+                //var oldPriceText = entryOldPrice.Text?.Trim();
+                //var newPriceText = entryNewPrice.Text?.Trim();
 
-             
-            if (oldPrice == newPrice)
-            {
-                await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
-                return;
-            }
-            
-            if (oldPrice is null || newPrice is null)
-            {
-                //await DisplayAlert(AppResource.Error, AppResource.PleaseEnterBothPrices, AppResource.Ok);
-                await DisplayAlert(AppResource.Error, "Please Enter Both Prices", AppResource.Ok);
-                return;
-            }
+                var oldPrice = GetRawNumber(entryOldPrice);
+                var newPrice = GetRawNumber(entryNewPrice);
 
-            IsLoading.IsVisible = true;
-            IsLoading.IsRunning = true;
+                if (string.IsNullOrWhiteSpace(title))
+                {
+                    await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
+                    return;
+                }
 
-            Response response;
 
-            /*
-            var culture = CultureInfo.CurrentCulture;
+                if (oldPrice == newPrice)
+                {
+                    await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
+                    return;
+                }
 
-            if (string.Equals(title?.Trim(), ProductModel.ProductName?.Trim(), StringComparison.Ordinal)
-                && EqualMoney(ProductModel.OldPriceDigit, oldPriceText, culture)
-                && EqualMoney(ProductModel.NewPriceDigit, newPriceText, culture)
-                && string.Equals(editorDescription?.Text?.Trim() ?? "", ProductModel.description?.Trim() ?? "", StringComparison.Ordinal)
-                && !isNewImageSelected)
-            {
-                IsLoading.IsVisible = false;
-                IsLoading.IsRunning = false;
+                if (oldPrice is null || newPrice is null)
+                {
+                    //await DisplayAlert(AppResource.Error, AppResource.PleaseEnterBothPrices, AppResource.Ok);
+                    await DisplayAlert(AppResource.Error, "Please Enter Both Prices", AppResource.Ok);
+                    return;
+                }
 
-                await Shell.Current.GoToAsync("..");
-                return;
-            }*/
+                IsLoading.IsVisible = true;
+                IsLoading.IsRunning = true;
 
-            long? modelOld = ProductModel?.OldPriceDigit is null ? null
-                          : Convert.ToInt64(ProductModel.OldPriceDigit);
-            long? modelNew = ProductModel?.NewPriceDigit is null ? null
-                            : Convert.ToInt64(ProductModel.NewPriceDigit);
+                Response response;
 
-            bool titleSame = string.Equals(title?.Trim(), ProductModel?.ProductName?.Trim(), StringComparison.Ordinal);
-            bool oldSame   = modelOld == oldPrice;
-            bool newSame   = modelNew == newPrice;
-            bool descSame  = string.Equals(editorDescription?.Text?.Trim() ?? string.Empty,
-                                        ProductModel?.description?.Trim() ?? string.Empty,
-                                        StringComparison.Ordinal);
-            bool noNewImage = !isNewImageSelected;
+                /*
+                var culture = CultureInfo.CurrentCulture;
 
-            if (titleSame && oldSame && newSame && descSame && noNewImage)
-            {
-                IsLoading.IsVisible = false;
-                IsLoading.IsRunning = false;
-                await Shell.Current.GoToAsync("..");
-                return;
-            }
+                if (string.Equals(title?.Trim(), ProductModel.ProductName?.Trim(), StringComparison.Ordinal)
+                    && EqualMoney(ProductModel.OldPriceDigit, oldPriceText, culture)
+                    && EqualMoney(ProductModel.NewPriceDigit, newPriceText, culture)
+                    && string.Equals(editorDescription?.Text?.Trim() ?? "", ProductModel.description?.Trim() ?? "", StringComparison.Ordinal)
+                    && !isNewImageSelected)
+                {
+                    IsLoading.IsVisible = false;
+                    IsLoading.IsRunning = false;
 
-            string oldFileName = GetFileNameFromUrl(ProductModel.ProductImage);
+                    await Shell.Current.GoToAsync("..");
+                    return;
+                }*/
 
-            if (!isNewImageSelected)
-            {
-                imageStream = null;
-            }
+                long? modelOld = ProductModel?.OldPriceDigit is null ? null
+                              : Convert.ToInt64(ProductModel.OldPriceDigit);
+                long? modelNew = ProductModel?.NewPriceDigit is null ? null
+                                : Convert.ToInt64(ProductModel.NewPriceDigit);
 
-            var additionalData = new Dictionary<string, string>
+                bool titleSame = string.Equals(title?.Trim(), ProductModel?.ProductName?.Trim(), StringComparison.Ordinal);
+                bool oldSame = modelOld == oldPrice;
+                bool newSame = modelNew == newPrice;
+                bool descSame = string.Equals(editorDescription?.Text?.Trim() ?? string.Empty,
+                                            ProductModel?.description?.Trim() ?? string.Empty,
+                                            StringComparison.Ordinal);
+                bool noNewImage = !isNewImageSelected;
+
+                if (titleSame && oldSame && newSame && descSame && noNewImage)
+                {
+                    IsLoading.IsVisible = false;
+                    IsLoading.IsRunning = false;
+                    await Shell.Current.GoToAsync("..");
+                    return;
+                }
+
+                string oldFileName = GetFileNameFromUrl(ProductModel.ProductImage);
+
+                if (!isNewImageSelected)
+                {
+                    imageStream = null;
+                }
+
+                var additionalData = new Dictionary<string, string>
             {
                 { "company_id", ProductModel.CompanyId.ToString() },
                 { "poster_id", ProductModel.PromotionId.ToString() },
@@ -226,27 +234,28 @@ public partial class CompanyEditProductPage : BasePage
                 { "delete_image", isNewImageSelected.ToString().ToLower() },
                 { "description", editorDescription.Text ?? string.Empty },
             };
-            response = await companyApiService.UpdatePoster(imageStream, additionalData);
+                response = await companyApiService.UpdatePoster(imageStream, additionalData);
 
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
-                await Shell.Current.GoToAsync("..");
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                await DisplayAlert(AppResource.Error, ex.Message, AppResource.Ok);
             }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert(AppResource.Error, ex.Message, AppResource.Ok);
-        }
-        finally
-        {
-            IsLoading.IsVisible = false;
-            IsLoading.IsRunning = false;
-        }
+            finally
+            {
+                IsLoading.IsVisible = false;
+                IsLoading.IsRunning = false;
+            }
+        });
     }
 
     readonly HashSet<Entry> formatting = new();
@@ -319,128 +328,137 @@ public partial class CompanyEditProductPage : BasePage
     }
 
     private async void BtnActive_Clicked(object sender, EventArgs e)
-    { 
-        bool answer = await AlertService.ShowConfirmationAsync(
-                                AppResource.Confirm,
-                                AppResource.MessageConfirm,
-                                AppResource.Yes, AppResource.No);
-
-        if (!answer) return;
-
-        try
+    {
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            ShowLoading(true);
+            bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageConfirm,
+                                    AppResource.Yes, AppResource.No);
 
-            ChangePosterDeletionRequest request = new ChangePosterDeletionRequest()
-            {
-                poster_id = ProductModel.PromotionId,
-                deleted = false
-            };
+            if (!answer) return;
 
-            Response response = await companyApiService.ChangePosterDeletionStatus(request);
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            try
             {
-                appControl.RefreshCompanyProfilePage = true;
-                await Shell.Current.GoToAsync("..");
-                return;
+                ShowLoading(true);
+
+                ChangePosterDeletionRequest request = new ChangePosterDeletionRequest()
+                {
+                    poster_id = ProductModel.PromotionId,
+                    deleted = false
+                };
+
+                Response response = await companyApiService.ChangePosterDeletionStatus(request);
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    appControl.RefreshCompanyProfilePage = true;
+                    await Shell.Current.GoToAsync("..");
+                    return;
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
             }
-        }
-        catch (Exception ex)
-        {
-            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
-        }
-        finally
-        {
-            ShowLoading(false);
-        }
+            finally
+            {
+                ShowLoading(false);
+            }
+        });
     }
 
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
-        bool isWifiOn = await appControl.CheckWifi();
-        if (!isWifiOn) return;
-
-        bool answer = await AlertService.ShowConfirmationAsync(
-                                AppResource.Confirm,
-                                AppResource.MessageConfirm,
-                                AppResource.Yes, AppResource.No);
-
-        if (!answer) return;
-        
-        ProductModel.CompanyId = (long)appControl.CompanyInfo.company_id;
-        try
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            ShowLoading(true);
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-            Response response = await companyApiService.DeletePoster(ProductModel.PromotionId);
+            bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageConfirm,
+                                    AppResource.Yes, AppResource.No);
 
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            if (!answer) return;
+
+            ProductModel.CompanyId = (long)appControl.CompanyInfo.company_id;
+            try
             {
-                appControl.RefreshCompanyProfilePage = true;
-                await Shell.Current.GoToAsync("..");
-                return;
+                ShowLoading(true);
+
+                Response response = await companyApiService.DeletePoster(ProductModel.PromotionId);
+
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    appControl.RefreshCompanyProfilePage = true;
+                    await Shell.Current.GoToAsync("..");
+                    return;
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
             }
-        }
-        catch (Exception ex)
-        {
-            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
-        }
-        finally
-        {
-            ShowLoading(true);
-        }
+            finally
+            {
+                ShowLoading(true);
+            }
+        });
     }
 
     private async void BtnInActive_Clicked(object sender, EventArgs e)
     {
-        bool isWifiOn = await appControl.CheckWifi();
-        if (!isWifiOn) return;
-
-        bool answer = await AlertService.ShowConfirmationAsync(
-                                AppResource.Confirm,
-                                AppResource.MessageConfirm,
-                                AppResource.Yes, AppResource.No);
-
-        if (!answer) return;
-
-        try
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            ShowLoading(true);
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-            ChangePosterDeletionRequest request = new ChangePosterDeletionRequest()
-            {
-                poster_id = ProductModel.PromotionId,
-                deleted = true
-            };
+            bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageConfirm,
+                                    AppResource.Yes, AppResource.No);
 
-            Response response = await companyApiService.ChangePosterDeletionStatus(request);
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            if (!answer) return;
+
+            try
             {
-                appControl.RefreshCompanyProfilePage = true;
-                await Shell.Current.GoToAsync("..");
-                return;
+                ShowLoading(true);
+
+                ChangePosterDeletionRequest request = new ChangePosterDeletionRequest()
+                {
+                    poster_id = ProductModel.PromotionId,
+                    deleted = true
+                };
+
+                Response response = await companyApiService.ChangePosterDeletionStatus(request);
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    appControl.RefreshCompanyProfilePage = true;
+                    await Shell.Current.GoToAsync("..");
+                    return;
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
             }
-        }
-        catch (Exception ex)
-        {
-            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
-        }
-        finally
-        {
-            ShowLoading(false);
-        }
+            finally
+            {
+                ShowLoading(false);
+            }
+        });
     }
 
     private void ShowLoading(bool show)

@@ -149,9 +149,12 @@ public partial class CompanyProfilePage : BasePage
 
     private async void UserInfo_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(grdUserInfo);
-      
-        await AppNavigatorService.NavigateTo(nameof(CompanyProfileInfoPage));
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(grdUserInfo);
+
+            await AppNavigatorService.NavigateTo(nameof(CompanyProfileInfoPage));
+        });
     }
 
     private void OnLanguageTapped(object sender, TappedEventArgs e)

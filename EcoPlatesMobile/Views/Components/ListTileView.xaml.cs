@@ -132,9 +132,12 @@ public partial class ListTileView : ContentView
 
     private async void Tile_Tapped(object sender, TappedEventArgs e)
     {
-        await grdMain.ScaleTo(0.95, 100, Easing.CubicOut);
-        await grdMain.ScaleTo(1.0, 100, Easing.CubicIn);
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await grdMain.ScaleTo(0.95, 100, Easing.CubicOut);
+            await grdMain.ScaleTo(1.0, 100, Easing.CubicIn);
 
-        EventClickTile?.Invoke(this);
+            EventClickTile?.Invoke(this);
+        });
     }
 }

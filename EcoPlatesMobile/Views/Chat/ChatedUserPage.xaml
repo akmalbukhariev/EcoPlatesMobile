@@ -4,6 +4,7 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+               xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.Chat.ChatedUserPage"
                BackgroundColor="White">
     
@@ -19,6 +20,9 @@
                 <CollectionView ItemsSource="{Binding Users}"
                                 RemainingItemsThreshold="1"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                    <CollectionView.EmptyView>
+                        <view:EmptyViewText/>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 
                                          VerticalItemSpacing="10"

@@ -179,8 +179,11 @@ public partial class UserMainPage : BasePage
 
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(borderSearch);
-        
-        await AppNavigatorService.NavigateTo(nameof(UserMainSearchPage));
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(borderSearch);
+
+            await AppNavigatorService.NavigateTo(nameof(UserMainSearchPage));
+        });
     }
 }

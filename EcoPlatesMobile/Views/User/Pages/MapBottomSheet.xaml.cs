@@ -27,8 +27,11 @@ public partial class MapBottomSheet : BottomSheet
 		EventValueDistanceChanged?.Invoke(km);
 	}
 
-	private void ShowResults_Clicked(object sender, EventArgs e)
+	private async void ShowResults_Clicked(object sender, EventArgs e)
 	{
-		EventShowResultsClicked?.Invoke();
+		await ClickGuard.RunAsync((VisualElement)sender, async () =>
+		{
+			EventShowResultsClicked?.Invoke();
+		});
 	}
 }

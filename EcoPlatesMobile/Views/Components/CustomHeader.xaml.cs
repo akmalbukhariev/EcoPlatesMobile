@@ -71,12 +71,15 @@ public partial class CustomHeader : ContentView
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            await element.ScaleTo(1.0, 100, Easing.CubicIn);
-        }
+            if (sender is VisualElement element)
+            {
+                await element.ScaleTo(1.3, 100, Easing.CubicOut);
+                await element.ScaleTo(1.0, 100, Easing.CubicIn);
+            }
 
-        await AppNavigatorService.NavigateTo("..");
+            await AppNavigatorService.NavigateTo("..");
+        });
     }
 }

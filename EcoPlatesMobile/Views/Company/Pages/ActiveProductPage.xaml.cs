@@ -197,59 +197,56 @@ public partial class ActiveProductPage : BasePage
 
     private async void InActiveAll_Tapped(object sender, TappedEventArgs e)
     {
-        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        await AnimateElementScaleDown(sender as Image);
+
+        bool answer = await AlertService.ShowConfirmationAsync(
+                                AppResource.Confirm,
+                                AppResource.MessageDeactiveAllProducts,
+                                AppResource.Yes, AppResource.No);
+
+        if (!answer) return;
+
+        try
         {
-            await AnimateElementScaleDown(sender as Image);
+            viewModel.IsLoading = true;
 
-            bool answer = await AlertService.ShowConfirmationAsync(
-                                    AppResource.Confirm,
-                                    AppResource.MessageDeactiveAllProducts,
-                                    AppResource.Yes, AppResource.No);
+            var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
 
-            if (!answer) return;
-
-            try
+            var request = new ChangePosterDeletionListRequest
             {
-                viewModel.IsLoading = true;
-
-                var selected = viewModel.Products.Where(p => p.IsCheckedProduct).ToList();
-
-                var request = new ChangePosterDeletionListRequest
+                dataList = selected.Select(p => new ChangePosterDeletionRequest
                 {
-                    dataList = selected.Select(p => new ChangePosterDeletionRequest
-                    {
-                        poster_id = p.PromotionId,
-                        deleted = true
-                    }).ToList()
-                };
+                    poster_id = p.PromotionId,
+                    deleted = true
+                }).ToList()
+            };
 
-                Response response = await companyApiService.ChangePosterDeletionStatusList(request);
-                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            Response response = await companyApiService.ChangePosterDeletionStatusList(request);
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        foreach (var item in selected)
-                            viewModel.Products.Remove(item);
-                    });
+                    foreach (var item in selected)
+                        viewModel.Products.Remove(item);
+                });
 
-                    appControl.RefreshCompanyProfilePage = true;
-                    StCheckProductTapped(null, null);
+                appControl.RefreshCompanyProfilePage = true;
+                StCheckProductTapped(null, null);
 
-                    if (viewModel.Products.Count == 0)
-                        viewModel.IsShowChekProduct = false;
+                if (viewModel.Products.Count == 0)
+                    viewModel.IsShowChekProduct = false;
 
-                    //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
-                }
+                //await AlertService.ShowAlertAsync(AppResource.InactiveProducts, AppResource.Success);
             }
-            catch (Exception ex)
-            {
-                await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
-            }
-            finally
-            {
-                viewModel.IsLoading = false;
-            }
-        });
+        }
+        catch (Exception ex)
+        {
+            await AlertService.ShowAlertAsync(AppResource.Error, ex.Message);
+        }
+        finally
+        {
+            viewModel.IsLoading = false;
+        }
     }
 
     private async void Add_Tapped(object sender, TappedEventArgs e)
@@ -272,15 +269,15 @@ public partial class ActiveProductPage : BasePage
 
         await AnimateSelectAllBarAsync(selectAllBar, checkProduct.IsChecked);
     }
-    
-    private void StSelectAllProductTapped(object sender, TappedEventArgs e)
+
+    private async void StSelectAllProductTapped(object sender, TappedEventArgs e)
     {
         viewModel.checkAllCheckedAlready = true;
         checkAllProducts.IsChecked = !checkAllProducts.IsChecked;
         CheckAllProducts(checkAllProducts.IsChecked);
         viewModel.checkAllCheckedAlready = false;
     }
-    
+
     private async void CheckProduct_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         viewModel.StackBottomEnabled = false;
@@ -295,12 +292,12 @@ public partial class ActiveProductPage : BasePage
 
         viewModel.checkAllCheckedAlready = true;
         viewModel.IsCheckedAllProduct = false;
-        viewModel.checkAllCheckedAlready = false; 
-        
+        viewModel.checkAllCheckedAlready = false;
+
         await AnimateSelectAllBarAsync(selectAllBar, checkProduct.IsChecked);
     }
-    
-    private void CheckAllProduct_CheckedChanged(object sender, CheckedChangedEventArgs e)
+
+    private async void CheckAllProduct_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         if (viewModel.checkAllCheckedAlready) return;
 

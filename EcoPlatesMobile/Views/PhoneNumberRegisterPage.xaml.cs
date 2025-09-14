@@ -58,100 +58,103 @@ public partial class PhoneNumberRegisterPage : BasePage
 
     private async void ButtonNext_Clicked(object sender, EventArgs e)
     {
-        //await entryNumber.UnFocus();
-        keyboardHelper.HideKeyboard();
-        
-        bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
-        string rawPhone = entryNumber.GetEntryText();
-        if (string.IsNullOrWhiteSpace(rawPhone))
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessageEnterPhoneNumber);
-            return;
-        }
-         
-        string phoneNumber = $"998{rawPhone}";
+            //await entryNumber.UnFocus();
+            keyboardHelper.HideKeyboard();
 
-        if (!appControl.IsValidUzbekistanPhoneNumber(phoneNumber))
-        {
-            await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneNumberIsNotValid);
-            return;
-        }
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-        loading.ShowLoading = true;
-
-        try
-        {
-            Response response = null;
-            bool isRegistered = false;
-
-            #region Check phone number
-            if (userSessionService.Role == UserRole.Company)
+            string rawPhone = entryNumber.GetEntryText();
+            if (string.IsNullOrWhiteSpace(rawPhone))
             {
-                response = await companyApiService.CheckUser(phoneNumber);
-
-                if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
-                {
-                    userSessionService.IsCompanyRegistrated = true;
-                    isRegistered = true;
-                }
-                else if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString())
-                {
-                    userSessionService.IsCompanyRegistrated = false;
-                }
+                await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessageEnterPhoneNumber);
+                return;
             }
-            else if (userSessionService.Role == UserRole.User)
-            {
-                response = await userApiService.CheckUser(phoneNumber);
 
-                if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
-                {
-                    userSessionService.IsUserRegistrated = true;
-                    isRegistered = true;
-                }
-                else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
-                {
-                    userSessionService.IsUserRegistrated = false;
-                }
+            string phoneNumber = $"998{rawPhone}";
+
+            if (!appControl.IsValidUzbekistanPhoneNumber(phoneNumber))
+            {
+                await AlertService.ShowAlertAsync(AppResource.PhoneNumber, AppResource.MessagePhoneNumberIsNotValid);
+                return;
             }
-            #endregion
 
-            if (isRegistered)
+            loading.ShowLoading = true;
+
+            try
             {
-                appControl.IsPhoneNumberRegisterPage = true;
-                await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
-            }
-            else if (response != null)
-            {
-                if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString() ||
-                    response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
+                Response response = null;
+                bool isRegistered = false;
+
+                #region Check phone number
+                if (userSessionService.Role == UserRole.Company)
                 {
-                    //await AlertService.ShowAlertAsync(AppResource.PhoneNumberNotRegistered, AppResource.MessageEnterPhoneNumberNotRegistered);
+                    response = await companyApiService.CheckUser(phoneNumber);
 
-                    bool answer = await AlertService.ShowConfirmationAsync(
-                                AppResource.Confirm,
-                                AppResource.MessageEnterPhoneNumberNotRegistered,
-                                AppResource.Yes, AppResource.No);
+                    if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
+                    {
+                        userSessionService.IsCompanyRegistrated = true;
+                        isRegistered = true;
+                    }
+                    else if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString())
+                    {
+                        userSessionService.IsCompanyRegistrated = false;
+                    }
+                }
+                else if (userSessionService.Role == UserRole.User)
+                {
+                    response = await userApiService.CheckUser(phoneNumber);
 
-                    if (!answer) return;
- 
+                    if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
+                    {
+                        userSessionService.IsUserRegistrated = true;
+                        isRegistered = true;
+                    }
+                    else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
+                    {
+                        userSessionService.IsUserRegistrated = false;
+                    }
+                }
+                #endregion
+
+                if (isRegistered)
+                {
                     appControl.IsPhoneNumberRegisterPage = true;
                     await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
                 }
+                else if (response != null)
+                {
+                    if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString() ||
+                        response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
+                    {
+                        //await AlertService.ShowAlertAsync(AppResource.PhoneNumberNotRegistered, AppResource.MessageEnterPhoneNumberNotRegistered);
+
+                        bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageEnterPhoneNumberNotRegistered,
+                                    AppResource.Yes, AppResource.No);
+
+                        if (!answer) return;
+
+                        appControl.IsPhoneNumberRegisterPage = true;
+                        await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
+                    }
+                    else
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                    }
+                }
                 else
                 {
-                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                    await AlertService.ShowAlertAsync(AppResource.Error, AppResource.ErrorUnexpected);
                 }
             }
-            else
+            finally
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, AppResource.ErrorUnexpected);
+                loading.ShowLoading = false;
             }
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
+        });
     }
 }

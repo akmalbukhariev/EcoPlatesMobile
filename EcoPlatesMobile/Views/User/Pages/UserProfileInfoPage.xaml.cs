@@ -60,120 +60,132 @@ public partial class UserProfileInfoPage : BasePage
 
     private async void ChangeImage_Clicked(object sender, EventArgs e)
     {
-        string action = await DisplayActionSheet(AppResource.ChooseOption,
-                                                 AppResource.Cancel,
-                                                 null,
-                                                 AppResource.SelectGallery,
-                                                 AppResource.TakePhoto);
-
-        FileResult result = null;
-
-        if (action == AppResource.SelectGallery)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            if (!await appControl.EnsureGalleryPermissionAsync())
-                return;
+            string action = await DisplayActionSheet(AppResource.ChooseOption,
+                                                     AppResource.Cancel,
+                                                     null,
+                                                     AppResource.SelectGallery,
+                                                     AppResource.TakePhoto);
 
-            result = await appControl.TryPickPhotoAsync();
-        }
-        else if (action == AppResource.TakePhoto)
-        {
-            if (!await appControl.EnsureCameraPermissionAsync())
-                return;
-            
-            result = await appControl.TryCapturePhotoAsync();
-        }
+            FileResult result = null;
 
-        if (result != null)
-        {
-            string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
-
-            using (Stream sourceStream = await result.OpenReadAsync())
-            using (FileStream localFileStream = File.Create(localFilePath))
+            if (action == AppResource.SelectGallery)
             {
-                await sourceStream.CopyToAsync(localFileStream);
+                if (!await appControl.EnsureGalleryPermissionAsync())
+                    return;
+
+                result = await appControl.TryPickPhotoAsync();
+            }
+            else if (action == AppResource.TakePhoto)
+            {
+                if (!await appControl.EnsureCameraPermissionAsync())
+                    return;
+
+                result = await appControl.TryCapturePhotoAsync();
             }
 
-            imUser.Source = ImageSource.FromFile(localFilePath);
-            fullImage.Source = imUser.Source;
+            if (result != null)
+            {
+                string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
 
-            imageStream = File.OpenRead(localFilePath);
+                using (Stream sourceStream = await result.OpenReadAsync())
+                using (FileStream localFileStream = File.Create(localFilePath))
+                {
+                    await sourceStream.CopyToAsync(localFileStream);
+                }
 
-            isNewImageSelected = true;
-        }
+                imUser.Source = ImageSource.FromFile(localFilePath);
+                fullImage.Source = imUser.Source;
+
+                imageStream = File.OpenRead(localFilePath);
+
+                isNewImageSelected = true;
+            }
+        });
     }
 
     private async void Cancel_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("..", true);
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await Shell.Current.GoToAsync("..", true);
+        });
     }
 
     private async void Done_Clicked(object sender, EventArgs e)
     {
-        keyboardHelper.HideKeyboard();
-        
-        bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-
-        try
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            string enteredName = entryUserName.Text?.Trim();
-            if (string.IsNullOrEmpty(enteredName))
+            keyboardHelper.HideKeyboard();
+
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
+
+            try
             {
-                await AlertService.ShowAlertAsync(AppResource.UpdateProfile, AppResource.EnterName);
-                return;
-            }
+                string enteredName = entryUserName.Text?.Trim();
+                if (string.IsNullOrEmpty(enteredName))
+                {
+                    await AlertService.ShowAlertAsync(AppResource.UpdateProfile, AppResource.EnterName);
+                    return;
+                }
 
-            UserInfo userInfo = appControl.UserInfo;
+                UserInfo userInfo = appControl.UserInfo;
 
-            bool isSame = enteredName == userInfo.first_name?.Trim();
+                bool isSame = enteredName == userInfo.first_name?.Trim();
 
-            if (!isSame || isNewImageSelected)
-            {
-                var additionalData = new Dictionary<string, string>
+                if (!isSame || isNewImageSelected)
+                {
+                    var additionalData = new Dictionary<string, string>
                 {
                     { "user_id", userInfo.user_id.ToString() },
                     { "first_name", enteredName },
                 };
 
-                if (!isNewImageSelected)
-                {
-                    imageStream = null;
-                }
+                    if (!isNewImageSelected)
+                    {
+                        imageStream = null;
+                    }
 
-                loading.ShowLoading = true;
-                Response response = await userApiService.UpdateUserProfileInfo(imageStream, additionalData);
+                    loading.ShowLoading = true;
+                    Response response = await userApiService.UpdateUserProfileInfo(imageStream, additionalData);
 
-                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-                {
-                    appControl.RefreshUserProfilePage = true;
+                    if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                    {
+                        appControl.RefreshUserProfilePage = true;
 
-                    await AlertService.ShowAlertAsync(AppResource.UpdateProfile, AppResource.Success);
-                    await Shell.Current.GoToAsync("..", true);
+                        await AlertService.ShowAlertAsync(AppResource.UpdateProfile, AppResource.Success);
+                        await Shell.Current.GoToAsync("..", true);
+                    }
+                    else
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                    }
                 }
                 else
                 {
-                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                    await Shell.Current.GoToAsync("..", true);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                await Shell.Current.GoToAsync("..", true);
+                Console.WriteLine(ex.Message);
             }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
     }
 
     private async void PhoneNumber_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(grdPhoneNumber);
-        await AppNavigatorService.NavigateTo(nameof(PhoneNumberChangePage));
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(grdPhoneNumber);
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberChangePage));
+        });
     }
 
     private async void OnImage_Swiped(object sender, SwipedEventArgs e)
@@ -189,79 +201,88 @@ public partial class UserProfileInfoPage : BasePage
         fullImage.TranslationY = 0;
     }
 
-    private void OnImage_Tapped(object sender, TappedEventArgs e)
+    private async void OnImage_Tapped(object sender, TappedEventArgs e)
     {
-        boxFullImage.IsVisible = false;
-        fullImage.IsVisible = false;
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            boxFullImage.IsVisible = false;
+            fullImage.IsVisible = false;
+        });
     }
 
     private bool _suppressToggle;
     private async void Notitifation_Toggled(object sender, ToggledEventArgs e)
     {
-        if (_suppressToggle || !isPageLoaded) return;
-
-        keyboardHelper.HideKeyboard();
-
-        if (e.Value)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            bool allowed = await NotificationPermissionHelper.EnsureEnabledAsync(this);
-            if (!allowed)
+            if (_suppressToggle || !isPageLoaded) return;
+
+            keyboardHelper.HideKeyboard();
+
+            if (e.Value)
             {
-                _suppressToggle = true;
-                notification.IsToggled = false;
-                _suppressToggle = false;
-                return;
+                bool allowed = await NotificationPermissionHelper.EnsureEnabledAsync(this);
+                if (!allowed)
+                {
+                    _suppressToggle = true;
+                    notification.IsToggled = false;
+                    _suppressToggle = false;
+                    return;
+                }
             }
-        }
 
-        bool isWifiOn = await appControl.CheckWifi();
-        if (!isWifiOn) return;
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-        try
-        {
-            var additionalData = new Dictionary<string, string>
+            try
+            {
+                var additionalData = new Dictionary<string, string>
             {
                 { "user_id", appControl.UserInfo.user_id.ToString() },
                 { "notification_enabled", notification.IsToggled.ToString() }
             };
 
-            loading.ShowLoading = true;
+                loading.ShowLoading = true;
 
-            Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
+                Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
 
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                appControl.RefreshUserProfilePage = true;
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    appControl.RefreshUserProfilePage = true;
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                Console.WriteLine(ex.Message);
             }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
     }
 
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
     {
-        bool isWifiOn = await appControl.CheckWifi();
-        if (!isWifiOn) return;
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-        bool answer = await AlertService.ShowConfirmationAsync(
-                                AppResource.Confirm,
-                                AppResource.MessageConfirm,
-                                AppResource.Yes,
-                                AppResource.No);
-        if (!answer) return;
+            bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageConfirm,
+                                    AppResource.Yes,
+                                    AppResource.No);
+            if (!answer) return;
 
-        loading.ShowLoading = true;
-        await appControl.LogoutUser();
-        loading.ShowLoading = false;
+            loading.ShowLoading = true;
+            await appControl.LogoutUser();
+            loading.ShowLoading = false;
+        });
     }
 }

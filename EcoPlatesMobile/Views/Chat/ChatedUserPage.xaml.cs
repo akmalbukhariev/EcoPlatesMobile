@@ -62,17 +62,20 @@ public partial class ChatedUserPage : BasePage
      
     private async void User_Tapped(object sender, TappedEventArgs e)
     {
-        bool isWifiOn = await appControl.CheckWifi();
-        if (!isWifiOn) return;
-
-        if (sender is Grid grid && grid.BindingContext is SenderIdInfo tappedItem)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(grid);
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-            await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
+            if (sender is Grid grid && grid.BindingContext is SenderIdInfo tappedItem)
             {
-                ["ChatPageModel"] = tappedItem.chatPageModel
-            });
-        }
+                await AnimateElementScaleDown(grid);
+
+                await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
+                {
+                    ["ChatPageModel"] = tappedItem.chatPageModel
+                });
+            }
+        });
     }
 }

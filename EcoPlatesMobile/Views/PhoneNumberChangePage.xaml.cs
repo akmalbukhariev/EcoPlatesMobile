@@ -32,7 +32,10 @@ public partial class PhoneNumberChangePage : BasePage
 
     private async void Next_Clicked(object sender, EventArgs e)
     {
-        //keyboardHelper.HideKeyboard();
-        await AppNavigatorService.NavigateTo(nameof(PhoneNumberNewPage));
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            //keyboardHelper.HideKeyboard();
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberNewPage));
+        });
     }
 }

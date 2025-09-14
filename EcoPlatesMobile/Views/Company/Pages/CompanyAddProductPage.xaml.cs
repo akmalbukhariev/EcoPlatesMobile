@@ -46,95 +46,100 @@ public partial class CompanyAddProductPage : BasePage
 
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)
     {
-        if (borderProductIcon.IsVisible)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(borderProductIcon);
-        }
-        else
-        {
-            await AnimateElementScaleDown(imSelectedProduct);
-        }
-
-        string action = await DisplayActionSheet(AppResource.ChooseOption,
-                                                 AppResource.Cancel,
-                                                 null,
-                                                 AppResource.SelectGallery,
-                                                 AppResource.TakePhoto);
-
-        FileResult result = null;
-
-        if (action == AppResource.SelectGallery)
-        {
-            if (!await appControl.EnsureGalleryPermissionAsync())
-                return;
-
-            result = await appControl.TryPickPhotoAsync();
-        }
-        else if (action == AppResource.TakePhoto)
-        {
-            if (!await appControl.EnsureCameraPermissionAsync())
-                return;
-
-            result = await appControl.TryCapturePhotoAsync();
-        }
-
-        if (result != null)
-        {
-            string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
-
-            using (Stream sourceStream = await result.OpenReadAsync())
-            using (FileStream localFileStream = File.Create(localFilePath))
+            if (borderProductIcon.IsVisible)
             {
-                await sourceStream.CopyToAsync(localFileStream);
+                await AnimateElementScaleDown(borderProductIcon);
+            }
+            else
+            {
+                await AnimateElementScaleDown(imSelectedProduct);
             }
 
-            imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
-            imageStream = await result.OpenReadAsync();
-            isNewImageSelected = true;
+            string action = await DisplayActionSheet(AppResource.ChooseOption,
+                                                     AppResource.Cancel,
+                                                     null,
+                                                     AppResource.SelectGallery,
+                                                     AppResource.TakePhoto);
 
-            borderProductIcon.IsVisible = false;
-            imSelectedProduct.IsVisible = true;
-        }
+            FileResult result = null;
+
+            if (action == AppResource.SelectGallery)
+            {
+                if (!await appControl.EnsureGalleryPermissionAsync())
+                    return;
+
+                result = await appControl.TryPickPhotoAsync();
+            }
+            else if (action == AppResource.TakePhoto)
+            {
+                if (!await appControl.EnsureCameraPermissionAsync())
+                    return;
+
+                result = await appControl.TryCapturePhotoAsync();
+            }
+
+            if (result != null)
+            {
+                string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
+
+                using (Stream sourceStream = await result.OpenReadAsync())
+                using (FileStream localFileStream = File.Create(localFilePath))
+                {
+                    await sourceStream.CopyToAsync(localFileStream);
+                }
+
+                imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
+                imageStream = await result.OpenReadAsync();
+                isNewImageSelected = true;
+
+                borderProductIcon.IsVisible = false;
+                imSelectedProduct.IsVisible = true;
+            }
+        });
     }
 
     private async void RegisterOrUpdate_Clicked(object sender, EventArgs e)
     {
-        keyboardHelper.HideKeyboard();
-
-        bool isWifiOn = await appControl.CheckWifi();
-        if (!isWifiOn) return;
-
-        try
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            var title = entryProductName.GetEntryText()?.Trim();
-            //var oldPriceText = entryOldPrice.Text?.Trim();
-            //var newPriceText = entryNewPrice.Text?.Trim();
+            keyboardHelper.HideKeyboard();
 
-            var oldPrice = GetRawNumber(entryOldPrice);
-            var newPrice = GetRawNumber(entryNewPrice);
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-            if (string.IsNullOrWhiteSpace(title))
+            try
             {
-                await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
-                return;
-            }
- 
-            if (oldPrice == newPrice)
-            {
-                await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
-                return;
-            } 
+                var title = entryProductName.GetEntryText()?.Trim();
+                //var oldPriceText = entryOldPrice.Text?.Trim();
+                //var newPriceText = entryNewPrice.Text?.Trim();
 
-            IsLoading.IsVisible = true;
-            IsLoading.IsRunning = true;
+                var oldPrice = GetRawNumber(entryOldPrice);
+                var newPrice = GetRawNumber(entryNewPrice);
 
-            if (imageStream == null)
-            {
-                await DisplayAlert(AppResource.Error, AppResource.MessageSelectImage, AppResource.Ok);
-                return;
-            }
+                if (string.IsNullOrWhiteSpace(title))
+                {
+                    await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
+                    return;
+                }
 
-            var additionalData = new Dictionary<string, string>
+                if (oldPrice == newPrice)
+                {
+                    await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);
+                    return;
+                }
+
+                IsLoading.IsVisible = true;
+                IsLoading.IsRunning = true;
+
+                if (imageStream == null)
+                {
+                    await DisplayAlert(AppResource.Error, AppResource.MessageSelectImage, AppResource.Ok);
+                    return;
+                }
+
+                var additionalData = new Dictionary<string, string>
             {
                 { "company_id", appControl.CompanyInfo.company_id.ToString() },
                 { "title", title },
@@ -143,27 +148,28 @@ public partial class CompanyAddProductPage : BasePage
                 { "description", editorDescription.Text ?? string.Empty },
             };
 
-            Response response = await companyApiService.RegisterPoster(imageStream, additionalData);
+                Response response = await companyApiService.RegisterPoster(imageStream, additionalData);
 
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);
-                await Shell.Current.GoToAsync("..");
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                await DisplayAlert(AppResource.Error, ex.Message, AppResource.Ok);
             }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert(AppResource.Error, ex.Message, AppResource.Ok);
-        }
-        finally
-        {
-            IsLoading.IsVisible = false;
-            IsLoading.IsRunning = false;
-        }
+            finally
+            {
+                IsLoading.IsVisible = false;
+                IsLoading.IsRunning = false;
+            }
+        });
     }
     
     readonly HashSet<Entry> formatting = new();

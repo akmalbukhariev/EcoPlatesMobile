@@ -229,26 +229,32 @@ public partial class CompanyView : ContentView
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            await element.ScaleTo(1.0, 100, Easing.CubicIn);
-        }
+            if (sender is VisualElement element)
+            {
+                await element.ScaleTo(1.3, 100, Easing.CubicOut);
+                await element.ScaleTo(1.0, 100, Easing.CubicIn);
+            }
 
-        if (BindingContext is CompanyModel product && LikeCommand?.CanExecute(product) == true)
-        {
-            LikeCommand.Execute(product);
-        }
+            if (BindingContext is CompanyModel product && LikeCommand?.CanExecute(product) == true)
+            {
+                LikeCommand.Execute(product);
+            }
+        });
     }
 
     private async void Company_Tapped(object sender, TappedEventArgs e)
     {
-        await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
-        await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
-
-        if (BindingContext is CompanyModel company && ClickCommand?.CanExecute(company) == true)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            ClickCommand.Execute(company);
-        }
+            await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
+            await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
+
+            if (BindingContext is CompanyModel company && ClickCommand?.CanExecute(company) == true)
+            {
+                ClickCommand.Execute(company);
+            }
+        });
     }
 }

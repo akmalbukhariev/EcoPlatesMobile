@@ -53,35 +53,44 @@ public partial class UserCompanyPage : BasePage
     
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-        }
+            if (sender is VisualElement element)
+            {
+                await AnimateElementScaleDown(element);
+            }
 
-        await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync("..");
+        });
     }
 
     private async void Home_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-        }
+            if (sender is VisualElement element)
+            {
+                await AnimateElementScaleDown(element);
+            }
 
-        await appControl.MoveUserHome();
+            await appControl.MoveUserHome();
+        });
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-        }
+            if (sender is VisualElement element)
+            {
+                await AnimateElementScaleDown(element);
+            }
 
-        bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
-        await viewModel.CompanyLiked();
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
+
+            await viewModel.CompanyLiked();
+        });
     }
 
     private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -95,87 +104,102 @@ public partial class UserCompanyPage : BasePage
 
     private async void BackButton_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await Shell.Current.GoToAsync("..");
+        });
     }
 
     private async void PhoneNumber_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-        }
+            if (sender is VisualElement element)
+            {
+                await AnimateElementScaleDown(element);
+            }
 
-        if (!appControl.IsLoggedIn)
-        {
-            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
-            return;
-        }
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                return;
+            }
 
-        if (PhoneDialer.Default.IsSupported)
-            PhoneDialer.Default.Open(viewModel.PhoneNumber);
+            if (PhoneDialer.Default.IsSupported)
+                PhoneDialer.Default.Open(viewModel.PhoneNumber);
+        });
     }
 
     private async void MakerLocation_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-
-            if (!appControl.IsLoggedIn)
+            if (sender is VisualElement element)
             {
-                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
-                return;
-            }
+                await AnimateElementScaleDown(element);
 
-            cts = new CancellationTokenSource();
-            viewModel.IsLoading = true;
-            var userLocation = await locationService.GetCurrentLocationAsync(cts.Token);
-            if (userLocation == null)
-            {
+                if (!appControl.IsLoggedIn)
+                {
+                    await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                    return;
+                }
+
+                cts = new CancellationTokenSource();
+                viewModel.IsLoading = true;
+                var userLocation = await locationService.GetCurrentLocationAsync(cts.Token);
+                if (userLocation == null)
+                {
+                    viewModel.IsLoading = false;
+                    return;
+                }
                 viewModel.IsLoading = false;
-                return;
+
+                //var userLocation = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
+                var companyLocation = new Location(viewModel.Latitude, viewModel.Longitude);
+
+                string uri = $"https://www.google.com/maps/dir/?api=1" +
+                 $"&origin={userLocation.Latitude.ToString(CultureInfo.InvariantCulture)},{userLocation.Longitude.ToString(CultureInfo.InvariantCulture)}" +
+                 $"&destination={companyLocation.Latitude.ToString(CultureInfo.InvariantCulture)},{companyLocation.Longitude.ToString(CultureInfo.InvariantCulture)}" +
+                 $"&travelmode=driving";
+
+                await Launcher.Default.OpenAsync(uri);
             }
-            viewModel.IsLoading = false;
-
-            //var userLocation = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
-            var companyLocation = new Location(viewModel.Latitude, viewModel.Longitude);
-
-            string uri = $"https://www.google.com/maps/dir/?api=1" +
-             $"&origin={userLocation.Latitude.ToString(CultureInfo.InvariantCulture)},{userLocation.Longitude.ToString(CultureInfo.InvariantCulture)}" +
-             $"&destination={companyLocation.Latitude.ToString(CultureInfo.InvariantCulture)},{companyLocation.Longitude.ToString(CultureInfo.InvariantCulture)}" +
-             $"&travelmode=driving";
-
-            await Launcher.Default.OpenAsync(uri);
-        }
+        });
     }
 
     private async void Message_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-        }
+            if (sender is VisualElement element)
+            {
+                await AnimateElementScaleDown(element);
+            }
 
-        if (!appControl.IsLoggedIn)
-        {
-            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
-            return;
-        }
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                return;
+            }
+        });
     }
 
     private async void OnCompanyImage_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(imCompany);
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(imCompany);
 
-        fullImage.TranslationY = -100;
-        fullImage.Opacity = 0;
-        fullImage.IsVisible = true;
-        boxFullImage.IsVisible = true;
+            fullImage.TranslationY = -100;
+            fullImage.Opacity = 0;
+            fullImage.IsVisible = true;
+            boxFullImage.IsVisible = true;
 
-        await Task.WhenAll(
-            fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
-            fullImage.FadeTo(1, 250, Easing.SinIn)
-        );
+            await Task.WhenAll(
+                fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
+                fullImage.FadeTo(1, 250, Easing.SinIn)
+            );
+        });
     }
 
     private async void OnImage_Swiped(object sender, SwipedEventArgs e)
@@ -191,9 +215,12 @@ public partial class UserCompanyPage : BasePage
         fullImage.TranslationY = 0;
     }
 
-    private void OnImage_Tapped(object sender, TappedEventArgs e)
+    private async void OnImage_Tapped(object sender, TappedEventArgs e)
     {
-        boxFullImage.IsVisible = false;
-        fullImage.IsVisible = false;
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            boxFullImage.IsVisible = false;
+            fullImage.IsVisible = false;
+        });
     }
 }

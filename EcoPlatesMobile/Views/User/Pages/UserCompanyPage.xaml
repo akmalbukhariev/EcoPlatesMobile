@@ -5,6 +5,7 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserCompanyPage"
                xmlns:local="clr-namespace:EcoPlatesMobile.Views.User.Pages"
                BackgroundColor="White">
@@ -113,6 +114,9 @@
                          Grid.Row="2">
                 <CollectionView ItemsSource="{Binding Products}"
                                 Margin="0,20,0,0">
+                     <CollectionView.EmptyView>
+                        <view:EmptyViewText/>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 
                                          VerticalItemSpacing="15"/>

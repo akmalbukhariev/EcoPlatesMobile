@@ -72,43 +72,52 @@ public partial class LanguagePage : BasePage
 
     private async void OnFrameTapped(object sender, EventArgs e)
     {
-        if (!DropdownList.IsVisible)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            DropdownList.Opacity = 0;
-            DropdownList.IsVisible = true;
-            await DropdownList.FadeTo(1, 250);
-        }
-        else
-        {
-            await DropdownList.FadeTo(0, 250);
-            DropdownList.IsVisible = false;
-        }
+            if (!DropdownList.IsVisible)
+            {
+                DropdownList.Opacity = 0;
+                DropdownList.IsVisible = true;
+                await DropdownList.FadeTo(1, 250);
+            }
+            else
+            {
+                await DropdownList.FadeTo(0, 250);
+                DropdownList.IsVisible = false;
+            }
+        });
     }
 
     private async void OnLanguageSelected(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection.FirstOrDefault() is LanguageModel selectedLang)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            foreach (var lang in Languages)
-                lang.IsSelected = false;
+            if (e.CurrentSelection.FirstOrDefault() is LanguageModel selectedLang)
+            {
+                foreach (var lang in Languages)
+                    lang.IsSelected = false;
 
-            this.selectedLang = selectedLang;
+                this.selectedLang = selectedLang;
 
-            selectedLang.IsSelected = true;
-            SelectedLanguage = selectedLang.Name;
-            SelectedFlag = selectedLang.Flag;
-             
-            await DropdownList.FadeTo(0, 250);
-            DropdownList.IsVisible = false;
-        }
+                selectedLang.IsSelected = true;
+                SelectedLanguage = selectedLang.Name;
+                SelectedFlag = selectedLang.Flag;
+
+                await DropdownList.FadeTo(0, 250);
+                DropdownList.IsVisible = false;
+            }
+        });
     }
 
     private async void Next_Clicked(object sender, EventArgs e)
     {
-        var store = AppService.Get<AppStoreService>();
-        store.Set(AppKeys.IsLanguageSet, true);
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            var store = AppService.Get<AppStoreService>();
+            store.Set(AppKeys.IsLanguageSet, true);
 
-        languageService.SetCulture(selectedLang.Code);
-        await AppNavigatorService.NavigateTo(nameof(LoginPage));
+            languageService.SetCulture(selectedLang.Code);
+            await AppNavigatorService.NavigateTo(nameof(LoginPage));
+        });
     }
 }

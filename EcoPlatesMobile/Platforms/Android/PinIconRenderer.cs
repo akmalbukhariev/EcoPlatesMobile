@@ -31,6 +31,88 @@ namespace EcoPlatesMobile.Platforms.Android
             _pins = pins;
         }
 
+        public void OnMapReady(GoogleMap googleMap)
+        {
+            try
+            {
+                googleMap.Clear();
+
+                // 1) Add markers quickly with default icons (no awaits here)
+                var markerByPin = new Dictionary<long, Marker>();
+                foreach (var p in _pins)
+                {
+                    var loc = new LatLng(p.Location.Latitude, p.Location.Longitude);
+                    var marker = googleMap.AddMarker(new MarkerOptions()
+                        .SetPosition(loc)
+                        .SetIcon(BitmapDescriptorFactory.DefaultMarker()));
+                    marker.Tag = new CustomPinWrapper(p);
+                    markerByPin[p.CompanyId] = marker;
+                }
+
+                // 2) Hook clicks (still light)
+                googleMap.MarkerClick += (s, e) =>
+                {
+                    if (e.Marker?.Tag is CustomPinWrapper w) EventPinClick?.Invoke(w.Pin);
+                    e.Handled = true;
+                };
+
+                // 3) Tell caller we're done so UI can continue
+                _renderingDone.TrySetResult(true);
+
+                // 4) Load and apply logos in background (no blocking UI)
+                _ = Task.Run(async () =>
+                {
+                    using var http = new HttpClient();
+                    foreach (var p in _pins)
+                    {
+                        try
+                        {
+                            if (string.IsNullOrWhiteSpace(p.LogoUrl)) continue;
+
+                            var bytes = await http.GetByteArrayAsync(p.LogoUrl).ConfigureAwait(false);
+                            if (bytes?.Length == 0) continue;
+
+                            var logo = await global::Android.Graphics.BitmapFactory
+                                .DecodeByteArrayAsync(bytes, 0, bytes.Length)
+                                .ConfigureAwait(false);
+                            if (logo is null) continue;
+
+                            // circle compose (same as your code)
+                            int size = 100;
+                            var output = global::Android.Graphics.Bitmap.CreateBitmap(size, size, global::Android.Graphics.Bitmap.Config.Argb8888);
+                            var canvas = new global::Android.Graphics.Canvas(output);
+
+                            var paintBg = new global::Android.Graphics.Paint { AntiAlias = true, Color = global::Android.Graphics.Color.White };
+                            canvas.DrawCircle(size / 2, size / 2, size / 2, paintBg);
+
+                            var shader = new global::Android.Graphics.BitmapShader(
+                                global::Android.Graphics.Bitmap.CreateScaledBitmap(logo, size, size, false),
+                                global::Android.Graphics.Shader.TileMode.Clamp,
+                                global::Android.Graphics.Shader.TileMode.Clamp);
+                            var paintLogo = new global::Android.Graphics.Paint { AntiAlias = true };
+                            paintLogo.SetShader(shader);
+                            canvas.DrawCircle(size / 2, size / 2, size / 2 - 4, paintLogo);
+
+                            var icon = BitmapDescriptorFactory.FromBitmap(output);
+
+                            // apply on UI thread
+                            MainThread.BeginInvokeOnMainThread(() =>
+                            {
+                                if (markerByPin.TryGetValue(p.CompanyId, out var m))
+                                    m.SetIcon(icon);
+                            });
+                        }
+                        catch { /* ignore individual icon failures */ }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                _renderingDone.TrySetException(ex);
+            }
+        }
+
+        /*
         public async void OnMapReady(GoogleMap googleMap)
         {
             try
@@ -58,7 +140,6 @@ namespace EcoPlatesMobile.Platforms.Android
                                 var outputBitmap = global::Android.Graphics.Bitmap.CreateBitmap(size, size, global::Android.Graphics.Bitmap.Config.Argb8888);
                                 var canvas = new global::Android.Graphics.Canvas(outputBitmap);
 
-                                // Draw white circular background
                                 var paintBg = new global::Android.Graphics.Paint
                                 {
                                     AntiAlias = true,
@@ -66,7 +147,6 @@ namespace EcoPlatesMobile.Platforms.Android
                                 };
                                 canvas.DrawCircle(size / 2, size / 2, size / 2, paintBg);
 
-                                // Draw logo clipped to a circular shader
                                 var shader = new global::Android.Graphics.BitmapShader(
                                     global::Android.Graphics.Bitmap.CreateScaledBitmap(logo, size, size, false),
                                     global::Android.Graphics.Shader.TileMode.Clamp,
@@ -81,7 +161,6 @@ namespace EcoPlatesMobile.Platforms.Android
 
                                 canvas.DrawCircle(size / 2, size / 2, size / 2 - 4, paintLogo);
 
-                                // Convert to map icon
                                 icon = BitmapDescriptorFactory.FromBitmap(outputBitmap);
                             }
                         }
@@ -112,9 +191,10 @@ namespace EcoPlatesMobile.Platforms.Android
                 _renderingDone.TrySetResult(true);
             }
             catch (Exception ex)
-            { 
+            {
                 _renderingDone.TrySetException(ex);
             }
         }
+        */
     }
 }

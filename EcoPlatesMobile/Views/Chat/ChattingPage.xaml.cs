@@ -62,10 +62,13 @@ public partial class ChattingPage : BasePage
 
     private async void Number_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Label);
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(sender as Label);
 
-        if (PhoneDialer.Default.IsSupported)
-            PhoneDialer.Default.Open(viewModel.ReceiverNumber);
+            if (PhoneDialer.Default.IsSupported)
+                PhoneDialer.Default.Open(viewModel.ReceiverNumber);
+        });
     }
 
     private void ScrollToBottomRequested(object? sender, EventArgs e)
@@ -76,28 +79,34 @@ public partial class ChattingPage : BasePage
 
     private async void Send_Tapped(object sender, TappedEventArgs e)
     {
-        await sendImage.ScaleTo(0.8, 100, Easing.CubicOut);
-        await sendImage.ScaleTo(1.0, 100, Easing.CubicIn);
-
-        bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
-        string message = editorMessage.Text;
-        if (string.IsNullOrEmpty(message) || string.IsNullOrWhiteSpace(message)) return;
-
-        if (await viewModel.SendMessage(message))
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            editorMessage.Text = "";
-        }
+            await sendImage.ScaleTo(0.8, 100, Easing.CubicOut);
+            await sendImage.ScaleTo(1.0, 100, Easing.CubicIn);
+
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
+
+            string message = editorMessage.Text;
+            if (string.IsNullOrEmpty(message) || string.IsNullOrWhiteSpace(message)) return;
+
+            if (await viewModel.SendMessage(message))
+            {
+                editorMessage.Text = "";
+            }
+        });
     }
 
     private async void Receiver_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(borderReceiver);
-        
-        if (userSessionService.Role == UserRole.Company) return;
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(borderReceiver);
 
-        await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={viewModel.ChatPageModel.ReceiverId}");
+            if (userSessionService.Role == UserRole.Company) return;
+
+            await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={viewModel.ChatPageModel.ReceiverId}");
+        });
     } 
 
     private const int MaxMessageLength = 300;
@@ -111,8 +120,11 @@ public partial class ChattingPage : BasePage
     
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(imBack);
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(imBack);
 
-        await Back();
+            await Back();
+        });
     }
 }

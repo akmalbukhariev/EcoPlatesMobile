@@ -51,49 +51,55 @@ public partial class LocationRegistrationPage : BasePage
 
     private async void Save_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
-
-        bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-
-        try
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            var visibleRegion = map.VisibleRegion;
-            if (visibleRegion == null)
+            await AnimateElementScaleDown(sender as Image);
+
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
+
+            try
             {
-                return;
+                var visibleRegion = map.VisibleRegion;
+                if (visibleRegion == null)
+                {
+                    return;
+                }
+
+                bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocation, AppResource.Yes, AppResource.No);
+                if (!yes) return;
+
+                loading.ShowLoading = true;
+                var center = new Location(
+                    visibleRegion.Center.Latitude,
+                    visibleRegion.Center.Longitude
+                );
+
+                await Task.Delay(1000);
+                //appControl.ClippedMap = await CaptureAndCropCenterOfMap();
+                appControl.LocationForRegister = center;
+                loading.ShowLoading = false;
+
+                await AppNavigatorService.NavigateTo("..");
             }
-
-            bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocation, AppResource.Yes, AppResource.No);
-            if (!yes) return;
-
-            loading.ShowLoading = true;
-            var center = new Location(
-                visibleRegion.Center.Latitude,
-                visibleRegion.Center.Longitude
-            );
-
-            await Task.Delay(1000);
-            //appControl.ClippedMap = await CaptureAndCropCenterOfMap();
-            appControl.LocationForRegister = center;
-            loading.ShowLoading = false;
-
-            await AppNavigatorService.NavigateTo("..");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
-    }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
+    }   
     
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        appControl.LocationForRegister = null;
-        await AnimateElementScaleDown(imBack);
-        await AppNavigatorService.NavigateTo("..");
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            appControl.LocationForRegister = null;
+            await AnimateElementScaleDown(imBack);
+            await AppNavigatorService.NavigateTo("..");
+        });
     }
 }

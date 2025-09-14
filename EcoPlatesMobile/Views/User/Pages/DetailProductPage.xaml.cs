@@ -84,31 +84,37 @@ public partial class DetailProductPage : BasePage
 
     private async void Home_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-        }
+            if (sender is VisualElement element)
+            {
+                await AnimateElementScaleDown(element);
+            }
 
-        await appControl.MoveUserHome();
+            await appControl.MoveUserHome();
+        });
     }
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-        }
+            if (sender is VisualElement element)
+            {
+                await AnimateElementScaleDown(element);
+            }
 
-        bool isWifiOn = await appControl.CheckWifi();
-        if (!isWifiOn) return;
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
 
-        if (!appControl.IsLoggedIn)
-        {
-            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
-            return;
-        }
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                return;
+            }
 
-        await viewModel.ProductLiked();
+            await viewModel.ProductLiked();
+        });
     }
 
     private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -122,42 +128,52 @@ public partial class DetailProductPage : BasePage
 
     private async void Company_Tapped(object sender, TappedEventArgs e)
     {
-        await gridCompany.ScaleTo(0.95, 100, Easing.CubicOut);
-        await gridCompany.ScaleTo(1.0, 100, Easing.CubicIn);
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await gridCompany.ScaleTo(0.95, 100, Easing.CubicOut);
+            await gridCompany.ScaleTo(1.0, 100, Easing.CubicIn);
 
-        await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={viewModel.CompanyId}");
+            await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={viewModel.CompanyId}");
+        });
     }
 
     private async void BackButton_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await Shell.Current.GoToAsync("..");
+        });
     }
 
     private async void Star_Tapped(object sender, TappedEventArgs e)
     {
-        if (!appControl.IsLoggedIn)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
-            return;
-        }
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                return;
+            }
 
-        blockingOverlay.IsVisible = true;
+            blockingOverlay.IsVisible = true;
 
-        reviewView.Scale = 0.5;
-        reviewView.Opacity = 0;
-        reviewView.IsVisible = true;
+            reviewView.Scale = 0.5;
+            reviewView.Opacity = 0;
+            reviewView.IsVisible = true;
 
-        await Task.WhenAll(
-            reviewView.FadeTo(1, 200),
-            reviewView.ScaleTo(1, 200, Easing.BounceOut)
-        );
+            await Task.WhenAll(
+                reviewView.FadeTo(1, 200),
+                reviewView.ScaleTo(1, 200, Easing.BounceOut)
+            );
+
+        });
     }
-
+    
     private async void ReviewView_EventReviewClick()
     {
         blockingOverlay.IsVisible = false;
         reviewView.IsVisible = false;
-        
+
         await Shell.Current.GoToAsync(nameof(ReviewProductPage), true, new Dictionary<string, object>
         {
             ["ProductImage"] = viewModel.ProductImage.ToString().Trim(),
@@ -168,66 +184,84 @@ public partial class DetailProductPage : BasePage
 
     private async void OnProductImage_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(imProduct);
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(imProduct);
 
-        fullImage.TranslationY = -100;
-        fullImage.Opacity = 0;
-        fullImage.IsVisible = true;
-        boxFullImage.IsVisible = true;
+            fullImage.TranslationY = -100;
+            fullImage.Opacity = 0;
+            fullImage.IsVisible = true;
+            boxFullImage.IsVisible = true;
 
-        await Task.WhenAll(
-            fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
-            fullImage.FadeTo(1, 250, Easing.SinIn)
-        );
+            await Task.WhenAll(
+                fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
+                fullImage.FadeTo(1, 250, Easing.SinIn)
+            );
+        });
     }
 
     private async void OnImage_Swiped(object sender, SwipedEventArgs e)
     {
-        await Task.WhenAll(
-            fullImage.TranslateTo(0, -100, 250, Easing.SinOut),
-            fullImage.FadeTo(0, 250, Easing.SinOut)
-        );
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await Task.WhenAll(
+                fullImage.TranslateTo(0, -100, 250, Easing.SinOut),
+                fullImage.FadeTo(0, 250, Easing.SinOut)
+            );
 
-        boxFullImage.IsVisible = false;
-        fullImage.IsVisible = false;
-        fullImage.Opacity = 1;
-        fullImage.TranslationY = 0;
+            boxFullImage.IsVisible = false;
+            fullImage.IsVisible = false;
+            fullImage.Opacity = 1;
+            fullImage.TranslationY = 0;
+        });
     }
 
-    private void OnImage_Tapped(object sender, TappedEventArgs e)
+    private async void OnImage_Tapped(object sender, TappedEventArgs e)
     {
-        boxFullImage.IsVisible = false;
-        fullImage.IsVisible = false;
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            boxFullImage.IsVisible = false;
+            fullImage.IsVisible = false;
+        });
     }
 
-    private void Overlay_Tapped(object sender, EventArgs e)
+    private async void Overlay_Tapped(object sender, EventArgs e)
     {
-        ReviewView_EventCloseClick();
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            ReviewView_EventCloseClick();
+        });
     }
 
     private async void Message_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as HorizontalStackLayout);
-
-        if (!appControl.IsLoggedIn)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
-            return;
-        }
+            await AnimateElementScaleDown(sender as HorizontalStackLayout);
 
-        await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
-        {
-            ["ChatPageModel"] = viewModel.GetChatPageModel()
+            if (!appControl.IsLoggedIn)
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                return;
+            }
+
+            await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
+            {
+                ["ChatPageModel"] = viewModel.GetChatPageModel()
+            });
         });
     }
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(element);
-        }
+            if (sender is VisualElement element)
+            {
+                await AnimateElementScaleDown(element);
+            }
 
-        await Back();
+            await Back();
+        });
     }
 }

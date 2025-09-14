@@ -111,6 +111,9 @@ public partial class UserFavoritesPage : BasePage
 
     private async void BtnLogin_Clicked(object sender, EventArgs e)
     {
-        await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+        });
     }
 }

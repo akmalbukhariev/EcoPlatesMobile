@@ -58,28 +58,31 @@ public partial class LoginPage : BasePage
      
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        Color color = Constants.COLOR_COMPANY;
-        UserRole userRole = UserRole.User;
-        if (sender == btnComapny)
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            userSessionService.SetUser(UserRole.Company);
-            userRole = UserRole.Company;
-        }
-        else if (sender == btnUser)
-        {
-            color = Constants.COLOR_USER;
-            userSessionService.SetUser(UserRole.User);
-        }
+            Color color = Constants.COLOR_COMPANY;
+            UserRole userRole = UserRole.User;
+            if (sender == btnComapny)
+            {
+                userSessionService.SetUser(UserRole.Company);
+                userRole = UserRole.Company;
+            }
+            else if (sender == btnUser)
+            {
+                color = Constants.COLOR_USER;
+                userSessionService.SetUser(UserRole.User);
+            }
 
-        AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
+            AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
 
-        if (!appControl.IsLoggedIn && userRole == UserRole.User)
-        {
-            Application.Current.MainPage = new AppUserShell();
-        }
-        else
-        {
-            await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
-        }
+            if (!appControl.IsLoggedIn && userRole == UserRole.User)
+            {
+                Application.Current.MainPage = new AppUserShell();
+            }
+            else
+            {
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+            }
+        });
     }
 }

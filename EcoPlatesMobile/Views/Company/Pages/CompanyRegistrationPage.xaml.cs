@@ -90,111 +90,119 @@ public partial class CompanyRegistrationPage : BasePage
 
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)
     {
-        if (borderProductIcon.IsVisible)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await AnimateElementScaleDown(borderProductIcon);
-        }
-        else
-        {
-            await AnimateElementScaleDown(imSelectedProduct);
-        }
-
-        string action = await DisplayActionSheet(AppResource.ChooseOption,
-                                                 AppResource.Cancel,
-                                                 null,
-                                                 AppResource.SelectGallery,
-                                                 AppResource.TakePhoto);
-
-        FileResult result = null;
-
-        if (action == AppResource.SelectGallery)
-        {
-            if (MediaPicker.Default.IsCaptureSupported)
+            if (borderProductIcon.IsVisible)
             {
-                result = await MediaPicker.PickPhotoAsync();
+                await AnimateElementScaleDown(borderProductIcon);
             }
-        }
-        else if (action == AppResource.TakePhoto)
-        {
-            if (MediaPicker.Default.IsCaptureSupported)
+            else
             {
-                result = await MediaPicker.CapturePhotoAsync();
-            }
-        }
-
-        if (result != null)
-        {
-            string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
-
-            using (Stream sourceStream = await result.OpenReadAsync())
-            using (FileStream localFileStream = File.Create(localFilePath))
-            {
-                await sourceStream.CopyToAsync(localFileStream);
+                await AnimateElementScaleDown(imSelectedProduct);
             }
 
-            imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
-            imageStream = await result.OpenReadAsync();
-            isNewImageSelected = true;
+            string action = await DisplayActionSheet(AppResource.ChooseOption,
+                                                     AppResource.Cancel,
+                                                     null,
+                                                     AppResource.SelectGallery,
+                                                     AppResource.TakePhoto);
 
-            borderProductIcon.IsVisible = false;
-            imSelectedProduct.IsVisible = true;
-        }
+            FileResult result = null;
+
+            if (action == AppResource.SelectGallery)
+            {
+                if (MediaPicker.Default.IsCaptureSupported)
+                {
+                    result = await MediaPicker.PickPhotoAsync();
+                }
+            }
+            else if (action == AppResource.TakePhoto)
+            {
+                if (MediaPicker.Default.IsCaptureSupported)
+                {
+                    result = await MediaPicker.CapturePhotoAsync();
+                }
+            }
+
+            if (result != null)
+            {
+                string localFilePath = Path.Combine(FileSystem.CacheDirectory, result.FileName);
+
+                using (Stream sourceStream = await result.OpenReadAsync())
+                using (FileStream localFileStream = File.Create(localFilePath))
+                {
+                    await sourceStream.CopyToAsync(localFileStream);
+                }
+
+                imSelectedProduct.Source = ImageSource.FromFile(localFilePath);
+                imageStream = await result.OpenReadAsync();
+                isNewImageSelected = true;
+
+                borderProductIcon.IsVisible = false;
+                imSelectedProduct.IsVisible = true;
+            }
+        });
     }
 
     private async void CompanyTypeTapped(object sender, EventArgs e)
     {
-        var popup = new CompanyTypePickerPopup(CompanyTypeList);
-        var result = await this.ShowPopupAsync(popup);
-
-        if (result is CompanyTypeModel selected)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            labelCompanyType.Text = selected.Type;
-            selectedCompanyType = selected;
-        }
+            var popup = new CompanyTypePickerPopup(CompanyTypeList);
+            var result = await this.ShowPopupAsync(popup);
+
+            if (result is CompanyTypeModel selected)
+            {
+                labelCompanyType.Text = selected.Type;
+                selectedCompanyType = selected;
+            }
+        });
     }
 
     private async void BtnRegister_Clicked(object sender, EventArgs e)
     {
-        keyboardHelper.HideKeyboard();
-        
-        bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-        
-        try
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            string companyName = entryCompanyName.GetEntryText();
-            string selectedType = pickType.SelectedItem as string;
-            string phoneNumber = _phoneNumber;
-            string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
+            keyboardHelper.HideKeyboard();
 
-            if (string.IsNullOrEmpty(companyName) || string.IsNullOrEmpty(phoneNumber))
+            bool isWifiOn = await appControl.CheckWifi();
+            if (!isWifiOn) return;
+
+            try
             {
-                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageFieldCannotBeEmty);
-                return;
-            }
+                string companyName = entryCompanyName.GetEntryText();
+                string selectedType = pickType.SelectedItem as string;
+                string phoneNumber = _phoneNumber;
+                string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
 
-            if (string.IsNullOrEmpty(selectedType))
-            {
-                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageSelectCompanyType);
-                return;
-            }
+                if (string.IsNullOrEmpty(companyName) || string.IsNullOrEmpty(phoneNumber))
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageFieldCannotBeEmty);
+                    return;
+                }
 
-            if (imageStream == null)
-            {
-                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageSelectCompanyLogo);
-                return;
-            }
+                if (string.IsNullOrEmpty(selectedType))
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageSelectCompanyType);
+                    return;
+                }
 
-            //Location location = await locationService.GetCurrentLocationAsync();
-            //if (location == null) return;
+                if (imageStream == null)
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageSelectCompanyLogo);
+                    return;
+                }
 
-            if (appControl.LocationForRegister == null)
-            {
-                await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageLocationEmpty);
-                return;
-            }
+                //Location location = await locationService.GetCurrentLocationAsync();
+                //if (location == null) return;
 
-            var additionalData = new Dictionary<string, string>
+                if (appControl.LocationForRegister == null)
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageLocationEmpty);
+                    return;
+                }
+
+                var additionalData = new Dictionary<string, string>
             {
                 { "company_name", companyName },
                 { "business_type", appControl.BusinessTypeList[selectedType] },
@@ -204,54 +212,61 @@ public partial class CompanyRegistrationPage : BasePage
                 { "working_hours", formattedWorkingHours},
             };
 
-            loading.ShowLoading = true;
+                loading.ShowLoading = true;
 
-            Response response = await companyApiService.RegisterCompany(imageStream, additionalData);
-            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-            {
-                await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageRegistrationSuccess);
-                await appControl.LoginCompany(_phoneNumber);
+                Response response = await companyApiService.RegisterCompany(imageStream, additionalData);
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageRegistrationSuccess);
+                    await appControl.LoginCompany(_phoneNumber);
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                Console.WriteLine(ex.Message);
             }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
     }
 
-    private void BusinessType_SelectedIndexChanged(object sender, EventArgs e)
+    private async void BusinessType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        string selectedDisplay = pickType.SelectedItem as string;
-        if (selectedDisplay != null && appControl.BusinessTypeList.TryGetValue(selectedDisplay, out var backendValue))
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-             
-        }
+            string selectedDisplay = pickType.SelectedItem as string;
+            if (selectedDisplay != null && appControl.BusinessTypeList.TryGetValue(selectedDisplay, out var backendValue))
+            {
+
+            }
+        });
     }
 
     private async void Location_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Border);
-
-        cts = new CancellationTokenSource();
-        loading.ShowLoading = true; 
-        var locationService = new LocationService();
-        var location = await locationService.GetCurrentLocationAsync(cts.Token);
-        
-        loading.ShowLoading = false; 
-
-        if (location == null)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            return;
-        }
+            await AnimateElementScaleDown(sender as Border);
 
-        await AppNavigatorService.NavigateTo(nameof(LocationRegistrationPage));
+            cts = new CancellationTokenSource();
+            loading.ShowLoading = true;
+            var locationService = new LocationService();
+            var location = await locationService.GetCurrentLocationAsync(cts.Token);
+
+            loading.ShowLoading = false;
+
+            if (location == null)
+            {
+                return;
+            }
+
+            await AppNavigatorService.NavigateTo(nameof(LocationRegistrationPage));
+        });
     }
 }

@@ -65,63 +65,69 @@ public partial class LocationPage : BasePage
 
 	private async void Save_Tapped(object sender, TappedEventArgs e)
 	{
-		await AnimateElementScaleDown(imSave);
-
-		bool isWifiOn = await appControl.CheckWifi();
-		if (!isWifiOn) return;
-
-		try
+		await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
 		{
-			var visibleRegion = map.VisibleRegion;
-			if (visibleRegion == null)
+			await AnimateElementScaleDown(imSave);
+
+			bool isWifiOn = await appControl.CheckWifi();
+			if (!isWifiOn) return;
+
+			try
 			{
-				return;
-			}
+				var visibleRegion = map.VisibleRegion;
+				if (visibleRegion == null)
+				{
+					return;
+				}
 
-			bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocation, AppResource.Yes, AppResource.No);
-			if (!yes) return;
+				bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocation, AppResource.Yes, AppResource.No);
+				if (!yes) return;
 
-			var center = new Location(
-				visibleRegion.Center.Latitude,
-				visibleRegion.Center.Longitude
-			);
+				var center = new Location(
+					visibleRegion.Center.Latitude,
+					visibleRegion.Center.Longitude
+				);
 
-			var additionalData = new Dictionary<string, string>
+				var additionalData = new Dictionary<string, string>
 			{
 				{ "company_id", appControl.CompanyInfo.company_id.ToString() },
 				{ "location_latitude", center.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
 				{ "location_longitude", center.Longitude.ToString("F6", CultureInfo.InvariantCulture) }
 			};
 
-			loading.ShowLoading = true;
-			Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
+				loading.ShowLoading = true;
+				Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
 
-			if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-			{
-				appControl.CompanyInfo.location_latitude = center.Latitude;
-				appControl.CompanyInfo.location_longitude = center.Longitude;
+				if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+				{
+					appControl.CompanyInfo.location_latitude = center.Latitude;
+					appControl.CompanyInfo.location_longitude = center.Longitude;
 
-				await AlertService.ShowAlertAsync(AppResource.MessageUpdateLocation, AppResource.Success);
-				await AppNavigatorService.NavigateTo("..", true);
+					await AlertService.ShowAlertAsync(AppResource.MessageUpdateLocation, AppResource.Success);
+					await AppNavigatorService.NavigateTo("..", true);
+				}
+				else
+				{
+					await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+				Console.WriteLine(ex.Message);
 			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.Message);
-		}
-		finally
-		{
-			loading.ShowLoading = false;
-		}
+			finally
+			{
+				loading.ShowLoading = false;
+			}
+		});
 	}
 
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
-		await AnimateElementScaleDown(imBack);
-        await AppNavigatorService.NavigateTo("..");
+		await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+		{
+			await AnimateElementScaleDown(imBack);
+			await AppNavigatorService.NavigateTo("..");
+		});
     }
 }

@@ -162,10 +162,13 @@ public partial class UserProfilePage : BasePage
         await AppNavigatorService.NavigateTo(nameof(UserProfileInfoPage));
     }
 
-    private void OnLanguageTapped(object sender, TappedEventArgs e)
+    private async void OnLanguageTapped(object sender, TappedEventArgs e)
     {
-        dropdownListBack.IsVisible = true;
-        dropdownList.IsVisible = true;
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            dropdownListBack.IsVisible = true;
+            dropdownList.IsVisible = true;
+        });
     }
 
     private async void OnLanguageSelected(object sender, SelectionChangedEventArgs e)
@@ -199,7 +202,7 @@ public partial class UserProfilePage : BasePage
         dropdownListBack.IsVisible = false;
         dropdownList.IsVisible = false;
     }
-
+    
     private async void Tile_EventClick(object obj)
     {
         ListTileView view = (ListTileView)obj;

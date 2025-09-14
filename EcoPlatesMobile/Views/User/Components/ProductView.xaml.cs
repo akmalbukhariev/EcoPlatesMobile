@@ -253,26 +253,32 @@ public partial class ProductView : ContentView
 
     private async void Like_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VisualElement element)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await element.ScaleTo(1.3, 100, Easing.CubicOut);
-            await element.ScaleTo(1.0, 100, Easing.CubicIn);
-        }
-  
-        if (BindingContext is ProductModel product && LikeCommand?.CanExecute(product) == true)
-        {
-            LikeCommand.Execute(product);
-        }
+            if (sender is VisualElement element)
+            {
+                await element.ScaleTo(1.3, 100, Easing.CubicOut);
+                await element.ScaleTo(1.0, 100, Easing.CubicIn);
+            }
+
+            if (BindingContext is ProductModel product && LikeCommand?.CanExecute(product) == true)
+            {
+                LikeCommand.Execute(product);
+            }
+        });
     }
 
     private async void Product_Tapped(object sender, TappedEventArgs e)
     {
-        await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
-        await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
-
-        if (BindingContext is ProductModel product && ClickCommand?.CanExecute(product) == true)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            ClickCommand.Execute(product);
-        }
+            await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
+            await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
+
+            if (BindingContext is ProductModel product && ClickCommand?.CanExecute(product) == true)
+            {
+                ClickCommand.Execute(product);
+            }
+        });
     }
 }

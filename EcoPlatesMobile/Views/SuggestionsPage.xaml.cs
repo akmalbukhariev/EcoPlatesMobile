@@ -55,69 +55,72 @@ public partial class SuggestionsPage : BasePage
 
     private async void OnSubmitClicked(object sender, EventArgs e)
     {
-        string selectedType = pickType.SelectedItem as string;
-
-        if (string.IsNullOrWhiteSpace(selectedType) || string.IsNullOrWhiteSpace(messageEditor.Text))
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            await AlertService.ShowAlertAsync(AppResource.MissingInfo, AppResource.MessageMissingInfo, AppResource.Ok);
-            return;
-        }
+            string selectedType = pickType.SelectedItem as string;
 
-        try
-        {
-            loading.ShowLoading = true;
-
-            if (userSessionService.Role == UserRole.User)
+            if (string.IsNullOrWhiteSpace(selectedType) || string.IsNullOrWhiteSpace(messageEditor.Text))
             {
-                UserFeedbackInfoRequest request = new UserFeedbackInfoRequest()
-                {
-                    user_id = appControl.UserInfo.user_id,
-                    feedback_text = messageEditor.Text,
-                    feedback_type = FeedbackTypes[selectedType],
-                };
- 
-                Response response = await userApiService.RegisterUserFeedBack(request);
+                await AlertService.ShowAlertAsync(AppResource.MissingInfo, AppResource.MessageMissingInfo, AppResource.Ok);
+                return;
+            }
 
-                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            try
+            {
+                loading.ShowLoading = true;
+
+                if (userSessionService.Role == UserRole.User)
                 {
-                    await AlertService.ShowAlertAsync(AppResource.ThankYou, AppResource.MessageFeedback, AppResource.Close);
-                    await AppNavigatorService.NavigateTo("..");
+                    UserFeedbackInfoRequest request = new UserFeedbackInfoRequest()
+                    {
+                        user_id = appControl.UserInfo.user_id,
+                        feedback_text = messageEditor.Text,
+                        feedback_type = FeedbackTypes[selectedType],
+                    };
+
+                    Response response = await userApiService.RegisterUserFeedBack(request);
+
+                    if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.ThankYou, AppResource.MessageFeedback, AppResource.Close);
+                        await AppNavigatorService.NavigateTo("..");
+                    }
+                    else
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg, AppResource.Close);
+                    }
                 }
                 else
                 {
-                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg, AppResource.Close);
+                    CompanyFeedbackInfoRequest request = new CompanyFeedbackInfoRequest()
+                    {
+                        company_id = appControl.CompanyInfo.company_id,
+                        feedback_text = messageEditor.Text,
+                        feedback_type = FeedbackTypes[selectedType],
+                    };
+
+                    Response response = await companyApiService.RegisterCompanyFeedBack(request);
+
+                    if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.ThankYou, AppResource.MessageFeedback, AppResource.Close);
+                        await AppNavigatorService.NavigateTo("..");
+                    }
+                    else
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg, AppResource.Close);
+                    }
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                CompanyFeedbackInfoRequest request = new CompanyFeedbackInfoRequest()
-                {
-                    company_id = appControl.CompanyInfo.company_id,
-                    feedback_text = messageEditor.Text,
-                    feedback_type = FeedbackTypes[selectedType],
-                };
- 
-                Response response = await companyApiService.RegisterCompanyFeedBack(request);
-
-                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-                {
-                    await AlertService.ShowAlertAsync(AppResource.ThankYou, AppResource.MessageFeedback, AppResource.Close);
-                    await AppNavigatorService.NavigateTo("..");
-                }
-                else
-                {
-                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg, AppResource.Close);
-                }
+                Console.WriteLine(ex.ToString());
             }
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-        }
-        finally
-        {
-            loading.ShowLoading = false;
-        }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
     }
 }

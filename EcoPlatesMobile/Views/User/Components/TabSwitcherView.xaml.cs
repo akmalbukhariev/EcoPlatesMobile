@@ -58,33 +58,42 @@ public partial class TabSwitcherView : ContentView
         }
     }
 
-    private void OnTabClicked(object sender, EventArgs e)
+    private async void OnTabClicked(object sender, EventArgs e)
     {
-        if (sender is Button clickedButton)
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            if (clickedButton == button1)
+            if (sender is Button clickedButton)
             {
-                SetActiveTab(button1);
-                TabChanged?.Invoke(this, Tab1_Title);
+                if (clickedButton == button1)
+                {
+                    SetActiveTab(button1);
+                    TabChanged?.Invoke(this, Tab1_Title);
+                }
+                else if (clickedButton == button2)
+                {
+                    SetActiveTab(button2);
+                    TabChanged?.Invoke(this, Tab2_Title);
+                }
             }
-            else if (clickedButton == button2)
-            {
-                SetActiveTab(button2);
-                TabChanged?.Invoke(this, Tab2_Title);
-            }
-        }
+        });
     }
 
-    private void OnListTapped(object sender, TappedEventArgs e)
+    private async void OnListTapped(object sender, TappedEventArgs e)
     {
-        SetActiveTab(true);
-        TabChanged?.Invoke(this, Tab1_Title);
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            SetActiveTab(true);
+            TabChanged?.Invoke(this, Tab1_Title);
+        });
     }
 
-    private void OnMapTapped(object sender, TappedEventArgs e)
+    private async void OnMapTapped(object sender, TappedEventArgs e)
     {
-        SetActiveTab(false);
-        TabChanged?.Invoke(this, Tab2_Title);
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            SetActiveTab(false);
+            TabChanged?.Invoke(this, Tab2_Title);
+        });
     }
 
     private static void Tab1_TitleChanged(BindableObject bindable, object oldValue, object newValue)
