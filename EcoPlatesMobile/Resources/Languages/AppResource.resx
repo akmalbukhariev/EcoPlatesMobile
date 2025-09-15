@@ -978,5 +978,8 @@
     <value>A new update is available. Would you like to update the app now?</value>
     <comment>UpdateService</comment>
   </data>
-
+  <data name="EmptyTitle" xml:space="preserve">
+    <value>No items found</value>
+    <comment>EmptyViewText</comment>
+  </data>
 </root>

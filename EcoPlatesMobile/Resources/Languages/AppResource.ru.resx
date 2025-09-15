@@ -969,4 +969,8 @@
   <value>Доступно новое обновление. Хотите обновить приложение сейчас?</value>
   <comment>UpdateService</comment>
 </data>
+<data name="EmptyTitle" xml:space="preserve">
+  <value>Ничего не найдено</value>
+  <comment>EmptyViewText (Russian)</comment>
+</data>
 </root>

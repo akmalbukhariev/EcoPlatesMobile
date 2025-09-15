@@ -968,4 +968,8 @@
   <value>Dasturning yangi versiyasi mavjud. Dasturni hozir yangilashni xohlaysizmi?</value>
   <comment>UpdateService</comment>
 </data>
+<data name="EmptyTitle" xml:space="preserve">
+  <value>Hech narsa topilmadi</value>
+  <comment>EmptyViewText (Uzbek)</comment>
+</data>
 </root>

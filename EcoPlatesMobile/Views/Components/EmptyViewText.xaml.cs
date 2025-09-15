@@ -1,4 +1,3 @@
-using AndroidX.Emoji2.Text.FlatBuffer;
 using EcoPlatesMobile.Services;
 
 namespace EcoPlatesMobile.Views.Components;
