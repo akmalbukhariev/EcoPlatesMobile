@@ -102,6 +102,11 @@ public partial class PhoneNumberRegisterPage : BasePage
                     {
                         userSessionService.IsCompanyRegistrated = false;
                     }
+                    else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.Info, "User is blocked!");
+                        return;
+                    }
                 }
                 else if (userSessionService.Role == UserRole.User)
                 {
@@ -115,6 +120,11 @@ public partial class PhoneNumberRegisterPage : BasePage
                     else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
                     {
                         userSessionService.IsUserRegistrated = false;
+                    }
+                    else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.Info, "User is blocked!");
+                        return;
                     }
                 }
                 #endregion

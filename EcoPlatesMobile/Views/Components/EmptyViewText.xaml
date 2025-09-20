@@ -9,12 +9,12 @@
                  VerticalOptions="Center">
             <Image x:Name="image"
                    Source="empty.png"
-                   WidthRequest="100"
-                   HeightRequest="100"/>
+                   WidthRequest="80"
+                   HeightRequest="80"/>
             <Label x:Name="label" 
                    Text="{x:Static language:AppResource.EmptyTitle}" 
                    FontFamily="RobotoVar" 
-                   FontSize="18" 
+                   FontSize="16" 
                    TextColor="Gray" 
                    HorizontalOptions="Center"/>
     </StackLayout>

@@ -14,8 +14,8 @@
     <Grid RowDefinitions="*, Auto">
         <maps:Map x:Name="map"
                   MapType="Street"
-                  IsVisible="False"
-                  IsShowingUser="True"/>
+                  IsVisible="false"
+                  IsShowingUser="false"/>
         <Border x:Name="borderBottom"
                 Margin="10,0,10,20"
                 IsVisible="False"
@@ -60,7 +60,12 @@
         <Border x:Name="borderBackground"
                 BackgroundColor="Green"
                 IsVisible="Collapse" 
-                Opacity="0.05"/>
+                Opacity="0.05">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Map_Tapped"/>
+            </Border.GestureRecognizers>
+        </Border>
         <Border x:Name="borderBlock"
                 Stroke="Gray" 
                 IsVisible="Collapse"
@@ -132,7 +137,7 @@
                 <CollectionView ItemsSource="{Binding Companies}"
                                 ItemsUpdatingScrollMode="KeepScrollOffset"
                                 SelectionMode="None"
-                                RemainingItemsThreshold="4"
+                                RemainingItemsThreshold="{Binding RemainingThreshold}"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                     <CollectionView.EmptyView>
                         <view:EmptyViewText/>

@@ -325,7 +325,7 @@ namespace EcoPlatesMobile.Services
             return string.Format(uz, "{0:N0} so'm", price);
         }
 
-        #region Check url image
+#region Check url image
         private readonly string[] AllowedBases =
         {
             "http://95.182.118.233/uploads-user/profile-pictures/",

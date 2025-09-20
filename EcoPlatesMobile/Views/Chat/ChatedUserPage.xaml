@@ -9,17 +9,15 @@
                BackgroundColor="White">
     
     <Grid RowDefinitions="Auto, *">
-          <component:CustomHeader x:Name="header"
-                                  Title="{x:Static language:AppResource.Message}"
-                                  HeaderBackground="{StaticResource Company}"/>
-           <RefreshView x:Name="listProduct"
-                        IsRefreshing="{Binding IsRefreshing}"
-                        Command="{Binding RefreshCommand}"
-                        Margin="10"
-                        Grid.Row="1">
-                <CollectionView ItemsSource="{Binding Users}"
-                                RemainingItemsThreshold="1"
-                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+        <component:CustomHeader x:Name="header"
+                                Title="{x:Static language:AppResource.Message}"
+                                HeaderBackground="{StaticResource Company}"/>
+        <RefreshView x:Name="listProduct"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}"
+                     Margin="10"
+                     Grid.Row="1">
+                <CollectionView ItemsSource="{Binding Users}">
                     <CollectionView.EmptyView>
                         <view:EmptyViewText/>
                     </CollectionView.EmptyView>

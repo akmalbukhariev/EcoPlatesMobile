@@ -25,11 +25,12 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private bool isRefreshing;
         [ObservableProperty] private bool showLikedView;
         [ObservableProperty] private bool isLikedViewLiked;
+        [ObservableProperty] private int remainingThreshold = -1; 
 
         private int offset = 0;
         private const int PageSize = 4;
         private bool hasMoreItems = true;
-
+        
         private UserApiService userApiService;
         private AppControl appControl;
 
@@ -91,7 +92,7 @@ namespace EcoPlatesMobile.ViewModels.User
             offset = 0;
             hasMoreItems = true;
             Companies.Clear();
-             
+
             try
             {
                 IsLoading = true;
@@ -130,7 +131,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     }).ToList();
 
                     CompanyView.BeginNewAnimationCycle();
-                    Companies.AddRange(companyModels); 
+                    Companies.AddRange(companyModels);
 
                     offset += PageSize;
                     if (companyModels.Count < PageSize)
@@ -150,6 +151,7 @@ namespace EcoPlatesMobile.ViewModels.User
             finally
             {
                 IsLoading = false;
+                RemainingThreshold = 4;
             }
         }
 

@@ -59,16 +59,16 @@ public partial class UserMainSearchPage : BasePage
 
             bool isWifiOn = await appControl.CheckWifi();
             if (!isWifiOn) return;
-
-            viewModel.ShowProductResult = true;
-            viewModel.ShowFilterSearchList = false;
-            viewModel.ShowRecentSearchList = false;
-
+ 
             if (string.IsNullOrEmpty(viewModel.SearchText) || string.IsNullOrWhiteSpace(viewModel.SearchText))
             {
                 await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageFieldCannotBeEmty);
                 return;
             }
+
+            viewModel.ShowProductResult = true;
+            viewModel.ShowFilterSearchList = false;
+            viewModel.ShowRecentSearchList = false;
 
             viewModel.ExecuteSearch();
             await viewModel.LoadInitialProductAsync();

@@ -65,7 +65,12 @@ public partial class UserBrowserPage : BasePage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-  
+
+        if (appControl.IsLoggedIn)
+        {
+            map.IsShowingUser = true;
+        }
+
         WireMapReady();
 
         Shell.SetTabBarIsVisible(this, true);
@@ -570,5 +575,10 @@ public partial class UserBrowserPage : BasePage
         {
             await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
         });
+    }
+
+    private void Map_Tapped(object sender, TappedEventArgs e)
+    {
+        
     }
 }
