@@ -112,6 +112,12 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 CompanyListResponse response = appControl.IsLoggedIn ? await userApiService.GetCompaniesByCurrentLocationAndName(request) :
                                                                        await userApiService.GetCompaniesByCurrentLocationAndNameWithoutLogin(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {

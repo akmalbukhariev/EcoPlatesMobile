@@ -201,7 +201,13 @@ public partial class LocationSettingPage : BasePage
 
             loading.ShowLoading = true;
             Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
-
+            bool isOk = await appControl.CheckUserState(response);
+            if (!isOk)
+            {
+                await appControl.LogoutUser();
+                return;
+            }
+            
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 appControl.UserInfo.location_latitude = currentCenter.Latitude;

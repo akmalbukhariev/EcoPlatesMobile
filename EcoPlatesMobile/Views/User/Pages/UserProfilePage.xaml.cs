@@ -112,10 +112,10 @@ public partial class UserProfilePage : BasePage
         }
 
         if (appControl.RefreshUserProfilePage)
-            {
-                await LoadData();
-                appControl.RefreshUserProfilePage = false;
-            }
+        {
+            await LoadData();
+            appControl.RefreshUserProfilePage = false;
+        }
     }
 
     public IRelayCommand RefreshCommand => new RelayCommand(async () =>
@@ -133,6 +133,13 @@ public partial class UserProfilePage : BasePage
         loading.ShowLoading = true;
         
         response = await userApiService.GetUserInfo();
+        bool isOk = await appControl.CheckUserState(response);
+        if (!isOk)
+        {
+            await appControl.LogoutUser();
+            return;
+        }
+        
         if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
         {
             imUser.Source = appControl.GetImageUrlOrFallback(response.resultData.profile_picture_url);

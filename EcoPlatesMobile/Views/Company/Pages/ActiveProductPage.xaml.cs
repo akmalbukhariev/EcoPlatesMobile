@@ -173,6 +173,14 @@ public partial class ActiveProductPage : BasePage
                 };
 
                 Response response = await companyApiService.ChangePosterDeletionStatus(request);
+
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
+
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     viewModel.Products.Remove(product);
@@ -222,6 +230,13 @@ public partial class ActiveProductPage : BasePage
             };
 
             Response response = await companyApiService.ChangePosterDeletionStatusList(request);
+            bool isOk = await appControl.CheckUserState(response);
+            if (!isOk)
+            {
+                await appControl.LogoutCompany();
+                return;
+            }
+
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 MainThread.BeginInvokeOnMainThread(() =>

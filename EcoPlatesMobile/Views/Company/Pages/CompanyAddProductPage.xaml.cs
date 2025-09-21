@@ -140,15 +140,21 @@ public partial class CompanyAddProductPage : BasePage
                 }
 
                 var additionalData = new Dictionary<string, string>
-            {
-                { "company_id", appControl.CompanyInfo.company_id.ToString() },
-                { "title", title },
-                { "old_price", oldPrice.ToString() },
-                { "new_price", newPrice.ToString() },
-                { "description", editorDescription.Text ?? string.Empty },
-            };
+                {
+                    { "company_id", appControl.CompanyInfo.company_id.ToString() },
+                    { "title", title },
+                    { "old_price", oldPrice.ToString() },
+                    { "new_price", newPrice.ToString() },
+                    { "description", editorDescription.Text ?? string.Empty },
+                };
 
                 Response response = await companyApiService.RegisterPoster(imageStream, additionalData);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {

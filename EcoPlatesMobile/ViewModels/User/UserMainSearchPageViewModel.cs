@@ -113,7 +113,13 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocationAndName(request) :
                                                                       await userApiService.GetPostersByCurrentLocationAndNameWithoutLogin(request);
-
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
+                
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
                     var items = response.resultData;

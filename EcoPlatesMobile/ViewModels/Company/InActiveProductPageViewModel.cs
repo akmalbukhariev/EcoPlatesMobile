@@ -120,6 +120,12 @@ namespace EcoPlatesMobile.ViewModels.Company
                 };
 
                 PosterListResponse response = await companyApiService.GetCompanyPoster(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -209,7 +215,13 @@ namespace EcoPlatesMobile.ViewModels.Company
                 };
 
                 PosterListResponse response = await companyApiService.GetCompanyPoster(request);
-
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
+                
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
                     var items = response.resultData;

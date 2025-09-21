@@ -325,6 +325,38 @@ namespace EcoPlatesMobile.Services
             return string.Format(uz, "{0:N0} so'm", price);
         }
 
+        public async Task<bool> CheckUserState(Response response)
+        {
+            if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
+            {
+                await AlertService.ShowAlertAsync(AppResource.Info, "The user is deleted!");
+                return false;
+            }
+            else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
+            { 
+                await AlertService.ShowAlertAsync(AppResource.Info, "The user is blocked!");
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> CheckUserState<T>(Response<T> response) where T : class, new()
+        {
+            if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
+            {
+                await AlertService.ShowAlertAsync(AppResource.Info, "The user is deleted!");
+                return false;
+            }
+            else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
+            { 
+                await AlertService.ShowAlertAsync(AppResource.Info, "The user is blocked!");
+                return false;
+            }
+
+            return true;
+        }
+
 #region Check url image
         private readonly string[] AllowedBases =
         {

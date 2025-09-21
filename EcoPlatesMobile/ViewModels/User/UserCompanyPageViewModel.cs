@@ -83,6 +83,12 @@ namespace EcoPlatesMobile.ViewModels.User
             };
             
             Response response = await userApiService.UpdateUserBookmarkCompanyStatus(request);
+            bool isOk = await appControl.CheckUserState(response);
+            if (!isOk)
+            {
+                await appControl.LogoutUser();
+                return;
+            }
 
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
@@ -105,6 +111,12 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 CompanyWithPosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetCompanyWithPosters(CompanyId) :
                                                                                  await userApiService.GetCompanyWithPostersWithoutLogin(CompanyId);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {

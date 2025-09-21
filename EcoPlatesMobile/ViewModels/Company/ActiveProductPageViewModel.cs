@@ -111,49 +111,56 @@ namespace EcoPlatesMobile.ViewModels.Company
 
                 PosterListResponse response = await companyApiService.GetCompanyPoster(request);
 
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
+
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
-                {
-                    var items = response.resultData;
+                    {
+                        var items = response.resultData;
 
-                    if (items == null || items.Count == 0)
+                        if (items == null || items.Count == 0)
+                        {
+                            hasMoreItems = false;
+                            return;
+                        }
+
+                        var productModels = items.Select(item => new ProductModel
+                        {
+                            PromotionId = item.poster_id ?? 0,
+                            ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                            //Count = "2 qoldi",
+                            ProductName = item.title,
+                            ProductMakerName = item.company_name,
+                            NewPrice = appControl.GetUzbCurrency(item.new_price),
+                            OldPrice = appControl.GetUzbCurrency(item.old_price),
+                            NewPriceDigit = item.new_price ?? 0,
+                            OldPriceDigit = item.old_price ?? 0,
+                            description = item.description,
+                            Stars = item.avg_rating.ToString(),
+                            Liked = item.liked,
+                            BookmarkId = item.bookmark_id ?? 0,
+                            Distance = $"{item.distance_km:0.0} km"
+                        }).ToList();
+
+                        ProductView.BeginNewAnimationCycle();
+                        Products.AddRange(productModels);
+
+                        UpdateTitle();
+
+                        offset += PageSize;
+                        if (productModels.Count < PageSize)
+                        {
+                            hasMoreItems = false;
+                        }
+                    }
+                    else
                     {
                         hasMoreItems = false;
-                        return;
                     }
-
-                    var productModels = items.Select(item => new ProductModel
-                    {
-                        PromotionId = item.poster_id ?? 0,
-                        ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
-                        //Count = "2 qoldi",
-                        ProductName = item.title,
-                        ProductMakerName = item.company_name,
-                        NewPrice = appControl.GetUzbCurrency(item.new_price),
-                        OldPrice = appControl.GetUzbCurrency(item.old_price),
-                        NewPriceDigit = item.new_price ?? 0,
-                        OldPriceDigit = item.old_price ?? 0,
-                        description = item.description,
-                        Stars = item.avg_rating.ToString(),
-                        Liked = item.liked,
-                        BookmarkId = item.bookmark_id ?? 0,
-                        Distance = $"{item.distance_km:0.0} km"
-                    }).ToList();
-
-                    ProductView.BeginNewAnimationCycle();
-                    Products.AddRange(productModels);
-
-                    UpdateTitle();
-
-                    offset += PageSize;
-                    if (productModels.Count < PageSize)
-                    {
-                        hasMoreItems = false;
-                    }
-                }
-                else
-                {
-                    hasMoreItems = false;
-                }
             }
             catch (Exception ex)
             {
@@ -199,6 +206,13 @@ namespace EcoPlatesMobile.ViewModels.Company
                 };
 
                 PosterListResponse response = await companyApiService.GetCompanyPoster(request);
+
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {

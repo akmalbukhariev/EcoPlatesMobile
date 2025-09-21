@@ -203,18 +203,19 @@ public partial class CompanyRegistrationPage : BasePage
                 }
 
                 var additionalData = new Dictionary<string, string>
-            {
-                { "company_name", companyName },
-                { "business_type", appControl.BusinessTypeList[selectedType] },
-                { "phone_number", phoneNumber},
-                { "location_latitude", appControl.LocationForRegister.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
-                { "location_longitude", appControl.LocationForRegister.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
-                { "working_hours", formattedWorkingHours},
-            };
+                {
+                    { "company_name", companyName },
+                    { "business_type", appControl.BusinessTypeList[selectedType] },
+                    { "phone_number", phoneNumber},
+                    { "location_latitude", appControl.LocationForRegister.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
+                    { "location_longitude", appControl.LocationForRegister.Longitude.ToString("F6", CultureInfo.InvariantCulture) },
+                    { "working_hours", formattedWorkingHours},
+                };
 
                 loading.ShowLoading = true;
 
                 Response response = await companyApiService.RegisterCompany(imageStream, additionalData);
+                  
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageRegistrationSuccess);

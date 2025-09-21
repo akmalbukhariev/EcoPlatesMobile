@@ -37,18 +37,17 @@ namespace EcoPlatesMobile.Services.Api
 
         public CompanyApiService(RestClient client) : base(client)
         {
-
         }
 
         public async Task<LoginCompanyResponse> Login(LoginRequest data)
         {
             var response = await LoginAsync<LoginCompanyResponse>(LOGIN_COMPANY, data);
-
+            
             return response ?? new LoginCompanyResponse
-            {
-                resultCode = ApiResult.LOGIN_FAILED.GetCodeToString(),
-                resultMsg = ApiResult.LOGIN_FAILED.GetMessage()
-            };
+                {
+                    resultCode = ApiResult.LOGIN_FAILED.GetCodeToString(),
+                    resultMsg = ApiResult.LOGIN_FAILED.GetMessage()
+                };
         }
 
         public async Task<Response> CheckUser(string phoneNumber)

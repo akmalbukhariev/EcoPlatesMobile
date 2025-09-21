@@ -224,17 +224,23 @@ public partial class CompanyEditProductPage : BasePage
                 }
 
                 var additionalData = new Dictionary<string, string>
-            {
-                { "company_id", ProductModel.CompanyId.ToString() },
-                { "poster_id", ProductModel.PromotionId.ToString() },
-                { "title", title },
-                { "old_price", oldPrice.ToString() },
-                { "new_price", newPrice.ToString() },
-                { "image_file_name", oldFileName },
-                { "delete_image", isNewImageSelected.ToString().ToLower() },
-                { "description", editorDescription.Text ?? string.Empty },
-            };
+                {
+                    { "company_id", ProductModel.CompanyId.ToString() },
+                    { "poster_id", ProductModel.PromotionId.ToString() },
+                    { "title", title },
+                    { "old_price", oldPrice.ToString() },
+                    { "new_price", newPrice.ToString() },
+                    { "image_file_name", oldFileName },
+                    { "delete_image", isNewImageSelected.ToString().ToLower() },
+                    { "description", editorDescription.Text ?? string.Empty },
+                };
                 response = await companyApiService.UpdatePoster(imageStream, additionalData);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -391,6 +397,12 @@ public partial class CompanyEditProductPage : BasePage
                 ShowLoading(true);
 
                 Response response = await companyApiService.DeletePoster(ProductModel.PromotionId);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
@@ -439,6 +451,13 @@ public partial class CompanyEditProductPage : BasePage
                 };
 
                 Response response = await companyApiService.ChangePosterDeletionStatus(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
+                
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     appControl.RefreshCompanyProfilePage = true;

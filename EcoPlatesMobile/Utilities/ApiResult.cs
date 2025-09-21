@@ -24,6 +24,7 @@ namespace EcoPlatesMobile.Utilities
         NOT_FOUND = 155,
         FOUND = 156,
         BLOCK_USER = 157,
+        DELETE_USER = 158,
 
         TOKEN_INVALID = 200,
         TOKEN_EXPIRED_TIME = 201,
@@ -70,6 +71,7 @@ namespace EcoPlatesMobile.Utilities
             { ApiResult.USER_PASSWORD_NOT_MATCHED, "Password is not matched!" },
             { ApiResult.NOT_FOUND, "Not found!" },
             { ApiResult.BLOCK_USER, "User blocked!" },
+            { ApiResult.DELETE_USER, "User deleted!" },
             { ApiResult.FOUND, "Found!" },
             { ApiResult.TOKEN_INVALID, "Invalid token information." },
             { ApiResult.TOKEN_EXPIRED_TIME, "This token is expired." },

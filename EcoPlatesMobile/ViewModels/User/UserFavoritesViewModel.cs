@@ -89,6 +89,12 @@ namespace EcoPlatesMobile.ViewModels.User
                 };
 
                 BookmarkPromotionListResponse response = await userApiService.GetUserBookmarkPromotion(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -159,7 +165,13 @@ namespace EcoPlatesMobile.ViewModels.User
                 };
 
                 BookmarkCompanyListResponse response = await userApiService.GetUserBookmarkCompany(request);
-
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
+                
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
                     var items = response.resultData;
@@ -221,6 +233,13 @@ namespace EcoPlatesMobile.ViewModels.User
                 };
 
                 Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
+
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     Products.Remove(product);
@@ -254,6 +273,13 @@ namespace EcoPlatesMobile.ViewModels.User
                 };
 
                 Response response = await userApiService.UpdateUserBookmarkCompanyStatus(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
+
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     Companies.Remove(product);
@@ -301,6 +327,12 @@ namespace EcoPlatesMobile.ViewModels.User
                 };
 
                 BookmarkPromotionListResponse response = await userApiService.GetUserBookmarkPromotion(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -382,6 +414,12 @@ namespace EcoPlatesMobile.ViewModels.User
                 };
 
                 BookmarkCompanyListResponse response = await userApiService.GetUserBookmarkCompany(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {

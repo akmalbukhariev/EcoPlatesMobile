@@ -162,6 +162,13 @@ public partial class ReviewProductPage : BasePage
                 };
 
                 Response response = await userApiService.RegisterPosterFeedBack(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
+
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     await AlertService.ShowAlertAsync(AppResource.Rating, AppResource.ThankYou);

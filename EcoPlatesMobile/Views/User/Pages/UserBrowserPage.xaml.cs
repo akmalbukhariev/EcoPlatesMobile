@@ -111,7 +111,6 @@ public partial class UserBrowserPage : BasePage
             {
                 viewModel.IsLoading = false;
             }
-
         });
 
         await viewModel.LoadInitialAsync();
@@ -231,7 +230,13 @@ public partial class UserBrowserPage : BasePage
 
             loading.ShowLoading = true;
             Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
-
+            bool isOk = await appControl.CheckUserState(response);
+            if (!isOk)
+            {
+                await appControl.LogoutUser();
+                return;
+            }
+            
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 appControl.UserInfo.location_latitude = currentCenter.Latitude;
@@ -335,6 +340,12 @@ public partial class UserBrowserPage : BasePage
             };
 
             CompanyListResponse response = await userApiService.GetCompaniesByCurrentLocationWithoutLimit(request).ConfigureAwait(false);
+            bool isOk = await appControl.CheckUserState(response);
+            if (!isOk)
+            {
+                await appControl.LogoutUser();
+                return;
+            }
 
             if (ct.IsCancellationRequested) return;
 

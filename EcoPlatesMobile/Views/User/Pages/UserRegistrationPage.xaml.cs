@@ -81,6 +81,7 @@ public partial class UserRegistrationPage : BasePage
                 };
 
                 Response response = await userApiService.RegisterUser(request);
+                
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     await AlertService.ShowAlertAsync(AppResource.Success, AppResource.RegistrationCompleted);

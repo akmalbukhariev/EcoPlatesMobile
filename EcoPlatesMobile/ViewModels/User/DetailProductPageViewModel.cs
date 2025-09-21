@@ -69,6 +69,12 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 SpecificPromotionWithCompanyInfoResponse response = appControl.IsLoggedIn ? await userApiService.GetSpecificPromotionWithCompanyInfo(request) :
                                                                                              await userApiService.GetSpecificPromotionWithCompanyInfoWithoutLogin(request);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
 
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
@@ -137,7 +143,13 @@ namespace EcoPlatesMobile.ViewModels.User
             };
 
             Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
-
+            bool isOk = await appControl.CheckUserState(response);
+            if (!isOk)
+            {
+                await appControl.LogoutUser();
+                return;
+            }
+            
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 IsLikedViewLiked = likedProduct;

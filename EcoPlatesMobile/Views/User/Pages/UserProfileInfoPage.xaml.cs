@@ -138,10 +138,10 @@ public partial class UserProfileInfoPage : BasePage
                 if (!isSame || isNewImageSelected)
                 {
                     var additionalData = new Dictionary<string, string>
-                {
-                    { "user_id", userInfo.user_id.ToString() },
-                    { "first_name", enteredName },
-                };
+                    {
+                        { "user_id", userInfo.user_id.ToString() },
+                        { "first_name", enteredName },
+                    };
 
                     if (!isNewImageSelected)
                     {
@@ -150,7 +150,13 @@ public partial class UserProfileInfoPage : BasePage
 
                     loading.ShowLoading = true;
                     Response response = await userApiService.UpdateUserProfileInfo(imageStream, additionalData);
-
+                    bool isOk = await appControl.CheckUserState(response);
+                    if (!isOk)
+                    {
+                        await appControl.LogoutUser();
+                        return;
+                    }
+                    
                     if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                     {
                         appControl.RefreshUserProfilePage = true;
@@ -237,15 +243,20 @@ public partial class UserProfileInfoPage : BasePage
             try
             {
                 var additionalData = new Dictionary<string, string>
-            {
-                { "user_id", appControl.UserInfo.user_id.ToString() },
-                { "notification_enabled", notification.IsToggled.ToString() }
-            };
+                {
+                    { "user_id", appControl.UserInfo.user_id.ToString() },
+                    { "notification_enabled", notification.IsToggled.ToString() }
+                };
 
                 loading.ShowLoading = true;
 
                 Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
-
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     appControl.RefreshUserProfilePage = true;

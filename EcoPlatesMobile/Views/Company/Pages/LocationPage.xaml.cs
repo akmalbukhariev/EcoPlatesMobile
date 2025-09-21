@@ -89,15 +89,21 @@ public partial class LocationPage : BasePage
 				);
 
 				var additionalData = new Dictionary<string, string>
-			{
-				{ "company_id", appControl.CompanyInfo.company_id.ToString() },
-				{ "location_latitude", center.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
-				{ "location_longitude", center.Longitude.ToString("F6", CultureInfo.InvariantCulture) }
-			};
+				{
+					{ "company_id", appControl.CompanyInfo.company_id.ToString() },
+					{ "location_latitude", center.Latitude.ToString("F6", CultureInfo.InvariantCulture) },
+					{ "location_longitude", center.Longitude.ToString("F6", CultureInfo.InvariantCulture) }
+				};
 
 				loading.ShowLoading = true;
 				Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
-
+				bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
+				
 				if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
 				{
 					appControl.CompanyInfo.location_latitude = center.Latitude;

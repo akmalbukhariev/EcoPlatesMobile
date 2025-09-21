@@ -72,7 +72,13 @@ namespace EcoPlatesMobile.ViewModels.User
             };
 
             Response response = await userApiService.UpdateUserBookmarkPromotionStatus(request);
-            
+            bool isOk = await appControl.CheckUserState(response);
+            if (!isOk)
+            {
+                await appControl.LogoutUser();
+                return;
+            }
+
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 IsLikedViewLiked = product.Liked;
@@ -115,7 +121,13 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocation(request) :
                                                                        await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
-
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
+                
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
                     var items = response.resultData;
@@ -125,7 +137,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         hasMoreItems = false;
                         return;
                     }
-                    
+
                     var productModels = items.Select(item => new ProductModel
                     {
                         PromotionId = item.poster_id ?? 0,
@@ -196,7 +208,13 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocation(request) :
                                                                        await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
-
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
+                
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
                     var items = response.resultData;
@@ -208,7 +226,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     }
 
                     var productModels = items.Select(item => new ProductModel
-                    { 
+                    {
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
                         //Count = "2 qoldi",

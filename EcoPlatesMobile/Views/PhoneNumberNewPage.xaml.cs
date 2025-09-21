@@ -116,6 +116,13 @@ public partial class PhoneNumberNewPage : BasePage
                 else if (userSessionService.Role == UserRole.Company)
                     response = await companyApiService.CheckUser(phoneNumber);
 
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
+
                 if (response != null &&
                     (response.resultCode == ApiResult.USER_EXIST.GetCodeToString() ||
                      response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString()))

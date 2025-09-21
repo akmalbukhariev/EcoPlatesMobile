@@ -195,13 +195,13 @@ public partial class CompanyProfileInfoPage : BasePage
                 {
                     string formattedWorkingHours = $"{DateTime.Today.Add(startTimePicker.Time):hh:mm tt} - {DateTime.Today.Add(endTimePicker.Time):hh:mm tt}";
                     var additionalData = new Dictionary<string, string>
-                {
-                    { "company_id", appControl.CompanyInfo.company_id.ToString() },
-                    { "company_name", enteredName },
-                    { "business_type", appControl.BusinessTypeList[selectedType] },
-                    { "working_hours",  formattedWorkingHours},
-                    { "notification_enabled", notification.IsToggled.ToString() }
-                };
+                    {
+                        { "company_id", appControl.CompanyInfo.company_id.ToString() },
+                        { "company_name", enteredName },
+                        { "business_type", appControl.BusinessTypeList[selectedType] },
+                        { "working_hours",  formattedWorkingHours},
+                        { "notification_enabled", notification.IsToggled.ToString() }
+                    };
 
                     if (!isNewImageSelected)
                     {
@@ -211,6 +211,12 @@ public partial class CompanyProfileInfoPage : BasePage
                     loading.ShowLoading = true;
 
                     Response response = await companyApiService.UpdateCompanyProfileInfo(imageStream, additionalData);
+                    bool isOk = await appControl.CheckUserState(response);
+                    if (!isOk)
+                    {
+                        await appControl.LogoutCompany();
+                        return;
+                    }
 
                     if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                     {
@@ -306,15 +312,21 @@ public partial class CompanyProfileInfoPage : BasePage
             try
             {
                 var additionalData = new Dictionary<string, string>
-            {
-                { "company_id", appControl.CompanyInfo.company_id.ToString() },
-                { "notification_enabled", notification.IsToggled.ToString() }
-            };
+                {
+                    { "company_id", appControl.CompanyInfo.company_id.ToString() },
+                    { "notification_enabled", notification.IsToggled.ToString() }
+                };
 
                 loading.ShowLoading = true;
 
                 Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
-
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
+                
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     appControl.RefreshCompanyProfilePage = true;

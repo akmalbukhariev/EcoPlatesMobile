@@ -107,6 +107,11 @@ public partial class PhoneNumberRegisterPage : BasePage
                         await AlertService.ShowAlertAsync(AppResource.Info, "User is blocked!");
                         return;
                     }
+                    else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.Info, "User is deleted!");
+                        return;
+                    }
                 }
                 else if (userSessionService.Role == UserRole.User)
                 {
@@ -124,6 +129,11 @@ public partial class PhoneNumberRegisterPage : BasePage
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {
                         await AlertService.ShowAlertAsync(AppResource.Info, "User is blocked!");
+                        return;
+                    }
+                    else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
+                    {
+                        await AlertService.ShowAlertAsync(AppResource.Info, "User is deleted!");
                         return;
                     }
                 }
