@@ -5,7 +5,7 @@
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                x:Class="EcoPlatesMobile.Views.BlockedPage">
 
-    <Grid RowDefinitions="Auto, Auto, 30, Auto, 10, Auto"
+    <Grid RowDefinitions="Auto, 30, Auto, 20, Auto, 30, Auto"
           VerticalOptions="Center">
         <Grid.Resources>
             <ResourceDictionary>
@@ -22,26 +22,49 @@
         </Grid.Resources>
         <Image Source="alert.png"
                Aspect="AspectFill"
+               WidthRequest="100"
+               HeightRequest="100"
                VerticalOptions="Center"
                HorizontalOptions="Center"/>
-        <VerticalStackLayout Grid.Row="2">
-            <Label Text="{x:Static language:AppResource.AccountIssue}" Style="{StaticResource lbStyleBig}" FontSize="20" FontAttributes="Bold"/>
-            <Label Text="{x:Static language:AppResource.PleaseContactSupportForAssistanceTitle}" Style="{StaticResource lbStyleSmall}"/>
+        <VerticalStackLayout Margin="20,0,20,0"
+                             Grid.Row="2">
+            <Label Text="{x:Static language:AppResource.AccountIssue}" 
+                   Style="{StaticResource lbStyleBig}" 
+                   FontSize="25" 
+                   FontAttributes="Bold"/>
+            <Label Text="{x:Static language:AppResource.PleaseContactSupportForAssistanceTitle}"
+                   HorizontalTextAlignment="Center"
+                   Style="{StaticResource lbStyleSmall}"/>
         </VerticalStackLayout>
-        <Grid RowDefinitions="Auto,Auto" 
+        <Grid RowDefinitions="Auto,Auto"
               ColumnDefinitions="Auto, *"
-              HorizontalOptions="Center"
+              Margin="20,0,20,0"
               Grid.Row="4">
             <Label Text="{x:Static language:AppResource.Reason}" Style="{StaticResource lbStyleBig}"/>
             <Label Text="{x:Static language:AppResource.Until}" Style="{StaticResource lbStyleBig}" Grid.Row="1"/>
 
-            <Label Text="Violation of terms of service" Style="{StaticResource lbStyleSmall}" Grid.Column="1"/>
-            <Label Text="2023-07-0100:00" Style="{StaticResource lbStyleSmall}" Grid.Column="1" Grid.Row="1"/>
+            <Label Text="Violation of terms of service" Style="{StaticResource lbStyleSmall}" HorizontalOptions="Start" Margin="30,0,0,0" Grid.Column="1"/>
+            <Label Text="2023-07-0100:00" Style="{StaticResource lbStyleSmall}" HorizontalOptions="Start" Margin="30,0,0,0" Grid.Column="1" Grid.Row="1"/>
         </Grid>
-        <VerticalStackLayout Grid.Row="6">
-            <Button Text="{x:Static language:AppResource.ContactSupport}" Style="{StaticResource StyleBigButton}" BackgroundColor="#2764C9"/>
-            <Button Text="{x:Static language:AppResource.OpenHelpCenter}" Style="{StaticResource StyleBigButton}" BackgroundColor="White" BorderColor="Gray"/>
-            <Button Text="{x:Static language:AppResource.BackToLogin}" Style="{StaticResource StyleBigButton}" BackgroundColor="Transparent"/>
+        <VerticalStackLayout Spacing="10"
+                             Margin="20,0,20,0"
+                             Grid.Row="6">
+            <Button Text="{x:Static language:AppResource.ContactSupport}" 
+                    Style="{StaticResource StyleBigButton}" 
+                    BackgroundColor="#2764C9"
+                    Clicked="ContactSupport_Clicked"/>
+            <Button Text="{x:Static language:AppResource.OpenHelpCenter}" 
+                    Style="{StaticResource StyleBigButton}"
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    BorderColor="Gray"
+                    BorderWidth="1"
+                    Clicked="OpenHelpCenter_Clicked"/>
+            <Button Text="{x:Static language:AppResource.BackToLogin}" 
+                    Style="{StaticResource StyleBigButton}"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Clicked="BackToLogin_Clicked"/>
         </VerticalStackLayout>
     </Grid>
 </page:BasePage>

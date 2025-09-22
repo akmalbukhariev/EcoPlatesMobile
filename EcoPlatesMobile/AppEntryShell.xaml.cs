@@ -28,7 +28,8 @@ namespace EcoPlatesMobile
             {
                 var loginItem = new ShellContent
                 {
-                    ContentTemplate = new DataTemplate(typeof(LoginPage))
+                    //ContentTemplate = new DataTemplate(typeof(LoginPage))
+                    ContentTemplate = new DataTemplate(typeof(BlockedPage))
                 };
 
                 Items.Add(loginItem);
