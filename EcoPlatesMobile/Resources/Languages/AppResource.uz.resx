@@ -972,4 +972,40 @@
   <value>Hech narsa topilmadi</value>
   <comment>EmptyViewText (Uzbek)</comment>
 </data>
+ <data name="MessageSoftDelete" xml:space="preserve">
+    <value>Profilingiz faol emas. Agar bu xato bo‘lsa, iltimos qo‘llab-quvvatlash xizmatiga murojaat qiling.</value>
+    <comment>AppControl</comment>
+  </data>
+  <data name="MessageBlocked" xml:space="preserve">
+    <value>Profilingiz blok qilindi. Yordam olish uchun qo‘llab-quvvatlash xizmatiga murojaat qiling.</value>
+    <comment>AppControl</comment>
+  </data>
+  <data name="AccountIssue" xml:space="preserve">
+  <value>Profil muammosi</value>
+  <comment>BlockedPage (Uzbek)</comment>
+</data>
+<data name="PleaseContactSupportForAssistanceTitle" xml:space="preserve">
+  <value>Iltimos, yordam uchun qo‘llab-quvvatlash xizmatiga murojaat qiling.</value>
+  <comment>BlockedPage (Uzbek)</comment>
+</data>
+<data name="Reason" xml:space="preserve">
+  <value>Sabab</value>
+  <comment>BlockedPage (Uzbek)</comment>
+</data>
+<data name="Until" xml:space="preserve">
+  <value>Gacha</value>
+  <comment>BlockedPage (Uzbek)</comment>
+</data>
+<data name="ContactSupport" xml:space="preserve">
+  <value>Qo‘llab-quvvatlashga murojaat qiling</value>
+  <comment>BlockedPage (Uzbek)</comment>
+</data>
+<data name="OpenHelpCenter" xml:space="preserve">
+  <value>Yordam markazini ochish</value>
+  <comment>BlockedPage (Uzbek)</comment>
+</data>
+<data name="BackToLogin" xml:space="preserve">
+  <value>Kirish sahifasiga qaytish</value>
+  <comment>BlockedPage (Uzbek)</comment>
+</data>
 </root>

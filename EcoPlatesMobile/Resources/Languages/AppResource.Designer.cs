@@ -142,6 +142,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Issue.
+        /// </summary>
+        internal static string AccountIssue {
+            get {
+                return ResourceManager.GetString("AccountIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         internal static string Active {
@@ -237,6 +246,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to Login.
+        /// </summary>
+        internal static string BackToLogin {
+            get {
+                return ResourceManager.GetString("BackToLogin", resourceCulture);
             }
         }
         
@@ -417,6 +435,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string ConfirmTitle {
             get {
                 return ResourceManager.GetString("ConfirmTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Support.
+        /// </summary>
+        internal static string ContactSupport {
+            get {
+                return ResourceManager.GetString("ContactSupport", resourceCulture);
             }
         }
         
@@ -925,6 +952,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your account has been blocked. Please contact support for assistance..
+        /// </summary>
+        internal static string MessageBlocked {
+            get {
+                return ResourceManager.GetString("MessageBlocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to proceed?.
         /// </summary>
         internal static string MessageConfirm {
@@ -1141,6 +1177,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your account has been deactivated. Please contact support if this is a mistake..
+        /// </summary>
+        internal static string MessageSoftDelete {
+            get {
+                return ResourceManager.GetString("MessageSoftDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Turn on notifications for this app in Settings..
         /// </summary>
         internal static string MessageTurnOnNotification {
@@ -1294,6 +1339,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Help Center.
+        /// </summary>
+        internal static string OpenHelpCenter {
+            get {
+                return ResourceManager.GetString("OpenHelpCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Settings.
         /// </summary>
         internal static string OpenSettings {
@@ -1326,6 +1380,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Please {
             get {
                 return ResourceManager.GetString("Please", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please contact support for assistance..
+        /// </summary>
+        internal static string PleaseContactSupportForAssistanceTitle {
+            get {
+                return ResourceManager.GetString("PleaseContactSupportForAssistanceTitle", resourceCulture);
             }
         }
         
@@ -1443,6 +1506,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Rating {
             get {
                 return ResourceManager.GetString("Rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reason.
+        /// </summary>
+        internal static string Reason {
+            get {
+                return ResourceManager.GetString("Reason", resourceCulture);
             }
         }
         
@@ -1830,6 +1902,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Until.
+        /// </summary>
+        internal static string Until {
+            get {
+                return ResourceManager.GetString("Until", resourceCulture);
             }
         }
         

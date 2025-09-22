@@ -345,12 +345,12 @@ namespace EcoPlatesMobile.Services
         {
             if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
             {
-                await AlertService.ShowAlertAsync(AppResource.Info, "The user is deleted!");
+                await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                 return false;
             }
             else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
             { 
-                await AlertService.ShowAlertAsync(AppResource.Info, "The user is blocked!");
+                await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                 return false;
             }
 

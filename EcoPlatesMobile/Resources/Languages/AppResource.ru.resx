@@ -962,15 +962,51 @@
   <comment>UpdateService</comment>
 </data>
 	<data name="MessageForceUpdate" xml:space="preserve">
-  <value>Чтобы продолжить использование приложения, установите последнюю версию обновления.</value>
+    <value>Чтобы продолжить использование приложения, установите последнюю версию обновления.</value>
   <comment>UpdateService</comment>
 </data>
-	<data name="MessageOptionUpdate" xml:space="preserve">
+  <data name="MessageOptionUpdate" xml:space="preserve">
   <value>Доступно новое обновление. Хотите обновить приложение сейчас?</value>
   <comment>UpdateService</comment>
 </data>
 <data name="EmptyTitle" xml:space="preserve">
   <value>Ничего не найдено</value>
   <comment>EmptyViewText (Russian)</comment>
+</data>
+ <data name="MessageSoftDelete" xml:space="preserve">
+    <value>Ваш профиль неактивен. Если это ошибка, обратитесь в службу поддержки.</value>
+    <comment>AppControl</comment>
+  </data>
+  <data name="MessageBlocked" xml:space="preserve">
+    <value>Ваш профиль заблокирован. Для помощи обратитесь в службу поддержки.</value>
+    <comment>AppControl</comment>
+  </data>
+	<data name="AccountIssue" xml:space="preserve">
+  <value>Проблема с профиль</value>
+  <comment>BlockedPage (Russian)</comment>
+</data>
+	<data name="PleaseContactSupportForAssistanceTitle" xml:space="preserve">
+  <value>Пожалуйста, свяжитесь с поддержкой для получения помощи.</value>
+  <comment>BlockedPage (Russian)</comment>
+</data>
+	<data name="Reason" xml:space="preserve">
+  <value>Причина</value>
+  <comment>BlockedPage (Russian)</comment>
+</data>
+	<data name="Until" xml:space="preserve">
+  <value>До</value>
+  <comment>BlockedPage (Russian)</comment>
+</data>
+	<data name="ContactSupport" xml:space="preserve">
+  <value>Связаться с поддержкой</value>
+  <comment>BlockedPage (Russian)</comment>
+</data>
+	<data name="OpenHelpCenter" xml:space="preserve">
+  <value>Открыть Центр помощи</value>
+  <comment>BlockedPage (Russian)</comment>
+</data>
+	<data name="BackToLogin" xml:space="preserve">
+  <value>Назад к входу</value>
+  <comment>BlockedPage (Russian)</comment>
 </data>
 </root>

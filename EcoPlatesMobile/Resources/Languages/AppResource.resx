@@ -982,4 +982,40 @@
     <value>No items found</value>
     <comment>EmptyViewText</comment>
   </data>
+  <data name="MessageSoftDelete" xml:space="preserve">
+    <value>Your account has been deactivated. Please contact support if this is a mistake.</value>
+    <comment>AppControl</comment>
+  </data>
+  <data name="MessageBlocked" xml:space="preserve">
+    <value>Your account has been blocked. Please contact support for assistance.</value>
+    <comment>AppControl</comment>
+  </data>
+  <data name="AccountIssue" xml:space="preserve">
+    <value>Account Issue</value>
+    <comment>BlockedPage</comment>
+  </data>
+  <data name="PleaseContactSupportForAssistanceTitle" xml:space="preserve">
+    <value>Please contact support for assistance.</value>
+    <comment>BlockedPage</comment>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
+    <comment>BlockedPage</comment>
+  </data>
+  <data name="Until" xml:space="preserve">
+    <value>Until</value>
+    <comment>BlockedPage</comment>
+  </data>
+  <data name="ContactSupport" xml:space="preserve">
+    <value>Contact Support</value>
+    <comment>BlockedPage</comment>
+  </data>
+  <data name="OpenHelpCenter" xml:space="preserve">
+    <value>Open Help Center</value>
+    <comment>BlockedPage</comment>
+  </data>
+  <data name="BackToLogin" xml:space="preserve">
+    <value>Back to Login</value>
+    <comment>BlockedPage</comment>
+  </data>
 </root>
