@@ -8,6 +8,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
+using EcoPlatesMobile.Views;
 using Plugin.Firebase.CloudMessaging;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -26,6 +27,7 @@ namespace EcoPlatesMobile.Services
         public bool IsNotificationHandled { get; set; } = false;
         public bool IsLoggedIn { get; set; } = false;
         public bool UpdatePending = false;
+        public bool IsBlocked = false;
         public NotificationData NotificationData { get; set; }
         public CompanyInfo CompanyInfo { get; set; } = new CompanyInfo();
         public UserInfo UserInfo { get; set; } = new UserInfo();
@@ -172,8 +174,10 @@ namespace EcoPlatesMobile.Services
             }
         }
 
-        public async Task LogoutCompany()
+        public async Task LogoutCompany(bool isBlocked = true)
         {
+            IsBlocked = isBlocked;
+
             CompanyApiService companyApi = AppService.Get<CompanyApiService>();
             Response response = await companyApi.LogOut();
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -200,8 +204,10 @@ namespace EcoPlatesMobile.Services
             Application.Current.MainPage = new AppEntryShell();
         }
 
-        public async Task LogoutUser()
+        public async Task LogoutUser(bool isBlocked = true)
         {
+            IsBlocked = isBlocked;
+
             UserApiService userApi = AppService.Get<UserApiService>();
             Response response = await userApi.LogOut();
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -329,12 +335,12 @@ namespace EcoPlatesMobile.Services
         {
             if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
             {
-                await AlertService.ShowAlertAsync(AppResource.Info, "The user is deleted!");
+                await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                 return false;
             }
             else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
             { 
-                await AlertService.ShowAlertAsync(AppResource.Info, "The user is blocked!");
+                await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                 return false;
             }
 

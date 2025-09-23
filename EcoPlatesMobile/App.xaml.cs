@@ -96,6 +96,7 @@ namespace EcoPlatesMobile
             Routing.RegisterRoute(nameof(Views.Chat.ChatedUserPage), typeof(Views.Chat.ChatedUserPage));
             Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
             Routing.RegisterRoute(nameof(SuggestionsPage), typeof(SuggestionsPage));
+            Routing.RegisterRoute(nameof(BlockedPage), typeof(BlockedPage));
             #endregion
         }
 

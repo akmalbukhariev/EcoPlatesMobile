@@ -104,12 +104,14 @@ public partial class PhoneNumberRegisterPage : BasePage
                     }
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {
-                        await AlertService.ShowAlertAsync(AppResource.Info, "User is blocked!");
+                        await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
+                        await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
                     }
                     else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
                     {
-                        await AlertService.ShowAlertAsync(AppResource.Info, "User is deleted!");
+                        await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
+                        await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
                     }
                 }
@@ -128,12 +130,14 @@ public partial class PhoneNumberRegisterPage : BasePage
                     }
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {
-                        await AlertService.ShowAlertAsync(AppResource.Info, "User is blocked!");
+                        await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
+                        await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
                     }
                     else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
                     {
-                        await AlertService.ShowAlertAsync(AppResource.Info, "User is deleted!");
+                        await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
+                        await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
                     }
                 }

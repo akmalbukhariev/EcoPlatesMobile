@@ -32,28 +32,33 @@ public partial class LoginPage : BasePage
         bool isWifiOn = await appControl.CheckWifi();
 		if (!isWifiOn) return;
 
-        loading.ShowLoading = true;
-        
-        Color color = Colors.White;
-        if (appControl.IsLoggedIn)
-        { 
-            if (role == UserRole.Company)
-            {
-                color = Constants.COLOR_COMPANY;
-                userSessionService.SetUser(UserRole.Company);
-                await appControl.LoginCompany(phoneNumber);
-            }
-            else if (role == UserRole.User)
-            {
-                color = Constants.COLOR_USER;
-                userSessionService.SetUser(UserRole.User);
-                await appControl.LoginUser(phoneNumber);
-            }
+        if (appControl.IsBlocked)
+        {
+            appControl.IsBlocked = false;
+            await AppNavigatorService.NavigateTo(nameof(BlockedPage));
         }
-
-        AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
-
-        loading.ShowLoading = false;
+        else
+        {
+            loading.ShowLoading = true;
+            Color color = Colors.White;
+            if (appControl.IsLoggedIn)
+            {
+                if (role == UserRole.Company)
+                {
+                    color = Constants.COLOR_COMPANY;
+                    userSessionService.SetUser(UserRole.Company);
+                    await appControl.LoginCompany(phoneNumber);
+                }
+                else if (role == UserRole.User)
+                {
+                    color = Constants.COLOR_USER;
+                    userSessionService.SetUser(UserRole.User);
+                    await appControl.LoginUser(phoneNumber);
+                }
+            }
+            AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
+            loading.ShowLoading = false;
+        }
     }
      
     private async void Button_Clicked(object sender, EventArgs e)

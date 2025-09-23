@@ -292,7 +292,7 @@ public partial class UserProfileInfoPage : BasePage
             if (!answer) return;
 
             loading.ShowLoading = true;
-            await appControl.LogoutUser();
+            await appControl.LogoutUser(false);
             loading.ShowLoading = false;
         });
     }

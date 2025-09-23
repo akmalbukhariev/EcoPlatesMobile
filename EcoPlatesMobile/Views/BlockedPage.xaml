@@ -27,6 +27,7 @@
                VerticalOptions="Center"
                HorizontalOptions="Center"/>
         <VerticalStackLayout Margin="20,0,20,0"
+                             Spacing="10"
                              Grid.Row="2">
             <Label Text="{x:Static language:AppResource.AccountIssue}" 
                    Style="{StaticResource lbStyleBig}" 

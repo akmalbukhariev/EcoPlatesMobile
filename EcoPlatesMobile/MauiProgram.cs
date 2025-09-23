@@ -192,6 +192,8 @@ namespace EcoPlatesMobile
 
             builder.Services.AddTransient<ViewModels.Chat.ChattingPageViewModel>();
             builder.Services.AddTransient<ViewModels.Chat.ChatedUserPageViewModel>();
+
+            builder.Services.AddTransient<BlockedPage>();
             #endregion
         }
     }

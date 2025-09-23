@@ -362,7 +362,7 @@ public partial class CompanyProfileInfoPage : BasePage
             if (!answer) return;
 
             loading.ShowLoading = true;
-            await appControl.LogoutCompany();
+            await appControl.LogoutCompany(false);
             loading.ShowLoading = false;
         });
     }
