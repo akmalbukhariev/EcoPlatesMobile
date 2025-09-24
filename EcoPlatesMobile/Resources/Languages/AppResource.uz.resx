@@ -992,6 +992,10 @@
   <value>Sabab</value>
   <comment>BlockedPage (Uzbek)</comment>
 </data>
+ <data name="MessageReason" xml:space="preserve">
+    <value>Nomaqbul kontent uchun bloklangan</value>
+    <comment>BlockedPage</comment>
+  </data>
 <data name="Until" xml:space="preserve">
   <value>Gacha</value>
   <comment>BlockedPage (Uzbek)</comment>

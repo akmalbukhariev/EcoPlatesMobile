@@ -993,7 +993,11 @@
   <value>Причина</value>
   <comment>BlockedPage (Russian)</comment>
 </data>
-	<data name="Until" xml:space="preserve">
+<data name="MessageReason" xml:space="preserve">
+    <value>Аккаунт заблокирован за недопустимый контент</value>
+    <comment>BlockedPage</comment>
+  </data>
+<data name="Until" xml:space="preserve">
   <value>До</value>
   <comment>BlockedPage (Russian)</comment>
 </data>

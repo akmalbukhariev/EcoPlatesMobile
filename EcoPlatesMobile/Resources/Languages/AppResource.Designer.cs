@@ -1132,6 +1132,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blocked for inappropriate content.
+        /// </summary>
+        internal static string MessageReason {
+            get {
+                return ResourceManager.GetString("MessageReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registration has been completed successfully..
         /// </summary>
         internal static string MessageRegistrationSuccess {

@@ -41,10 +41,10 @@
               ColumnDefinitions="Auto, *"
               Margin="20,0,20,0"
               Grid.Row="4">
-            <Label Text="{x:Static language:AppResource.Reason}" Style="{StaticResource lbStyleBig}"/>
-            <Label Text="{x:Static language:AppResource.Until}" Style="{StaticResource lbStyleBig}" Grid.Row="1"/>
+            <Label Text="{x:Static language:AppResource.Reason}" Style="{StaticResource lbStyleBig}" HorizontalOptions="Start"/>
+            <Label Text="{x:Static language:AppResource.Until}" Style="{StaticResource lbStyleBig}" HorizontalOptions="Start" Grid.Row="1"/>
 
-            <Label Text="Violation of terms of service" Style="{StaticResource lbStyleSmall}" HorizontalOptions="Start" Margin="30,0,0,0" Grid.Column="1"/>
+            <Label Text="{x:Static language:AppResource.MessageReason}" Style="{StaticResource lbStyleSmall}" HorizontalOptions="Start" Margin="30,0,0,0" Grid.Column="1"/>
             <Label Text="2023-07-0100:00" Style="{StaticResource lbStyleSmall}" HorizontalOptions="Start" Margin="30,0,0,0" Grid.Column="1" Grid.Row="1"/>
         </Grid>
         <VerticalStackLayout Spacing="10"

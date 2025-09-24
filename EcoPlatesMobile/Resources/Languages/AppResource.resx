@@ -1002,6 +1002,10 @@
     <value>Reason</value>
     <comment>BlockedPage</comment>
   </data>
+  <data name="MessageReason" xml:space="preserve">
+    <value>Blocked for inappropriate content</value>
+    <comment>BlockedPage</comment>
+  </data>
   <data name="Until" xml:space="preserve">
     <value>Until</value>
     <comment>BlockedPage</comment>

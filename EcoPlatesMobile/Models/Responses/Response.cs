@@ -1,6 +1,4 @@
-﻿
-
-using EcoPlatesMobile.Utilities;
+﻿using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Models.Responses
 {
