@@ -35,6 +35,10 @@ namespace EcoPlatesMobile.Models.Company
         [JsonConverter(typeof(FlexibleDateTimeConverter))]
         public DateTime updated_at { get; set; }
 
+        [JsonProperty("blocked_until")]
+        [JsonConverter(typeof(FlexibleDateTimeConverter))]
+        public DateTime blocked_until { get; set; }
+
         public long? bookmark_id { get; set; } = 0;
         public bool liked { get; set; }
         public bool deleted { get; set; } = false;

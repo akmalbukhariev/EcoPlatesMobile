@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 namespace EcoPlatesMobile.Views.Company.Pages;
 
 [QueryProperty(nameof(ProductModel), nameof(ProductModel))]
+[QueryProperty(nameof(IsActivePage), nameof(IsActivePage))]
 public partial class CompanyEditProductPage : BasePage
 {
     private ProductModel productModel;
@@ -21,6 +22,16 @@ public partial class CompanyEditProductPage : BasePage
         set
         {
             productModel = value;
+        }
+    }
+
+    private bool isActivePage;
+    public bool IsActivePage
+    {
+        get => isActivePage;
+        set
+        {
+            isActivePage = value;
         }
     }
     
@@ -233,6 +244,7 @@ public partial class CompanyEditProductPage : BasePage
                     { "image_file_name", oldFileName },
                     { "delete_image", isNewImageSelected.ToString().ToLower() },
                     { "description", editorDescription.Text ?? string.Empty },
+                    { "deleted", (!IsActivePage).ToString().ToLower() },
                 };
                 response = await companyApiService.UpdatePoster(imageStream, additionalData);
                 bool isOk = await appControl.CheckUserState(response);

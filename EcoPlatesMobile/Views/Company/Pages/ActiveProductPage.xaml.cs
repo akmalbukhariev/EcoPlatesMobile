@@ -284,7 +284,7 @@ public partial class ActiveProductPage : BasePage
 
         await AnimateSelectAllBarAsync(selectAllBar, checkProduct.IsChecked);
     }
-
+    
     private async void StSelectAllProductTapped(object sender, TappedEventArgs e)
     {
         viewModel.checkAllCheckedAlready = true;

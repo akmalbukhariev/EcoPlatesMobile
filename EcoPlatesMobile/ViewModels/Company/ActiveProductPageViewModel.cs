@@ -84,7 +84,8 @@ namespace EcoPlatesMobile.ViewModels.Company
             product.CompanyId = appControl.CompanyInfo.company_id;
             await Shell.Current.GoToAsync(nameof(CompanyEditProductPage), new Dictionary<string, object>
             {
-                ["ProductModel"] = product
+                ["ProductModel"] = product,
+                ["IsActivePage"] = true
             });
         }
 

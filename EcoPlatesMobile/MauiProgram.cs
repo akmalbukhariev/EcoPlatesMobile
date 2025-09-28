@@ -61,16 +61,18 @@ namespace EcoPlatesMobile
  
         private static MauiAppBuilder RegisterFirebaseServices(this MauiAppBuilder builder)
         {
-            builder.ConfigureLifecycleEvents(events => {
-        #if IOS
+            builder.ConfigureLifecycleEvents(events =>
+            {
+#if IOS
                 events.AddiOS(iOS => iOS.WillFinishLaunching((_, __) => {
                     CrossFirebase.Initialize();
                     FirebaseCloudMessagingImplementation.Initialize();
                     return false;
                 }));
-        #elif ANDROID
+#elif ANDROID
                 events.AddAndroid(android => android.OnCreate((activity, _) =>
                 CrossFirebase.Initialize(activity)));
+                CrossFirebaseCloudMessaging.Current.SubscribeToTopicAsync("allUsers");
         #endif
             });
 

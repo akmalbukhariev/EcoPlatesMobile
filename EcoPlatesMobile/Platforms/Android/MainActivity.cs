@@ -153,7 +153,7 @@ namespace EcoPlatesMobile
             FirebaseCloudMessagingImplementation.OnNewIntent(intent);
         }
         */
- 
+
         private void CreateNotificationChannel()
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
@@ -172,7 +172,7 @@ namespace EcoPlatesMobile
 
             FirebaseCloudMessagingImplementation.ChannelId = Channel_ID;
             FirebaseCloudMessagingImplementation.SmallIconRef = Resource.Drawable.notification_icon;
-
+             
             FirebaseCloudMessagingImplementation.NotificationBuilderProvider = fcm =>
             {
                 var ctx = Android.App.Application.Context;
