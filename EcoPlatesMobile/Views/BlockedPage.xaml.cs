@@ -5,15 +5,31 @@ namespace EcoPlatesMobile.Views;
 public partial class BlockedPage : BasePage
 {
 	private readonly LanguageService languageService;
-	public BlockedPage(LanguageService languageService)
-	{
-		InitializeComponent();
-		this.languageService = languageService;
-	}
+    private readonly AppControl appControl1;
+    public BlockedPage(LanguageService languageService, AppControl appControl)
+    {
+        InitializeComponent();
+
+        this.languageService = languageService;
+        this.appControl1 = appControl;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        lbUntillBlock.Text = appControl1.StrBlockUntill;
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        appControl1.StrBlockUntill = "";
+    }
 
 	private async void ContactSupport_Clicked(object sender, EventArgs e)
-	{
-		await AnimateElementScaleDown(sender as Button);
+    {
+        await AnimateElementScaleDown(sender as Button);
         await Launcher.OpenAsync("https://t.me/SaleTopTicketBot");
     }
 

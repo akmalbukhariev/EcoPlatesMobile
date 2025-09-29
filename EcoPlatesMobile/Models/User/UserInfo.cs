@@ -34,9 +34,10 @@ namespace EcoPlatesMobile.Models.User
         [JsonProperty("updated_at")]
         [JsonConverter(typeof(FlexibleDateTimeConverter))]
         public DateTime updated_at { get; set; }
-        
+
         [JsonProperty("blocked_until")]
         [JsonConverter(typeof(FlexibleDateTimeConverter))]
         public DateTime blocked_until { get; set; }
+        public int violation_count { get; set; }
     }
 }

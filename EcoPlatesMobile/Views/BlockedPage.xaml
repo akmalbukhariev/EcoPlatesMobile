@@ -45,7 +45,7 @@
             <Label Text="{x:Static language:AppResource.Until}" Style="{StaticResource lbStyleBig}" HorizontalOptions="Start" Grid.Row="1"/>
 
             <Label Text="{x:Static language:AppResource.MessageReason}" Style="{StaticResource lbStyleSmall}" HorizontalOptions="Start" Margin="30,0,0,0" Grid.Column="1"/>
-            <Label Text="2023-07-0100:00" Style="{StaticResource lbStyleSmall}" HorizontalOptions="Start" Margin="30,0,0,0" Grid.Column="1" Grid.Row="1"/>
+            <Label x:Name="lbUntillBlock" Text="2023-07-0100:00" Style="{StaticResource lbStyleSmall}" HorizontalOptions="Start" Margin="30,0,0,0" Grid.Column="1" Grid.Row="1"/>
         </Grid>
         <VerticalStackLayout Spacing="10"
                              Margin="20,0,20,0"

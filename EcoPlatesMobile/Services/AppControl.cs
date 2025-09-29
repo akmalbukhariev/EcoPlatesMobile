@@ -28,6 +28,7 @@ namespace EcoPlatesMobile.Services
         public bool IsLoggedIn { get; set; } = false;
         public bool UpdatePending = false;
         public bool IsBlocked = false;
+        public string StrBlockUntill = "";
         public NotificationData NotificationData { get; set; }
         public CompanyInfo CompanyInfo { get; set; } = new CompanyInfo();
         public UserInfo UserInfo { get; set; } = new UserInfo();
@@ -333,13 +334,14 @@ namespace EcoPlatesMobile.Services
 
         public async Task<bool> CheckUserState(Response response)
         {
+            StrBlockUntill = response.resultMsg;
             if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                 return false;
             }
             else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
-            { 
+            {
                 await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                 return false;
             }
@@ -349,13 +351,14 @@ namespace EcoPlatesMobile.Services
 
         public async Task<bool> CheckUserState<T>(Response<T> response) where T : class, new()
         {
+            StrBlockUntill = response.resultMsg;
             if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
             {
                 await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                 return false;
             }
             else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
-            { 
+            {
                 await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                 return false;
             }
