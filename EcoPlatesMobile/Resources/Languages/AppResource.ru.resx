@@ -405,8 +405,11 @@
       <value>Выбрать</value>
       <comment>ActiveProductPage (Russian)</comment>
   </data>
-
-	<data name="InactiveProducts" xml:space="preserve">
+  <data name="MessageModeration" xml:space="preserve">
+    <value>Изображение вашего товара будет проверено автоматически и/или нашей командой модераторов перед тем, как оно станет видимым. В большинстве случаев проверка проходит быстро, но иногда может занять больше времени.</value>
+    <comment>ActiveProductPage</comment>
+</data>
+<data name="InactiveProducts" xml:space="preserve">
   <value>Неактивные товары</value>
   <comment>NonActiveProductPage</comment>
 </data>

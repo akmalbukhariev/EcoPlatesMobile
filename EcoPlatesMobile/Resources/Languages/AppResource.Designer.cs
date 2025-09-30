@@ -1096,6 +1096,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your product image will be reviewed automatically and/or by our moderation team before it becomes visible. Most reviews are completed quickly, but some may take longer..
+        /// </summary>
+        internal static string MessageModeration {
+            get {
+                return ResourceManager.GetString("MessageModeration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Old price and new price cannot be the same..
         /// </summary>
         internal static string MessageOldAndNewPrice {

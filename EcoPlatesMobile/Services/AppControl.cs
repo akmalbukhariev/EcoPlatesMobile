@@ -78,7 +78,7 @@ namespace EcoPlatesMobile.Services
             LoginCompanyResponse response = await apiService.Login(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                AppService.Get<AppControl>().CompanyInfo = response.resultData;
+                CompanyInfo = response.resultData;
 
                 var store = AppService.Get<AppStoreService>();
                 store.Set(AppKeys.UserRole, UserRole.Company);
@@ -129,7 +129,7 @@ namespace EcoPlatesMobile.Services
             LoginUserResponse response = await apiService.Login(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
-                AppService.Get<AppControl>().UserInfo = response.resultData;
+                UserInfo = response.resultData;
 
                 var store = AppService.Get<AppStoreService>();
                 store.Set(AppKeys.UserRole, UserRole.User);

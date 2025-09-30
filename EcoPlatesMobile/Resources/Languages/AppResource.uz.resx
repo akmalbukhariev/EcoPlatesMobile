@@ -405,7 +405,10 @@
     <value>Tanlash</value>
     <comment>ActiveProductPage (Uzbek)</comment>
 </data>
-
+<data name="MessageModeration" xml:space="preserve">
+    <value>Mahsulotingiz rasmi avtomatik tarzda va/yoki moderatsiya jamoamiz tomonidan tekshiriladi. Ko‘pgina tekshiruvlar tezda yakunlanadi, ammo ba’zida ko‘proq vaqt talab qilishi mumkin.</value>
+    <comment>ActiveProductPage</comment>
+ </data>
 <data name="InactiveProducts" xml:space="preserve">
   <value>Nofaol mahsulotlar</value>
   <comment>NonActiveProductPage</comment>
