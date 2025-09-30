@@ -90,7 +90,20 @@ public partial class ActiveProductPage : BasePage
 
     private async Task MoveToPageUsingNotification(NotificationData notificationData)
     {
-        var jObject = JObject.Parse(notificationData.body);
+        if (string.IsNullOrWhiteSpace(notificationData.body))
+            return;
+
+        JObject jObject = null;
+        try
+        {
+            jObject = JObject.Parse(notificationData.body);
+        }
+        catch
+        {
+            return;
+        }
+ 
+        //var jObject = JObject.Parse(notificationData.body);
         var notificationTypeValue = jObject["notificationType"]?.ToString();
 
         appControl.NotificationData = null;
@@ -105,7 +118,7 @@ public partial class ActiveProductPage : BasePage
             case NotificationType.NEW_MESSAGE:
                 var messageData = jObject.ToObject<NewMessagePushNotificationResponse>();
                 if (messageData.sender_type == UserRole.Company.ToString().ToUpper()) return;
-                
+
                 ChatPageModel chatPageModel = new ChatPageModel()
                 {
                     ReceiverName = messageData.sender_name,

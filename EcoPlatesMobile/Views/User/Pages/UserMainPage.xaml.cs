@@ -105,7 +105,20 @@ public partial class UserMainPage : BasePage
 
     private async Task MoveToPageUsingNotification(NotificationData notificationData)
     {
-        var jObject = JObject.Parse(notificationData.body);
+        if (string.IsNullOrWhiteSpace(notificationData.body))
+            return;
+
+        JObject jObject = null;
+        try
+        {
+            jObject = JObject.Parse(notificationData.body);
+        }
+        catch
+        {
+            return;
+        }
+        
+        //var jObject = JObject.Parse(notificationData.body);
         var notificationTypeValue = jObject["notificationType"]?.ToString();
 
         appControl.NotificationData = null;

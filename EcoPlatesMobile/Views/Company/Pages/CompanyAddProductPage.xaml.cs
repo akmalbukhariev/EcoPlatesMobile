@@ -158,7 +158,7 @@ public partial class CompanyAddProductPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);
+                    await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.MessageModeration);
                     await Shell.Current.GoToAsync("..");
                 }
                 else

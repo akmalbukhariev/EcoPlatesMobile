@@ -256,7 +256,7 @@ public partial class CompanyEditProductPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
+                    await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.MessageModeration);
                     await Shell.Current.GoToAsync("..");
                 }
                 else
