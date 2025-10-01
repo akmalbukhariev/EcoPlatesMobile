@@ -114,8 +114,22 @@
                          Grid.Row="2">
                 <CollectionView ItemsSource="{Binding Products}"
                                 Margin="0,20,0,0">
-                     <CollectionView.EmptyView>
-                        <view:EmptyViewText/>
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <ContentView.Triggers>
+                                <DataTrigger TargetType="ContentView"
+                                             Binding="{Binding IsLoading}"
+                                             Value="True">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="ContentView"
+                                             Binding="{Binding IsRefreshing}"
+                                             Value="True">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </ContentView.Triggers>
+                            <view:EmptyViewText/>
+                        </ContentView>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 

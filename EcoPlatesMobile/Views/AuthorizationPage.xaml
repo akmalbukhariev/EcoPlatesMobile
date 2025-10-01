@@ -75,7 +75,7 @@
                         HorizontalOptions="Center"
                         Style="{StaticResource styleLabel}"
                         FontFamily="RobotoVar"/>
-                <Label x:Name="lbSend" 
+                <Label x:Name="lbSend"
                         FontFamily="RobotoVar"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"

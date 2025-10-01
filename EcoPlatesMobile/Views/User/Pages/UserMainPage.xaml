@@ -80,7 +80,21 @@
                             RemainingItemsThreshold="4"
                             RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                 <CollectionView.EmptyView>
-                    <view:EmptyViewText/>
+                    <ContentView>
+                        <ContentView.Triggers>
+                            <DataTrigger TargetType="ContentView"
+                                         Binding="{Binding IsLoading}"
+                                         Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="ContentView"
+                                         Binding="{Binding IsRefreshing}"
+                                         Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </ContentView.Triggers>
+                        <view:EmptyViewText/>
+                    </ContentView>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" 

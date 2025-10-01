@@ -88,7 +88,7 @@ public partial class AuthorizationPage : BasePage
 			if (remaining > TimeSpan.Zero)
 			{
 				remaining -= TimeSpan.FromSeconds(1);
-				lbSend.Text = $"{AppResource.Resend} ({remaining:mm\\:ss})";
+                lbSend.Text = AppResource.Resend + $"({remaining:mm\\:ss})";
 			} 
 			else
 			{
@@ -158,9 +158,9 @@ public partial class AuthorizationPage : BasePage
 
 		lbSend.InputTransparent = true; 
 		lbSend.Opacity = 0.5;
-		lbSend.Text = $"{AppResource.Resend} ({remaining:mm\\:ss})";
+        lbSend.Text = AppResource.Resend + $"({remaining:mm\\:ss})";
 
-		if (!cooldownTimer.IsRunning) cooldownTimer.Start();
+        if (!cooldownTimer.IsRunning) cooldownTimer.Start();
 	}
 
 	private void EnableResendUI()

@@ -30,6 +30,8 @@ namespace EcoPlatesMobile.Utilities
         public static readonly string OsVersion = DeviceInfo.Current.VersionString;         // OS version string
 
         public const int MaxRadius = 10;
+        
+        public const string FirstRunKey = "IsFirstRun";
 
         public const string UZ = "uz";
         public const string EN = "en";

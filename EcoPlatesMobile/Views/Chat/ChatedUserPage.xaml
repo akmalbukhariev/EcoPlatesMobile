@@ -18,10 +18,24 @@
                      Margin="10"
                      Grid.Row="1">
                 <CollectionView ItemsSource="{Binding Users}">
-                    <CollectionView.EmptyView>
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <ContentView.Triggers>
+                            <DataTrigger TargetType="ContentView"
+                                         Binding="{Binding IsLoading}"
+                                         Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="ContentView"
+                                         Binding="{Binding IsRefreshing}"
+                                         Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </ContentView.Triggers>
                         <view:EmptyViewText/>
-                    </CollectionView.EmptyView>
-                    <CollectionView.ItemsLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 
                                          VerticalItemSpacing="10"
                                          HorizontalItemSpacing="10"/>
@@ -39,7 +53,6 @@
                                                    Invoked="NoActiveProduct_Invoked"/>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
-                                 
                             </SwipeView>-->
                             <Grid ColumnDefinitions="Auto, *, Auto"
                                   Margin="10,5,10,0">

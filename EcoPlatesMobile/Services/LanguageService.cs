@@ -14,7 +14,7 @@ namespace EcoPlatesMobile.Services
     public class LanguageService
     {
         private const string LanguageKey = "AppLanguage";
-        private const string DefaultLanguage = Constants.EN;
+        private const string DefaultLanguage = Constants.UZ;
 
         private readonly AppStoreService _appStore;
 
@@ -25,7 +25,16 @@ namespace EcoPlatesMobile.Services
 
         public void Init()
         {
-            string lang = _appStore.Get<string>(LanguageKey, DefaultLanguage);
+            var isFirstRun = _appStore.Get<bool>(Constants.FirstRunKey, true);
+            if (isFirstRun)
+            {
+                _appStore.Set(LanguageKey, DefaultLanguage);
+                _appStore.Set(Constants.FirstRunKey, false);
+                SetCulture(DefaultLanguage);
+                return;
+            }
+
+            var lang = _appStore.Get<string>(LanguageKey, DefaultLanguage);
             SetCulture(lang);
         }
 
