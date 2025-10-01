@@ -73,7 +73,7 @@ namespace EcoPlatesMobile
                 events.AddAndroid(android => android.OnCreate((activity, _) =>
                 CrossFirebase.Initialize(activity)));
                 CrossFirebaseCloudMessaging.Current.SubscribeToTopicAsync("allUsers");
-        #endif
+#endif
             });
 
             return builder;
