@@ -1,4 +1,5 @@
 using EcoPlatesMobile.Services;
+using EcoPlatesMobile.Utilities;
 
 namespace EcoPlatesMobile.Views;
 
@@ -43,13 +44,13 @@ public partial class BlockedPage : BasePage
 
         switch (currentLang.ToLower())
         {
-            case "uz":
+            case Constants.UZ:
                 url = "http://95.182.118.233/backend/help-center-uz.html";
                 break;
-            case "ru":
+            case Constants.RU:
                 url = "http://95.182.118.233/backend/help-center-ru.html";
                 break;
-            case "en":
+            case Constants.EN:
                 url = "http://95.182.118.233/backend/help-center-en.html";
                 break;
         }
