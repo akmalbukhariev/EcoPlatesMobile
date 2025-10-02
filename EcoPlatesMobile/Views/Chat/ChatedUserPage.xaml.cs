@@ -11,14 +11,16 @@ public partial class ChatedUserPage : BasePage
 	private ChatedUserPageViewModel viewModel;
     private UserSessionService userSessionService;
     private AppControl appControl;
-
-    public ChatedUserPage(ChatedUserPageViewModel viewModel, UserSessionService userSessionService, AppControl appControl)
+    private IStatusBarService statusBarService;
+    public ChatedUserPage(ChatedUserPageViewModel viewModel, UserSessionService userSessionService, AppControl appControl, IStatusBarService statusBarService)
     {
         InitializeComponent();
 
         this.viewModel = viewModel;
         this.userSessionService = userSessionService;
         this.appControl = appControl;
+        this.statusBarService = statusBarService;
+
         BindingContext = viewModel;
 
         //Loaded += Page_Loaded;
@@ -34,7 +36,7 @@ public partial class ChatedUserPage : BasePage
             header.HeaderBackground = color;
             listProduct.RefreshColor = color;
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             await viewModel.LoadCompaniesData();
@@ -44,13 +46,13 @@ public partial class ChatedUserPage : BasePage
             color = Constants.COLOR_COMPANY;
             listProduct.RefreshColor = color;
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             await viewModel.LoadUsersData();
         }
 
-        AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
+        statusBarService.SetStatusBarColor(color.ToArgbHex(), false);
     }
 
     protected override void OnDisappearing()
@@ -64,7 +66,7 @@ public partial class ChatedUserPage : BasePage
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             if (sender is Grid grid && grid.BindingContext is SenderIdInfo tappedItem)

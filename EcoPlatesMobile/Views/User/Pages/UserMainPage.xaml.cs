@@ -44,7 +44,7 @@ public partial class UserMainPage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
  
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
 		if (!isWifiOn) return;
 
         cts = new CancellationTokenSource();
@@ -173,7 +173,7 @@ public partial class UserMainPage : BasePage
 
     private async void CompanyTypeList_EventTypeClick(Components.TypeItem item)
     {
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         typeItem = item;

@@ -57,7 +57,7 @@ public partial class InActiveProductPage : BasePage
 
         header.ShowBack = ShowBack;
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         await viewModel.LoadInitialAsync();
@@ -65,7 +65,7 @@ public partial class InActiveProductPage : BasePage
 
     private async void DeleteProduct_Invoked(object sender, EventArgs e)
     {
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         if (sender is SwipeItem swipeItem &&
@@ -111,7 +111,7 @@ public partial class InActiveProductPage : BasePage
 
     private async void ActiveProduct_Invoked(object sender, EventArgs e)
     {
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         if (sender is SwipeItem swipeItem &&

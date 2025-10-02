@@ -65,7 +65,7 @@ public partial class UserBrowserSearchPage : BasePage
 
             await AnimateElementScaleDown(sender as Image);
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
  
             if (string.IsNullOrEmpty(viewModel.SearchText) || string.IsNullOrWhiteSpace(viewModel.SearchText))

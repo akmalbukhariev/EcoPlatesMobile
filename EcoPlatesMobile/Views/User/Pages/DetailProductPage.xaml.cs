@@ -36,7 +36,7 @@ public partial class DetailProductPage : BasePage
     {
         base.OnAppearing();
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         await viewModel.LoadDataAsync();
@@ -104,7 +104,7 @@ public partial class DetailProductPage : BasePage
                 await AnimateElementScaleDown(element);
             }
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             if (!appControl.IsLoggedIn)

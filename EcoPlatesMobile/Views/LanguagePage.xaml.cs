@@ -35,15 +35,17 @@ public partial class LanguagePage : BasePage
     LanguageModel selectedLang = null;
 
     private LanguageService languageService;
+    private IStatusBarService statusBarService;
 
-    public LanguagePage(LanguageService languageService)
+    public LanguagePage(LanguageService languageService, IStatusBarService statusBarService)
 	{
 		InitializeComponent();
         this.languageService = languageService;
+        this.statusBarService = statusBarService;
 
         Init();
 
-        AppService.Get<IStatusBarService>().SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
+        statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
         BindingContext = this;
     }
 

@@ -48,7 +48,7 @@ public partial class ChattingPage : BasePage
             loading.Color = Constants.COLOR_COMPANY;
         }
         
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
 		if (!isWifiOn) return;
 
         await viewModel.Init();
@@ -84,7 +84,7 @@ public partial class ChattingPage : BasePage
             await sendImage.ScaleTo(0.8, 100, Easing.CubicOut);
             await sendImage.ScaleTo(1.0, 100, Easing.CubicIn);
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             string message = editorMessage.Text;

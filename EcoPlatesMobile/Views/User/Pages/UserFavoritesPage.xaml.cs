@@ -26,7 +26,7 @@ public partial class UserFavoritesPage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         if (viewModel.IsRefreshingProduct)

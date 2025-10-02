@@ -939,8 +939,8 @@
   <value>Wifi</value>
   <comment>AppControl</comment>
 </data>
-<data name="MessageWifi" xml:space="preserve">
-  <value>Iltimos, wifi ni tekshiring</value>
+<data name="MessageNetworkOrWifi" xml:space="preserve">
+  <value>Извините, не удалось подключиться. Возможно, возникли проблемы с сетью или сервер временно недоступен.</value>
   <comment>AppControl</comment> 
 </data>
 <data name="NotificationOff" xml:space="preserve">

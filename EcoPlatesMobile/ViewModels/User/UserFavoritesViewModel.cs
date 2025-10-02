@@ -53,7 +53,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ProductClicked(ProductModel product)
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
@@ -64,7 +64,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ComapnyClicked(CompanyModel company)
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             await Shell.Current.GoToAsync($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
@@ -489,7 +489,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async Task RefreshProductAsync()
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             await LoadProductFavoritesAsync(isRefresh: true);
@@ -497,7 +497,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async Task RefreshCompanyAsync()
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             await LoadCompanyFavoritesAsync(isRefresh: true);
@@ -505,7 +505,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async Task LoadMoreProductAsync()
         { 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             if (IsLoading || IsRefreshingProduct || !hasMoreProductItems)
@@ -516,7 +516,7 @@ namespace EcoPlatesMobile.ViewModels.User
         
         private async Task LoadMoreCompanyAsync()
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             if (IsLoading || IsRefreshingCompany || !hasMoreCompanyItems)

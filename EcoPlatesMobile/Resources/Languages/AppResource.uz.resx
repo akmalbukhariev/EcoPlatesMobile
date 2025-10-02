@@ -938,8 +938,8 @@
   <value>Wifi</value>
   <comment>AppControl</comment>
 </data>
-<data name="MessageWifi" xml:space="preserve">
-  <value>Пожалуйста, проверьте Wi-Fi</value>
+<data name="MessageNetworkOrWifi" xml:space="preserve">
+  <value>Kechirasiz, ulanib bo‘lmadi. Ehtimol, tarmoqda muammo bor yoki server vaqtincha ishlamayapti.</value>
   <comment>AppControl</comment>
 </data>
 <data name="NotificationOff" xml:space="preserve">

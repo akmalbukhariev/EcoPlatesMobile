@@ -68,7 +68,7 @@ public partial class ActiveProductPage : BasePage
 
         header.ShowBack = ShowBack;
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         if (appControl.NotificationData != null && appControl.NotificationData.body != string.Empty)
@@ -90,20 +90,7 @@ public partial class ActiveProductPage : BasePage
 
     private async Task MoveToPageUsingNotification(NotificationData notificationData)
     {
-        if (string.IsNullOrWhiteSpace(notificationData.body))
-            return;
-
-        JObject jObject = null;
-        try
-        {
-            jObject = JObject.Parse(notificationData.body);
-        }
-        catch
-        {
-            return;
-        }
- 
-        //var jObject = JObject.Parse(notificationData.body);
+        var jObject = JObject.Parse(notificationData.body);
         var notificationTypeValue = jObject["notificationType"]?.ToString();
 
         appControl.NotificationData = null;
@@ -118,7 +105,7 @@ public partial class ActiveProductPage : BasePage
             case NotificationType.NEW_MESSAGE:
                 var messageData = jObject.ToObject<NewMessagePushNotificationResponse>();
                 if (messageData.sender_type == UserRole.Company.ToString().ToUpper()) return;
-
+                
                 ChatPageModel chatPageModel = new ChatPageModel()
                 {
                     ReceiverName = messageData.sender_name,
@@ -161,7 +148,7 @@ public partial class ActiveProductPage : BasePage
 
     private async void InActiveProduct_Invoked(object sender, EventArgs e)
     {
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         if (sender is SwipeItem swipeItem &&
@@ -297,7 +284,7 @@ public partial class ActiveProductPage : BasePage
 
         await AnimateSelectAllBarAsync(selectAllBar, checkProduct.IsChecked);
     }
-    
+
     private async void StSelectAllProductTapped(object sender, TappedEventArgs e)
     {
         viewModel.checkAllCheckedAlready = true;

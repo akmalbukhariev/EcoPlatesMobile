@@ -57,7 +57,7 @@ public partial class UserMainSearchPage : BasePage
 
             entrySearch.Unfocus();
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
  
             if (string.IsNullOrEmpty(viewModel.SearchText) || string.IsNullOrWhiteSpace(viewModel.SearchText))

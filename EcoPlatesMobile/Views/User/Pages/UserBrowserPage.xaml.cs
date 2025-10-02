@@ -75,7 +75,7 @@ public partial class UserBrowserPage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         cts = new CancellationTokenSource();
@@ -209,7 +209,7 @@ public partial class UserBrowserPage : BasePage
 
         await bottomSheet.DismissAsync();
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         try

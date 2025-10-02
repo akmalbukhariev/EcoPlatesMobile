@@ -131,7 +131,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public async Task ProductLiked()
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             likedProduct = !likedProduct;

@@ -1096,11 +1096,20 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your product image will be reviewed automatically and/or by our moderation team before it becomes visible. Most reviews are completed quickly, but some may take longer..
+        ///   Looks up a localized string similar to Your information will be reviewed by our moderation team. In most cases the review is completed quickly, but sometimes it may take longer..
         /// </summary>
         internal static string MessageModeration {
             get {
                 return ResourceManager.GetString("MessageModeration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oops! Couldn’t connect. This may be a network issue or the server..
+        /// </summary>
+        internal static string MessageNetworkOrWifi {
+            get {
+                return ResourceManager.GetString("MessageNetworkOrWifi", resourceCulture);
             }
         }
         
@@ -1227,15 +1236,6 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string MessageValidPrice {
             get {
                 return ResourceManager.GetString("MessageValidPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please check the wifi.
-        /// </summary>
-        internal static string MessageWifi {
-            get {
-                return ResourceManager.GetString("MessageWifi", resourceCulture);
             }
         }
         

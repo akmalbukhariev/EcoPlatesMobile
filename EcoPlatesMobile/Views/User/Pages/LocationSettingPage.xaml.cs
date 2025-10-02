@@ -180,7 +180,7 @@ public partial class LocationSettingPage : BasePage
 
         await bottomSheet.DismissAsync();
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         try

@@ -74,7 +74,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ComapnyClicked(CompanyModel company)
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
 		    if (!isWifiOn) return;
 
             await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
@@ -165,7 +165,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public IRelayCommand LoadCompanyMoreCommand => new RelayCommand(async () =>
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
 		    if (!isWifiOn) return;
 
             if (IsLoading || !hasMoreItems)
@@ -198,7 +198,7 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             keyboardHelper.HideKeyboard();
             
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
 		    if (!isWifiOn) return;
 
              SearchText = item.SearchedText;

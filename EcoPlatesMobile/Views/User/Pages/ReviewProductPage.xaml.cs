@@ -139,7 +139,7 @@ public partial class ReviewProductPage : BasePage
     {
         await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             try

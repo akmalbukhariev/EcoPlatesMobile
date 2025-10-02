@@ -11,14 +11,16 @@ public partial class LoginPage : BasePage
     private AppStoreService appStoreService;
     private AppControl appControl;
     private UserSessionService userSessionService;
-  
-    public LoginPage(AppStoreService appStoreService, AppControl appControl, UserSessionService userSessionService)
+    private IStatusBarService statusBarService;
+
+    public LoginPage(AppStoreService appStoreService, AppControl appControl, UserSessionService userSessionService, IStatusBarService statusBarService)
 	{
 		InitializeComponent();
 
         this.appStoreService = appStoreService;
         this.appControl = appControl;
         this.userSessionService = userSessionService;
+        this.statusBarService = statusBarService;
     }
 
     protected override async void OnAppearing()
@@ -29,7 +31,7 @@ public partial class LoginPage : BasePage
         appControl.IsLoggedIn = appStoreService.Get(AppKeys.IsLoggedIn, false);
         string phoneNumber = appStoreService.Get(AppKeys.PhoneNumber, "");
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
 		if (!isWifiOn) return;
 
         if (appControl.IsBlocked)
@@ -56,7 +58,7 @@ public partial class LoginPage : BasePage
                     await appControl.LoginUser(phoneNumber);
                 }
             }
-            AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
+            statusBarService.SetStatusBarColor(color.ToArgbHex(), false);
             loading.ShowLoading = false;
         }
     }
@@ -78,7 +80,7 @@ public partial class LoginPage : BasePage
                 userSessionService.SetUser(UserRole.User);
             }
 
-            AppService.Get<IStatusBarService>().SetStatusBarColor(color.ToArgbHex(), false);
+            statusBarService.SetStatusBarColor(color.ToArgbHex(), false);
 
             if (!appControl.IsLoggedIn && userRole == UserRole.User)
             {

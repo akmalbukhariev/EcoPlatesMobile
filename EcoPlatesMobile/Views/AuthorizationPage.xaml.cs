@@ -221,7 +221,7 @@ public partial class AuthorizationPage : BasePage
         {
 			keyboardHelper.HideKeyboard();
 
-			bool isWifiOn = await appControl.CheckWifi();
+			bool isWifiOn = await appControl.CheckWifiOrNetwork();
 			if (!isWifiOn) return;
 
 			/*if (!CheckVerificationCode())

@@ -69,7 +69,7 @@ public partial class LocationPage : BasePage
 		{
 			await AnimateElementScaleDown(imSave);
 
-			bool isWifiOn = await appControl.CheckWifi();
+			bool isWifiOn = await appControl.CheckWifiOrNetwork();
 			if (!isWifiOn) return;
 
 			try

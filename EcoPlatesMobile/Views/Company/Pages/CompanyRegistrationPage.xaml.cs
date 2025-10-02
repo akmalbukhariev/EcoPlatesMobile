@@ -165,7 +165,7 @@ public partial class CompanyRegistrationPage : BasePage
         {
             keyboardHelper.HideKeyboard();
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             try

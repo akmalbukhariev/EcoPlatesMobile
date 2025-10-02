@@ -29,7 +29,7 @@ public partial class UserCompanyPage : BasePage
     {
         base.OnAppearing();
 
-        bool isWifiOn = await appControl.CheckWifi();
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
         if (!isWifiOn) return;
 
         viewModel.IsLoading = true;
@@ -86,7 +86,7 @@ public partial class UserCompanyPage : BasePage
                 await AnimateElementScaleDown(element);
             }
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             await viewModel.CompanyLiked();

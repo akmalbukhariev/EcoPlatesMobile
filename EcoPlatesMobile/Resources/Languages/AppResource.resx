@@ -948,8 +948,8 @@
     <value>Wifi</value>
     <comment>AppControl</comment>
   </data>
-  <data name="MessageWifi" xml:space="preserve">
-    <value>Please check the wifi</value>
+  <data name="MessageNetworkOrWifi" xml:space="preserve">
+    <value>Oops! Couldn’t connect. This may be a network issue or the server.</value>
     <comment>AppControl</comment>
   </data>
   <data name="NotificationOff" xml:space="preserve">

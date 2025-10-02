@@ -106,7 +106,7 @@ public partial class CompanyAddProductPage : BasePage
         {
             keyboardHelper.HideKeyboard();
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             try
@@ -158,7 +158,7 @@ public partial class CompanyAddProductPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.MessageModeration);
+                    await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);
                     await Shell.Current.GoToAsync("..");
                 }
                 else

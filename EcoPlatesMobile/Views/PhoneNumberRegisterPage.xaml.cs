@@ -63,7 +63,7 @@ public partial class PhoneNumberRegisterPage : BasePage
             //await entryNumber.UnFocus();
             keyboardHelper.HideKeyboard();
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             string rawPhone = entryNumber.GetEntryText();
@@ -104,14 +104,12 @@ public partial class PhoneNumberRegisterPage : BasePage
                     }
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {
-                        appControl.StrBlockUntill = response.resultMsg;
                         await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                         await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
                     }
                     else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
                     {
-                        appControl.StrBlockUntill = response.resultMsg;
                         await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                         await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
@@ -132,14 +130,12 @@ public partial class PhoneNumberRegisterPage : BasePage
                     }
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {
-                        appControl.StrBlockUntill = response.resultMsg;
                         await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                         await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
                     }
                     else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
                     {
-                        appControl.StrBlockUntill = response.resultMsg;
                         await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                         await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;

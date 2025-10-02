@@ -50,7 +50,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void CompanyLiked(CompanyModel product)
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             if (!appControl.IsLoggedIn)
@@ -87,7 +87,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         private async void ComapnyClicked(CompanyModel company)
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             await Shell.Current.GoToAsync($"{nameof(UserCompanyPage)}?CompanyId={company.CompanyId}");
@@ -260,13 +260,13 @@ namespace EcoPlatesMobile.ViewModels.User
         private async Task LoadMoreAsync()
         {
             if (IsLoading || IsRefreshing || !hasMoreItems) return;
-            bool online = await appControl.CheckWifi(); if (!online) return;
+            bool online = await appControl.CheckWifiOrNetwork(); if (!online) return;
             await LoadCompaniesAsync();
         }
         
         private async Task RefreshAsync()
         {
-            bool online = await appControl.CheckWifi(); if (!online) return;
+            bool online = await appControl.CheckWifiOrNetwork(); if (!online) return;
             await LoadCompaniesAsync(isRefresh: true);
         } 
     }   

@@ -160,7 +160,7 @@ public partial class CompanyProfileInfoPage : BasePage
         {
             keyboardHelper.HideKeyboard();
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             try
@@ -306,7 +306,7 @@ public partial class CompanyProfileInfoPage : BasePage
                 }
             }
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             try
@@ -351,7 +351,7 @@ public partial class CompanyProfileInfoPage : BasePage
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             bool answer = await AlertService.ShowConfirmationAsync(

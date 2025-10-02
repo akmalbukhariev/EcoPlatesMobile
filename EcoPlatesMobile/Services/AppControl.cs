@@ -261,11 +261,11 @@ namespace EcoPlatesMobile.Services
             Application.Current.MainPage = new AppUserShell();
         }
 
-        public async Task<bool> CheckWifi()
+        public async Task<bool> CheckWifiOrNetwork()
         {
             if (!IsConnectedToWifi())
             {
-                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageWifi, AppResource.Ok);
+                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
                 return false;
             }
 
@@ -371,7 +371,7 @@ namespace EcoPlatesMobile.Services
         {
             "http://95.182.118.233/uploads-user/profile-pictures/",
             "http://95.182.118.233/uploads-company/profile-pictures/",
-            "http://95.182.118.233/uploads-company/poster-pictures/" // trailing slash OK/handled
+            "http://95.182.118.233/uploads-company/poster-pictures/"
         };
 
         public string GetImageUrlOrFallback(string? imageUrl, string fallback = "no_image.png")

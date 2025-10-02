@@ -55,7 +55,7 @@ public partial class LocationRegistrationPage : BasePage
         {
             await AnimateElementScaleDown(sender as Image);
 
-            bool isWifiOn = await appControl.CheckWifi();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
             try
