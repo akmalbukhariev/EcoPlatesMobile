@@ -13,8 +13,8 @@ namespace EcoPlatesMobile.Services.Api
     public class CompanyApiService : ApiService
     {
         #region Url
-        private const string BASE_URL = "";
-        //private const string BASE_URL = "ecoplatescompany/api/v1/";
+        //private const string BASE_URL = "";
+        private const string BASE_URL = "ecoplatescompany/api/v1/";
         private const string LOGIN_COMPANY = $"{BASE_URL}company/login";
         private const string CHECK_COMPANY = $"{BASE_URL}company/checkUser/";
         private const string LOGOUT_COMPANY = $"{BASE_URL}company/logout";
@@ -33,21 +33,22 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_COMPANY_PROFILE_INFO = $"{BASE_URL}company/getCompanyProfileInfo/";
         private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";
         private const string REGISTER_COMPANY_FEEDBACK = $"{BASE_URL}feedbacks_company/registerCompanyFeedback";
+        private const string CHECK_SERVER_STATUS = $"/actuator/health/readiness";
         #endregion
 
         public CompanyApiService(RestClient client) : base(client)
         {
         }
-
+ 
         public async Task<LoginCompanyResponse> Login(LoginRequest data)
         {
             var response = await LoginAsync<LoginCompanyResponse>(LOGIN_COMPANY, data);
-            
+
             return response ?? new LoginCompanyResponse
-                {
-                    resultCode = ApiResult.LOGIN_FAILED.GetCodeToString(),
-                    resultMsg = ApiResult.LOGIN_FAILED.GetMessage()
-                };
+            {
+                resultCode = ApiResult.LOGIN_FAILED.GetCodeToString(),
+                resultMsg = ApiResult.LOGIN_FAILED.GetMessage()
+            };
         }
 
         public async Task<Response> CheckUser(string phoneNumber)

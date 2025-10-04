@@ -75,9 +75,6 @@ public partial class UserBrowserPage : BasePage
 
         Shell.SetTabBarIsVisible(this, true);
 
-        bool isWifiOn = await appControl.CheckWifiOrNetwork();
-        if (!isWifiOn) return;
-
         cts = new CancellationTokenSource();
         var location = await locationService.GetCurrentLocationAsync(cts.Token);
         if (location == null) return;
@@ -113,6 +110,13 @@ public partial class UserBrowserPage : BasePage
             }
         });
 
+        bool isWifiOn = await appControl.CheckWifiOrNetwork();
+        if (!isWifiOn)
+        {
+            viewModel.IsLoading = false;
+            return;
+        } 
+        
         await viewModel.LoadInitialAsync();
     }
 

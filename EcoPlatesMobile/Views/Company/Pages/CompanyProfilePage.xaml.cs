@@ -121,7 +121,11 @@ public partial class CompanyProfilePage : BasePage
     public IRelayCommand RefreshCommand => new RelayCommand(async () =>
     {
         bool isWifiOn = await appControl.CheckWifiOrNetwork();
-        if (!isWifiOn) return;
+        if (!isWifiOn)
+        {
+            IsRefreshing = false;
+            return;
+        }
 
         IsRefreshing = true;
         await LoadData();

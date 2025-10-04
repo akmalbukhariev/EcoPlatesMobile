@@ -26,13 +26,15 @@ public partial class LoginPage : BasePage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        
+
+        appControl.StopMonitor();
+
         UserRole role = appStoreService.Get(AppKeys.UserRole, UserRole.None);
         appControl.IsLoggedIn = appStoreService.Get(AppKeys.IsLoggedIn, false);
         string phoneNumber = appStoreService.Get(AppKeys.PhoneNumber, "");
 
-        bool isWifiOn = await appControl.CheckWifiOrNetwork();
-		if (!isWifiOn) return;
+        //bool isWifiOn = await appControl.CheckWifiOrNetwork();
+		//if (!isWifiOn) return;
 
         if (appControl.IsBlocked)
         {
@@ -49,12 +51,14 @@ public partial class LoginPage : BasePage
                 {
                     color = Constants.COLOR_COMPANY;
                     userSessionService.SetUser(UserRole.Company);
+                    appControl.StartMonitor();
                     await appControl.LoginCompany(phoneNumber);
                 }
                 else if (role == UserRole.User)
                 {
                     color = Constants.COLOR_USER;
                     userSessionService.SetUser(UserRole.User);
+                    appControl.StartMonitor();
                     await appControl.LoginUser(phoneNumber);
                 }
             }
@@ -81,6 +85,8 @@ public partial class LoginPage : BasePage
             }
 
             statusBarService.SetStatusBarColor(color.ToArgbHex(), false);
+
+            appControl.StartMonitor();
 
             if (!appControl.IsLoggedIn && userRole == UserRole.User)
             {

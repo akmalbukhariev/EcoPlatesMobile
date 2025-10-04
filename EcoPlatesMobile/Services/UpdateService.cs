@@ -14,8 +14,8 @@ public class UpdateService : IUpdateService
 
     public UpdateService(AppStoreService storeService, AppControl appControl)
     {
-        jsonUrl = $"http://{Constants.SERVER_DOMAIN}/latest.json";
-        //jsonUrl = $"http://{Constants.IP}/latest.json";
+        //jsonUrl = $"http://{Constants.SERVER_DOMAIN}/latest.json";
+        jsonUrl = $"http://{Constants.IP}/latest.json";
         store = storeService;
         this.appControl = appControl;
     }

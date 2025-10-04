@@ -939,7 +939,7 @@
   <comment>AppControl</comment>
 </data>
 <data name="MessageNetworkOrWifi" xml:space="preserve">
-  <value>Kechirasiz, ulanib bo‘lmadi. Ehtimol, tarmoqda muammo bor yoki server vaqtincha ishlamayapti.</value>
+  <value>Kechirasiz, ulanib bo‘lmadi. Ehtimol, tarmoqda yoki serverda muammo bor.</value>
   <comment>AppControl</comment>
 </data>
 <data name="NotificationOff" xml:space="preserve">

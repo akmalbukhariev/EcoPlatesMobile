@@ -39,6 +39,9 @@ public partial class ChatedUserPage : BasePage
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
             if (!isWifiOn) return;
 
+            isWifiOn = await appControl.CheckWifiOrNetworkFor(true);
+            if (!isWifiOn) return;
+
             await viewModel.LoadCompaniesData();
         }
         else
@@ -47,6 +50,9 @@ public partial class ChatedUserPage : BasePage
             listProduct.RefreshColor = color;
 
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
+            if (!isWifiOn) return;
+
+            isWifiOn = await appControl.CheckWifiOrNetworkFor(true);
             if (!isWifiOn) return;
 
             await viewModel.LoadUsersData();

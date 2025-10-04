@@ -167,7 +167,12 @@ namespace EcoPlatesMobile.ViewModels.User
         public IRelayCommand RefreshProductCommand => new RelayCommand(async () =>
         {
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
-		    if (!isWifiOn) return;
+		    if (!isWifiOn)
+            {
+                IsRefreshing = false;
+                IsLoading = false;
+                return;
+            }
 
             await LoadDataAsync();
         });

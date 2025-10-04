@@ -16,8 +16,6 @@ using Plugin.Firebase.CloudMessaging;
 using EcoPlatesMobile.Platforms.Android.Notification;
 using EcoPlatesMobile.Models.Responses;
 
-
-
 //using Plugin.LocalNotification;
 #if ANDROID
 using EcoPlatesMobile.Platforms.Android;
@@ -139,7 +137,13 @@ namespace EcoPlatesMobile
                 new MessageApiService(
                     sp.GetServices<RestClient>().First(rc => rc.Options.BaseUrl == new Uri(Constants.BASE_PHONE_VERIFY_URL))
                 ));
-
+            builder.Services.AddSingleton(sp =>
+            {
+                var company = sp.GetRequiredService<CompanyApiService>();
+                var user    = sp.GetRequiredService<UserApiService>();
+                return new ServerStatusMonitor(user, company);
+            });
+            
             #region Company
             builder.Services.AddTransient<ActiveProductPage>();
             builder.Services.AddTransient<InActiveProductPage>();

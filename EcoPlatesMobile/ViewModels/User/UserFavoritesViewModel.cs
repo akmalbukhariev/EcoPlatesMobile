@@ -506,7 +506,12 @@ namespace EcoPlatesMobile.ViewModels.User
         private async Task LoadMoreProductAsync()
         { 
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
-            if (!isWifiOn) return;
+            if (!isWifiOn)
+            {
+                IsRefreshingProduct = false;
+                IsLoading = false;
+                return;
+            }
 
             if (IsLoading || IsRefreshingProduct || !hasMoreProductItems)
                 return;
@@ -517,7 +522,12 @@ namespace EcoPlatesMobile.ViewModels.User
         private async Task LoadMoreCompanyAsync()
         {
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
-            if (!isWifiOn) return;
+            if (!isWifiOn)
+            {
+                IsRefreshingCompany = false;
+                IsLoading = false;
+                return;
+            }
 
             if (IsLoading || IsRefreshingCompany || !hasMoreCompanyItems)
                 return;

@@ -321,7 +321,12 @@ namespace EcoPlatesMobile.ViewModels.Company
         private async Task RefreshAsync()
         {
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
-            if (!isWifiOn) return;
+            if (!isWifiOn)
+            {
+                IsRefreshing = false;
+                IsLoading = false;
+                return;
+            }
 
             if (IsCheckedProduct)
             {
@@ -331,32 +336,5 @@ namespace EcoPlatesMobile.ViewModels.Company
 
             await LoadPromotionAsync(isRefresh: true);
         }
-
-        /*
-        public IRelayCommand LoadMoreCommand => new RelayCommand(async () =>
-        {
-            bool isWifiOn = await appControl.CheckWifi();
-            if (!isWifiOn) return;
-
-            if (IsLoading || IsRefreshing || !hasMoreItems)
-                return;
-
-            await LoadPromotionAsync();
-        });
-
-        public IRelayCommand RefreshCommand => new RelayCommand(async () =>
-        {
-            bool isWifiOn = await appControl.CheckWifi();
-            if (!isWifiOn) return;
-
-            if (IsCheckedProduct)
-            {
-                IsRefreshing = false;
-                return;
-            }
-
-            await LoadPromotionAsync(isRefresh: true);
-        });
-        */
     }
 }

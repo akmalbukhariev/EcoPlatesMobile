@@ -130,6 +130,9 @@ public partial class AuthorizationPage : BasePage
 
 	private async Task SafeSendAsync()
 	{
+		//bool isWifiOn = await appControl.CheckWifiOrNetworkFor();
+		//if (!isWifiOn) return;	
+
 		if (sending) return;
 		sending = true;
 

@@ -14,6 +14,83 @@ namespace EcoPlatesMobile.Services
         {
             _client = client;
         }
+ 
+        private const string ReadinessPath = "/actuator/health/readiness";
+        private const string HealthPath    = "/actuator/health";
+
+        /// <summary>
+        /// Checks server health (readiness -> health fallback), no auth, fast timeout.
+        /// </summary>
+        public async Task<ResponseServerStatus> CheckServerAsync(TimeSpan? timeout = null, CancellationToken ct = default)
+        {
+            // Use 2s specifically for health checks unless caller overrides
+            var t = timeout ?? TimeSpan.FromSeconds(2);
+
+            var res = await TryHealthAsync(ReadinessPath, t, ct);
+            if (res != null) return res;
+
+            res = await TryHealthAsync(HealthPath, t, ct);
+            return res ?? new ResponseServerStatus
+            {
+                Status    = "DOWN",
+                LatencyMs = -1,
+                CheckedAt = DateTimeOffset.UtcNow,
+                RawJson   = null
+            };
+        }
+
+        /// <summary>
+        /// Convenience overload: timeout in milliseconds.
+        /// </summary>
+        public Task<ResponseServerStatus> CheckServerAsync(int timeoutMs, CancellationToken ct = default)
+            => CheckServerAsync(TimeSpan.FromMilliseconds(timeoutMs), ct);
+
+        private async Task<ResponseServerStatus?> TryHealthAsync(string path, TimeSpan timeout, CancellationToken ct = default)
+        {
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            try
+            {
+                // Health MUST be unauthenticated
+                var json = await GetServerStatusAsync(path, timeout: timeout, ct: ct);
+                sw.Stop();
+
+                if (string.IsNullOrWhiteSpace(json))
+                    return null;
+
+                // usually {"status":"UP"}
+                var dto = Newtonsoft.Json.JsonConvert.DeserializeObject<ResponseServerStatus>(json);
+                if (dto?.Status == null)
+                    return null;
+
+                dto.LatencyMs = (int)sw.ElapsedMilliseconds;
+                dto.CheckedAt = DateTimeOffset.UtcNow;
+                dto.RawJson   = json;
+                return dto;
+            }
+            catch (TaskCanceledException)            { sw.Stop(); return null; } // timeout/cancel
+            catch (OperationCanceledException)       { sw.Stop(); return null; }
+            catch                                    { sw.Stop(); return null; } // network/parse issues -> fallback
+        }
+
+        public async Task<string> GetServerStatusAsync(string endpoint, TimeSpan? timeout = null, CancellationToken ct = default)
+        {
+            var request = new RestRequest(endpoint, Method.Get);
+            request.Timeout = timeout; // RestSharp (new) expects TimeSpan?
+            return await ExecuteRequestAsync(request, ct);
+        }
+
+        private async Task<string> ExecuteRequestAsync(RestRequest request, CancellationToken ct = default)
+        {
+            var response = await _client.ExecuteAsync(request, ct);
+
+            // Prefer RawBytes to avoid charset quirks
+            if (response.RawBytes is { Length: > 0 })
+                return Encoding.UTF8.GetString(response.RawBytes);
+
+            return response.Content ?? string.Empty;
+        }
+
+        //----------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Stores the token securely
@@ -92,7 +169,7 @@ namespace EcoPlatesMobile.Services
 
             return await ExecuteRequestAsync(request);
         }
-
+        
         public async Task<string> PostAsync(string endpoint, object? data = null, bool addHeader = true, bool useToken = true)
         {         
             var request = new RestRequest(endpoint, Method.Post);

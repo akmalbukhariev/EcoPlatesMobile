@@ -43,10 +43,7 @@ public partial class UserMainPage : BasePage
 		base.OnAppearing();
 
         Shell.SetTabBarIsVisible(this, true);
- 
-        bool isWifiOn = await appControl.CheckWifiOrNetwork();
-		if (!isWifiOn) return;
-
+        
         cts = new CancellationTokenSource();
 
         if (!appControl.IsLoggedIn)
@@ -83,7 +80,11 @@ public partial class UserMainPage : BasePage
         }
         else if (appControl.RefreshMainPage)
         {
-            await viewModel.LoadInitialAsync();
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
+            if (isWifiOn)
+            {
+                await viewModel.LoadInitialAsync();
+            }
             appControl.RefreshMainPage = false;
         }
     }

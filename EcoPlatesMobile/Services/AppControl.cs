@@ -48,13 +48,41 @@ namespace EcoPlatesMobile.Services
         */
 
         private readonly LanguageService lang;
+        private readonly CompanyApiService companyApiService;
+        private readonly UserApiService userApiService;
+        private readonly ServerStatusMonitor monitor;
+        private AppStoreService appStoreService;
+        private readonly UserSessionService userSessionService;
 
-        public AppControl(LanguageService lang)
+        public AppControl(LanguageService lang,
+                            CompanyApiService companyApiService,
+                            ServerStatusMonitor monitor,
+                            UserApiService userApiService,
+                            AppStoreService appStoreService,
+                            UserSessionService userSessionService)
         {
             this.lang = lang;
+            this.companyApiService = companyApiService;
+            this.userApiService = userApiService;
+            this.monitor = monitor;
+            this.appStoreService = appStoreService;
+            this.userSessionService = userSessionService;
+
             RebuildBusinessTypeList();
         }
 
+        public void StartMonitor()
+        {
+            monitor.SetRole(userSessionService.Role);           // User or Company
+            monitor.SetInterval(TimeSpan.FromSeconds(5));       // or 10s
+            monitor.Start();
+        }
+
+        public void StopMonitor()
+        {
+            monitor.Stop();
+        }
+         
         public void RebuildBusinessTypeList()
         {
             BusinessTypeList = new Dictionary<string, string>
@@ -69,21 +97,19 @@ namespace EcoPlatesMobile.Services
 
         public async Task LoginCompany(string phoneNumber)
         {
-            var apiService = AppService.Get<CompanyApiService>();
             LoginRequest request = new LoginRequest()
             {
                 phone_number = phoneNumber
             };
 
-            LoginCompanyResponse response = await apiService.Login(request);
+            LoginCompanyResponse response = await companyApiService.Login(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 CompanyInfo = response.resultData;
-
-                var store = AppService.Get<AppStoreService>();
-                store.Set(AppKeys.UserRole, UserRole.Company);
-                store.Set(AppKeys.IsLoggedIn, true);
-                store.Set(AppKeys.PhoneNumber, phoneNumber);
+ 
+                appStoreService.Set(AppKeys.UserRole, UserRole.Company);
+                appStoreService.Set(AppKeys.IsLoggedIn, true);
+                appStoreService.Set(AppKeys.PhoneNumber, phoneNumber);
 
                 #region Check the Firebase token and save it to the server
                 string frbToken = await GetFirebaseToken();
@@ -96,7 +122,7 @@ namespace EcoPlatesMobile.Services
                         { "token_frb", frbToken },
                     };
 
-                    await apiService.UpdateCompanyProfileInfo(null, additionalData);
+                    await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
                 }
                 #endregion
 
@@ -120,21 +146,19 @@ namespace EcoPlatesMobile.Services
 
         public async Task LoginUser(string phoneNumber)
         {
-            var apiService = AppService.Get<UserApiService>();
             LoginRequest request = new LoginRequest()
             {
                 phone_number = phoneNumber
             };
 
-            LoginUserResponse response = await apiService.Login(request);
+            LoginUserResponse response = await userApiService.Login(request);
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 UserInfo = response.resultData;
-
-                var store = AppService.Get<AppStoreService>();
-                store.Set(AppKeys.UserRole, UserRole.User);
-                store.Set(AppKeys.IsLoggedIn, true);
-                store.Set(AppKeys.PhoneNumber, phoneNumber);
+ 
+                appStoreService.Set(AppKeys.UserRole, UserRole.User);
+                appStoreService.Set(AppKeys.IsLoggedIn, true);
+                appStoreService.Set(AppKeys.PhoneNumber, phoneNumber);
 
                 #region Check the Firebase token and save it to the server
                 string frbToken = await GetFirebaseToken();
@@ -147,7 +171,7 @@ namespace EcoPlatesMobile.Services
                         { "token_frb", frbToken },
                     };
 
-                    await apiService.UpdateUserProfileInfo(null, additionalData);
+                    await userApiService.UpdateUserProfileInfo(null, additionalData);
                 }
                 #endregion
 
@@ -201,7 +225,7 @@ namespace EcoPlatesMobile.Services
                     Constants.NOTIFICATION_BODY);
                 NotificationSubscriber = null;
             }
-
+            
             Application.Current.MainPage = new AppEntryShell();
         }
 
@@ -235,6 +259,7 @@ namespace EcoPlatesMobile.Services
             RefreshMainPage = true;
             RefreshBrowserPage = true;
             IsLoggedIn = false;
+ 
             Application.Current.MainPage = new AppEntryShell();
         }
 
@@ -261,9 +286,79 @@ namespace EcoPlatesMobile.Services
             Application.Current.MainPage = new AppUserShell();
         }
 
-        public async Task<bool> CheckWifiOrNetwork()
+        private static readonly TimeSpan HealthTtl = TimeSpan.FromSeconds(10);
+        public async Task<bool> CheckWifiOrNetwork(bool strict = false, CancellationToken ct = default)
         {
             if (!IsConnectedToWifi())
+            {
+                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
+                return false;
+            }
+
+            // 1) If we have a recent cached status, use it
+            if (monitor.TryGetFresh(HealthTtl, out var cached))
+            {
+                if (cached.IsUp) return true;
+
+                // Cached and DOWN -> alert now
+                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
+                return false;
+            }
+
+            // 2) No fresh cache. Decide how aggressive to be:
+            // If you want "alert NOW when server is down", probe inline even when strict == false
+            var live = await monitor.PollNowAsync(ct);     // This calls CheckServerAsync(2s)
+            if (!live.IsUp)
+            {
+                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
+                return false;
+            }
+
+            /*
+            ResponseServerStatus live;
+            bool result = false;
+            if (userSessionService.Role == UserRole.User)
+            {
+                live = await userApiService.CheckServerAsync(TimeSpan.FromSeconds(2));
+                result = live.IsUp;
+            }
+            else if (userSessionService.Role == UserRole.Company)
+            {
+                live = await companyApiService.CheckServerAsync(TimeSpan.FromSeconds(2));
+                result = live.IsUp;
+            }
+
+            if (!result)
+            {
+                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
+                return false;
+            }
+            */
+
+            return true;
+        }
+
+        public async Task<bool> CheckWifiOrNetworkFor(bool isChat = false)
+        {
+            if (!IsConnectedToWifi())
+            {
+                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
+                return false;
+            }
+
+            ResponseServerStatus live;
+            if (isChat)
+            {
+                var chatApi = AppService.Get<ChatApiService>();
+                live = await chatApi.CheckServerAsync(TimeSpan.FromSeconds(2));
+            }
+            else
+            {
+                var messageApi = AppService.Get<MessageApiService>();
+                live = await messageApi.CheckServerAsync(TimeSpan.FromSeconds(2));
+            }
+
+            if (!live.IsUp)
             {
                 await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
                 return false;

@@ -137,7 +137,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
                     receiver_id = appControl.UserInfo.user_id,
                     receiver_type = UserRole.User.ToString().ToUpper()
                 };
-
+                
                 ChatSenderIdResponse response = await chatApiService.GetSendersWithUnread(request);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
@@ -192,11 +192,16 @@ namespace EcoPlatesMobile.ViewModels.Chat
                 IsPageLoaded = true;
             }
         }
-
+        
         public IRelayCommand RefreshCommand => new RelayCommand(async () =>
         {
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
-		    if (!isWifiOn) return;
+		    if (!isWifiOn)
+            {
+                IsRefreshing = false;
+                IsLoading = false;
+                return;
+            }
 
             if (!IsPageLoaded) return;
 
