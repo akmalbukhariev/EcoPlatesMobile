@@ -245,6 +245,12 @@ public partial class DetailProductPage : BasePage
                 return;
             }
 
+            viewModel.IsLoading = true;
+            bool isWifiOn = await appControl.CheckWifiOrNetworkFor(true);
+            viewModel.IsLoading = false;
+            
+		    if (!isWifiOn) return;	
+
             await Shell.Current.GoToAsync(nameof(ChattingPage), new Dictionary<string, object>
             {
                 ["ChatPageModel"] = viewModel.GetChatPageModel()

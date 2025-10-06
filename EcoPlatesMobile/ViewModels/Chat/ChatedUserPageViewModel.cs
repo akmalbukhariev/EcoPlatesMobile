@@ -195,7 +195,7 @@ namespace EcoPlatesMobile.ViewModels.Chat
         
         public IRelayCommand RefreshCommand => new RelayCommand(async () =>
         {
-            bool isWifiOn = await appControl.CheckWifiOrNetwork();
+            bool isWifiOn = await appControl.CheckWifiOrNetworkFor(true);
 		    if (!isWifiOn)
             {
                 IsRefreshing = false;

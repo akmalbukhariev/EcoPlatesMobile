@@ -301,7 +301,7 @@ namespace EcoPlatesMobile.Services
                 if (cached.IsUp) return true;
 
                 // Cached and DOWN -> alert now
-                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
+                await AlertService.ShowAlertAsync(AppResource.Error, AppResource.MessageNetworkOrWifi, AppResource.Ok);
                 return false;
             }
 
@@ -310,7 +310,7 @@ namespace EcoPlatesMobile.Services
             var live = await monitor.PollNowAsync(ct);     // This calls CheckServerAsync(2s)
             if (!live.IsUp)
             {
-                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
+                await AlertService.ShowAlertAsync(AppResource.Error, AppResource.MessageNetworkOrWifi, AppResource.Ok);
                 return false;
             }
 
@@ -360,7 +360,7 @@ namespace EcoPlatesMobile.Services
 
             if (!live.IsUp)
             {
-                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
+                await AlertService.ShowAlertAsync(AppResource.Error, AppResource.MessageNetworkOrWifi, AppResource.Ok);
                 return false;
             }
 
