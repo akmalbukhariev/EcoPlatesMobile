@@ -7,17 +7,17 @@ namespace EcoPlatesMobile.Utilities
     {
         //public const string IP = "192.168.0.54";
         //public const string IP = "10.0.2.2";
-        public const string IP = "192.168.219.164";
-        public const string BASE_USER_URL = $"http://{IP}:8083";
-        public const string BASE_COMPANY_URL = $"http://{IP}:8081";
-        public const string BASE_CHAT_URL = $"http://{IP}:8085";
-        public const string BASE_PHONE_VERIFY_URL = $"http://{IP}:8087";
+        //public const string IP = "192.168.219.164";
+        //public const string BASE_USER_URL = $"http://{IP}:8083";
+        //public const string BASE_COMPANY_URL = $"http://{IP}:8081";
+        //public const string BASE_CHAT_URL = $"http://{IP}:8085";
+        //public const string BASE_PHONE_VERIFY_URL = $"http://{IP}:8087";
 
-        //public const string SERVER_DOMAIN = "www.saletop.uz";
-        //public const string BASE_USER_URL = $"http://{SERVER_DOMAIN}/user/";
-        //public const string BASE_COMPANY_URL = $"http://{SERVER_DOMAIN}/company/";
-        //public const string BASE_CHAT_URL = $"http://{SERVER_DOMAIN}/chatting/";
-        //public const string BASE_PHONE_VERIFY_URL = $"http://{SERVER_DOMAIN}/message/";
+        public const string SERVER_DOMAIN = "www.saletop.uz";
+        public const string BASE_USER_URL = $"http://{SERVER_DOMAIN}/user/";
+        public const string BASE_COMPANY_URL = $"http://{SERVER_DOMAIN}/company/";
+        public const string BASE_CHAT_URL = $"http://{SERVER_DOMAIN}/chatting/";
+        public const string BASE_PHONE_VERIFY_URL = $"http://{SERVER_DOMAIN}/message/";
         
 
         public static readonly string Version = AppInfo.Current.VersionString;     // e.g., "1.0"

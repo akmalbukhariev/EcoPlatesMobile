@@ -159,8 +159,7 @@ public partial class CompanyEditProductPage : BasePage
                     await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
                     return;
                 }
-
-
+                
                 if (oldPrice == newPrice)
                 {
                     await DisplayAlert(AppResource.Error, AppResource.MessageOldAndNewPrice, AppResource.Ok);

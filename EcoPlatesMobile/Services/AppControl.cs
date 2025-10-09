@@ -29,6 +29,7 @@ namespace EcoPlatesMobile.Services
         public bool UpdatePending = false;
         public bool IsBlocked = false;
         public string StrBlockUntill = "";
+        public ApiResult ResultCode = ApiResult.SUCCESS; 
         public NotificationData NotificationData { get; set; }
         public CompanyInfo CompanyInfo { get; set; } = new CompanyInfo();
         public UserInfo UserInfo { get; set; } = new UserInfo();
@@ -432,11 +433,13 @@ namespace EcoPlatesMobile.Services
             StrBlockUntill = response.resultMsg;
             if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
             {
+                ResultCode = ApiResult.DELETE_USER;
                 await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                 return false;
             }
             else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
             {
+                ResultCode = ApiResult.BLOCK_USER;
                 await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                 return false;
             }
@@ -449,11 +452,13 @@ namespace EcoPlatesMobile.Services
             StrBlockUntill = response.resultMsg;
             if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
             {
+                ResultCode = ApiResult.DELETE_USER;
                 await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                 return false;
             }
             else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
             {
+                ResultCode = ApiResult.BLOCK_USER;
                 await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                 return false;
             }

@@ -104,12 +104,16 @@ public partial class PhoneNumberRegisterPage : BasePage
                     }
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {
+                        appControl.StrBlockUntill = response.resultMsg;
+                        appControl.ResultCode = ApiResult.BLOCK_USER;
                         await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                         await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
                     }
                     else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
                     {
+                        appControl.StrBlockUntill = response.resultMsg;
+                        appControl.ResultCode = ApiResult.DELETE_USER;
                         await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                         await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
@@ -130,12 +134,16 @@ public partial class PhoneNumberRegisterPage : BasePage
                     }
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {
+                        appControl.StrBlockUntill = response.resultMsg;
+                        appControl.ResultCode = ApiResult.BLOCK_USER;
                         await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
                         await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;
                     }
                     else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
                     {
+                        appControl.StrBlockUntill = response.resultMsg;
+                        appControl.ResultCode = ApiResult.DELETE_USER;
                         await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
                         await AppNavigatorService.NavigateTo(nameof(BlockedPage));
                         return;

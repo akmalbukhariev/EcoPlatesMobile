@@ -13,8 +13,8 @@ namespace EcoPlatesMobile.Services.Api
     public class CompanyApiService : ApiService
     {
         #region Url
-        //private const string BASE_URL = "";
-        private const string BASE_URL = "ecoplatescompany/api/v1/";
+        private const string BASE_URL = "";
+        //private const string BASE_URL = "ecoplatescompany/api/v1/";
         private const string LOGIN_COMPANY = $"{BASE_URL}company/login";
         private const string CHECK_COMPANY = $"{BASE_URL}company/checkUser/";
         private const string LOGOUT_COMPANY = $"{BASE_URL}company/logout";
