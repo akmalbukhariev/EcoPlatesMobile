@@ -9,7 +9,7 @@
 				 android:usesCleartextTraffic="true"
 				 android:supportsRtl="true">
 		<meta-data android:name="com.google.android.geo.API_KEY"
-		           android:value="AIzaSyA1iw9FPgBot2rba4t9ZQ0sOnNRcFsTZnw"/>
+		           android:value="AIzaSyDEgLPpqQGt6dUSxvJDjfRFj76EZFTsypQ"/>
 
 		<meta-data android:name="com.google.firebase.messaging.default_notification_channel_id"
 			       android:value="saletop_messages"/>
