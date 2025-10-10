@@ -930,6 +930,12 @@
     <value>Bu joy haqiqatan ham sizning ish joyingizmi?</value>
     <comment>LocationService</comment>
   </data>
+  <data name="ConfirmCompanyLocationAdd" xml:space="preserve">
+    <value>Bu joy haqiqatan ham sizning ish joyingizmi?
+Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.   
+    </value>
+    <comment>LocationService</comment>
+  </data>
 <data name="MessageLocationEmpty" xml:space="preserve">
     <value>Iltimos joylashuvni belgilang.</value>
     <comment>CompanyRegistrationPage</comment>

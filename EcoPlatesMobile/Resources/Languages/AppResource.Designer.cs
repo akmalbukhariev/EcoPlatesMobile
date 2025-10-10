@@ -430,6 +430,17 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is this location really your workplace location?
+        ///Don’t worry, you can change the location inside the application.
+        ///    .
+        /// </summary>
+        internal static string ConfirmCompanyLocationAdd {
+            get {
+                return ResourceManager.GetString("ConfirmCompanyLocationAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to enter the verification code sent via SMS to your phone number..
         /// </summary>
         internal static string ConfirmTitle {

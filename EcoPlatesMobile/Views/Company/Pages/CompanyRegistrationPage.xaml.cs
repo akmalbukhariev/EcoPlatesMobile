@@ -64,12 +64,18 @@ public partial class CompanyRegistrationPage : BasePage
         BindingContext = this;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
         if (!string.IsNullOrEmpty(_phoneNumber))
             entryPhone.SetEntryText(_phoneNumber.Replace("998", ""));
+
+        loading.ShowLoading = true;
+        CancelAndDisposeCts();
+        cts = new CancellationTokenSource();
+        appControl.LocationForRegister = await locationService.GetCurrentLocationAsync(cts.Token);
+        loading.ShowLoading = false;
 
         if (appControl.LocationForRegister != null)
         {
@@ -83,9 +89,8 @@ public partial class CompanyRegistrationPage : BasePage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-    
-        cts?.Cancel();
-        cts = null;
+
+        CancelAndDisposeCts();
     }    
 
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)
@@ -192,15 +197,15 @@ public partial class CompanyRegistrationPage : BasePage
                     await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageSelectCompanyLogo);
                     return;
                 }
-
-                //Location location = await locationService.GetCurrentLocationAsync();
-                //if (location == null) return;
-
+                 
                 if (appControl.LocationForRegister == null)
                 {
                     await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageLocationEmpty);
                     return;
                 }
+
+                bool yes = await AlertService.ShowConfirmationAsync(AppResource.Confirm, AppResource.ConfirmCompanyLocationAdd, AppResource.Yes, AppResource.No);
+                if (!yes) return;
 
                 var additionalData = new Dictionary<string, string>
                 {
@@ -255,6 +260,7 @@ public partial class CompanyRegistrationPage : BasePage
         {
             await AnimateElementScaleDown(sender as Border);
 
+            CancelAndDisposeCts();
             cts = new CancellationTokenSource();
             loading.ShowLoading = true;
             var locationService = new LocationService();

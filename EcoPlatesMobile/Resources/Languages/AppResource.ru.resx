@@ -931,6 +931,12 @@
     <value>Это действительно ваше место работы?</value>
     <comment>LocationService</comment>
   </data>
+  <data name="ConfirmCompanyLocationAdd" xml:space="preserve">
+    <value>Это действительно ваше место работы?
+Не волнуйтесь, вы можете изменить местоположение внутри приложения. 
+    </value>
+    <comment>LocationService</comment>
+  </data>
 <data name="MessageLocationEmpty" xml:space="preserve">
     <value>Местоположение обязательно.</value>
     <comment>CompanyRegistrationPage</comment>

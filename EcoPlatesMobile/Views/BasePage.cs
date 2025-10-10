@@ -15,6 +15,13 @@ namespace EcoPlatesMobile.Views
             Shell.SetTabBarIsVisible(this, false);
         }
 
+        protected void CancelAndDisposeCts()
+        {
+            try { cts?.Cancel(); }
+            catch {}
+            finally { cts?.Dispose(); cts = null; }
+        }
+
         protected void SetViewModel(IViewModel viewModel)
         {
             this.viewModel = viewModel;
