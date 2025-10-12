@@ -131,7 +131,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         return;
                     }
 
-                    var companyModels = items.Select(item => new CompanyModel
+                    var companyModels = items.Where(i => !i.deleted && i.status != UserOrCompanyStatus.BANNED).Select(item => new CompanyModel
                     {
                         CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
@@ -214,7 +214,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         return;
                     }
 
-                    var companyModels = items.Select(item => new CompanyModel
+                    var companyModels = items.Where(i => !i.deleted && i.status != UserOrCompanyStatus.BANNED).Select(item => new CompanyModel
                     {
                         CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,

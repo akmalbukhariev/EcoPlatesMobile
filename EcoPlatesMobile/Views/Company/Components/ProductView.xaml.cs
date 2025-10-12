@@ -27,6 +27,9 @@ public partial class ProductView : ContentView
     public static readonly BindableProperty IsNonActiveProductProperty =
        BindableProperty.Create(nameof(IsNonActiveProduct), typeof(bool), typeof(ProductView), true, propertyChanged: IsNonActiveProductChanged);
 
+    public static readonly BindableProperty IsPendingProductProperty =
+       BindableProperty.Create(nameof(IsPendingProduct), typeof(bool), typeof(ProductView), false, propertyChanged: IsPendingProductChanged);
+
     public static readonly BindableProperty ShowCheckProductProperty =
        BindableProperty.Create(nameof(ShowCheckProduct), typeof(bool), typeof(ProductView), true, propertyChanged: ShowCheckProductPropertyChanged);
 
@@ -94,6 +97,12 @@ public partial class ProductView : ContentView
     {
         get => (bool)GetValue(IsNonActiveProductProperty);
         set => SetValue(IsNonActiveProductProperty, value);
+    }
+
+    public bool IsPendingProduct
+    {
+        get => (bool)GetValue(IsPendingProductProperty);
+        set => SetValue(IsPendingProductProperty, value);
     }
     #endregion
 
@@ -236,6 +245,12 @@ public partial class ProductView : ContentView
     {
         var control = (ProductView)bindable;
         control.boxViewBack.IsVisible = (bool)newValue;
+    }
+
+    private static void IsPendingProductChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (ProductView)bindable;
+        control.brdPending.IsVisible = (bool)newValue;
     }
 
     private static void ShowCheckProductPropertyChanged(BindableObject bindable, object oldValue, object newValue)

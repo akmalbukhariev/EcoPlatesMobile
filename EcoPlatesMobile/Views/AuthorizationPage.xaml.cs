@@ -43,7 +43,12 @@ public partial class AuthorizationPage : BasePage
 	private IDispatcherTimer cooldownTimer;
 
 	
-	public AuthorizationPage(UserSessionService userSessionService, CompanyApiService companyApiService, UserApiService userApiService, AppControl appControl, IKeyboardHelper keyboardHelper, MessageApiService messageApiService)
+	public AuthorizationPage(UserSessionService userSessionService,
+							 CompanyApiService companyApiService,
+							 UserApiService userApiService,
+							 AppControl appControl,
+							 IKeyboardHelper keyboardHelper,
+							 MessageApiService messageApiService)
 	{
 		InitializeComponent();
 

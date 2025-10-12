@@ -134,22 +134,23 @@ namespace EcoPlatesMobile.ViewModels.Chat
 
                 UnreadMessagesRequest request = new UnreadMessagesRequest()
                 {
-                    receiver_id = appControl.UserInfo.user_id,
-                    receiver_type = UserRole.User.ToString().ToUpper()
+                    user_id = appControl.UserInfo.user_id
                 };
                 
-                ChatSenderIdResponse response = await chatApiService.GetSendersWithUnread(request);
+                ChatSenderIdResponse response = await chatApiService.GetSendersAndReceiversWithUnreadForUser(request);
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
                     if (response.resultData != null && response.resultData.Count != 0)
                     {
-                        List<long> idList = response.resultData.Select(item => item.sender_id).ToList();
+                        List<long> idList = response.resultData.Select(item => item.company_id).ToList();
 
                         CompanyListResponse response2 = await companyApiService.GetCompanyInfoList(idList);
                         var items = response2.resultData;
 
-                        var userInfoList = items.Select(item => new SenderIdInfo()
+                        var userInfoList = items
+                        .Where(i => !i.deleted && i.status != UserOrCompanyStatus.BANNED)
+                        .Select(item => new SenderIdInfo()
                         {
                             UserImage = item.logo_url,
                             UserName = item.company_name,

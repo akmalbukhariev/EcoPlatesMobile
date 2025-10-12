@@ -24,6 +24,7 @@ namespace EcoPlatesMobile.Models.Company
         public int? total_reviews { get; set; } = 0;
         public DateTime? end_date { get; set; }
         public DateTime? created_at { get; set; }
-        public bool? deleted{ get; set; }
+        public bool? deleted { get; set; } 
+         public bool? approved{ get; set; }
     }
 }

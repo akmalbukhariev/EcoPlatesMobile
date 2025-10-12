@@ -8,6 +8,8 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Alerts;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -243,7 +245,8 @@ public partial class CompanyEditProductPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
+                    //await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
+                    await Toast.Make(AppResource.MessageModeration, ToastDuration.Short).Show();
                     await Shell.Current.GoToAsync("..");
                 }
                 else

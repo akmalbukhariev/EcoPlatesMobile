@@ -8,6 +8,8 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Utilities;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -112,9 +114,7 @@ public partial class CompanyAddProductPage : BasePage
             try
             {
                 var title = entryProductName.GetEntryText()?.Trim();
-                //var oldPriceText = entryOldPrice.Text?.Trim();
-                //var newPriceText = entryNewPrice.Text?.Trim();
-
+                 
                 var oldPrice = GetRawNumber(entryOldPrice);
                 var newPrice = GetRawNumber(entryNewPrice);
 
@@ -158,12 +158,13 @@ public partial class CompanyAddProductPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
-                    await AlertService.ShowAlertAsync(AppResource.RegisterProduct, AppResource.Success);
+                    await Toast.Make(AppResource.MessageModeration, ToastDuration.Short).Show();
+                    //await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageModeration);
                     await Shell.Current.GoToAsync("..");
                 }
                 else
                 {
-                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                    await AlertService.ShowAlertAsync(AppResource.Error, AppResource.ErrorUnexpected);
                 }
             }
             catch (Exception ex)

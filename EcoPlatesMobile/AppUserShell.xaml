@@ -27,12 +27,11 @@
              Title="{x:Static language:AppResource.Favourites}">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserFavoritesPage}"
                           Shell.NavBarIsVisible="False"/>
-        </Tab>
-         
+        </Tab> 
         <Tab Icon="user.png"
              Title="{x:Static language:AppResource.Profile}">
             <ShellContent ContentTemplate="{DataTemplate userPages:UserProfilePage}"
                           Shell.NavBarIsVisible="False"/>
-        </Tab> 
+        </Tab>
     </TabBar>
 </Shell>

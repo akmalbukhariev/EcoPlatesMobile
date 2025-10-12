@@ -402,7 +402,7 @@
     <comment>ActiveProductPage</comment>
   </data>
   <data name="MessageModeration" xml:space="preserve">
-    <value>Your information will be reviewed by our moderation team. In most cases the review is completed quickly, but sometimes it may take longer.</value>
+    <value>Submitted! Your product is under review.</value>
     <comment>ActiveProductPage</comment>
   </data>
   <data name="InactiveProducts" xml:space="preserve">
@@ -454,7 +454,7 @@
     <comment>CompanyAddProductPage</comment>
   </data>
   <data name="ProductDescription" xml:space="preserve">
-    <value>Enter a description of the product</value>
+    <value>Enter a description of the product (optional)</value>
     <comment>CompanyAddProductPage</comment>
   </data>
   <data name="Add" xml:space="preserve">

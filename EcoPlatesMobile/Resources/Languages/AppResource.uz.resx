@@ -406,7 +406,7 @@
     <comment>ActiveProductPage (Uzbek)</comment>
 </data>
 <data name="MessageModeration" xml:space="preserve">
-    <value>Ma’lumotingiz moderatsiya jamoamiz tomonidan ko‘rib chiqiladi. Ko‘p hollarda tekshiruv tez yakunlanadi, ammo ba’zan ko‘proq vaqt talab qilinishi mumkin.</value>
+    <value>Yuborildi! Mahsulot tekshiruvda.</value>
     <comment>ActiveProductPage</comment>
  </data>
 <data name="InactiveProducts" xml:space="preserve">
@@ -458,7 +458,7 @@
   <comment>CompanyAddProductPage</comment>
 </data>
 	<data name="ProductDescription" xml:space="preserve">
-  <value>Mahsulot tavsifini kiriting</value>
+  <value>Mahsulot tavsifini kiriting (ixtiyoriy)</value>
   <comment>CompanyAddProductPage</comment>
 </data>
 	<data name="Add" xml:space="preserve">
@@ -785,7 +785,7 @@
   <comment>DetailProductPage</comment>
 </data>
 <data name="MessageInfo" xml:space="preserve">
-  <value>Mahsulot mavjud emas yoki o‘chirib tashlangan.</value>
+  <value>Mahsulot mavjud emas yoki o‘chirilangan.</value>
   <comment>DetailProductPage</comment>
 </data>
 <data name="SelectDistance" xml:space="preserve">

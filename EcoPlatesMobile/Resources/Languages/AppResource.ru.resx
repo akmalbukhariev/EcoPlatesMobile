@@ -406,7 +406,7 @@
       <comment>ActiveProductPage (Russian)</comment>
   </data>
   <data name="MessageModeration" xml:space="preserve">
-    <value>Ваша информация будет проверена нашей командой модераторов. В большинстве случаев проверка проходит быстро, но иногда может занять больше времени.</value>
+    <value>Отправлено! Товар на проверке.</value>
     <comment>ActiveProductPage</comment>
 </data>
 <data name="InactiveProducts" xml:space="preserve">
@@ -458,7 +458,7 @@
   <comment>CompanyAddProductPage</comment>
 </data>
 	<data name="ProductDescription" xml:space="preserve">
-  <value>Введите описание товара</value>
+  <value>Введите описание товара (необязательно)</value>
   <comment>CompanyAddProductPage</comment>
 </data>
 	<data name="Add" xml:space="preserve">

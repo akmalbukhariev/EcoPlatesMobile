@@ -147,6 +147,7 @@ namespace EcoPlatesMobile
             #region Company
             builder.Services.AddTransient<ActiveProductPage>();
             builder.Services.AddTransient<InActiveProductPage>();
+            builder.Services.AddTransient<PendingProductPage>();
             builder.Services.AddTransient<CompanyAddProductPage>();
             builder.Services.AddTransient<CompanyEditProductPage>();
             builder.Services.AddTransient<CompanyProfilePage>();
@@ -157,6 +158,7 @@ namespace EcoPlatesMobile
 
             builder.Services.AddTransient<ActiveProductPageViewModel>();
             builder.Services.AddTransient<InActiveProductPageViewModel>();
+            builder.Services.AddTransient<PendingProductPageViewModel>();
             #endregion
 
             #region User

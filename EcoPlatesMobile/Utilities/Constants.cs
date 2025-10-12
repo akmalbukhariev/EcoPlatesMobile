@@ -7,7 +7,7 @@ namespace EcoPlatesMobile.Utilities
     {
         //public const string IP = "192.168.0.54";
         //public const string IP = "10.0.2.2";
-        //public const string IP = "192.168.219.164";
+        //public const string IP = "192.168.219.102";
         //public const string BASE_USER_URL = $"http://{IP}:8083";
         //public const string BASE_COMPANY_URL = $"http://{IP}:8081";
         //public const string BASE_CHAT_URL = $"http://{IP}:8085";

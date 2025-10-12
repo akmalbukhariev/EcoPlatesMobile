@@ -33,7 +33,7 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_COMPANY_PROFILE_INFO = $"{BASE_URL}company/getCompanyProfileInfo/";
         private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";
         private const string REGISTER_COMPANY_FEEDBACK = $"{BASE_URL}feedbacks_company/registerCompanyFeedback";
-        private const string CHECK_SERVER_STATUS = $"/actuator/health/readiness";
+        private const string GET_PENDING_POSTERS = $"{BASE_URL}company/admin/getNewAddedPosterListByCompanyId";
         #endregion
 
         public CompanyApiService(RestClient client) : base(client)
@@ -355,6 +355,39 @@ namespace EcoPlatesMobile.Services.Api
             try
             {
                 var receivedData = await PostAsync(GET_POSTER, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<PosterListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<PosterListResponse> GetPendingPosters(PaginationWithCompanyIdRequest data)
+        {
+            var response = new PosterListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_PENDING_POSTERS, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

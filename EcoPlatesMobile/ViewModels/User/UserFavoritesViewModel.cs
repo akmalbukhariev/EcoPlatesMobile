@@ -106,7 +106,9 @@ namespace EcoPlatesMobile.ViewModels.User
                         return;
                     }
 
-                    var productModels = items.Select(item => new ProductModel
+                    var productModels = items
+                    .Where(i => (bool)!i.deleted)
+                    .Select(item => new ProductModel
                     {
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
@@ -182,7 +184,9 @@ namespace EcoPlatesMobile.ViewModels.User
                         return;
                     }
 
-                    var companyModels = items.Select(item => new CompanyModel
+                    var companyModels = items
+                    .Where(i => !i.deleted && i.status != UserOrCompanyStatus.BANNED)
+                    .Select(item => new CompanyModel
                     {
                         CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
@@ -344,7 +348,9 @@ namespace EcoPlatesMobile.ViewModels.User
                         return;
                     }
 
-                    var productModels = items.Select(item => new ProductModel
+                    var productModels = items
+                    .Where(i => (bool)!i.deleted)
+                    .Select(item => new ProductModel
                     {
                         PromotionId = item.poster_id ?? 0,
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
@@ -431,7 +437,9 @@ namespace EcoPlatesMobile.ViewModels.User
                         return;
                     }
 
-                    var companyModels = items.Select(item => new CompanyModel
+                    var companyModels = items
+                    .Where(i => !i.deleted && i.status != UserOrCompanyStatus.BANNED)
+                    .Select(item => new CompanyModel
                     {
                         CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,

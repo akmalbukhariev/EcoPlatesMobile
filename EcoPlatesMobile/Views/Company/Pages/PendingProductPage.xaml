@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="EcoPlatesMobile.Views.Company.Pages.PendingProductPage"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:com_component="clr-namespace:EcoPlatesMobile.Views.Company.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+               xmlns:local="clr-namespace:EcoPlatesMobile.Views.Company.Pages"
+               xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
+               BackgroundColor="#F7F9FB">
+      
+   <Grid RowDefinitions="Auto, Auto, *, Auto">
+        <component:CustomHeader x:Name="header"
+                                Title="Pending"
+                                ShowBack="False"
+                                HeaderBackground="{StaticResource Company}"/>
+        <Border Stroke="Transparent"
+                IsVisible="{Binding IsShowTitle}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                BackgroundColor="#f6efff"
+                Margin="20, 10, 20, 0"
+                HeightRequest="80"
+                Grid.Row="1">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding IsLoading}"
+                                 Value="True">
+                         <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border"
+                                 Binding="{Binding IsRefreshing}"
+                                 Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Border.Triggers>
+            <Grid ColumnDefinitions="Auto, *"
+                  ColumnSpacing="10"
+                  Margin="10">
+                <Image Source="history.png"
+                       Aspect="AspectFit"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+                <Label Text="Tekshiruv jarayonida. Odatda tez tugaydi, ba'zan ko'proq vaqt olishi mumkin."
+                       FontSize="15"
+                       FontFamily="RobotoVar"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Grid.Column="1"/>
+            </Grid>
+        </Border>
+        <Grid RowDefinitions="Auto, *"
+              Margin="16,10,16,10"
+              Grid.Row="2">
+            <RefreshView x:Name="listProduct"
+                         IsRefreshing="{Binding IsRefreshing}"
+                         Command="{Binding RefreshCommand}"
+                         Margin="10"
+                         Grid.Row="1">
+                <CollectionView ItemsSource="{Binding Products}"
+                                ItemsUpdatingScrollMode="KeepScrollOffset"
+                                SelectionMode="None"
+                                RemainingItemsThreshold="4"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <ContentView.Triggers>
+                                <DataTrigger TargetType="ContentView"
+                                             Binding="{Binding IsLoading}"
+                                             Value="True">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="ContentView"
+                                             Binding="{Binding IsRefreshing}"
+                                             Value="True">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </ContentView.Triggers>
+                            <view:EmptyViewText/>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" 
+                                         VerticalItemSpacing="10"
+                                         HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <com_component:ProductView ProductImage="{Binding ProductImage}"
+                                                       ProductName="{Binding ProductName}"
+                                                       NewPrice="{Binding NewPrice}"
+                                                       OldPrice="{Binding OldPrice}"
+                                                       Stars="{Binding Stars}"
+                                                       ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:ActiveProductPage}}, Path=BindingContext.ClickProductCommand}"
+                                                       IsNonActiveProduct="False"
+                                                       IsPendingProduct="True"
+                                                       ShowCheckProduct="False"
+                                                       IsCheckedProduct="False"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </Grid>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           Color="{StaticResource Company}"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.Row="1"
+                           Grid.RowSpan="3"/>
+        <BoxView HeightRequest="1"
+                 BackgroundColor="LightGray"
+                 HorizontalOptions="Fill"
+                 Grid.Row="3"/>
+    </Grid>
+</page:BasePage>

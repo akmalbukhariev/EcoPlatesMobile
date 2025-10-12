@@ -23,6 +23,11 @@
             <ShellContent ContentTemplate="{DataTemplate companyPages:InActiveProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>
+        <Tab Icon="pending.png"
+             Title="Pending">
+            <ShellContent ContentTemplate="{DataTemplate companyPages:PendingProductPage}"
+                          Shell.NavBarIsVisible="False"/>
+        </Tab>
         <Tab Icon="company.png" 
              Title="{x:Static language:AppResource.MyProfile}">
             <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyProfilePage}"

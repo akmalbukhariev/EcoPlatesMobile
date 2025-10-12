@@ -356,6 +356,7 @@ public partial class UserBrowserPage : BasePage
             if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
             {
                 var pins = response.resultData?
+                    .Where(i => !i.deleted && i.status != UserOrCompanyStatus.BANNED)
                     .Select(item => new CustomPin
                     {
                         CompanyId = (long)item.company_id,
