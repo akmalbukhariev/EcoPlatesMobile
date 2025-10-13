@@ -102,7 +102,7 @@ public partial class CompanyAddProductPage : BasePage
         });
     }
 
-    private async void RegisterOrUpdate_Clicked(object sender, EventArgs e)
+    private async void Register_Clicked(object sender, EventArgs e)
     {
         await ClickGuard.RunAsync((VisualElement)sender, async () =>
         {
@@ -158,6 +158,7 @@ public partial class CompanyAddProductPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
+                    appControl.RefreshCompanyProfilePage = true;
                     await Toast.Make(AppResource.MessageModeration, ToastDuration.Short).Show();
                     //await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageModeration);
                     await Shell.Current.GoToAsync("..");

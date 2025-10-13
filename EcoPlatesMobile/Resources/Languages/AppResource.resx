@@ -149,6 +149,15 @@
     <value>Didn't you receive a code?</value>
     <comment>AuthorizationPage</comment>
   </data>
+  <data name="VerificationNumber" xml:space="preserve">
+    <value>Verification number</value>
+    <comment>AuthorizationPage</comment>
+  </data>
+  <data name="MessageVerificationNumber" xml:space="preserve">
+    <value>Verification code is wrong!</value>
+    <comment>AuthorizationPage</comment>
+  </data>
+
   <data name="Sellers" xml:space="preserve">
     <value>Sellers</value>
     <comment>FavoritePage</comment>
@@ -1030,5 +1039,18 @@ Don’t worry, you can change the location inside the application.
   <data name="BackToLogin" xml:space="preserve">
     <value>Back to Login</value>
     <comment>BlockedPage</comment>
+  </data>
+
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+    <comment>PendingProductPage</comment>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Under review. It usually finishes quickly, but sometimes it may take longer.</value>
+    <comment>PendingProductPage</comment>
+  </data>
+  <data name="InReview" xml:space="preserve">
+    <value>In review</value>
+    <comment>PendingProductPage</comment>
   </data>
 </root>

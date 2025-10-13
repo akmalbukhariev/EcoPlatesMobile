@@ -162,14 +162,14 @@
                                     FontSize="16"/>
                         </Border>
                 </VerticalStackLayout>
-                <Button x:Name="btnRegisterOrUpdate"
+                <Button x:Name="btnRegister"
                         Text="{x:Static language:AppResource.Add}"
                         BackgroundColor="{StaticResource Company}"
                         CornerRadius="30"
                         Style="{StaticResource StyleBigButton}"
                         HeightRequest="50"
                         Margin="16,0,16,30"
-                        Clicked="RegisterOrUpdate_Clicked"
+                        Clicked="Register_Clicked"
                         Grid.Row="2"/>  
             </Grid>
         </ScrollView>

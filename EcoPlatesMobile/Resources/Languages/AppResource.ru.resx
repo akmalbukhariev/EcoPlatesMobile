@@ -149,6 +149,15 @@
     <value>Вы не получили код?</value>
     <comment>AuthorizationPage</comment>
   </data>
+  <data name="VerificationNumber" xml:space="preserve">
+    <value>Номер подтверждения</value>
+    <comment>AuthorizationPage</comment>
+  </data>
+  <data name="MessageVerificationNumber" xml:space="preserve">
+    <value>Код подтверждения неверен!</value>
+    <comment>AuthorizationPage</comment>
+  </data>
+
   <data name="Sellers" xml:space="preserve">
     <value>Продавцы</value>
     <comment>FavoritePage</comment>
@@ -991,8 +1000,8 @@
     <comment>AppControl</comment>
   </data>
 	<data name="AccountIssue" xml:space="preserve">
-  <value>Проблема с профиль</value>
-  <comment>BlockedPage (Russian)</comment>
+   <value>Проблема с профиль</value>
+   <comment>BlockedPage (Russian)</comment>
 </data>
 	<data name="PleaseContactSupportForAssistanceTitle" xml:space="preserve">
   <value>Пожалуйста, свяжитесь с поддержкой для получения помощи.</value>
@@ -1022,4 +1031,16 @@
   <value>Назад к входу</value>
   <comment>BlockedPage (Russian)</comment>
 </data>
+<data name="Pending" xml:space="preserve">
+    <value>Ожидается</value>
+    <comment>PendingProductPage</comment>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>На проверке. Чаще всего быстро, но порой процесс затягивается.</value>
+    <comment>PendingProductPage</comment>
+  </data>
+  <data name="InReview" xml:space="preserve">
+    <value>На проверке</value>
+    <comment>PendingProductPage</comment>
+  </data>
 </root>

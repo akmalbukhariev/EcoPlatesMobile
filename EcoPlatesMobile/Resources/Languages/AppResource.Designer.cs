@@ -819,6 +819,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In review.
+        /// </summary>
+        internal static string InReview {
+            get {
+                return ResourceManager.GetString("InReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to km.
         /// </summary>
         internal static string Km {
@@ -1107,7 +1116,7 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your information will be reviewed by our moderation team. In most cases the review is completed quickly, but sometimes it may take longer..
+        ///   Looks up a localized string similar to Submitted! Your product is under review..
         /// </summary>
         internal static string MessageModeration {
             get {
@@ -1251,6 +1260,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verification code is wrong!.
+        /// </summary>
+        internal static string MessageVerificationNumber {
+            get {
+                return ResourceManager.GetString("MessageVerificationNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing Info.
         /// </summary>
         internal static string MissingInfo {
@@ -1386,6 +1404,24 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pending.
+        /// </summary>
+        internal static string Pending {
+            get {
+                return ResourceManager.GetString("Pending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Under review. It usually finishes quickly, but sometimes it may take longer..
+        /// </summary>
+        internal static string PendingTitle {
+            get {
+                return ResourceManager.GetString("PendingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone Number.
         /// </summary>
         internal static string PhoneNumber {
@@ -1476,7 +1512,7 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter a description of the product.
+        ///   Looks up a localized string similar to Enter a description of the product (optional).
         /// </summary>
         internal static string ProductDescription {
             get {
@@ -2003,6 +2039,15 @@ namespace EcoPlatesMobile.Resources.Languages {
         internal static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification number.
+        /// </summary>
+        internal static string VerificationNumber {
+            get {
+                return ResourceManager.GetString("VerificationNumber", resourceCulture);
             }
         }
         

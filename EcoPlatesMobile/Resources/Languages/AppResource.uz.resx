@@ -149,6 +149,15 @@
     <value>Kodni olmadingizmi?</value>
     <comment>AuthorizationPage</comment>
   </data> 
+  <data name="VerificationNumber" xml:space="preserve">
+    <value>Tasdiqlash raqami</value>
+    <comment>AuthorizationPage</comment>
+  </data>
+  <data name="MessageVerificationNumber" xml:space="preserve">
+    <value>Tasdiqlash kodi notoʻgʻri!</value>
+    <comment>AuthorizationPage</comment>
+  </data>
+
   <data name="Sellers" xml:space="preserve">
     <value>Sotuvchilar</value>
     <comment>FavoritePage</comment>
@@ -1021,4 +1030,16 @@ Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.
   <value>Kirish sahifasiga qaytish</value>
   <comment>BlockedPage (Uzbek)</comment>
 </data>
+<data name="Pending" xml:space="preserve">
+    <value>Kutilmoqda</value>
+    <comment>PendingProductPage</comment>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Tekshiruv jarayonida. Odatda tez tugaydi, ba'zan ko'proq vaqt olishi mumkin.</value>
+    <comment>PendingProductPage</comment>
+  </data>
+  <data name="InReview" xml:space="preserve">
+    <value>Tekshiruvda</value>
+    <comment>PendingProductPage</comment>
+  </data>
 </root>

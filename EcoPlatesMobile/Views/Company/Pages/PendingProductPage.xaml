@@ -12,7 +12,7 @@
       
    <Grid RowDefinitions="Auto, Auto, *, Auto">
         <component:CustomHeader x:Name="header"
-                                Title="Pending"
+                                Title="{x:Static language:AppResource.Pending}"
                                 ShowBack="False"
                                 HeaderBackground="{StaticResource Company}"/>
         <Border Stroke="Transparent"
@@ -44,7 +44,7 @@
                        HeightRequest="30"
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
-                <Label Text="Tekshiruv jarayonida. Odatda tez tugaydi, ba'zan ko'proq vaqt olishi mumkin."
+                <Label Text="{x:Static language:AppResource.PendingTitle}"
                        FontSize="15"
                        FontFamily="RobotoVar"
                        TextColor="Black"

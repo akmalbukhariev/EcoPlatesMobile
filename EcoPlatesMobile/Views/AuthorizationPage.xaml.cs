@@ -234,7 +234,7 @@ public partial class AuthorizationPage : BasePage
 
 			/*if (!CheckVerificationCode())
 			{
-				await AlertService.ShowAlertAsync("Verification number", "Verification code is wrong!");
+				await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageVerificationNumber);
 				return;
 			}*/
 

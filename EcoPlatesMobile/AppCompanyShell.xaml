@@ -24,7 +24,7 @@
                           Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Icon="pending.png"
-             Title="Pending">
+             Title="{x:Static language:AppResource.Pending}">
             <ShellContent ContentTemplate="{DataTemplate companyPages:PendingProductPage}"
                           Shell.NavBarIsVisible="False"/>
         </Tab>

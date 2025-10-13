@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
              x:Class="EcoPlatesMobile.Views.Company.Components.ProductView">
 
     <Frame x:Name="mainFrame" 
@@ -11,7 +12,7 @@
            HeightRequest="115"
            HasShadow="True">
         <Frame.GestureRecognizers>
-            <TapGestureRecognizer Tapped="Product_Tapped" 
+            <TapGestureRecognizer Tapped="Product_Tapped"
                                   NumberOfTapsRequired="1"/>
         </Frame.GestureRecognizers>
         <Grid ColumnDefinitions="Auto, *">
@@ -30,7 +31,7 @@
                             <shapes:RoundRectangle CornerRadius="0"/>
                      </Border.StrokeShape>
                      <HorizontalStackLayout>
-                            <Label Text="Tekshiruvda"
+                            <Label Text="{x:Static language:AppResource.InReview}"
                                    TextColor="White"
                                    FontSize="18"
                                    FontFamily="RobotoVar"/>

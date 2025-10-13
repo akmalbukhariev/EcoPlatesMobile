@@ -245,6 +245,7 @@ public partial class CompanyEditProductPage : BasePage
 
                 if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
                 {
+                    appControl.RefreshCompanyProfilePage = true;
                     //await AlertService.ShowAlertAsync(AppResource.UpdateProduct, AppResource.Success);
                     await Toast.Make(AppResource.MessageModeration, ToastDuration.Short).Show();
                     await Shell.Current.GoToAsync("..");
