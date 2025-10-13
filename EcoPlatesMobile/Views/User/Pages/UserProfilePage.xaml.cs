@@ -230,7 +230,7 @@ public partial class UserProfilePage : BasePage
             case ListTileView.ListTileType.Share:
                 await Share.Default.RequestAsync(new ShareTextRequest
                 {
-                    Uri = "https://your-app-url-here.com",
+                    Uri = appControl.UserInfo.share_link,
                     Title = "SaleTop Application"
                 });
                 break;

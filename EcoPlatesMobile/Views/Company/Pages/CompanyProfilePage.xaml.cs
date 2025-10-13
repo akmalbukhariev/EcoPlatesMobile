@@ -211,7 +211,7 @@ public partial class CompanyProfilePage : BasePage
             case ListTileView.ListTileType.Share:
             await Share.Default.RequestAsync(new ShareTextRequest
             {
-                 Uri = "https://your-app-url-here.com",
+                 Uri = appControl.CompanyInfo.share_link,
                  Title = "Check out my app"
             });
             break;

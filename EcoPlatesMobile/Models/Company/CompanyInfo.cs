@@ -25,7 +25,8 @@ namespace EcoPlatesMobile.Models.Company
         public long non_active_products { get; set; }
         public UserOrCompanyStatus status { get; set; } = UserOrCompanyStatus.INACTIVE;
         public bool notification_enabled { get; set; }
-        private string about { get; set; } = string.Empty;
+        public string about { get; set; } = string.Empty;
+        public string share_link { get; set; } = string.Empty;
 
         [JsonProperty("created_at")]
         [JsonConverter(typeof(FlexibleDateTimeConverter))]
