@@ -228,6 +228,11 @@ public partial class UserProfilePage : BasePage
             await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
                 break;
             case ListTileView.ListTileType.Share:
+                if (!appControl.IsLoggedIn)
+                {
+                    await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                    return;
+                }
                 await Share.Default.RequestAsync(new ShareTextRequest
                 {
                     Uri = appControl.UserInfo.share_link,
