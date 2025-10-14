@@ -32,7 +32,7 @@
                   VerticalOptions="Center">
                 <Slider x:Name="distanceSlider"
                         Minimum="1"
-                        Maximum="10"
+                        Maximum="100"
                         ThumbColor="{StaticResource User}"
                         MinimumTrackColor="{StaticResource User}"
                         MaximumTrackColor="Black"
