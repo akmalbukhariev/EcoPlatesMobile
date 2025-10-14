@@ -474,6 +474,7 @@ public partial class UserBrowserPage : BasePage
                 list.IsVisible = true;
                 map.IsVisible = true;
                 borderBlock.IsVisible = false;
+                await bottomSheet.DismissAsync();
 
                 await Task.WhenAll(
                     list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
