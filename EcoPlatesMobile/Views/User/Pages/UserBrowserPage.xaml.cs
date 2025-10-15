@@ -140,7 +140,8 @@ public partial class UserBrowserPage : BasePage
 
         UpdateSelectedDistanceLabel();
         bottomSheet.SetValue(selectedDistance);
-        int maxVal = appControl.UserInfo.max_radius_km == 0 ? 20 : appControl.UserInfo.max_radius_km;
+
+        int maxVal = appControl.UserInfo.max_radius_km == 0 ? Constants.MaxRadius : appControl.UserInfo.max_radius_km;
         bottomSheet.SetMaxValue(maxVal);
 
         distanceCircle = new Circle
