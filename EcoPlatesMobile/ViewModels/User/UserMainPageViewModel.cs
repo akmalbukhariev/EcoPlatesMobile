@@ -120,7 +120,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 };
 
                 PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocation(request) :
-                                                                       await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
+                                                                      await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
                 bool isOk = await appControl.CheckUserState(response);
                 if (!isOk)
                 {

@@ -9,6 +9,7 @@ using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
+using EcoPlatesMobile.Resources.Languages;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
@@ -136,17 +137,17 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
-                        WorkingTime = item.working_hours,
+                        WorkingTime = appControl.FormatWorkingHours(item.working_hours),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
-                        Distance = $"{item.distance_km:0.0} km"
+                        Distance = $"{item.distance_km:0.0} {AppResource.Km}"
                     }).ToList();
 
                     CompanyView.BeginNewAnimationCycle();
                     Companies.AddRange(companyModels);
 
                     offset += PageSize;
-                    if (companyModels.Count < PageSize)
+                    if (items.Count < PageSize)
                     {
                         hasMoreItems = false;
                     }
@@ -219,17 +220,17 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
-                        WorkingTime = item.working_hours,
+                        WorkingTime = appControl.FormatWorkingHours(item.working_hours),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
-                        Distance = $"{item.distance_km:0.0} km"
+                        Distance = $"{item.distance_km:0.0} {AppResource.Km}"
                     }).ToList();
 
                     CompanyView.BeginNewAnimationCycle();
                     Companies.AddRange(companyModels);
 
                     offset += PageSize;
-                    if (companyModels.Count < PageSize)
+                    if (items.Count < PageSize)
                     {
                         hasMoreItems = false;
                     }
@@ -267,6 +268,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
                 return;
             }
+
             await LoadCompaniesAsync();
         }
         

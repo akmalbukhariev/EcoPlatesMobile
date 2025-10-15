@@ -37,6 +37,7 @@ public partial class UserBrowserPage : BasePage
     private Circle distanceCircle;
     private Location currentCenter;
     private bool mapIsVisible = false;
+    private bool isBottomSheetOpened = false;
     int selectedDistance = 1;
     private Task? _mapWarmupTask;
     //private bool _mapBootstrapped;
@@ -93,6 +94,7 @@ public partial class UserBrowserPage : BasePage
         }
 
         lbSelectedDistance.Text = $"{AppResource.SelectedDistanceIs}: {appControl.UserInfo.radius_km} {AppResource.Km}";
+
     }
 
     private async Task RefreshPage()
@@ -138,6 +140,8 @@ public partial class UserBrowserPage : BasePage
 
         UpdateSelectedDistanceLabel();
         bottomSheet.SetValue(selectedDistance);
+        int maxVal = appControl.UserInfo.max_radius_km == 0 ? 20 : appControl.UserInfo.max_radius_km;
+        bottomSheet.SetMaxValue(maxVal);
 
         distanceCircle = new Circle
         {
@@ -277,6 +281,7 @@ public partial class UserBrowserPage : BasePage
         {
             await AnimateElementScaleDown(borderBottom);
             borderBottom.IsVisible = false;
+            isBottomSheetOpened = true;
 
             await bottomSheet.ShowAsync();
             InitCircle();
@@ -287,6 +292,7 @@ public partial class UserBrowserPage : BasePage
     {
         borderBottom.TranslationY = 100;
         borderBottom.IsVisible = true;
+        isBottomSheetOpened = false;
 
         await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
 
@@ -474,7 +480,11 @@ public partial class UserBrowserPage : BasePage
                 list.IsVisible = true;
                 map.IsVisible = true;
                 borderBlock.IsVisible = false;
-                await bottomSheet.DismissAsync();
+                
+                if (isBottomSheetOpened)
+                {
+                    await bottomSheet.DismissAsync();
+                }
 
                 await Task.WhenAll(
                     list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),

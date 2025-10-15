@@ -191,7 +191,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         CompanyId = item.company_id,
                         CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
                         CompanyName = item.company_name,
-                        WorkingTime = item.working_hours,
+                        WorkingTime = appControl.FormatWorkingHours(item.working_hours),
                         //Stars = "3.1",
                         Liked = item.liked,
                         Distance = $"{item.distance_km:0.0} km"

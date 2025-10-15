@@ -140,8 +140,7 @@
                         <Label Text="{x:Static language:AppResource.WhatOtherPeopleSaying}"
                                TextColor="Black"
                                FontSize="18"
-                               FontAttributes="Bold"
-                               FontFamily="RobotoVar"/>
+                               FontAttributes="Bold"/>
                         <HorizontalStackLayout Spacing="10" 
                                                HorizontalOptions="Center">
                             <HorizontalStackLayout.GestureRecognizers>

@@ -13,6 +13,11 @@ public partial class MapBottomSheet : BottomSheet
 		InitializeComponent();
 	}
 
+	public void SetMaxValue(int maxValue)
+	{
+		distanceSlider.Maximum = maxValue;
+	}
+
 	public void SetValue(int km)
 	{
 		distanceSlider.Value = km;
@@ -22,7 +27,7 @@ public partial class MapBottomSheet : BottomSheet
 	private void DistanceSlider_ValueChanged(object sender, ValueChangedEventArgs e)
 	{
 		int km = (int)Math.Round(e.NewValue);
-		distanceLabel.Text = $"{km} km";
+		distanceLabel.Text = $"{km} {AppResource.Km}";
 
 		EventValueDistanceChanged?.Invoke(km);
 	}
