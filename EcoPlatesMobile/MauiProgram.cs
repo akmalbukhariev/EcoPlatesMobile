@@ -33,6 +33,7 @@ namespace EcoPlatesMobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiMaps()
                 .UseMauiCommunityToolkit()
                 .RegisterFirebaseServices()
                 .ConfigureFonts(fonts =>
@@ -43,7 +44,6 @@ namespace EcoPlatesMobile
                     fonts.AddFont("Roboto-Italic-Variable.ttf", "RobotoVarItalic");
 
                 })
-                .UseMauiMaps()
                 .UseBottomSheet();   
 #if DEBUG
             builder.Logging.AddDebug();

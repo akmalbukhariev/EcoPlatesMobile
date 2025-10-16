@@ -197,7 +197,7 @@ public partial class AuthorizationPage : BasePage
    
 	private async Task SendVerificationCode()
 	{
-		return;
+		//return;
 		try
 		{
 			VerifyPhoneNumberRequest data = new VerifyPhoneNumberRequest()
@@ -231,11 +231,11 @@ public partial class AuthorizationPage : BasePage
 			bool isWifiOn = await appControl.CheckWifiOrNetwork();
 			if (!isWifiOn) return;
 
-			//if (!CheckVerificationCode())
-			//{
-			//	await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageVerificationNumber);
-			//	return;
-			//}
+			if (!CheckVerificationCode())
+			{
+				await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageVerificationNumber);
+				return;
+			}
 
 			loading.ShowLoading = true;
 
