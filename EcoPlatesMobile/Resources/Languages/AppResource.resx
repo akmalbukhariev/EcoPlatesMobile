@@ -278,8 +278,12 @@
     <value>Phone Number Not Registered</value>
     <comment>PhoneNumberRegisterPage</comment>
   </data>
-  <data name="MessageEnterPhoneNumberNotRegistered" xml:space="preserve">
-    <value>This phone number is not registered in our system. Do you want to register?</value>
+  <data name="MessageEnterPhoneNumberNotRegisteredUser" xml:space="preserve">
+    <value>This phone number is not registered as a buyer in our system. Do you want to register?</value>
+    <comment>PhoneNumberRegisterPage</comment>
+  </data>
+  <data name="MessageEnterPhoneNumberNotRegisteredCompany" xml:space="preserve">
+    <value>This phone number is not registered as a seller in our system. Do you want to register?</value>
     <comment>PhoneNumberRegisterPage</comment>
   </data>
   <data name="Error" xml:space="preserve">

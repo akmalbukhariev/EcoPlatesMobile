@@ -10,7 +10,6 @@ using Microsoft.Maui.Maps.Handlers;
 using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Views;
-using The49.Maui.BottomSheet;
 using Microsoft.Maui.LifecycleEvents;
 using Plugin.Firebase.CloudMessaging;
 using EcoPlatesMobile.Platforms.Android.Notification;
@@ -42,9 +41,7 @@ namespace EcoPlatesMobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Roboto-Variable.ttf", "RobotoVar");
                     fonts.AddFont("Roboto-Italic-Variable.ttf", "RobotoVarItalic");
-
-                })
-                .UseBottomSheet();   
+                });   
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

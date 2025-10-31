@@ -1017,19 +1017,30 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This phone number is not registered in our system. Do you want to register?.
+        ///   Looks up a localized string similar to This phone number is not registered as a buyer in our system. Do you want to register?.
         /// </summary>
-        internal static string MessageEnterPhoneNumberNotRegistered {
+        internal static string MessageEnterPhoneNumberNotRegisteredUser {
             get {
-                return ResourceManager.GetString("MessageEnterPhoneNumberNotRegistered", resourceCulture);
+                return ResourceManager.GetString("MessageEnterPhoneNumberNotRegisteredUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This phone number is not registered as a seller in our system. Do you want to register?.
+        /// </summary>
+        internal static string MessageEnterPhoneNumberNotRegisteredCompany {
+            get {
+                return ResourceManager.GetString("MessageEnterPhoneNumberNotRegisteredCompany", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Your feedback has been submitted..
         /// </summary>
-        internal static string MessageFeedback {
-            get {
+        internal static string MessageFeedback
+        {
+            get
+            {
                 return ResourceManager.GetString("MessageFeedback", resourceCulture);
             }
         }

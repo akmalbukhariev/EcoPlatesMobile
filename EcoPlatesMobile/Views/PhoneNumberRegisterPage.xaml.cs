@@ -161,15 +161,17 @@ public partial class PhoneNumberRegisterPage : BasePage
                     if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString() ||
                         response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
                     {
-                        //await AlertService.ShowAlertAsync(AppResource.PhoneNumberNotRegistered, AppResource.MessageEnterPhoneNumberNotRegistered);
+                        string message = response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString() ?
+                        AppResource.MessageEnterPhoneNumberNotRegisteredUser :
+                        AppResource.MessageEnterPhoneNumberNotRegisteredCompany;
 
                         bool answer = await AlertService.ShowConfirmationAsync(
                                     AppResource.Confirm,
-                                    AppResource.MessageEnterPhoneNumberNotRegistered,
+                                    message,
                                     AppResource.Yes, AppResource.No);
 
                         if (!answer) return;
-
+                        
                         appControl.IsPhoneNumberRegisterPage = true;
                         await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={phoneNumber}");
                     }

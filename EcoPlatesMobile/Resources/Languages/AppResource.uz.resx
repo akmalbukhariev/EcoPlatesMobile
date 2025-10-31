@@ -278,8 +278,12 @@
   <value>Telefon raqami ro‘yxatdan o‘tmagan</value>
   <comment>PhoneNumberRegisterPage</comment>
 </data>
-	<data name="MessageEnterPhoneNumberNotRegistered" xml:space="preserve">
-  <value>Ushbu telefon raqami bizning tizimimizda ro‘yxatdan o‘tmagan. Ro‘yxatdan o‘tmoqchimisiz?</value>
+<data name="MessageEnterPhoneNumberNotRegisteredUser" xml:space="preserve">
+  <value>Ushbu telefon raqami bizning tizimimizda xaridor sifatida ro‘yxatdan o‘tmagan. Ro‘yxatdan o‘tmoqchimisiz?</value>
+  <comment>PhoneNumberRegisterPage</comment>
+</data>
+<data name="MessageEnterPhoneNumberNotRegisteredCompany" xml:space="preserve">
+  <value>Ushbu telefon raqami bizning tizimimizda sotuvchi sifatida ro‘yxatdan o‘tmagan. Ro‘yxatdan o‘tmoqchimisiz?</value>
   <comment>PhoneNumberRegisterPage</comment>
 </data>
 	<data name="Error" xml:space="preserve">

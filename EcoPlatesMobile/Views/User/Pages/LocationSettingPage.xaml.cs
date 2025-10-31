@@ -32,7 +32,7 @@ public partial class LocationSettingPage : BasePage
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
 
         bottomSheet = new MapBottomSheet();
-        bottomSheet.Dismissed += BottomSheet_Closed;
+        //bottomSheet.Dismissed += BottomSheet_Closed;
         bottomSheet.EventValueDistanceChanged += DistanceSliderValueChanged;
         bottomSheet.EventShowResultsClicked += ShowResultsClicked;
 
@@ -98,13 +98,13 @@ public partial class LocationSettingPage : BasePage
         loading.ShowLoading = false;
     }
 
-    private async void BottomSheet_Closed(object? sender, The49.Maui.BottomSheet.DismissOrigin e)
+    /*private async void BottomSheet_Closed(object? sender, The49.Maui.BottomSheet.DismissOrigin e)
     {
         borderBottom.TranslationY = 100;
         borderBottom.IsVisible = true;
 
         await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
-    }
+    }*/
 
     private void Map_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {

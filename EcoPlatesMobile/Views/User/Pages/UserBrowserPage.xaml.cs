@@ -11,7 +11,6 @@ using EcoPlatesMobile.Resources.Languages;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;
 using Application = Microsoft.Maui.Controls.Application;
-using The49.Maui.BottomSheet;
 using EcoPlatesMobile.Models.Responses;
 using System.Globalization;
 
@@ -32,7 +31,7 @@ public partial class UserBrowserPage : BasePage
     private AppControl appControl;
     private LocationService locationService;
     private CancellationTokenSource? cts;
-    private MapBottomSheet bottomSheet;
+    //private MapBottomSheet bottomSheet;
     private CancellationTokenSource refreshCts;
     private Circle distanceCircle;
     private Location currentCenter;
@@ -53,7 +52,7 @@ public partial class UserBrowserPage : BasePage
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
 
-        bottomSheet = new MapBottomSheet();
+        //bottomSheet = new MapBottomSheet();
         bottomSheet.Dismissed += BottomSheet_Closed;
         bottomSheet.EventValueDistanceChanged += DistanceSliderValueChanged;
         bottomSheet.EventShowResultsClicked += ShowResultsClicked;
@@ -278,18 +277,18 @@ public partial class UserBrowserPage : BasePage
 
     private async void Bottom_Tapped(object sender, TappedEventArgs e)
     {
-        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
-        {
+        //await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        //{
             await AnimateElementScaleDown(borderBottom);
             borderBottom.IsVisible = false;
             isBottomSheetOpened = true;
 
             await bottomSheet.ShowAsync();
             InitCircle();
-        });
+        //});
     }
 
-    private async void BottomSheet_Closed(object? sender, The49.Maui.BottomSheet.DismissOrigin e)
+    private async void BottomSheet_Closed()
     {
         borderBottom.TranslationY = 100;
         borderBottom.IsVisible = true;
