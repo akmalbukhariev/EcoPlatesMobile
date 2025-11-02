@@ -34,6 +34,7 @@
                        HorizontalTextAlignment="Center"/>
                 <Label Text="{x:Static language:AppResource.Type}" 
                        FontAttributes="Bold"
+                       TextColor="Black"
                        FontFamily="RobotoVar"/>
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" BackgroundColor="White" CornerRadius="6">
                     <Grid>
@@ -52,6 +53,7 @@
                  </Frame>
                 <Label Text="{x:Static language:AppResource.Message}" 
                        FontAttributes="Bold"
+                       TextColor="Black"
                        FontFamily="RobotoVar"/>
                 <Frame Padding="0" HasShadow="False" BorderColor="Gray" BackgroundColor="White" CornerRadius="6">
                     <Editor x:Name="messageEditor"
