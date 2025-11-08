@@ -42,7 +42,8 @@ public partial class CompanyProfileInfoPage : BasePage
         fullImage.Source = appControl.CompanyInfo.logo_url;
         entryCompanyName.Text = appControl.CompanyInfo.company_name;
         lbPhoneNUmber.Text = appControl.CompanyInfo.phone_number;
-        notification.IsToggled = appControl.CompanyInfo.notification_enabled;
+        //notification.IsToggled = appControl.CompanyInfo.notification_enabled;
+        ChangeNotification(appControl.CompanyInfo.notification_enabled);
 
         string[] times = appControl.CompanyInfo.working_hours.Split(" - ");
         if (times.Length == 2)
@@ -200,7 +201,7 @@ public partial class CompanyProfileInfoPage : BasePage
                         { "company_name", enteredName },
                         { "business_type", appControl.BusinessTypeList[selectedType] },
                         { "working_hours",  formattedWorkingHours},
-                        { "notification_enabled", notification.IsToggled.ToString() }
+                        { "notification_enabled", notification_on.ToString() }
                     };
 
                     if (!isNewImageSelected)
@@ -285,7 +286,7 @@ public partial class CompanyProfileInfoPage : BasePage
         }
     }
 
-    private bool _suppressToggle;
+    /*private bool _suppressToggle;
     private async void Notitifation_Toggled(object sender, ToggledEventArgs e)
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
@@ -345,6 +346,76 @@ public partial class CompanyProfileInfoPage : BasePage
                 loading.ShowLoading = false;
             }
         });
+    }*/
+
+    private async void Notification_Tapped(object sender, TappedEventArgs e)
+    {
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            keyboardHelper.HideKeyboard();
+
+            bool allowed = await NotificationPermissionHelper.EnsureEnabledAsync(this);
+            if (!allowed)
+            {
+                ChangeNotification(false);
+                return;
+            }
+
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
+            if (!isWifiOn) return;
+
+            ChangeNotification(!notification_on);
+            try
+            {
+                var additionalData = new Dictionary<string, string>
+                {
+                    { "company_id", appControl.CompanyInfo.company_id.ToString() },
+                    { "notification_enabled", notification_on.ToString() }
+                };
+
+                loading.ShowLoading = true;
+
+                Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutCompany();
+                    return;
+                }
+
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    appControl.RefreshCompanyProfilePage = true;
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
+    }
+
+    private bool notification_on = false;
+    private void ChangeNotification(bool on)
+    {
+        notification_on = on;
+
+        if (on)
+        {
+            notification.Source = "company_on.png";
+        }
+        else
+        {
+            notification.Source = "off.png";
+        }
     }
 
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)

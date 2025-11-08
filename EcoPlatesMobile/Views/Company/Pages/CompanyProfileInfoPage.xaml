@@ -61,11 +61,11 @@
                                        WidthRequest="20"
                                        HeightRequest="20"
                                        HorizontalOptions="End"
-                                       Margin="0,0,0,0"/>
+                                       Margin="0,0,5,0"/>
                             </Grid>
                             <BoxView BackgroundColor="LightGray" Grid.Row="3"/>
                             <Grid x:Name="grdPhoneNumber" 
-                                  ColumnDefinitions="Auto, *, 30" 
+                                  ColumnDefinitions="Auto, *, Auto" 
                                   Grid.Row="4">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer NumberOfTapsRequired="1"
@@ -92,7 +92,7 @@
                                        Grid.Column="2"/>
                             </Grid>
                             <BoxView BackgroundColor="LightGray" Grid.Row="5"/>
-                            <Grid ColumnDefinitions="Auto, *, 20"
+                            <Grid ColumnDefinitions="Auto, *, Auto"
                                   Grid.Row="6">
                                 <Label Text="In-app Notifications"
                                        TextColor="Black"
@@ -100,7 +100,21 @@
                                        FontFamily="RobotoVar"
                                        HorizontalTextAlignment="Start"
                                        VerticalTextAlignment="Center"/>
-                                <Switch x:Name="notification"
+                                <Image x:Name="notification" 
+                                        Source="active.png"
+                                        Aspect="AspectFit"
+                                        WidthRequest="55"
+                                        HeightRequest="35"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center"
+                                        Margin="0,0,5,0"
+                                        Grid.Column="1">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                    Tapped="Notification_Tapped"/>
+                                        </Image.GestureRecognizers>
+                                </Image>
+                                <!--<Switch x:Name="notification"
                                         OnColor="#FFC7B1E9"
                                         HorizontalOptions="End"
                                         VerticalOptions="Center"
@@ -125,7 +139,7 @@
                                             </VisualStateGroup>
                                         </VisualStateGroupList>
                                     </VisualStateManager.VisualStateGroups>
-                                </Switch>
+                                </Switch>-->
                             </Grid>
                         </Grid>
                     </Border>

@@ -38,7 +38,8 @@ public partial class UserProfileInfoPage : BasePage
         fullImage.Source = imUser.Source;
         entryUserName.Text = appControl.UserInfo.first_name;
         lbPhoneNumber.Text = appControl.UserInfo.phone_number;
-        notification.IsToggled = appControl.UserInfo.notification_enabled;
+        //notification.IsToggled = appControl.UserInfo.notification_enabled;
+        ChangeNotification(appControl.UserInfo.notification_enabled);
           
         isPageLoaded = true;
     }
@@ -216,7 +217,7 @@ public partial class UserProfileInfoPage : BasePage
         });
     }
 
-    private bool _suppressToggle;
+    /*private bool _suppressToggle;
     private async void Notitifation_Toggled(object sender, ToggledEventArgs e)
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
@@ -275,6 +276,75 @@ public partial class UserProfileInfoPage : BasePage
                 loading.ShowLoading = false;
             }
         });
+    }*/
+
+    private async void Notification_Tapped(object sender, TappedEventArgs e)
+    {
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            keyboardHelper.HideKeyboard();
+
+            bool allowed = await NotificationPermissionHelper.EnsureEnabledAsync(this);
+            if (!allowed)
+            {
+                ChangeNotification(false);
+                return;
+            }
+
+            bool isWifiOn = await appControl.CheckWifiOrNetwork();
+            if (!isWifiOn) return;
+
+            ChangeNotification(!notification_on);
+            try
+            {
+                var additionalData = new Dictionary<string, string>
+                {
+                    { "user_id", appControl.UserInfo.user_id.ToString() },
+                    { "notification_enabled", notification_on.ToString() }
+                };
+
+                loading.ShowLoading = true;
+
+                Response response = await userApiService.UpdateUserProfileInfo(null, additionalData);
+                bool isOk = await appControl.CheckUserState(response);
+                if (!isOk)
+                {
+                    await appControl.LogoutUser();
+                    return;
+                }
+                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+                {
+                    appControl.RefreshUserProfilePage = true;
+                }
+                else
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                loading.ShowLoading = false;
+            }
+        });
+    }
+
+    private bool notification_on = false;
+    private void ChangeNotification(bool on)
+    {
+        notification_on = on;
+
+        if (on)
+        {
+            notification.Source = "user_on.png";
+        }
+        else
+        {
+            notification.Source = "off.png";
+        }
     }
 
     private async void ButtonLogOut_Clicked(object sender, EventArgs e)
