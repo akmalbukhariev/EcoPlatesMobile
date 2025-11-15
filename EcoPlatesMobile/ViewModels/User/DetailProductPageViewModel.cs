@@ -68,7 +68,7 @@ namespace EcoPlatesMobile.ViewModels.User
                 };
 
                 SpecificPromotionWithCompanyInfoResponse response = appControl.IsLoggedIn ? await userApiService.GetSpecificPromotionWithCompanyInfo(request) :
-                                                                                             await userApiService.GetSpecificPromotionWithCompanyInfoWithoutLogin(request);
+                                                                                            await userApiService.GetSpecificPromotionWithCompanyInfoWithoutLogin(request);
                 bool isOk = await appControl.CheckUserState(response);
                 if (!isOk)
                 {
@@ -90,11 +90,11 @@ namespace EcoPlatesMobile.ViewModels.User
                     WorkingTime = appControl.FormatWorkingHours(info.working_hours);
                     likedProduct = response.resultData.liked;
                     LikeImage = likedProduct ? "liked.png" : "like.png";
-                    OldPrice = info.old_price.ToString() + " so'm";
-                    NewPrice = info.new_price.ToString() + " so'm";
+                    OldPrice = appControl.GetUzbCurrency(info.old_price);
+                    NewPrice = appControl.GetUzbCurrency(info.new_price);
                     UserNeedToKnow = info.description;
                     token_frb = info.token_frb;
-
+                    
                     if (info.ratingInfo != null)
                     {
                         Stars = $"{info.ratingInfo.avg_rating} ({info.ratingInfo.total_reviews})";

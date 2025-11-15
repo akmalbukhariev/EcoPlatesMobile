@@ -19,8 +19,8 @@
 		<ApplicationId>com.saletop.app</ApplicationId>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-		<ApplicationVersion>3</ApplicationVersion>
+		<ApplicationDisplayVersion>1.1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>6</ApplicationVersion>
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
 		<WindowsPackageType>None</WindowsPackageType>
@@ -28,6 +28,9 @@
 		<TargetAndroidVersion>35</TargetAndroidVersion>
         <TargetSdkVersion>35</TargetSdkVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+
+		<AndroidSupportedAbis>arm64-v8a;armeabi-v7a</AndroidSupportedAbis>
+  		<RuntimeIdentifiers>android-arm64;android-arm</RuntimeIdentifiers>
 
 		<Configurations>Debug;Release;Debug_Local</Configurations>
 

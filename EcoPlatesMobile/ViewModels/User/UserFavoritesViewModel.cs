@@ -114,8 +114,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
-                        NewPrice = $"{item.new_price:N0} so'm",
-                        OldPrice = $"{item.old_price:N0} so'm",
+                        NewPrice = appControl.GetUzbCurrency(item.new_price),
+                        OldPrice = appControl.GetUzbCurrency(item.old_price),
                         Stars = $"{item.avg_rating}({item.total_reviews})",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
@@ -357,8 +357,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
-                        NewPrice = $"{item.new_price:N0} so'm",
-                        OldPrice = $"{item.old_price:N0} so'm",
+                        NewPrice = appControl.GetUzbCurrency(item.new_price),
+                        OldPrice = appControl.GetUzbCurrency(item.old_price),
                         Stars = $"{item.avg_rating}({item.total_reviews})",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
@@ -542,45 +542,5 @@ namespace EcoPlatesMobile.ViewModels.User
 
             await LoadCompanyFavoritesAsync();
         }
-
-        /*
-        public IRelayCommand RefreshProductCommand => new RelayCommand(async () =>
-        {
-            bool isWifiOn = await appControl.CheckWifi();
-            if (!isWifiOn) return;
-
-            await LoadProductFavoritesAsync(isRefresh: true);
-        });
-
-        public IRelayCommand RefreshCompanyCommand => new RelayCommand(async () =>
-        {
-            bool isWifiOn = await appControl.CheckWifi();
-            if (!isWifiOn) return;
-
-            await LoadCompanyFavoritesAsync(isRefresh: true);
-        });
-
-        public IRelayCommand LoadProductMoreCommand => new RelayCommand(async () =>
-        {
-            bool isWifiOn = await appControl.CheckWifi();
-            if (!isWifiOn) return;
-
-            if (IsLoading || IsRefreshingProduct || !hasMoreProductItems)
-                return;
-
-            await LoadProductFavoritesAsync();
-        });
-
-        public IRelayCommand LoadCompanyMoreCommand => new RelayCommand(async () =>
-        {
-            bool isWifiOn = await appControl.CheckWifi();
-            if (!isWifiOn) return;
-
-            if (IsLoading || IsRefreshingCompany || !hasMoreCompanyItems)
-                return;
-
-            await LoadCompanyFavoritesAsync();
-        });
-        */
     }
 }

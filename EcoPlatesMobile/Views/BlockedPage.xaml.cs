@@ -46,18 +46,18 @@ public partial class BlockedPage : BasePage
  
         string currentLang = languageService.GetCurrentLanguage();
 
-        string url = $"http://{Constants.SERVER_DOMAIN}/backend/help-center-uz.html";
+        string url = $"http://{Constants.SERVER_DOMAIN}/help-center-uz.html";
 
         switch (currentLang.ToLower())
         {
             case Constants.UZ:
-                url = $"http://{Constants.SERVER_DOMAIN}/backend/help-center-uz.html";
+                url = $"http://{Constants.SERVER_DOMAIN}/help-center-uz.html";
                 break;
             case Constants.RU:
-                url = $"http://{Constants.SERVER_DOMAIN}/backend/help-center-ru.html";
+                url = $"http://{Constants.SERVER_DOMAIN}/help-center-ru.html";
                 break;
             case Constants.EN:
-                url = $"http://{Constants.SERVER_DOMAIN}/backend/help-center-en.html";
+                url = $"http://{Constants.SERVER_DOMAIN}/help-center-en.html";
                 break;
         }
 

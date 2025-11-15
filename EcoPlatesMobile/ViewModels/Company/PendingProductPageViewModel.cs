@@ -101,7 +101,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                     {
                         hasMoreItems = false;
                     }
-
+                
                     IsShowTitle = Products.Count > 0;
                 }
                 else

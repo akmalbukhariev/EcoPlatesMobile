@@ -45,17 +45,22 @@
                            TextColor="Black"
                            Margin="10,0,0,0"
                            TextChanged="OnEntryTextChanged"/>
-                    <ImageButton x:Name="clearButton"
-                                 Source="clean_entry.png"
-                                 BackgroundColor="Transparent"
-                                 WidthRequest="20"
-                                 HeightRequest="20"
-                                 HorizontalOptions="End"
-                                 VerticalOptions="Center"
-                                 Margin="0,0,10,0"
-                                 Clicked="OnClearClicked"
-                                 IsVisible="False"/>
-                </Grid>
+                    <Image x:Name="clearButton"
+                            Source="clean_entry.png"
+                            Aspect="AspectFit"
+                            BackgroundColor="Transparent"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            Margin="0,0,10,0"
+                            IsVisible="False">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Tapped="OnClearClicked"/>
+                    </Image.GestureRecognizers>
+            </Image>
+            </Grid>
             </Border>
             <Image x:Name="imSearch" 
                    Source="search.png"

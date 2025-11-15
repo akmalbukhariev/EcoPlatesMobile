@@ -58,9 +58,8 @@ public partial class CompanyEditProductPage : BasePage
             imSelectedProduct.Source = ProductModel.ProductImage;
             fullImage.Source = ProductModel.ProductImage;
             entryProductName.SetEntryText(ProductModel.ProductName);
-            entryNewPrice.Text = (ProductModel.NewPriceDigit ?? 0m).ToString("0.######", CultureInfo.InvariantCulture).Replace(".", "");
-            entryOldPrice.Text = (ProductModel.OldPriceDigit ?? 0m).ToString("0.######", CultureInfo.InvariantCulture).Replace(".", "");
-            editorDescription.Text = ProductModel.description;
+            entryOldPrice.Text = (ProductModel.OldPriceDigit ?? 0m).ToString("#,0", CultureInfo.InvariantCulture);
+            entryNewPrice.Text = (ProductModel.NewPriceDigit ?? 0m).ToString("#,0", CultureInfo.InvariantCulture);
 
             if (ProductModel.IsThisActivePage)
             {
@@ -267,57 +266,70 @@ public partial class CompanyEditProductPage : BasePage
         });
     }
 
-    readonly HashSet<Entry> formatting = new();
+    bool _isFormattingPrice;
 
     void PriceTextChanged(object sender, TextChangedEventArgs e)
     {
+        if (_isFormattingPrice)
+            return;   // prevent re-entrancy
+
         var entry = (Entry)sender;
 
-        // prevent re-entrancy per Entry
-        if (formatting.Contains(entry)) return;
+        var newText = e.NewTextValue ?? string.Empty;
 
-        var oldText = e.OldTextValue ?? "";
-        var newText = e.NewTextValue ?? "";
-
-        // keep only digits that the user typed (keyboard can be Numeric)
+        // strip non-digits
         var digits = Regex.Replace(newText, "[^0-9]", "");
         if (digits.Length == 0)
         {
-            formatting.Add(entry);
-            entry.Text = "";
-            entry.CursorPosition = 0;
-            formatting.Remove(entry);
+            _isFormattingPrice = true;
+            Dispatcher.Dispatch(() =>
+            {
+                entry.Text = string.Empty;
+                entry.CursorPosition = 0;
+                _isFormattingPrice = false;
+            });
             return;
         }
 
-        // guard against values too large for long
         if (!long.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out var value))
         {
-            formatting.Add(entry);
-            entry.Text = oldText; // revert
-            formatting.Remove(entry);
+            // revert if somehow invalid
+            _isFormattingPrice = true;
+            Dispatcher.Dispatch(() =>
+            {
+                entry.Text = e.OldTextValue ?? string.Empty;
+                entry.CursorPosition = entry.Text.Length;
+                _isFormattingPrice = false;
+            });
             return;
         }
 
-        // remember caret distance from the end
-        var oldLen = oldText.Length;
-        var oldCursor = entry.CursorPosition >= 0 ? entry.CursorPosition : oldLen;
-        var cursorFromEnd = oldLen - oldCursor;
-
-        // format with commas always
+        // format with commas: 1234 -> 1,234
         var formatted = value.ToString("#,0", CultureInfo.InvariantCulture);
 
-        formatting.Add(entry);
-        entry.Text = formatted;
+        // if nothing changes, stop
+        if (formatted == newText)
+            return;
 
-        // restore caret relative to the end
-        var newLen = formatted.Length;
-        var newPos = Math.Max(0, newLen - Math.Max(0, cursorFromEnd));
-        entry.CursorPosition = Math.Min(newPos, newLen);
+        // remember caret distance from end based on what user just typed
+        var oldLen = newText.Length;
+        var oldCursor = entry.CursorPosition >= 0 ? entry.CursorPosition : oldLen;
+        var cursorFromEnd = Math.Max(0, oldLen - oldCursor);
 
-        formatting.Remove(entry);
+        _isFormattingPrice = true;
+        Dispatcher.Dispatch(() =>
+        {
+            entry.Text = formatted;
+
+            var newLen = formatted.Length;
+            var newPos = Math.Max(0, newLen - cursorFromEnd);
+            if (newPos > newLen) newPos = newLen;
+
+            entry.CursorPosition = newPos;
+            _isFormattingPrice = false;
+        });
     }
-
+     
     long? GetRawNumber(Entry e)
     {
         var digits = Regex.Replace(e.Text ?? "", "[^0-9]", "");
