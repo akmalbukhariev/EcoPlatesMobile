@@ -162,8 +162,8 @@ public partial class PhoneNumberRegisterPage : BasePage
                         response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
                     {
                         string message = response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString() ?
-                        AppResource.MessageEnterPhoneNumberNotRegisteredUser :
-                        AppResource.MessageEnterPhoneNumberNotRegisteredCompany;
+                        AppResource.MessageEnterPhoneNumberNotRegisteredCompany :
+                        AppResource.MessageEnterPhoneNumberNotRegisteredUser;
 
                         bool answer = await AlertService.ShowConfirmationAsync(
                                     AppResource.Confirm,
