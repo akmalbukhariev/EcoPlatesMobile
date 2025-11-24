@@ -62,11 +62,17 @@
         <Button x:Name="btnClose" 
                 Text="Close"
                 BackgroundColor="{StaticResource Company}"
-                CornerRadius="30"
                 Style="{StaticResource StyleBigButton}"
                 HeightRequest="50"
                 Margin="20,0,20,0"
                 Clicked="Close_Clicked"
-                Grid.Row="2"/>
+                Grid.Row="2">
+              <Button.CornerRadius>
+                     <OnPlatform x:TypeArguments="x:Int32">
+                            <On Platform="iOS">25</On>
+                            <On Platform="Android">30</On>
+                     </OnPlatform>
+              </Button.CornerRadius>
+       </Button>
     </Grid>
 </page:BasePage>

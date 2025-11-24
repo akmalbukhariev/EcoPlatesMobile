@@ -102,7 +102,7 @@
                      IsRefreshing="{Binding IsRefreshing}"
                      Grid.Row="4">
             <Grid RowDefinitions="*, Auto"
-                  HeightRequest="{OnPlatform Android=500, iOS=700}">
+                  HeightRequest="{OnPlatform Android=500, iOS=500}">
                 <ScrollView HorizontalScrollBarVisibility="Never">
                     <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"
                           RowSpacing="20"

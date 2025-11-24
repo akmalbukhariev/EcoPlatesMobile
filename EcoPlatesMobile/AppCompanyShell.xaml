@@ -11,28 +11,51 @@
        Shell.TabBarUnselectedColor="Gray"
        Shell.TabBarForegroundColor="{StaticResource Company}"
        Shell.TabBarTitleColor="{StaticResource Company}">
-    
+       
     <TabBar>
-         <Tab Icon="home1.png" 
-              Title="{x:Static language:AppResource.ActiveTitle}">
-            <ShellContent ContentTemplate="{DataTemplate companyPages:ActiveProductPage}"
-                          Shell.NavBarIsVisible="False"/>
-        </Tab>
-        <Tab Icon="active_product.png" 
-             Title="{x:Static language:AppResource.InactiveTitle}">
-            <ShellContent ContentTemplate="{DataTemplate companyPages:InActiveProductPage}"
-                          Shell.NavBarIsVisible="False"/>
-        </Tab>
-        <Tab Icon="pending.png"
-             Title="{x:Static language:AppResource.Pending}">
-            <ShellContent ContentTemplate="{DataTemplate companyPages:PendingProductPage}"
-                          Shell.NavBarIsVisible="False"/>
-        </Tab>
-        <Tab Icon="company.png" 
-             Title="{x:Static language:AppResource.MyProfile}">
-            <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyProfilePage}"
-                          Shell.NavBarIsVisible="False"/>
-        </Tab>
-    </TabBar>
+          <Tab Title="{x:Static language:AppResource.ActiveTitle}">
+               <Tab.Icon>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                         <On Platform="Android" Value="home1.png" />
+                         <On Platform="iOS" Value="home1_24.png" />
+                    </OnPlatform>
+               </Tab.Icon>
+               <ShellContent ContentTemplate="{DataTemplate companyPages:ActiveProductPage}"
+                              Shell.NavBarIsVisible="False" />
+          </Tab>
+
+          <Tab Title="{x:Static language:AppResource.InactiveTitle}">
+               <Tab.Icon>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                         <On Platform="Android" Value="active_product.png" />
+                         <On Platform="iOS" Value="active_product_24.png" />
+                    </OnPlatform>
+               </Tab.Icon>
+               <ShellContent ContentTemplate="{DataTemplate companyPages:InActiveProductPage}"
+                              Shell.NavBarIsVisible="False" />
+          </Tab>
+
+          <Tab Title="{x:Static language:AppResource.Pending}">
+               <Tab.Icon>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                         <On Platform="Android" Value="pending.png" />
+                         <On Platform="iOS" Value="pending_24.png" />
+                    </OnPlatform>
+               </Tab.Icon>
+               <ShellContent ContentTemplate="{DataTemplate companyPages:PendingProductPage}"
+                              Shell.NavBarIsVisible="False" />
+          </Tab>
+
+          <Tab Title="{x:Static language:AppResource.MyProfile}">
+               <Tab.Icon>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                         <On Platform="Android" Value="company.png" />
+                         <On Platform="iOS" Value="company_24.png" />
+                    </OnPlatform>
+               </Tab.Icon>
+               <ShellContent ContentTemplate="{DataTemplate companyPages:CompanyProfilePage}"
+                              Shell.NavBarIsVisible="False" />
+          </Tab>
+     </TabBar>
     
 </Shell>

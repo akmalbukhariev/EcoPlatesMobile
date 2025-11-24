@@ -32,11 +32,17 @@
             </StackLayout>
             <Button Text="{x:Static language:AppResource.Register}"
                     BackgroundColor="#007200"
-                    CornerRadius="30"
                     TextColor="White"
                     HeightRequest="50"
                     Clicked="ButtonNext_Clicked"
-                    Grid.Row="2"/>
+                    Grid.Row="2">
+                <Button.CornerRadius>
+                    <OnPlatform x:TypeArguments="x:Int32">
+                        <On Platform="iOS">25</On>
+                        <On Platform="Android">30</On>
+                    </OnPlatform>
+                </Button.CornerRadius>
+            </Button>
         </Grid>
         <component:LoadingView x:Name="loading"
                                Grid.RowSpan="2"/>

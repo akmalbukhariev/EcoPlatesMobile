@@ -107,7 +107,7 @@ namespace EcoPlatesMobile.Services
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 CompanyInfo = response.resultData;
- 
+
                 appStoreService.Set(AppKeys.UserRole, UserRole.Company);
                 appStoreService.Set(AppKeys.IsLoggedIn, true);
                 appStoreService.Set(AppKeys.PhoneNumber, phoneNumber);
@@ -126,7 +126,7 @@ namespace EcoPlatesMobile.Services
                     await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
                 }
                 #endregion
-
+                
                 Application.Current.MainPage = new ContentPage
                 {
                     BackgroundColor = Colors.White,
@@ -219,13 +219,15 @@ namespace EcoPlatesMobile.Services
             await companyApi.ClearTokenAsync();
             CompanyInfo = null;
             
-            if (NotificationSubscriber != null)
-            {
-                MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
-                    NotificationSubscriber,
-                    Constants.NOTIFICATION_BODY);
-                NotificationSubscriber = null;
+            #if ANDROID
+                if (NotificationSubscriber != null)
+                {
+                    MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
+                        NotificationSubscriber,
+                        Constants.NOTIFICATION_BODY);
+                    NotificationSubscriber = null;
             }
+            #endif
             
             Application.Current.MainPage = new AppEntryShell();
         }
@@ -248,7 +250,7 @@ namespace EcoPlatesMobile.Services
 
             await userApi.ClearTokenAsync();
             UserInfo = new UserInfo();
-
+    #if ANDROID
             if (NotificationSubscriber != null)
             {
                 MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
@@ -256,6 +258,7 @@ namespace EcoPlatesMobile.Services
                     Constants.NOTIFICATION_BODY);
                 NotificationSubscriber = null;
             }
+    #endif
 
             RefreshMainPage = true;
             RefreshBrowserPage = true;
@@ -388,12 +391,24 @@ namespace EcoPlatesMobile.Services
             return Regex.IsMatch(phoneNumber, PHONE_PATTERN);
         }
 
-        public async Task<string> GetFirebaseToken()
+        public async Task<string?> GetFirebaseToken()
         {
-            await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
-            var token = await CrossFirebaseCloudMessaging.Current.GetTokenAsync();
+        #if IOS
+            if (DeviceInfo.DeviceType != DeviceType.Physical)
+                return "";
+        #endif
 
-            return token;
+            try
+            {
+                await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
+                var token = await CrossFirebaseCloudMessaging.Current.GetTokenAsync();
+                return token;
+            }
+            catch (Plugin.Firebase.Core.Exceptions.FirebaseException ex)
+            {
+                Console.WriteLine($"[FCM] Couldn't retrieve FCM token: {ex.Message}");
+                return "";
+            }
         }
 
         public string FormatWorkingHours(string? raw)

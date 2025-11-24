@@ -6,6 +6,12 @@ using EcoPlatesMobile.Resources.Languages;
 using Microsoft.Maui.ApplicationModel;
 #endif
 
+#if IOS
+using UserNotifications;
+using UIKit;
+using Foundation;
+#endif
+
 public static class NotificationPermissionHelper
 {
     public static async Task<bool> EnsureEnabledAsync(Page hostPage)

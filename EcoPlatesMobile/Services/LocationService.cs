@@ -92,7 +92,11 @@ namespace EcoPlatesMobile.Services
                 // 2) Check permission  → show "B" message if NOT granted
                 var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 
-                if (status == PermissionStatus.Denied)
+                if (status == PermissionStatus.Unknown)
+                {
+                    status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+                }
+                else if (status == PermissionStatus.Denied)
                 {
                     status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
                 }

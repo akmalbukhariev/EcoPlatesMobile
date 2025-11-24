@@ -47,13 +47,63 @@
                        WidthRequest="30"
                        HeightRequest="30"/>
             </Grid>
-            
         </Grid>
-        <maps:Map x:Name="map" 
+        <maps:Map x:Name="map"
                   MapType="Street"
                   IsShowingUser="true"
                   Grid.Row="1"
                   Grid.RowSpan="3"/>
+        <!-- iOS-only map controls -->
+        <Grid Grid.Row="1"
+            Grid.RowSpan="3"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Margin="10"
+            IsVisible="{OnPlatform iOS=true, Android=false, WinUI=false, MacCatalyst=false}">
+
+            <Grid RowDefinitions="Auto,Auto"
+                RowSpacing="10"
+                HorizontalOptions="End"
+                VerticalOptions="End">
+
+                <!-- Current location button -->
+                <Button Grid.Row="0"
+                        Text="◎"
+                        FontSize="18"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        CornerRadius="20"
+                        Padding="0"
+                        BackgroundColor="{StaticResource Company}"
+                        Opacity="0.9"
+                        Clicked="OnMyLocationClicked" />
+
+                <!-- Zoom + / - buttons -->
+                <VerticalStackLayout Grid.Row="1"
+                                    Spacing="5"
+                                    HorizontalOptions="End">
+                    <Button Text="+"
+                            FontSize="18"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            CornerRadius="20"
+                            Padding="0"
+                            BackgroundColor="{StaticResource Company}"
+                            Opacity="0.9"
+                            Clicked="OnZoomInClicked" />
+                    <Button Text="-"
+                            FontSize="18"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            CornerRadius="20"
+                            Padding="0"
+                            BackgroundColor="{StaticResource Company}"
+                            Opacity="0.9"
+                            Clicked="OnZoomOutClicked" />
+                </VerticalStackLayout>
+            </Grid>
+        </Grid>
+
         <VerticalStackLayout HorizontalOptions="Center"
                              VerticalOptions="Center" 
                              Grid.Row="1"

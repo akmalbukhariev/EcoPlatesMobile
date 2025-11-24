@@ -3,6 +3,9 @@ using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.ViewModels;
 
+using Microsoft.Maui.Controls.PlatformConfiguration;
+//using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
+
 namespace EcoPlatesMobile.Views
 {
     public abstract class BasePage : ContentPage
@@ -12,13 +15,18 @@ namespace EcoPlatesMobile.Views
         protected BasePage()
         {
             Shell.SetNavBarIsVisible(this, false);
-            Shell.SetTabBarIsVisible(this, false);
+            Shell.SetTabBarIsVisible(this, false); 
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
 
         protected void CancelAndDisposeCts()
         {
             try { cts?.Cancel(); }
-            catch {}
+            catch { }
             finally { cts?.Dispose(); cts = null; }
         }
 

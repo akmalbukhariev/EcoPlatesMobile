@@ -12,18 +12,22 @@ using Plugin.Firebase.CloudMessaging;
 using Plugin.Firebase.CloudMessaging.EventArgs;
 using System.Text;
 
+#if IOS
+using UIKit;
+#endif
+
 namespace EcoPlatesMobile
 {
     public partial class App : Application
     {
-        private readonly INotificationService notificationService;
+        //private readonly INotificationService notificationService;
         private readonly UserSessionService userSessionService;
         private IUpdateService updateService;
         private AppControl appControl;
-        public App(INotificationService notificationService, UserSessionService userSessionService, IUpdateService updateService, AppControl appControl)
+        public App(/*INotificationService notificationService, */UserSessionService userSessionService, IUpdateService updateService, AppControl appControl)
         {
             InitializeComponent();
-            this.notificationService = notificationService;
+            //this.notificationService = notificationService;
             this.userSessionService = userSessionService;
             this.updateService = updateService;
             this.appControl = appControl;
@@ -31,14 +35,14 @@ namespace EcoPlatesMobile
             RegisterRoutes();
             Setting();
         }
-  
+
         protected override Window CreateWindow(IActivationState? activationState)
         {
             AppService.Get<LanguageService>().Init();
-            
+
             return new Window(new AppEntryShell());
         }
-        
+
         protected override async void OnStart()
         {
             base.OnStart();
@@ -139,6 +143,45 @@ namespace EcoPlatesMobile
             //{ 
             //handler.PlatformView?.SetOnClickListener(new My24HourTimePickerClickListener(handler));
             //});
+#endif
+
+#if IOS
+            
+            EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+            {
+                handler.PlatformView.BorderStyle = UITextBorderStyle.None;
+                handler.PlatformView.Layer.BorderWidth = 0;
+                handler.PlatformView.BackgroundColor = UIColor.Clear;
+            });
+
+            PickerHandler.Mapper.AppendToMapping(nameof(Picker), (handler, view) =>
+            {
+                handler.PlatformView.BorderStyle = UITextBorderStyle.None;
+                handler.PlatformView.Layer.BorderWidth = 0;
+                handler.PlatformView.BackgroundColor = UIColor.Clear;
+            });
+
+            DatePickerHandler.Mapper.AppendToMapping(nameof(DatePicker), (handler, view) =>
+            {
+                handler.PlatformView.BorderStyle = UITextBorderStyle.None;
+                handler.PlatformView.Layer.BorderWidth = 0;
+                handler.PlatformView.BackgroundColor = UIColor.Clear;
+            });
+
+            TimePickerHandler.Mapper.AppendToMapping(nameof(TimePicker), (handler, view) =>
+            {
+                handler.PlatformView.BorderStyle = UITextBorderStyle.None;
+                handler.PlatformView.Layer.BorderWidth = 0;
+                handler.PlatformView.BackgroundColor = UIColor.Clear;
+            });
+
+            EditorHandler.Mapper.AppendToMapping("NoBorder", (handler, view) =>
+            {
+                // Editor is UITextView on iOS
+                var textView = handler.PlatformView;
+                textView.Layer.BorderWidth = 0;
+                textView.BackgroundColor = UIColor.Clear;
+            });
 #endif
         }
 

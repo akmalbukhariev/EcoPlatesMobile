@@ -63,7 +63,7 @@
         </Grid>
         <BoxView BackgroundColor="LightGray" 
                  Grid.Row="3"/>
-        <Grid RowDefinitions="Auto, Auto, Auto" 
+        <Grid RowDefinitions="Auto, Auto, Auto"
               Margin="0,0,0,30"
               VerticalOptions="End"
               Grid.Row="4">
@@ -86,11 +86,11 @@
                    HorizontalTextAlignment="Center"
                    Grid.Row="2"/>
         </Grid>
-        <RefreshView Command="{Binding RefreshCommand}"
+        <RefreshView Command="{Binding RefreshCommand}" 
                      IsRefreshing="{Binding IsRefreshing}"
                      Grid.Row="4">
             <Grid RowDefinitions="*, Auto"
-                  HeightRequest="{OnPlatform Android=500, iOS=700}">
+                  HeightRequest="{OnPlatform Android=500, iOS=550}">
                 <ScrollView HorizontalScrollBarVisibility="Never">
                     <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
                           Margin="20">
@@ -192,9 +192,10 @@
             </Grid>
         </RefreshView>
         <BoxView x:Name="dropdownListBack" 
-                 Opacity="0.5"
-                 IsVisible="False"
+                 Opacity="0"
+                 IsVisible="True"
                  BackgroundColor="Black"
+                 InputTransparent="True"
                  Grid.RowSpan="5">
             <BoxView.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1"

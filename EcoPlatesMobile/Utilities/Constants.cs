@@ -26,7 +26,7 @@ namespace EcoPlatesMobile.Utilities
         public static readonly string OsName = DeviceInfo.Current.Platform.ToString();      // Android, iOS, macOS, Windows
         public static readonly string OsVersion = DeviceInfo.Current.VersionString;         // OS version string
 
-        public const int MaxRadius = 10;
+        public const int MaxRadius = 100;
         
         public const string FirstRunKey = "IsFirstRun";
 

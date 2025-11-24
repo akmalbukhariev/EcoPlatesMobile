@@ -123,6 +123,8 @@ public partial class ProductView : ContentView
         InitializeComponent();
         Loaded += OnLoadedAnimateOnce;
         BindingContextChanged += OnBindingContextChangedAnimate;
+
+        boxViewBack.IsVisible = IsNonActiveProduct;
     }
 
     #region Animation
@@ -244,7 +246,23 @@ public partial class ProductView : ContentView
     private static void IsNonActiveProductChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (ProductView)bindable;
-        control.boxViewBack.IsVisible = (bool)newValue;
+        bool isNonActive = (bool)newValue;
+
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            control.boxViewBack.IsVisible = isNonActive;
+
+            // Force a redraw by nudging the opacity
+            if (isNonActive)
+            {
+                // make it clearly visible for testing first
+                control.boxViewBack.Opacity = 0.15;
+            }
+            else
+            {
+                control.boxViewBack.Opacity = 0; // or keep 0.095 if you like the dim look when visible
+            }
+        });
     }
 
     private static void IsPendingProductChanged(BindableObject bindable, object oldValue, object newValue)

@@ -12,15 +12,17 @@ using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Views;
 using Microsoft.Maui.LifecycleEvents;
 using Plugin.Firebase.CloudMessaging;
-using EcoPlatesMobile.Platforms.Android.Notification;
 using EcoPlatesMobile.Models.Responses;
 
 //using Plugin.LocalNotification;
 #if ANDROID
+//using EcoPlatesMobile.Platforms.Android.Notification;
 using EcoPlatesMobile.Platforms.Android;
 using Plugin.Firebase.Core.Platforms.Android;
 #elif IOS
 using Plugin.Firebase.Core.Platforms.iOS;
+using UIKit;
+using Foundation;
 #endif
 
 namespace EcoPlatesMobile
@@ -41,7 +43,8 @@ namespace EcoPlatesMobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Roboto-Variable.ttf", "RobotoVar");
                     fonts.AddFont("Roboto-Italic-Variable.ttf", "RobotoVarItalic");
-                });   
+                });    
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
@@ -59,9 +62,12 @@ namespace EcoPlatesMobile
             builder.ConfigureLifecycleEvents(events =>
             {
 #if IOS
-                events.AddiOS(iOS => iOS.WillFinishLaunching((_, __) => {
+                events.AddiOS(iOS => iOS.WillFinishLaunching((_, __) =>
+                {
+                    var path = Foundation.NSBundle.MainBundle.PathForResource("GoogleService-Info", "plist");
+
                     CrossFirebase.Initialize();
-                    FirebaseCloudMessagingImplementation.Initialize();
+                    //FirebaseCloudMessagingImplementation.Initialize();
                     return false;
                 }));
 #elif ANDROID
@@ -111,8 +117,13 @@ namespace EcoPlatesMobile
 
 #if ANDROID
             builder.Services.AddSingleton<IStatusBarService, StatusBarService>();
-            builder.Services.AddSingleton<INotificationService, NotificationService>();
+            //builder.Services.AddSingleton<INotificationService, NotificationService>();
             builder.Services.AddSingleton<IKeyboardHelper, KeyboardHelper>();
+#endif
+
+#if IOS
+    builder.Services.AddSingleton<IStatusBarService, EcoPlatesMobile.Platforms.iOS.StatusBarService>();
+    builder.Services.AddSingleton<IKeyboardHelper, EcoPlatesMobile.Platforms.iOS.KeyboardHelper>();
 #endif
         }
 

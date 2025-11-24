@@ -130,6 +130,12 @@ public partial class CompanyAddProductPage : BasePage
                     return;
                 }
 
+                if (oldPrice == null || newPrice == null)
+                {
+                    await DisplayAlert(AppResource.Error, AppResource.MessageValidPrice, AppResource.Ok);
+                    return;
+                }
+
                 IsLoading.IsVisible = true;
                 IsLoading.IsRunning = true;
 

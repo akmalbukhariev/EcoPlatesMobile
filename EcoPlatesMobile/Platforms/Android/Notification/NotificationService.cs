@@ -1,4 +1,4 @@
-using Android.App;
+/*using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
@@ -10,6 +10,7 @@ using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Platforms.Android.Notification;
 using EcoPlatesMobile.Services;
 using Newtonsoft.Json.Linq;
+
 
 [assembly: Dependency(typeof(NotificationService))]
 namespace EcoPlatesMobile.Platforms.Android.Notification
@@ -63,7 +64,7 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
                             content = o["new_poster_name"]?.ToString();
                         }
                     }
-                    else                                           
+                    else
                     {
                         content = bodyRaw;
                     }
@@ -150,5 +151,6 @@ namespace EcoPlatesMobile.Platforms.Android.Notification
             NotificationManagerCompat.From(context).Notify(MainActivity.NotificationID, builder.Build());
         }
         */
-    }
-}
+    //}
+//}
+//*/

@@ -163,8 +163,11 @@ public partial class CompanyProfilePage : BasePage
 
     private void OnLanguageTapped(object sender, TappedEventArgs e)
     {
-        dropdownListBack.IsVisible = true;
+        dropdownList.Opacity = 1;
         dropdownList.IsVisible = true;
+
+        dropdownListBack.Opacity = 0.5;      // show dark overlay
+        dropdownListBack.InputTransparent = false; // start catching taps
     }
 
     private async void OnLanguageSelected(object sender, SelectionChangedEventArgs e)
@@ -193,8 +196,10 @@ public partial class CompanyProfilePage : BasePage
 
     private void OnLanguageBackTapped(object sender, TappedEventArgs e)
     {
-        dropdownListBack.IsVisible = false;
         dropdownList.IsVisible = false;
+
+        dropdownListBack.Opacity = 0;        // hide overlay
+        dropdownListBack.InputTransparent = true;  // let taps pass through again
     }
 
     private async void Tile_EventClick(object obj)

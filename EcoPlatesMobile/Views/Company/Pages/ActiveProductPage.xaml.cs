@@ -52,17 +52,16 @@ public partial class ActiveProductPage : BasePage
         this.appControl = appControl;
 
         appControl.NotificationSubscriber = this;
-
-#if ANDROID
-        MessagingCenter.Subscribe<MainActivity, NotificationData>(appControl.NotificationSubscriber, Constants.NOTIFICATION_BODY, OnNotificationReceived);
-#endif
-
+ 
         this.BindingContext = viewModel;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        
+        DependencyService.Get<IStatusBarService>()?
+                        			.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
 
         Shell.SetTabBarIsVisible(this, ShowTabBar);
 

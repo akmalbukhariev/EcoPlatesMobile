@@ -98,7 +98,20 @@ namespace EcoPlatesMobile.Services
         public async Task SetTokenAsync(string token)
         {
             this.token = token;
-            await SecureStorage.SetAsync("auth_token", token);
+
+            try
+            {
+                await SecureStorage.SetAsync("auth_token", token);
+                System.Diagnostics.Debug.WriteLine("[SecureStorage] Token saved securely.");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[SecureStorage] Set failed: {ex.Message}");
+
+                // Fallback for iOS simulator or unsigned builds
+                Preferences.Set("auth_token", token);
+                System.Diagnostics.Debug.WriteLine("[Preferences] Token saved in fallback storage.");
+            }
         }
 
         /// <summary>
@@ -106,10 +119,37 @@ namespace EcoPlatesMobile.Services
         /// </summary>
         public async Task<string?> GetTokenAsync()
         {
+            // 1️⃣ Fast path: already in RAM
             if (!string.IsNullOrEmpty(token))
                 return token;
 
-            return await SecureStorage.GetAsync("auth_token");
+            // 2️⃣ Try secure storage first
+            try
+            {
+                var secureToken = await SecureStorage.GetAsync("auth_token");
+                if (!string.IsNullOrEmpty(secureToken))
+                {
+                    token = secureToken;
+                    System.Diagnostics.Debug.WriteLine("[SecureStorage] Token loaded from secure storage.");
+                    return secureToken;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[SecureStorage] Get failed: {ex.Message}");
+            }
+
+            // 3️⃣ Fallback to local preferences
+            if (Preferences.ContainsKey("auth_token"))
+            {
+                var prefToken = Preferences.Get("auth_token", null);
+                token = prefToken ?? string.Empty;
+                System.Diagnostics.Debug.WriteLine("[Preferences] Token loaded from fallback storage.");
+                return prefToken;
+            }
+
+            System.Diagnostics.Debug.WriteLine("[Token] No saved token found.");
+            return null;
         }
 
         /// <summary>
@@ -117,7 +157,19 @@ namespace EcoPlatesMobile.Services
         /// </summary>
         public Task ClearTokenAsync()
         {
-            SecureStorage.Remove("auth_token");
+            try
+            {
+                SecureStorage.Remove("auth_token");
+            }
+            catch
+            {
+                // ignore secure failure
+            }
+
+            Preferences.Remove("auth_token");
+            token = string.Empty;
+
+            System.Diagnostics.Debug.WriteLine("[Token] Token cleared.");
             return Task.CompletedTask;
         }
 
@@ -318,6 +370,7 @@ namespace EcoPlatesMobile.Services
 
         private static byte[] ConvertToJpegAndroid(byte[] bytes, int maxW, int maxH, int quality)
         {
+            #if ANDROID
             try
             {
                 // Probe image bounds without loading full bitmap
@@ -355,6 +408,9 @@ namespace EcoPlatesMobile.Services
                 // Last resort: return original
                 return bytes;
             }
+            #else
+                return bytes;
+            #endif
         }
 
         private static int ComputeInSampleSize(int width, int height, int reqW, int reqH)

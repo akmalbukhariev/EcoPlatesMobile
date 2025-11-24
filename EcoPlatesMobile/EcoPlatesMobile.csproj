@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
  
 		<OutputType>Exe</OutputType>
 		<RootNamespace>EcoPlatesMobile</RootNamespace>
@@ -13,14 +13,14 @@
 		<UseMauiMaps>true</UseMauiMaps>
 
 		<!-- Display name -->
-		<ApplicationTitle>EcoPlatesMobile</ApplicationTitle>
+		<ApplicationTitle>SaleTop</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.saletop.app</ApplicationId>
-
+        
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.2.0</ApplicationDisplayVersion>
-		<ApplicationVersion>7</ApplicationVersion>
+		<ApplicationDisplayVersion>1.2.3</ApplicationDisplayVersion>
+		<ApplicationVersion>10</ApplicationVersion>
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
 		<WindowsPackageType>None</WindowsPackageType>
@@ -29,6 +29,10 @@
         <TargetSdkVersion>35</TargetSdkVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 
+		<!-- iOS: allow install on iOS 17.x simulators/devices -->
+    	<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">17.0</SupportedOSPlatformVersion>
+    	<MinimumOSVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">17.0</MinimumOSVersion>
+
 		<AndroidSupportedAbis>arm64-v8a;armeabi-v7a</AndroidSupportedAbis>
   		<RuntimeIdentifiers>android-arm64;android-arm</RuntimeIdentifiers>
 
@@ -36,6 +40,11 @@
 
 		<GenerateResxDesignerFiles>true</GenerateResxDesignerFiles>
 
+	</PropertyGroup>
+
+	<!-- iOS-specific settings -->
+	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
+		<ApplicationId>com.akmalbukhariyev.TestApp2</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Debug' AND '$(OS)'=='Windows_NT'">
@@ -93,19 +102,25 @@
 		<MauiFont Include="Resources/Fonts/Roboto-Italic-Variable.ttf" Alias="RobotoItalic" />
 	</ItemGroup>-->
 
+	<!--<ItemGroup>
+		<MauiSplashScreen Include="Resources/Splash/splash1.png"
+						  Color="#007211"
+						  BaseSize="256,256" />
+	</ItemGroup>-->
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash_padded_centered.svg" Color="#007211" />
-
+ 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
+		<MauiFont Include="Resources\Fonts\*"/>
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -122,7 +137,8 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<!--<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="9.0.0" />
+		<!--<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="9.0.0" /> for android-->
+		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.60" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PINView.MAUI" Version="1.0.3" />
 		<PackageReference Include="Plugin.Firebase.CloudMessaging" Version="3.1.2" />
@@ -139,6 +155,12 @@
 				DestinationFolder="$(IntermediateOutputPath)assets"
 				SkipUnchangedFiles="true" />
 	</Target>
+	<ItemGroup>
+		<None Remove="Platforms/iOS/GoogleService-Info.plist" />
+		<BundleResource Include="Platforms/iOS/GoogleService-Info.plist">
+			<LogicalName>GoogleService-Info.plist</LogicalName>
+		</BundleResource>
+	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="AppUserShell.xaml.cs">
 	    <DependentUpon>AppUserShell.xaml</DependentUpon>

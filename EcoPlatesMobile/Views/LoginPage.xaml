@@ -11,13 +11,13 @@
         <Grid RowDefinitions="*,100, 20, 80, Auto, 10, Auto"
               VerticalOptions="Center"
               Margin="36,0,36,0">
-            <Image x:Name="imLogo" 
+            <Image x:Name="imLogo"
                       Source="logo1.png"
                       WidthRequest="200"
                       HeightRequest="200" 
                       HorizontalOptions="Center"
                       VerticalOptions="Center"/>
-            <StackLayout WidthRequest="250" 
+            <StackLayout WidthRequest="250"
                         HorizontalOptions="Center"
                         Grid.Row="2">
                 <Label Text="{x:Static language:AppResource.SelectRole}"
@@ -27,38 +27,47 @@
                        HorizontalTextAlignment="Center"
                        LineBreakMode="WordWrap"/>
             </StackLayout>
-            <Button x:Name="btnUser" 
-                    Text="{x:Static language:AppResource.Buyer}"
-                    Style="{StaticResource StyleBigButton}"
+            <!-- Buyer -->
+            <Border Grid.Row="4"
                     HeightRequest="50"
-                    CornerRadius="0"
-                    VerticalOptions="End"
-                    Clicked="Button_Clicked"
-                    Grid.Row="4">
-                <Button.Background>
+                    StrokeShape="RoundRectangle 0">
+                <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#009688" Offset="0.0"/>
-                        <GradientStop Color="#4CAF50" Offset="1.0"/>
+                        <GradientStop Color="#009688" Offset="0.0" />
+                        <GradientStop Color="#4CAF50" Offset="1.0" />
                     </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-            <Button x:Name="btnComapny"
-                    Text="{x:Static language:AppResource.Seller}"
-                    Style="{StaticResource StyleBigButton}"
+                </Border.Background>
+
+                <Button x:Name="btnUser"
+                        Text="{x:Static language:AppResource.Buyer}"
+                        Style="{StaticResource StyleBigButton}"
+                        BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        Clicked="Button_Clicked" />
+            </Border>
+
+            <!-- Seller -->
+            <Border Grid.Row="6"
                     HeightRequest="50"
-                    CornerRadius="0"
-                    VerticalOptions="End"
-                    Clicked="Button_Clicked"
-                    Grid.Row="6">
-                <Button.Background>
+                    Margin="0,10,0,0"
+                    StrokeShape="RoundRectangle 0">
+                <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="{StaticResource Company}" Offset="0.0"/>
-                        <GradientStop Color="#B983FF" Offset="1.0"/>
+                        <GradientStop Color="{StaticResource Company}" Offset="0.0" />
+                        <GradientStop Color="#B983FF" Offset="1.0" />
                     </LinearGradientBrush>
-                </Button.Background>
-            </Button>
+                </Border.Background>
+
+                <Button x:Name="btnComapny"
+                        Text="{x:Static language:AppResource.Seller}"
+                        Style="{StaticResource StyleBigButton}"
+                        BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        Clicked="Button_Clicked" />
+            </Border>
+
         </Grid>
-        <loading:LoadingView x:Name="loading" 
+        <loading:LoadingView x:Name="loading"
                              ShowLoading="False"/>
     </Grid>
 </page:BasePage>
