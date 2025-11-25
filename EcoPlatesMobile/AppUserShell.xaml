@@ -12,26 +12,50 @@
        Shell.TabBarForegroundColor="{StaticResource User}"
        Shell.TabBarTitleColor="{StaticResource User}">
 
-    <TabBar>
-        <Tab Icon="home1.png"
-             Title="{x:Static language:AppResource.Discover}">
-            <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
-                          Shell.NavBarIsVisible="False"/>
-        </Tab>
-        <Tab Icon="browser1.png"
-             Title="{x:Static language:AppResource.Browse}">
-            <ShellContent ContentTemplate="{DataTemplate userPages:UserBrowserPage}"
-                          Shell.NavBarIsVisible="False"/>
-        </Tab>
-        <Tab Icon="favorites.png"
-             Title="{x:Static language:AppResource.Favourites}">
-            <ShellContent ContentTemplate="{DataTemplate userPages:UserFavoritesPage}"
-                          Shell.NavBarIsVisible="False"/>
-        </Tab> 
-        <Tab Icon="user.png"
-             Title="{x:Static language:AppResource.Profile}">
-            <ShellContent ContentTemplate="{DataTemplate userPages:UserProfilePage}"
-                          Shell.NavBarIsVisible="False"/>
-        </Tab>
-    </TabBar>
+    <TabBar> 
+          <Tab Title="{x:Static language:AppResource.Discover}">
+               <Tab.Icon>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                         <On Platform="Android" Value="home1.png" />
+                         <On Platform="iOS" Value="home1_24.png" />
+                    </OnPlatform>
+               </Tab.Icon>
+               <ShellContent ContentTemplate="{DataTemplate userPages:UserMainPage}"
+                              Shell.NavBarIsVisible="False"/>
+          </Tab>
+
+          <Tab Title="{x:Static language:AppResource.Browse}">
+               <Tab.Icon>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                         <On Platform="Android" Value="browser1.png" />
+                         <On Platform="iOS" Value="browser1_24.png" />
+                    </OnPlatform>
+               </Tab.Icon>
+               <ShellContent ContentTemplate="{DataTemplate userPages:UserBrowserPage}"
+                              Shell.NavBarIsVisible="False"/>
+          </Tab>
+
+          <Tab Title="{x:Static language:AppResource.Favourites}">
+               <Tab.Icon>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                         <On Platform="Android" Value="favorites.png" />
+                         <On Platform="iOS" Value="favorites_24.png" />
+                    </OnPlatform>
+               </Tab.Icon>
+               <ShellContent ContentTemplate="{DataTemplate userPages:UserFavoritesPage}"
+                              Shell.NavBarIsVisible="False"/>
+          </Tab>
+
+          <Tab Title="{x:Static language:AppResource.Profile}">
+               <Tab.Icon>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                         <On Platform="Android" Value="user.png" />
+                         <On Platform="iOS" Value="user_24.png" />
+                    </OnPlatform>
+               </Tab.Icon>
+               <ShellContent ContentTemplate="{DataTemplate userPages:UserProfilePage}"
+                              Shell.NavBarIsVisible="False"/>
+          </Tab>
+     </TabBar>
+
 </Shell>

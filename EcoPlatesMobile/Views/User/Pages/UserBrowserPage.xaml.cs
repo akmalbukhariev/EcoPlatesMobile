@@ -19,6 +19,11 @@ using System.Globalization;
 using EcoPlatesMobile.Platforms.Android;
 #endif
 
+#if IOS
+using EcoPlatesMobile.Platforms.iOS;
+using MapKit;
+#endif
+
 namespace EcoPlatesMobile.Views.User.Pages;
 
 public partial class UserBrowserPage : BasePage
@@ -116,8 +121,8 @@ public partial class UserBrowserPage : BasePage
         {
             viewModel.IsLoading = false;
             return;
-        } 
-        
+        }
+
         await viewModel.LoadInitialAsync();
     }
 
@@ -133,7 +138,7 @@ public partial class UserBrowserPage : BasePage
     private void InitCircle()
     {
         loading.ShowLoading = true;
- 
+
         currentCenter = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
         selectedDistance = appControl.UserInfo.radius_km;
 
@@ -153,8 +158,7 @@ public partial class UserBrowserPage : BasePage
         };
 
         map.MapElements.Add(distanceCircle);
-        
-        //MoveMap();
+
         loading.ShowLoading = false;
     }
 
@@ -244,7 +248,7 @@ public partial class UserBrowserPage : BasePage
                 await appControl.LogoutUser();
                 return;
             }
-            
+
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 appControl.UserInfo.location_latitude = currentCenter.Latitude;
@@ -279,12 +283,12 @@ public partial class UserBrowserPage : BasePage
     {
         //await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         //{
-            await AnimateElementScaleDown(borderBottom);
-            borderBottom.IsVisible = false;
-            isBottomSheetOpened = true;
+        await AnimateElementScaleDown(borderBottom);
+        borderBottom.IsVisible = false;
+        isBottomSheetOpened = true;
 
-            await bottomSheet.ShowAsync();
-            InitCircle();
+        await bottomSheet.ShowAsync();
+        InitCircle();
         //});
     }
 
@@ -300,7 +304,7 @@ public partial class UserBrowserPage : BasePage
     }
 
     private void RemoveCircle()
-    { 
+    {
         MainThread.BeginInvokeOnMainThread(() =>
         {
             if (distanceCircle != null && map.MapElements.Contains(distanceCircle))
@@ -397,19 +401,22 @@ public partial class UserBrowserPage : BasePage
             viewModel.IsLoading = false;
         }
     }
+    
+#if IOS
+    private PinIconRenderer? _iosRenderer;
+#endif
 
     private async Task ApplyPinsDiffAsync(List<CustomPin> newPins, CancellationToken ct)
     {
-        
         customPins.Clear();
         map.Pins.Clear();
         map.MapElements?.Clear();
 
         if (newPins == null || newPins.Count == 0)
         {
-        #if ANDROID
+#if ANDROID || IOS
             await ClearNativeMapAsync(ct); // native GoogleMap.Clear()
-        #endif
+#endif
             return;
         }
 
@@ -427,10 +434,26 @@ public partial class UserBrowserPage : BasePage
             nativeMapView.GetMapAsync(renderer);
             await tcs.Task; // wait render finish w/o blocking UI input forever
         }
+#elif IOS
+        if (map?.Handler?.PlatformView is MKMapView nativeMapView)
+        {
+            // create or reuse renderer (no delegate!)
+            _iosRenderer ??= new PinIconRenderer(customPins);
+
+            _iosRenderer.EventPinClick -= PinCompanyClicked;
+            _iosRenderer.EventPinClick += PinCompanyClicked;
+
+            var tcs = new TaskCompletionSource();
+            _iosRenderer.RenderingFinished.ContinueWith(_ => tcs.TrySetResult(), ct);
+
+            _iosRenderer.Attach(nativeMapView);
+
+            await tcs.Task;
+        }
 #endif
-         
+
     }
-     
+
     private void MoveMap()
     {
         var position = new Location(appControl.UserInfo.location_latitude, appControl.UserInfo.location_longitude);
@@ -456,8 +479,28 @@ public partial class UserBrowserPage : BasePage
         }
         return Task.CompletedTask;
     }
+#elif IOS
+    private Task ClearNativeMapAsync(CancellationToken ct)
+    {
+        if (map?.Handler?.PlatformView is MapKit.MKMapView native)
+        {
+            // ensure we touch UIKit on main thread
+            return MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                if (ct.IsCancellationRequested) return;
+
+                var ann = native.Annotations;
+                if (ann != null && ann.Length > 0)
+                {
+                    native.RemoveAnnotations(ann); // removes all CustomPinAnnotation, etc.
+                }
+            });
+        }
+
+        return Task.CompletedTask;
+    }
 #endif
-    
+
     private void PinCompanyClicked(CustomPin pin)
     {
         Application.Current.Dispatcher.Dispatch(async () =>
@@ -480,7 +523,7 @@ public partial class UserBrowserPage : BasePage
                 list.IsVisible = true;
                 map.IsVisible = true;
                 borderBlock.IsVisible = false;
-                
+
                 if (isBottomSheetOpened)
                 {
                     await bottomSheet.DismissAsync();
@@ -539,7 +582,7 @@ public partial class UserBrowserPage : BasePage
                 //Grid.SetColumnSpan(borderSearch, 1);
             }
         });
-    }   
+    }
 
     private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
@@ -549,13 +592,13 @@ public partial class UserBrowserPage : BasePage
             viewModel.ShowLikedView = false;
         }
     }
-    
-    private readonly SemaphoreSlim _renderLock = new(1,1);
+
+    private readonly SemaphoreSlim _renderLock = new(1, 1);
     private TaskCompletionSource<bool> _mapReadyTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
- 
+
     private void WireMapReady()
     {
-    #if ANDROID
+#if ANDROID
         map.HandlerChanged += (_, __) =>
         {
             if (map?.Handler?.PlatformView is Android.Gms.Maps.MapView native)
@@ -566,25 +609,13 @@ public partial class UserBrowserPage : BasePage
                 }));
             }
         };
-    #else
+#else
         // iOS: map is usually ready when Handler is set; still complete TCS.
         _mapReadyTcs.TrySetResult(true);
-    #endif
+#endif
     }
 
     private Task EnsureMapReadyAsync() => _mapReadyTcs.Task;
-    
-    /*
-    private async void Bottom_Tapped(object sender, TappedEventArgs e)
-    {
-        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
-        {
-            await AnimateElementScaleDown(borderBottom);
-
-            await AppNavigatorService.NavigateTo(nameof(LocationSettingPage));
-        });
-    }
-    */
 
     private async void Search_Tapped(object sender, TappedEventArgs e)
     {
@@ -606,6 +637,6 @@ public partial class UserBrowserPage : BasePage
 
     private void Map_Tapped(object sender, TappedEventArgs e)
     {
-        
+
     }
 }

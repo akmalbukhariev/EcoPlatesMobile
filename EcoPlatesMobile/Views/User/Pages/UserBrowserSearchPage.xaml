@@ -73,7 +73,7 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-        <Grid RowDefinitions="Auto, Auto, *"
+        <Grid RowDefinitions="Auto, 35, *"
               IsVisible="{Binding ShowRecentSearchList}"
               RowSpacing="10"
               Margin="10, 0, 10, 0"
