@@ -11,135 +11,84 @@
                xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
                BackgroundColor="White">
 
-    <Grid RowDefinitions="*, Auto">
-        <maps:Map x:Name="map"
-                  MapType="Street"
-                  ZIndex="1"
-                  IsVisible="false"
-                  IsShowingUser="false"/>
-        <Border x:Name="borderBottom"
-                Margin="10,0,10,20"
-                IsVisible="False"
-                VerticalOptions="End"
-                HorizontalOptions="Center"
-                BackgroundColor="#F3F8F9"
-                ZIndex="999"
-                HeightRequest="45">
-            <Border.GestureRecognizers>
-                <TapGestureRecognizer NumberOfTapsRequired="1"
-                                      Tapped="Bottom_Tapped"/>
-            </Border.GestureRecognizers>
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="10" />
-            </Border.StrokeShape>
-            <Grid ColumnDefinitions="Auto, *, Auto"
-                  ColumnSpacing="10">
-                <Image Source="browser1.png"
-                       Aspect="AspectFit"
-                       WidthRequest="20"
-                       HeightRequest="20"
-                       Margin="10,0,0,0"/>
-                <VerticalStackLayout HorizontalOptions="Start" 
-                                     Grid.Column="1">
-                    <Label Text="{x:Static language:AppResource.SelectDistance}"
-                           FontSize="14"
-                           FontFamily="RobotoVar"
-                           TextColor="{StaticResource User}"/>
-                    <Label x:Name="lbSelectedDistance" 
-                           Text="Selected distance is 2 km"
-                           FontSize="12"
-                           FontFamily="RobotoVar"
-                           TextColor="{StaticResource User}"/>
-                </VerticalStackLayout>
-                <Image Source="up.png"
-                       Aspect="AspectFit"
-                       WidthRequest="20"
-                       HeightRequest="20"
-                       Margin="0,0,10,0"
-                       Grid.Column="2"/>
-            </Grid>
-        </Border>
-        <Border x:Name="borderBackground"
-                BackgroundColor="Green"
-                IsVisible="Collapse" 
-                Opacity="0.05">
-            <Border.GestureRecognizers>
-                <TapGestureRecognizer NumberOfTapsRequired="1"
-                                      Tapped="Map_Tapped"/>
-            </Border.GestureRecognizers>
-        </Border>
-        <Border x:Name="borderBlock"
-                Stroke="Gray" 
-                IsVisible="Collapse"
-                BackgroundColor="White"
-                VerticalOptions="End"
-                HorizontalOptions="Center"
-                StrokeShape="RoundRectangle 10"
-                Padding="12" 
-                Margin="10">
-            <VerticalStackLayout>
-                <Label Text="{x:Static language:AppResource.LogInToSeeBuyersNearYou}"
-                       FontFamily="RobotoVar"
-                       TextColor="Black"
-                       FontSize="16" 
-                       HorizontalTextAlignment="Center"/>
-                <Button Text="{x:Static language:AppResource.LoginSignUp}"
-                        BackgroundColor="{StaticResource User}"
-                        TextColor="White"
-                        Clicked="BtnLogin_Clicked"
-                        Margin="0,5,0,0"/>
-            </VerticalStackLayout>
-        </Border>
-        <local:MapBottomSheet x:Name="bottomSheet"
-                              VerticalOptions="End"
-                              ZIndex="999"
-                              IsVisible="False"/>
+    <!-- Row0: header, Row1: content (map or list), Row2: bottom line -->
+    <Grid RowDefinitions="Auto,*,Auto">
 
-        <Grid RowDefinitions="Auto, 10, Auto, *"
-              Margin="16,10,16,0">
-              <Grid ColumnDefinitions="*, Auto">
-                <Border x:Name="borderSearch"
-                        StrokeThickness="1"
-                        Stroke="Gray"
-                        BackgroundColor="White"
-                        Margin="10, 0, 10, 0"
-                        HeightRequest="40">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="5"/>
-                    </Border.StrokeShape>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1"
-                                            Tapped="Search_Tapped"/>
-                    </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="Auto, *"
-                          VerticalOptions="Center">
-                        <Image x:Name="iconImage"
-                                Source="search.png"
-                                WidthRequest="18"
-                                HeightRequest="18"
-                                VerticalOptions="Center"
-                                Margin="12,0"/>
-                        <Label Text="{x:Static language:AppResource.SearchStore}"
-                                FontSize="14"
-                                TextColor="LightGray"
-                                FontFamily="RobotoVar"
-                                VerticalOptions="Center"
-                                HorizontalTextAlignment="Start"
-                                Grid.Column="1"/>
-                    </Grid>
-                </Border>
-                <BoxView x:Name="boxTemp" BackgroundColor="Transparent" WidthRequest="40" IsVisible="Collapse" Grid.Column="1"/>
+        <!-- MAP BACKGROUND: spans header + content -->
+        <maps:Map x:Name="map"
+                  Grid.RowSpan="2"
+                  MapType="Street"
+                  IsVisible="False"
+                  IsShowingUser="False"
+                  ZIndex="0" />
+
+        <!-- HEADER: SEARCH + TABS (always on top) -->
+        <Grid x:Name="headerGrid"
+              Grid.Row="0"
+              Margin="16,10,16,0"
+              ZIndex="3">
+            <Grid RowDefinitions="Auto,Auto">
+
+                <!-- SEARCH BAR -->
+                <Grid Grid.Row="0"
+                      ColumnDefinitions="*,Auto">
+                    <Border x:Name="borderSearch"
+                            StrokeThickness="1"
+                            Stroke="Gray"
+                            BackgroundColor="White"
+                            Margin="10,0,10,0"
+                            HeightRequest="40">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Tapped="Search_Tapped" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*"
+                              VerticalOptions="Center">
+                            <Image x:Name="iconImage"
+                                   Source="search.png"
+                                   WidthRequest="18"
+                                   HeightRequest="18"
+                                   VerticalOptions="Center"
+                                   Margin="12,0" />
+                            <Label Text="{x:Static language:AppResource.SearchStore}"
+                                   FontSize="14"
+                                   TextColor="LightGray"
+                                   FontFamily="RobotoVar"
+                                   VerticalOptions="Center"
+                                   HorizontalTextAlignment="Start"
+                                   Grid.Column="1" />
+                        </Grid>
+                    </Border>
+
+                    <BoxView x:Name="boxTemp"
+                             BackgroundColor="Transparent"
+                             WidthRequest="40"
+                             IsVisible="False"
+                             Grid.Column="1" />
+                </Grid>
+
+                <!-- TAB SWITCHER -->
+                <user_component:TabSwitcherView x:Name="tabSwitcher"
+                                               Grid.Row="1"
+                                               Margin="0,8,0,0"
+                                               SwitchType="Modern"
+                                               Tab1_Title="{x:Static language:AppResource.List}"
+                                               Tab2_Title="{x:Static language:AppResource.Map}" />
             </Grid>
-            <user_component:TabSwitcherView x:Name="tabSwitcher"
-                                           SwitchType="Modern"
-                                           Tab1_Title="{x:Static language:AppResource.List}"
-                                           Tab2_Title="{x:Static language:AppResource.Map}"
-                                           Grid.Row="2"/>
+        </Grid>
+
+        <!-- LIST CONTAINER (only used in List tab) -->
+        <Grid x:Name="listContainer"
+              Grid.Row="1"
+              Margin="16,0,16,0"
+              ZIndex="2">
             <RefreshView x:Name="list"
                          IsRefreshing="{Binding IsRefreshing}"
                          Command="{Binding RefreshCommand}"
-                         Margin="10"
-                         Grid.Row="3">
+                         Margin="10">
                 <CollectionView ItemsSource="{Binding Companies}"
                                 ItemsUpdatingScrollMode="KeepScrollOffset"
                                 SelectionMode="None"
@@ -159,7 +108,7 @@
                                     <Setter Property="IsVisible" Value="False" />
                                 </DataTrigger>
                             </ContentView.Triggers>
-                            <view:EmptyViewText/>
+                            <view:EmptyViewText />
                         </ContentView>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
@@ -172,27 +121,124 @@
                                                         Liked="{Binding Liked}"
                                                         ShowLiked="True"
                                                         LikeCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserBrowserPage}}, Path=BindingContext.LikeCompanyCommand}"
-                                                        ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserBrowserPage}}, Path=BindingContext.ClickCompanyCommand}"/>
+                                                        ClickCommand="{Binding Source={RelativeSource AncestorType={x:Type local:UserBrowserPage}}, Path=BindingContext.ClickCompanyCommand}" />
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
+
             <component:CustomLikedView x:Name="likeView"
                                        ShowLiked="{Binding IsLikedViewLiked}"
-                                       IsVisible="{Binding ShowLikedView}"
-                                       Grid.Row="3"/>
+                                       IsVisible="{Binding ShowLikedView}" />
+
             <ActivityIndicator IsRunning="{Binding IsLoading}"
                                Color="{StaticResource User}"
                                Scale="1.5"
                                VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               Grid.Row="3"/>
+                               HorizontalOptions="Center" />
         </Grid>
-        <component:LoadingView x:Name="loading" IsVisible="False"
-                               Grid.RowSpan="2"/>
-        <BoxView HeightRequest="1"
+
+        <!-- DIM BACKGROUND WHEN BLOCK / SHEET IS SHOWN -->
+        <Border x:Name="borderBackground"
+                Grid.RowSpan="2"
+                BackgroundColor="Green"
+                IsVisible="False"
+                Opacity="0.05"
+                ZIndex="4">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Map_Tapped" />
+            </Border.GestureRecognizers>
+        </Border>
+
+        <!-- LOGIN BLOCK -->
+        <Border x:Name="borderBlock"
+                Grid.Row="1"
+                Stroke="Gray"
+                IsVisible="False"
+                BackgroundColor="White"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                StrokeShape="RoundRectangle 10"
+                Padding="12"
+                Margin="10"
+                ZIndex="5">
+            <VerticalStackLayout>
+                <Label Text="{x:Static language:AppResource.LogInToSeeBuyersNearYou}"
+                       FontFamily="RobotoVar"
+                       TextColor="Black"
+                       FontSize="16"
+                       HorizontalTextAlignment="Center" />
+                <Button Text="{x:Static language:AppResource.LoginSignUp}"
+                        BackgroundColor="{StaticResource User}"
+                        TextColor="White"
+                        Clicked="BtnLogin_Clicked"
+                        Margin="0,5,0,0" />
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- BOTTOM DISTANCE BAR -->
+        <Border x:Name="borderBottom"
+                Grid.Row="1"
+                Margin="10,0,10,20"
+                IsVisible="False"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                BackgroundColor="#F3F8F9"
+                HeightRequest="45"
+                ZIndex="5">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Bottom_Tapped" />
+            </Border.GestureRecognizers>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  ColumnSpacing="10">
+                <Image Source="browser1.png"
+                       Aspect="AspectFit"
+                       WidthRequest="20"
+                       HeightRequest="20"
+                       Margin="10,0,0,0" />
+                <VerticalStackLayout HorizontalOptions="Start"
+                                     Grid.Column="1">
+                    <Label Text="{x:Static language:AppResource.SelectDistance}"
+                           FontSize="14"
+                           FontFamily="RobotoVar"
+                           TextColor="{StaticResource User}" />
+                    <Label x:Name="lbSelectedDistance"
+                           Text="Selected distance is 2 km"
+                           FontSize="12"
+                           FontFamily="RobotoVar"
+                           TextColor="{StaticResource User}" />
+                </VerticalStackLayout>
+                <Image Source="up.png"
+                       Aspect="AspectFit"
+                       WidthRequest="20"
+                       HeightRequest="20"
+                       Margin="0,0,10,0"
+                       Grid.Column="2" />
+            </Grid>
+        </Border>
+
+        <!-- MAP BOTTOM SHEET -->
+        <local:MapBottomSheet x:Name="bottomSheet"
+                              Grid.Row="1"
+                              VerticalOptions="End"
+                              IsVisible="False"
+                              ZIndex="6" />
+
+        <!-- FULL-PAGE LOADING OVERLAY -->
+        <component:LoadingView x:Name="loading"
+                               Grid.RowSpan="3"
+                               IsVisible="False"
+                               ZIndex="7" />
+
+        <!-- BOTTOM LINE -->
+        <BoxView Grid.Row="2"
+                 HeightRequest="1"
                  BackgroundColor="LightGray"
-                 HorizontalOptions="Fill"
-                 Grid.Row="1"/>
+                 HorizontalOptions="Fill" />
     </Grid>
 </page:BasePage>

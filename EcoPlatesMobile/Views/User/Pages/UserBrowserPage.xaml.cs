@@ -508,20 +508,23 @@ public partial class UserBrowserPage : BasePage
             await AppNavigatorService.NavigateTo($"{nameof(UserCompanyPage)}?CompanyId={pin.CompanyId}");
         });
     }
-
+    
     private async void TabSwitcher_TabChanged(object? sender, string e)
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
             const int animationDuration = 400;
             double screenWidth = this.Width;
-
             if (screenWidth <= 0) screenWidth = 400;
 
-            if (e == tabSwitcher.Tab1_Title)
+            // ───────────────── LIST TAB ─────────────────
+            if (e == tabSwitcher.Tab1_Title && mapIsVisible)
             {
+                // make sure both are visible during animation
+                listContainer.IsVisible = true;
                 list.IsVisible = true;
                 map.IsVisible = true;
+
                 borderBlock.IsVisible = false;
 
                 if (isBottomSheetOpened)
@@ -529,21 +532,32 @@ public partial class UserBrowserPage : BasePage
                     await bottomSheet.DismissAsync();
                 }
 
+                // start positions: list comes from left, map moves to right
+                if (listContainer.TranslationX != -screenWidth)
+                    listContainer.TranslationX = -screenWidth;
+                if (map.TranslationX != 0)
+                    map.TranslationX = 0;
+
                 await Task.WhenAll(
-                    list.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
+                    listContainer.TranslateTo(0, 0, animationDuration, Easing.CubicInOut),
                     map.TranslateTo(screenWidth, 0, animationDuration, Easing.CubicInOut),
                     borderBottom.TranslateTo(0, 100, 250, Easing.CubicIn)
                 );
 
+                // final state: list visible, map hidden behind
                 mapIsVisible = false;
+                map.IsVisible = false;
+
                 borderBottom.IsVisible = false;
                 borderBackground.IsVisible = false;
-
                 boxTemp.IsVisible = false;
-                //Grid.SetColumnSpan(borderSearch, 2);
             }
+
+            // ───────────────── MAP TAB ─────────────────
             else if (e == tabSwitcher.Tab2_Title && !mapIsVisible)
             {
+                // both visible during animation
+                listContainer.IsVisible = true;
                 list.IsVisible = true;
                 map.IsVisible = true;
 
@@ -551,38 +565,44 @@ public partial class UserBrowserPage : BasePage
                 {
                     borderBottom.TranslationY = 100;
                     borderBottom.IsVisible = true;
+                    borderBlock.IsVisible = false;
                 }
                 else
                 {
                     borderBlock.IsVisible = true;
+                    borderBottom.IsVisible = false;
                 }
 
+                // start positions: map from right, list at center
                 if (map.TranslationX != screenWidth)
-                {
                     map.TranslationX = screenWidth;
-                }
+                if (listContainer.TranslationX != 0)
+                    listContainer.TranslationX = 0;
 
                 await Task.WhenAll(
-                    list.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
+                    listContainer.TranslateTo(-screenWidth, 0, animationDuration, Easing.CubicInOut),
                     map.TranslateTo(0, 0, animationDuration, Easing.CubicInOut)
-
                 );
 
                 if (appControl.IsLoggedIn)
                 {
                     await borderBottom.TranslateTo(0, 0, 250, Easing.CubicOut);
+                    borderBackground.IsVisible = false;
                 }
                 else
                 {
                     borderBackground.IsVisible = true;
                 }
-                mapIsVisible = true;
 
+                // final state: list hidden so map can receive touches
+                listContainer.IsVisible = false;
+                list.IsVisible = false;
+
+                mapIsVisible = true;
                 boxTemp.IsVisible = true;
-                //Grid.SetColumnSpan(borderSearch, 1);
             }
         });
-    }
+    } 
 
     private async void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
