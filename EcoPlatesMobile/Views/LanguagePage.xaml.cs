@@ -48,7 +48,7 @@ public partial class LanguagePage : BasePage
         statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
         BindingContext = this;
     }
-
+    
     private void Init()
     {
         var currentLangCode = languageService.GetCurrentLanguage();
@@ -120,6 +120,18 @@ public partial class LanguagePage : BasePage
 
             languageService.SetCulture(selectedLang.Code);
             await AppNavigatorService.NavigateTo(nameof(LoginPage));
+        });
+    }
+
+    private async void OnBackgroundTapped(object sender, EventArgs e)
+    {
+        if (!DropdownList.IsVisible)
+            return;
+
+        await ClickGuard.RunAsync((VisualElement)sender, async () =>
+        {
+            await DropdownList.FadeTo(0, 250);
+            DropdownList.IsVisible = false;
         });
     }
 }

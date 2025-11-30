@@ -1057,4 +1057,13 @@ Don’t worry, you can change the location inside the application.
     <value>In review</value>
     <comment>PendingProductPage</comment>
   </data>
+
+  <data name="PermissionRequired" xml:space="preserve">
+    <value>Permission required</value>
+    <comment>AppControl</comment>
+  </data>
+  <data name="MessagePermissionRequired" xml:space="preserve">
+    <value>Full permission is required to select or take a product photo.</value>
+    <comment>AppControl</comment>
+  </data>
 </root>

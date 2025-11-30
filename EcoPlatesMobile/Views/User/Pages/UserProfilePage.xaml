@@ -102,7 +102,7 @@
                      IsRefreshing="{Binding IsRefreshing}"
                      Grid.Row="4">
             <Grid RowDefinitions="*, Auto"
-                  HeightRequest="{OnPlatform Android=500, iOS=500}">
+                  HeightRequest="{OnPlatform Android=500, iOS=550}">
                 <ScrollView HorizontalScrollBarVisibility="Never">
                     <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"
                           RowSpacing="20"
@@ -166,9 +166,9 @@
                 </ScrollView>
             </Grid>
         </RefreshView>
-        <BoxView x:Name="dropdownListBack" 
-                 Opacity="0.5"
-                 IsVisible="False"
+        <BoxView x:Name="dropdownListBack"
+                 Opacity="0"
+                 IsVisible="True"
                  BackgroundColor="Black"
                  Grid.RowSpan="6">
             <BoxView.GestureRecognizers>

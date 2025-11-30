@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoPlatesMobile.Views.Components.CustomEntry"
              xmlns:local="clr-namespace:EcoPlatesMobile.Views.Components"
+             xmlns:behaviors="clr-namespace:EcoPlatesMobile.Helper"
              x:DataType="local:CustomEntry">
 
     <Border x:Name="borderContainer"
@@ -39,7 +40,11 @@
                    VerticalOptions="Center"
                    BackgroundColor="Transparent"
                    TextColor="Black"
-                   Grid.Column="2"/>
+                   Grid.Column="2">
+                <Entry.Behaviors>
+                    <behaviors:DoneKeyboardBehavior />
+                </Entry.Behaviors>
+            </Entry>
             <Image x:Name="sendImage"
                    Source="{Binding EntrySendIcon}"
                    IsVisible="Collapse"

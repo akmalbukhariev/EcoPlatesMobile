@@ -5,6 +5,7 @@
                x:Class="EcoPlatesMobile.Views.PhoneNumberNewPage"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:behaviors="clr-namespace:EcoPlatesMobile.Helper"
                BackgroundColor="White">
 
     <Grid RowDefinitions="60, *">
@@ -61,7 +62,11 @@
                            HorizontalOptions="Fill"
                            VerticalOptions="Center"
                            TextChanged="PhoneEntry_TextChanged"
-                           Grid.Column="1"/>
+                           Grid.Column="1">
+                            <Entry.Behaviors>
+                               <behaviors:DoneKeyboardBehavior />
+                            </Entry.Behaviors>
+                     </Entry>
                 </Grid>
                 <Button x:Name="btnContinue" 
                         Text="{x:Static language:AppResource.Continue}"

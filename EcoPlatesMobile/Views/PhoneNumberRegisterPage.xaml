@@ -7,78 +7,94 @@
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                BackgroundColor="White">
 
-    <Grid RowDefinitions="Auto, 30, *, 30">
-        <component:CustomHeader x:Name="header" 
+    <Grid x:Name="mainGrid"
+          Padding="0"
+          RowDefinitions="Auto,*,Auto">
+
+        <!-- HEADER -->
+        <component:CustomHeader x:Name="header"
                                 Title="{x:Static language:AppResource.Authorization}"
-                                HeaderBackground="{StaticResource Company}"/>
-        <ScrollView Grid.Row="2">
-            <Grid RowDefinitions="*, 10, Auto">
-                <VerticalStackLayout Spacing="20"
-                                     Margin="16,0,16,0">
-                    <Label Text="{x:Static language:AppResource.EnterPhoneNumber}"
+                                HeaderBackground="{StaticResource Company}" />
+
+        <!-- SCROLLABLE CONTENT -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20"
+                                 Margin="16,5,16,0">
+
+                <Label Text="{x:Static language:AppResource.EnterPhoneNumber}"
+                       FontFamily="RobotoVar"
+                       TextColor="Gray" />
+
+                <component:CustomEntry x:Name="entryNumber"
+                                       EntryIcon="phone.png"
+                                       EntryShowPrefix="True"
+                                       IsPhoneNumber="True"
+                                       EntryKeyboard="Numeric"
+                                       EntryBorderColor="#E9E9E9"
+                                       EntryBackgroundColor="#F5F5F5" />
+
+                <Grid>
+                    <Label Text="{x:Static language:AppResource.AuthorizationTitle1}"
                            FontFamily="RobotoVar"
-                           TextColor="Gray"/>
-                    <component:CustomEntry x:Name="entryNumber"
-                                           EntryIcon="phone.png"
-                                           EntryShowPrefix="True"
-                                           IsPhoneNumber="True"
-                                           EntryKeyboard="Numeric"
-                                           EntryBorderColor="#E9E9E9"
-                                           EntryBackgroundColor="#F5F5F5"/>
-                    <Grid>
-                        <Label Text="{x:Static language:AppResource.AuthorizationTitle1}"
-                               FontFamily="RobotoVar"
-                               TextColor="Gray"/>
-                    </Grid>
-                    <Grid>
-                        <Label Text="{x:Static language:AppResource.AuthorizationTitle2}"
-                            FontFamily="RobotoVar"
-                               TextColor="Gray"/>
-                    </Grid>
-                    <Grid Padding="0"
-                          Background="#1415CA18"
-                          ColumnDefinitions="Auto, *"
-                          VerticalOptions="Start"
-                          IsVisible="Collapse">
-                        <CheckBox x:Name="chkAgreement"
-                                  Margin="0,0,0,0" />
-                        <Label Grid.Column="1"
-                               VerticalOptions="Start"
-                               LineBreakMode="WordWrap"
-                               HorizontalTextAlignment="Start">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Ommaviy oferta "
-                                          TextColor="Purple"
-                                          TextDecorations="Underline">
-                                        <Span.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="OnOfferTapped" />
-                                        </Span.GestureRecognizers>
-                                    </Span>
-                                    <Span Text="bilan tanishdim va men undagi shartlarga roziman" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </Grid>
-                </VerticalStackLayout>
-                <Button x:Name="btnNext" 
-                        Text="{x:Static language:AppResource.Next}"
-                        BackgroundColor="{StaticResource Company}"
-                        Style="{StaticResource StyleBigButton}"
-                        HeightRequest="50"
-                        Margin="16,0,16,0"
-                        Clicked="ButtonNext_Clicked"
-                        Grid.Row="2">
-                    <Button.CornerRadius>
-                        <OnPlatform x:TypeArguments="x:Int32">
-                            <On Platform="iOS">25</On>
-                            <On Platform="Android">30</On>
-                        </OnPlatform>
-                    </Button.CornerRadius>
-                </Button>
+                           TextColor="Gray" />
                 </Grid>
+
+                <Grid>
+                    <Label Text="{x:Static language:AppResource.AuthorizationTitle2}"
+                           FontFamily="RobotoVar"
+                           TextColor="Gray" />
+                </Grid>
+
+                <Grid Padding="0"
+                      Background="#1415CA18"
+                      ColumnDefinitions="Auto,*"
+                      VerticalOptions="Start"
+                      IsVisible="Collapse">
+                    <CheckBox x:Name="chkAgreement"
+                              Margin="0,0,0,0" />
+                    <Label Grid.Column="1"
+                           VerticalOptions="Start"
+                           LineBreakMode="WordWrap"
+                           HorizontalTextAlignment="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Ommaviy oferta "
+                                      TextColor="Purple"
+                                      TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnOfferTapped" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                                <Span Text="bilan tanishdim va men undagi shartlarga roziman" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+
+            </VerticalStackLayout>
         </ScrollView>
+
+        <!-- FIXED BOTTOM BUTTON -->
+        <Grid Grid.Row="2"
+              Padding="16,8">
+            <Button x:Name="btnNext"
+                    Text="{x:Static language:AppResource.Next}"
+                    BackgroundColor="{StaticResource Company}"
+                    Style="{StaticResource StyleBigButton}"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="ButtonNext_Clicked">
+                <Button.CornerRadius>
+                    <OnPlatform x:TypeArguments="x:Int32">
+                        <On Platform="iOS">25</On>
+                        <On Platform="Android">30</On>
+                    </OnPlatform>
+                </Button.CornerRadius>
+            </Button>
+        </Grid>
+
         <component:LoadingView x:Name="loading"
-                               Grid.RowSpan="4"/>
+                               Grid.RowSpan="3" />
     </Grid>
+
 </view:BasePage>

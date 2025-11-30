@@ -1047,4 +1047,13 @@
     <value>На проверке</value>
     <comment>PendingProductPage</comment>
   </data>
+
+  <data name="PermissionRequired" xml:space="preserve">
+    <value>Требуется разрешение</value>
+    <comment>AppControl</comment>
+  </data>
+  <data name="MessagePermissionRequired" xml:space="preserve">
+    <value>Для выбора или съемки фото товара требуется полный доступ.</value>
+    <comment>AppControl</comment>
+  </data>
 </root>

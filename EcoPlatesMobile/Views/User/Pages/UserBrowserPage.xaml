@@ -68,6 +68,18 @@
                              WidthRequest="40"
                              IsVisible="False"
                              Grid.Column="1" />
+                    <Image x:Name="imCurrentLocation" 
+                           Source="my_location2.png"
+                           Aspect="AspectFill"
+                           WidthRequest="37"
+                           HeightRequest="37"
+                           IsVisible="False"
+                           Grid.Column="1">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Tapped="OnMyLocation_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
                 </Grid>
 
                 <!-- TAB SWITCHER -->

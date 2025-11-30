@@ -285,69 +285,7 @@ public partial class CompanyProfileInfoPage : BasePage
 
         }
     }
-
-    /*private bool _suppressToggle;
-    private async void Notitifation_Toggled(object sender, ToggledEventArgs e)
-    {
-        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
-        {
-            if (_suppressToggle || !isPageLoaded) return;
-
-            keyboardHelper.HideKeyboard();
-
-            if (e.Value)
-            {
-                bool allowed = await NotificationPermissionHelper.EnsureEnabledAsync(this);
-                if (!allowed)
-                {
-                    _suppressToggle = true;
-                    notification.IsToggled = false;
-                    _suppressToggle = false;
-                    return;
-                }
-            }
-
-            bool isWifiOn = await appControl.CheckWifiOrNetwork();
-            if (!isWifiOn) return;
-
-            try
-            {
-                var additionalData = new Dictionary<string, string>
-                {
-                    { "company_id", appControl.CompanyInfo.company_id.ToString() },
-                    { "notification_enabled", notification.IsToggled.ToString() }
-                };
-
-                loading.ShowLoading = true;
-
-                Response response = await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
-                bool isOk = await appControl.CheckUserState(response);
-                if (!isOk)
-                {
-                    await appControl.LogoutCompany();
-                    return;
-                }
-                
-                if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
-                {
-                    appControl.RefreshCompanyProfilePage = true;
-                }
-                else
-                {
-                    await AlertService.ShowAlertAsync(AppResource.Error, response.resultMsg);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                loading.ShowLoading = false;
-            }
-        });
-    }*/
-
+    
     private async void Notification_Tapped(object sender, TappedEventArgs e)
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>

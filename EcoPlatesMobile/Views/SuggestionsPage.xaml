@@ -40,8 +40,10 @@
                     <Grid>
                         <Picker x:Name="pickType"
                                 Title="{x:Static language:AppResource.SelectFeedbackType}"
+                                HorizontalTextAlignment ="Start"
                                 TitleColor="Gray"
                                 FontFamily="RobotoVar"
+                                Margin="10,0,0,0"
                                 TextColor="Black"/>
                         <Image Source="down.png"
                                Aspect="AspectFill"

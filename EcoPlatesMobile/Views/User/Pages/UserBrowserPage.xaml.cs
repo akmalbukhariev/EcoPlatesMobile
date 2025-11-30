@@ -551,6 +551,7 @@ public partial class UserBrowserPage : BasePage
                 borderBottom.IsVisible = false;
                 borderBackground.IsVisible = false;
                 boxTemp.IsVisible = false;
+                imCurrentLocation.IsVisible = false;
             }
 
             // ───────────────── MAP TAB ─────────────────
@@ -600,6 +601,9 @@ public partial class UserBrowserPage : BasePage
 
                 mapIsVisible = true;
                 boxTemp.IsVisible = true;
+#if IOS
+                imCurrentLocation.IsVisible = true;
+#endif
             }
         });
     } 
@@ -658,5 +662,31 @@ public partial class UserBrowserPage : BasePage
     private void Map_Tapped(object sender, TappedEventArgs e)
     {
 
+    }
+
+    private async void OnMyLocation_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(sender as Image);
+
+        try
+        {
+            var location = await Geolocation.GetLastKnownLocationAsync();
+            if (location == null)
+            {
+                location = await Geolocation.GetLocationAsync(
+                    new GeolocationRequest(GeolocationAccuracy.Medium));
+            }
+
+            if (location != null)
+            {
+                var position = new Location(location.Latitude, location.Longitude);
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(
+                    position, Distance.FromKilometers(1)));
+            }
+        }
+        catch (Exception ex)
+        {
+            // handle permission errors, etc.
+        }
     }
 }

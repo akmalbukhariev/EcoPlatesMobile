@@ -543,7 +543,7 @@
   <comment>CompanyProfileInfoPage</comment>
 </data>
 	<data name="Done" xml:space="preserve">
-  <value>Saqlash</value>
+  <value>Tayyor</value>
   <comment>CompanyProfileInfoPage</comment>
 </data>
 	<data name="UpdateProfile" xml:space="preserve">
@@ -1046,4 +1046,13 @@ Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.
     <value>Tekshiruvda</value>
     <comment>PendingProductPage</comment>
   </data>
+
+<data name="PermissionRequired" xml:space="preserve">
+    <value>Ruxsat talab qilinadi</value>
+    <comment>AppControl</comment>
+</data>
+<data name="MessagePermissionRequired" xml:space="preserve">
+    <value>Mahsulot rasmini tanlash yoki rasmga olish uchun to‘liq ruxsat kerak.</value>
+    <comment>AppControl</comment>
+</data>
 </root>

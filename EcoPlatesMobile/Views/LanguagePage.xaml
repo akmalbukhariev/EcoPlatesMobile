@@ -8,7 +8,14 @@
 
     <ScrollView>
         <Grid RowDefinitions="*, Auto, 50, Auto, *">
-            <Image x:Name="imLogo" 
+            <BoxView x:Name="BackgroundTapCatcher"
+                    Grid.RowSpan="5"
+                    BackgroundColor="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackgroundTapped" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <Image x:Name="imLogo"
                     Source="logo.png"
                     WidthRequest="200"
                     HeightRequest="200" 
@@ -16,7 +23,7 @@
                     VerticalOptions="Center"
                     Grid.Row="1"/>
 
-            <Frame CornerRadius="30" 
+            <Frame  CornerRadius="{OnPlatform iOS=25, Android=30, Default=30}" 
                     Padding="5" 
                     HasShadow="True"
                     BorderColor="Gray" 
@@ -100,11 +107,17 @@
                     BackgroundColor="White"
                     HeightRequest="50"
                     WidthRequest="250"
-                    CornerRadius="30"
                     VerticalOptions="End"
                     Margin="0,0,0,30"
                     Clicked="Next_Clicked"
-                    Grid.Row="4"/>
+                    Grid.Row="4">
+                <Button.CornerRadius>
+                    <OnPlatform x:TypeArguments="x:Int32">
+                        <On Platform="iOS">25</On>
+                        <On Platform="Android">30</On>
+                    </OnPlatform>
+                </Button.CornerRadius>
+            </Button>
         </Grid>
     </ScrollView>
 

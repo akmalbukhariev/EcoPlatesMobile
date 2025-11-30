@@ -112,14 +112,28 @@ namespace EcoPlatesMobile.Services
                 appStoreService.Set(AppKeys.IsLoggedIn, true);
                 appStoreService.Set(AppKeys.PhoneNumber, phoneNumber);
 
+                // 🔹 1) Ask OS for notification permission right AFTER login is successful
+                bool notificationAllowed =
+                    await NotificationPermissionHelper.EnsureEnabledAsync(Application.Current.MainPage);
+
+                // update in memory
+                CompanyInfo.notification_enabled = notificationAllowed;
+
+
                 #region Check the Firebase token and save it to the server
                 string frbToken = await GetFirebaseToken();
-                if (frbToken != response.resultData.token_frb)
+
+                // we also check if notification flag changed compared to server data
+                bool shouldUpdateProfile =
+                    frbToken != response.resultData.token_frb ||
+                    notificationAllowed != response.resultData.notification_enabled;
+
+                if (shouldUpdateProfile)
                 {
                     var additionalData = new Dictionary<string, string>
                     {
                         { "company_id", response.resultData.company_id.ToString() },
-                        { "notification_enabled", response.resultData.notification_enabled.ToString() },
+                        { "notification_enabled", notificationAllowed.ToString() },
                         { "token_frb", frbToken },
                     };
 
@@ -393,11 +407,6 @@ namespace EcoPlatesMobile.Services
 
         public async Task<string?> GetFirebaseToken()
         {
-        #if IOS
-            if (DeviceInfo.DeviceType != DeviceType.Physical)
-                return "";
-        #endif
-
             try
             {
                 await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
@@ -549,32 +558,102 @@ namespace EcoPlatesMobile.Services
 
         public async Task<bool> EnsureGalleryPermissionAsync()
         {
-#if ANDROID
+        #if IOS
+            var status = await Permissions.CheckStatusAsync<Permissions.Photos>();
+
+            if (status == PermissionStatus.Granted)
+                return true;
+
+            if (status == PermissionStatus.Limited)
+            {
+                await AskUserToGrantFullPhotoAccess();
+                return false;
+            }
+
+            status = await Permissions.RequestAsync<Permissions.Photos>();
+
+            if (status == PermissionStatus.Granted)
+                return true;
+
+            if (status == PermissionStatus.Limited)
+            {
+                await AskUserToGrantFullPhotoAccess();
+                return false;
+            }
+
+            await AskUserToGrantFullPhotoAccess();
+            return false;
+        #else
+            // Android: your existing logic
             var status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
             if (status != PermissionStatus.Granted)
                 status = await Permissions.RequestAsync<Permissions.StorageRead>();
             return status == PermissionStatus.Granted;
-#elif IOS
-            var status = await Permissions.CheckStatusAsync<Permissions.Photos>();
-            if (status != PermissionStatus.Granted)
-                status = await Permissions.RequestAsync<Permissions.Photos>();
-            return status == PermissionStatus.Granted;
-#else
-            return true;
-#endif
+        #endif
         }
 
+        private async Task AskUserToGrantFullPhotoAccess()
+        {
+            bool openSettings = await Shell.Current.DisplayAlert(
+                AppResource.PermissionRequired,
+                AppResource.MessagePermissionRequired,
+                AppResource.OpenSettings,
+                AppResource.Cancel);
+
+            if (openSettings)
+            {
+                // This opens the app's settings page directly
+                AppInfo.ShowSettingsUI();
+            }
+        }
+        
         public async Task<bool> EnsureCameraPermissionAsync()
         {
-        #if ANDROID || IOS
+        #if IOS
             var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
-            if (status != PermissionStatus.Granted)
-                status = await Permissions.RequestAsync<Permissions.Camera>();
-            return status == PermissionStatus.Granted;
+
+            // Already granted ✅
+            if (status == PermissionStatus.Granted)
+                return true;
+
+            // If previously denied/restricted, no point re-asking — go straight to settings
+            if (status == PermissionStatus.Denied || status == PermissionStatus.Restricted)
+            {
+                await AskUserToGrantFullPhotoAccess();
+                return false;
+            }
+
+            // First-time/unknown → request it
+            status = await Permissions.RequestAsync<Permissions.Camera>();
+
+            if (status == PermissionStatus.Granted)
+                return true;
+
+            // Still not granted → ask user to open Settings
+            await AskUserToGrantFullPhotoAccess();
+            return false;
+
+        #elif ANDROID
+            var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
+
+            if (status == PermissionStatus.Granted)
+                return true;
+
+            status = await Permissions.RequestAsync<Permissions.Camera>();
+
+            if (status == PermissionStatus.Granted)
+                return true;
+
+            // User denied (maybe checked "Don't ask again") → suggest opening settings
+            await AskUserToGrantFullPhotoAccess();
+            return false;
+
         #else
+            // Other platforms: treat as granted
             return true;
         #endif
         }
+
 #endregion
     }
 }

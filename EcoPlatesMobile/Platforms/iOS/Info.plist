@@ -4,6 +4,9 @@
 <dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>CFBundleIdentifier</key>
+    <string>com.saletop.app</string>
+	
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>

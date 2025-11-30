@@ -179,6 +179,9 @@ public partial class UserProfilePage : BasePage
         {
             dropdownListBack.IsVisible = true;
             dropdownList.IsVisible = true;
+
+            dropdownListBack.Opacity = 0.5;      // show dark overlay
+            dropdownListBack.InputTransparent = false; // start catching taps
         });
     }
 
@@ -212,6 +215,9 @@ public partial class UserProfilePage : BasePage
     {
         dropdownListBack.IsVisible = false;
         dropdownList.IsVisible = false;
+
+        dropdownListBack.Opacity = 0;        // hide overlay
+        dropdownListBack.InputTransparent = true;  // let taps pass through again
     }
     
     private async void Tile_EventClick(object obj)

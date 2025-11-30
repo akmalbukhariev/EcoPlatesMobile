@@ -64,10 +64,11 @@ namespace EcoPlatesMobile
 #if IOS
                 events.AddiOS(iOS => iOS.WillFinishLaunching((_, __) =>
                 {
-                    var path = Foundation.NSBundle.MainBundle.PathForResource("GoogleService-Info", "plist");
-
+                    //var path = Foundation.NSBundle.MainBundle.PathForResource("GoogleService-Info", "plist");
+            
                     CrossFirebase.Initialize();
-                    //FirebaseCloudMessagingImplementation.Initialize();
+                    FirebaseCloudMessagingImplementation.Initialize();
+                    CrossFirebaseCloudMessaging.Current.SubscribeToTopicAsync("allUsers");
                     return false;
                 }));
 #elif ANDROID
@@ -79,7 +80,7 @@ namespace EcoPlatesMobile
 
             return builder;
         }
-
+        
         private static void RegisterSingleton(MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<IUpdateService, UpdateService>();

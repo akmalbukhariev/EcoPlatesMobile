@@ -61,7 +61,7 @@
                    VerticalOptions="Center"
                    Grid.Column="2"/>
         </Grid>
-        <BoxView BackgroundColor="LightGray" 
+        <BoxView BackgroundColor="LightGray"
                  Grid.Row="3"/>
         <Grid RowDefinitions="Auto, Auto, Auto"
               Margin="0,0,0,30"
@@ -86,7 +86,7 @@
                    HorizontalTextAlignment="Center"
                    Grid.Row="2"/>
         </Grid>
-        <RefreshView Command="{Binding RefreshCommand}" 
+        <RefreshView Command="{Binding RefreshCommand}"
                      IsRefreshing="{Binding IsRefreshing}"
                      Grid.Row="4">
             <Grid RowDefinitions="*, Auto"
@@ -191,7 +191,7 @@
                 </ScrollView>
             </Grid>
         </RefreshView>
-        <BoxView x:Name="dropdownListBack" 
+        <BoxView x:Name="dropdownListBack"
                  Opacity="0"
                  IsVisible="True"
                  BackgroundColor="Black"
@@ -202,7 +202,7 @@
                                       Tapped="OnLanguageBackTapped"/>
             </BoxView.GestureRecognizers>
         </BoxView>
-        <Frame x:Name="dropdownList" 
+        <Frame x:Name="dropdownList"
                IsVisible="False"
                BackgroundColor="White" 
                CornerRadius="10"

@@ -4,6 +4,7 @@
                x:Class="EcoPlatesMobile.Views.Company.Pages.CompanyProfileInfoPage"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+               xmlns:behaviors="clr-namespace:EcoPlatesMobile.Helper"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views">
     
     <Grid>
@@ -47,7 +48,11 @@
                                    FontFamily="RobotoVar"
                                    Placeholder="{x:Static language:AppResource.CompanyName}"
                                    FontSize="17"
-                                   PlaceholderColor="LightGray"/>
+                                   PlaceholderColor="LightGray">
+                                <Entry.Behaviors>
+                                        <behaviors:DoneKeyboardBehavior />
+                                </Entry.Behaviors>
+                            </Entry>
                             <BoxView BackgroundColor="LightGray" Grid.Row="1"/>
                             <Grid Grid.Row="2">
                                 <Picker x:Name ="pickType"
@@ -111,35 +116,9 @@
                                         Grid.Column="1">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                                    Tapped="Notification_Tapped"/>
+                                                                  Tapped="Notification_Tapped"/>
                                         </Image.GestureRecognizers>
                                 </Image>
-                                <!--<Switch x:Name="notification"
-                                        OnColor="#FFC7B1E9"
-                                        HorizontalOptions="End"
-                                        VerticalOptions="Center"
-                                        Scale="1.5"
-                                        Toggled="Notitifation_Toggled"
-                                        Grid.Column="1">
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroupList>
-                                            <VisualStateGroup x:Name="CommonStates">
-                                                <VisualState x:Name="On">
-                                                    <VisualState.Setters>
-                                                        <Setter Property="ThumbColor"
-                                                                Value="{StaticResource Company}" />
-                                                    </VisualState.Setters>
-                                                </VisualState>
-                                                <VisualState x:Name="Off">
-                                                    <VisualState.Setters>
-                                                        <Setter Property="ThumbColor"
-                                                                Value="Gray" />
-                                                    </VisualState.Setters>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateGroupList>
-                                    </VisualStateManager.VisualStateGroups>
-                                </Switch>-->
                             </Grid>
                         </Grid>
                     </Border>

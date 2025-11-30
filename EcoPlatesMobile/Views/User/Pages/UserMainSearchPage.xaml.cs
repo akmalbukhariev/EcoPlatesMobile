@@ -19,10 +19,18 @@ public partial class UserMainSearchPage : BasePage
 
         BindingContext = viewModel;
 
-        entrySearch.Completed += Entry_Completed;
+        //entrySearch.Completed += Entry_Completed;
 
-        this.Loaded += (s, e) =>
+        Loaded += (s, e) =>
         {
+        #if IOS
+            // On iOS, use Unfocused as "Completed"
+            entrySearch.Unfocused += Entry_Completed;
+        #else
+            // On Android (and others), normal Completed works
+            entrySearch.Completed += Entry_Completed;
+        #endif
+
             entrySearch.Focus();
         };
     }

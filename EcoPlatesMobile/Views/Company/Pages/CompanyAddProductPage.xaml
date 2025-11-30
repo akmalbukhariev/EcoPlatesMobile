@@ -112,6 +112,9 @@
                                        TextColor="Black"
                                        TextChanged="PriceTextChanged"
                                        Grid.Column="1">
+                                    <Entry.Behaviors>
+                                        <behaviors:DoneKeyboardBehavior />
+                                    </Entry.Behaviors>
                                 </Entry>
                                 <Label x:Name="lbOldPrice"
                                         Text="{x:Static language:AppResource.PreviousPrice}"
@@ -121,7 +124,7 @@
                                         Margin="0,0,10,0"
                                         Grid.Column="3"/>
                             </Grid>
-                            <Border BackgroundColor="#E9E9E9" 
+                            <Border BackgroundColor="#E9E9E9"
                                     HeightRequest="2"
                                     Margin="10,0,10,0"
                                     Grid.Row="1"/>
@@ -138,7 +141,11 @@
                                        FontFamily="RobotoVar"
                                        TextColor="Black"
                                        TextChanged="PriceTextChanged"
-                                       Grid.Column="1"/>
+                                       Grid.Column="1">
+                                     <Entry.Behaviors>
+                                        <behaviors:DoneKeyboardBehavior />
+                                    </Entry.Behaviors>
+                                </Entry>
                                 <Label x:Name="lbNewPrice" 
                                        Text="{x:Static language:AppResource.CurrentPrice}"
                                        Style="{StaticResource styleLabel}"

@@ -1829,10 +1829,30 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permission required.
+        /// </summary>
+        internal static string PermissionRequired {
+            get {
+                return ResourceManager.GetString("PermissionRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Permission required message.
+        /// </summary>
+        internal static string MessagePermissionRequired {
+            get {
+                return ResourceManager.GetString("MessagePermissionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Share.
         /// </summary>
-        internal static string Share {
-            get {
+        internal static string Share
+        {
+            get
+            {
                 return ResourceManager.GetString("Share", resourceCulture);
             }
         }

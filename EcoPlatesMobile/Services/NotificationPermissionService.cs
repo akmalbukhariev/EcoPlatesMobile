@@ -10,6 +10,7 @@ using Microsoft.Maui.ApplicationModel;
 using UserNotifications;
 using UIKit;
 using Foundation;
+using EcoPlatesMobile.Resources.Languages;
 #endif
 
 public static class NotificationPermissionHelper
@@ -69,10 +70,10 @@ public static class NotificationPermissionHelper
         if (isAuthorized) return true;
 
         bool open = await hostPage.DisplayAlert(
-            "Notifications are off",
-            "Turn on notifications for this app in iOS Settings.",
-            "Open Settings",
-            "Cancel");
+            AppResource.NotificationOff,
+            AppResource.MessageTurnOnNotification,
+            AppResource.OpenSettings,
+            AppResource.Cancel);
 
         if (open) OpeniOSAppSettings();
         return false;

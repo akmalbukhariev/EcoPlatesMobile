@@ -6,6 +6,7 @@
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:behaviors="clr-namespace:EcoPlatesMobile.Helper"
                x:Class="EcoPlatesMobile.Views.User.Pages.UserBrowserSearchPage"
                BackgroundColor="White">
 
@@ -43,7 +44,11 @@
                            BackgroundColor="Transparent"
                            TextColor="Black"
                            Margin="10,0,0,0"
-                           TextChanged="OnEntryTextChanged"/>
+                           TextChanged="OnEntryTextChanged">
+                           <Entry.Behaviors>
+                               <behaviors:DoneKeyboardBehavior />
+                           </Entry.Behaviors>
+                    </Entry>
                     <Image x:Name="clearButton"
                             Source="clean_entry.png"
                             Aspect="AspectFit"

@@ -31,7 +31,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
         public BusinessType BusinessType { get; set; }
         private int offset = 0;
-        private const int PageSize = 4;
+        private const int PageSize = 6;
         private bool hasMoreItems = true;
        
         private UserApiService userApiService;
