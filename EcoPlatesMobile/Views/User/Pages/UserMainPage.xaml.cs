@@ -31,10 +31,9 @@ public partial class UserMainPage : BasePage
         companyTypeList.EventTypeClick += CompanyTypeList_EventTypeClick;
 
         appControl.NotificationSubscriber = this;
-
-#if ANDROID
-        MessagingCenter.Subscribe<MainActivity, NotificationData>(appControl.NotificationSubscriber, Constants.NOTIFICATION_BODY, OnNotificationReceived);
-#endif
+ 
+        MessagingCenter.Subscribe<object, NotificationData>(appControl.NotificationSubscriber, Constants.NOTIFICATION_BODY, OnNotificationReceived);
+ 
         BindingContext = viewModel;
     }
      
@@ -96,13 +95,11 @@ public partial class UserMainPage : BasePage
         cts?.Cancel();
         cts = null;
     }
-    
-#if ANDROID
-    private async void OnNotificationReceived(MainActivity sender, NotificationData notificationData)
+ 
+    private async void OnNotificationReceived(object sender, NotificationData notificationData)
     {
         await MoveToPageUsingNotification(notificationData);
-    }
-#endif
+    } 
 
     private async Task MoveToPageUsingNotification(NotificationData notificationData)
     {

@@ -117,43 +117,15 @@ namespace EcoPlatesMobile
                     AppService.Get<AppControl>().NotificationData = notificationData;
 
                 if (Instance is MainActivity mainActivity)
-                    MessagingCenter.Send(mainActivity, Constants.NOTIFICATION_BODY, notificationData);
+                    MessagingCenter.Send<object, NotificationData>(
+                                mainActivity,
+                                Constants.NOTIFICATION_BODY,
+                                notificationData);
             }
 
             FirebaseCloudMessagingImplementation.OnNewIntent(intent);
         }
-        
-        /*
-        private static async Task HandleIntent(Intent intent, bool appRunning = false)
-        {
-            if (intent == null) return;
-
-            if (intent.HasExtra(Utilities.Constants.NOTIFICATION_TITLE) && intent.HasExtra(Utilities.Constants.NOTIFICATION_BODY))
-            {
-                var title = intent.GetStringExtra(Utilities.Constants.NOTIFICATION_TITLE);
-                var body = intent.GetStringExtra(Utilities.Constants.NOTIFICATION_BODY);
-
-                var notificationData = new NotificationData()
-                {
-                    title = title,
-                    body = body
-                };
-
-                if (!appRunning)
-                {
-                    AppService.Get<AppControl>().NotificationData = notificationData;
-                }
-
-                if (Instance is MainActivity mainActivity)
-                {
-                    MessagingCenter.Send<MainActivity, NotificationData>(mainActivity, Constants.NOTIFICATION_BODY, notificationData);
-                }
-            }
-
-            FirebaseCloudMessagingImplementation.OnNewIntent(intent);
-        }
-        */
-
+          
         private void CreateNotificationChannel()
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
@@ -194,24 +166,7 @@ namespace EcoPlatesMobile
                     .SetColorized(true);
             };
         }
-
-        /*
-        private void CreateNotificationChannel()
-        {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return;
-
-            var notificationManager = (NotificationManager)GetSystemService(NotificationService);
-            var ch = new NotificationChannel(Channel_ID, "SaleTop Messages", NotificationImportance.High);
-            ch.LockscreenVisibility = NotificationVisibility.Public;
-            ch.EnableVibration(true);
-            ch.EnableLights(true);
-            notificationManager.CreateNotificationChannel(ch);
-
-            FirebaseCloudMessagingImplementation.ChannelId = Channel_ID;
-            FirebaseCloudMessagingImplementation.SmallIconRef = Resource.Drawable.notification_icon;
-        }
-        */
-
+        
         public static Activity Instance { get; private set; }
 
         void TryFixTabsWithRetry(int attemptsLeft = 10)

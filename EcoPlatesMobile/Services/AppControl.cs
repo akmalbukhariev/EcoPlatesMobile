@@ -233,15 +233,15 @@ namespace EcoPlatesMobile.Services
             await companyApi.ClearTokenAsync();
             CompanyInfo = null;
             
-            #if ANDROID
+            //#if ANDROID
                 if (NotificationSubscriber != null)
                 {
-                    MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
+                    MessagingCenter.Unsubscribe<object, NotificationData>(
                         NotificationSubscriber,
                         Constants.NOTIFICATION_BODY);
                     NotificationSubscriber = null;
             }
-            #endif
+            //#endif
             
             Application.Current.MainPage = new AppEntryShell();
         }
@@ -264,15 +264,15 @@ namespace EcoPlatesMobile.Services
 
             await userApi.ClearTokenAsync();
             UserInfo = new UserInfo();
-    #if ANDROID
+    //#if ANDROID
             if (NotificationSubscriber != null)
             {
-                MessagingCenter.Unsubscribe<MainActivity, NotificationData>(
+                MessagingCenter.Unsubscribe<object, NotificationData>(
                     NotificationSubscriber,
                     Constants.NOTIFICATION_BODY);
                 NotificationSubscriber = null;
             }
-    #endif
+    //#endif
 
             RefreshMainPage = true;
             RefreshBrowserPage = true;

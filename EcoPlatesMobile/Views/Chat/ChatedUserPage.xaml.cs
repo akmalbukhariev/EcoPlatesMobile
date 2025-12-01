@@ -22,8 +22,6 @@ public partial class ChatedUserPage : BasePage
         this.statusBarService = statusBarService;
 
         BindingContext = viewModel;
-
-        //Loaded += Page_Loaded;
     }
 
     protected override async void OnAppearing()
@@ -64,8 +62,6 @@ public partial class ChatedUserPage : BasePage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        //IsOpen = false;
-        //MessagingCenter.Unsubscribe<ChatedUserPage>(this, Constants.SEARCH_NOTIFICATION_FOR_USER);
     }
      
     private async void User_Tapped(object sender, TappedEventArgs e)
