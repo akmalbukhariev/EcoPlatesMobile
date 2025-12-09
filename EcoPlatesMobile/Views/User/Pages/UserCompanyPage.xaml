@@ -11,8 +11,9 @@
                BackgroundColor="White">
 
     <Grid>
-        <Grid RowDefinitions="180, Auto, *, Auto, 10">
+        <Grid RowDefinitions="Auto, Auto, *, Auto, 10">
             <Image x:Name="imCompany"
+                   HeightRequest ="180"
                    Aspect="AspectFill"
                    Source="{Binding CompanyImage}">
                     <Image.GestureRecognizers>
@@ -208,13 +209,16 @@
                            HorizontalOptions="Center"/>
         <BoxView x:Name="boxFullImage"
                  BackgroundColor="Black"
-                 IsVisible="False"
-                 Opacity="0.7"/>
+                 IsVisible="True"
+                 Opacity="0"
+                 InputTransparent="True"/>
         <Image x:Name="fullImage"
                Aspect="AspectFit"
                IsVisible="False">
             <Image.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Up"
+                                        Swiped="OnImage_Swiped"/>
+                <SwipeGestureRecognizer Direction="Down"
                                         Swiped="OnImage_Swiped"/>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                       Tapped="OnImage_Tapped"/>

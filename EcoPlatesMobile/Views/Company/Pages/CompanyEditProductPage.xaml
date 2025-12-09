@@ -212,8 +212,9 @@
                            Grid.RowSpan="2"/>
         <BoxView x:Name="boxFullImage"
                 BackgroundColor="Black"
-                IsVisible="False"
-                Opacity="0.7"
+                IsVisible="True"
+                Opacity="0"
+                InputTransparent="True"
                 Grid.RowSpan="2"/>
         <Image x:Name="fullImage"
                Aspect="AspectFit"
@@ -221,6 +222,8 @@
                Grid.RowSpan="2">
             <Image.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Up"
+                                        Swiped="OnImage_Swiped"/>
+                <SwipeGestureRecognizer Direction="Down"
                                         Swiped="OnImage_Swiped"/>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                       Tapped="OnImage_Tapped"/>

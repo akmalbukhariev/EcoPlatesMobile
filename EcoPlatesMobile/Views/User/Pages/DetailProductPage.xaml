@@ -16,9 +16,10 @@
     </ContentPage.Resources>
     <Grid>
         <ScrollView>
-            <Grid RowDefinitions="180, Auto, 1, Auto, 1, *, 1, Auto, 1,10, Auto, 10">
+            <Grid RowDefinitions="Auto, Auto, 1, Auto, 1, *, 1, Auto, 1,10, Auto, 10">
                 <Image x:Name="imProduct"
                        Aspect="AspectFill"
+                       HeightRequest="180"
                        Source="{Binding ProductImage}">
                        <Image.GestureRecognizers>
                           <TapGestureRecognizer NumberOfTapsRequired="1"
@@ -230,7 +231,7 @@
                         Grid.Row="10"/>
             </Grid>
         </ScrollView>
-        <Grid x:Name="grdHeader" 
+        <Grid x:Name="grdHeader"
               ColumnDefinitions="Auto, *, Auto, Auto"
               VerticalOptions="Start">
             <Image x:Name="imBack1"
@@ -266,10 +267,10 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-        <component:CustomLikedView x:Name="likeView" 
+        <component:CustomLikedView x:Name="likeView"
                                    ShowLiked="{Binding IsLikedViewLiked}"
                                    IsVisible="{Binding ShowLikedView}"/>
-        <ActivityIndicator x:Name="loading" 
+        <ActivityIndicator x:Name="loading"
                            IsRunning="{Binding IsLoading}"
                            Color="{StaticResource User}"
                            Scale="1.5"
@@ -289,13 +290,16 @@
                               IsVisible="False"/>
         <BoxView x:Name="boxFullImage"
                  BackgroundColor="Black"
-                 IsVisible="False"
-                 Opacity="0.7"/>
+                 IsVisible="True"
+                 Opacity="0"
+                 InputTransparent="True"/>
         <Image x:Name="fullImage"
                Aspect="AspectFit"
                IsVisible="False">
             <Image.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Up"
+                                        Swiped="OnImage_Swiped"/>
+                <SwipeGestureRecognizer Direction="Down"
                                         Swiped="OnImage_Swiped"/>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                       Tapped="OnImage_Tapped"/>

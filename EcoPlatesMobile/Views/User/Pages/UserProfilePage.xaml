@@ -101,7 +101,8 @@
         <RefreshView Command="{Binding RefreshCommand}"
                      IsRefreshing="{Binding IsRefreshing}"
                      Grid.Row="4">
-            <Grid RowDefinitions="*, Auto"
+            <Grid x:Name="myGrid" 
+                  RowDefinitions="*, Auto"
                   HeightRequest="{OnPlatform Android=500, iOS=550}">
                 <ScrollView HorizontalScrollBarVisibility="Never">
                     <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"

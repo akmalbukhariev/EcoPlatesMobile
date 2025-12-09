@@ -15,7 +15,8 @@
         </Frame.GestureRecognizers>
         <Grid RowDefinitions="Auto, Auto, Auto, Auto">
             <Grid ColumnDefinitions="*,*">
-                <Border StrokeThickness="0"
+                <Border x:Name="imBorder" 
+                        StrokeThickness="0"
                         HeightRequest="100"
                         BackgroundColor="Transparent"
                         Grid.ColumnSpan="2">

@@ -107,6 +107,12 @@ public partial class CompanyView : ContentView
         Loaded += OnLoadedAnimateOnce;
         BindingContextChanged += OnBindingContextChangedAnimate;
 
+        if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
+        {
+            mainFrame.HeightRequest = 280;
+            companyImage.HeightRequest = 200;
+        }
+
         imLiked.IsVisible = ShowLiked;
     }
 

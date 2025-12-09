@@ -21,6 +21,11 @@ public partial class UserCompanyPage : BasePage
         this.locationService = locationService;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
+        
+        if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
+        {
+            imCompany.HeightRequest = 270;
+        }
 
         BindingContext = viewModel;
     }
@@ -193,7 +198,10 @@ public partial class UserCompanyPage : BasePage
             fullImage.TranslationY = -100;
             fullImage.Opacity = 0;
             fullImage.IsVisible = true;
+            
             boxFullImage.IsVisible = true;
+            boxFullImage.Opacity = 0.5;      // show dark overlay
+            boxFullImage.InputTransparent = false; // start catching taps
 
             await Task.WhenAll(
                 fullImage.TranslateTo(0, 0, 250, Easing.SinIn),
@@ -204,15 +212,39 @@ public partial class UserCompanyPage : BasePage
 
     private async void OnImage_Swiped(object sender, SwipedEventArgs e)
     {
-        await Task.WhenAll(
-            fullImage.TranslateTo(0, -100, 250, Easing.SinOut),
-            fullImage.FadeTo(0, 250, Easing.SinOut)
-        );
+        if (e.Direction == SwipeDirection.Down)
+        {
+            // Move image down and fade it out
+            await Task.WhenAll(
+                fullImage.TranslateTo(0, 100, 250, Easing.SinOut),
+                fullImage.FadeTo(0, 250, Easing.SinOut)
+            );
 
-        boxFullImage.IsVisible = false;
-        fullImage.IsVisible = false;
-        fullImage.Opacity = 1;
-        fullImage.TranslationY = 0;
+            boxFullImage.IsVisible = false; // Optionally hide the container box
+            boxFullImage.Opacity = 0;        // hide overlay
+            boxFullImage.InputTransparent = true;  // let taps pass through again
+
+            fullImage.IsVisible = false; // Hide the image after animation
+            fullImage.Opacity = 1; // Reset opacity for future animations
+            fullImage.TranslationY = 0; // Reset position for future animations
+        }
+        else if (e.Direction == SwipeDirection.Up)
+        {
+            // Move image up and fade it out
+            await Task.WhenAll(
+                fullImage.TranslateTo(0, -100, 250, Easing.SinOut),
+                fullImage.FadeTo(0, 250, Easing.SinOut)
+            );
+
+            // Reset image visibility and properties after animation
+            boxFullImage.IsVisible = false; // Optionally hide the container box
+            boxFullImage.Opacity = 0;        // hide overlay
+            boxFullImage.InputTransparent = true;  // let taps pass through again
+
+            fullImage.IsVisible = false; // Hide the image after the animation
+            fullImage.Opacity = 1; // Reset opacity
+            fullImage.TranslationY = 0; // Reset position
+        }
     }
 
     private async void OnImage_Tapped(object sender, TappedEventArgs e)
@@ -220,6 +252,9 @@ public partial class UserCompanyPage : BasePage
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
             boxFullImage.IsVisible = false;
+            boxFullImage.Opacity = 0;        // hide overlay
+            boxFullImage.InputTransparent = true;  // let taps pass through again
+
             fullImage.IsVisible = false;
         });
     }

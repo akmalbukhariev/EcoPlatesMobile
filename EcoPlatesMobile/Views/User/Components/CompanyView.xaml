@@ -21,7 +21,7 @@
                        Aspect="AspectFill"
                        VerticalOptions="Start"
                        Grid.RowSpan="2"/>
-                <Image x:Name="imLiked"  
+                <Image x:Name="imLiked"
                        Source="like.png"
                        WidthRequest="35"
                        HeightRequest="35"

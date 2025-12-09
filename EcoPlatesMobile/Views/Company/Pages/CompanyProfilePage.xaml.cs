@@ -67,6 +67,12 @@ public partial class CompanyProfilePage : BasePage
 
         Init();
 
+        // Adjust HeightRequest based on device type
+        if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
+        {
+            myGrid.HeightRequest = 1100;  // For iPad or other tablets
+        }
+
         BindingContext = this;
     }
 

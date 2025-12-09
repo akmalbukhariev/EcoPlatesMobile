@@ -118,9 +118,16 @@ public partial class ProductView : ContentView
     private const int StaggerBuckets = 4;
     private const int StaggerStepMs = 80;
     #endregion
-      public ProductView()
+    public ProductView()
     {
         InitializeComponent();
+
+        if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
+        {
+            mainFrame.HeightRequest = 270;
+            imBorder.HeightRequest = 170;
+            productImage.HeightRequest = 170;
+        }
 
         Loaded += OnLoadedAnimateOnce;
         BindingContextChanged += OnBindingContextChangedAnimate;

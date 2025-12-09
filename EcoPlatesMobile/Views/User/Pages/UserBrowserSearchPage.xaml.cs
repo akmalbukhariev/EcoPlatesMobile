@@ -9,6 +9,7 @@ public partial class UserBrowserSearchPage : BasePage
     private UserBrowserSearchPageViewModel viewModel;
     private AppControl appControl;
     private IKeyboardHelper keyboardHelper;
+    private bool backHasClicked = false;
     public UserBrowserSearchPage(UserBrowserSearchPageViewModel vm, AppControl appControl, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
@@ -20,16 +21,16 @@ public partial class UserBrowserSearchPage : BasePage
         BindingContext = viewModel;
 
         //entrySearch.Completed += Entry_Completed;
-        
+
         Loaded += (s, e) =>
         {
-        #if IOS
+#if IOS
             // On iOS, use Unfocused as "Completed"
             entrySearch.Unfocused += Entry_Completed;
-        #else
+#else
             // On Android (and others), normal Completed works
             entrySearch.Completed += Entry_Completed;
-        #endif
+#endif
 
             entrySearch.Focus();
         };
@@ -39,6 +40,8 @@ public partial class UserBrowserSearchPage : BasePage
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
+            backHasClicked = true;
+            
             await AnimateElementScaleDown(imBack);
             await AppNavigatorService.NavigateTo("..");
         });
@@ -62,6 +65,8 @@ public partial class UserBrowserSearchPage : BasePage
 
     private void Entry_Completed(object sender, EventArgs e)
     {
+        if (backHasClicked) return;
+
         Search_Tapped(imSearch, null); 
     }
 

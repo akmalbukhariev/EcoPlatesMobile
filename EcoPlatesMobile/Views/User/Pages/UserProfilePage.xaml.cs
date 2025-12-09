@@ -67,6 +67,13 @@ public partial class UserProfilePage : BasePage
         this.userApiService = userApiService;
 
         Init();
+
+        // Adjust HeightRequest based on device type
+        if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
+        {
+            myGrid.HeightRequest = 1100;  // For iPad or other tablets
+        }
+
         BindingContext = this;
     }
 

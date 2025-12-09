@@ -175,9 +175,22 @@ namespace EcoPlatesMobile.Services
                 appStoreService.Set(AppKeys.IsLoggedIn, true);
                 appStoreService.Set(AppKeys.PhoneNumber, phoneNumber);
 
+                // 🔹 1) Ask OS for notification permission right AFTER login is successful
+                bool notificationAllowed =
+                    await NotificationPermissionHelper.EnsureEnabledAsync(Application.Current.MainPage);
+
+                // update in memory
+                UserInfo.notification_enabled = notificationAllowed;
+
                 #region Check the Firebase token and save it to the server
                 string frbToken = await GetFirebaseToken();
-                if (frbToken != response.resultData.token_frb)
+
+                // we also check if notification flag changed compared to server data
+                bool shouldUpdateProfile =
+                    frbToken != response.resultData.token_frb ||
+                    notificationAllowed != response.resultData.notification_enabled;
+
+                if (shouldUpdateProfile)
                 {
                     var additionalData = new Dictionary<string, string>
                     {
@@ -233,15 +246,14 @@ namespace EcoPlatesMobile.Services
             await companyApi.ClearTokenAsync();
             CompanyInfo = null;
             
-            //#if ANDROID
-                if (NotificationSubscriber != null)
-                {
+        
+            if (NotificationSubscriber != null)
+            {
                     MessagingCenter.Unsubscribe<object, NotificationData>(
                         NotificationSubscriber,
                         Constants.NOTIFICATION_BODY);
                     NotificationSubscriber = null;
-            }
-            //#endif
+            } 
             
             Application.Current.MainPage = new AppEntryShell();
         }
