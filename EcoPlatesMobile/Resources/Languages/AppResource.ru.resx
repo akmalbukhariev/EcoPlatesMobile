@@ -1056,4 +1056,134 @@
     <value>Для выбора или съемки фото товара требуется полный доступ.</value>
     <comment>AppControl</comment>
   </data>
+
+  <data name="DeleteAccount_Intro" xml:space="preserve">
+    <value>Мы постоянно улучшаем сервис, и ваше мнение для нас важно.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Question" xml:space="preserve">
+    <value>Почему вы хотите удалить аккаунт? </value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_QuestionHint" xml:space="preserve">
+    <value>(Можно выбрать несколько)</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_TooExpensive" xml:space="preserve">
+    <value>SaleTop для меня слишком дорогой</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NotEnoughValue" xml:space="preserve">
+    <value>Не дает достаточной пользы за свою цену</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NotEnoughOffers" xml:space="preserve">
+    <value>Рядом со мной недостаточно хороших предложений</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_HardToUse" xml:space="preserve">
+    <value>Приложением неудобно пользоваться</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NoTime" xml:space="preserve">
+    <value>У меня нет времени пользоваться SaleTop</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_PreferOther" xml:space="preserve">
+    <value>Предпочитаю другие приложения/сервисы</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_TechnicalIssues" xml:space="preserve">
+    <value>У меня были технические проблемы (ошибки, вылеты, медленная работа)</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_Other" xml:space="preserve">
+    <value>Другое</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Other_Placeholder" xml:space="preserve">
+    <value>Пожалуйста, уточните</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Thanks" xml:space="preserve">
+    <value>Спасибо. Нам жаль, что вы уходите. Вы можете вернуться в любое время.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_DeleteButton" xml:space="preserve">
+    <value>Удалить аккаунт</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_SelectReason_Title" xml:space="preserve">
+    <value>Выберите причину</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_SelectReason_Message" xml:space="preserve">
+    <value>Пожалуйста, выберите хотя бы одну причину.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_Other_Title" xml:space="preserve">
+    <value>Другая причина</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_Other_Message" xml:space="preserve">
+    <value>Пожалуйста, укажите причину в поле ввода.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_Title" xml:space="preserve">
+    <value>Удалить аккаунт</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_Message" xml:space="preserve">
+    <value>Вы уверены, что хотите навсегда удалить свой аккаунт SaleTop?</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_YesDelete" xml:space="preserve">
+    <value>Да, удалить</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Submitted_Title" xml:space="preserve">
+    <value>Отправлено</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Submitted_Message" xml:space="preserve">
+    <value>Ваши причины:</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="Common_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Common</comment>
+  </data>
+
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>Common</comment>
+  </data>
+
+  <data name="AccountManager" xml:space="preserve">
+    <value>Управление аккаунтом</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
 </root>

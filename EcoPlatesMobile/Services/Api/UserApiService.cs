@@ -46,11 +46,13 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_COMPANY_WITH_POSTERS_WITHOUT_LOGIN = $"{BASE_URL}company/getCompanyWithPostersWithoutLogin/";
         private const string REGISTER_POSTER_FEEDBACK = $"{BASE_URL}feedbacks/registerPosterFeedback";
         private const string REGISTER_USER_FEEDBACK = $"{BASE_URL}feedbacks_user/registerUserFeedback";
+        
+        private const string DELETE_USER_ACCOUNT = $"{BASE_URL}user/deleteUser/";
         #endregion
 
         public UserApiService(RestClient client) : base(client)
         {
-            
+
         }
 
         public async Task<LoginUserResponse> Login(LoginRequest data)
@@ -71,6 +73,43 @@ namespace EcoPlatesMobile.Services.Api
             try
             {
                 var receivedData = await GetAsync($"{CHECK_USER}{phoneNumber}", false);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"API: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> DeleteUseAccount(string reasons)
+        {
+            var response = new Response();
+
+            try
+            {
+                var encodedReasons = Uri.EscapeDataString(reasons ?? string.Empty);
+ 
+                var url = $"{DELETE_USER_ACCOUNT}{encodedReasons}";
+
+                var receivedData = await DeleteAsync(url);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

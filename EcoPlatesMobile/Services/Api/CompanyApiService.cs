@@ -34,6 +34,8 @@ namespace EcoPlatesMobile.Services.Api
         private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";
         private const string REGISTER_COMPANY_FEEDBACK = $"{BASE_URL}feedbacks_company/registerCompanyFeedback";
         private const string GET_PENDING_POSTERS = $"{BASE_URL}company/admin/getNewAddedPosterListByCompanyId";
+
+        private const string DELETE_COMPANY_ACCOUNT = $"{BASE_URL}company/deleteCompany/";
         #endregion
 
         public CompanyApiService(RestClient client) : base(client)
@@ -79,6 +81,43 @@ namespace EcoPlatesMobile.Services.Api
             {
                 response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
                 response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> DeleteUseAccount(string reasons)
+        {
+            var response = new Response();
+
+            try
+            {   
+                var encodedReasons = Uri.EscapeDataString(reasons ?? string.Empty);
+ 
+                var url = $"{DELETE_COMPANY_ACCOUNT}{encodedReasons}";
+
+                var receivedData = await DeleteAsync(url);
+ 
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"API: {ex.Message}";
             }
 
             return response;

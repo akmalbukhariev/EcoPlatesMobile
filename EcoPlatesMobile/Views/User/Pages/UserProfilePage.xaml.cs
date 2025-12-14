@@ -67,13 +67,7 @@ public partial class UserProfilePage : BasePage
         this.userApiService = userApiService;
 
         Init();
-
-        // Adjust HeightRequest based on device type
-        if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
-        {
-            myGrid.HeightRequest = 1100;  // For iPad or other tablets
-        }
-
+            
         BindingContext = this;
     }
 
@@ -233,12 +227,12 @@ public partial class UserProfilePage : BasePage
         switch (view.TileType)
         {
             case ListTileView.ListTileType.Message:
-            if (!appControl.IsLoggedIn)
-            {
-                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
-                return;
-            }
-            await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
+                if (!appControl.IsLoggedIn)
+                {
+                    await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
+                    return;
+                }
+                await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
                 break;
             case ListTileView.ListTileType.Share:
                 if (!appControl.IsLoggedIn)
@@ -258,10 +252,13 @@ public partial class UserProfilePage : BasePage
                     await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
                     return;
                 }
-                await AppNavigatorService.NavigateTo($"{nameof(SuggestionsPage)}?IsUser={true}");
+                await AppNavigatorService.NavigateTo(nameof(SuggestionsPage));
                 break;
             case ListTileView.ListTileType.AboutApp:
-                await AppNavigatorService.NavigateTo($"{nameof(AboutPage)}?IsUser={true}");
+                await AppNavigatorService.NavigateTo(nameof(AboutPage));
+                break;
+            case ListTileView.ListTileType.AccountManagement:
+                await AppNavigatorService.NavigateTo(nameof(DeleteAccountPage));
                 break;
         }
     }

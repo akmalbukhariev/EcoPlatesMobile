@@ -101,6 +101,7 @@ namespace EcoPlatesMobile
             Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
             Routing.RegisterRoute(nameof(SuggestionsPage), typeof(SuggestionsPage));
             Routing.RegisterRoute(nameof(BlockedPage), typeof(BlockedPage));
+            Routing.RegisterRoute(nameof(DeleteAccountPage), typeof(DeleteAccountPage));
             #endregion
         }
 

@@ -1055,4 +1055,134 @@ Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.
     <value>Mahsulot rasmini tanlash yoki rasmga olish uchun to‘liq ruxsat kerak.</value>
     <comment>AppControl</comment>
 </data>
+ 
+  <data name="DeleteAccount_Intro" xml:space="preserve">
+    <value>Biz doimo xizmatimizni yaxshilaymiz va sizning fikringiz biz uchun muhim.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Question" xml:space="preserve">
+    <value>Nega akkauntingizni o‘chirmoqchisiz? </value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_QuestionHint" xml:space="preserve">
+    <value>(Hammasini tanlashingiz mumkin)</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_TooExpensive" xml:space="preserve">
+    <value>SaleTop men uchun juda qimmat</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NotEnoughValue" xml:space="preserve">
+    <value>Narxiga nisbatan yetarli foyda bermaydi</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NotEnoughOffers" xml:space="preserve">
+    <value>Yaqin atrofimda yaxshi takliflar yetarli emas</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_HardToUse" xml:space="preserve">
+    <value>Ilovadan foydalanish qiyin</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NoTime" xml:space="preserve">
+    <value>SaleTop’dan foydalanishga vaqtim yetmaydi</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_PreferOther" xml:space="preserve">
+    <value>Boshqa ilova/xizmatlarni afzal ko‘raman</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_TechnicalIssues" xml:space="preserve">
+    <value>Texnik muammolarga duch keldim (xatolar, sekin ishlash)</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_Other" xml:space="preserve">
+    <value>Boshqa</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Other_Placeholder" xml:space="preserve">
+    <value>Iltimos, aniqlashtiring</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Thanks" xml:space="preserve">
+    <value>Rahmat. Ketayotganingizdan afsusdamiz. Istalgan vaqtda qaytishingiz mumkin.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_DeleteButton" xml:space="preserve">
+    <value>Akkauntni o‘chirish</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_SelectReason_Title" xml:space="preserve">
+    <value>Sababni tanlang</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_SelectReason_Message" xml:space="preserve">
+    <value>Iltimos, kamida bitta sababni tanlang.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_Other_Title" xml:space="preserve">
+    <value>Boshqa sabab</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_Other_Message" xml:space="preserve">
+    <value>Iltimos, sababingizni matn maydoniga yozing.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_Title" xml:space="preserve">
+    <value>Akkauntni o‘chirish</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_Message" xml:space="preserve">
+    <value>SaleTop akkauntingizni butunlay o‘chirmoqchi ekaningizga ishonchingiz komilmi?</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_YesDelete" xml:space="preserve">
+    <value>Ha, o‘chirish</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Submitted_Title" xml:space="preserve">
+    <value>Yuborildi</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Submitted_Message" xml:space="preserve">
+    <value>Sabab(lar)ingiz:</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="Common_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Common</comment>
+  </data>
+
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Bekor qilish</value>
+    <comment>Common</comment>
+  </data>
+
+  <data name="AccountManager" xml:space="preserve">
+    <value>Akkaunt boshqaruvi</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
 </root>

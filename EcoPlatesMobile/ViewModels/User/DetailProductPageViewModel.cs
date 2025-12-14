@@ -80,9 +80,9 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     PosterRatingCompanyInfo info = response.resultData;
                     CompanyId = (int)info.company_id;
-                    ProductImage = info.image_url;
-                    CompanyImage = info.logo_url;
-                    CompanyImageUrl = info.logo_url;
+                    ProductImage = appControl.GetImageUrlOrFallback(info.image_url);
+                    CompanyImage = appControl.GetImageUrlOrFallback(info.logo_url);
+                    CompanyImageUrl = appControl.GetImageUrlOrFallback(info.logo_url);
                     CompanyName = info.company_name;
                     CompanyPhone = info.phone_number;
                     ProductName = info.title;

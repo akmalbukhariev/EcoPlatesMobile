@@ -66,13 +66,7 @@ public partial class CompanyProfilePage : BasePage
         this.locationService = locationService;
 
         Init();
-
-        // Adjust HeightRequest based on device type
-        if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
-        {
-            myGrid.HeightRequest = 1100;  // For iPad or other tablets
-        }
-
+        
         BindingContext = this;
     }
 
@@ -220,17 +214,17 @@ public partial class CompanyProfilePage : BasePage
                 await AppNavigatorService.NavigateTo($"{nameof(InActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.Share:
-            await Share.Default.RequestAsync(new ShareTextRequest
-            {
-                 Uri = appControl.CompanyInfo.share_link,
-                 Title = "Check out my app"
-            });
-            break;
+                await Share.Default.RequestAsync(new ShareTextRequest
+                {
+                    Uri = appControl.CompanyInfo.share_link,
+                    Title = "Check out my app"
+                });
+                break;
             case ListTileView.ListTileType.Location:
                 cts = new CancellationTokenSource();
                 loading.IsRunning = true;
                 var location = await locationService.GetCurrentLocationAsync(cts.Token);
-                loading.IsRunning = false; 
+                loading.IsRunning = false;
 
                 if (location == null)
                 {
@@ -246,6 +240,9 @@ public partial class CompanyProfilePage : BasePage
                 break;
             case ListTileView.ListTileType.AboutApp:
                 await AppNavigatorService.NavigateTo(nameof(AboutPage));
+                break;
+            case ListTileView.ListTileType.AccountManagement:
+                await AppNavigatorService.NavigateTo(nameof(DeleteAccountPage));
                 break;
         }
     }

@@ -33,25 +33,23 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs access to your photo library to select photos.</string>
+	<string>SaleTop needs access to your photo library to select photos for your product listings. This helps you upload images of products you're selling on the app.</string>
 
-	<!-- If you SAVE to the library, also add: -->
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app needs permission to save photos to your library.</string>
+	<string>SaleTop needs permission to save photos to your photo library for product images. This allows you to use images from your library when adding new products to your listings.</string>
 
-	<!-- If you use the camera, add: -->
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs access to the camera to take photos.</string>
+	<string>SaleTop needs access to your camera to take photos of products you want to list. This allows you to easily capture product images directly through the app.</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>SaleTop needs access to your location to show nearby products and sellers. This helps you discover local items and sellers based on your current location.</string>
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>SaleTop needs access to your location to show nearby products and sellers even when the app is in the background. This ensures you get the most relevant product listings based on your location.</string>
 
 	<key>GMSApiKey</key>
     <string>AIzaSyDgkl_fW7kUX7Tfruk0RWK-0CdKcYHgV3k</string>
 
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is used to show your position on the map.</string>
-
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your location is used to show your position on the map.</string>
-````
 	<key>NSAppTransportSecurity</key>
     <dict>
         <key>NSExceptionDomains</key>

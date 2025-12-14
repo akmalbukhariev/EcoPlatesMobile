@@ -120,7 +120,7 @@ namespace EcoPlatesMobile.ViewModels.User
 
                 if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                 {
-                    CompanyImage = response.resultData.logo_url;
+                    CompanyImage = appControl.GetImageUrlOrFallback( response.resultData.logo_url);
                     Latitude = response.resultData.location_latitude;
                     Longitude = response.resultData.location_longitude;
                     likedCompany = response.resultData.liked;

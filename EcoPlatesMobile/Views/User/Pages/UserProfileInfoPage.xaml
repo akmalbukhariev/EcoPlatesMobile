@@ -100,33 +100,37 @@
                                                                     Tapped="Notification_Tapped"/>
                                         </Image.GestureRecognizers>
                                 </Image>
-                                <!--<Switch x:Name="notification"
-                                        OnColor="#FF9FCD9F"
-                                        HorizontalOptions="End"
-                                        VerticalOptions="Center"
-                                        Scale="1.5"
-                                        Toggled="Notitifation_Toggled"
-                                        Grid.Column="1">
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroupList>
-                                            <VisualStateGroup x:Name="CommonStates">
-                                                <VisualState x:Name="On">
-                                                    <VisualState.Setters>
-                                                        <Setter Property="ThumbColor" Value="{StaticResource User}"/>
-                                                    </VisualState.Setters>
-                                                </VisualState>
-                                                <VisualState x:Name="Off">
-                                                    <VisualState.Setters>
-                                                        <Setter Property="ThumbColor" Value="Gray"/>
-                                                    </VisualState.Setters>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateGroupList>
-                                    </VisualStateManager.VisualStateGroups>
-                                </Switch>-->
                             </Grid>
                         </Grid>
                     </Border>
+                    <Border StrokeShape="RoundRectangle 15"
+                            StrokeThickness="0.2"
+                            BackgroundColor="White"
+                            Margin="10,0,10,0">
+                        <Grid RowDefinitions="50"
+                              Margin="10">
+                               <Grid x:Name="grdDeleteAccount" 
+                                     ColumnDefinitions="*, Auto" 
+                                     Grid.Row="2">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                          Tapped="DeleteAccount_Tapped"/>
+                                </Grid.GestureRecognizers>
+                                <Label Text="{x:Static language:AppResource.DeleteAccount_DeleteButton}"
+                                       TextColor="Black"
+                                       FontSize="17"
+                                       FontFamily="RobotoVar"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center"/>
+                                <Image Source="right.png"
+                                       Aspect="AspectFill"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       Margin="0,0,5,0"
+                                       Grid.Column="1"/>
+                            </Grid>
+                        </Grid>
+                     </Border>
                 </VerticalStackLayout>
                 <Button Text="{x:Static language:AppResource.LogOut}" 
                         BackgroundColor="Red"

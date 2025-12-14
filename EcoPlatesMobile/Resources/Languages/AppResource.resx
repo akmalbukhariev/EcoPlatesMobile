@@ -1066,4 +1066,125 @@ Don’t worry, you can change the location inside the application.
     <value>Full permission is required to select or take a product photo.</value>
     <comment>AppControl</comment>
   </data>
+
+  <data name="DeleteAccount_Intro" xml:space="preserve">
+    <value>We’re always improving our service and your feedback matters.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Question" xml:space="preserve">
+    <value>Why do you want to delete your account? </value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_QuestionHint" xml:space="preserve">
+    <value>(Select all that apply)</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_TooExpensive" xml:space="preserve">
+    <value>SaleTop is too expensive for me</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NotEnoughValue" xml:space="preserve">
+    <value>It doesn’t provide enough value for the money</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NotEnoughOffers" xml:space="preserve">
+    <value>There aren’t enough good offers near me</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_HardToUse" xml:space="preserve">
+    <value>The app is hard to use</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_NoTime" xml:space="preserve">
+    <value>I don’t have enough time to use SaleTop</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_PreferOther" xml:space="preserve">
+    <value>I prefer other apps/services</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_TechnicalIssues" xml:space="preserve">
+    <value>I had technical issues (bugs, crashes, slow)</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Reason_Other" xml:space="preserve">
+    <value>Other</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Other_Placeholder" xml:space="preserve">
+    <value>Please specify</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Thanks" xml:space="preserve">
+    <value>Thanks. We’re sorry to see you go. You can come back anytime.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_DeleteButton" xml:space="preserve">
+    <value>Delete account</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_SelectReason_Title" xml:space="preserve">
+    <value>Select a reason</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_SelectReason_Message" xml:space="preserve">
+    <value>Please select at least one reason.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_Other_Title" xml:space="preserve">
+    <value>Other reason</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Alert_Other_Message" xml:space="preserve">
+    <value>Please specify your reason in the text box.</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_Title" xml:space="preserve">
+    <value>Delete account</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_Message" xml:space="preserve">
+    <value>Are you sure you want to permanently delete your SaleTop account?</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Confirm_YesDelete" xml:space="preserve">
+    <value>Yes, delete</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Submitted_Title" xml:space="preserve">
+    <value>Submitted</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="DeleteAccount_Submitted_Message" xml:space="preserve">
+    <value>Your reason(s):</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
+  <data name="AccountManager" xml:space="preserve">
+    <value>Account manager</value>
+    <comment>DeleteAccountPage</comment>
+  </data>
+
 </root>

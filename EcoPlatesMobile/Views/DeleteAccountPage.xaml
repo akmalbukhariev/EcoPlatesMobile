@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:page="clr-namespace:EcoPlatesMobile.Views"
+               xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+               x:Class="EcoPlatesMobile.Views.DeleteAccountPage"
+               BackgroundColor="White">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- HEADER -->
+        <component:CustomHeader x:Name="header" 
+                                Title="SaleTop"
+                                HeaderBackground="#007100"/> 
+
+        <!-- BODY -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="18" Spacing="14">
+
+                <Label Text="{x:Static language:AppResource.DeleteAccount_Intro}"
+                       FontSize="14"
+                       TextColor="#333" />
+
+                <Label FontSize="18" TextColor="#111">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{x:Static language:AppResource.DeleteAccount_Question}" FontAttributes="Bold"/>
+                            <Span Text="{x:Static language:AppResource.DeleteAccount_QuestionHint}"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <!-- CHECKLIST -->
+                <VerticalStackLayout Spacing="10">
+
+                    <Grid x:Name="RowTooExpensive" ColumnDefinitions="Auto,*" Padding="4" BackgroundColor="Transparent">
+                        <CheckBox x:Name="CbTooExpensive"/>
+                        <Label Grid.Column="1" Text="{x:Static language:AppResource.DeleteAccount_Reason_TooExpensive}" VerticalOptions="Center" FontSize="15" TextColor="#111"/>
+                    </Grid>
+
+                    <Grid x:Name="RowNotEnoughValue" ColumnDefinitions="Auto,*" Padding="4" BackgroundColor="Transparent">
+                        <CheckBox x:Name="CbNotEnoughValue"/>
+                        <Label Grid.Column="1" Text="{x:Static language:AppResource.DeleteAccount_Reason_NotEnoughValue}" VerticalOptions="Center" FontSize="15" TextColor="#111"/>
+                    </Grid>
+
+                    <Grid x:Name="RowNotEnoughOffers" ColumnDefinitions="Auto,*" Padding="4" BackgroundColor="Transparent">
+                        <CheckBox x:Name="CbNotEnoughOffers"/>
+                        <Label Grid.Column="1" Text="{x:Static language:AppResource.DeleteAccount_Reason_NotEnoughOffers}" VerticalOptions="Center" FontSize="15" TextColor="#111"/>
+                    </Grid>
+
+                    <Grid x:Name="RowHardToUse" ColumnDefinitions="Auto,*" Padding="4" BackgroundColor="Transparent">
+                        <CheckBox x:Name="CbHardToUse"/>
+                        <Label Grid.Column="1" Text="{x:Static language:AppResource.DeleteAccount_Reason_HardToUse}" VerticalOptions="Center" FontSize="15" TextColor="#111"/>
+                    </Grid>
+
+                    <Grid x:Name="RowNoTime" ColumnDefinitions="Auto,*" Padding="4" BackgroundColor="Transparent">
+                        <CheckBox x:Name="CbNoTime"/>
+                        <Label Grid.Column="1" Text="{x:Static language:AppResource.DeleteAccount_Reason_NoTime}" VerticalOptions="Center" FontSize="15" TextColor="#111"/>
+                    </Grid>
+
+                    <Grid x:Name="RowPreferOther" ColumnDefinitions="Auto,*" Padding="4" BackgroundColor="Transparent">
+                        <CheckBox x:Name="CbPreferOther"/>
+                        <Label Grid.Column="1" Text="{x:Static language:AppResource.DeleteAccount_Reason_PreferOther}" VerticalOptions="Center" FontSize="15" TextColor="#111"/>
+                    </Grid>
+
+                    <Grid x:Name="RowTechnicalIssues" ColumnDefinitions="Auto,*" Padding="4" BackgroundColor="Transparent">
+                        <CheckBox x:Name="CbTechnicalIssues"/>
+                        <Label Grid.Column="1" Text="{x:Static language:AppResource.DeleteAccount_Reason_TechnicalIssues}" VerticalOptions="Center" FontSize="15" TextColor="#111"/>
+                    </Grid>
+
+                    <Grid x:Name="RowOther" ColumnDefinitions="Auto,*" Padding="4" BackgroundColor="Transparent">
+                        <CheckBox x:Name="CbOther" CheckedChanged="CbOther_CheckedChanged"/>
+                        <Label Grid.Column="1" Text="{x:Static language:AppResource.DeleteAccount_Reason_Other}" VerticalOptions="Center" FontSize="15" TextColor="#111"/>
+                    </Grid>
+
+                    <Border x:Name="OtherEntryBackground" 
+                            BackgroundColor="#F3F3F3"
+                            StrokeThickness="1"
+                            Stroke="LightGray"
+                            IsVisible="Collapse">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="OtherEntry"
+                               Placeholder="{x:Static language:AppResource.DeleteAccount_Other_Placeholder}"
+                               BackgroundColor="#F3F3F3"
+                               TextColor="#111"
+                               HeightRequest="44"
+                               Margin="10,0,0,4"/>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <Label Text="{x:Static language:AppResource.DeleteAccount_Thanks}"
+                       FontSize="14"
+                       TextColor="#333"
+                       Margin="0,4,0,0" />
+
+                <Button x:Name="DeleteButton"
+                        Text="{x:Static language:AppResource.DeleteAccount_DeleteButton}"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="52"
+                        FontAttributes="Bold"
+                        Margin="0,8,0,20"
+                        Clicked="DeleteButton_Clicked"/>
+            </VerticalStackLayout>
+        </ScrollView>
+        <component:LoadingView x:Name="loading" Grid.RowSpan="2"/>
+    </Grid>
+
+</page:BasePage>

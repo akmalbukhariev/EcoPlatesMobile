@@ -99,13 +99,13 @@
                    Grid.Row="2"/>
         </Grid>
         <RefreshView Command="{Binding RefreshCommand}"
+                     VerticalOptions="FillAndExpand"
                      IsRefreshing="{Binding IsRefreshing}"
                      Grid.Row="4">
             <Grid x:Name="myGrid" 
-                  RowDefinitions="*, Auto"
-                  HeightRequest="{OnPlatform Android=500, iOS=550}">
+                  RowDefinitions="*, Auto">
                 <ScrollView HorizontalScrollBarVisibility="Never">
-                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
                           RowSpacing="20"
                           Margin="20">
                         <Grid ColumnDefinitions="Auto, *, Auto">
@@ -163,6 +163,14 @@
                                                 TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
                                                 Grid.Row="4"/>
+                        <component:ListTileView TileIcon="account.png" 
+                                                TileText="{x:Static language:AppResource.AccountManager}"
+                                                TileType="AccountManagement"
+                                                TileTextSize="15"
+                                                IsVisible="False"
+                                                TileTextColor="Black"
+                                                EventClickTile="Tile_EventClick"
+                                                Grid.Row="5"/>
                     </Grid>
                 </ScrollView>
             </Grid>

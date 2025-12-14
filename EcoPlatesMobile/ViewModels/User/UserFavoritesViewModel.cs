@@ -111,7 +111,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     .Select(item => new ProductModel
                     {
                         PromotionId = item.poster_id ?? 0,
-                        ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                        ProductImage = appControl.GetImageUrlOrFallback(item.image_url),
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
                         NewPrice = appControl.GetUzbCurrency(item.new_price),
@@ -189,7 +189,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     .Select(item => new CompanyModel
                     {
                         CompanyId = item.company_id,
-                        CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
+                        CompanyImage = appControl.GetImageUrlOrFallback(item.logo_url),
                         CompanyName = item.company_name,
                         WorkingTime = appControl.FormatWorkingHours(item.working_hours),
                         //Stars = "3.1",
@@ -353,7 +353,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     .Select(item => new ProductModel
                     {
                         PromotionId = item.poster_id ?? 0,
-                        ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                        ProductImage = appControl.GetImageUrlOrFallback(item.image_url),
                         //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,
@@ -442,7 +442,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     .Select(item => new CompanyModel
                     {
                         CompanyId = item.company_id,
-                        CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
+                        CompanyImage = appControl.GetImageUrlOrFallback(item.logo_url),
                         CompanyName = item.company_name,
                         WorkingTime = item.working_hours,
                         //Stars = "3.1",

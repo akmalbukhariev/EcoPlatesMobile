@@ -505,9 +505,9 @@ namespace EcoPlatesMobile.Services
 #region Check url image
         private readonly string[] AllowedBases =
         {
-            "http://95.182.118.233/uploads-user/profile-pictures/",
-            "http://95.182.118.233/uploads-company/profile-pictures/",
-            "http://95.182.118.233/uploads-company/poster-pictures/"
+            $"http://{Constants.SERVER_DOMAIN}/uploads-user/profile-pictures/",
+            $"http://{Constants.SERVER_DOMAIN}/uploads-company/profile-pictures/",
+            $"http://{Constants.SERVER_DOMAIN}/uploads-company/poster-pictures/"
         };
 
         public string GetImageUrlOrFallback(string? imageUrl, string fallback = "no_image.png")

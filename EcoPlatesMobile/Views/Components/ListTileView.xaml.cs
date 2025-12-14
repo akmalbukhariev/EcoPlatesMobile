@@ -13,7 +13,8 @@ public partial class ListTileView : ContentView
         Location,
         AboutApp,
         Suggestions,
-        Message
+        Message,
+        AccountManagement
     }
 
     public static readonly BindableProperty TileIconProperty =

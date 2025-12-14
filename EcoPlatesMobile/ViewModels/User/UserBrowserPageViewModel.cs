@@ -135,7 +135,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     var companyModels = items.Where(i => !i.deleted && i.status != UserOrCompanyStatus.BANNED).Select(item => new CompanyModel
                     {
                         CompanyId = item.company_id,
-                        CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
+                        CompanyImage = appControl.GetImageUrlOrFallback(item.logo_url),
                         CompanyName = item.company_name,
                         WorkingTime = appControl.FormatWorkingHours(item.working_hours),
                         Liked = item.liked,
@@ -218,7 +218,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     var companyModels = items.Where(i => !i.deleted && i.status != UserOrCompanyStatus.BANNED).Select(item => new CompanyModel
                     {
                         CompanyId = item.company_id,
-                        CompanyImage = string.IsNullOrWhiteSpace(item.logo_url) ? "no_image.png" : item.logo_url,
+                        CompanyImage = appControl.GetImageUrlOrFallback(item.logo_url),
                         CompanyName = item.company_name,
                         WorkingTime = appControl.FormatWorkingHours(item.working_hours),
                         Liked = item.liked,

@@ -9,7 +9,7 @@
     
     <Grid>
         <ScrollView>
-            <Grid RowDefinitions="Auto, 50, Auto, *, Auto, 20"
+            <Grid RowDefinitions="Auto, 40, Auto, 40, Auto, 20, Auto, 20"
                   BackgroundColor="#EFEEF2">
                 <VerticalStackLayout Spacing="20">
                     <Border x:Name="borderCompanyImage"
@@ -181,12 +181,42 @@
                             </Grid>
                     </StackLayout>
                 </Border>
+                <Border StrokeShape="RoundRectangle 15"
+                        StrokeThickness="0.2"
+                        BackgroundColor="White"
+                        Margin="10,0,10,0"
+                        Grid.Row="4">
+                    <Grid RowDefinitions="50"
+                            Margin="10">
+                            <Grid x:Name="grdDeleteAccount" 
+                                    ColumnDefinitions="*, Auto" 
+                                    Grid.Row="2">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                        Tapped="DeleteAccount_Tapped"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="{x:Static language:AppResource.DeleteAccount_DeleteButton}"
+                                    TextColor="Black"
+                                    FontSize="17"
+                                    FontFamily="RobotoVar"
+                                    HorizontalTextAlignment="Start"
+                                    VerticalTextAlignment="Center"/>
+                            <Image Source="right.png"
+                                    Aspect="AspectFill"
+                                    WidthRequest="20"
+                                    HeightRequest="20"
+                                    Margin="0,0,5,0"
+                                    Grid.Column="1"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
                 <Button Text="{x:Static language:AppResource.LogOut}" 
                         BackgroundColor="Red"
                         Style="{StaticResource StyleBigButton}"
                         Margin="10,0,10,0"
                         Clicked="ButtonLogOut_Clicked"
-                        Grid.Row="4"/>
+                        Grid.Row="6"/>
             </Grid>
         </ScrollView>
         <Grid ColumnDefinitions="Auto, *, Auto"

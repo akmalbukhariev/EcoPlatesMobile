@@ -131,7 +131,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                         var productModels = items.Select(item => new ProductModel
                         {
                             PromotionId = item.poster_id ?? 0,
-                            ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                            ProductImage = appControl.GetImageUrlOrFallback(item.image_url),
                             //Count = "2 qoldi",
                             ProductName = item.title,
                             ProductMakerName = item.company_name,
@@ -227,7 +227,7 @@ namespace EcoPlatesMobile.ViewModels.Company
                     var productModels = items.Select(item => new ProductModel
                     {
                         PromotionId = item.poster_id ?? 0,
-                        ProductImage = string.IsNullOrWhiteSpace(item.image_url) ? "no_image.png" : item.image_url,
+                        ProductImage = appControl.GetImageUrlOrFallback(item.image_url),
                         //Count = "2 qoldi",
                         ProductName = item.title,
                         ProductMakerName = item.company_name,

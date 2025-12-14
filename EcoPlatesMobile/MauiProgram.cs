@@ -149,10 +149,10 @@ namespace EcoPlatesMobile
             builder.Services.AddSingleton(sp =>
             {
                 var company = sp.GetRequiredService<CompanyApiService>();
-                var user    = sp.GetRequiredService<UserApiService>();
+                var user = sp.GetRequiredService<UserApiService>();
                 return new ServerStatusMonitor(user, company);
             });
-            
+
             #region Company
             builder.Services.AddTransient<ActiveProductPage>();
             builder.Services.AddTransient<InActiveProductPage>();
@@ -211,6 +211,7 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<ViewModels.Chat.ChatedUserPageViewModel>();
 
             builder.Services.AddTransient<BlockedPage>();
+            builder.Services.AddTransient<DeleteAccountPage>();
             #endregion
         }
     }

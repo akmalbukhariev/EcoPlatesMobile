@@ -198,6 +198,15 @@ public partial class UserProfileInfoPage : BasePage
         });
     }
 
+    private async void DeleteAccount_Tapped(object sender, TappedEventArgs e)
+    {
+        await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
+        {
+            await AnimateElementScaleDown(grdDeleteAccount);
+            await AppNavigatorService.NavigateTo(nameof(DeleteAccountPage));
+        });
+    }
+
     private async void OnImage_Swiped(object sender, SwipedEventArgs e)
     {
         if (e.Direction == SwipeDirection.Down)
