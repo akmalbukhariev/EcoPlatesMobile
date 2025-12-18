@@ -413,9 +413,16 @@ namespace EcoPlatesMobile.Services
 
         public bool IsValidUzbekistanPhoneNumber(string phoneNumber)
         {
-            string PHONE_PATTERN = @"^(\+998|998)?(90|91|93|94|50|77|95|99|87|88|97|98|33|20)\d{7}$";
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return false;
+
+            phoneNumber = phoneNumber.Trim();
+
+            const string PHONE_PATTERN = @"^998(90|91|93|94|50|77|95|99|87|88|97|98|33|20)\d{7}$";
+
             return Regex.IsMatch(phoneNumber, PHONE_PATTERN);
         }
+
 
         public async Task<string?> GetFirebaseToken()
         {

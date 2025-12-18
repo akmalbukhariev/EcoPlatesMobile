@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models;
+using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.User;
 using EcoPlatesMobile.Models.User;
 using EcoPlatesMobile.Resources.Languages;
@@ -56,18 +57,26 @@ public partial class UserProfilePage : BasePage
 
     private LanguageService languageService;
     private AppControl appControl;
+    private CompanyApiService companyApiService;
     private UserApiService userApiService;
+    private IStatusBarService statusBarService;
 
-    public UserProfilePage(LanguageService languageService, AppControl appControl, UserApiService userApiService)
+    public UserProfilePage(LanguageService languageService,
+                            AppControl appControl,
+                            UserApiService userApiService,
+                            CompanyApiService companyApiService,
+                            IStatusBarService statusBarService)
     {
         InitializeComponent();
 
         this.languageService = languageService;
         this.appControl = appControl;
         this.userApiService = userApiService;
+        this.companyApiService = companyApiService;
+        this.statusBarService = statusBarService;
 
         Init();
-            
+
         BindingContext = this;
     }
 
@@ -257,8 +266,49 @@ public partial class UserProfilePage : BasePage
             case ListTileView.ListTileType.AboutApp:
                 await AppNavigatorService.NavigateTo(nameof(AboutPage));
                 break;
-            case ListTileView.ListTileType.AccountManagement:
-                await AppNavigatorService.NavigateTo(nameof(DeleteAccountPage));
+            case ListTileView.ListTileType.SwitchRole:
+                 {
+                    loading.ShowLoading = true;
+                    Response response = await companyApiService.CheckUser(appControl.UserInfo.phone_number);
+                    loading.ShowLoading = false;
+
+                    if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
+                    {
+                        loading.ShowLoading = true;
+                        await appControl.LoginCompany(appControl.UserInfo.phone_number);
+                        loading.ShowLoading = false;
+
+                        statusBarService.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
+                    }
+                    else if (response.resultCode == ApiResult.COMPANY_NOT_EXIST.GetCodeToString())
+                    {
+                        bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageEnterPhoneNumberNotRegisteredCompany,
+                                    AppResource.Yes, AppResource.No);
+
+                        if (!answer) return;
+
+                        statusBarService.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
+                        await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={appControl.UserInfo.phone_number}");
+                    }
+                    else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
+                    {
+                        appControl.StrBlockUntill = response.resultMsg;
+                        appControl.ResultCode = ApiResult.BLOCK_USER;
+                        await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
+                        await AppNavigatorService.NavigateTo(nameof(BlockedPage));
+                        return;
+                    }
+                    else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
+                    {
+                        appControl.StrBlockUntill = response.resultMsg;
+                        appControl.ResultCode = ApiResult.DELETE_USER;
+                        await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
+                        await AppNavigatorService.NavigateTo(nameof(BlockedPage));
+                        return;
+                    }
+                }
                 break;
         }
     }

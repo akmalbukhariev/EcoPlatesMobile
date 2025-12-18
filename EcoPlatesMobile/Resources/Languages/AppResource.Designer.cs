@@ -2809,7 +2809,7 @@ namespace EcoPlatesMobile.Resources.Languages {
         {
             get { return ResourceManager.GetString("DeleteAccount_Submitted_Message", resourceCulture); }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Account manager.
         /// </summary>
@@ -2818,6 +2818,28 @@ namespace EcoPlatesMobile.Resources.Languages {
             get
             {
                 return ResourceManager.GetString("AccountManager", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Switch to buyer.
+        /// </summary>
+        internal static string SwitchRoleToBuyer
+        {
+            get
+            {
+                return ResourceManager.GetString("SwitchRoleToBuyer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switch to seller.
+        /// </summary>
+        internal static string SwitchRoleToSeller
+        {
+            get
+            {
+                return ResourceManager.GetString("SwitchRoleToSeller", resourceCulture);
             }
         }
     }

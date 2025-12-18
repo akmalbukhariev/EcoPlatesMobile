@@ -1187,4 +1187,14 @@ Don’t worry, you can change the location inside the application.
     <comment>DeleteAccountPage</comment>
   </data>
 
+  <data name="SwitchRoleToBuyer" xml:space="preserve">
+    <value>Switch to Buyer</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+
+  <data name="SwitchRoleToSeller" xml:space="preserve">
+    <value>Switch to Seller</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+
 </root>

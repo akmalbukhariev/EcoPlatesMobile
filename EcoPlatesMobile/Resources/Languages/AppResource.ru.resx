@@ -1186,4 +1186,15 @@
     <value>Управление аккаунтом</value>
     <comment>DeleteAccountPage</comment>
   </data>
+
+  <data name="SwitchRoleToBuyer" xml:space="preserve">
+    <value>Переключиться в режим покупателя</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+
+  <data name="SwitchRoleToSeller" xml:space="preserve">
+    <value>Переключиться в режим продавца</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+
 </root>

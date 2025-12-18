@@ -240,76 +240,76 @@ public partial class AuthorizationPage : BasePage
 			loading.ShowLoading = true;
 
 			try
-		{
-			if (appControl.IsPhoneNumberRegisterPage)
 			{
-				if (userSessionService.Role == UserRole.Company)
+				if (appControl.IsPhoneNumberRegisterPage)
 				{
-					if (userSessionService.IsCompanyRegistrated)
+					if (userSessionService.Role == UserRole.Company)
 					{
-						await appControl.LoginCompany(_phoneNumber);
+						if (userSessionService.IsCompanyRegistrated)
+						{
+							await appControl.LoginCompany(_phoneNumber);
+						}
+						else
+						{
+							appControl.LocationForRegister = null;
+							await AppNavigatorService.NavigateTo($"{nameof(CompanyRegistrationPage)}?PhoneNumber={_phoneNumber}");
+						}
 					}
-					else
+					else if (userSessionService.Role == UserRole.User)
 					{
-						appControl.LocationForRegister = null;
-						await AppNavigatorService.NavigateTo($"{nameof(CompanyRegistrationPage)}?PhoneNumber={_phoneNumber}");
+						if (userSessionService.IsUserRegistrated)
+						{
+							await appControl.LoginUser(_phoneNumber);
+						}
+						else
+						{
+							await AppNavigatorService.NavigateTo($"{nameof(UserRegistrationPage)}?PhoneNumber={_phoneNumber}");
+						}
 					}
 				}
-				else if (userSessionService.Role == UserRole.User)
+				else
 				{
-					if (userSessionService.IsUserRegistrated)
+					Response response = null;
+					if (userSessionService.Role == UserRole.User)
 					{
-						await appControl.LoginUser(_phoneNumber);
+						response = await userApiService.UpdateUserPhoneNumber(_phoneNumber);
+						if (response?.resultCode == ApiResult.SUCCESS.GetCodeToString())
+						{
+							await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageLoginAgain);
+
+							var store = AppService.Get<AppStoreService>();
+							store.Set(AppKeys.PhoneNumber, _phoneNumber);
+
+							((App)Application.Current).ReloadAppShell();
+						}
+						else
+							await AlertService.ShowAlertAsync(AppResource.Error, response?.resultMsg);
 					}
-					else
+					else if (userSessionService.Role == UserRole.Company)
 					{
-						await AppNavigatorService.NavigateTo($"{nameof(UserRegistrationPage)}?PhoneNumber={_phoneNumber}");
+						response = await companyApiService.UpdateCompanyPhoneNumber(_phoneNumber);
+						if (response?.resultCode == ApiResult.SUCCESS.GetCodeToString())
+						{
+							await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageLoginAgain);
+
+							var store = AppService.Get<AppStoreService>();
+							store.Set(AppKeys.PhoneNumber, _phoneNumber);
+
+							((App)Application.Current).ReloadAppShell();
+						}
+						else
+							await AlertService.ShowAlertAsync(AppResource.Error, response?.resultMsg);
 					}
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Response response = null;
-				if (userSessionService.Role == UserRole.User)
-				{
-					response = await userApiService.UpdateUserPhoneNumber(_phoneNumber);
-					if (response?.resultCode == ApiResult.SUCCESS.GetCodeToString())
-					{
-						await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageLoginAgain);
-
-						var store = AppService.Get<AppStoreService>();
-						store.Set(AppKeys.PhoneNumber, _phoneNumber);
-
-						((App)Application.Current).ReloadAppShell();
-					}
-					else
-						await AlertService.ShowAlertAsync(AppResource.Error, response?.resultMsg);
-				}
-				else if (userSessionService.Role == UserRole.Company)
-				{
-					response = await companyApiService.UpdateCompanyPhoneNumber(_phoneNumber);
-					if (response?.resultCode == ApiResult.SUCCESS.GetCodeToString())
-					{
-						await AlertService.ShowAlertAsync(AppResource.Success, AppResource.MessageLoginAgain);
-
-						var store = AppService.Get<AppStoreService>();
-						store.Set(AppKeys.PhoneNumber, _phoneNumber);
-
-						((App)Application.Current).ReloadAppShell();
-					}
-					else
-						await AlertService.ShowAlertAsync(AppResource.Error, response?.resultMsg);
-				}
+				Console.WriteLine(ex.ToString());
 			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.ToString());
-		}
-		finally
-		{
-			loading.ShowLoading = false;
-		}
+			finally
+			{
+				loading.ShowLoading = false;
+			}
 		});
 	}
     

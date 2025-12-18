@@ -1185,4 +1185,15 @@ Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.
     <value>Akkaunt boshqaruvi</value>
     <comment>DeleteAccountPage</comment>
   </data>
+
+  <data name="SwitchRoleToBuyer" xml:space="preserve">
+    <value>Xaridor rejimiga o‘tish</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+
+  <data name="SwitchRoleToSeller" xml:space="preserve">
+    <value>Sotuvchi rejimiga o‘tish</value>
+    <comment>CompanyProfilePage</comment>
+  </data>
+
 </root>

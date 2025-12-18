@@ -9,6 +9,7 @@ using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Components;
 using Newtonsoft.Json;
 using EcoPlatesMobile.Views.Chat;
+using EcoPlatesMobile.Models.Responses;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -52,21 +53,30 @@ public partial class CompanyProfilePage : BasePage
     private GetCompanyInfoResponse response;
 
     private CompanyApiService companyApiService;
+    private UserApiService userApiService;
     private LanguageService languageService;
     private AppControl appControl;
     private LocationService locationService;
+    private IStatusBarService statusBarService;
 
-    public CompanyProfilePage(CompanyApiService companyApiService, LanguageService languageService, AppControl appControl, LocationService locationService)
+    public CompanyProfilePage(CompanyApiService companyApiService,
+                                UserApiService userApiService,
+                                LanguageService languageService,
+                                AppControl appControl,
+                                LocationService locationService,
+                                IStatusBarService statusBarService)
     {
         InitializeComponent();
 
         this.companyApiService = companyApiService;
+        this.userApiService = userApiService;
         this.languageService = languageService;
         this.appControl = appControl;
         this.locationService = locationService;
+        this.statusBarService = statusBarService;
 
         Init();
-        
+
         BindingContext = this;
     }
 
@@ -99,6 +109,7 @@ public partial class CompanyProfilePage : BasePage
         base.OnAppearing();
 
         Shell.SetTabBarIsVisible(this, true);
+        statusBarService.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
 
         bool isWifiOn = await appControl.CheckWifiOrNetwork();
 		if (!isWifiOn) return;
@@ -241,8 +252,49 @@ public partial class CompanyProfilePage : BasePage
             case ListTileView.ListTileType.AboutApp:
                 await AppNavigatorService.NavigateTo(nameof(AboutPage));
                 break;
-            case ListTileView.ListTileType.AccountManagement:
-                await AppNavigatorService.NavigateTo(nameof(DeleteAccountPage));
+            case ListTileView.ListTileType.SwitchRole:
+                {
+                    loading.IsRunning = true;
+                    Response response = await userApiService.CheckUser(appControl.CompanyInfo.phone_number);
+                    loading.IsRunning = false;
+
+                    if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
+                    {
+                        loading.IsRunning = true;
+                        await appControl.LoginUser(appControl.CompanyInfo.phone_number);
+                        loading.IsRunning = false;
+
+                        statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
+                    }
+                    else if (response.resultCode == ApiResult.USER_NOT_EXIST.GetCodeToString())
+                    {
+                        bool answer = await AlertService.ShowConfirmationAsync(
+                                    AppResource.Confirm,
+                                    AppResource.MessageEnterPhoneNumberNotRegisteredUser,
+                                    AppResource.Yes, AppResource.No);
+
+                        if (!answer) return;
+
+                        statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
+                        await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={appControl.CompanyInfo.phone_number}");
+                    }
+                    else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
+                    {
+                        appControl.StrBlockUntill = response.resultMsg;
+                        appControl.ResultCode = ApiResult.BLOCK_USER;
+                        await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageBlocked);
+                        await AppNavigatorService.NavigateTo(nameof(BlockedPage));
+                        return;
+                    }
+                    else if (response.resultCode == ApiResult.DELETE_USER.GetCodeToString())
+                    {
+                        appControl.StrBlockUntill = response.resultMsg;
+                        appControl.ResultCode = ApiResult.DELETE_USER;
+                        await AlertService.ShowAlertAsync(AppResource.Info, AppResource.MessageSoftDelete);
+                        await AppNavigatorService.NavigateTo(nameof(BlockedPage));
+                        return;
+                    }
+                }
                 break;
         }
     }
