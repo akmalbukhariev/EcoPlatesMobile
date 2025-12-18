@@ -34,15 +34,21 @@ public partial class CompanyRegistrationPage : BasePage
     private AppControl appControl;
     private LocationService locationService;
     private IKeyboardHelper keyboardHelper;
+    private UserSessionService userSessionService;
     
-    public CompanyRegistrationPage(CompanyApiService companyApiService, AppControl appControl, LocationService locationService, IKeyboardHelper keyboardHelper)
+    public CompanyRegistrationPage(CompanyApiService companyApiService,
+                                    AppControl appControl,
+                                    LocationService locationService,
+                                    IKeyboardHelper keyboardHelper,
+                                    UserSessionService userSessionService)
     {
         InitializeComponent();
- 
+
         this.appControl = appControl;
         this.companyApiService = companyApiService;
         this.locationService = locationService;
         this.keyboardHelper = keyboardHelper;
+        this.userSessionService = userSessionService;
 
         appControl.RebuildBusinessTypeList();
         CompanyTypeList = new ObservableCollection<CompanyTypeModel>(
@@ -54,13 +60,15 @@ public partial class CompanyRegistrationPage : BasePage
         );
 
         pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
- 
+
         startTimePicker.Time = new TimeSpan(9, 0, 0);
         endTimePicker.Time = new TimeSpan(18, 0, 0);
 
         loading.ChangeColor(Constants.COLOR_COMPANY);
 
         entryCompanyName.SetMaxLength(20);
+        this.userSessionService.SetUser(UserRole.Company);
+
         BindingContext = this;
     }
 

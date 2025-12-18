@@ -23,8 +23,13 @@ public partial class UserRegistrationPage : BasePage
     private AppControl appControl;
     private LocationService locationService;
     private IKeyboardHelper keyboardHelper;
+    private UserSessionService userSessionService;
 
-    public UserRegistrationPage(UserApiService userApiService, AppControl appControl, LocationService locationService, IKeyboardHelper keyboardHelper)
+    public UserRegistrationPage(UserApiService userApiService,
+                            AppControl appControl,
+                            LocationService locationService,
+                            IKeyboardHelper keyboardHelper,
+                            UserSessionService userSessionService)
     {
         InitializeComponent();
 
@@ -32,10 +37,12 @@ public partial class UserRegistrationPage : BasePage
         this.appControl = appControl;
         this.locationService = locationService;
         this.keyboardHelper = keyboardHelper;
+        this.userSessionService = userSessionService;
 
         entryName.SetMaxLength(20);
+        this.userSessionService.SetUser(UserRole.User);
 
-        this.Loaded += (s, e) =>
+        Loaded += (s, e) =>
         {
             entryName.Focus();
         };

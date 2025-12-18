@@ -9,6 +9,7 @@ using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.ViewModels.User;
 using EcoPlatesMobile.Views.Chat;
+using EcoPlatesMobile.Views.Company.Pages;
 using EcoPlatesMobile.Views.Components;
 using Microsoft.Maui.Controls.Shapes;
 using System.Collections.ObjectModel;
@@ -60,12 +61,14 @@ public partial class UserProfilePage : BasePage
     private CompanyApiService companyApiService;
     private UserApiService userApiService;
     private IStatusBarService statusBarService;
+    private UserSessionService userSessionService;
 
     public UserProfilePage(LanguageService languageService,
                             AppControl appControl,
                             UserApiService userApiService,
                             CompanyApiService companyApiService,
-                            IStatusBarService statusBarService)
+                            IStatusBarService statusBarService,
+                            UserSessionService userSessionService)
     {
         InitializeComponent();
 
@@ -74,6 +77,7 @@ public partial class UserProfilePage : BasePage
         this.userApiService = userApiService;
         this.companyApiService = companyApiService;
         this.statusBarService = statusBarService;
+        this.userSessionService = userSessionService;
 
         Init();
 
@@ -118,9 +122,12 @@ public partial class UserProfilePage : BasePage
             grdInnerUserInfo.IsVisible = false;
             lbLogInOrSignUp.IsVisible = true;
             imUserInfo.Source = "right.png";
+            listTileUser.IsVisible = false;
             return;
         }
 
+        listTileUser.IsVisible = true;
+        statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
         if (appControl.RefreshUserProfilePage)
         {
             await LoadData();
@@ -274,6 +281,8 @@ public partial class UserProfilePage : BasePage
 
                     if (response.resultCode == ApiResult.COMPANY_EXIST.GetCodeToString())
                     {
+                        userSessionService.SetUser(UserRole.Company);
+
                         loading.ShowLoading = true;
                         await appControl.LoginCompany(appControl.UserInfo.phone_number);
                         loading.ShowLoading = false;
@@ -290,7 +299,7 @@ public partial class UserProfilePage : BasePage
                         if (!answer) return;
 
                         statusBarService.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
-                        await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={appControl.UserInfo.phone_number}");
+                        await AppNavigatorService.NavigateTo($"{nameof(CompanyRegistrationPage)}?PhoneNumber={appControl.UserInfo.phone_number}");
                     }
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {

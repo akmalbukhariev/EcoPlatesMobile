@@ -10,6 +10,7 @@ using EcoPlatesMobile.Views.Components;
 using Newtonsoft.Json;
 using EcoPlatesMobile.Views.Chat;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.Views.Company.Pages;
 
@@ -58,13 +59,15 @@ public partial class CompanyProfilePage : BasePage
     private AppControl appControl;
     private LocationService locationService;
     private IStatusBarService statusBarService;
+    private UserSessionService userSessionService;
 
     public CompanyProfilePage(CompanyApiService companyApiService,
                                 UserApiService userApiService,
                                 LanguageService languageService,
                                 AppControl appControl,
                                 LocationService locationService,
-                                IStatusBarService statusBarService)
+                                IStatusBarService statusBarService,
+                                UserSessionService userSessionService)
     {
         InitializeComponent();
 
@@ -74,6 +77,7 @@ public partial class CompanyProfilePage : BasePage
         this.appControl = appControl;
         this.locationService = locationService;
         this.statusBarService = statusBarService;
+        this.userSessionService = userSessionService;
 
         Init();
 
@@ -204,7 +208,7 @@ public partial class CompanyProfilePage : BasePage
             ((App)Application.Current).ReloadAppShell();
         }
     }
-
+    
     private void OnLanguageBackTapped(object sender, TappedEventArgs e)
     {
         dropdownList.IsVisible = false;
@@ -260,6 +264,8 @@ public partial class CompanyProfilePage : BasePage
 
                     if (response.resultCode == ApiResult.USER_EXIST.GetCodeToString())
                     {
+                        userSessionService.SetUser(UserRole.User);
+                        
                         loading.IsRunning = true;
                         await appControl.LoginUser(appControl.CompanyInfo.phone_number);
                         loading.IsRunning = false;
@@ -276,7 +282,7 @@ public partial class CompanyProfilePage : BasePage
                         if (!answer) return;
 
                         statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
-                        await AppNavigatorService.NavigateTo($"{nameof(AuthorizationPage)}?PhoneNumber={appControl.CompanyInfo.phone_number}");
+                        await AppNavigatorService.NavigateTo($"{nameof(UserRegistrationPage)}?PhoneNumber={appControl.CompanyInfo.phone_number}");
                     }
                     else if (response.resultCode == ApiResult.BLOCK_USER.GetCodeToString())
                     {
