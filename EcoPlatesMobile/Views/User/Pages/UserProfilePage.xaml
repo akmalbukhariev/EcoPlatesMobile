@@ -106,7 +106,6 @@
                   RowDefinitions="*, Auto">
                 <ScrollView HorizontalScrollBarVisibility="Never">
                     <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
-                          RowSpacing="0"
                           Margin="20">
                         <Grid ColumnDefinitions="Auto, *, Auto"
                               Margin="0,0,0,20">
@@ -183,6 +182,7 @@
                  Opacity="0"
                  IsVisible="True"
                  BackgroundColor="Black"
+                 InputTransparent="True"
                  Grid.RowSpan="6">
             <BoxView.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
@@ -230,5 +230,4 @@
                  HorizontalOptions="Fill"
                  Grid.Row="6"/>
     </Grid>
-
 </page:BasePage>

@@ -83,6 +83,7 @@
                             <RoundRectangle CornerRadius="10"/>
                         </Border.StrokeShape>
                         <Entry x:Name="OtherEntry"
+                               MaxLength ="35"
                                Placeholder="{x:Static language:AppResource.DeleteAccount_Other_Placeholder}"
                                BackgroundColor="#F3F3F3"
                                TextColor="#111"

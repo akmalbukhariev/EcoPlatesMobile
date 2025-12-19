@@ -23,6 +23,9 @@ namespace EcoPlatesMobile.Utilities
         public const string BASE_PHONE_VERIFY_URL = $"http://{SERVER_DOMAIN}/message/";
 #endregion
 
+        public static readonly string App_Url_PlayMarket = "https://play.google.com/store/apps/details?id=com.saletop.app";
+        public static readonly string App_Url_AppStore = "https://apps.apple.com/kr/app/saletop/id6756145017?l=en-GB";
+
         public static readonly string Version = AppInfo.Current.VersionString;     // e.g., "1.0"
         public static readonly string Build = AppInfo.Current.BuildString;         // e.g., "1.0.0"
 

@@ -113,11 +113,12 @@ public partial class CompanyProfilePage : BasePage
         base.OnAppearing();
 
         Shell.SetTabBarIsVisible(this, true);
+        userSessionService.SetUser(UserRole.Company);
         statusBarService.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
 
         bool isWifiOn = await appControl.CheckWifiOrNetwork();
-		if (!isWifiOn) return;
-        
+        if (!isWifiOn) return;
+
         if (appControl.RefreshCompanyProfilePage)
         {
             await LoadData();
@@ -229,10 +230,14 @@ public partial class CompanyProfilePage : BasePage
                 await AppNavigatorService.NavigateTo($"{nameof(InActiveProductPage)}?ShowBackQuery={true}&ShowTabBarQuery={false}");
                 break;
             case ListTileView.ListTileType.Share:
+                string appUrl = DeviceInfo.Platform == DevicePlatform.Android
+                    ? Constants.App_Url_PlayMarket
+                    : Constants.App_Url_AppStore;
+
                 await Share.Default.RequestAsync(new ShareTextRequest
                 {
-                    Uri = appControl.CompanyInfo.share_link,
-                    Title = "Check out my app"
+                    Uri = appUrl,
+                    Title = "SaleTop Application"
                 });
                 break;
             case ListTileView.ListTileType.Location:

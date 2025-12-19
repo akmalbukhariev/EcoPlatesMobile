@@ -113,7 +113,8 @@ public partial class UserProfilePage : BasePage
         base.OnAppearing();
 
         Shell.SetTabBarIsVisible(this, true);
-
+        userSessionService.SetUser(UserRole.User);
+        
         bool isWifiOn = await appControl.CheckWifiOrNetwork();
 		if (!isWifiOn) return;
 
@@ -251,14 +252,13 @@ public partial class UserProfilePage : BasePage
                 await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
                 break;
             case ListTileView.ListTileType.Share:
-                if (!appControl.IsLoggedIn)
-                {
-                    await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
-                    return;
-                }
+                string appUrl = DeviceInfo.Platform == DevicePlatform.Android
+                    ? Constants.App_Url_PlayMarket
+                    : Constants.App_Url_AppStore;
+
                 await Share.Default.RequestAsync(new ShareTextRequest
                 {
-                    Uri = appControl.UserInfo.share_link,
+                    Uri = appUrl,
                     Title = "SaleTop Application"
                 });
                 break;
