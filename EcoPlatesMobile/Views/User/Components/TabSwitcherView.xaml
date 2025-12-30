@@ -45,13 +45,13 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10,0,10,0" />
                 </Border.StrokeShape>
+                <Label x:Name="label1"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        FontAttributes="Bold"
+                        FontFamily="RobotoVar"
+                        TextColor="White"/>
             </Border>
-            <Label x:Name="label1"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   FontAttributes="Bold"
-                   FontFamily="RobotoVar"
-                   TextColor="White"/>
             <Border x:Name="mapTab"
                     BackgroundColor="LightGray"
                     Opacity="0.5"
@@ -61,14 +61,14 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="0,10,0,10" />
                 </Border.StrokeShape>
-            </Border>
-            <Label x:Name="label2"
+                <Label x:Name="label2"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    FontAttributes="Bold"
                    FontFamily="RobotoVar"
                    TextColor="{StaticResource User}"
                    Grid.Column="1"/>
+            </Border>
         </Grid>
     </Grid>
 </ContentView>

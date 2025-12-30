@@ -4,11 +4,26 @@ using System.Text.Json.Serialization;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum PosterType
 {
-    FOOD,
-    CAKE,
-    BURGER,
-    DRINK,
-    SNACK,
+    // --- Food ---
+    FOOD_GENERAL,          // Oziq-ovqat
+    DRINKS,                // Ichimliklar
+    DAIRY,                 // Sut mahsulotlari
+    MEAT,                  // Go‘sht / Kolbasa
+    BAKERY,                // Non / Shirinlik
+    CHOCOLATE,             // Shokolad
+    FRUITS_VEGETABLES,     // Meva / Sabzavot
+    FROZEN,                // Muzlatilgan
+    READY_MEALS,           // Tayyor ovqat
+    SNACK,                 // Gazaklar
+    CAKE,                  // Tortlar
+    BURGER,                // Burger / Fast food
+
+    // --- Daily goods ---
+    HYGIENE,               // Gigiyena
+    HOUSEHOLD,             // Uy-ro‘zg‘or
+    KIDS,                  // Bolalar
+
+    // --- Non-food / future ---
     ELECTRONICS,
     CLOTHING,
     FURNITURE,
@@ -16,6 +31,7 @@ public enum PosterType
     SPORTS,
     BOOKS,
     TOYS,
+
     OTHER
 }
 

@@ -6,7 +6,11 @@ using EcoPlatesMobile.ViewModels.Chat;
 using EcoPlatesMobile.Services.Api;
 using EcoPlatesMobile.Views.User.Pages;
 using Microsoft.Maui.Platform; 
-
+#if IOS
+using Foundation;
+using UIKit;
+using Microsoft.Maui.Platform;
+#endif
 
 namespace EcoPlatesMobile.Views.Chat;
 
@@ -16,10 +20,30 @@ public partial class ChattingPage : BasePage
 
     private AppControl appControl;
     private UserSessionService userSessionService;
-
+#if IOS
+        NSObject? _showObserver;
+        NSObject? _hideObserver;
+#endif
     public ChattingPage(ChattingPageViewModel viewModel, AppControl appControl, UserSessionService userSessionService)
     {
         InitializeComponent();
+
+#if IOS
+            // Prevent iOS from scrolling/moving the whole page when Editor focuses
+            KeyboardAutoManagerScroll.Disconnect();
+            // When keyboard shows, add bottom padding so frameMessage goes up
+            _showObserver = UIKeyboard.Notifications.ObserveWillShow((sender, args) =>
+            {
+                var kbHeight = args.FrameEnd.Height;
+                this.Padding = new Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, kbHeight);
+            });
+
+            // When keyboard hides, remove padding
+            _hideObserver = UIKeyboard.Notifications.ObserveWillHide((sender, args) =>
+            {
+                this.Padding = new Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, 0);
+            });
+#endif
 
         this.viewModel = viewModel;
         this.appControl = appControl;
@@ -32,15 +56,10 @@ public partial class ChattingPage : BasePage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-#if IOS
-        // Stop iOS from moving the whole page up when the keyboard appears
-        KeyboardAutoManagerScroll.Disconnect();
-#endif
-
-        this.BackgroundColor = userSessionService.Role == UserRole.User
+ 
+        grdHeader.BackgroundColor = userSessionService.Role == UserRole.User
         ? Constants.COLOR_USER
-        : Constants.COLOR_COMPANY;
+        : Constants.COLOR_COMPANY; 
 
         if (userSessionService.Role == UserRole.User)
         {
@@ -63,12 +82,19 @@ public partial class ChattingPage : BasePage
 
     protected override void OnDisappearing()
     {
-#if IOS
-        // Re-enable default behavior for other pages
-        KeyboardAutoManagerScroll.Connect();
-#endif
         base.OnDisappearing();
         _ = viewModel.Disconnect();
+
+#if IOS
+             _showObserver?.Dispose();
+            _showObserver = null;
+
+            _hideObserver?.Dispose();
+            _hideObserver = null;
+
+            // Optional: turn it back on for other pages
+            KeyboardAutoManagerScroll.Connect();
+#endif
     }
 
     private async void Number_Tapped(object sender, TappedEventArgs e)
@@ -134,12 +160,6 @@ public partial class ChattingPage : BasePage
 
     private void EditorMessage_Focused(object sender, FocusEventArgs e)
     {
-    #if IOS
-        // Push content up so the editor sits above the keyboard
-        // You can tweak 330 depending on device / design
-        rootGrid.Padding = new Thickness(0, 0, 0, 330);
-
-        // Optional: scroll messages to bottom so last message is visible
         if (viewModel?.Messages != null && viewModel.Messages.Count > 0)
         {
             var lastItem = viewModel.Messages[^1];
@@ -149,14 +169,13 @@ public partial class ChattingPage : BasePage
                 animate: true
             );
         }
-    #endif
     }
 
     private void EditorMessage_Unfocused(object sender, FocusEventArgs e)
     {
     #if IOS
         // Restore original layout when keyboard hides
-        rootGrid.Padding = new Thickness(0);
+        //rootGrid.Padding = new Thickness(0);
     #endif
     }
 

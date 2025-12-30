@@ -5,6 +5,7 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:user_component="clr-namespace:EcoPlatesMobile.Views.User.Components"
                x:Class="EcoPlatesMobile.Views.User.Pages.DetailProductPage"
                BackgroundColor="White">
 
@@ -15,7 +16,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
-        <ScrollView>
+        <ScrollView Scrolled="OnScrollViewScrolled">
             <Grid RowDefinitions="Auto, Auto, 1, Auto, 1, *, 1, Auto, 1,10, Auto, 10">
                 <Image x:Name="imProduct"
                        Aspect="AspectFill"
@@ -98,7 +99,7 @@
                                VerticalTextAlignment="Center"/>
                     </HorizontalStackLayout>
                 </Grid>
-                <BoxView BackgroundColor="LightGray" 
+                <BoxView BackgroundColor="LightGray"
                          Grid.Row="2"/>
                 <Grid x:Name="gridCompany"
                       ColumnDefinitions="Auto, *, Auto"
@@ -132,7 +133,7 @@
                 </Grid>
                 <BoxView BackgroundColor="LightGray" 
                          Grid.Row="4"/>
-                <Grid RowDefinitions="Auto, 1, Auto, Auto, Auto" 
+                <Grid RowDefinitions="Auto, 1, Auto, Auto, 15, Auto" 
                       Margin="0,0,0,10"
                       Grid.Row="5">
                     <VerticalStackLayout HorizontalOptions="Center"
@@ -202,10 +203,13 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </VerticalStackLayout>
-                    </Grid>
-                <BoxView BackgroundColor="LightGray"
+                    <user_component:SimilarProductsView x:Name="similarProductView" Grid.Row="5"/>
+                </Grid>
+                <BoxView x:Name="boxLineView" 
+                         BackgroundColor="LightGray"
                          Grid.Row="6"/>
-                <VerticalStackLayout Spacing="10" 
+                <VerticalStackLayout Spacing="10"
+                                     IsVisible="{Binding ShowWhatYouNeedToKnow}"
                                      Margin="15"
                                      Grid.Row="7">
                     <Label Text="{x:Static language:AppResource.WhatYouNeedToKnow}"
@@ -232,13 +236,18 @@
             </Grid>
         </ScrollView>
         <Grid x:Name="grdHeader"
+              HeightRequest="60"
               ColumnDefinitions="Auto, *, Auto, Auto"
               VerticalOptions="Start">
+            <BoxView x:Name="headerBg"
+                     Grid.ColumnSpan="4"
+                     BackgroundColor="{StaticResource User}"
+                     Opacity="0" />
             <Image x:Name="imBack1"
                    Source="back1.png"
                    WidthRequest="30"
                    HeightRequest="30"
-                   Margin="16, 15, 0, 0">
+                   Margin="16, 0, 0, 0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Back_Tapped"
                                           NumberOfTapsRequired="1"/>
@@ -248,7 +257,7 @@
                    Source="home.png"
                    WidthRequest="30"
                    HeightRequest="30"
-                   Margin="0, 15, 15, 0"
+                   Margin="0, 0, 15, 0"
                    Grid.Column="2">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Home_Tapped"
@@ -259,7 +268,7 @@
                    Source="{Binding LikeImage}"
                    WidthRequest="30"
                    HeightRequest="30"
-                   Margin="0, 15, 20, 0"
+                   Margin="0, 0, 20, 0"
                    Grid.Column="3">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Like_Tapped"

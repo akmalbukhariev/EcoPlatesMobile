@@ -51,6 +51,7 @@ public partial class CompanyRegistrationPage : BasePage
         this.userSessionService = userSessionService;
 
         appControl.RebuildBusinessTypeList();
+        /*
         CompanyTypeList = new ObservableCollection<CompanyTypeModel>(
             appControl.BusinessTypeList.Select(kvp => new CompanyTypeModel
             {
@@ -58,6 +59,7 @@ public partial class CompanyRegistrationPage : BasePage
                 Type_value = kvp.Value
             })
         );
+        */
 
         pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
 
@@ -157,6 +159,7 @@ public partial class CompanyRegistrationPage : BasePage
         });
     }
 
+    /*
     private async void CompanyTypeTapped(object sender, EventArgs e)
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
@@ -170,7 +173,7 @@ public partial class CompanyRegistrationPage : BasePage
                 selectedCompanyType = selected;
             }
         });
-    }
+    }*/
 
     private async void BtnRegister_Clicked(object sender, EventArgs e)
     {

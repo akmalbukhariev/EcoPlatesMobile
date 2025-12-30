@@ -7,20 +7,20 @@
                x:Class="EcoPlatesMobile.Views.SuggestionsPage"
                BackgroundColor="White">
 
-    <Grid RowDefinitions="Auto, *, Auto, 20"
+    <Grid RowDefinitions="Auto, *, 20"
           BackgroundColor="#FAF9FA">
         <component:CustomHeader x:Name="header" 
                                 Title="{x:Static language:AppResource.SuggestionTitle1}"
                                 HeaderBackground="#007100"/>
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20" 
+            <VerticalStackLayout Padding="20"
                                  Spacing="20">
-                <Image x:Name="imFeedBack" 
+                <Image x:Name="imFeedBack"
                        Source="feedback_icon.png" 
                        HeightRequest="100"
                        WidthRequest="100"
                        HorizontalOptions="Center" />
-                 <StackLayout>
+                <StackLayout>
                     <Label Text="{x:Static language:AppResource.SuggestionTitle1}"
                            FontSize="24"
                            FontFamily="RobotoVar"
@@ -67,17 +67,16 @@
                             TextColor="Black"
                             Margin="5"/>
                 </Frame>
+                <Grid VerticalOptions="FillAndExpand" />
+                <Button x:Name="btnSubmit" 
+                       Text="{x:Static language:AppResource.Submit}"
+                       Style="{StaticResource StyleBigButton}"
+                       HeightRequest="50"
+                       Clicked="OnSubmitClicked"/>
             </VerticalStackLayout>
         </ScrollView>
-        <Button x:Name="btnSubmit" 
-                Text="{x:Static language:AppResource.Submit}"
-                Style="{StaticResource StyleBigButton}"
-                HeightRequest="50"
-                Margin="20,0,20,0"
-                Clicked="OnSubmitClicked"
-                Grid.Row="2"/>
         <component:LoadingView x:Name="loading"
                                Grid.Row="1"
-                               Grid.RowSpan="3"/>
+                               Grid.RowSpan="32"/>
     </Grid>
 </page:BasePage>

@@ -1,43 +1,38 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Diagnostics;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm;
 using EcoPlatesMobile.Models.Requests.User;
 using EcoPlatesMobile.Models.Responses;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.User;
-using EcoPlatesMobile.Utilities;
-using System.Diagnostics;
-using System.Windows.Input;
-using EcoPlatesMobile.Services.Api;
-using EcoPlatesMobile.Views.User.Pages;
 using EcoPlatesMobile.Services;
-using EcoPlatesMobile.Views.User.Components;
+using EcoPlatesMobile.Services.Api;
+using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views;
+using EcoPlatesMobile.Views.Company.Components;
+using EcoPlatesMobile.Views.User.Pages;
 
 namespace EcoPlatesMobile.ViewModels.User
-{
-    //https://learn.microsoft.com/en-us/dotnet/architecture/maui/mvvm-community-toolkit-features
-    //https://github.com/dotnet-architecture/eshop-mobile-client/blob/main/eShopOnContainers/Services/Navigation/MauiNavigationService.cs
-    //https://github.com/dotnet/maui
-
-    public partial class UserMainPageViewModel : ObservableObject
+{  
+    public partial class SimilarProductsPageViewModel : ObservableObject
     {
+        [ObservableProperty] string category;
         [ObservableProperty] private ObservableRangeCollection<ProductModel> products;
-        [ObservableProperty] private ProductModel selectedProduct;
+        //[ObservableProperty] private ProductModel selectedProduct;
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private bool isRefreshing;
         [ObservableProperty] private bool showLikedView;
         [ObservableProperty] private bool isLikedViewLiked;
 
-        public BusinessType BusinessType { get; set; }
         private int offset = 0;
         private const int PageSize = 6;
         private bool hasMoreItems = true;
-       
+
         private UserApiService userApiService;
         private AppControl appControl;
 
-        public UserMainPageViewModel(UserApiService userApiService, AppControl appControl)
+        public SimilarProductsPageViewModel(UserApiService userApiService, AppControl appControl)
         {
             this.userApiService = userApiService;
             this.appControl = appControl;
@@ -49,16 +44,16 @@ namespace EcoPlatesMobile.ViewModels.User
 
             LoadMoreCommand = new AsyncRelayCommand(LoadMoreAsync);
             RefreshCommand = new AsyncRelayCommand(RefreshAsync);
-        } 
-        
+        }
+
         private async void ProductLiked(ProductModel product)
         {
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             if (!appControl.IsLoggedIn)
             {
-                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage)); 
+                await AppNavigatorService.NavigateTo(nameof(PhoneNumberRegisterPage));
                 return;
             }
 
@@ -91,7 +86,7 @@ namespace EcoPlatesMobile.ViewModels.User
         private async void ProductClicked(ProductModel product)
         {
             bool isWifiOn = await appControl.CheckWifiOrNetwork();
-		    if (!isWifiOn) return;
+            if (!isWifiOn) return;
 
             await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>
             {
@@ -104,14 +99,14 @@ namespace EcoPlatesMobile.ViewModels.User
             offset = 0;
             hasMoreItems = true;
             Products.Clear();
-            
+
             try
             {
                 IsLoading = true;
-                
+
                 PosterLocationRequest request = new PosterLocationRequest
                 {
-                    business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
+                    poster_type = Category,
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
@@ -119,15 +114,15 @@ namespace EcoPlatesMobile.ViewModels.User
                     user_lon = appControl.UserInfo.location_longitude
                 };
 
-                PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocation(request) :
-                                                                      await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
+                PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocationAndPosterType(request) :
+                                                                      await userApiService.GetPostersByCurrentLocationAndPosterTypeWithoutLogin(request);
                 bool isOk = await appControl.CheckUserState(response);
                 if (!isOk)
                 {
                     await appControl.LogoutUser();
                     return;
                 }
-                
+
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
                     var items = response.resultData;
@@ -150,8 +145,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
-                        Distance = $"{item.distance_km:0.0} km",
-                        Category = item.category
+                        Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
                     ProductView.BeginNewAnimationCycle();
@@ -182,7 +176,7 @@ namespace EcoPlatesMobile.ViewModels.User
         {
             if (IsLoading || (!hasMoreItems && !isRefresh))
                 return;
- 
+
             try
             {
                 if (isRefresh)
@@ -196,10 +190,10 @@ namespace EcoPlatesMobile.ViewModels.User
                 {
                     IsLoading = true;
                 }
- 
+
                 PosterLocationRequest request = new PosterLocationRequest
                 {
-                    business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
+                    poster_type = Category,
                     offset = offset,
                     pageSize = PageSize,
                     radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
@@ -207,15 +201,15 @@ namespace EcoPlatesMobile.ViewModels.User
                     user_lon = appControl.UserInfo.location_longitude
                 };
 
-                PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocation(request) :
-                                                                       await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
+                PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocationAndPosterType(request) :
+                                                                       await userApiService.GetPostersByCurrentLocationAndPosterTypeWithoutLogin(request);
                 bool isOk = await appControl.CheckUserState(response);
                 if (!isOk)
                 {
                     await appControl.LogoutUser();
                     return;
                 }
-                
+
                 if (response.resultCode == ApiResult.POSTER_EXIST.GetCodeToString())
                 {
                     var items = response.resultData;
@@ -238,8 +232,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         Stars = item.avg_rating.ToString(),
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
-                        Distance = $"{item.distance_km:0.0} km",
-                        Category = item.category
+                        Distance = $"{item.distance_km:0.0} km"
                     }).ToList();
 
                     ProductView.BeginNewAnimationCycle();
@@ -266,10 +259,10 @@ namespace EcoPlatesMobile.ViewModels.User
                 IsLoading = false;
             }
         }
-         
+
         public ICommand LikeProductCommand { get; }
         public ICommand ClickProductCommand { get; }
-        
+
         public IAsyncRelayCommand LoadMoreCommand { get; }
         public IAsyncRelayCommand RefreshCommand { get; }
 

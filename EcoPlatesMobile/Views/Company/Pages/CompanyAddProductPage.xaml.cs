@@ -23,14 +23,25 @@ public partial class CompanyAddProductPage : BasePage
     private AppControl appControl;
     private CompanyApiService companyApiService;
     private IKeyboardHelper keyboardHelper;
+    private UserSessionService userSessionService;
+    private IStatusBarService statusBarService;
 
-    public CompanyAddProductPage(CompanyApiService companyApiService, AppControl appControl, IKeyboardHelper keyboardHelper)
+    public CompanyAddProductPage(CompanyApiService companyApiService,
+    UserSessionService userSessionService,
+    AppControl appControl,
+    IKeyboardHelper keyboardHelper,
+    IStatusBarService statusBarService)
     {
         InitializeComponent();
 
         this.companyApiService = companyApiService;
         this.appControl = appControl;
         this.keyboardHelper = keyboardHelper;
+        this.statusBarService = statusBarService;
+        this.userSessionService = userSessionService;
+
+        appControl.RebuildPosterTypeList();
+        pickType.ItemsSource = appControl.PosterTypeList.Keys.ToList();
 
         entryProductName.SetMaxLength(30);
         entryOldPrice.MaxLength = 13;
@@ -44,6 +55,15 @@ public partial class CompanyAddProductPage : BasePage
         base.OnAppearing();
 
         isNewImageSelected = false;
+
+        if (userSessionService.Role == UserRole.User)
+        {
+            statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
+        }
+        else
+        {
+            statusBarService.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
+        }
     }
 
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)
@@ -102,6 +122,12 @@ public partial class CompanyAddProductPage : BasePage
         });
     }
 
+    private void PosterType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        //string selectedType = pickType.SelectedItem as string;
+        //string sss = appControl.PosterTypeList[selectedType];
+    }
+
     private async void Register_Clicked(object sender, EventArgs e)
     {
         await ClickGuard.RunAsync((VisualElement)sender, async () =>
@@ -114,13 +140,19 @@ public partial class CompanyAddProductPage : BasePage
             try
             {
                 var title = entryProductName.GetEntryText()?.Trim();
-                 
+                string selectedType = pickType.SelectedItem as string;
                 var oldPrice = GetRawNumber(entryOldPrice);
                 var newPrice = GetRawNumber(entryNewPrice);
 
                 if (string.IsNullOrWhiteSpace(title))
                 {
                     await DisplayAlert(AppResource.Error, AppResource.PleaseEnterProductName, AppResource.Ok);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(selectedType))
+                {
+                    await AlertService.ShowAlertAsync(AppResource.Failed, AppResource.MessageSelectPosterType);
                     return;
                 }
 
@@ -149,6 +181,7 @@ public partial class CompanyAddProductPage : BasePage
                 {
                     { "company_id", appControl.CompanyInfo.company_id.ToString() },
                     { "title", title },
+                    { "category", appControl.PosterTypeList[selectedType]},
                     { "old_price", oldPrice.ToString() },
                     { "new_price", newPrice.ToString() },
                     { "description", editorDescription.Text ?? string.Empty },
@@ -190,63 +223,53 @@ public partial class CompanyAddProductPage : BasePage
 
     void PriceTextChanged(object sender, TextChangedEventArgs e)
     {
-        if (_isFormattingPrice)
-            return;   // prevent re-entrancy
+        if (_isFormattingPrice) return;
 
-        var entry = (Entry)sender;
+        if (sender is not Entry entry) return;
 
         var newText = e.NewTextValue ?? string.Empty;
 
-        // strip non-digits
+        // digits only
         var digits = Regex.Replace(newText, "[^0-9]", "");
-        if (digits.Length == 0)
-        {
-            _isFormattingPrice = true;
-            Dispatcher.Dispatch(() =>
-            {
-                entry.Text = string.Empty;
-                entry.CursorPosition = 0;
-                _isFormattingPrice = false;
-            });
-            return;
-        }
-
-        if (!long.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out var value))
-        {
-            // revert if somehow invalid
-            _isFormattingPrice = true;
-            Dispatcher.Dispatch(() =>
-            {
-                entry.Text = e.OldTextValue ?? string.Empty;
-                entry.CursorPosition = entry.Text.Length;
-                _isFormattingPrice = false;
-            });
-            return;
-        }
-
-        // format with commas: 1234 -> 1,234
-        var formatted = value.ToString("#,0", CultureInfo.InvariantCulture);
-
-        // if nothing changes, stop
-        if (formatted == newText)
-            return;
-
-        // remember caret distance from end based on what user just typed
-        var oldLen = newText.Length;
-        var oldCursor = entry.CursorPosition >= 0 ? entry.CursorPosition : oldLen;
-        var cursorFromEnd = Math.Max(0, oldLen - oldCursor);
 
         _isFormattingPrice = true;
         Dispatcher.Dispatch(() =>
         {
-            entry.Text = formatted;
+            try
+            {
+                if (digits.Length == 0)
+                {
+                    entry.Text = string.Empty;
+                    entry.CursorPosition = 0;
+                    entry.SelectionLength = 0;
+                    return;
+                }
 
-            var newLen = formatted.Length;
-            var newPos = Math.Max(0, newLen - cursorFromEnd);
-            if (newPos > newLen) newPos = newLen;
+                // limit if you want (optional): max 13 digits
+                // if (digits.Length > 13) digits = digits.Substring(0, 13);
 
-            entry.CursorPosition = newPos;
-            _isFormattingPrice = false;
+                if (!long.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out var value))
+                {
+                    // revert safely
+                    entry.Text = e.OldTextValue ?? string.Empty;
+                    entry.CursorPosition = entry.Text.Length;
+                    entry.SelectionLength = 0;
+                    return;
+                }
+
+                var formatted = value.ToString("#,0", CultureInfo.InvariantCulture);
+
+                if (entry.Text != formatted)
+                    entry.Text = formatted;
+
+                // ✅ iOS-safe: always keep caret at end
+                entry.CursorPosition = formatted.Length;
+                entry.SelectionLength = 0;
+            }
+            finally
+            {
+                _isFormattingPrice = false;
+            }
         });
     }
     

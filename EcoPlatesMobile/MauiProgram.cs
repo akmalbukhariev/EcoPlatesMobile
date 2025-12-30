@@ -192,6 +192,7 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<UserCompanyPageViewModel>();
             builder.Services.AddTransient<UserFavoritesViewModel>();
             builder.Services.AddTransient<DetailProductPageViewModel>();
+            builder.Services.AddTransient<SimilarProductsPageViewModel>();
             #endregion
 
             #region Both
@@ -209,7 +210,7 @@ namespace EcoPlatesMobile
 
             builder.Services.AddTransient<ViewModels.Chat.ChattingPageViewModel>();
             builder.Services.AddTransient<ViewModels.Chat.ChatedUserPageViewModel>();
-
+            
             builder.Services.AddTransient<BlockedPage>();
             builder.Services.AddTransient<DeleteAccountPage>();
             #endregion

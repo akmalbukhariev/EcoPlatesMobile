@@ -15,7 +15,7 @@ public partial class DetailProductPage : BasePage
     {
         InitializeComponent();
 
-        this.viewModel = vm;
+        viewModel = vm;
         this.appControl = appControl;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
@@ -49,6 +49,11 @@ public partial class DetailProductPage : BasePage
         fullImage.Source = viewModel.ProductImage;
         UpdateStars();
         appControl.NotificationData = null;
+
+        similarProductView.Category = viewModel.ProductModel.Category;
+        similarProductView.SetService(viewModel.userApiService, viewModel.appControl);
+
+        await similarProductView.LoadInitialAsync();
     }
 
     private void UpdateStars()
@@ -290,6 +295,20 @@ public partial class DetailProductPage : BasePage
         });
     }
 
+    void OnScrollViewScrolled(object sender, ScrolledEventArgs e)
+    {
+        // Tune this threshold to match your desired behavior:
+        // Usually around (image height - header height).
+        const double threshold = 120;
+
+        // 0 -> transparent, 1 -> solid
+        var t = e.ScrollY / threshold;
+        if (t < 0) t = 0;
+        if (t > 1) t = 1;
+
+        headerBg.Opacity = t;
+    }
+    
     private async void Back_Tapped(object sender, TappedEventArgs e)
     {
         await ClickGuard.RunAsync((VisualElement)sender, async () =>

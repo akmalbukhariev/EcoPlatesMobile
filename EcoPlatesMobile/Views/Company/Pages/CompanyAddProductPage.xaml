@@ -77,6 +77,46 @@
                                                EntryPlaceHolder="{x:Static language:AppResource.ProductName}"
                                                EntryPlaceHolderColor="Gray"
                                                Grid.Row="1"/>
+                        <Border x:Name="pickPosterType"
+                                StrokeThickness="2"
+                                Stroke="#E9E9E9"
+                                BackgroundColor="#F5F5F5"
+                                Padding="8"
+                                HeightRequest="50">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="35"/>
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto, *"
+                                  HeightRequest="100"
+                                  VerticalOptions="Center">
+                                <Image Source="company_type.png"
+                                       WidthRequest="25"
+                                       HeightRequest="25"
+                                       VerticalOptions="Center"
+                                       Margin="8,0, 10, 0"/>
+                                <Label x:Name="labelPosterType" 
+                                       Text="{x:Static language:AppResource.PosterType}"
+                                       FontSize="14"
+                                       TextColor="#666666"
+                                       VerticalTextAlignment="Center"
+                                       IsVisible="Collapse"
+                                       Grid.Column="1"/>
+                                <Picker x:Name ="pickType"
+                                        Title="{x:Static language:AppResource.PosterType}"
+                                        TextColor="Black"
+                                        FontSize="15"
+                                        SelectedIndexChanged="PosterType_SelectedIndexChanged"
+                                        VerticalOptions="Center"
+                                        Grid.Column="1"/>
+                                <Image Source="down.png"
+                                       WidthRequest="16"
+                                       HeightRequest="16"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End"
+                                       Margin="8,0"
+                                       Grid.Column="1"/>
+                            </Grid>
+                        </Border>
                         <component:CustomEntry x:Name="entryProductCount"
                                                EntryIcon="item_count.png"
                                                EntryPlaceHolder="{x:Static language:AppResource.ProductQuantity}"

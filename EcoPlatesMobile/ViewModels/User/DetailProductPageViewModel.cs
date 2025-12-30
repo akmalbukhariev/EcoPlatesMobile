@@ -31,6 +31,7 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private string feedbackType;
         [ObservableProperty] private string highlightTitle;
         [ObservableProperty] private int feedbackCount;
+        [ObservableProperty] private bool showWhatYouNeedToKnow;
         [ObservableProperty] private List<PosterTypeInfo> typeInfoList;
         [ObservableProperty] private ImageSource likeImage;
         private string CompanyPhone = "";
@@ -44,8 +45,8 @@ namespace EcoPlatesMobile.ViewModels.User
         public int CompanyId { get; set; } = 0;
         public double AvgRating = 0;
 
-        private UserApiService userApiService;
-        private AppControl appControl;
+        public UserApiService userApiService;
+        public AppControl appControl;
 
         public DetailProductPageViewModel(UserApiService userApiService, AppControl appControl)
         {
@@ -106,6 +107,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         Stars = "0.0";
                         Rating = "0.0 / 5.0";
                     }
+
+                    ShowWhatYouNeedToKnow = !string.IsNullOrEmpty(UserNeedToKnow);
 
                     if (info.typeInfo != null)
                     {

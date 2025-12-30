@@ -607,6 +607,10 @@
     <value>Please select the company type.</value>
     <comment>CompanyRegistrationPage</comment>
   </data>
+  <data name="MessageSelectPosterType" xml:space="preserve">
+    <value>Please select the product type.</value>
+    <comment>CompanyRegistrationPage</comment>
+  </data>
   <data name="MessageSelectCompanyLogo" xml:space="preserve">
     <value>Please select or take picture of the organization.</value>
     <comment>CompanyRegistrationPage</comment>
@@ -1195,6 +1199,142 @@ Don’t worry, you can change the location inside the application.
   <data name="SwitchRoleToSeller" xml:space="preserve">
     <value>Switch to Seller</value>
     <comment>CompanyProfilePage</comment>
+  </data>
+
+
+  <data name="FOOD_GENERAL" xml:space="preserve">
+  <value>Food</value>
+  <comment>AppControl</comment>
+  </data>
+
+  <data name="DRINKS" xml:space="preserve">
+    <value>Drinks</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="DAIRY" xml:space="preserve">
+    <value>Dairy products</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="MEAT" xml:space="preserve">
+    <value>Meat &amp; Sausage</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BAKERY1" xml:space="preserve">
+    <value>Bakery &amp; Sweets</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FRUITS_VEGETABLES" xml:space="preserve">
+    <value>Fruits &amp; Vegetables</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FROZEN" xml:space="preserve">
+    <value>Frozen food</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="READY_MEALS" xml:space="preserve">
+    <value>Ready meals</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="SNACK" xml:space="preserve">
+    <value>Snacks</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CAKE" xml:space="preserve">
+    <value>Cakes</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BURGER" xml:space="preserve">
+    <value>Burger / Fast food</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="HYGIENE" xml:space="preserve">
+    <value>Hygiene</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="HOUSEHOLD" xml:space="preserve">
+    <value>Household</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="KIDS" xml:space="preserve">
+    <value>Kids</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="ELECTRONICS" xml:space="preserve">
+    <value>Electronics</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CLOTHING" xml:space="preserve">
+    <value>Clothing</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FURNITURE" xml:space="preserve">
+    <value>Furniture</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BEAUTY" xml:space="preserve">
+    <value>Beauty</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="SPORTS" xml:space="preserve">
+    <value>Sports</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BOOKS" xml:space="preserve">
+    <value>Books</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="TOYS" xml:space="preserve">
+    <value>Toys</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="OTHER" xml:space="preserve">
+    <value>Other</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="PosterType" xml:space="preserve">
+    <value>Product type</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CHOCOLATE" xml:space="preserve">
+    <value>Chocolate</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="SimilarProducts" xml:space="preserve">
+    <value>Similar products</value>
+    <comment>SimilarProductsView</comment>
+  </data>
+
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+    <comment>SimilarProductsView</comment>
+  </data>
+
+  <data name="PleaseEnterBothPrices" xml:space="preserve">
+    <value>Please check the prices</value>
+    <comment>SimilarProductsView</comment>
   </data>
 
 </root>

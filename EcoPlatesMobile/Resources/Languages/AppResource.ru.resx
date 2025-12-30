@@ -607,7 +607,11 @@
   <value>Пожалуйста, выберите тип компании.</value>
   <comment>CompanyRegistrationPage</comment>
 </data>
-	<data name="MessageSelectCompanyLogo" xml:space="preserve">
+<data name="MessageSelectPosterType" xml:space="preserve">
+  <value>Пожалуйста, выберите тип товара.</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+<data name="MessageSelectCompanyLogo" xml:space="preserve">
   <value>Пожалуйста, выберите или сделайте фото организации.</value>
   <comment>CompanyRegistrationPage</comment>
 </data>
@@ -1196,5 +1200,142 @@
     <value>Переключиться в режим продавца</value>
     <comment>CompanyProfilePage</comment>
   </data>
+
+
+  <data name="FOOD_GENERAL" xml:space="preserve">
+  <value>Продукты питания</value>
+  <comment>AppControl</comment>
+  </data>
+
+  <data name="DRINKS" xml:space="preserve">
+    <value>Напитки</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="DAIRY" xml:space="preserve">
+    <value>Молочные продукты</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="MEAT" xml:space="preserve">
+    <value>Мясо и колбасы</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BAKERY1" xml:space="preserve">
+    <value>Выпечка и сладости</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FRUITS_VEGETABLES" xml:space="preserve">
+    <value>Фрукты и овощи</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FROZEN" xml:space="preserve">
+    <value>Замороженные продукты</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="READY_MEALS" xml:space="preserve">
+    <value>Готовые блюда</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="SNACK" xml:space="preserve">
+    <value>Закуски</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CAKE" xml:space="preserve">
+    <value>Торты</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BURGER" xml:space="preserve">
+    <value>Бургеры / Фастфуд</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="HYGIENE" xml:space="preserve">
+    <value>Гигиена</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="HOUSEHOLD" xml:space="preserve">
+    <value>Бытовые товары</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="KIDS" xml:space="preserve">
+    <value>Детские товары</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="ELECTRONICS" xml:space="preserve">
+    <value>Электроника</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CLOTHING" xml:space="preserve">
+    <value>Одежда</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FURNITURE" xml:space="preserve">
+    <value>Мебель</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BEAUTY" xml:space="preserve">
+    <value>Красота</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="SPORTS" xml:space="preserve">
+    <value>Спорт</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BOOKS" xml:space="preserve">
+    <value>Книги</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="TOYS" xml:space="preserve">
+    <value>Игрушки</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="OTHER" xml:space="preserve">
+    <value>Другое</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="PosterType" xml:space="preserve">
+    <value>Тип продукта</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CHOCOLATE" xml:space="preserve">
+    <value>Шоколад</value>
+    <comment>AppControl</comment>
+  </data>
+
+<data name="SimilarProducts" xml:space="preserve">
+  <value>Похожие товары</value>
+  <comment>SimilarProductsView</comment>
+</data>
+
+<data name="More" xml:space="preserve">
+  <value>Ещё</value>
+  <comment>SimilarProductsView</comment>
+</data>
+
+<data name="PleaseEnterBothPrices" xml:space="preserve">
+  <value>Пожалуйста, проверьте цены</value>
+  <comment>SimilarProductsView</comment>
+</data>
+
 
 </root>

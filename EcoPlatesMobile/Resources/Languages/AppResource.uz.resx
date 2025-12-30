@@ -603,11 +603,15 @@
   <value>Maydon bo‘sh bo‘lishi mumkin emas</value>
   <comment>CompanyRegistrationPage</comment>
 </data>
-	<data name="MessageSelectCompanyType" xml:space="preserve">
+<data name="MessageSelectCompanyType" xml:space="preserve">
   <value>Iltimos, kompaniya turini tanlang.</value>
   <comment>CompanyRegistrationPage</comment>
 </data>
-	<data name="MessageSelectCompanyLogo" xml:space="preserve">
+<data name="MessageSelectPosterType" xml:space="preserve">
+  <value>Iltimos, maxsulot turini tanlang.</value>
+  <comment>CompanyRegistrationPage</comment>
+</data>
+<data name="MessageSelectCompanyLogo" xml:space="preserve">
   <value>Iltimos, tashkilot logotipini tanlang yoki suratga oling.</value>
   <comment>CompanyRegistrationPage</comment>
 </data>
@@ -1195,5 +1199,141 @@ Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.
     <value>Sotuvchi rejimiga o‘tish</value>
     <comment>CompanyProfilePage</comment>
   </data>
+
+
+  <data name="FOOD_GENERAL" xml:space="preserve">
+  <value>Oziq-ovqat</value>
+  <comment>AppControl</comment>
+  </data>
+
+  <data name="DRINKS" xml:space="preserve">
+    <value>Ichimliklar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="DAIRY" xml:space="preserve">
+    <value>Sut mahsulotlari</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="MEAT" xml:space="preserve">
+    <value>Go‘sht va kolbasa</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BAKERY1" xml:space="preserve"> 
+    <value>Non va shirinliklar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FRUITS_VEGETABLES" xml:space="preserve">
+    <value>Meva va sabzavotlar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FROZEN" xml:space="preserve">
+    <value>Muzlatilgan mahsulotlar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="READY_MEALS" xml:space="preserve">
+    <value>Tayyor ovqatlar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="SNACK" xml:space="preserve">
+    <value>Gazaklar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CAKE" xml:space="preserve">
+    <value>Tortlar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BURGER" xml:space="preserve">
+    <value>Burger / Fast food</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="HYGIENE" xml:space="preserve">
+    <value>Gigiyena</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="HOUSEHOLD" xml:space="preserve">
+    <value>Uy-ro‘zg‘or</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="KIDS" xml:space="preserve">
+    <value>Bolalar mahsulotlari</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="ELECTRONICS" xml:space="preserve">
+    <value>Elektronika</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CLOTHING" xml:space="preserve">
+    <value>Kiyim-kechak</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="FURNITURE" xml:space="preserve">
+    <value>Mebel</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BEAUTY" xml:space="preserve">
+    <value>Go‘zallik</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="SPORTS" xml:space="preserve">
+    <value>Sport</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="BOOKS" xml:space="preserve">
+    <value>Kitoblar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="TOYS" xml:space="preserve">
+    <value>O‘yinchoqlar</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="OTHER" xml:space="preserve">
+    <value>Boshqa</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="PosterType" xml:space="preserve">
+    <value>Mahsulot turi</value>
+    <comment>AppControl</comment>
+  </data>
+
+  <data name="CHOCOLATE" xml:space="preserve">
+    <value>Shokolad</value>
+    <comment>AppControl</comment>
+  </data>
+
+<data name="SimilarProducts" xml:space="preserve">
+  <value>O‘xshash mahsulotlar</value>
+  <comment>SimilarProductsView</comment>
+</data>
+
+<data name="More" xml:space="preserve">
+  <value>Ko‘proq</value>
+  <comment>SimilarProductsView</comment>
+</data>
+
+<data name="PleaseEnterBothPrices" xml:space="preserve">
+  <value>Iltimos, narxlarni tekshiring</value>
+  <comment>SimilarProductsView</comment>
+</data>
 
 </root>

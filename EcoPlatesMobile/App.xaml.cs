@@ -78,6 +78,7 @@ namespace EcoPlatesMobile
             Routing.RegisterRoute(nameof(LocationSettingPage), typeof(LocationSettingPage));
             Routing.RegisterRoute(nameof(UserMainSearchPage), typeof(UserMainSearchPage));//
             Routing.RegisterRoute(nameof(CompanyNavigatorPage), typeof(CompanyNavigatorPage));
+            Routing.RegisterRoute(nameof(SimilarProductsPage), typeof(SimilarProductsPage));
             #endregion
 
             #region Company pages

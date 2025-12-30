@@ -6,8 +6,6 @@
                xmlns:templates="clr-namespace:EcoPlatesMobile.Views.Chat.Templates"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
-               xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-               ios:Page.UseSafeArea="False"
                BackgroundColor="White">
 
     <ContentPage.Resources>
@@ -23,119 +21,136 @@
                                                    ReceiverMessageTemplate="{StaticResource ReceiverMessage}"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
+    <Grid x:Name="rootGrid"
+      RowDefinitions="Auto, 20, *, Auto">
 
-    <Grid x:Name="rootGrid" RowDefinitions="Auto, 20, *">
-        <Grid ColumnDefinitions="Auto, *, Auto"
-              Margin="0,10,10,0">
-            <Grid WidthRequest="35"
-                  HeightRequest="35"
-                  VerticalOptions="Center"  
-                  HorizontalOptions="Start"
-                  Margin="16, 4.44, 0, 0">
-                <Grid.GestureRecognizers>
+    <!-- MESSAGES (NO ScrollView) -->
+    <CollectionView Grid.Row="2"
+                    x:Name="messageList"
+                    ItemsSource="{Binding Messages}"
+                    ItemTemplate="{StaticResource MessageBoxTemplate}"
+                    SelectedItem="{Binding SelectedMessage}"
+                    SelectionMode="Single"
+                    BackgroundColor="White"
+                    Margin="10,90,10,10"
+                    VerticalOptions="FillAndExpand"/>
+
+    <!-- INPUT (ALWAYS VISIBLE) -->
+    <Frame Grid.Row="3"
+           x:Name="frameMessage"
+           Padding="0"
+           HasShadow="True"
+           BorderColor="{StaticResource Company}"
+           BackgroundColor="White"
+           CornerRadius="20"
+           HeightRequest="50"
+           Margin="20,0,20,20">
+
+        <Grid ColumnDefinitions="*, Auto"
+              Margin="10,0,10,0">
+            <Editor x:Name="editorMessage"
+                    TextColor="Black"
+                    Placeholder="{x:Static language:AppResource.Message}"
+                    AutoSize="TextChanges"
+                    VerticalTextAlignment="Center"
+                    TextChanged="EditorMessage_TextChanged"
+                    Unfocused="EditorMessage_Unfocused" />
+
+            <Image x:Name="sendImage"
+                   Source="send_company.png"
+                   Aspect="AspectFit"
+                   WidthRequest="35"
+                   Grid.Column="1">
+                <Image.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1"
-                                          Tapped="Back_Tapped"/>
-                </Grid.GestureRecognizers>
-                <Image x:Name="imBack"
-                       Source="back.png"
-                       IsVisible="{Binding ShowBack}"
-                       VerticalOptions="Center"
-                       WidthRequest="16"
-                       HeightRequest="16"/>    
-            </Grid>
-            <Label Text="{Binding ReceiverName}"
-                   Style="{StaticResource StyleHeader}"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Center"
-                   Margin="10,0,0,0"
-                   Grid.Column="1"/>
-            <Label Text="{Binding ReceiverNumber}"
-                   TextColor="White"
-                   IsVisible="Collapse"
-                   FontSize="16"
-                   VerticalOptions="Start"
-                   Margin="10,-5,0,0"
-                   Grid.Column="1"
-                   Grid.Row="1">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1"
-                                          Tapped="Number_Tapped"/>
-                </Label.GestureRecognizers>
-            </Label>
-            <Border x:Name="borderReceiver"
-                    WidthRequest="50"
-                    HeightRequest="50"
-                    Stroke="Gray"
-                    StrokeThickness="0.2"
-                    StrokeShape="RoundRectangle 100"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    Margin="0,0,20,0"
-                    Grid.Column="2"
-                    Grid.RowSpan="2">
-                    <Border.GestureRecognizers>
-                          <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                Tapped="Receiver_Tapped"/>
-                    </Border.GestureRecognizers>
-                <Image x:Name="imReceiver" 
-                       Source="{Binding ReceiverImage}"
-                       Aspect="AspectFill"
-                       WidthRequest="64"
-                       HeightRequest="64"/>
-            </Border>
+                                          Tapped="Send_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
-        <Border BackgroundColor="White"
-                Margin="{OnPlatform iOS='0,0,0,-35', Android='0'}"
-                Grid.Row="2">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="40,40,0,0" />
-            </Border.StrokeShape>
-            <Grid RowDefinitions="*, Auto, 20">
-                <CollectionView x:Name="messageList" 
-                                ItemsSource="{Binding Messages}" 
-                                ItemTemplate="{StaticResource MessageBoxTemplate}"
-                                SelectedItem="{Binding SelectedMessage}"
-                                Margin="10,20,10,10"
-                                SelectionMode="Single"/>
-                <Frame x:Name="frameMessage"
-                       Padding="0" 
-                       HasShadow="True" 
-                       BorderColor="{StaticResource Company}" 
-                       BackgroundColor="White" 
-                       CornerRadius="20"
-                       Margin="20, 0, 20, 0"
-                       Grid.Row="1">
-                    <Grid ColumnDefinitions="*, Auto"
-                          Margin="10,0,10,0">
-                        <Editor x:Name="editorMessage"
-                                TextColor="Black"
-                                Placeholder="{x:Static language:AppResource.Message}"
-                                AutoSize="TextChanges"
-                                TextChanged="EditorMessage_TextChanged"
-                                Focused="EditorMessage_Focused"
-                                Unfocused="EditorMessage_Unfocused" />
-                        <Image x:Name="sendImage" 
-                               Source="send_company.png"
-                               Aspect="AspectFit"
-                               WidthRequest="35"
-                               Grid.Column="1">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                      Tapped="Send_Tapped"/>
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </Grid>
-                </Frame>
-            </Grid>
+    </Frame>
+
+    <!-- LOADING (UNCHANGED) -->
+    <ActivityIndicator x:Name="loading"
+                       IsRunning="{Binding IsLoading}"
+                       Color="{StaticResource User}"
+                       Scale="1.5"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Grid.Row="1"
+                       Grid.RowSpan="3"/>
+
+    <!-- HEADER (ON TOP, ALWAYS VISIBLE) -->
+    <Grid x:Name="grdHeader"
+          Grid.Row="0"
+          Grid.RowSpan="4"
+          VerticalOptions="Start"
+          HeightRequest="70"
+          ColumnDefinitions="Auto, *, Auto"
+          BackgroundColor="#007100">
+
+        <Grid WidthRequest="35"
+              HeightRequest="35"
+              VerticalOptions="Center"
+              HorizontalOptions="Start"
+              Margin="16, 4.44, 0, 0">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Back_Tapped"/>
+            </Grid.GestureRecognizers>
+            <Image x:Name="imBack"
+                   Source="back.png"
+                   IsVisible="{Binding ShowBack}"
+                   VerticalOptions="Center"
+                   WidthRequest="16"
+                   HeightRequest="16"/>
+        </Grid>
+
+        <Label Text="{Binding ReceiverName}"
+               Style="{StaticResource StyleHeader}"
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Margin="10,0,0,0"
+               Grid.Column="1"/>
+
+        <Label Text="{Binding ReceiverNumber}"
+               TextColor="White"
+               IsVisible="Collapse"
+               FontSize="16"
+               VerticalOptions="Start"
+               Margin="10,-5,0,0"
+               Grid.Column="1"
+               Grid.Row="1">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Number_Tapped"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Border x:Name="borderReceiver"
+                WidthRequest="50"
+                HeightRequest="50"
+                Stroke="Gray"
+                StrokeThickness="0.2"
+                StrokeShape="RoundRectangle 100"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Margin="0,0,20,0"
+                Grid.Column="2"
+                Grid.RowSpan="2">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Tapped="Receiver_Tapped"/>
+            </Border.GestureRecognizers>
+            <Image x:Name="imReceiver"
+                   Source="{Binding ReceiverImage}"
+                   Aspect="AspectFill"
+                   WidthRequest="64"
+                   HeightRequest="64"/>
         </Border>
-        <ActivityIndicator x:Name="loading" 
-                           IsRunning="{Binding IsLoading}"
-                           Color="{StaticResource User}"
-                           Scale="1.5"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           Grid.Row="1"
-                           Grid.RowSpan="2"/>
+
     </Grid>
+
+    </Grid> 
     
 </page:BasePage>

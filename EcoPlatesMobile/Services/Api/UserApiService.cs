@@ -37,6 +37,8 @@ namespace EcoPlatesMobile.Services.Api
         private const string GET_COMPANIES_BY_USER_LOCATION_WITHOUT_LIMIT = $"{BASE_URL}company/getCompaniesByCurrentLocationWithoutLimit";
         private const string GET_COMPANIES_BY_USER_LOCATION_WITHOUT_LIMIT_AND_WITHOUT_LOGIN = $"{BASE_URL}company/getCompaniesByCurrentLocationWithoutLimitAndWithoutLogin";
         private const string GET_POSTERS_BY_USER_LOCATION = $"{BASE_URL}promotions/getPostersByCurrentLocation";
+        private const string GET_POSTERS_BY_USER_LOCATION_AND_POSTER_TYPE = $"{BASE_URL}promotions/getPostersByCurrentLocationAndPosterType";
+        private const string GET_POSTERS_BY_USER_LOCATION_AND_POSTER_TYPE_WITHOUT_LOGIN = $"{BASE_URL}promotions/getPostersByCurrentLocationAndPosterTypeWithoutLogin";
         private const string GET_POSTERS_BY_USER_LOCATION_WITHOUT_LOGIN = $"{BASE_URL}promotions/getPostersByCurrentLocationWithoutLogin";
         private const string GET_POSTERS_BY_USER_LOCATION_AND_NAME = $"{BASE_URL}promotions/getPostersByCurrentLocationAndName";
         private const string GET_POSTERS_BY_USER_LOCATION_AND_NAME_WITHOUT_LOGIN = $"{BASE_URL}promotions/getPostersByCurrentLocationAndNameWithoutLogin";
@@ -737,6 +739,72 @@ namespace EcoPlatesMobile.Services.Api
             try
             {
                 var receivedData = await PostAsync(GET_POSTERS_BY_USER_LOCATION, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<PosterListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"API: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<PosterListResponse> GetPostersByCurrentLocationAndPosterType(PosterLocationRequest data)
+        {
+            var response = new PosterListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_POSTERS_BY_USER_LOCATION_AND_POSTER_TYPE, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<PosterListResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"API: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<PosterListResponse> GetPostersByCurrentLocationAndPosterTypeWithoutLogin(PosterLocationRequest data)
+        {
+            var response = new PosterListResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_POSTERS_BY_USER_LOCATION_AND_POSTER_TYPE_WITHOUT_LOGIN, data);
 
                 if (!string.IsNullOrWhiteSpace(receivedData))
                 {

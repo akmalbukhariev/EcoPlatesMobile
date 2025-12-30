@@ -1490,6 +1490,17 @@ namespace EcoPlatesMobile.Resources.Languages {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Please select the poster type.
+        /// </summary>
+        internal static string MessageSelectPosterType
+        {
+            get
+            {
+                return ResourceManager.GetString("MessageSelectPosterType", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Please select an image before registering..
         /// </summary>
         internal static string MessageSelectImage
@@ -2831,7 +2842,7 @@ namespace EcoPlatesMobile.Resources.Languages {
                 return ResourceManager.GetString("SwitchRoleToBuyer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Switch to seller.
         /// </summary>
@@ -2841,6 +2852,222 @@ namespace EcoPlatesMobile.Resources.Languages {
             {
                 return ResourceManager.GetString("SwitchRoleToSeller", resourceCulture);
             }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Food.
+        /// </summary>
+        internal static string FOOD_GENERAL
+        {
+            get => ResourceManager.GetString("FOOD_GENERAL", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Drinks.
+        /// </summary>
+        internal static string DRINKS
+        {
+            get => ResourceManager.GetString("DRINKS", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Dairy products.
+        /// </summary>
+        internal static string DAIRY
+        {
+            get => ResourceManager.GetString("DAIRY", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Meat.
+        /// </summary>
+        internal static string MEAT
+        {
+            get => ResourceManager.GetString("MEAT", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Bakery.
+        /// </summary>
+        internal static string BAKERY1
+        {
+            get => ResourceManager.GetString("BAKERY1", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Fruits & Vegetables.
+        /// </summary>
+        internal static string FRUITS_VEGETABLES
+        {
+            get => ResourceManager.GetString("FRUITS_VEGETABLES", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Frozen food.
+        /// </summary>
+        internal static string FROZEN
+        {
+            get => ResourceManager.GetString("FROZEN", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Ready meals.
+        /// </summary>
+        internal static string READY_MEALS
+        {
+            get => ResourceManager.GetString("READY_MEALS", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Snacks.
+        /// </summary>
+        internal static string SNACK
+        {
+            get => ResourceManager.GetString("SNACK", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Cakes.
+        /// </summary>
+        internal static string CAKE
+        {
+            get => ResourceManager.GetString("CAKE", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Burger / Fast food.
+        /// </summary>
+        internal static string BURGER
+        {
+            get => ResourceManager.GetString("BURGER", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Hygiene.
+        /// </summary>
+        internal static string HYGIENE
+        {
+            get => ResourceManager.GetString("HYGIENE", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Household.
+        /// </summary>
+        internal static string HOUSEHOLD
+        {
+            get => ResourceManager.GetString("HOUSEHOLD", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Kids.
+        /// </summary>
+        internal static string KIDS
+        {
+            get => ResourceManager.GetString("KIDS", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Electronics.
+        /// </summary>
+        internal static string ELECTRONICS
+        {
+            get => ResourceManager.GetString("ELECTRONICS", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Clothing.
+        /// </summary>
+        internal static string CLOTHING
+        {
+            get => ResourceManager.GetString("CLOTHING", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Furniture.
+        /// </summary>
+        internal static string FURNITURE
+        {
+            get => ResourceManager.GetString("FURNITURE", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Beauty.
+        /// </summary>
+        internal static string BEAUTY
+        {
+            get => ResourceManager.GetString("BEAUTY", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Sports.
+        /// </summary>
+        internal static string SPORTS
+        {
+            get => ResourceManager.GetString("SPORTS", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Books.
+        /// </summary>
+        internal static string BOOKS
+        {
+            get => ResourceManager.GetString("BOOKS", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Toys.
+        /// </summary>
+        internal static string TOYS
+        {
+            get => ResourceManager.GetString("TOYS", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Other.
+        /// </summary>
+        internal static string OTHER
+        {
+            get => ResourceManager.GetString("OTHER", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Poster Type.
+        /// </summary>
+        internal static string PosterType
+        {
+            get => ResourceManager.GetString("PosterType", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Chocolate.
+        /// </summary>
+        internal static string CHOCOLATE
+        {
+            get => ResourceManager.GetString("CHOCOLATE", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to similier products.
+        /// </summary>
+        internal static string SimilarProducts
+        {
+            get => ResourceManager.GetString("SimilarProducts", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to more.
+        /// </summary>
+        internal static string More
+        {
+            get => ResourceManager.GetString("More", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Please Enter Both Prices.
+        /// </summary>
+        internal static string PleaseEnterBothPrices
+        {
+            get => ResourceManager.GetString("PleaseEnterBothPrices", resourceCulture);
         }
     }
 }

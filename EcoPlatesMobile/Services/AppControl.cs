@@ -38,16 +38,8 @@ namespace EcoPlatesMobile.Services
         public object NotificationSubscriber { get; set; }
   
         public Dictionary<string, string> BusinessTypeList;
-        /* => new()
-        {
-            { lang.GetString(nameof(AppResource.Restaurant)),  "RESTAURANT" },
-            { lang.GetString(nameof(AppResource.Bakery)),      "BAKERY" },
-            { lang.GetString(nameof(AppResource.FastFood)),    "FAST_FOOD" },
-            { lang.GetString(nameof(AppResource.Cafe)),        "CAFE" },
-            { lang.GetString(nameof(AppResource.Supermarket)), "SUPERMARKET" },
-        };
-        */
-
+        public Dictionary<string, string> PosterTypeList;
+         
         private readonly LanguageService lang;
         private readonly CompanyApiService companyApiService;
         private readonly UserApiService userApiService;
@@ -96,6 +88,43 @@ namespace EcoPlatesMobile.Services
             };
         }
 
+        public void RebuildPosterTypeList()
+        {
+            PosterTypeList = new Dictionary<string, string>
+            {
+                // Key = displayed text (Picker)
+                // Value = PosterType string (what you want)
+
+                { AppResource.FOOD_GENERAL, PosterType.FOOD_GENERAL.ToString() },
+                { AppResource.DRINKS, PosterType.DRINKS.ToString() },
+                { AppResource.DAIRY, PosterType.DAIRY.ToString() },
+                { AppResource.MEAT, PosterType.MEAT.ToString() },
+                { AppResource.BAKERY1, PosterType.BAKERY.ToString() },
+                { AppResource.FRUITS_VEGETABLES, PosterType.FRUITS_VEGETABLES.ToString() },
+                { AppResource.FROZEN, PosterType.FROZEN.ToString() },
+                { AppResource.READY_MEALS, PosterType.READY_MEALS.ToString() },
+                { AppResource.SNACK, PosterType.SNACK.ToString() },
+                { AppResource.CAKE, PosterType.CAKE.ToString() },
+                { AppResource.CHOCOLATE, PosterType.CHOCOLATE.ToString() },
+                { AppResource.BURGER, PosterType.BURGER.ToString() },
+
+                /*
+                { AppResource.HYGIENE, PosterType.HYGIENE.ToString() },
+                { AppResource.HOUSEHOLD, PosterType.HOUSEHOLD.ToString() },
+                { AppResource.KIDS, PosterType.KIDS.ToString() },
+                { AppResource.ELECTRONICS, PosterType.ELECTRONICS.ToString() },
+                { AppResource.CLOTHING, PosterType.CLOTHING.ToString() },
+                { AppResource.FURNITURE, PosterType.FURNITURE.ToString() },
+                { AppResource.BEAUTY, PosterType.BEAUTY.ToString() },
+                { AppResource.SPORTS, PosterType.SPORTS.ToString() },
+                { AppResource.BOOKS, PosterType.BOOKS.ToString() },
+                { AppResource.TOYS, PosterType.TOYS.ToString() },
+                */
+
+                { AppResource.OTHER, PosterType.OTHER.ToString() }
+            };
+        }
+
         public async Task LoginCompany(string phoneNumber)
         {
             LoginRequest request = new LoginRequest()
@@ -140,7 +169,7 @@ namespace EcoPlatesMobile.Services
                     await companyApiService.UpdateCompanyProfileInfo(null, additionalData);
                 }
                 #endregion
-                
+
                 Application.Current.MainPage = new ContentPage
                 {
                     BackgroundColor = Colors.White,
@@ -343,28 +372,7 @@ namespace EcoPlatesMobile.Services
                 await AlertService.ShowAlertAsync(AppResource.Error, AppResource.MessageNetworkOrWifi, AppResource.Ok);
                 return false;
             }
-
-            /*
-            ResponseServerStatus live;
-            bool result = false;
-            if (userSessionService.Role == UserRole.User)
-            {
-                live = await userApiService.CheckServerAsync(TimeSpan.FromSeconds(2));
-                result = live.IsUp;
-            }
-            else if (userSessionService.Role == UserRole.Company)
-            {
-                live = await companyApiService.CheckServerAsync(TimeSpan.FromSeconds(2));
-                result = live.IsUp;
-            }
-
-            if (!result)
-            {
-                await AlertService.ShowAlertAsync(AppResource.Wifi, AppResource.MessageNetworkOrWifi, AppResource.Ok);
-                return false;
-            }
-            */
-
+  
             return true;
         }
 

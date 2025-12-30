@@ -227,7 +227,7 @@ public partial class AuthorizationPage : BasePage
 		await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
 			keyboardHelper.HideKeyboard();
-
+ 
 			bool isWifiOn = await appControl.CheckWifiOrNetwork();
 			if (!isWifiOn) return;
 

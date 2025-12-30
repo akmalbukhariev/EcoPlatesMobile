@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="Resources/Styles/AppStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+            <converters:NullToBoolConverter x:Key="NullToBoolConverter" />
+            <converters:StringToDoubleConverter x:Key="StringToDoubleConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

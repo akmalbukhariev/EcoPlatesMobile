@@ -214,7 +214,7 @@ public partial class CompanyView : ContentView
         var control = (CompanyView)bindable;
         control.distance.Text = (string)newValue;
     }
-
+    
     private static void LikedChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CompanyView)bindable;
@@ -254,7 +254,7 @@ public partial class CompanyView : ContentView
     {
         await ClickGuard.RunAsync((Microsoft.Maui.Controls.VisualElement)sender, async () =>
         {
-            await mainFrame.ScaleTo(0.95, 100, Easing.CubicOut);
+            await mainFrame.ScaleTo(0.90, 100, Easing.CubicOut);
             await mainFrame.ScaleTo(1.0, 100, Easing.CubicIn);
 
             if (BindingContext is CompanyModel company && ClickCommand?.CanExecute(company) == true)

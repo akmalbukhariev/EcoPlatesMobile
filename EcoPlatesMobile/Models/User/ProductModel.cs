@@ -29,5 +29,6 @@ namespace EcoPlatesMobile.Models.User
         [ObservableProperty] private bool showCheckProduct;
         [ObservableProperty] private bool isNonActiveProduct;
         [ObservableProperty] private bool isCheckedProduct;
+        public string Category = PosterType.FOOD_GENERAL.GetValue();
     }
 }
