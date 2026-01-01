@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Threading.Tasks;
 using EcoPlatesMobile.Models.Chat;
 using EcoPlatesMobile.Models.Responses.Notification;
 using EcoPlatesMobile.Models.Responses.User;
@@ -29,6 +30,7 @@ public partial class UserMainPage : BasePage
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         companyTypeList.EventTypeClick += CompanyTypeList_EventTypeClick;
+        sortMenu.SortSelected += SortSelected;
 
         appControl.NotificationSubscriber = this;
  
@@ -196,5 +198,28 @@ public partial class UserMainPage : BasePage
 
             await AppNavigatorService.NavigateTo(nameof(UserMainSearchPage));
         });
+    }
+
+    private async void SortSelected(object? sender, PosterSort sort)
+    {
+        viewModel.posterSort = sort;
+        await viewModel.LoadInitialAsync();
+    }
+
+    private async void Sort_Tapped(object sender, TappedEventArgs e)
+    {
+        await AnimateElementScaleDown(sender as Image);
+
+        // Root visual for positioning
+        var root = this.Content as VisualElement;
+        if (root == null) return;
+
+        if (sortMenu.IsOpen)
+        {
+            await sortMenu.HideAsync();
+            return;
+        }
+
+        await sortMenu.ShowAsync(imSort, root);
     }
 }

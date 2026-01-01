@@ -1337,4 +1337,24 @@ Don’t worry, you can change the location inside the application.
     <comment>SimilarProductsView</comment>
   </data>
 
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
+    <comment>SortMenuPopupView</comment>
+  </data>
+
+  <data name="Near" xml:space="preserve">
+    <value>Near</value>
+    <comment>SortMenuPopupView</comment>
+  </data>
+
+  <data name="Cheap" xml:space="preserve">
+    <value>Cheap</value>
+    <comment>SortMenuPopupView</comment>
+  </data>
+
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
+    <comment>SortMenuPopupView</comment>
+  </data>
+
 </root>

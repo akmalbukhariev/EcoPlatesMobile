@@ -3069,5 +3069,37 @@ namespace EcoPlatesMobile.Resources.Languages {
         {
             get => ResourceManager.GetString("PleaseEnterBothPrices", resourceCulture);
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to Sort.
+        /// </summary>
+        internal static string Sort
+        {
+            get => ResourceManager.GetString("Sort", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Near.
+        /// </summary>
+        internal static string Near
+        {
+            get => ResourceManager.GetString("Near", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Cheap.
+        /// </summary>
+        internal static string Cheap
+        {
+            get => ResourceManager.GetString("Cheap", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Discount.
+        /// </summary>
+        internal static string Discount
+        {
+            get => ResourceManager.GetString("Discount", resourceCulture);
+        }
     }
 }

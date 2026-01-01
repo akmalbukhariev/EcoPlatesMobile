@@ -255,6 +255,9 @@ public partial class CompanyProfilePage : BasePage
             case ListTileView.ListTileType.Suggestions:
                 await AppNavigatorService.NavigateTo(nameof(SuggestionsPage));
                 break;
+            case ListTileView.ListTileType.Announcement:
+                await AppNavigatorService.NavigateTo(nameof(AnnouncementsPage));
+                break;
             case ListTileView.ListTileType.Message:
                 await AppNavigatorService.NavigateTo(nameof(ChatedUserPage));
                 break;

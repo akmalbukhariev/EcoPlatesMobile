@@ -141,7 +141,8 @@ namespace EcoPlatesMobile.ViewModels.User
                         Stars = $"{item.avg_rating}({item.total_reviews})",
                         Liked = item.liked,
                         BookmarkId = item.bookmark_id ?? 0,
-                        Distance = $"{item.distance_km:0.0} km"
+                        Distance = $"{item.distance_km:0.0} km",
+                        Category = item.category
                     }).ToList();
 
                     Products.AddRange(productModels);

@@ -146,6 +146,7 @@ namespace EcoPlatesMobile.ViewModels.User
                         NewPrice = $"{item.new_price:N0} so'm",
                         OldPrice = $"{item.old_price:N0} so'm",
                         Stars = $"{item.avg_rating}({item.total_reviews})",
+                        Category = item.category
                     }).ToList();
 
                     Products.AddRange(productModels);

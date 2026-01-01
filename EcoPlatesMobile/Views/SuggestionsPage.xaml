@@ -9,7 +9,7 @@
 
     <Grid RowDefinitions="Auto, *, 20"
           BackgroundColor="#FAF9FA">
-        <component:CustomHeader x:Name="header" 
+        <component:CustomHeader x:Name="header"
                                 Title="{x:Static language:AppResource.SuggestionTitle1}"
                                 HeaderBackground="#007100"/>
         <ScrollView Grid.Row="1">
@@ -77,6 +77,6 @@
         </ScrollView>
         <component:LoadingView x:Name="loading"
                                Grid.Row="1"
-                               Grid.RowSpan="32"/>
+                               Grid.RowSpan="3"/>
     </Grid>
 </page:BasePage>

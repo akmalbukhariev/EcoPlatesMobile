@@ -33,37 +33,52 @@
               RowSpacing="0"
               Margin="10,0,10,0"
               Grid.Row="1">
-            <Border x:Name="borderSearch"
-                    StrokeThickness="1"
-                    Stroke="LightGray"
-                    BackgroundColor="White"
-                    Margin="10, 0, 10, 0"
-                    HeightRequest="40"
-                    Grid.Row="1">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="23"/>
-                </Border.StrokeShape>
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1"
-                                          Tapped="Search_Tapped"/>
-                </Border.GestureRecognizers>
-                <Grid ColumnDefinitions="Auto, *" 
-                      VerticalOptions="Center">
-                      <Image x:Name="iconImage"
-                             Source="search.png"
-                             WidthRequest="18"
-                             HeightRequest="18"
-                             VerticalOptions="Center"
-                             Margin="12,0"/>
-                      <Label Text="{x:Static language:AppResource.SearchProduct}"
-                             FontSize="14"
-                             TextColor="LightGray"
-                             FontFamily="RobotoVar"
-                             VerticalOptions="Center"
-                             HorizontalTextAlignment="Start"
-                             Grid.Column="1"/>
-              </Grid>
-            </Border>
+              <Grid ColumnDefinitions="*, Auto" Grid.Row="1">
+                <Border x:Name="borderSearch"
+                        StrokeThickness="1"
+                        Stroke="LightGray"
+                        BackgroundColor="White"
+                        Margin="10, 0, 10, 0"
+                        HeightRequest="40">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="23"/>
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                            Tapped="Search_Tapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto, *" 
+                        VerticalOptions="Center">
+                        <Image x:Name="iconImage"
+                                Source="search.png"
+                                WidthRequest="18"
+                                HeightRequest="18"
+                                VerticalOptions="Center"
+                                Margin="12,0"/>
+                        <Label Text="{x:Static language:AppResource.SearchProduct}"
+                                FontSize="14"
+                                TextColor="LightGray"
+                                FontFamily="RobotoVar"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start"
+                                Grid.Column="1"/>
+                </Grid>
+                </Border>
+                <Image x:Name="imSort" 
+                       Source="sort.png"
+                       Aspect="AspectFit"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Margin="0,0,10,0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Grid.Column="1">
+                       <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Sort_Tapped"
+                                              NumberOfTapsRequired="1"/>
+                       </Image.GestureRecognizers>
+                </Image>
+            </Grid>
             <user_component:CompanyTypeListView x:Name="companyTypeList"
                                                 HorizontalOptions="Center" 
                                                 Margin="0,10,0,0"
@@ -71,7 +86,7 @@
         </Grid>
         <RefreshView IsRefreshing="{Binding IsRefreshing}"
                      Command="{Binding RefreshCommand}"
-                     Margin="10,05,10,5"
+                     Margin="10,5,10,5"
                      Grid.Row="2">
             <CollectionView x:Name="productList" 
                             ItemsSource="{Binding Products}"
@@ -128,6 +143,8 @@
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
                            Grid.Row="2"/>
+        <user_component:SortMenuPopupView x:Name="sortMenu"
+                                          Grid.RowSpan="4" /> 
         <BoxView HeightRequest="1"
                  BackgroundColor="LightGray"
                  HorizontalOptions="Fill"

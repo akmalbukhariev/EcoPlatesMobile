@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="EcoPlatesMobile.Views.User.Components.SortMenuPopupView"
+                 xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+                 x:Name="Root">
+
+    <!-- Full screen overlay (click outside closes) -->
+    <Grid x:Name="Overlay"
+          IsVisible="False"
+          Opacity="0"
+          BackgroundColor="#33000000"
+          InputTransparent="False">
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+        </Grid.GestureRecognizers>
+
+        <!-- The small dialog box -->
+        <Border x:Name="MenuCard"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 16"
+                Padding="8"
+                WidthRequest="220"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                TranslationX="0"
+                TranslationY="0"
+                Scale="0.98">
+
+            <!-- Swallow taps inside so it doesn't close -->
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnInsideTapped"/>
+            </Border.GestureRecognizers>
+
+            <VerticalStackLayout Spacing="6">
+
+                <Label Text="{x:Static language:AppResource.Sort}"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       Margin="8,6,8,4"/>
+
+                <BoxView HeightRequest="1" BackgroundColor="#EFEFEF"/>
+
+                <!-- Near -->
+                <Grid Padding="10,8" ColumnDefinitions="Auto,*,Auto">
+                    <Label Text="📍" FontSize="16" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Near}" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <Label Grid.Column="2" x:Name="CheckNear" Text="✓" FontSize="16" 
+                           TextColor="#007200" IsVisible="True" VerticalOptions="Center"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnNearTapped"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <BoxView HeightRequest="1" BackgroundColor="#F3F3F3"/>
+
+                <!-- Cheap -->
+                <Grid Padding="10,8" ColumnDefinitions="Auto,*,Auto">
+                    <Label Text="💸" FontSize="16" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Cheap}" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <Label Grid.Column="2" x:Name="CheckCheap" Text="✓" FontSize="16"
+                           TextColor="#007200" IsVisible="False" VerticalOptions="Center"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCheapTapped"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <BoxView HeightRequest="1" BackgroundColor="#F3F3F3"/>
+
+                <!-- Discount -->
+                <Grid Padding="10,8" ColumnDefinitions="Auto,*,Auto">
+                    <Label Text="🔥" FontSize="16" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Discount}" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <Label Grid.Column="2" x:Name="CheckDiscount" Text="✓" FontSize="16"
+                           TextColor="#007200" IsVisible="False" VerticalOptions="Center"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnDiscountTapped"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentView>

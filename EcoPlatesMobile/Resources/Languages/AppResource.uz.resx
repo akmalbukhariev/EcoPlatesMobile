@@ -1336,4 +1336,24 @@ Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.
   <comment>SimilarProductsView</comment>
 </data>
 
+<data name="Sort" xml:space="preserve">
+  <value>Saralash</value>
+  <comment>SortMenuPopupView</comment>
+</data>
+
+<data name="Near" xml:space="preserve">
+  <value>Yaqin</value>
+  <comment>SortMenuPopupView</comment>
+</data>
+
+<data name="Cheap" xml:space="preserve">
+  <value>Arzon</value>
+  <comment>SortMenuPopupView</comment>
+</data>
+
+<data name="Discount" xml:space="preserve">
+  <value>Chegirma</value>
+  <comment>SortMenuPopupView</comment>
+</data>
+
 </root>

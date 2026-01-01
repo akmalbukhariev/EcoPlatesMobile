@@ -1337,5 +1337,24 @@
   <comment>SimilarProductsView</comment>
 </data>
 
+<data name="Sort" xml:space="preserve">
+  <value>Сортировка</value>
+  <comment>SortMenuPopupView</comment>
+</data>
+
+<data name="Near" xml:space="preserve">
+  <value>Рядом</value>
+  <comment>SortMenuPopupView</comment>
+</data>
+
+<data name="Cheap" xml:space="preserve">
+  <value>Дешево</value>
+  <comment>SortMenuPopupView</comment>
+</data>
+
+<data name="Discount" xml:space="preserve">
+  <value>Скидка</value>
+  <comment>SortMenuPopupView</comment>
+</data>
 
 </root>

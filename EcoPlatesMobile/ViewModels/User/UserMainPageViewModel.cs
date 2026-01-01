@@ -28,6 +28,7 @@ namespace EcoPlatesMobile.ViewModels.User
         [ObservableProperty] private bool isRefreshing;
         [ObservableProperty] private bool showLikedView;
         [ObservableProperty] private bool isLikedViewLiked;
+        public PosterSort posterSort = PosterSort.NEAR;
 
         public BusinessType BusinessType { get; set; }
         private int offset = 0;
@@ -114,6 +115,7 @@ namespace EcoPlatesMobile.ViewModels.User
                     business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
+                    poster_sort = posterSort.GetValue(),
                     radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
                     user_lat = appControl.UserInfo.location_latitude,
                     user_lon = appControl.UserInfo.location_longitude
@@ -202,13 +204,14 @@ namespace EcoPlatesMobile.ViewModels.User
                     business_type = BusinessType == BusinessType.OTHER ? null : BusinessType.GetValue(),
                     offset = offset,
                     pageSize = PageSize,
+                    poster_sort = posterSort.GetValue(),
                     radius_km = appControl.IsLoggedIn ? appControl.UserInfo.radius_km : Constants.MaxRadius,
                     user_lat = appControl.UserInfo.location_latitude,
                     user_lon = appControl.UserInfo.location_longitude
                 };
 
                 PosterListResponse response = appControl.IsLoggedIn ? await userApiService.GetPostersByCurrentLocation(request) :
-                                                                       await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
+                                                                      await userApiService.GetPostersByCurrentLocationWithoutLogin(request);
                 bool isOk = await appControl.CheckUserState(response);
                 if (!isOk)
                 {

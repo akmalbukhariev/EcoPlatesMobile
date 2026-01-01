@@ -15,7 +15,8 @@ public partial class ListTileView : ContentView
         Suggestions,
         Message,
         AccountManagement,
-        SwitchRole
+        SwitchRole,
+        Announcement
     }
 
     public static readonly BindableProperty TileIconProperty =

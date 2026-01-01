@@ -9,7 +9,7 @@ namespace EcoPlatesMobile.Models.Responses.User
         public double? old_price { get; set; }
         public double? new_price { get; set; }
         public string image_url { get; set; }
-        public PosterType category { get; set; }
+        public string category { get; set; }
         public double avg_rating { get; set; }
         public int total_reviews { get; set; }
     }
