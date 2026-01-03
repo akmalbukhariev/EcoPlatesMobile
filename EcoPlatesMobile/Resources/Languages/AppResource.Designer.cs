@@ -3101,5 +3101,21 @@ namespace EcoPlatesMobile.Resources.Languages {
         {
             get => ResourceManager.GetString("Discount", resourceCulture);
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to NewMessage.
+        /// </summary>
+        internal static string NewMessage
+        {
+            get => ResourceManager.GetString("NewMessage", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to NewMessageBody.
+        /// </summary>
+        internal static string NewMessageBody
+        {
+            get => ResourceManager.GetString("NewMessageBody", resourceCulture);
+        }
     }
 }

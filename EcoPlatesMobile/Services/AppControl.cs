@@ -1,6 +1,7 @@
 ﻿using EcoPlatesMobile.Models.Company;
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Models.Responses.Announcement;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Models.Responses.Notification;
 using EcoPlatesMobile.Models.Responses.User;
@@ -259,9 +260,8 @@ namespace EcoPlatesMobile.Services
         public async Task LogoutCompany(bool isBlocked = true)
         {
             IsBlocked = isBlocked;
-
-            CompanyApiService companyApi = AppService.Get<CompanyApiService>();
-            Response response = await companyApi.LogOut();
+ 
+            Response response = await companyApiService.LogOut();
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 //do something
@@ -272,7 +272,7 @@ namespace EcoPlatesMobile.Services
             store.Remove(AppKeys.IsLoggedIn);
             store.Remove(AppKeys.PhoneNumber);
 
-            await companyApi.ClearTokenAsync();
+            await companyApiService.ClearTokenAsync();
             CompanyInfo = null;
             
         
@@ -321,6 +321,25 @@ namespace EcoPlatesMobile.Services
  
             Application.Current.MainPage = new AppEntryShell();
         }
+
+        public async Task<bool> CheckUserHasNewMessage()
+        {
+            GetAnnouncementsRequest request = new GetAnnouncementsRequest
+            {
+                offset = 0,
+                pageSize = 0,
+                actorType = userSessionService.Role == UserRole.Company ? ActorType.COMPANY.GetValue() : ActorType.USER.GetValue(),
+                actorId = userSessionService.Role == UserRole.Company ? CompanyInfo.company_id : UserInfo.user_id
+            };
+
+            UnreadAnnouncementInfoResponse response = await companyApiService.GetUnreadAnnouncements(request);
+            if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
+            {
+                return response.resultData.hasUnread;
+            }
+
+            return false;
+        } 
 
         public async Task MoveUserHome()
         {

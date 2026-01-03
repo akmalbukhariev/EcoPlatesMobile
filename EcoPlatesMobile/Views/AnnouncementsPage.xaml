@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
                x:Class="EcoPlatesMobile.Views.AnnouncementsPage"
                BackgroundColor="{AppThemeBinding Light=#F6F7FB, Dark=#121212}">
 
@@ -14,30 +15,35 @@
 
         <!-- Content -->
         <RefreshView Grid.Row="1"
-                     IsRefreshing="{Binding IsBusy}"
+                     IsRefreshing="{Binding IsRefreshing}"
                      Command="{Binding RefreshCommand}">
 
             <Grid Padding="16,12">
 
                 <CollectionView ItemsSource="{Binding Announcements}"
+                                ItemsUpdatingScrollMode="KeepScrollOffset"
                                 SelectionMode="None"
-                                ItemsLayout="VerticalList">
+                                ItemsLayout="VerticalList"
+                                RemainingItemsThreshold="4"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
 
                     <!-- Empty state -->
                     <CollectionView.EmptyView>
-                        <Grid Padding="24" VerticalOptions="Center">
-                            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                                <Label Text="No announcements yet"
-                                       FontSize="18"
-                                       FontAttributes="Bold"
-                                       HorizontalTextAlignment="Center"
-                                       TextColor="{AppThemeBinding Light=#222, Dark=#EEE}" />
-                                <Label Text="When we publish updates, they will appear here."
-                                       FontSize="14"
-                                       HorizontalTextAlignment="Center"
-                                       TextColor="{AppThemeBinding Light=#6B7280, Dark=#A1A1AA}" />
-                            </VerticalStackLayout>
-                        </Grid>
+                         <ContentView>
+                            <ContentView.Triggers>
+                                <DataTrigger TargetType="ContentView"
+                                            Binding="{Binding IsLoading}"
+                                            Value="True">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="ContentView"
+                                            Binding="{Binding IsRefreshing}"
+                                            Value="True">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </ContentView.Triggers>
+                            <view:EmptyViewText/>
+                        </ContentView>
                     </CollectionView.EmptyView>
 
                     <CollectionView.ItemTemplate>
@@ -50,9 +56,9 @@
 
                                 <!-- Tap on whole card -->
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type page:BasePage}}, Path=BindingContext.OpenAnnouncementCommand}"
-                                        CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Tapped="Announcement_Tapped"
+                                                          NumberOfTapsRequired="1"
+                                                          CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
 
                                 <Grid ColumnDefinitions="Auto,*"
@@ -61,11 +67,12 @@
                                       RowSpacing="6">
 
                                     <!-- Unread dot -->
-                                    <Grid WidthRequest="10" HeightRequest="10"
+                                    <Grid WidthRequest="10" 
+                                          HeightRequest="10"
                                           VerticalOptions="Start"
                                           Margin="2,6,0,0">
                                         <Ellipse Fill="#2563EB"
-                                                 IsVisible="{Binding IsUnread}" />
+                                                 IsVisible="{Binding IsUnread}"/>
                                     </Grid>
 
                                     <VerticalStackLayout Grid.Column="1" Spacing="4">
@@ -93,20 +100,16 @@
 
                 </CollectionView>
 
-                <!-- Optional loading overlay -->
-                <Grid IsVisible="{Binding IsBusy}"
-                      BackgroundColor="{AppThemeBinding Light=#80FFFFFF, Dark=#80121212}">
-                    <ActivityIndicator IsRunning="True"
-                                       VerticalOptions="Center"
-                                       HorizontalOptions="Center" />
-                </Grid>
-
             </Grid>
         </RefreshView>
-
-        <component:LoadingView x:Name="loading"
-                               Grid.Row="1"
-                               Grid.RowSpan="1"/>
+ 
+        <ActivityIndicator x:Name="loading" 
+                           IsRunning="{Binding IsLoading}"
+                           Color="{StaticResource User}"
+                           Scale="1.5"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.Row="1"/>
 
         <!-- ================= Bottom Sheet Overlay (FIXED) ================= -->
         <Grid x:Name="SheetOverlay"
@@ -172,7 +175,6 @@
             </Frame>
 
         </Grid>
-        <!-- =============================================================== -->
-
+        
     </Grid>
 </page:BasePage>

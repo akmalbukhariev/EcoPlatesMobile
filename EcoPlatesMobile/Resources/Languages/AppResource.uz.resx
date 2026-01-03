@@ -1356,4 +1356,15 @@ Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.
   <comment>SortMenuPopupView</comment>
 </data>
 
+<data name="NewMessage" xml:space="preserve">
+  <value>Yangi xabar</value>
+  <comment>ActiveProductPage</comment>
+</data>
+
+<data name="NewMessageBody" xml:space="preserve">
+  <value>Sizga yangi xabar keldi.</value>
+  <comment>ActiveProductPage</comment>
+</data>
+
+
 </root>

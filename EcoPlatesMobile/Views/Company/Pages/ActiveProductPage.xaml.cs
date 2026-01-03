@@ -59,9 +59,9 @@ public partial class ActiveProductPage : BasePage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        
+
         DependencyService.Get<IStatusBarService>()?
-                        			.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
+                                    .SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
 
         Shell.SetTabBarIsVisible(this, ShowTabBar);
 
@@ -77,6 +77,13 @@ public partial class ActiveProductPage : BasePage
         else
         {
             await viewModel.LoadInitialAsync();
+        }
+
+        bool hasUnread = await appControl.CheckUserHasNewMessage();
+        if (hasUnread)
+        {
+            await AlertService.ShowAlertAsync(AppResource.NewMessage, AppResource.NewMessageBody);
+            await AppNavigatorService.NavigateTo(nameof(AnnouncementsPage)); 
         }
     }
 

@@ -1357,4 +1357,14 @@
   <comment>SortMenuPopupView</comment>
 </data>
 
+<data name="NewMessage" xml:space="preserve">
+  <value>Новое сообщение</value>
+  <comment>ActiveProductPage</comment>
+</data>
+
+<data name="NewMessageBody" xml:space="preserve">
+  <value>У вас новое сообщение.</value>
+  <comment>ActiveProductPage</comment>
+</data>
+
 </root>

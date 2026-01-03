@@ -2,6 +2,7 @@
 using EcoPlatesMobile.Models.Requests;
 using EcoPlatesMobile.Models.Requests.Company;
 using EcoPlatesMobile.Models.Responses;
+using EcoPlatesMobile.Models.Responses.Announcement;
 using EcoPlatesMobile.Models.Responses.Chat;
 using EcoPlatesMobile.Models.Responses.Company;
 using EcoPlatesMobile.Utilities;
@@ -34,6 +35,10 @@ namespace EcoPlatesMobile.Services.Api
         private const string UPDATE_COMPANY_PROFILE_INFO = $"{BASE_URL}company/updateCompanyInfo";
         private const string REGISTER_COMPANY_FEEDBACK = $"{BASE_URL}feedbacks_company/registerCompanyFeedback";
         private const string GET_PENDING_POSTERS = $"{BASE_URL}company/admin/getNewAddedPosterListByCompanyId";
+
+        private const string GET_ANNOUNCEMENTS = $"{BASE_URL}announcement/getAnnouncements";
+        private const string MARK_ANNOUNCEMENT_AS_READ = $"{BASE_URL}announcement/markAsRead";
+        private const string GET_UNREAD_ANNOUNCEMENT = $"{BASE_URL}announcement/hasUnreadTargeted";
 
         private const string DELETE_COMPANY_ACCOUNT = $"{BASE_URL}company/deleteCompany/";
         #endregion
@@ -155,6 +160,107 @@ namespace EcoPlatesMobile.Services.Api
 
             return response;
         }
+
+        #region Announcement
+        public async Task<AnnouncementInfoResponse> GetAnnouncements(GetAnnouncementsRequest data)
+        {
+            var response = new AnnouncementInfoResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_ANNOUNCEMENTS, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<AnnouncementInfoResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+
+        public async Task<Response> MarkAnnouncementAsRead(MarkAnnouncementReadRequest data)
+        {
+            var response = new Response();
+
+            try
+            {
+                var receivedData = await PostAsync(MARK_ANNOUNCEMENT_AS_READ, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<Response>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+        
+        public async Task<UnreadAnnouncementInfoResponse> GetUnreadAnnouncements(GetAnnouncementsRequest data)
+        {
+            var response = new UnreadAnnouncementInfoResponse();
+
+            try
+            {
+                var receivedData = await PostAsync(GET_UNREAD_ANNOUNCEMENT, data);
+
+                if (!string.IsNullOrWhiteSpace(receivedData))
+                {
+                    var deserializedResponse = JsonConvert.DeserializeObject<UnreadAnnouncementInfoResponse>(receivedData);
+                    if (deserializedResponse != null)
+                    {
+                        return deserializedResponse;
+                    }
+                }
+
+                response.resultMsg = ApiResult.API_SERVICE_ERROR.GetMessage();
+            }
+            catch (JsonException jsonEx)
+            {
+                response.resultCode = ApiResult.JSON_PARSING_ERROR.GetCodeToString();
+                response.resultMsg = $"JSON Parsing Error: {jsonEx.Message}";
+            }
+            catch (Exception ex)
+            {
+                response.resultCode = ApiResult.API_SERVICE_ERROR.GetCodeToString();
+                response.resultMsg = $"Login Error: {ex.Message}";
+            }
+
+            return response;
+        }
+        #endregion
 
         public async Task<Response> UpdateCompanyPhoneNumber(string new_phone_number)
         {

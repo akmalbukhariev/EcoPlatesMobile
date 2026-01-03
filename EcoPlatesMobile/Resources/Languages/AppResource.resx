@@ -1357,4 +1357,14 @@ Don’t worry, you can change the location inside the application.
     <comment>SortMenuPopupView</comment>
   </data>
 
+  <data name="NewMessage" xml:space="preserve">
+    <value>New message</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+
+  <data name="NewMessageBody" xml:space="preserve">
+    <value>You have a new message.</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+
 </root>

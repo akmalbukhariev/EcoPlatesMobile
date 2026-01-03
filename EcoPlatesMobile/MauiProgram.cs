@@ -210,6 +210,7 @@ namespace EcoPlatesMobile
 
             builder.Services.AddTransient<ViewModels.Chat.ChattingPageViewModel>();
             builder.Services.AddTransient<ViewModels.Chat.ChatedUserPageViewModel>();
+            builder.Services.AddTransient<ViewModels.AnnouncementsPageViewModel>();
             
             builder.Services.AddTransient<BlockedPage>();
             builder.Services.AddTransient<DeleteAccountPage>();
