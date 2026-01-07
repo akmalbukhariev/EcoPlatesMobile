@@ -17,7 +17,6 @@ public partial class LocationSettingPage : BasePage
     private Location currentCenter;
 
     private LocationService locationService;
-    private AppControl appControl;
     private UserApiService userApiService;
 
     int selectedDistance = 1;
@@ -25,7 +24,7 @@ public partial class LocationSettingPage : BasePage
     private double initialLat;
     private double initialLon;
     private int initialRadius;
-    public LocationSettingPage(LocationService locationService, AppControl appControl, UserApiService userApiService)
+    public LocationSettingPage(LocationService locationService, UserApiService userApiService)
     {
         InitializeComponent();
 
@@ -37,7 +36,6 @@ public partial class LocationSettingPage : BasePage
         bottomSheet.EventShowResultsClicked += ShowResultsClicked;
 
         this.locationService = locationService;
-        this.appControl = appControl;
         this.userApiService = userApiService;
         map.PropertyChanged += Map_PropertyChanged;
     }

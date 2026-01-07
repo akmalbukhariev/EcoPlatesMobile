@@ -25,24 +25,18 @@ public partial class PhoneNumberRegisterPage : BasePage
         private double _originalBottomPadding;
 #endif
 
-    private UserSessionService userSessionService;
     private CompanyApiService companyApiService;
     private UserApiService userApiService;
-    private AppControl appControl;
     private IKeyboardHelper keyboardHelper;
 
-    public PhoneNumberRegisterPage(UserSessionService userSessionService,
-                                    CompanyApiService companyApiService,
-                                    UserApiService userApiService,
-                                    AppControl appControl,
-                                    IKeyboardHelper keyboardHelper)
+    public PhoneNumberRegisterPage(CompanyApiService companyApiService,
+                                   UserApiService userApiService,
+                                   IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
-
-        this.userSessionService = userSessionService;
+ 
         this.companyApiService = companyApiService;
         this.userApiService = userApiService;
-        this.appControl = appControl;
         this.keyboardHelper = keyboardHelper;
 
         if (userSessionService.Role == UserRole.User)

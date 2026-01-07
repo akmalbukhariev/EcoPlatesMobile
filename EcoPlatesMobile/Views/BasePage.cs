@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using EcoPlatesMobile.Services;
 using EcoPlatesMobile.Services.Api;
+using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.ViewModels;
 
 using Microsoft.Maui.Controls.PlatformConfiguration;
@@ -10,17 +11,38 @@ namespace EcoPlatesMobile.Views
 {
     public abstract class BasePage : ContentPage
     {
-        protected IViewModel viewModel;
+        //protected IViewModel viewModel;
         protected CancellationTokenSource? cts;
+        protected IStatusBarService statusBarService;
+        protected UserSessionService userSessionService;
+        protected AppControl appControl;
+
         protected BasePage()
         {
             Shell.SetNavBarIsVisible(this, false);
-            Shell.SetTabBarIsVisible(this, false); 
+            Shell.SetTabBarIsVisible(this, false);
+
+            appControl = AppService.Get<AppControl>();
+            statusBarService = AppService.Get<IStatusBarService>();
+            userSessionService = AppService.Get<UserSessionService>();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            if (userSessionService.Role == UserRole.User)
+            {
+                statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
+            }
+            else if (userSessionService.Role == UserRole.Company)
+            {
+                statusBarService.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
+            }
+            else
+            {
+                statusBarService.SetStatusBarColor(Colors.White.ToArgbHex(), false);
+            }
         }
 
         protected void CancelAndDisposeCts()
@@ -30,11 +52,11 @@ namespace EcoPlatesMobile.Views
             finally { cts?.Dispose(); cts = null; }
         }
 
-        protected void SetViewModel(IViewModel viewModel)
+        /*protected void SetViewModel(IViewModel viewModel)
         {
             this.viewModel = viewModel;
             BindingContext = viewModel;
-        }
+        }*/
 
         protected Task AnimateElementScaleUp(VisualElement element)
         {

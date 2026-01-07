@@ -37,10 +37,7 @@ public partial class CompanyNavigatorPage : BasePage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-
-        AppControl control = AppService.Get<AppControl>();
-        double user_latitude = control.UserInfo.location_latitude;
-        double user_longitude = control.UserInfo.location_longitude;
+       
         
         /*
         // Create user pin

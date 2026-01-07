@@ -1367,4 +1367,14 @@ Don’t worry, you can change the location inside the application.
     <comment>ActiveProductPage</comment>
   </data>
 
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+    <comment>ActiveProductPage</comment>
+  </data>
+
+  <data name="Announcements" xml:space="preserve">
+    <value>Announcements</value>
+    <comment>Announcements</comment>
+  </data>
+
 </root>

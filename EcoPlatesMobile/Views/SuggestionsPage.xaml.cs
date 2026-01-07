@@ -15,18 +15,14 @@ public partial class SuggestionsPage : BasePage
         { AppResource.Suggestions, "SUGGESTIONS" },
         { AppResource.Complaints, "COMPLAINTS" }
     };
-     
-    private UserSessionService userSessionService;
-    private AppControl appControl;
+      
     private UserApiService userApiService;
     private CompanyApiService companyApiService;
 
-    public SuggestionsPage(UserSessionService userSessionService, AppControl appControl, UserApiService userApiService, CompanyApiService companyApiService)
+    public SuggestionsPage(UserApiService userApiService, CompanyApiService companyApiService)
 	{
 		InitializeComponent();
-
-        this.userSessionService = userSessionService;
-        this.appControl = appControl;
+        
         this.userApiService = userApiService;
         this.companyApiService = companyApiService;
 

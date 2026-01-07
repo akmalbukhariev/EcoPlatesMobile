@@ -9,14 +9,13 @@ using Microsoft.Maui.Controls;
 
 public partial class DetailProductPage : BasePage
 {
-    private DetailProductPageViewModel viewModel;
-    private AppControl appControl;
-    public DetailProductPage(DetailProductPageViewModel vm, AppControl appControl)
+    private readonly DetailProductPageViewModel viewModel;
+    
+    public DetailProductPage(DetailProductPageViewModel vm)
     {
         InitializeComponent();
 
         viewModel = vm;
-        this.appControl = appControl;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
         reviewView.EventReviewClick += ReviewView_EventReviewClick;

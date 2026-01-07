@@ -56,31 +56,27 @@ public partial class CompanyProfilePage : BasePage
     private CompanyApiService companyApiService;
     private UserApiService userApiService;
     private LanguageService languageService;
-    private AppControl appControl;
     private LocationService locationService;
-    private IStatusBarService statusBarService;
-    private UserSessionService userSessionService;
 
     public CompanyProfilePage(CompanyApiService companyApiService,
                                 UserApiService userApiService,
                                 LanguageService languageService,
-                                AppControl appControl,
-                                LocationService locationService,
-                                IStatusBarService statusBarService,
-                                UserSessionService userSessionService)
+                                LocationService locationService)
     {
         InitializeComponent();
 
         this.companyApiService = companyApiService;
         this.userApiService = userApiService;
         this.languageService = languageService;
-        this.appControl = appControl;
         this.locationService = locationService;
-        this.statusBarService = statusBarService;
-        this.userSessionService = userSessionService;
 
         Init();
 
+        if (!appControl.IsLoggedIn)
+        {
+            listTileAnnouncement.IsVisible = false;
+        }
+        
         BindingContext = this;
     }
 

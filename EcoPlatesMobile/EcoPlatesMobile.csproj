@@ -20,8 +20,8 @@
 		<CodesignEntitlements>Platforms/iOS/Entitlements.plist</CodesignEntitlements>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.3.9</ApplicationDisplayVersion>
-		<ApplicationVersion>20</ApplicationVersion>
+		<ApplicationDisplayVersion>1.4.1</ApplicationDisplayVersion>
+		<ApplicationVersion>22</ApplicationVersion>
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
 		<WindowsPackageType>None</WindowsPackageType>
@@ -89,18 +89,18 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	<!-- Point MSBuild to generate the public strongly-typed class -->
-	<EmbeddedResource Update="Resources/Strings/AppResource.resx">
-		<Generator>PublicResXFileCodeGenerator</Generator>
-		<LastGenOutput>AppResource.Designer.cs</LastGenOutput>
-	</EmbeddedResource>
+		<!-- Point MSBuild to generate the public strongly-typed class -->
+		<EmbeddedResource Update="Resources/Strings/AppResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>AppResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 
-	<!-- Mark the generated file as auto-generated & dependent -->
-	<Compile Update="Resources/Strings/AppResource.Designer.cs">
-		<DesignTime>True</DesignTime>
-		<AutoGen>True</AutoGen>
-		<DependentUpon>AppResource.resx</DependentUpon>
-	</Compile>
+		<!-- Mark the generated file as auto-generated & dependent -->
+		<Compile Update="Resources/Strings/AppResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AppResource.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<!--<ItemGroup>
@@ -117,8 +117,8 @@
 	<ItemGroup>
 		<!-- Android-specific icon files -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#337200"/>
-		<!-- iOS-specific icon files 
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg_ios.svg" Color="#337200"/>--> 
+		<!-- iOS-specific icon files  
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg_ios.svg" Color="#337200"/>-->
 		
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash_padded_centered.svg" Color="#007211"/>

@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Android.App;
+//using Android.App;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EcoPlatesMobile.Models;
@@ -15,7 +15,7 @@ using EcoPlatesMobile.Utilities;
 using EcoPlatesMobile.Views.Company.Components;
 
 namespace EcoPlatesMobile.ViewModels
-{  
+{
     public partial class AnnouncementsPageViewModel : ObservableObject
     {
         [ObservableProperty] string category;
@@ -49,7 +49,7 @@ namespace EcoPlatesMobile.ViewModels
             LoadMoreCommand = new AsyncRelayCommand(LoadMoreAsync);
             RefreshCommand = new AsyncRelayCommand(RefreshAsync);
         }
-        
+
         public async Task LoadInitialAsync()
         {
             offset = 0;
@@ -85,18 +85,18 @@ namespace EcoPlatesMobile.ViewModels
                         hasMoreItems = false;
                         return;
                     }
- 
+
                     var announcementModels = items.Select(item => new Announcement
                     {
                         AnnouncementId = item.announcement_id,
                         Title = item.title ?? string.Empty,
-                        Preview = item.preview ?? string.Empty,
+                        Preview = GetPreview(item.body),
                         Body = item.body ?? string.Empty,
                         ImageUrl = "",
                         CreatedAtUtc = DateTimeOffset.FromUnixTimeMilliseconds(item.created_at_utc).UtcDateTime,
                         IsRead = item.is_read == 1
                     }).ToList();
- 
+
                     Announcements.AddRange(announcementModels);
 
                     offset += PageSize;
@@ -187,7 +187,7 @@ namespace EcoPlatesMobile.ViewModels
                     {
                         AnnouncementId = item.announcement_id,
                         Title = item.title ?? string.Empty,
-                        Preview = item.preview ?? string.Empty,
+                        Preview = GetPreview(item.body),
                         Body = item.body ?? string.Empty,
                         ImageUrl = "",
                         CreatedAtUtc = DateTimeOffset.FromUnixTimeMilliseconds(item.created_at_utc).UtcDateTime,
@@ -217,7 +217,7 @@ namespace EcoPlatesMobile.ViewModels
                 IsLoading = false;
             }
         }
- 
+
         public IAsyncRelayCommand LoadMoreCommand { get; }
         public IAsyncRelayCommand RefreshCommand { get; }
 
@@ -244,6 +244,16 @@ namespace EcoPlatesMobile.ViewModels
                 return;
             }
             await LoadAnnouncemenAsync(isRefresh: true);
+        }
+
+        public string GetPreview(string text, int maxLength = 20)
+        {
+            if (string.IsNullOrEmpty(text))
+                return string.Empty;
+
+            return text.Length <= maxLength
+                ? text
+                : text.Substring(0, maxLength) + "...";
         }
     } 
 }

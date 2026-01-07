@@ -188,8 +188,9 @@
                                                 Margin="0,0,0,20"
                                                 EventClickTile="Tile_EventClick"
                                                 Grid.Row="7"/>
-                        <component:ListTileView TileIcon="announcement.png"
-                                                 TileText="Announcement"
+                        <component:ListTileView x:Name="listTileAnnouncement" 
+                                                 TileIcon="announcement.png"
+                                                 TileText="{x:Static language:AppResource.Announcements}"
                                                  TileTextSize="15"
                                                  TileTextColor="Black"
                                                  TileType="Announcement"

@@ -12,18 +12,16 @@ public partial class UserProfileInfoPage : BasePage
 { 
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
-
-    private AppControl appControl;
+    
     private UserApiService userApiService;
     private IKeyboardHelper keyboardHelper;
 
     private bool isPageLoaded = false;
 
-    public UserProfileInfoPage(AppControl appControl, UserApiService userApiService, IKeyboardHelper keyboardHelper)
+    public UserProfileInfoPage(UserApiService userApiService, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
-
-        this.appControl = appControl;
+        
         this.userApiService = userApiService;
         this.keyboardHelper = keyboardHelper;
 

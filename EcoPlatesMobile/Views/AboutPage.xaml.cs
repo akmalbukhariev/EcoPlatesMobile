@@ -5,15 +5,10 @@ using EcoPlatesMobile.Utilities;
 namespace EcoPlatesMobile.Views;
  
 public partial class AboutPage : BasePage
-{
-    private UserSessionService userSessionService;
-    private IStatusBarService statusBarService;
-
-    public AboutPage(UserSessionService userSessionService, IStatusBarService statusBarService)
+{ 
+    public AboutPage()
     {
         InitializeComponent();
-        this.userSessionService = userSessionService;
-        this.statusBarService = statusBarService;
 
         Shell.SetPresentationMode(this, PresentationMode.ModalAnimated);
 
@@ -25,12 +20,9 @@ public partial class AboutPage : BasePage
         base.OnAppearing();
 
         lbTitle.Text = AppResource.AboutApp;
-
-        Color color = Colors.White;
-
+ 
         if (userSessionService.Role == UserRole.User)
         {
-            color = Constants.COLOR_USER;
             headerGrid.BackgroundColor = Constants.COLOR_USER;
             btnClose.BackgroundColor = Constants.COLOR_USER;
 
@@ -47,7 +39,6 @@ public partial class AboutPage : BasePage
         }
         else
         {
-            color = Constants.COLOR_COMPANY;
             btnClose.BackgroundColor = Constants.COLOR_COMPANY;
             headerGrid.BackgroundColor = Constants.COLOR_COMPANY;
 
@@ -62,8 +53,6 @@ public partial class AboutPage : BasePage
 
             finalMessage.Text = AppResource.FinalMessageSeller;
         }
-        
-        statusBarService.SetStatusBarColor(color.ToArgbHex(), false);
     }
 
     private async void Close_Tapped(object sender, TappedEventArgs e)

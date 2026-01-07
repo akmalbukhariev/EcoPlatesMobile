@@ -10,16 +10,14 @@ using Microsoft.Maui.Maps;
 namespace EcoPlatesMobile.Views.Company.Pages;
 
 public partial class LocationPage : BasePage
-{
-	private AppControl appControl;
+{ 
 	private CompanyApiService companyApiService;
 	private LocationService locationService;
 
-    public LocationPage(AppControl appControl, CompanyApiService companyApiService, LocationService locationService)
+    public LocationPage(CompanyApiService companyApiService, LocationService locationService)
 	{
 		InitializeComponent();
-
-		this.appControl = appControl;
+ 
 		this.companyApiService = companyApiService;
 		this.locationService = locationService;
 

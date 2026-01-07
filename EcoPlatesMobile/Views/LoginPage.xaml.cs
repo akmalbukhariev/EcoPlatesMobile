@@ -9,18 +9,12 @@ namespace EcoPlatesMobile.Views;
 public partial class LoginPage : BasePage
 { 
     private AppStoreService appStoreService;
-    private AppControl appControl;
-    private UserSessionService userSessionService;
-    private IStatusBarService statusBarService;
 
-    public LoginPage(AppStoreService appStoreService, AppControl appControl, UserSessionService userSessionService, IStatusBarService statusBarService)
+    public LoginPage(AppStoreService appStoreService)
 	{
 		InitializeComponent();
 
         this.appStoreService = appStoreService;
-        this.appControl = appControl;
-        this.userSessionService = userSessionService;
-        this.statusBarService = statusBarService;
     }
 
     protected override async void OnAppearing()

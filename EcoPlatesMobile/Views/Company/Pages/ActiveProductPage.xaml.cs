@@ -40,16 +40,15 @@ public partial class ActiveProductPage : BasePage
     }
 
     private ActiveProductPageViewModel viewModel;
-    private AppControl appControl;
+    
     private CompanyApiService companyApiService;
 
-    public ActiveProductPage(ActiveProductPageViewModel vm, CompanyApiService companyApiService, AppControl appControl)
+    public ActiveProductPage(ActiveProductPageViewModel vm, CompanyApiService companyApiService)
     {
         InitializeComponent();
 
         this.viewModel = vm;
         this.companyApiService = companyApiService;
-        this.appControl = appControl;
 
         appControl.NotificationSubscriber = this;
  
@@ -77,13 +76,6 @@ public partial class ActiveProductPage : BasePage
         else
         {
             await viewModel.LoadInitialAsync();
-        }
-
-        bool hasUnread = await appControl.CheckUserHasNewMessage();
-        if (hasUnread)
-        {
-            await AlertService.ShowAlertAsync(AppResource.NewMessage, AppResource.NewMessageBody);
-            await AppNavigatorService.NavigateTo(nameof(AnnouncementsPage)); 
         }
     }
 

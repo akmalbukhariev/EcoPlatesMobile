@@ -48,14 +48,12 @@ public partial class ReviewProductPage : BasePage
     private bool showedOption = false;
 
     private UserApiService userApiService;
-    private AppControl appControl;
 
-    public ReviewProductPage(UserApiService userApiService, AppControl appControl)
+    public ReviewProductPage(UserApiService userApiService)
 	{
 		InitializeComponent();
 
         this.userApiService = userApiService;
-        this.appControl = appControl;
     }
      
     private void UpdateProductName()

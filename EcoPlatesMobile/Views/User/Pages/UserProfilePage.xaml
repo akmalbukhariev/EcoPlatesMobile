@@ -105,7 +105,7 @@
             <Grid x:Name="myGrid" 
                   RowDefinitions="*, Auto">
                 <ScrollView HorizontalScrollBarVisibility="Never">
-                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto"
                           Margin="20">
                         <Grid ColumnDefinitions="Auto, *, Auto"
                               Margin="0,0,0,20">
@@ -167,13 +167,22 @@
                                                 Margin="0,0,0,20"
                                                 EventClickTile="Tile_EventClick"
                                                 Grid.Row="4"/>
+                        <component:ListTileView x:Name="listTileAnnouncement"
+                                                 TileIcon="announcement.png"
+                                                 TileText="{x:Static language:AppResource.Announcements}"
+                                                 TileTextSize="15"
+                                                 TileTextColor="Black"
+                                                 TileType="Announcement"
+                                                 Margin="0,0,0,20"
+                                                 EventClickTile="Tile_EventClick"
+                                                 Grid.Row="5"/>
                         <component:ListTileView TileIcon="offer.png"
                                                 TileText="{x:Static language:AppResource.FeedbackComplaints}"
                                                 TileType="Suggestions"
                                                 TileTextSize="15"
                                                 TileTextColor="Black"
                                                 EventClickTile="Tile_EventClick"
-                                                Grid.Row="5"/>
+                                                Grid.Row="6"/>
                     </Grid>
                 </ScrollView>
             </Grid>

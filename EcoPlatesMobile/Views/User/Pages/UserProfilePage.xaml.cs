@@ -57,29 +57,26 @@ public partial class UserProfilePage : BasePage
     GetUserInfoResponse response;
 
     private LanguageService languageService;
-    private AppControl appControl;
     private CompanyApiService companyApiService;
     private UserApiService userApiService;
-    private IStatusBarService statusBarService;
-    private UserSessionService userSessionService;
 
     public UserProfilePage(LanguageService languageService,
-                            AppControl appControl,
                             UserApiService userApiService,
-                            CompanyApiService companyApiService,
-                            IStatusBarService statusBarService,
-                            UserSessionService userSessionService)
+                            CompanyApiService companyApiService)
     {
         InitializeComponent();
 
         this.languageService = languageService;
-        this.appControl = appControl;
+        
         this.userApiService = userApiService;
         this.companyApiService = companyApiService;
-        this.statusBarService = statusBarService;
-        this.userSessionService = userSessionService;
 
         Init();
+
+        if (!appControl.IsLoggedIn)
+        {
+            listTileAnnouncement.IsVisible = false;
+        }
 
         BindingContext = this;
     }
@@ -269,6 +266,9 @@ public partial class UserProfilePage : BasePage
                     return;
                 }
                 await AppNavigatorService.NavigateTo(nameof(SuggestionsPage));
+                break;
+            case ListTileView.ListTileType.Announcement:
+                await AppNavigatorService.NavigateTo(nameof(AnnouncementsPage));
                 break;
             case ListTileView.ListTileType.AboutApp:
                 await AppNavigatorService.NavigateTo(nameof(AboutPage));

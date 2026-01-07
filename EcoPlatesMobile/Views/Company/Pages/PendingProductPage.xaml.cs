@@ -41,16 +41,12 @@ public partial class PendingProductPage : BasePage
     }
 
     private PendingProductPageViewModel viewModel;
-    private AppControl appControl;
-    private CompanyApiService companyApiService;
 
-    public PendingProductPage(PendingProductPageViewModel vm, CompanyApiService companyApiService, AppControl appControl)
+    public PendingProductPage(PendingProductPageViewModel vm)
     {
         InitializeComponent();
 
         this.viewModel = vm;
-        this.companyApiService = companyApiService;
-        this.appControl = appControl;
 
         this.BindingContext = viewModel;
     }

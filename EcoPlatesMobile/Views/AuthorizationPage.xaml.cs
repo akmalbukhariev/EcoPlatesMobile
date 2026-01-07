@@ -27,8 +27,6 @@ public partial class AuthorizationPage : BasePage
 	private string verificationCode = "";
 	private CompanyApiService companyApiService;
 	private UserApiService userApiService;
-	private UserSessionService userSessionService;
-	private AppControl appControl;
 	private IKeyboardHelper keyboardHelper;
 	private MessageApiService messageApiService;
 
@@ -43,19 +41,15 @@ public partial class AuthorizationPage : BasePage
 	private IDispatcherTimer cooldownTimer;
 
 	
-	public AuthorizationPage(UserSessionService userSessionService,
-							 CompanyApiService companyApiService,
+	public AuthorizationPage(CompanyApiService companyApiService,
 							 UserApiService userApiService,
-							 AppControl appControl,
 							 IKeyboardHelper keyboardHelper,
 							 MessageApiService messageApiService)
 	{
 		InitializeComponent();
-
-		this.userSessionService = userSessionService;
+ 
 		this.companyApiService = companyApiService;
 		this.userApiService = userApiService;
-		this.appControl = appControl;
 		this.keyboardHelper = keyboardHelper;
 		this.messageApiService = messageApiService;
 

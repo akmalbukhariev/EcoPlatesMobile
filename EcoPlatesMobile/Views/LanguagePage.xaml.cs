@@ -35,13 +35,11 @@ public partial class LanguagePage : BasePage
     LanguageModel selectedLang = null;
 
     private LanguageService languageService;
-    private IStatusBarService statusBarService;
 
-    public LanguagePage(LanguageService languageService, IStatusBarService statusBarService)
+    public LanguagePage(LanguageService languageService)
 	{
 		InitializeComponent();
         this.languageService = languageService;
-        this.statusBarService = statusBarService;
 
         Init();
 

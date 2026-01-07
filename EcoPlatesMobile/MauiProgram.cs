@@ -178,6 +178,7 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<UserCompanyPage>();
             builder.Services.AddTransient<UserFavoritesPage>();
             builder.Services.AddTransient<DetailProductPage>();
+            builder.Services.AddTransient<SimilarProductsPage>();
 
             builder.Services.AddTransient<LocationSettingPage>();
             builder.Services.AddTransient<ReviewProductPage>();
@@ -204,6 +205,7 @@ namespace EcoPlatesMobile
             builder.Services.AddTransient<PhoneNumberNewPage>();
             builder.Services.AddTransient<PhoneNumberRegisterPage>();
             builder.Services.AddTransient<SuggestionsPage>();
+            builder.Services.AddTransient<AnnouncementsPage>();
             builder.Services.AddTransient<PhoneNumberNewPage>();
             builder.Services.AddTransient<Views.Chat.ChattingPage>();
             builder.Services.AddTransient<Views.Chat.ChatedUserPage>();

@@ -3117,5 +3117,21 @@ namespace EcoPlatesMobile.Resources.Languages {
         {
             get => ResourceManager.GetString("NewMessageBody", resourceCulture);
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to View.
+        /// </summary>
+        internal static string View
+        {
+            get => ResourceManager.GetString("View", resourceCulture);
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Announcements.
+        /// </summary>
+        internal static string Announcements
+        {
+            get => ResourceManager.GetString("Announcements", resourceCulture);
+        }
     }
 }

@@ -33,7 +33,6 @@ public partial class UserBrowserPage : BasePage
 
     private UserBrowserPageViewModel viewModel;
     private UserApiService userApiService;
-    private AppControl appControl;
     private LocationService locationService;
     private CancellationTokenSource? cts;
     //private MapBottomSheet bottomSheet;
@@ -45,13 +44,12 @@ public partial class UserBrowserPage : BasePage
     int selectedDistance = 1;
     private Task? _mapWarmupTask;
     //private bool _mapBootstrapped;
-    public UserBrowserPage(UserBrowserPageViewModel vm, UserApiService userApiService, AppControl appControl, LocationService locationService)
+    public UserBrowserPage(UserBrowserPageViewModel vm, UserApiService userApiService, LocationService locationService)
     {
         InitializeComponent();
 
         this.viewModel = vm;
         this.userApiService = userApiService;
-        this.appControl = appControl;
         this.locationService = locationService;
 
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
@@ -98,7 +96,6 @@ public partial class UserBrowserPage : BasePage
         }
 
         lbSelectedDistance.Text = $"{AppResource.SelectedDistanceIs}: {appControl.UserInfo.radius_km} {AppResource.Km}";
-
     }
 
     private async Task RefreshPage()

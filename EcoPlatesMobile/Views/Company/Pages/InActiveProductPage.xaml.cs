@@ -35,15 +35,13 @@ public partial class InActiveProductPage : BasePage
     }
 
     private InActiveProductPageViewModel viewModel;
-    private AppControl appControl;
     private CompanyApiService companyApiService;
 
-    public InActiveProductPage(InActiveProductPageViewModel vm, AppControl appControl, CompanyApiService companyApiService)
+    public InActiveProductPage(InActiveProductPageViewModel vm,  CompanyApiService companyApiService)
     {
         InitializeComponent();
 
         this.viewModel = vm;
-        this.appControl = appControl;
         this.companyApiService = companyApiService;
 
         BindingContext = viewModel;

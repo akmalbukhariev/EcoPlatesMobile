@@ -2,56 +2,45 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace EcoPlatesMobile.Models
 {
-    public partial class Announcement : ObservableObject
+     public partial class Announcement : ObservableObject
     {
-        [ObservableProperty] private long announcementId;
+        [ObservableProperty]
+        private long announcementId;
 
-        [ObservableProperty] private string title;
+        [ObservableProperty]
+        private string title = string.Empty;
 
-        /// <summary>
-        /// Short text shown in the list (preview). Could be the first 1–2 lines of Body.
-        /// </summary>
-        [ObservableProperty] private string preview;
+        [ObservableProperty]
+        private string preview = string.Empty;
 
-        /// <summary>
-        /// Full content for the detail page.
-        /// </summary>
-        [ObservableProperty] private string body;
+        [ObservableProperty]
+        private string body = string.Empty;
 
-        /// <summary>
-        /// Optional image/banner URL (if you want announcements with images later).
-        /// </summary>
-        [ObservableProperty] private string? imageUrl;
+        [ObservableProperty]
+        private string? imageUrl;
 
-        /// <summary>
-        /// Server creation time (UTC recommended).
-        /// </summary>
-        [ObservableProperty] private DateTime createdAtUtc = DateTime.UtcNow;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(CreatedAtText))]
+        private DateTime createdAtUtc;
 
-        /// <summary>
-        /// If true, hide unread dot.
-        /// </summary>
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsUnread))]
         private bool isRead;
+
         public bool IsUnread => !IsRead;
 
         /// <summary>
-        /// Convenience property for UI binding (what your XAML is using).
-        /// You can format it however you want.
+        /// UI-friendly formatted creation date
         /// </summary>
-        [ObservableProperty] private string createdAtText;
+        public string CreatedAtText =>
+            CreatedAtUtc == default
+                ? string.Empty
+                : CreatedAtUtc.ToLocalTime().ToString("yyyy.MM.dd");
 
-        /// <summary>
-        /// Optional: if you want announcements to expire.
-        /// </summary>
-        [ObservableProperty] private DateTime? expiresAtUtc;
+        [ObservableProperty]
+        private DateTime? expiresAtUtc;
 
-        public bool IsExpired => ExpiresAtUtc.HasValue && DateTime.UtcNow > ExpiresAtUtc.Value;
-
-        public Announcement()
-        {
-            createdAtText = createdAtUtc.ToLocalTime().ToString("MMM dd, yyyy");
-        }
+        public bool IsExpired =>
+            ExpiresAtUtc.HasValue && DateTime.UtcNow > ExpiresAtUtc.Value;
     }
 }

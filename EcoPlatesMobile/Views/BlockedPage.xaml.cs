@@ -6,13 +6,11 @@ namespace EcoPlatesMobile.Views;
 public partial class BlockedPage : BasePage
 {
 	private readonly LanguageService languageService;
-    private readonly AppControl appControl;
-    public BlockedPage(LanguageService languageService, AppControl appControl)
+    public BlockedPage(LanguageService languageService)
     {
         InitializeComponent();
 
         this.languageService = languageService;
-        this.appControl = appControl;
     }
 
     protected override void OnAppearing()

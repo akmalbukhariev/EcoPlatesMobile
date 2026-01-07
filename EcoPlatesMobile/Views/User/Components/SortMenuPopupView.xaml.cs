@@ -29,6 +29,12 @@ public partial class SortMenuPopupView : ContentView
 
     public async Task ShowAsync(VisualElement anchor, VisualElement root)
     {
+        UpdateChecks(); 
+
+        Root.IsVisible = true;
+        Root.InputTransparent = false;
+        Overlay.InputTransparent = false;
+
         var (ax, ay) = GetAbsolutePosition(anchor, root);
 
         double offsetY = anchor.Height + 10;
@@ -87,6 +93,10 @@ public partial class SortMenuPopupView : ContentView
 
         Overlay.IsVisible = false;
 
+        Overlay.InputTransparent = true;
+        Root.InputTransparent = true;
+        Root.IsVisible = false;
+
         // reset
         MenuCard.Opacity = 1;
         MenuCard.ScaleX = 1;
@@ -111,9 +121,20 @@ public partial class SortMenuPopupView : ContentView
 
     void UpdateChecks()
     {
-        CheckNear.IsVisible = SelectedSort == PosterSort.NEAR;
-        CheckCheap.IsVisible = SelectedSort == PosterSort.CHEAP;
-        CheckDiscount.IsVisible = SelectedSort == PosterSort.DISCOUNT;
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            if (CheckNear == null || CheckCheap == null || CheckDiscount == null)
+                return;
+
+            CheckNear.Opacity     = (SelectedSort == PosterSort.NEAR) ? 1 : 0;
+            CheckCheap.Opacity    = (SelectedSort == PosterSort.CHEAP) ? 1 : 0;
+            CheckDiscount.Opacity = (SelectedSort == PosterSort.DISCOUNT) ? 1 : 0;
+
+            // keep them in layout so iOS never “loses” them
+            CheckNear.IsVisible = true;
+            CheckCheap.IsVisible = true;
+            CheckDiscount.IsVisible = true;
+        });
     }
 
     async void OnOverlayTapped(object sender, TappedEventArgs e) => await HideAsync();

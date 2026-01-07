@@ -7,13 +7,11 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserFavoritesPage : BasePage
 {
 	private UserFavoritesViewModel viewModel;
-    private AppControl appControl;
-    public UserFavoritesPage(UserFavoritesViewModel vm, AppControl appControl)
+    public UserFavoritesPage(UserFavoritesViewModel vm)
 	{
 		InitializeComponent();
 
         this.viewModel = vm;
-        this.appControl = appControl;
   
         tabSwitcher.TabChanged += TabSwitcher_TabChanged;
 

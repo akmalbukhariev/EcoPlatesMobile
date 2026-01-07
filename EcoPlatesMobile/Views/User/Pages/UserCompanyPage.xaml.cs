@@ -9,15 +9,13 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserCompanyPage : BasePage
 {
     private UserCompanyPageViewModel viewModel;
-    private AppControl appControl;
     private LocationService locationService;
     
-    public UserCompanyPage(UserCompanyPageViewModel vm, AppControl appControl, LocationService locationService)
+    public UserCompanyPage(UserCompanyPageViewModel vm, LocationService locationService)
     {
         InitializeComponent();
 
         this.viewModel = vm;
-        this.appControl = appControl;
         this.locationService = locationService;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;

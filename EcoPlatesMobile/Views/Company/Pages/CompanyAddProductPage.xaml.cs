@@ -19,26 +19,16 @@ public partial class CompanyAddProductPage : BasePage
 
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
-
-    private AppControl appControl;
+ 
     private CompanyApiService companyApiService;
-    private IKeyboardHelper keyboardHelper;
-    private UserSessionService userSessionService;
-    private IStatusBarService statusBarService;
+    private IKeyboardHelper keyboardHelper; 
 
-    public CompanyAddProductPage(CompanyApiService companyApiService,
-    UserSessionService userSessionService,
-    AppControl appControl,
-    IKeyboardHelper keyboardHelper,
-    IStatusBarService statusBarService)
+    public CompanyAddProductPage(CompanyApiService companyApiService, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
-        this.companyApiService = companyApiService;
-        this.appControl = appControl;
+        this.companyApiService = companyApiService; 
         this.keyboardHelper = keyboardHelper;
-        this.statusBarService = statusBarService;
-        this.userSessionService = userSessionService;
 
         appControl.RebuildPosterTypeList();
         pickType.ItemsSource = appControl.PosterTypeList.Keys.ToList();
@@ -55,15 +45,6 @@ public partial class CompanyAddProductPage : BasePage
         base.OnAppearing();
 
         isNewImageSelected = false;
-
-        if (userSessionService.Role == UserRole.User)
-        {
-            statusBarService.SetStatusBarColor(Constants.COLOR_USER.ToArgbHex(), false);
-        }
-        else
-        {
-            statusBarService.SetStatusBarColor(Constants.COLOR_COMPANY.ToArgbHex(), false);
-        }
     }
 
     private async void SelectImage_Tapped(object sender, TappedEventArgs e)

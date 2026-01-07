@@ -8,8 +8,6 @@ namespace EcoPlatesMobile.Views;
  
 public partial class DeleteAccountPage : BasePage
 {
-    private UserSessionService userSessionService;
-    private AppControl appControl;
     private UserApiService userApiService;
     private CompanyApiService companyApiService;
 

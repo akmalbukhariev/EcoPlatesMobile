@@ -1366,5 +1366,15 @@ Xavotir olmang, siz joylashuvni ilova ichida o‘zgartirishingiz mumkin.
   <comment>ActiveProductPage</comment>
 </data>
 
+<data name="View" xml:space="preserve">
+  <value>Ko‘rish</value>
+  <comment>ActiveProductPage</comment>
+</data>
+
+<data name="Announcements" xml:space="preserve">
+    <value>E’lonlar</value>
+    <comment>Announcements</comment>
+</data>
+
 
 </root>

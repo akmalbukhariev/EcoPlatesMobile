@@ -184,6 +184,7 @@ namespace EcoPlatesMobile.Services
 
                 await Task.Delay(100);
 
+                IsLoggedIn = true;
                 RefreshCompanyProfilePage = true;
                 Application.Current.MainPage = new AppCompanyShell();
             }
@@ -200,7 +201,7 @@ namespace EcoPlatesMobile.Services
             if (response.resultCode == ApiResult.SUCCESS.GetCodeToString())
             {
                 UserInfo = response.resultData;
- 
+
                 appStoreService.Set(AppKeys.UserRole, UserRole.User);
                 appStoreService.Set(AppKeys.IsLoggedIn, true);
                 appStoreService.Set(AppKeys.PhoneNumber, phoneNumber);
@@ -253,7 +254,23 @@ namespace EcoPlatesMobile.Services
                 RefreshFavoriteProduct = true;
                 RefreshUserProfilePage = true;
                 IsLoggedIn = true;
+
                 Application.Current.MainPage = new AppUserShell();
+
+                await Task.Delay(100);
+                bool hasUnread = await CheckUserHasNewMessage();
+                if (hasUnread)
+                {
+                    bool answer = await AlertService.ShowConfirmationAsync(
+                                        AppResource.NewMessage,
+                                        AppResource.NewMessageBody,
+                                        AppResource.View,
+                                        AppResource.Later);
+                    if (answer)
+                    {
+                        await AppNavigatorService.NavigateTo(nameof(AnnouncementsPage));
+                    }
+                }
             }
         }
 

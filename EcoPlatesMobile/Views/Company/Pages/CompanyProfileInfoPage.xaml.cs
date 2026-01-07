@@ -14,17 +14,15 @@ public partial class CompanyProfileInfoPage : BasePage
     private Stream? imageStream = null;
     private bool isNewImageSelected = false;
     private bool isPageLoaded = false;
-
-    private AppControl appControl;
+ 
     private CompanyApiService companyApiService;
     private IKeyboardHelper keyboardHelper;
 
-    public CompanyProfileInfoPage(CompanyApiService companyApiService, AppControl appControl, IKeyboardHelper keyboardHelper)
+    public CompanyProfileInfoPage(CompanyApiService companyApiService, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
         this.companyApiService = companyApiService;
-        this.appControl = appControl;
         this.keyboardHelper = keyboardHelper;
 
         appControl.RebuildBusinessTypeList();

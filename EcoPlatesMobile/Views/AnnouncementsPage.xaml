@@ -4,14 +4,15 @@
                xmlns:page="clr-namespace:EcoPlatesMobile.Views"
                xmlns:component="clr-namespace:EcoPlatesMobile.Views.Components"
                xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
+               xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
                x:Class="EcoPlatesMobile.Views.AnnouncementsPage"
-               BackgroundColor="{AppThemeBinding Light=#F6F7FB, Dark=#121212}">
+               BackgroundColor="White">
 
     <Grid RowDefinitions="Auto,*">
 
         <!-- Header -->
         <component:CustomHeader x:Name="header"
-                                Title="Announcements"/>
+                                Title="{x:Static language:AppResource.Announcements}"/>
 
         <!-- Content -->
         <RefreshView Grid.Row="1"
@@ -23,7 +24,6 @@
                 <CollectionView ItemsSource="{Binding Announcements}"
                                 ItemsUpdatingScrollMode="KeepScrollOffset"
                                 SelectionMode="None"
-                                ItemsLayout="VerticalList"
                                 RemainingItemsThreshold="4"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
 
@@ -46,13 +46,20 @@
                         </ContentView>
                     </CollectionView.EmptyView>
 
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" 
+                                         VerticalItemSpacing="20"
+                                         HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame Margin="0,0,0,12"
                                    Padding="14"
-                                   CornerRadius="16"
-                                   HasShadow="True"
-                                   BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}">
+                                   CornerRadius="17"
+                                   BorderColor="Gray"
+                                   HasShadow="false"
+                                   BackgroundColor="White">
 
                                 <!-- Tap on whole card -->
                                 <Frame.GestureRecognizers>
@@ -80,17 +87,17 @@
                                                FontSize="16"
                                                FontAttributes="Bold"
                                                LineBreakMode="TailTruncation"
-                                               TextColor="{AppThemeBinding Light=#111827, Dark=#F3F4F6}" />
+                                               TextColor="Black" />
 
                                         <Label Text="{Binding Preview}"
                                                FontSize="13"
                                                LineBreakMode="TailTruncation"
                                                MaxLines="2"
-                                               TextColor="{AppThemeBinding Light=#4B5563, Dark=#C7C7C7}" />
+                                               TextColor="Black" />
 
                                         <Label Text="{Binding CreatedAtText}"
                                                FontSize="12"
-                                               TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#9CA3AF}" />
+                                               TextColor="Gray" />
                                     </VerticalStackLayout>
 
                                 </Grid>
@@ -103,7 +110,7 @@
             </Grid>
         </RefreshView>
  
-        <ActivityIndicator x:Name="loading" 
+        <ActivityIndicator x:Name="loading"
                            IsRunning="{Binding IsLoading}"
                            Color="{StaticResource User}"
                            Scale="1.5"
@@ -111,17 +118,28 @@
                            HorizontalOptions="Center"
                            Grid.Row="1"/>
 
+        <!-- Dim background 
+        <BoxView x:Name="boxBackground"
+                    Opacity="0"
+                    IsVisible="True"
+                    BackgroundColor="Black"
+                    InputTransparent="True"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"/>-->
+
         <!-- ================= Bottom Sheet Overlay (FIXED) ================= -->
         <Grid x:Name="SheetOverlay"
-              Grid.Row="0"
-              Grid.RowSpan="2"
               IsVisible="False"
-              Opacity="0">
+              Opacity="0"
+              Grid.Row="0"
+              Grid.RowSpan="2">
 
-            <!-- Dim background -->
-            <BoxView BackgroundColor="#80000000">
+            <!-- Backdrop -->
+            <BoxView x:Name="Backdrop"
+                    BackgroundColor="Black"
+                    Opacity="0.5">
                 <BoxView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnBackdropTapped" />
+                    <TapGestureRecognizer Tapped="OnBackdropTapped" NumberOfTapsRequired="1" />
                 </BoxView.GestureRecognizers>
             </BoxView>
 
@@ -131,13 +149,19 @@
                    Margin="12,0,12,12"
                    Padding="18,14"
                    CornerRadius="22"
-                   HasShadow="True"
-                   BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                   BorderColor="Gray"
+                   HasShadow="False"
+                   BackgroundColor="white"
                    HeightRequest="{Binding SheetHeight}"
                    TranslationY="{Binding SheetHeight}">
 
-                <Grid RowDefinitions="Auto,Auto,*"
+                <Grid x:Name="SheetDragArea" 
+                      RowDefinitions="Auto,Auto,*"
                       RowSpacing="10">
+
+                    <Grid.GestureRecognizers>
+                        <PanGestureRecognizer PanUpdated="OnSheetPanUpdated" />
+                    </Grid.GestureRecognizers>
 
                     <!-- Top bar: title + close -->
                     <Grid ColumnDefinitions="*,Auto">
@@ -145,7 +169,7 @@
                                FontSize="16"
                                FontAttributes="Bold"
                                LineBreakMode="TailTruncation"
-                               TextColor="{AppThemeBinding Light=#111827, Dark=#F3F4F6}" />
+                               TextColor="Black"/>
 
                         <Label Grid.Column="1"
                                Text="✕"
@@ -161,14 +185,14 @@
                     <Label Grid.Row="1"
                            Text="{Binding SelectedAnnouncement.CreatedAtText}"
                            FontSize="12"
-                           TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#9CA3AF}" />
+                           TextColor="Black" />
 
                     <!-- Body scroll -->
                     <ScrollView Grid.Row="2">
                         <Label Text="{Binding SelectedAnnouncement.Body}"
                                FontSize="14"
                                LineHeight="1.4"
-                               TextColor="{AppThemeBinding Light=#374151, Dark=#E5E7EB}" />
+                               TextColor="Black" />
                     </ScrollView>
 
                 </Grid>

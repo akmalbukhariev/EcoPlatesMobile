@@ -4,7 +4,8 @@
              x:Class="EcoPlatesMobile.Views.User.Components.SimilarProductsView"
              xmlns:models="clr-namespace:EcoPlatesMobile.Models.User"
              xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
-             xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components">
+             xmlns:view="clr-namespace:EcoPlatesMobile.Views.Components"
+             BackgroundColor="White">
 
        <Grid RowDefinitions="1, Auto, 10, Auto"
              Grid.Row="4">
@@ -71,6 +72,7 @@
                                           CornerRadius="14"
                                           HasShadow="False"
                                           BorderColor="#E5E5E5"
+                                          BackgroundColor="White"
                                           Margin="0,0,10,0">
                                           <Frame.GestureRecognizers>
                                                  <TapGestureRecognizer NumberOfTapsRequired="1"
@@ -87,12 +89,14 @@
                                                  <!-- Name -->
                                                  <Label Text="{Binding ProductName}"
                                                         FontAttributes="Bold"
+                                                        TextColor="Black"
                                                         LineBreakMode="TailTruncation"
                                                         MaxLines="1" />
 
                                                  <!-- Old price (string already) -->
                                                  <Label Text="{Binding OldPrice}"
                                                         TextDecorations="Strikethrough"
+                                                        TextColor="Black"
                                                         Opacity="0.6"
                                                         FontSize="12"
                                                         IsVisible="{Binding OldPriceDigit, Converter={StaticResource NullToBoolConverter}}" />

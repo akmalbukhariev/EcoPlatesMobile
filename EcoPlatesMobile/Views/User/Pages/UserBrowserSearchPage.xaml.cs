@@ -7,15 +7,14 @@ namespace EcoPlatesMobile.Views.User.Pages;
 public partial class UserBrowserSearchPage : BasePage
 {
     private UserBrowserSearchPageViewModel viewModel;
-    private AppControl appControl;
+    
     private IKeyboardHelper keyboardHelper;
     private bool backHasClicked = false;
-    public UserBrowserSearchPage(UserBrowserSearchPageViewModel vm, AppControl appControl, IKeyboardHelper keyboardHelper)
+    public UserBrowserSearchPage(UserBrowserSearchPageViewModel vm, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
         this.viewModel = vm;
-        this.appControl = appControl;
         this.keyboardHelper = keyboardHelper;
 
         BindingContext = viewModel;

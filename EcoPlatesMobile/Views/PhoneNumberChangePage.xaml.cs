@@ -6,16 +6,12 @@ namespace EcoPlatesMobile.Views;
 
 public partial class PhoneNumberChangePage : BasePage
 {
-    private AppControl appControl;
-    UserSessionService userSessionService;
     private IKeyboardHelper keyboardHelper;
 
-    public PhoneNumberChangePage(UserSessionService userSessionService, AppControl appControl, IKeyboardHelper keyboardHelper)
+    public PhoneNumberChangePage(IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
-
-        this.userSessionService = userSessionService;
-        this.appControl = appControl;
+        
         this.keyboardHelper = keyboardHelper;
 
         if (userSessionService.Role == UserRole.User)

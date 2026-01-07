@@ -10,25 +10,19 @@ namespace EcoPlatesMobile.Views;
 
 public partial class PhoneNumberNewPage : BasePage
 {
-    private UserSessionService userSessionService;
     private UserApiService userApiService;
     private CompanyApiService companyApiService;
-    private AppControl appControl;
     private IKeyboardHelper keyboardHelper;
 
     private const int MaxPhoneLength = 9;
-    public PhoneNumberNewPage(UserSessionService userSessionService,
-                              UserApiService userApiService,
+    public PhoneNumberNewPage(UserApiService userApiService,
                               CompanyApiService companyApiService,
-                              AppControl appControl,
                               IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
-
-        this.userSessionService = userSessionService;
+ 
         this.userApiService = userApiService;
         this.companyApiService = companyApiService;
-        this.appControl = appControl;
         this.keyboardHelper = keyboardHelper;
 
         if (userSessionService.Role == UserRole.User)

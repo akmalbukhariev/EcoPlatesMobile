@@ -67,10 +67,10 @@
                                     IsVisible="{Binding ShowLikedView}"
                                     Grid.Row="1"/>
             <ActivityIndicator IsRunning="{Binding IsLoading}"
-                           Color="{StaticResource User}"
-                           Scale="1.5"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           Grid.Row="1"/>
+                               Color="{StaticResource User}"
+                               Scale="1.5"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               Grid.Row="1"/>
         </Grid>
 </page:BasePage>

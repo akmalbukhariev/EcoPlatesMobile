@@ -9,15 +9,13 @@ using Microsoft.Maui.Maps;
 namespace EcoPlatesMobile.Views.Company.Pages;
 
 public partial class LocationRegistrationPage : BasePage
-{
-    private AppControl appControl;
+{ 
     private LocationService locationService;
      
-    public LocationRegistrationPage(AppControl appControl, LocationService locationService)
+    public LocationRegistrationPage( LocationService locationService)
     {
         InitializeComponent();
-
-        this.appControl = appControl;
+        
         this.locationService = locationService;
 
         loading.ChangeColor(Constants.COLOR_COMPANY);

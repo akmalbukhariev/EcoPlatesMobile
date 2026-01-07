@@ -30,22 +30,15 @@ public partial class CompanyEditProductPage : BasePage
     private bool isNewImageSelected = false;
      
     private CompanyApiService companyApiService;
-    private AppControl appControl;
     private IKeyboardHelper keyboardHelper;
-    private UserSessionService userSessionService;
-    private IStatusBarService statusBarService;
 
-    public CompanyEditProductPage(CompanyApiService companyApiService, AppControl appControl, IKeyboardHelper keyboardHelper,
-    UserSessionService userSessionService, IStatusBarService statusBarService)
+    public CompanyEditProductPage(CompanyApiService companyApiService, IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
 
         this.companyApiService = companyApiService;
-        this.appControl = appControl;
         this.keyboardHelper = keyboardHelper;
-        this.statusBarService = statusBarService;
-        this.userSessionService = userSessionService;
-
+        
         entryProductName.SetMaxLength(30);
         entryOldPrice.MaxLength = 13;
         entryNewPrice.MaxLength = 13;

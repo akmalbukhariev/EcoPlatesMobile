@@ -3,6 +3,8 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  x:Class="EcoPlatesMobile.Views.User.Components.SortMenuPopupView"
                  xmlns:language="clr-namespace:EcoPlatesMobile.Resources.Languages"
+                 IsVisible="False"
+                 InputTransparent="True"
                  x:Name="Root">
 
     <!-- Full screen overlay (click outside closes) -->
@@ -10,7 +12,7 @@
           IsVisible="False"
           Opacity="0"
           BackgroundColor="#33000000"
-          InputTransparent="False">
+          InputTransparent="True">
 
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Tapped="OnOverlayTapped"/>
@@ -38,6 +40,7 @@
 
                 <Label Text="{x:Static language:AppResource.Sort}"
                        FontAttributes="Bold"
+                       TextColor= "Black"
                        FontSize="16"
                        Margin="8,6,8,4"/>
 
@@ -46,7 +49,7 @@
                 <!-- Near -->
                 <Grid Padding="10,8" ColumnDefinitions="Auto,*,Auto">
                     <Label Text="📍" FontSize="16" VerticalOptions="Center"/>
-                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Near}" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Near}" TextColor= "Black" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
                     <Label Grid.Column="2" x:Name="CheckNear" Text="✓" FontSize="16" 
                            TextColor="#007200" IsVisible="True" VerticalOptions="Center"/>
                     <Grid.GestureRecognizers>
@@ -59,7 +62,7 @@
                 <!-- Cheap -->
                 <Grid Padding="10,8" ColumnDefinitions="Auto,*,Auto">
                     <Label Text="💸" FontSize="16" VerticalOptions="Center"/>
-                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Cheap}" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Cheap}" TextColor= "Black" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
                     <Label Grid.Column="2" x:Name="CheckCheap" Text="✓" FontSize="16"
                            TextColor="#007200" IsVisible="False" VerticalOptions="Center"/>
                     <Grid.GestureRecognizers>
@@ -72,7 +75,7 @@
                 <!-- Discount -->
                 <Grid Padding="10,8" ColumnDefinitions="Auto,*,Auto">
                     <Label Text="🔥" FontSize="16" VerticalOptions="Center"/>
-                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Discount}" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <Label Grid.Column="1" Text="{x:Static language:AppResource.Discount}" TextColor= "Black" FontSize="15" VerticalOptions="Center" Margin="10,0,0,0"/>
                     <Label Grid.Column="2" x:Name="CheckDiscount" Text="✓" FontSize="16"
                            TextColor="#007200" IsVisible="False" VerticalOptions="Center"/>
                     <Grid.GestureRecognizers>

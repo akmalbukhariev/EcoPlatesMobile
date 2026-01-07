@@ -17,14 +17,12 @@ public partial class SimilarProductsPage : BasePage
     }
 
     private SimilarProductsPageViewModel viewModel;
-    private AppControl appControl;
 
-    public SimilarProductsPage()
+    public SimilarProductsPage(SimilarProductsPageViewModel vm)
     {
         InitializeComponent();
 
-        viewModel = AppService.Get<SimilarProductsPageViewModel>();
-        appControl = AppService.Get<AppControl>();
+        viewModel = vm;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
 

@@ -31,36 +31,21 @@ public partial class CompanyRegistrationPage : BasePage
     private bool isNewImageSelected = false;
 
     private CompanyApiService companyApiService;
-    private AppControl appControl;
     private LocationService locationService;
     private IKeyboardHelper keyboardHelper;
-    private UserSessionService userSessionService;
     
     public CompanyRegistrationPage(CompanyApiService companyApiService,
-                                    AppControl appControl,
                                     LocationService locationService,
-                                    IKeyboardHelper keyboardHelper,
-                                    UserSessionService userSessionService)
+                                    IKeyboardHelper keyboardHelper)
     {
         InitializeComponent();
-
-        this.appControl = appControl;
+ 
         this.companyApiService = companyApiService;
         this.locationService = locationService;
         this.keyboardHelper = keyboardHelper;
-        this.userSessionService = userSessionService;
 
         appControl.RebuildBusinessTypeList();
-        /*
-        CompanyTypeList = new ObservableCollection<CompanyTypeModel>(
-            appControl.BusinessTypeList.Select(kvp => new CompanyTypeModel
-            {
-                Type = kvp.Key,
-                Type_value = kvp.Value
-            })
-        );
-        */
-
+         
         pickType.ItemsSource = appControl.BusinessTypeList.Keys.ToList();
 
         startTimePicker.Time = new TimeSpan(9, 0, 0);
@@ -69,7 +54,7 @@ public partial class CompanyRegistrationPage : BasePage
         loading.ChangeColor(Constants.COLOR_COMPANY);
 
         entryCompanyName.SetMaxLength(20);
-        this.userSessionService.SetUser(UserRole.Company);
+        userSessionService.SetUser(UserRole.Company);
 
         BindingContext = this;
     }

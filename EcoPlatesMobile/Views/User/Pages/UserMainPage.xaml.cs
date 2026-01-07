@@ -18,14 +18,12 @@ public partial class UserMainPage : BasePage
     Components.TypeItem typeItem = null;
 
     private UserMainPageViewModel viewModel;
-    private AppControl appControl;
     private LocationService locationService;
   
-    public UserMainPage(UserMainPageViewModel vm, AppControl appControl, IUpdateService updateService, LocationService locationService)
+    public UserMainPage(UserMainPageViewModel vm, LocationService locationService)
     {
         InitializeComponent();
         viewModel = vm;
-        this.appControl = appControl;
         this.locationService = locationService;
 
         viewModel.PropertyChanged += ViewModel_PropertyChanged;
@@ -38,13 +36,13 @@ public partial class UserMainPage : BasePage
  
         BindingContext = viewModel;
     }
-     
+
     protected override async void OnAppearing()
-	{
-		base.OnAppearing();
+    {
+        base.OnAppearing();
 
         Shell.SetTabBarIsVisible(this, true);
-        
+
         cts = new CancellationTokenSource();
 
         if (!appControl.IsLoggedIn)
@@ -58,7 +56,7 @@ public partial class UserMainPage : BasePage
             appControl.UserInfo.location_latitude = location.Latitude;
             appControl.UserInfo.location_longitude = location.Longitude;
         }
-        
+
         if (viewModel.IsRefreshing)
             viewModel.IsRefreshing = false;
 
@@ -102,7 +100,7 @@ public partial class UserMainPage : BasePage
     {
         await MoveToPageUsingNotification(notificationData);
     } 
-
+    
     private async Task MoveToPageUsingNotification(NotificationData notificationData)
     {
         if (string.IsNullOrWhiteSpace(notificationData.body))
@@ -170,7 +168,7 @@ public partial class UserMainPage : BasePage
                 break;
         }
     }
-
+    
     private async void CompanyTypeList_EventTypeClick(Components.TypeItem item)
     {
         bool isWifiOn = await appControl.CheckWifiOrNetwork();
@@ -203,12 +201,17 @@ public partial class UserMainPage : BasePage
     private async void SortSelected(object? sender, PosterSort sort)
     {
         viewModel.posterSort = sort;
+
+        await sortMenu.HideAsync();
+        sortMenu.IsVisible = false;
+        sortMenu.InputTransparent = true;
+
         await viewModel.LoadInitialAsync();
     }
 
     private async void Sort_Tapped(object sender, TappedEventArgs e)
     {
-        await AnimateElementScaleDown(sender as Image);
+        await AnimateElementScaleDown(imSort);
 
         // Root visual for positioning
         var root = this.Content as VisualElement;
@@ -217,9 +220,13 @@ public partial class UserMainPage : BasePage
         if (sortMenu.IsOpen)
         {
             await sortMenu.HideAsync();
+            sortMenu.IsVisible = false;
+            sortMenu.InputTransparent = true;
             return;
         }
 
+        sortMenu.IsVisible = true;
+        sortMenu.InputTransparent = false;  
         await sortMenu.ShowAsync(imSort, root);
     }
 }
