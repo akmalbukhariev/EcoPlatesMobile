@@ -20,8 +20,8 @@
 		<CodesignEntitlements>Platforms/iOS/Entitlements.plist</CodesignEntitlements>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.4.1</ApplicationDisplayVersion>
-		<ApplicationVersion>22</ApplicationVersion>
+		<ApplicationDisplayVersion>1.4.2</ApplicationDisplayVersion>
+		<ApplicationVersion>23</ApplicationVersion>
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
 		<WindowsPackageType>None</WindowsPackageType>
@@ -145,8 +145,8 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<!--<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="9.0.0" />
-		<!--<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.60" />-->
+		<!--<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="9.0.0" />-->
+		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.60" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PINView.MAUI" Version="1.0.3" />
 		<PackageReference Include="Plugin.Firebase.CloudMessaging" Version="3.1.2" />

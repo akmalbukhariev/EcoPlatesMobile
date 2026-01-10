@@ -74,8 +74,11 @@ public partial class AnnouncementsPage : BasePage
                 BottomSheet.TranslateTo(0, 0, 260, Easing.CubicOut)
             );
 
-            //boxBackground.Opacity = 0.5;      // show dark overlay
-            //boxBackground.InputTransparent = false; // start catching taps
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                boxBackground.Opacity = 0.5;      // show dark overlay
+                boxBackground.InputTransparent = false; // start catching taps
+            }
         }
         finally
         {
@@ -100,8 +103,11 @@ public partial class AnnouncementsPage : BasePage
             SheetOverlay.IsVisible = false;
             BottomSheet.TranslationY = viewModel.SheetHeight;
 
-            //boxBackground.Opacity = 0;        // hide overlay
-            //boxBackground.InputTransparent = true;  // let taps pass through again
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                boxBackground.Opacity = 0;        // hide overlay
+                boxBackground.InputTransparent = true;  // let taps pass through again
+            }
         }
         finally
         {
@@ -174,7 +180,10 @@ public partial class AnnouncementsPage : BasePage
                 // (0 -> fully visible, SheetHeight -> hidden)
                 var progress = Math.Clamp(newY / viewModel.SheetHeight, 0, 1);
                 SheetOverlay.Opacity = 1 - (0.35 * progress); // subtle fade
-                //boxBackground.Opacity = 0.5 * (1 - progress);
+                if (DeviceInfo.Platform == DevicePlatform.iOS)
+                {
+                    boxBackground.Opacity = 0.5 * (1 - progress);
+                }
                 break;
 
             case GestureStatus.Canceled:
@@ -199,7 +208,10 @@ public partial class AnnouncementsPage : BasePage
                             BottomSheet.TranslateTo(0, 0, 160, Easing.CubicOut),
                             SheetOverlay.FadeTo(1, 120, Easing.CubicInOut)
                         );
-                        //boxBackground.Opacity = 0.5;
+                        if (DeviceInfo.Platform == DevicePlatform.iOS)
+                        {
+                            boxBackground.Opacity = 0.5;
+                        }
                     }
                     finally
                     {

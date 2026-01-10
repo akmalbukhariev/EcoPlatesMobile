@@ -118,14 +118,14 @@
                            HorizontalOptions="Center"
                            Grid.Row="1"/>
 
-        <!-- Dim background 
+        <!-- Dim background -->
         <BoxView x:Name="boxBackground"
                     Opacity="0"
-                    IsVisible="True"
+                    IsVisible="{OnPlatform iOS=True, Android=False}"
                     BackgroundColor="Black"
                     InputTransparent="True"
                     Grid.Row="0"
-                    Grid.RowSpan="2"/>-->
+                    Grid.RowSpan="2"/>
 
         <!-- ================= Bottom Sheet Overlay (FIXED) ================= -->
         <Grid x:Name="SheetOverlay"
@@ -136,8 +136,8 @@
 
             <!-- Backdrop -->
             <BoxView x:Name="Backdrop"
-                    BackgroundColor="Black"
-                    Opacity="0.5">
+                    BackgroundColor="{OnPlatform Android=Black, iOS=Transparent}"
+                    Opacity="{OnPlatform Android=0.5, iOS=1}">
                 <BoxView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnBackdropTapped" NumberOfTapsRequired="1" />
                 </BoxView.GestureRecognizers>

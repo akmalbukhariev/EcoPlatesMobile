@@ -132,7 +132,8 @@ public partial class UserMainPage : BasePage
                 var posterData = jObject.ToObject<NewPosterPushNotificationResponse>();
                 var product = new ProductModel
                 {
-                    PromotionId = posterData.promotion_id
+                    PromotionId = posterData.promotion_id,
+                    Category = posterData.category
                 };
                 
                 await Shell.Current.GoToAsync(nameof(DetailProductPage), new Dictionary<string, object>

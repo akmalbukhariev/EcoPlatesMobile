@@ -187,6 +187,21 @@ namespace EcoPlatesMobile.Services
                 IsLoggedIn = true;
                 RefreshCompanyProfilePage = true;
                 Application.Current.MainPage = new AppCompanyShell();
+
+                await Task.Delay(100);
+                bool hasUnread = await CheckUserHasNewMessage();
+                if (hasUnread)
+                {
+                    bool answer = await AlertService.ShowConfirmationAsync(
+                                        AppResource.NewMessage,
+                                        AppResource.NewMessageBody,
+                                        AppResource.View,
+                                        AppResource.Later);
+                    if (answer)
+                    {
+                        await AppNavigatorService.NavigateTo(nameof(AnnouncementsPage));
+                    }
+                }
             }
         }
 
